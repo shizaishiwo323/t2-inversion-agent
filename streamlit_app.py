@@ -297,7 +297,13 @@ def main() -> None:
 
     with left:
         st.subheader(t(language, "agent_chat"))
-        language = st.selectbox(t(language, "language"), ["中文", "English"], index=0 if language == "中文" else 1, key="language")
+        language = st.selectbox(
+            t(language, "language"),
+            ["中文", "English"],
+            index=0 if language == "中文" else 1,
+            format_func=lambda option: t(option, "language_option_zh") if option == "中文" else t(option, "language_option_en"),
+            key="language",
+        )
         model = st.selectbox(t(language, "model"), ["deepseek-v4-flash", "deepseek-v4-pro"], index=0)
         thinking_enabled = st.toggle(t(language, "thinking_mode"), value=False)
         user_api_key = st.text_input(
