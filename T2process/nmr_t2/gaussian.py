@@ -154,8 +154,8 @@ def decompose_spectrum_as_gaussians(
         component_matrix[idx, :] = component
         fitted += component
 
-    area_each = np.array([np.trapz(component_matrix[idx, :], t2_log) for idx in range(int(cfg.peak_count))], dtype=float)
-    total_area = float(np.trapz(fitted, t2_log))
+    area_each = np.array([np.trapezoid(component_matrix[idx, :], t2_log) for idx in range(int(cfg.peak_count))], dtype=float)
+    total_area = float(np.trapezoid(fitted, t2_log))
     area_fraction = np.zeros(int(cfg.peak_count), dtype=float) if total_area <= 0 else area_each / total_area
 
     peak_table = pd.DataFrame(

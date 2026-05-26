@@ -241,6 +241,36 @@ def _as_artifacts(paths: dict[str, Path] | list[Path]) -> list[str]:
     return artifacts
 
 
+def _add_pair_plot_artifacts(
+    *,
+    raw_decay_workbook: Path,
+    spectrum_workbook: Path | None,
+    output_dir: Path,
+    artifacts: list[str],
+    summary: dict[str, Any],
+) -> None:
+    """Append decay + T2 spectrum figures without failing the inversion result."""
+
+    if spectrum_workbook is None:
+        return
+
+    try:
+        paired = run_plotting_workbook_pair(
+            Path(raw_decay_workbook),
+            Path(spectrum_workbook),
+            Path(output_dir) / "paired_plots",
+            plot_config=PlotConfig(),
+            time_to_ms_scale=1.0,
+        )
+    except Exception as exc:
+        summary["paired_plot_warning"] = str(exc)
+        return
+
+    pair_artifacts = _as_artifacts(list(paired.values()))
+    artifacts.extend(pair_artifacts)
+    summary["paired_plot_count"] = len(pair_artifacts)
+
+
 def _read_raw_table(input_workbook: Path) -> pd.DataFrame:
     return pd.read_excel(input_workbook, header=None, dtype=object)
 
@@ -530,11 +560,20 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
             trim_from_peak=bool(params.get("trim_from_peak", True)),
         )
         artifacts = _as_artifacts(result)
+        summary = {key: str(value) for key, value in result.items()}
+        spectrum_path = Path(result["spectrum_xlsx"]) if "spectrum_xlsx" in result else None
+        _add_pair_plot_artifacts(
+            raw_decay_workbook=Path(input_workbook),
+            spectrum_workbook=spectrum_path,
+            output_dir=Path(output_dir),
+            artifacts=artifacts,
+            summary=summary,
+        )
         return AgentToolResult(
             "success",
             "L-curve 反演完成，已自动选择平滑因子并导出 T2 谱、指标表和图像。",
             artifacts=artifacts,
-            summary={key: str(value) for key, value in result.items()},
+            summary=summary,
         )
     except Exception as exc:
         return AgentToolResult("failed", "L-curve 反演失败。", error=str(exc))
@@ -560,11 +599,21 @@ def run_fixed_nnls(input_workbook: Path, output_dir: Path, params: dict[str, Any
             time_to_ms_scale=float(params.get("time_to_ms_scale", 1.0)),
             trim_from_peak=bool(params.get("trim_from_peak", True)),
         )
+        artifacts = _as_artifacts(result)
+        summary = {key: str(value) for key, value in result.items()} | {"regularization": regularization}
+        spectrum_path = Path(result["spectrum_xlsx"]) if "spectrum_xlsx" in result else None
+        _add_pair_plot_artifacts(
+            raw_decay_workbook=Path(input_workbook),
+            spectrum_workbook=spectrum_path,
+            output_dir=Path(output_dir),
+            artifacts=artifacts,
+            summary=summary,
+        )
         return AgentToolResult(
             "success",
             f"固定 NNLS 反演完成，使用平滑因子 {regularization:g}。",
-            artifacts=_as_artifacts(result),
-            summary={key: str(value) for key, value in result.items()} | {"regularization": regularization},
+            artifacts=artifacts,
+            summary=summary,
         )
     except Exception as exc:
         return AgentToolResult("failed", "固定 NNLS 反演失败。", error=str(exc))

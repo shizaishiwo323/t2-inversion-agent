@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import pandas as pd
+import numpy as np
 
 from t2_agent.guidance import build_parameter_guidance, infer_requested_plan
 from t2_agent.tools import (
@@ -126,6 +127,7 @@ def test_lcurve_gaussian_and_report_tools_create_artifacts(tmp_path):
     )
     assert lcurve.status == "success"
     assert any(path.endswith("_spectrum.xlsx") for path in lcurve.artifacts)
+    assert any(path.endswith("_decay_t2.png") for path in lcurve.artifacts)
 
     gaussian = run_gaussian_peaks(
         Path(lcurve.summary["spectrum_xlsx"]),
@@ -147,6 +149,28 @@ def test_lcurve_gaussian_and_report_tools_create_artifacts(tmp_path):
     report_text = Path(report.artifacts[0]).read_text(encoding="utf-8")
     assert "T2 反演智能体报告" in report_text
     assert "平滑因子" in report_text
+
+
+def test_gaussian_decomposition_does_not_require_removed_numpy_trapz(tmp_path, monkeypatch):
+    if hasattr(np, "trapz"):
+        monkeypatch.delattr(np, "trapz")
+
+    validation = validate_workbook(SIMULATION)
+    repaired = repair_workbook(SIMULATION, tmp_path, validation.summary["recommended_time_to_ms_scale"])
+    lcurve = run_lcurve(
+        Path(repaired.artifacts[0]),
+        tmp_path / "lcurve",
+        {"num_bins": 60, "alpha_count": 12, "time_to_ms_scale": 1.0},
+    )
+
+    gaussian = run_gaussian_peaks(
+        Path(lcurve.summary["spectrum_xlsx"]),
+        tmp_path / "gaussian",
+        {"peak_count": 2},
+    )
+
+    assert gaussian.status == "success"
+    assert any(path.endswith("_gaussian.png") for path in gaussian.artifacts)
 
 
 def test_interpret_results_reads_lcurve_outputs_and_explains_main_peak(tmp_path):

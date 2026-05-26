@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import io
+import re
 import zipfile
 from pathlib import Path
 from uuid import uuid4
@@ -15,6 +16,8 @@ from t2_agent.models import AgentToolResult
 
 APP_ROOT = Path(__file__).resolve().parent
 RUNS_ROOT = APP_ROOT / "runs"
+IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
+MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 
 
 WELCOME_MESSAGES = {
@@ -141,6 +144,56 @@ def collect_context_artifacts(context: AgentRuntimeContext) -> list[Path]:
     return unique
 
 
+def resolve_artifact_image_reference(reference: str, artifacts: list[Path]) -> Path | None:
+    """Resolve a markdown image target such as `decay_t2` to a generated image."""
+
+    cleaned = reference.strip().strip("\"'").split("#", 1)[0].split("?", 1)[0]
+    if not cleaned:
+        return None
+
+    direct = Path(cleaned)
+    if direct.is_absolute() and direct.exists() and direct.suffix.lower() in IMAGE_SUFFIXES:
+        return direct
+
+    normalized = Path(cleaned).name.lower()
+    normalized_stem = Path(normalized).stem
+    for artifact in artifacts:
+        path = Path(artifact)
+        if not path.exists() or path.suffix.lower() not in IMAGE_SUFFIXES:
+            continue
+        name = path.name.lower()
+        stem = path.stem.lower()
+        if normalized in name or normalized_stem in stem:
+            return path
+    return None
+
+
+def render_chat_content(content: str, artifacts: list[Path] | None = None) -> None:
+    """Render chat markdown and show referenced generated images inline."""
+
+    artifact_paths = artifacts or []
+    cursor = 0
+    matched_image = False
+    for match in MARKDOWN_IMAGE_RE.finditer(content):
+        before = content[cursor : match.start()].strip()
+        if before:
+            st.markdown(before)
+        alt_text, target = match.groups()
+        image_path = resolve_artifact_image_reference(target, artifact_paths)
+        if image_path is not None:
+            st.image(str(image_path), caption=alt_text or image_path.name, width="stretch")
+            matched_image = True
+        else:
+            st.markdown(match.group(0))
+        cursor = match.end()
+
+    rest = content[cursor:].strip()
+    if rest:
+        st.markdown(rest)
+    elif not matched_image:
+        st.markdown(content)
+
+
 def make_zip(paths: list[Path]) -> bytes:
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as archive:
@@ -167,7 +220,7 @@ def render_result(result: AgentToolResult) -> None:
         with st.expander(t(language, "structured_summary"), expanded=False):
             st.json(result.summary)
 
-    image_paths = [Path(path) for path in result.artifacts if Path(path).suffix.lower() in {".png", ".jpg", ".jpeg"}]
+    image_paths = [Path(path) for path in result.artifacts if Path(path).suffix.lower() in IMAGE_SUFFIXES]
     for image_path in image_paths[:6]:
         if image_path.exists():
             st.image(str(image_path), caption=image_path.name, width="stretch")
@@ -248,6 +301,11 @@ def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bo
         st.session_state.agent_context = context
 
     language = st.session_state.get("language", "中文")
+    st.session_state.display_messages.append(("user", prompt))
+    st.session_state.display_traces.append([])
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
     live_trace_box = st.empty()
     live_trace: list[dict] = []
 
@@ -268,8 +326,6 @@ def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bo
             response_language=language,
         )
         st.session_state.agent_messages = result.messages
-        st.session_state.display_messages.append(("user", prompt))
-        st.session_state.display_traces.append([])
         st.session_state.display_messages.append(("assistant", result.assistant_message))
         st.session_state.display_traces.append(result.trace)
         refresh_zip_from_context(context)
@@ -321,9 +377,10 @@ def main() -> None:
 
         st.markdown(t(language, "chat_window"))
         traces = st.session_state.get("display_traces", [])
+        context_artifacts = collect_context_artifacts(current_context()) if current_context() else []
         for idx, (role, content) in enumerate(st.session_state.display_messages):
             with st.chat_message(role):
-                st.markdown(content)
+                render_chat_content(content, context_artifacts)
                 if role == "assistant" and idx < len(traces):
                     render_trace(traces[idx])
 
@@ -372,7 +429,7 @@ def main() -> None:
             if report.artifacts:
                 report_path = Path(report.artifacts[0])
                 if report_path.exists():
-                    st.markdown(report_path.read_text(encoding="utf-8"))
+                    render_chat_content(report_path.read_text(encoding="utf-8"), collect_context_artifacts(context))
 
         if st.session_state.zip_bytes:
             st.download_button(
