@@ -83,6 +83,14 @@ def init_state() -> None:
     defaults = {
         "workspace": None,
         "uploaded_path": None,
+        "uploaded_paths": [],
+        "loaded_active_uploaded_path": None,
+        "file_contexts": {},
+        "file_agent_messages": {},
+        "file_display_messages": {},
+        "file_display_traces": {},
+        "file_zip_bytes": {},
+        "file_welcome_language": {},
         "agent_context": None,
         "agent_messages": [],
         "display_messages": [],
@@ -119,6 +127,10 @@ def sync_language_seed_messages() -> None:
 
     st.session_state.display_messages = messages
     st.session_state.welcome_language = language
+    active_path = st.session_state.get("loaded_active_uploaded_path")
+    if active_path:
+        st.session_state.file_display_messages[active_path] = messages
+        st.session_state.file_welcome_language[active_path] = language
 
 
 def ensure_workspace() -> Path:
@@ -129,6 +141,11 @@ def ensure_workspace() -> Path:
     return Path(st.session_state.workspace)
 
 
+def safe_upload_key(path: Path) -> str:
+    token = re.sub(r"[^A-Za-z0-9_.-]+", "_", path.name).strip("._")
+    return token or "uploaded_file"
+
+
 def save_upload(uploaded_file) -> Path:
     workspace = ensure_workspace()
     upload_dir = workspace / "uploads"
@@ -136,6 +153,97 @@ def save_upload(uploaded_file) -> Path:
     output_path = upload_dir / uploaded_file.name
     output_path.write_bytes(uploaded_file.getbuffer())
     return output_path
+
+
+def make_file_workspace(uploaded_path: Path) -> Path:
+    workspace = ensure_workspace() / "tasks" / safe_upload_key(uploaded_path)
+    workspace.mkdir(parents=True, exist_ok=True)
+    return workspace
+
+
+def default_file_display_state(language: str) -> tuple[list[tuple[str, str]], list[list[dict]]]:
+    return [
+        ("assistant", welcome_message(language)),
+        ("assistant", t(language, "upload_received")),
+    ], [[], []]
+
+
+def ensure_file_state(uploaded_path: Path) -> None:
+    path_key = str(uploaded_path)
+    contexts = st.session_state.file_contexts
+    if path_key not in contexts:
+        contexts[path_key] = AgentRuntimeContext(
+            workspace=make_file_workspace(uploaded_path),
+            uploaded_path=uploaded_path,
+        )
+    if path_key not in st.session_state.file_agent_messages:
+        st.session_state.file_agent_messages[path_key] = []
+    if path_key not in st.session_state.file_display_messages:
+        messages, traces = default_file_display_state(st.session_state.language)
+        st.session_state.file_display_messages[path_key] = messages
+        st.session_state.file_display_traces[path_key] = traces
+        st.session_state.file_welcome_language[path_key] = st.session_state.language
+    if path_key not in st.session_state.file_zip_bytes:
+        st.session_state.file_zip_bytes[path_key] = None
+
+
+def save_current_file_state(path_key: str | None = None) -> None:
+    path_key = path_key or st.session_state.get("loaded_active_uploaded_path")
+    if not path_key:
+        return
+    if st.session_state.agent_context is not None:
+        st.session_state.file_contexts[path_key] = st.session_state.agent_context
+    st.session_state.file_agent_messages[path_key] = st.session_state.agent_messages
+    st.session_state.file_display_messages[path_key] = st.session_state.display_messages
+    st.session_state.file_display_traces[path_key] = st.session_state.display_traces
+    st.session_state.file_zip_bytes[path_key] = st.session_state.zip_bytes
+    st.session_state.file_welcome_language[path_key] = st.session_state.welcome_language
+
+
+def activate_uploaded_path(uploaded_path: Path | None) -> None:
+    previous_key = st.session_state.get("loaded_active_uploaded_path")
+    if previous_key == (str(uploaded_path) if uploaded_path else None):
+        return
+
+    save_current_file_state(previous_key)
+    if uploaded_path is None:
+        st.session_state.uploaded_path = None
+        st.session_state.agent_context = None
+        st.session_state.agent_messages = []
+        st.session_state.display_messages = [("assistant", welcome_message(st.session_state.language))]
+        st.session_state.display_traces = [[]]
+        st.session_state.zip_bytes = None
+        st.session_state.welcome_language = st.session_state.language
+        st.session_state.loaded_active_uploaded_path = None
+        return
+
+    ensure_file_state(uploaded_path)
+    path_key = str(uploaded_path)
+    st.session_state.uploaded_path = path_key
+    st.session_state.agent_context = st.session_state.file_contexts[path_key]
+    st.session_state.agent_messages = st.session_state.file_agent_messages[path_key]
+    st.session_state.display_messages = st.session_state.file_display_messages[path_key]
+    st.session_state.display_traces = st.session_state.file_display_traces[path_key]
+    st.session_state.zip_bytes = st.session_state.file_zip_bytes.get(path_key)
+    st.session_state.welcome_language = st.session_state.file_welcome_language.get(path_key, st.session_state.language)
+    st.session_state.loaded_active_uploaded_path = path_key
+
+
+def register_uploaded_files(uploaded_files: list) -> None:
+    if not uploaded_files:
+        return
+
+    paths = list(st.session_state.uploaded_paths)
+    for uploaded_file in uploaded_files:
+        uploaded_path = save_upload(uploaded_file)
+        path_key = str(uploaded_path)
+        if path_key not in paths:
+            paths.append(path_key)
+        ensure_file_state(uploaded_path)
+
+    st.session_state.uploaded_paths = paths
+    if st.session_state.loaded_active_uploaded_path not in paths:
+        activate_uploaded_path(Path(paths[0]))
 
 
 def collect_artifacts(results: list[AgentToolResult], report: AgentToolResult | None) -> list[Path]:
@@ -281,7 +389,7 @@ def render_trace(trace: list[dict], expanded: bool = False) -> None:
 
 
 def reset_agent_context(uploaded_path: Path) -> None:
-    workspace = ensure_workspace()
+    workspace = make_file_workspace(uploaded_path)
     st.session_state.uploaded_path = str(uploaded_path)
     st.session_state.agent_context = AgentRuntimeContext(workspace=workspace, uploaded_path=uploaded_path)
     st.session_state.agent_messages = []
@@ -295,6 +403,14 @@ def reset_agent_context(uploaded_path: Path) -> None:
     st.session_state.welcome_language = st.session_state.language
     st.session_state.display_traces = [[], []]
     st.session_state.zip_bytes = None
+    path_key = str(uploaded_path)
+    st.session_state.file_contexts[path_key] = st.session_state.agent_context
+    st.session_state.file_agent_messages[path_key] = st.session_state.agent_messages
+    st.session_state.file_display_messages[path_key] = st.session_state.display_messages
+    st.session_state.file_display_traces[path_key] = st.session_state.display_traces
+    st.session_state.file_zip_bytes[path_key] = st.session_state.zip_bytes
+    st.session_state.file_welcome_language[path_key] = st.session_state.welcome_language
+    st.session_state.loaded_active_uploaded_path = path_key
 
 
 def start_new_task() -> None:
@@ -302,6 +418,14 @@ def start_new_task() -> None:
 
     st.session_state.workspace = None
     st.session_state.uploaded_path = None
+    st.session_state.uploaded_paths = []
+    st.session_state.loaded_active_uploaded_path = None
+    st.session_state.file_contexts = {}
+    st.session_state.file_agent_messages = {}
+    st.session_state.file_display_messages = {}
+    st.session_state.file_display_traces = {}
+    st.session_state.file_zip_bytes = {}
+    st.session_state.file_welcome_language = {}
     st.session_state.agent_context = None
     st.session_state.agent_messages = []
     st.session_state.display_messages = [("assistant", welcome_message(st.session_state.language))]
@@ -311,11 +435,17 @@ def start_new_task() -> None:
 
 
 def current_context() -> AgentRuntimeContext | None:
+    active_path = st.session_state.get("loaded_active_uploaded_path")
+    if active_path and active_path in st.session_state.file_contexts:
+        return st.session_state.file_contexts[active_path]
     return st.session_state.agent_context
 
 
 def refresh_zip_from_context(context: AgentRuntimeContext) -> None:
     st.session_state.zip_bytes = make_zip(collect_context_artifacts(context))
+    active_path = st.session_state.get("loaded_active_uploaded_path")
+    if active_path:
+        st.session_state.file_zip_bytes[active_path] = st.session_state.zip_bytes
 
 
 def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bool) -> None:
@@ -354,6 +484,7 @@ def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bo
         st.session_state.display_messages.append(("assistant", result.assistant_message))
         st.session_state.display_traces.append(result.trace)
         refresh_zip_from_context(context)
+        save_current_file_state()
         for tool_result in result.tool_results:
             st.write(f"{tool_result.status}: {tool_result.message}")
         status.update(label=t(language, "done_status"), state="complete")
@@ -417,18 +548,32 @@ def main() -> None:
                 st.session_state.display_traces.append([])
                 st.session_state.display_messages.append(("assistant", t(language, "missing_key_reply")))
                 st.session_state.display_traces.append([])
+                save_current_file_state()
                 st.rerun()
             run_agent_prompt(prompt, api_key, model, thinking_enabled)
             st.rerun()
 
     with right:
         st.subheader(t(language, "data_results"))
-        uploaded_file = st.file_uploader(t(language, "uploader"), type=["xlsx", "xls"])
-        if uploaded_file is not None:
-            uploaded_path = save_upload(uploaded_file)
-            if st.session_state.uploaded_path != str(uploaded_path):
-                reset_agent_context(uploaded_path)
-                st.rerun()
+        uploaded_files = st.file_uploader(
+            t(language, "uploader"),
+            type=["xlsx", "xls"],
+            accept_multiple_files=True,
+        )
+        register_uploaded_files(uploaded_files or [])
+
+        uploaded_paths = st.session_state.get("uploaded_paths", [])
+        if uploaded_paths:
+            selected_path = st.selectbox(
+                t(language, "active_file"),
+                uploaded_paths,
+                index=max(0, uploaded_paths.index(st.session_state.loaded_active_uploaded_path))
+                if st.session_state.loaded_active_uploaded_path in uploaded_paths
+                else 0,
+                format_func=lambda path: Path(path).name,
+            )
+            activate_uploaded_path(Path(selected_path))
+            st.caption(t(language, "uploaded_count", count=len(uploaded_paths)))
 
         context = current_context()
         if context and context.uploaded_path:

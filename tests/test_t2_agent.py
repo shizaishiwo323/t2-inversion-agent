@@ -136,14 +136,14 @@ def test_lcurve_gaussian_and_report_tools_create_artifacts(tmp_path):
     )
     assert lcurve.status == "success"
     assert any(path.endswith("_spectrum.xlsx") for path in lcurve.artifacts)
-    assert any(path.endswith("_decay_t2.png") for path in lcurve.artifacts)
+    assert any(path.endswith("_decay_t2.png") for path in lcurve.artifacts), lcurve.summary.get("paired_plot_warning")
 
     gaussian = run_gaussian_peaks(
         Path(lcurve.summary["spectrum_xlsx"]),
         tmp_path / "gaussian",
         {"peak_count": 2},
     )
-    assert gaussian.status == "success"
+    assert gaussian.status == "success", gaussian.error
     assert gaussian.summary["peak_count"] == 2
     assert any(path.endswith("_summary.csv") for path in gaussian.artifacts)
 
@@ -195,7 +195,7 @@ def test_gaussian_decomposition_does_not_require_removed_numpy_trapz(tmp_path, m
         {"peak_count": 2},
     )
 
-    assert gaussian.status == "success"
+    assert gaussian.status == "success", gaussian.error
     assert any(path.endswith("_gaussian.png") for path in gaussian.artifacts)
 
 

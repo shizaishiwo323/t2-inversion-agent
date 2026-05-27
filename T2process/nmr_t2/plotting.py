@@ -5,7 +5,11 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Iterable, Optional
 
+import matplotlib
 import matplotlib.font_manager as font_manager
+
+matplotlib.use("Agg")
+
 import matplotlib.pyplot as plt
 import numpy as np
 
