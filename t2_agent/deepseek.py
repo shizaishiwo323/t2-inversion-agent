@@ -33,10 +33,11 @@ def build_agent_reply(
     model: str,
     thinking_enabled: bool,
     api_key: str | None,
+    response_language: str = "中文",
 ) -> str:
     """Generate an assistant reply, falling back to deterministic guidance."""
 
-    fallback = build_parameter_guidance(plan)
+    fallback = build_parameter_guidance(plan, language=response_language)
     if not api_key:
         return fallback
 
@@ -51,19 +52,21 @@ def build_agent_reply(
                 {
                     "role": "system",
                     "content": (
-                        "你是 NMR T2 反演智能体。你的职责是解释参数、推荐保守默认值、"
-                        "引导用户确认关键节点。你不能要求执行 shell 命令，不能编造已经运行的结果。"
-                        "计算只能由网页端白名单工具完成：validate_workbook, repair_workbook, "
-                        "run_lcurve, run_fixed_nnls, plot_decay_spectrum, run_gaussian_peaks, generate_report。"
+                        "You are an NMR T2 inversion agent. Explain parameters, recommend conservative defaults, "
+                        "and guide the user through key decisions. Do not ask the user to run shell commands, "
+                        "and do not invent results that have not been produced. Computation can only be done "
+                        "by these web app tools: validate_workbook, repair_workbook, run_lcurve, "
+                        "run_fixed_nnls, plot_decay_spectrum, run_gaussian_peaks, generate_report. "
+                        f"User-facing output language: {response_language}."
                     ),
                 },
                 {
                     "role": "user",
                     "content": (
-                        f"用户消息：{user_message}\n"
-                        f"数据诊断：{validation_message}\n"
-                        f"当前计划：{plan}\n"
-                        "请用中文简洁解释参数，并告诉用户推荐下一步。"
+                        f"User message: {user_message}\n"
+                        f"Data diagnosis: {validation_message}\n"
+                        f"Current plan: {plan}\n"
+                        "Briefly explain the parameters and recommend the next step in the requested user-facing language."
                     ),
                 },
             ],

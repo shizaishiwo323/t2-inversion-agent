@@ -36,7 +36,7 @@ T2_AGENT_SKILLS = [
     },
     {
         "name": "generate_report",
-        "purpose": "Write a Chinese Markdown report from data diagnostics, parameters, tool outputs, figures, and caveats.",
+        "purpose": "Write a Markdown report from data diagnostics, parameters, tool outputs, figures, and caveats in the requested user-facing language.",
         "when_to_use": "Use at the end of an analysis workflow.",
     },
     {
@@ -50,7 +50,7 @@ T2_AGENT_SKILLS = [
 def render_skill_prompt() -> str:
     """Render skills into compact instructions for the LLM system prompt."""
 
-    lines = ["可用 T2 skills/tools："]
+    lines = ["Available T2 skills/tools:"]
     for skill in T2_AGENT_SKILLS:
-        lines.append(f"- {skill['name']}：{skill['purpose']} 使用时机：{skill['when_to_use']}")
+        lines.append(f"- {skill['name']}: {skill['purpose']} Use when: {skill['when_to_use']}")
     return "\n".join(lines)

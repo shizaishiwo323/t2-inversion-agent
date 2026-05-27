@@ -99,6 +99,15 @@ def test_guidance_explains_regularization_and_defaults_to_lcurve_for_new_user():
     assert "默认" in guidance
 
 
+def test_guidance_can_render_english_for_english_ui():
+    plan = infer_requested_plan("I do not understand the parameters, please choose automatically")
+    guidance = build_parameter_guidance(plan, language="English")
+
+    assert "Smoothing/regularization factor" in guidance
+    assert "Default recommendation" in guidance
+    assert "平滑因子" not in guidance
+
+
 def test_guidance_extracts_fixed_regularization_and_peak_count():
     plan = infer_requested_plan("我要固定平滑因子 1，然后分两个峰")
     guidance = build_parameter_guidance(plan)
@@ -149,6 +158,23 @@ def test_lcurve_gaussian_and_report_tools_create_artifacts(tmp_path):
     report_text = Path(report.artifacts[0]).read_text(encoding="utf-8")
     assert "T2 反演智能体报告" in report_text
     assert "平滑因子" in report_text
+
+
+def test_generate_report_can_render_english(tmp_path):
+    report = generate_report(
+        tmp_path / "report",
+        user_goal="Run an English report",
+        validation=validate_workbook(SIMULATION, language="English"),
+        workflow_results=[],
+        parameter_notes=build_parameter_guidance(infer_requested_plan("automatic T2 inversion"), language="English"),
+        language="English",
+    )
+
+    assert report.status == "success"
+    report_text = Path(report.artifacts[0]).read_text(encoding="utf-8")
+    assert "T2 Inversion Agent Report" in report_text
+    assert "User Goal" in report_text
+    assert "T2 反演智能体报告" not in report_text
 
 
 def test_gaussian_decomposition_does_not_require_removed_numpy_trapz(tmp_path, monkeypatch):

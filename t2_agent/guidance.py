@@ -75,8 +75,35 @@ def infer_requested_plan(user_text: str) -> UserWorkflowPlan:
     return plan
 
 
-def build_parameter_guidance(plan: UserWorkflowPlan) -> str:
-    """Return user-facing Chinese guidance for the inferred plan."""
+def build_parameter_guidance(plan: UserWorkflowPlan, language: str = "中文") -> str:
+    """Return user-facing guidance for the inferred plan."""
+
+    if language.lower().startswith("english"):
+        lines = [
+            "I will explain the key parameters first, then give a conservative recommendation:",
+            "",
+            "- Smoothing/regularization factor: controls how smooth the T2 spectrum is. Smaller values fit the raw data more closely but can turn noise into false peaks; larger values make the spectrum smoother but may hide real small peaks.",
+            "- L-curve: automatically finds a compromise between fitting error and spectrum smoothness. It is a good default when you do not yet know which smoothing factor to choose.",
+            "- T2 range: defines which relaxation times are searched during inversion. Too narrow a range can miss peaks; too wide a range can make the result less stable. The default range is suitable for exploratory analysis.",
+            "- Number of peaks: approximates the T2 spectrum with Gaussian peaks to help interpret pore or fluid components. More peaks are not always better; too many peaks can overfit.",
+            "",
+        ]
+
+        if plan.workflow == "fixed_nnls":
+            lines.append(
+                f"You specified a fixed smoothing factor of {plan.regularization:g}. I will use fixed-regularization NNLS and note in the report that this depends more on manual judgment than L-curve."
+            )
+        elif plan.workflow == "gaussian_only":
+            lines.append("Your request looks like peak decomposition for an existing T2 spectrum, so I will skip decay inversion and go directly to Gaussian peak decomposition.")
+        else:
+            lines.append("Default recommendation: use L-curve to choose the smoothing factor automatically. This is safer for first-pass analysis and reduces subjective tuning.")
+
+        if plan.needs_gaussian:
+            lines.append(f"Peak decomposition recommendation: use {plan.peak_count} peaks as requested. After running, I will report each peak position, area fraction, and fitting figure.")
+        else:
+            lines.append("Peak decomposition is not enabled by default. After the T2 spectrum is generated, start with 2 to 3 peaks if you want to interpret pore or fluid components.")
+
+        return "\n".join(lines)
 
     lines = [
         "我会先解释关键参数，再给出推荐方案：",

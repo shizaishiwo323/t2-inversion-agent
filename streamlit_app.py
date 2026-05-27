@@ -88,6 +88,7 @@ def init_state() -> None:
         "display_messages": [],
         "display_traces": [],
         "language": "中文",
+        "welcome_language": "中文",
         "zip_bytes": None,
     }
     for key, value in defaults.items():
@@ -95,7 +96,29 @@ def init_state() -> None:
             st.session_state[key] = value
     if not st.session_state.display_messages:
         st.session_state.display_messages = [("assistant", welcome_message(st.session_state.language))]
+        st.session_state.welcome_language = st.session_state.language
         st.session_state.display_traces = [[]]
+
+
+def sync_language_seed_messages() -> None:
+    """Refresh built-in assistant seed messages after the UI language changes."""
+
+    language = st.session_state.get("language", "中文")
+    previous_language = st.session_state.get("welcome_language", "中文")
+    if language == previous_language:
+        return
+
+    messages = st.session_state.get("display_messages", [])
+    for idx, (role, content) in enumerate(messages):
+        if role != "assistant":
+            continue
+        if content in WELCOME_MESSAGES.values():
+            messages[idx] = ("assistant", welcome_message(language))
+        elif content in {t("中文", "upload_received"), t("English", "upload_received")}:
+            messages[idx] = ("assistant", t(language, "upload_received"))
+
+    st.session_state.display_messages = messages
+    st.session_state.welcome_language = language
 
 
 def ensure_workspace() -> Path:
@@ -269,6 +292,7 @@ def reset_agent_context(uploaded_path: Path) -> None:
             t(st.session_state.language, "upload_received"),
         )
     ]
+    st.session_state.welcome_language = st.session_state.language
     st.session_state.display_traces = [[], []]
     st.session_state.zip_bytes = None
 
@@ -281,6 +305,7 @@ def start_new_task() -> None:
     st.session_state.agent_context = None
     st.session_state.agent_messages = []
     st.session_state.display_messages = [("assistant", welcome_message(st.session_state.language))]
+    st.session_state.welcome_language = st.session_state.language
     st.session_state.display_traces = [[]]
     st.session_state.zip_bytes = None
 
@@ -360,6 +385,7 @@ def main() -> None:
             format_func=lambda option: t(option, "language_option_zh") if option == "中文" else t(option, "language_option_en"),
             key="language",
         )
+        sync_language_seed_messages()
         model = st.selectbox(t(language, "model"), ["deepseek-v4-flash", "deepseek-v4-pro"], index=0)
         thinking_enabled = st.toggle(t(language, "thinking_mode"), value=False)
         user_api_key = st.text_input(

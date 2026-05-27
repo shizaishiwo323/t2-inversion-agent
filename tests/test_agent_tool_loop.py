@@ -106,6 +106,31 @@ def test_agent_loop_can_request_english_response_language(tmp_path):
 
     system_message = fake_client.chat.completions.calls[0]["messages"][0]["content"]
     assert "Reply in English" in system_message
+    assert "Available T2 skills/tools" in system_message
+
+
+def test_agent_loop_refreshes_existing_system_prompt_when_language_changes(tmp_path):
+    context = AgentRuntimeContext(workspace=tmp_path)
+    prior_messages = [
+        {"role": "system", "content": "用户可见语言：中文。请用中文回复。"},
+        {"role": "assistant", "content": "中文回复"},
+    ]
+    fake_client = FakeClient([_message(content="English reply")])
+
+    run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="What can you do?",
+        context=context,
+        prior_messages=prior_messages,
+        client=fake_client,
+        response_language="English",
+    )
+
+    system_message = fake_client.chat.completions.calls[0]["messages"][0]["content"]
+    assert "Reply in English" in system_message
+    assert "请用中文回复" not in system_message
 
 
 def test_agent_loop_executes_repair_and_lcurve_when_ai_requests_tools(tmp_path):
