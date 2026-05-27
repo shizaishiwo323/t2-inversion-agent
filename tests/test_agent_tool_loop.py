@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from types import SimpleNamespace
 
+import numpy as np
 import pandas as pd
 
 from t2_agent.agent import AgentRuntimeContext, run_deepseek_agent_turn
@@ -217,3 +218,43 @@ def test_agent_loop_interprets_existing_results_when_user_asks(tmp_path):
     assert "主峰" in result.assistant_message
     assert result.tool_results[0].status == "success"
     assert "main_peak_t2_ms" in result.tool_results[0].summary
+
+
+def test_agent_loop_can_batch_process_all_uploaded_files(tmp_path):
+    time_ms = np.linspace(0.1, 80.0, 80)
+    file_a = tmp_path / "sample_a.xlsx"
+    file_b = tmp_path / "sample_b.xlsx"
+    pd.DataFrame({"Time": time_ms, "Peak": np.exp(-time_ms / 25.0) * 1000.0}).to_excel(file_a, index=False)
+    pd.DataFrame({"Time": time_ms, "Peak": np.exp(-time_ms / 35.0) * 900.0}).to_excel(file_b, index=False)
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=file_a, uploaded_paths=[file_a, file_b])
+
+    fake_client = FakeClient(
+        [
+            _message(
+                tool_calls=[
+                    _tool_call(
+                        "process_uploaded_files_batch",
+                        {"num_bins": 40, "alpha_count": 8, "run_gaussian": False},
+                    )
+                ]
+            ),
+            _message(content="批量处理完成。"),
+        ]
+    )
+
+    result = run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="请批量处理所有上传文件并生成报告",
+        context=context,
+        prior_messages=[],
+        client=fake_client,
+    )
+
+    assert result.assistant_message == "批量处理完成。"
+    assert result.tool_results[0].status == "success", result.tool_results[0].error
+    assert result.tool_results[0].summary["file_count"] == 2
+    assert result.tool_results[0].summary["successful_file_count"] == 2
+    assert any("batch_results" in path and "sample_a.xlsx" in path for path in result.tool_results[0].artifacts)
+    assert any("batch_results" in path and "sample_b.xlsx" in path for path in result.tool_results[0].artifacts)

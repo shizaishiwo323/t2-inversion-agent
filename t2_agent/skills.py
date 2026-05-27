@@ -40,6 +40,11 @@ T2_AGENT_SKILLS = [
         "when_to_use": "Use at the end of an analysis workflow.",
     },
     {
+        "name": "process_uploaded_files_batch",
+        "purpose": "Run the complete T2 workflow for every uploaded workbook and keep each file's outputs in a separate folder.",
+        "when_to_use": "Use when multiple files are uploaded and the user asks to process all files or run batch analysis in one conversation.",
+    },
+    {
         "name": "interpret_results",
         "purpose": "Read generated summaries/spectra/peak tables and explain what the inversion result means.",
         "when_to_use": "Use when the user asks what the result means, whether the result is good, how to interpret peaks, or what to do next.",

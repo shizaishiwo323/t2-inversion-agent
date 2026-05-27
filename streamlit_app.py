@@ -175,6 +175,7 @@ def ensure_file_state(uploaded_path: Path) -> None:
         contexts[path_key] = AgentRuntimeContext(
             workspace=make_file_workspace(uploaded_path),
             uploaded_path=uploaded_path,
+            uploaded_paths=[uploaded_path],
         )
     if path_key not in st.session_state.file_agent_messages:
         st.session_state.file_agent_messages[path_key] = []
@@ -219,6 +220,7 @@ def activate_uploaded_path(uploaded_path: Path | None) -> None:
 
     ensure_file_state(uploaded_path)
     path_key = str(uploaded_path)
+    st.session_state.file_contexts[path_key].uploaded_paths = [Path(path) for path in st.session_state.get("uploaded_paths", [path_key])]
     st.session_state.uploaded_path = path_key
     st.session_state.agent_context = st.session_state.file_contexts[path_key]
     st.session_state.agent_messages = st.session_state.file_agent_messages[path_key]
@@ -242,6 +244,9 @@ def register_uploaded_files(uploaded_files: list) -> None:
         ensure_file_state(uploaded_path)
 
     st.session_state.uploaded_paths = paths
+    all_paths = [Path(path) for path in paths]
+    for context in st.session_state.file_contexts.values():
+        context.uploaded_paths = all_paths
     if st.session_state.loaded_active_uploaded_path not in paths:
         activate_uploaded_path(Path(paths[0]))
 
@@ -330,7 +335,13 @@ def make_zip(paths: list[Path]) -> bytes:
     with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as archive:
         seen: set[str] = set()
         for path in paths:
-            arcname = path.name
+            parts = list(path.parts)
+            if "batch_results" in parts:
+                arcname = Path(*parts[parts.index("batch_results") :]).as_posix()
+            elif "tasks" in parts:
+                arcname = Path(*parts[parts.index("tasks") + 1 :]).as_posix()
+            else:
+                arcname = path.name
             if arcname in seen:
                 arcname = f"{path.parent.name}__{path.name}"
             seen.add(arcname)
@@ -390,8 +401,9 @@ def render_trace(trace: list[dict], expanded: bool = False) -> None:
 
 def reset_agent_context(uploaded_path: Path) -> None:
     workspace = make_file_workspace(uploaded_path)
+    all_paths = [Path(path) for path in st.session_state.get("uploaded_paths", [str(uploaded_path)])]
     st.session_state.uploaded_path = str(uploaded_path)
-    st.session_state.agent_context = AgentRuntimeContext(workspace=workspace, uploaded_path=uploaded_path)
+    st.session_state.agent_context = AgentRuntimeContext(workspace=workspace, uploaded_path=uploaded_path, uploaded_paths=all_paths)
     st.session_state.agent_messages = []
     st.session_state.display_messages = [
         ("assistant", welcome_message(st.session_state.language)),
@@ -452,7 +464,7 @@ def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bo
     context = current_context()
     if context is None:
         workspace = ensure_workspace()
-        context = AgentRuntimeContext(workspace=workspace)
+        context = AgentRuntimeContext(workspace=workspace, uploaded_paths=[Path(path) for path in st.session_state.get("uploaded_paths", [])])
         st.session_state.agent_context = context
 
     language = st.session_state.get("language", "中文")
