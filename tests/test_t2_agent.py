@@ -17,7 +17,7 @@ from t2_agent.tools import (
 
 ROOT = Path(__file__).resolve().parents[1]
 SIMULATION = ROOT / "T2process" / "Example data" / "SimulationDecay.xlsx"
-SWAPPED_EXPERIMENTAL = Path("/Users/wangbin/Downloads/ExperimentalDecay_副本.xlsx")
+SWAPPED_EXPERIMENTAL = ROOT / "T2process" / "Example data" / "ExperimentalDecay.xlsx"
 
 
 def test_validate_workbook_detects_decay_data_and_recommends_seconds_scale():
@@ -43,28 +43,28 @@ def test_repair_workbook_writes_standardized_time_ms_file(tmp_path):
     assert frame["time_ms"].max() > 1.0
 
 
-def test_validate_and_repair_detect_swapped_peak_time_columns(tmp_path):
+def test_validate_and_repair_experimental_decay_fixture(tmp_path):
     schema = inspect_workbook_schema(SWAPPED_EXPERIMENTAL)
     assert schema.status == "success"
     labels = [profile["label"] for profile in schema.summary["column_profiles"]]
-    assert "time(ms)" in labels
-    assert "amplitude" in labels
+    assert "Time" in labels
+    assert "Peak" in labels
 
     result = validate_workbook(SWAPPED_EXPERIMENTAL)
 
     assert result.status == "success"
-    assert result.summary["time_column_label"] == "time(ms)"
-    assert result.summary["signal_column_labels"] == ["amplitude"]
-    assert result.summary["column_order_issue"] == "time_not_first_column"
-    assert "time(ms)" in result.message
-    assert "amplitude" in result.message
+    assert result.summary["time_column_label"] == "Time"
+    assert result.summary["signal_column_labels"] == ["Peak"]
+    assert result.summary["column_order_issue"] == "none"
+    assert "Time" in result.message
+    assert "Peak" in result.message
 
     repaired = repair_workbook(SWAPPED_EXPERIMENTAL, tmp_path, result.summary["recommended_time_to_ms_scale"])
     frame = pd.read_excel(repaired.artifacts[0])
 
-    assert list(frame.columns)[:2] == ["time_ms", "amplitude"]
+    assert list(frame.columns)[:2] == ["time_ms", "Peak"]
     assert frame["time_ms"].iloc[0] == 0.1005
-    assert frame["amplitude"].iloc[0] == 7282.1999
+    assert frame["Peak"].iloc[0] == 7282.1999
 
 
 def test_validate_workbook_handles_multi_signal_layout_without_named_headers(tmp_path):
