@@ -29,6 +29,8 @@ def test_validate_workbook_detects_decay_data_and_recommends_seconds_scale():
     assert result.summary["signal_column_count"] >= 1
     assert result.summary["recommended_time_to_ms_scale"] == 1000.0
     assert "第 1 列" in result.message
+    assert "时间列" in result.message
+    assert "T2 谱表" not in result.message
 
 
 def test_repair_workbook_writes_standardized_time_ms_file(tmp_path):
@@ -112,6 +114,43 @@ def test_uploaded_t2_spectrum_is_not_repaired_or_inverted(tmp_path):
     assert gaussian.status == "success", gaussian.error
 
 
+def test_validate_uses_curve_shape_when_decay_has_spectrum_like_headers(tmp_path):
+    path = tmp_path / "misleading_decay_headers.xlsx"
+    time_ms = np.linspace(0.1, 80.0, 120)
+    signal = np.exp(-time_ms / 22.0) * 7000.0
+    pd.DataFrame({"t2_ms": time_ms, "amplitude": signal}).to_excel(path, index=False)
+
+    result = validate_workbook(path)
+
+    assert result.status == "success"
+    assert result.summary["data_kind"] == "decay"
+
+
+def test_validate_uses_curve_shape_when_spectrum_has_generic_headers(tmp_path):
+    path = tmp_path / "generic_spectrum_headers.xlsx"
+    t2_ms = np.logspace(-2, 5, 200)
+    log_t2 = np.log10(t2_ms)
+    amplitude = np.exp(-((log_t2 - 1.2) ** 2) / 0.35) + 0.25 * np.exp(-((log_t2 - 3.0) ** 2) / 0.5)
+    pd.DataFrame({"Time": t2_ms, "Peak": amplitude}).to_excel(path, index=False)
+
+    result = validate_workbook(path)
+
+    assert result.status == "success"
+    assert result.summary["data_kind"] == "spectrum"
+
+
+def test_inspect_schema_reports_shape_based_data_kind(tmp_path):
+    path = tmp_path / "misleading_decay_headers.xlsx"
+    time_ms = np.linspace(0.1, 80.0, 120)
+    signal = np.exp(-time_ms / 22.0) * 7000.0
+    pd.DataFrame({"t2_ms": time_ms, "amplitude": signal}).to_excel(path, index=False)
+
+    result = inspect_workbook_schema(path)
+
+    assert result.status == "success"
+    assert result.summary["preliminary_data_kind"] == "decay"
+
+
 def test_guidance_explains_regularization_and_defaults_to_lcurve_for_new_user():
     plan = infer_requested_plan("我不懂参数，只想做T2反演")
     guidance = build_parameter_guidance(plan)
@@ -141,6 +180,14 @@ def test_guidance_extracts_fixed_regularization_and_peak_count():
     assert plan.needs_gaussian is True
     assert plan.peak_count == 2
     assert "2 个峰" in guidance
+
+
+def test_guidance_treats_only_peak_decomposition_as_gaussian_only():
+    plan = infer_requested_plan("只做分峰，分三个峰")
+
+    assert plan.workflow == "gaussian_only"
+    assert plan.needs_gaussian is True
+    assert plan.peak_count == 3
 
 
 def test_lcurve_gaussian_and_report_tools_create_artifacts(tmp_path):

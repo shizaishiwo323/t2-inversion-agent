@@ -45,6 +45,12 @@ def infer_requested_plan(user_text: str) -> UserWorkflowPlan:
 
     text = (user_text or "").strip()
     lowered = text.lower()
+    peak_intent = any(token in lowered for token in ("gaussian", "peak", "分峰", "峰"))
+    inversion_intent = any(token in text for token in ("反演", "inversion", "l曲线", "L曲线", "l-curve", "L-curve", "平滑因子", "正则化"))
+    only_peak_intent = peak_intent and any(
+        token in lowered
+        for token in ("只做", "仅做", "单独", "只要", "只需", "不用反演", "不要反演", "不做反演", "skip inversion", "without inversion", "only")
+    )
 
     plan = UserWorkflowPlan()
     plan.user_is_unsure = any(token in text for token in ("不懂", "不知道", "默认", "推荐", "你来", "自动"))
@@ -59,11 +65,13 @@ def infer_requested_plan(user_text: str) -> UserWorkflowPlan:
     if peak_count is not None:
         plan.needs_gaussian = True
         plan.peak_count = peak_count
-        if plan.workflow == "lcurve_inversion" and any(token in text for token in ("已有", "谱", "spectrum")):
+        if plan.workflow == "lcurve_inversion" and (only_peak_intent or any(token in text for token in ("已有", "谱", "spectrum"))):
             plan.workflow = "gaussian_only"
-    elif any(token in lowered for token in ("gaussian", "peak", "分峰", "峰")):
+    elif peak_intent:
         plan.needs_gaussian = True
         plan.peak_count = 2
+        if only_peak_intent or (not inversion_intent and any(token in text for token in ("已有", "谱", "spectrum"))):
+            plan.workflow = "gaussian_only"
 
     if any(token in text for token in ("全流程", "都做", "反演并分峰", "反演和分峰")):
         plan.workflow = "full_analysis"

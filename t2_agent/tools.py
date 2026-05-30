@@ -242,15 +242,29 @@ def inspect_workbook_schema(input_workbook: Path, preview_rows: int = 8, languag
         table = pd.read_excel(input_path, sheet_name=sheet_name, header=None, dtype=object)
         preview = table.head(int(preview_rows)).where(pd.notnull(table.head(int(preview_rows))), None).values.tolist()
         profiles = _profile_columns(table)
+        preliminary_data_kind = "unknown"
+        try:
+            layout = _infer_layout(table)
+            times, signals = _parsed_rows_by_layout(table, layout)
+            preliminary_data_kind = _infer_data_kind(
+                input_path,
+                table,
+                layout=layout,
+                time_values=np.asarray(times, dtype=float),
+                signal_matrix=np.asarray(signals, dtype=float),
+            )
+        except Exception:
+            preliminary_data_kind = "unknown"
         if english:
             message = (
                 f"Workbook structure loaded. The first sheet is {sheet_name}, with {table.shape[0]} rows x {table.shape[1]} columns. "
-                "I will identify the time/T2 column and signal-amplitude columns from labels, monotonicity, numeric ranges, and preview rows."
+                f"Preliminary data kind: {preliminary_data_kind}. I will identify the time or T2-axis column and signal-amplitude columns from labels, monotonicity, numeric ranges, preview rows, and curve shape."
             )
         else:
+            kind_label = {"decay": "原始衰减数据", "spectrum": "T2 谱表"}.get(preliminary_data_kind, "暂不确定")
             message = (
                 f"已读取工作簿结构。第一个 sheet 为 {sheet_name}，形状为 {table.shape[0]} 行 x {table.shape[1]} 列。"
-                "我会根据列名、单调递增性和数值范围判断哪一列是时间/T2，哪些列是信号幅值。"
+                f"初步判断为：{kind_label}。我会根据列名、单调性、数值范围、预览行和曲线形态综合判断。"
             )
         return AgentToolResult(
             "success",
@@ -259,6 +273,7 @@ def inspect_workbook_schema(input_workbook: Path, preview_rows: int = 8, languag
                 "sheet_names": workbook.sheet_names,
                 "active_sheet": sheet_name,
                 "shape": [int(table.shape[0]), int(table.shape[1])],
+                "preliminary_data_kind": preliminary_data_kind,
                 "preview_rows": preview,
                 "column_profiles": profiles,
             },
@@ -440,10 +455,84 @@ def _recommend_time_scale(time_values: np.ndarray) -> tuple[float, str]:
     return 1.0, "时间范围更像已经是 ms；建议保持 1:1。"
 
 
-def _infer_data_kind(input_workbook: Path, table: pd.DataFrame) -> str:
+def _curve_shape_data_kind(time_values: np.ndarray, signal_matrix: np.ndarray) -> str | None:
+    """Classify decay vs spectrum from curve shape when the data are clear."""
+
+    if time_values.size < 8 or signal_matrix.size == 0:
+        return None
+
+    finite_column_counts = np.sum(np.isfinite(signal_matrix), axis=0)
+    if finite_column_counts.size == 0 or int(np.max(finite_column_counts)) < 8:
+        return None
+
+    signal_idx = int(np.argmax(finite_column_counts))
+    x = np.asarray(time_values, dtype=float)
+    y = np.asarray(signal_matrix[:, signal_idx], dtype=float)
+    mask = np.isfinite(x) & np.isfinite(y) & (x > 0)
+    x = x[mask]
+    y = y[mask]
+    if x.size < 8:
+        return None
+
+    order = np.argsort(x)
+    x = x[order]
+    y = y[order]
+    diffs = np.diff(y)
+    if diffs.size == 0:
+        return None
+
+    y_min = float(np.min(y))
+    y_max = float(np.max(y))
+    y_range = y_max - y_min
+    if not np.isfinite(y_range) or y_range <= max(abs(y_max), 1.0) * 1e-9:
+        return None
+
+    n = int(y.size)
+    max_idx = int(np.argmax(y))
+    decreasing_score = float(np.sum(diffs < 0) / diffs.size)
+    near_start_peak = max_idx <= max(2, int(0.08 * n))
+    end_drop_fraction = (float(y[max_idx]) - float(np.median(y[-max(3, n // 10) :]))) / y_range
+    if near_start_peak and decreasing_score >= 0.62 and end_drop_fraction >= 0.25:
+        return "decay"
+
+    if max(2, int(0.05 * n)) <= max_idx <= min(n - 3, int(0.95 * n)):
+        before = np.diff(y[: max_idx + 1])
+        after = np.diff(y[max_idx:])
+        before_increasing = float(np.sum(before > 0) / before.size) if before.size else 0.0
+        after_decreasing = float(np.sum(after < 0) / after.size) if after.size else 0.0
+        edge_level = max(float(np.median(y[: max(3, n // 10)])), float(np.median(y[-max(3, n // 10) :])))
+        prominence_fraction = (float(y[max_idx]) - edge_level) / y_range
+        if before_increasing >= 0.55 and after_decreasing >= 0.55 and prominence_fraction >= 0.18:
+            return "spectrum"
+
+    return None
+
+
+def _infer_data_kind(
+    input_workbook: Path,
+    table: pd.DataFrame,
+    layout: dict[str, Any] | None = None,
+    time_values: np.ndarray | None = None,
+    signal_matrix: np.ndarray | None = None,
+) -> str:
     first_row_values = [str(value).strip().lower() for value in table.iloc[0].tolist()] if not table.empty else []
     first_row = " ".join(first_row_values)
     name = input_workbook.name.lower()
+
+    if time_values is None or signal_matrix is None:
+        try:
+            inferred_layout = layout or _infer_layout(table)
+            times, signals = _parsed_rows_by_layout(table, inferred_layout)
+            time_values = np.asarray(times, dtype=float)
+            signal_matrix = np.asarray(signals, dtype=float)
+        except Exception:
+            time_values = None
+            signal_matrix = None
+
+    if time_values is not None and signal_matrix is not None:
+        shape_kind = _curve_shape_data_kind(time_values, signal_matrix)
+        if shape_kind is not None:
+            return shape_kind
 
     has_t2_axis_label = any(
         token in first_row
@@ -533,7 +622,7 @@ def validate_workbook(input_workbook: Path, language: str = "中文") -> AgentTo
                 if scale == 1000.0
                 else "The time range looks like it is already in ms; I recommend keeping a 1:1 scale."
             )
-        data_kind = _infer_data_kind(input_path, table)
+        data_kind = _infer_data_kind(input_path, table, layout=layout, time_values=time_values, signal_matrix=signal_matrix)
         invalid_signal_cells = int(np.size(signal_matrix) - np.sum(np.isfinite(signal_matrix)))
         valid_rows = int(np.sum(np.isfinite(time_values) & (time_values > 0)))
         time_column = layout["time_column"]
@@ -578,16 +667,18 @@ def validate_workbook(input_workbook: Path, language: str = "中文") -> AgentTo
                 if english
                 else "这看起来是已有 T2 谱表，应跳过反演；如果目标是分峰，可以直接做 Gaussian 分峰。"
             )
+        axis_label = "T2 axis" if data_kind == "spectrum" else "time column"
+        axis_label_cn = "T2 轴" if data_kind == "spectrum" else "时间列"
         if english:
             message = (
-                f"Excel loaded. Column {summary['time_column_excel_index']} ({summary['time_column_label']}) appears to be time/T2, "
+                f"Excel loaded. Column {summary['time_column_excel_index']} ({summary['time_column_label']}) appears to be the {axis_label}, "
                 f"with {valid_rows} valid points. Detected {signal_column_count} valid signal columns: {', '.join(summary['signal_column_labels'])}. "
                 f"{scale_reason}{order_note}{kind_note}"
             )
         else:
             message = (
                 f"已读取 Excel。检测到第 {summary['time_column_excel_index']} 列 "
-                f"({summary['time_column_label']}) 是时间/T2，共 {valid_rows} 个有效点；"
+                f"({summary['time_column_label']}) 是{axis_label_cn}，共 {valid_rows} 个有效点；"
                 f"检测到 {signal_column_count} 个有效信号列：{', '.join(summary['signal_column_labels'])}。"
                 f"{scale_reason}{order_note}{kind_note}"
             )

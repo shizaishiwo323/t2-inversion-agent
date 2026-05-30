@@ -216,6 +216,47 @@ def test_agent_loop_uses_uploaded_spectrum_for_gaussian_and_blocks_inversion(tmp
     assert any(path.endswith("_gaussian_summary.csv") for path in result.tool_results[4].artifacts)
 
 
+def test_agent_loop_does_not_auto_invert_when_user_asks_only_for_peaks(tmp_path):
+    time_ms = np.linspace(0.1, 80.0, 80)
+    decay = tmp_path / "decay.xlsx"
+    pd.DataFrame({"Time": time_ms, "Peak": np.exp(-time_ms / 25.0) * 1000.0}).to_excel(decay, index=False)
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=decay)
+
+    fake_client = FakeClient(
+        [
+            _message(
+                tool_calls=[
+                    _tool_call("inspect_workbook_schema", {}),
+                    _tool_call("validate_workbook", {}),
+                    _tool_call("repair_workbook", {}),
+                    _tool_call("run_lcurve", {"num_bins": 40, "alpha_count": 8}),
+                    _tool_call("run_gaussian_peaks", {"peak_count": 3}),
+                ]
+            ),
+            _message(content="你要求只做分峰，但当前没有可用 T2 谱表，所以我不会自动反演。"),
+        ]
+    )
+
+    result = run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="只做分峰，分三个峰",
+        context=context,
+        prior_messages=[],
+        client=fake_client,
+    )
+
+    assert "不会自动反演" in result.assistant_message
+    assert result.tool_results[2].status == "failed"
+    assert result.tool_results[2].error == "gaussian_only_requires_spectrum"
+    assert result.tool_results[3].status == "failed"
+    assert result.tool_results[3].error == "gaussian_only_requires_spectrum"
+    assert result.tool_results[4].status == "failed"
+    assert result.tool_results[4].error == "missing_spectrum"
+    assert context.spectrum_path is None
+
+
 def test_agent_loop_interprets_existing_results_when_user_asks(tmp_path):
     source = Path(__file__).resolve().parents[1] / "T2process" / "Example data" / "SimulationDecay.xlsx"
     context = AgentRuntimeContext(workspace=tmp_path, uploaded_path=source)
