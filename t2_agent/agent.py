@@ -405,6 +405,10 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
         if missing:
             return missing
 
+    if name in {"run_lcurve", "run_fixed_nnls"} and context.validation is not None and context.validation.summary.get("data_kind") == "spectrum":
+        message = "The uploaded workbook looks like an existing T2 spectrum, so I will not run inversion on it. Use run_gaussian_peaks directly if the user wants peak decomposition." if _is_english(response_language) else "上传的工作簿看起来是已有 T2 谱表，因此不会再做反演。如果用户要分峰，请直接调用 run_gaussian_peaks。"
+        return AgentToolResult("failed", message, error="spectrum_input_not_decay")
+
     if name in {"run_lcurve", "run_fixed_nnls"} and context.repaired_path is None:
         message = "Before inversion, repair_workbook must generate a standardized Excel file." if _is_english(response_language) else "反演前需要先调用 repair_workbook 生成标准化 Excel。"
         return AgentToolResult("failed", message, error="missing_repaired_workbook")
@@ -415,9 +419,15 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
     if name == "validate_workbook":
         result = validate_workbook(context.uploaded_path, language=response_language)  # type: ignore[arg-type]
         context.validation = result
+        if result.status == "success" and result.summary.get("data_kind") == "spectrum":
+            context.spectrum_path = Path(context.uploaded_path)  # type: ignore[arg-type]
+            context.repaired_path = None
         return result
 
     if name == "repair_workbook":
+        if context.validation is not None and context.validation.summary.get("data_kind") == "spectrum":
+            message = "The uploaded workbook already looks like a T2 spectrum, so it should not be standardized as raw decay data. Continue with run_gaussian_peaks if the user wants peak decomposition." if _is_english(response_language) else "上传的工作簿已经像是 T2 谱表，不应标准化成原始衰减数据。如果用户要分峰，请继续调用 run_gaussian_peaks。"
+            return AgentToolResult("failed", message, error="spectrum_input_not_decay")
         scale = args.get("time_to_ms_scale")
         if scale is None and context.validation is not None:
             scale = context.validation.summary.get("recommended_time_to_ms_scale", 1.0)
@@ -544,10 +554,12 @@ def run_deepseek_agent_turn(
         "When the user has uploaded data and asks to inspect, run, or interpret it, first call inspect_workbook_schema, then call validate_workbook. "
         "If the user only asks about capabilities, parameter meanings, boundaries, expected data format, workflow, or usage advice, do not call tools; answer clearly. "
         "Do not assume the first column is time. Infer the time/T2 column from labels, monotonicity, numeric ranges, and preview rows. "
+        "After validate_workbook, check summary.data_kind. If it is spectrum, do not call repair_workbook, run_lcurve, or run_fixed_nnls; ask whether the user wants Gaussian peak decomposition, or call run_gaussian_peaks directly when the user already asked for peaks. "
+        "Only run T2 inversion when summary.data_kind is decay. "
         "If Time is in the second column and Peak is in the first column, this is usually a column-order mismatch with the older tool expectation; do not call it swapped labels. "
         "Only say labels may be wrong when labels and numeric shapes contradict each other. "
         "If the column order, header position, multi-signal layout, or workbook layout is nonstandard, tell the user and call repair_workbook to standardize it. "
-        "When the user does not understand parameters, prefer repair_workbook + run_lcurve. "
+        "When the user does not understand parameters and the uploaded data is decay data, prefer repair_workbook + run_lcurve. "
         "When multiple files are uploaded and the user asks to process all files, batch process files, analyze multiple files, or generate results for all uploads, call process_uploaded_files_batch instead of running single-file tools repeatedly. "
         "When the user explicitly specifies a smoothing/regularization factor, use run_fixed_nnls. "
         "When the user asks for peak decomposition, call run_gaussian_peaks after a spectrum exists. "

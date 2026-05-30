@@ -441,11 +441,45 @@ def _recommend_time_scale(time_values: np.ndarray) -> tuple[float, str]:
 
 
 def _infer_data_kind(input_workbook: Path, table: pd.DataFrame) -> str:
-    first_row = " ".join(str(value).lower() for value in table.iloc[0].tolist()) if not table.empty else ""
+    first_row_values = [str(value).strip().lower() for value in table.iloc[0].tolist()] if not table.empty else []
+    first_row = " ".join(first_row_values)
     name = input_workbook.name.lower()
-    if "spectrum" in name or "t2" in first_row:
+
+    has_t2_axis_label = any(
+        token in first_row
+        for token in ("t2", "t₂", "relaxation", "弛豫")
+    )
+    has_spectrum_amplitude_label = any(
+        token in first_row
+        for token in ("amplitude", "spectrum", "intensity", "distribution", "peak", "谱", "幅", "峰")
+    )
+    if has_t2_axis_label and has_spectrum_amplitude_label:
+        return "spectrum"
+    if "spectrum" in name and has_spectrum_amplitude_label:
         return "spectrum"
     return "decay"
+
+
+def _workbook_data_kind(input_workbook: Path) -> str:
+    """Best-effort workbook kind classification for tool-level safety checks."""
+
+    try:
+        table = _read_raw_table(Path(input_workbook))
+        if table.empty:
+            return "unknown"
+        return _infer_data_kind(Path(input_workbook), table)
+    except Exception:
+        return "unknown"
+
+
+def _spectrum_input_error(language: str) -> AgentToolResult:
+    english = _is_english(language)
+    message = (
+        "This workbook looks like an existing T2 spectrum, not raw decay data. I will not run T2 inversion on it; use Gaussian peak decomposition directly, or confirm if you intended to upload raw decay data."
+        if english
+        else "这个工作簿看起来是已有 T2 谱表，不是原始衰减数据。我不会把它再做 T2 反演；如果你的目标是分峰，可以直接做 Gaussian 分峰，若本意是上传原始衰减数据，请确认文件。"
+    )
+    return AgentToolResult("failed", message, error="spectrum_input_not_decay")
 
 
 def validate_workbook(input_workbook: Path, language: str = "中文") -> AgentToolResult:
@@ -537,18 +571,25 @@ def validate_workbook(input_workbook: Path, language: str = "中文") -> AgentTo
                     f"({summary['time_column_label']})；第 {summary['signal_excel_columns']} 列更像信号幅值 "
                     f"({', '.join(summary['signal_column_labels'])})。后续会自动重排为 time_ms + signal。"
                 )
+        kind_note = ""
+        if data_kind == "spectrum":
+            kind_note = (
+                " This looks like an existing T2 spectrum, so inversion should be skipped; Gaussian peak decomposition can run directly if that is your goal."
+                if english
+                else "这看起来是已有 T2 谱表，应跳过反演；如果目标是分峰，可以直接做 Gaussian 分峰。"
+            )
         if english:
             message = (
                 f"Excel loaded. Column {summary['time_column_excel_index']} ({summary['time_column_label']}) appears to be time/T2, "
                 f"with {valid_rows} valid points. Detected {signal_column_count} valid signal columns: {', '.join(summary['signal_column_labels'])}. "
-                f"{scale_reason}{order_note}"
+                f"{scale_reason}{order_note}{kind_note}"
             )
         else:
             message = (
                 f"已读取 Excel。检测到第 {summary['time_column_excel_index']} 列 "
                 f"({summary['time_column_label']}) 是时间/T2，共 {valid_rows} 个有效点；"
                 f"检测到 {signal_column_count} 个有效信号列：{', '.join(summary['signal_column_labels'])}。"
-                f"{scale_reason}{order_note}"
+                f"{scale_reason}{order_note}{kind_note}"
             )
         return AgentToolResult("success", message, summary=summary)
     except Exception as exc:
@@ -562,6 +603,8 @@ def repair_workbook(input_workbook: Path, output_dir: Path, time_to_ms_scale: fl
     try:
         english = _is_english(language)
         table = _read_raw_table(Path(input_workbook))
+        if _infer_data_kind(Path(input_workbook), table) == "spectrum":
+            return _spectrum_input_error(language)
         try:
             layout = _infer_layout(table)
         except ValueError as exc:
@@ -623,6 +666,8 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
     params = params or {}
     try:
         english = _is_english(language)
+        if _workbook_data_kind(Path(input_workbook)) == "spectrum":
+            return _spectrum_input_error(language)
         cfg = LCurveConfig(
             num_bins=int(params.get("num_bins", 200)),
             t2_min_ms=float(params.get("t2_min_ms", 1e-2)),
@@ -668,6 +713,8 @@ def run_fixed_nnls(input_workbook: Path, output_dir: Path, params: dict[str, Any
     params = params or {}
     try:
         english = _is_english(language)
+        if _workbook_data_kind(Path(input_workbook)) == "spectrum":
+            return _spectrum_input_error(language)
         regularization = float(params.get("regularization", 1.0))
         cfg = NnlsConfig(
             num_bins=int(params.get("num_bins", 200)),

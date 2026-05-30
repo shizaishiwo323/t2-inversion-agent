@@ -172,6 +172,50 @@ def test_agent_loop_executes_repair_and_lcurve_when_ai_requests_tools(tmp_path):
     assert any(path.endswith("_spectrum.xlsx") for item in context.tool_history for path in item.artifacts)
 
 
+def test_agent_loop_uses_uploaded_spectrum_for_gaussian_and_blocks_inversion(tmp_path):
+    spectrum = tmp_path / "uploaded_t2_spectrum.xlsx"
+    t2_ms = np.logspace(-1, 3, 80)
+    amplitude = np.exp(-((np.log10(t2_ms) - 1.0) ** 2) / 0.18)
+    pd.DataFrame({"t2_ms": t2_ms, "amplitude": amplitude}).to_excel(spectrum, index=False)
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=spectrum)
+
+    fake_client = FakeClient(
+        [
+            _message(
+                tool_calls=[
+                    _tool_call("inspect_workbook_schema", {}),
+                    _tool_call("validate_workbook", {}),
+                    _tool_call("repair_workbook", {}),
+                    _tool_call("run_lcurve", {"num_bins": 40, "alpha_count": 8}),
+                    _tool_call("run_gaussian_peaks", {"peak_count": 2}),
+                ]
+            ),
+            _message(content="这是已有 T2 谱，我已跳过反演并完成 Gaussian 分峰。"),
+        ]
+    )
+
+    result = run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="这是T2谱表，只做分峰",
+        context=context,
+        prior_messages=[],
+        client=fake_client,
+    )
+
+    assert "跳过反演" in result.assistant_message
+    assert context.validation is not None
+    assert context.validation.summary["data_kind"] == "spectrum"
+    assert context.spectrum_path == spectrum
+    assert result.tool_results[2].status == "failed"
+    assert result.tool_results[2].error == "spectrum_input_not_decay"
+    assert result.tool_results[3].status == "failed"
+    assert result.tool_results[3].error == "spectrum_input_not_decay"
+    assert result.tool_results[4].status == "success", result.tool_results[4].error
+    assert any(path.endswith("_gaussian_summary.csv") for path in result.tool_results[4].artifacts)
+
+
 def test_agent_loop_interprets_existing_results_when_user_asks(tmp_path):
     source = Path(__file__).resolve().parents[1] / "T2process" / "Example data" / "SimulationDecay.xlsx"
     context = AgentRuntimeContext(workspace=tmp_path, uploaded_path=source)

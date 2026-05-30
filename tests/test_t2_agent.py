@@ -9,6 +9,7 @@ from t2_agent.tools import (
     inspect_workbook_schema,
     interpret_results,
     repair_workbook,
+    run_fixed_nnls,
     run_gaussian_peaks,
     run_lcurve,
     validate_workbook,
@@ -86,6 +87,29 @@ def test_validate_workbook_handles_multi_signal_layout_without_named_headers(tmp
     assert result.summary["time_column_excel_index"] == 1
     assert result.summary["signal_excel_columns"] == [2, 3]
     assert list(frame.columns) == ["time_ms", "col_2", "col_3"]
+
+
+def test_uploaded_t2_spectrum_is_not_repaired_or_inverted(tmp_path):
+    path = tmp_path / "uploaded_t2_spectrum.xlsx"
+    t2_ms = np.logspace(-1, 3, 80)
+    amplitude = np.exp(-((np.log10(t2_ms) - 1.0) ** 2) / 0.18)
+    pd.DataFrame({"t2_ms": t2_ms, "amplitude": amplitude}).to_excel(path, index=False)
+
+    validation = validate_workbook(path)
+    repaired = repair_workbook(path, tmp_path / "standardized")
+    lcurve = run_lcurve(path, tmp_path / "lcurve", {"num_bins": 40, "alpha_count": 8})
+    fixed = run_fixed_nnls(path, tmp_path / "nnls", {"regularization": 1.0, "num_bins": 40})
+    gaussian = run_gaussian_peaks(path, tmp_path / "gaussian", {"peak_count": 2})
+
+    assert validation.status == "success"
+    assert validation.summary["data_kind"] == "spectrum"
+    assert repaired.status == "failed"
+    assert repaired.error == "spectrum_input_not_decay"
+    assert lcurve.status == "failed"
+    assert lcurve.error == "spectrum_input_not_decay"
+    assert fixed.status == "failed"
+    assert fixed.error == "spectrum_input_not_decay"
+    assert gaussian.status == "success", gaussian.error
 
 
 def test_guidance_explains_regularization_and_defaults_to_lcurve_for_new_user():
