@@ -51,12 +51,87 @@ def _find_artifact(results: list[AgentToolResult], contains: str, suffixes: tupl
     return None
 
 
+def _find_artifacts(results: list[AgentToolResult], contains: str, suffixes: tuple[str, ...]) -> list[Path]:
+    matches: list[Path] = []
+    seen: set[tuple[Path, str]] = set()
+    for result in results:
+        for artifact in result.artifacts:
+            path = Path(artifact)
+            if contains not in path.name or path.suffix.lower() not in suffixes or not path.exists():
+                continue
+            dedupe_key = (path.resolve().parent, path.stem)
+            if dedupe_key in seen:
+                continue
+            seen.add(dedupe_key)
+            matches.append(path)
+    return matches
+
+
 def _safe_float(value: Any) -> float | None:
     try:
         parsed = float(value)
     except Exception:
         return None
     return parsed if np.isfinite(parsed) else None
+
+
+def _param_token(value: Any) -> str:
+    if isinstance(value, bool):
+        return "true" if value else "false"
+    try:
+        number = float(value)
+    except Exception:
+        return safe_token(str(value))
+    if not np.isfinite(number):
+        return safe_token(str(value))
+    return safe_token(f"{number:.6g}".replace("-", "m").replace("+", "p"))
+
+
+def _inversion_run_output_dir(output_dir: Path, method: str, params: dict[str, Any]) -> Path:
+    output_path = Path(output_dir)
+    if method == "lcurve":
+        run_folder = "__".join(
+            [
+                f"bins_{_param_token(params.get('num_bins', 200))}",
+                f"t2_{_param_token(params.get('t2_min_ms', 1e-2))}_{_param_token(params.get('t2_max_ms', 1e5))}",
+                f"alpha_{_param_token(params.get('alpha_min', 1e-6))}_{_param_token(params.get('alpha_max', 1e2))}",
+                f"alpha_n_{_param_token(params.get('alpha_count', 60))}",
+                f"trim_{_param_token(params.get('trim_from_peak', True))}",
+            ]
+        )
+    elif method == "nnls":
+        run_folder = "__".join(
+            [
+                f"reg_{_param_token(params.get('regularization', 1.0))}",
+                f"bins_{_param_token(params.get('num_bins', 200))}",
+                f"t2_{_param_token(params.get('t2_min_ms', 1.0))}_{_param_token(params.get('t2_max_ms', 1e4))}",
+                f"trim_{_param_token(params.get('trim_from_peak', True))}",
+            ]
+        )
+    else:
+        run_folder = safe_token(method)
+    return output_path if output_path.name == run_folder else output_path / run_folder
+
+
+def _infer_peak_count_from_gaussian_summary_path(path: Path) -> int | None:
+    for part in reversed(path.parts):
+        if part.startswith("peaks_"):
+            value = part.removeprefix("peaks_")
+            if value.isdigit():
+                return int(value)
+    return None
+
+
+def _gaussian_run_output_dir(output_dir: Path, peak_count: int) -> Path:
+    output_path = Path(output_dir)
+    run_folder = f"peaks_{int(peak_count)}"
+    return output_path if output_path.name == run_folder else output_path / run_folder
+
+
+def _plot_run_output_dir(output_dir: Path, spectrum_workbook: Path) -> Path:
+    source_folder = safe_token(Path(spectrum_workbook).parent.name)
+    output_path = Path(output_dir)
+    return output_path if output_path.name == source_folder else output_path / source_folder
 
 
 def interpret_results(results: list[AgentToolResult], output_dir: Path, language: str = "中文") -> AgentToolResult:
@@ -67,11 +142,13 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
         lines = ["# T2 Result Interpretation" if english else "# T2 结果解释", ""]
         summary: dict[str, Any] = {}
 
-        lcurve_summary_path = _find_artifact(results, "lcurve_summary", (".csv", ".xlsx"))
+        lcurve_summary_paths = _find_artifacts(results, "lcurve_summary", (".csv", ".xlsx"))
+        nnls_summary_paths = _find_artifacts(results, "nnls_summary", (".csv", ".xlsx"))
+        lcurve_summary_path = lcurve_summary_paths[0] if lcurve_summary_paths else None
+        nnls_summary_path = nnls_summary_paths[0] if nnls_summary_paths else None
         lcurve_spectrum_path = _find_artifact(results, "lcurve_spectrum", (".xlsx", ".xls"))
-        nnls_summary_path = _find_artifact(results, "nnls_summary", (".csv", ".xlsx"))
         nnls_spectrum_path = _find_artifact(results, "nnls_spectrum", (".xlsx", ".xls"))
-        gaussian_summary_path = _find_artifact(results, "gaussian_summary", (".csv", ".xlsx"))
+        gaussian_summary_paths = _find_artifacts(results, "gaussian_summary", (".csv", ".xlsx"))
 
         inversion_summary_path = lcurve_summary_path or nnls_summary_path
         spectrum_path = lcurve_spectrum_path or nnls_spectrum_path
@@ -108,6 +185,46 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
                     else:
                         lines.append(f"- 粗糙度范数约为 `{roughness_norm:.4g}`，用于衡量 T2 谱是否过度起伏。")
                 lines.append("")
+
+        inversion_run_rows = []
+        for method, summary_paths in (("L-curve", lcurve_summary_paths), ("Fixed NNLS", nnls_summary_paths)):
+            for summary_path in summary_paths:
+                table = _read_first_table(summary_path)
+                if table is None or table.empty:
+                    continue
+                row = table.iloc[0].to_dict()
+                inversion_run_rows.append(
+                    {
+                        "method": method,
+                        "summary_file": str(summary_path),
+                        "run_folder": summary_path.parent.name,
+                        "regularization": _safe_float(row.get("best_regularization", row.get("regularization"))),
+                        "residual_norm": _safe_float(row.get("best_residual_norm", row.get("residual_norm"))),
+                        "roughness_norm": _safe_float(row.get("best_roughness_norm", row.get("roughness_norm"))),
+                    }
+                )
+        if len(inversion_run_rows) > 1:
+            summary["inversion_runs"] = inversion_run_rows
+            lines.append("## Parameter Run Comparison" if english else "## 不同反演参数结果对比")
+            for row in inversion_run_rows:
+                if english:
+                    lines.append(
+                        f"- {row['method']} `{row['run_folder']}`: regularization `{row['regularization']:.4g}`"
+                        if row["regularization"] is not None
+                        else f"- {row['method']} `{row['run_folder']}`"
+                    )
+                else:
+                    lines.append(
+                        f"- {row['method']} `{row['run_folder']}`：平滑因子 `{row['regularization']:.4g}`"
+                        if row["regularization"] is not None
+                        else f"- {row['method']} `{row['run_folder']}`"
+                    )
+                if row["residual_norm"] is not None and row["roughness_norm"] is not None:
+                    if english:
+                        lines.append(f"  Residual norm `{row['residual_norm']:.4g}`, roughness norm `{row['roughness_norm']:.4g}`.")
+                    else:
+                        lines.append(f"  残差范数 `{row['residual_norm']:.4g}`，粗糙度范数 `{row['roughness_norm']:.4g}`。")
+            lines.append("")
 
         if spectrum_path:
             sheets = pd.read_excel(spectrum_path, sheet_name=None)
@@ -150,21 +267,43 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
                     lines.append(f"- 长 T2（>=1000 ms）面积占比约 `{long_fraction:.1%}`，可能对应更自由的流体或长弛豫尾部。")
                 lines.append("")
 
-        if gaussian_summary_path:
+        gaussian_runs = []
+        for gaussian_summary_path in gaussian_summary_paths:
             gaussian_summary = _read_first_table(gaussian_summary_path)
-            if gaussian_summary is not None and not gaussian_summary.empty:
-                lines.append("## Gaussian Peak Interpretation" if english else "## Gaussian 分峰解释")
-                peak_rows = []
-                for _, row in gaussian_summary.iterrows():
-                    peak_rows.append(
-                        {
-                            "peak_id": int(row.get("peak_id", len(peak_rows) + 1)),
-                            "position_ms": _safe_float(row.get("position_ms")),
-                            "area_fraction": _safe_float(row.get("area_fraction")),
-                        }
-                    )
-                summary["gaussian_peaks"] = peak_rows
-                for peak in peak_rows:
+            if gaussian_summary is None or gaussian_summary.empty:
+                continue
+            peak_rows = []
+            for _, row in gaussian_summary.iterrows():
+                peak_rows.append(
+                    {
+                        "peak_id": int(row.get("peak_id", len(peak_rows) + 1)),
+                        "signal_name": str(row.get("signal_name", "")),
+                        "position_ms": _safe_float(row.get("position_ms")),
+                        "area_fraction": _safe_float(row.get("area_fraction")),
+                    }
+                )
+            peak_count = _infer_peak_count_from_gaussian_summary_path(gaussian_summary_path) or len({row["peak_id"] for row in peak_rows})
+            gaussian_runs.append(
+                {
+                    "summary_file": str(gaussian_summary_path),
+                    "peak_count": peak_count,
+                    "peaks": peak_rows,
+                }
+            )
+
+        if gaussian_runs:
+            lines.append("## Gaussian Peak Interpretation" if english else "## Gaussian 分峰解释")
+            summary["gaussian_runs"] = gaussian_runs
+            if len(gaussian_runs) == 1:
+                summary["gaussian_peaks"] = gaussian_runs[0]["peaks"]
+            for run in gaussian_runs:
+                peak_count = run["peak_count"]
+                if len(gaussian_runs) > 1:
+                    if english:
+                        lines.append(f"### {peak_count}-Peak Fit")
+                    else:
+                        lines.append(f"### {peak_count} 峰拟合")
+                for peak in run["peaks"]:
                     position = peak["position_ms"]
                     fraction = peak["area_fraction"]
                     if position is not None and fraction is not None:
@@ -768,9 +907,10 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
             alpha_count=int(params.get("alpha_count", 60)),
             min_points_after_trim=int(params.get("min_points_after_trim", 10)),
         )
+        run_output_dir = _inversion_run_output_dir(Path(output_dir), "lcurve", params)
         result = run_lcurve_workbook(
             Path(input_workbook),
-            Path(output_dir),
+            run_output_dir,
             config=cfg,
             plot_config=PlotConfig(),
             time_to_ms_scale=float(params.get("time_to_ms_scale", 1.0)),
@@ -782,11 +922,16 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
         _add_pair_plot_artifacts(
             raw_decay_workbook=Path(input_workbook),
             spectrum_workbook=spectrum_path,
-            output_dir=Path(output_dir),
+            output_dir=run_output_dir,
             artifacts=artifacts,
             summary=summary,
         )
-        message = "L-curve inversion completed. The smoothing factor was selected automatically, and the T2 spectrum, metrics table, and figures were exported." if english else "L-curve 反演完成，已自动选择平滑因子并导出 T2 谱、指标表和图像。"
+        summary["output_dir"] = str(run_output_dir)
+        message = (
+            f"L-curve inversion completed. Outputs are grouped in {run_output_dir.name}."
+            if english
+            else f"L-curve 反演完成。结果已归入 {run_output_dir.name}。"
+        )
         return AgentToolResult(
             "success",
             message,
@@ -814,24 +959,29 @@ def run_fixed_nnls(input_workbook: Path, output_dir: Path, params: dict[str, Any
             t2_max_ms=float(params.get("t2_max_ms", 1e4)),
             min_points_after_trim=int(params.get("min_points_after_trim", 10)),
         )
+        run_output_dir = _inversion_run_output_dir(Path(output_dir), "nnls", params)
         result = run_nnls_workbook(
             Path(input_workbook),
-            Path(output_dir),
+            run_output_dir,
             config=cfg,
             time_to_ms_scale=float(params.get("time_to_ms_scale", 1.0)),
             trim_from_peak=bool(params.get("trim_from_peak", True)),
         )
         artifacts = _as_artifacts(result)
-        summary = {key: str(value) for key, value in result.items()} | {"regularization": regularization}
+        summary = {key: str(value) for key, value in result.items()} | {"regularization": regularization, "output_dir": str(run_output_dir)}
         spectrum_path = Path(result["spectrum_xlsx"]) if "spectrum_xlsx" in result else None
         _add_pair_plot_artifacts(
             raw_decay_workbook=Path(input_workbook),
             spectrum_workbook=spectrum_path,
-            output_dir=Path(output_dir),
+            output_dir=run_output_dir,
             artifacts=artifacts,
             summary=summary,
         )
-        message = f"Fixed-regularization NNLS inversion completed with smoothing factor {regularization:g}." if english else f"固定 NNLS 反演完成，使用平滑因子 {regularization:g}。"
+        message = (
+            f"Fixed-regularization NNLS inversion completed with smoothing factor {regularization:g}. Outputs are grouped in {run_output_dir.name}."
+            if english
+            else f"固定 NNLS 反演完成，使用平滑因子 {regularization:g}。结果已归入 {run_output_dir.name}。"
+        )
         return AgentToolResult(
             "success",
             message,
@@ -855,19 +1005,24 @@ def plot_decay_spectrum(
     params = params or {}
     try:
         english = _is_english(language)
+        run_output_dir = _plot_run_output_dir(Path(output_dir), Path(spectrum_workbook))
         result = run_plotting_workbook_pair(
             Path(raw_decay_workbook),
             Path(spectrum_workbook),
-            Path(output_dir),
+            run_output_dir,
             plot_config=PlotConfig(),
             time_to_ms_scale=float(params.get("time_to_ms_scale", 1.0)),
         )
-        message = "Paired decay-curve and T2-spectrum figures were generated." if english else "衰减曲线和 T2 谱配对图已生成。"
+        message = (
+            f"Paired decay-curve and T2-spectrum figures were generated in {run_output_dir.name}."
+            if english
+            else f"衰减曲线和 T2 谱配对图已生成，并归入 {run_output_dir.name}。"
+        )
         return AgentToolResult(
             "success",
             message,
             artifacts=_as_artifacts(list(result.values())),
-            summary={"figure_count": len(result)},
+            summary={"figure_count": len(result), "output_dir": str(run_output_dir)},
         )
     except Exception as exc:
         message = "Paired figure generation failed." if _is_english(language) else "配对图生成失败。"
@@ -881,18 +1036,23 @@ def run_gaussian_peaks(spectrum_workbook: Path, output_dir: Path, params: dict[s
     try:
         english = _is_english(language)
         peak_count = int(params.get("peak_count", 2))
+        run_output_dir = _gaussian_run_output_dir(Path(output_dir), peak_count)
         result = run_gaussian_decomposition_on_spectrum_workbook(
             Path(spectrum_workbook),
-            Path(output_dir),
+            run_output_dir,
             config=GaussianConfig(peak_count=peak_count),
             plot_config=PlotConfig(),
         )
-        message = f"Gaussian peak decomposition completed with {peak_count} peaks." if english else f"Gaussian 分峰完成，使用 {peak_count} 个峰。"
+        message = (
+            f"Gaussian peak decomposition completed with {peak_count} peaks. Outputs are grouped in {run_output_dir.name}."
+            if english
+            else f"Gaussian 分峰完成，使用 {peak_count} 个峰。结果已归入 {run_output_dir.name}。"
+        )
         return AgentToolResult(
             "success",
             message,
             artifacts=_as_artifacts(result),
-            summary={key: str(value) for key, value in result.items()} | {"peak_count": peak_count},
+            summary={key: str(value) for key, value in result.items()} | {"peak_count": peak_count, "output_dir": str(run_output_dir)},
         )
     except Exception as exc:
         message = "Gaussian peak decomposition failed." if _is_english(language) else "Gaussian 分峰失败。"

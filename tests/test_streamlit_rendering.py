@@ -39,3 +39,37 @@ def test_make_zip_preserves_batch_result_folders(tmp_path):
 
     assert "batch_results/sample_a.xlsx/report/report.md" in names
     assert "batch_results/sample_b.xlsx/report/report.md" in names
+
+
+def test_make_zip_preserves_gaussian_peak_count_folders(tmp_path):
+    peak_2 = tmp_path / "tasks" / "sample.xlsx" / "gaussian" / "peaks_2" / "sample__gaussian_figures" / "col_2__gaussian.png"
+    peak_3 = tmp_path / "tasks" / "sample.xlsx" / "gaussian" / "peaks_3" / "sample__gaussian_figures" / "col_2__gaussian.png"
+    peak_2.parent.mkdir(parents=True)
+    peak_3.parent.mkdir(parents=True)
+    peak_2.write_bytes(b"two")
+    peak_3.write_bytes(b"three")
+
+    zip_bytes = make_zip([peak_2, peak_3])
+
+    with ZipFile(io.BytesIO(zip_bytes)) as archive:
+        names = set(archive.namelist())
+
+    assert "sample.xlsx/gaussian/peaks_2/sample__gaussian_figures/col_2__gaussian.png" in names
+    assert "sample.xlsx/gaussian/peaks_3/sample__gaussian_figures/col_2__gaussian.png" in names
+
+
+def test_make_zip_preserves_parameter_run_folders(tmp_path):
+    run_a = tmp_path / "tasks" / "sample.xlsx" / "lcurve" / "bins_50__alpha_n_8" / "sample__lcurve_spectrum.xlsx"
+    run_b = tmp_path / "tasks" / "sample.xlsx" / "lcurve" / "bins_80__alpha_n_10" / "sample__lcurve_spectrum.xlsx"
+    run_a.parent.mkdir(parents=True)
+    run_b.parent.mkdir(parents=True)
+    run_a.write_bytes(b"a")
+    run_b.write_bytes(b"b")
+
+    zip_bytes = make_zip([run_a, run_b])
+
+    with ZipFile(io.BytesIO(zip_bytes)) as archive:
+        names = set(archive.namelist())
+
+    assert "sample.xlsx/lcurve/bins_50__alpha_n_8/sample__lcurve_spectrum.xlsx" in names
+    assert "sample.xlsx/lcurve/bins_80__alpha_n_10/sample__lcurve_spectrum.xlsx" in names

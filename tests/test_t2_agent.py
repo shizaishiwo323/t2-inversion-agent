@@ -8,6 +8,7 @@ from t2_agent.tools import (
     generate_report,
     inspect_workbook_schema,
     interpret_results,
+    plot_decay_spectrum,
     repair_workbook,
     run_fixed_nnls,
     run_gaussian_peaks,
@@ -112,6 +113,95 @@ def test_uploaded_t2_spectrum_is_not_repaired_or_inverted(tmp_path):
     assert fixed.status == "failed"
     assert fixed.error == "spectrum_input_not_decay"
     assert gaussian.status == "success", gaussian.error
+
+
+def test_repeated_gaussian_runs_are_grouped_by_peak_count(tmp_path):
+    path = tmp_path / "uploaded_t2_spectrum.xlsx"
+    t2_ms = np.logspace(-1, 3, 80)
+    log_t2 = np.log10(t2_ms)
+    amplitude = np.exp(-((log_t2 - 1.0) ** 2) / 0.18) + 0.25 * np.exp(-((log_t2 - 2.1) ** 2) / 0.12)
+    pd.DataFrame({"t2_ms": t2_ms, "amplitude": amplitude}).to_excel(path, index=False)
+
+    two_peak = run_gaussian_peaks(path, tmp_path / "gaussian", {"peak_count": 2})
+    three_peak = run_gaussian_peaks(path, tmp_path / "gaussian", {"peak_count": 3})
+
+    assert two_peak.status == "success", two_peak.error
+    assert three_peak.status == "success", three_peak.error
+    assert two_peak.summary["output_dir"].endswith("peaks_2")
+    assert three_peak.summary["output_dir"].endswith("peaks_3")
+    assert set(map(Path, two_peak.artifacts)).isdisjoint(set(map(Path, three_peak.artifacts)))
+    assert any("peaks_2" in Path(path).parts and path.endswith("_gaussian.png") for path in two_peak.artifacts)
+    assert any("peaks_3" in Path(path).parts and path.endswith("_gaussian.png") for path in three_peak.artifacts)
+
+    interpretation = interpret_results([two_peak, three_peak], tmp_path / "interpretation")
+    assert interpretation.status == "success", interpretation.error
+    assert "2 峰拟合" in interpretation.message
+    assert "3 峰拟合" in interpretation.message
+
+
+def test_repeated_lcurve_runs_are_grouped_by_parameters(tmp_path):
+    validation = validate_workbook(SIMULATION)
+    repaired = repair_workbook(SIMULATION, tmp_path / "standardized", validation.summary["recommended_time_to_ms_scale"])
+    repaired_workbook = Path(repaired.artifacts[0])
+
+    first = run_lcurve(
+        repaired_workbook,
+        tmp_path / "lcurve",
+        {"num_bins": 50, "alpha_count": 8, "t2_min_ms": 0.01, "t2_max_ms": 100000.0},
+    )
+    second = run_lcurve(
+        repaired_workbook,
+        tmp_path / "lcurve",
+        {"num_bins": 80, "alpha_count": 10, "t2_min_ms": 0.1, "t2_max_ms": 10000.0},
+    )
+
+    assert first.status == "success", first.error
+    assert second.status == "success", second.error
+    assert first.summary["output_dir"] != second.summary["output_dir"]
+    assert "bins_50" in first.summary["output_dir"]
+    assert "bins_80" in second.summary["output_dir"]
+    assert set(map(Path, first.artifacts)).isdisjoint(set(map(Path, second.artifacts)))
+    assert any("paired_plots" in Path(path).parts and path.endswith("_decay_t2.png") for path in first.artifacts)
+    assert any("paired_plots" in Path(path).parts and path.endswith("_decay_t2.png") for path in second.artifacts)
+
+    interpretation = interpret_results([first, second], tmp_path / "interpretation")
+    assert interpretation.status == "success", interpretation.error
+    assert "不同反演参数结果对比" in interpretation.message
+    assert len(interpretation.summary["inversion_runs"]) == 2
+
+
+def test_repeated_fixed_nnls_runs_are_grouped_by_parameters(tmp_path):
+    validation = validate_workbook(SIMULATION)
+    repaired = repair_workbook(SIMULATION, tmp_path / "standardized", validation.summary["recommended_time_to_ms_scale"])
+    repaired_workbook = Path(repaired.artifacts[0])
+
+    weak = run_fixed_nnls(repaired_workbook, tmp_path / "nnls", {"regularization": 0.1, "num_bins": 50})
+    strong = run_fixed_nnls(repaired_workbook, tmp_path / "nnls", {"regularization": 10.0, "num_bins": 50})
+
+    assert weak.status == "success", weak.error
+    assert strong.status == "success", strong.error
+    assert weak.summary["output_dir"] != strong.summary["output_dir"]
+    assert "reg_01" in weak.summary["output_dir"]
+    assert "reg_10" in strong.summary["output_dir"]
+    assert set(map(Path, weak.artifacts)).isdisjoint(set(map(Path, strong.artifacts)))
+    assert any("paired_plots" in Path(path).parts and path.endswith("_decay_t2.png") for path in weak.artifacts)
+    assert any("paired_plots" in Path(path).parts and path.endswith("_decay_t2.png") for path in strong.artifacts)
+
+
+def test_standalone_pair_plots_are_grouped_by_spectrum_parameter_folder(tmp_path):
+    validation = validate_workbook(SIMULATION)
+    repaired = repair_workbook(SIMULATION, tmp_path / "standardized", validation.summary["recommended_time_to_ms_scale"])
+    repaired_workbook = Path(repaired.artifacts[0])
+    first = run_lcurve(repaired_workbook, tmp_path / "lcurve", {"num_bins": 50, "alpha_count": 8})
+    second = run_lcurve(repaired_workbook, tmp_path / "lcurve", {"num_bins": 80, "alpha_count": 10})
+
+    first_plot = plot_decay_spectrum(repaired_workbook, Path(first.summary["spectrum_xlsx"]), tmp_path / "plots")
+    second_plot = plot_decay_spectrum(repaired_workbook, Path(second.summary["spectrum_xlsx"]), tmp_path / "plots")
+
+    assert first_plot.status == "success", first_plot.error
+    assert second_plot.status == "success", second_plot.error
+    assert first_plot.summary["output_dir"] != second_plot.summary["output_dir"]
+    assert set(map(Path, first_plot.artifacts)).isdisjoint(set(map(Path, second_plot.artifacts)))
 
 
 def test_validate_uses_curve_shape_when_decay_has_spectrum_like_headers(tmp_path):
