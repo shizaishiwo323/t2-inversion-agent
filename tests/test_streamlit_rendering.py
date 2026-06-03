@@ -3,7 +3,19 @@ from zipfile import ZipFile
 import io
 
 from t2_agent.models import AgentToolResult
-from streamlit_app import enhance_report_with_conversation, exportable_assistant_analysis, make_zip, resolve_artifact_image_reference
+from streamlit_app import (
+    DEFAULT_MODEL,
+    DEFAULT_THINKING_ENABLED,
+    enhance_report_with_conversation,
+    exportable_assistant_analysis,
+    make_zip,
+    resolve_artifact_image_reference,
+)
+
+
+def test_default_chat_model_uses_deepseek_flash_thinking_mode():
+    assert DEFAULT_MODEL == "deepseek-v4-flash"
+    assert DEFAULT_THINKING_ENABLED is True
 
 
 def test_resolve_artifact_image_reference_matches_stem_and_basename(tmp_path):

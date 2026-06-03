@@ -20,6 +20,9 @@ IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
 MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 REPORT_ANALYSIS_START = "<!-- conversation-analysis:start -->"
 REPORT_ANALYSIS_END = "<!-- conversation-analysis:end -->"
+AVAILABLE_MODELS = ["deepseek-v4-flash", "deepseek-v4-pro"]
+DEFAULT_MODEL = "deepseek-v4-flash"
+DEFAULT_THINKING_ENABLED = True
 
 
 WELCOME_MESSAGES = {
@@ -615,8 +618,8 @@ def main() -> None:
             key="language",
         )
         sync_language_seed_messages()
-        model = st.selectbox(t(language, "model"), ["deepseek-v4-flash", "deepseek-v4-pro"], index=0)
-        thinking_enabled = st.toggle(t(language, "thinking_mode"), value=False)
+        model = st.selectbox(t(language, "model"), AVAILABLE_MODELS, index=AVAILABLE_MODELS.index(DEFAULT_MODEL))
+        thinking_enabled = st.toggle(t(language, "thinking_mode"), value=DEFAULT_THINKING_ENABLED)
         user_api_key = st.text_input(
             "DeepSeek API Key",
             type="password",
