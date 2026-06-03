@@ -2,7 +2,8 @@ from pathlib import Path
 from zipfile import ZipFile
 import io
 
-from streamlit_app import make_zip, resolve_artifact_image_reference
+from t2_agent.models import AgentToolResult
+from streamlit_app import enhance_report_with_conversation, exportable_assistant_analysis, make_zip, resolve_artifact_image_reference
 
 
 def test_resolve_artifact_image_reference_matches_stem_and_basename(tmp_path):
@@ -73,3 +74,40 @@ def test_make_zip_preserves_parameter_run_folders(tmp_path):
 
     assert "sample.xlsx/lcurve/bins_50__alpha_n_8/sample__lcurve_spectrum.xlsx" in names
     assert "sample.xlsx/lcurve/bins_80__alpha_n_10/sample__lcurve_spectrum.xlsx" in names
+
+
+def test_enhance_report_with_conversation_exports_substantive_chat_analysis(tmp_path):
+    report_path = tmp_path / "report.md"
+    report_path.write_text("# T2 反演智能体报告\n\n## 工具运行结果\n- 原始工具摘要\n", encoding="utf-8")
+    report = AgentToolResult("success", "ok", artifacts=[str(report_path)])
+    messages = [
+        ("assistant", "准备好后再上传 Excel，并告诉我你的目标。"),
+        (
+            "assistant",
+            "## 五种分峰方案对比分析\n\n3 峰方案最推荐，因为它在拟合曲线、面积分布和解释稳定性之间取得较好平衡。2 峰偏粗，5 和 6 峰出现过度拆分风险。",
+        ),
+    ]
+
+    assert enhance_report_with_conversation(report, messages, "中文") is True
+    first_text = report_path.read_text(encoding="utf-8")
+    assert "## 对话综合分析" in first_text
+    assert "五种分峰方案对比分析" in first_text
+    assert "3 峰方案最推荐" in first_text
+
+    assert enhance_report_with_conversation(report, messages, "中文") is False
+    second_text = report_path.read_text(encoding="utf-8")
+    assert second_text.count("## 对话综合分析") == 1
+    assert second_text == first_text
+
+
+def test_exportable_assistant_analysis_filters_seed_messages():
+    messages = [
+        ("assistant", "准备好后再上传 Excel，并告诉我你的目标。"),
+        ("user", "请分析"),
+        ("assistant", "太短"),
+        ("assistant", "这是一段足够长的分析内容，用于说明不同参数结果的优劣、风险和建议选择，应该进入最终报告导出。"),
+    ]
+
+    analyses = exportable_assistant_analysis(messages, "中文")
+
+    assert analyses == ["这是一段足够长的分析内容，用于说明不同参数结果的优劣、风险和建议选择，应该进入最终报告导出。"]

@@ -18,6 +18,8 @@ APP_ROOT = Path(__file__).resolve().parent
 RUNS_ROOT = APP_ROOT / "runs"
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
 MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
+REPORT_ANALYSIS_START = "<!-- conversation-analysis:start -->"
+REPORT_ANALYSIS_END = "<!-- conversation-analysis:end -->"
 
 
 WELCOME_MESSAGES = {
@@ -460,6 +462,89 @@ def refresh_zip_from_context(context: AgentRuntimeContext) -> None:
         st.session_state.file_zip_bytes[active_path] = st.session_state.zip_bytes
 
 
+def exportable_assistant_analysis(messages: list[tuple[str, str]], language: str) -> list[str]:
+    """Return substantive assistant analyses that should be preserved in the final report."""
+
+    seed_messages = set(WELCOME_MESSAGES.values()) | {
+        t("中文", "upload_received"),
+        t("English", "upload_received"),
+        t("中文", "missing_key_reply"),
+        t("English", "missing_key_reply"),
+    }
+    excluded_fragments = (
+        "Markdown report generated",
+        "Markdown 报告已生成",
+        "I called several rounds of tools",
+        "我已经调用了多轮工具",
+    )
+    analyses: list[str] = []
+    seen: set[str] = set()
+    for role, content in messages:
+        text = content.strip()
+        if role != "assistant" or not text or text in seed_messages:
+            continue
+        if any(fragment in text for fragment in excluded_fragments):
+            continue
+        if len(text) < 35:
+            continue
+        normalized = re.sub(r"\s+", " ", text)
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        analyses.append(text)
+    return analyses[-6:]
+
+
+def enhance_report_with_conversation(report: AgentToolResult | None, messages: list[tuple[str, str]], language: str) -> bool:
+    """Inject useful chat-side analysis into the Markdown report artifact."""
+
+    if report is None or not report.artifacts:
+        return False
+    report_path = Path(report.artifacts[0])
+    if not report_path.exists():
+        return False
+
+    analyses = exportable_assistant_analysis(messages, language)
+    original = report_path.read_text(encoding="utf-8")
+    cleaned = re.sub(
+        rf"\n?{re.escape(REPORT_ANALYSIS_START)}.*?{re.escape(REPORT_ANALYSIS_END)}\n?",
+        "\n",
+        original,
+        flags=re.DOTALL,
+    ).strip()
+    cleaned = re.sub(r"\n{3,}", "\n\n", cleaned)
+    if not analyses:
+        if cleaned != original.strip():
+            report_path.write_text(cleaned + "\n", encoding="utf-8")
+            return True
+        return False
+
+    english = language == "English"
+    section = [
+        REPORT_ANALYSIS_START,
+        "## Conversation-Based Analysis" if english else "## 对话综合分析",
+        "",
+        (
+            "The following analysis was preserved from the assistant's conversation-side interpretation, so the exported report reflects the fuller reasoning shown in the chat."
+            if english
+            else "以下内容来自左侧对话中的分析与总结，用于让导出的最终报告保留更完整的解释过程。"
+        ),
+        "",
+    ]
+    for idx, analysis in enumerate(analyses, start=1):
+        section.extend([f"### Analysis {idx}" if english else f"### 分析 {idx}", analysis, ""])
+    section.append(REPORT_ANALYSIS_END)
+
+    lines = cleaned.splitlines()
+    insert_at = 1 if lines and lines[0].startswith("# ") else 0
+    enhanced = "\n".join(lines[:insert_at] + ["", *section, ""] + lines[insert_at:]).strip() + "\n"
+    enhanced = re.sub(r"\n{3,}", "\n\n", enhanced)
+    if enhanced.strip() == original.strip():
+        return False
+    report_path.write_text(enhanced, encoding="utf-8")
+    return True
+
+
 def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bool) -> None:
     context = current_context()
     if context is None:
@@ -495,6 +580,7 @@ def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bo
         st.session_state.agent_messages = result.messages
         st.session_state.display_messages.append(("assistant", result.assistant_message))
         st.session_state.display_traces.append(result.trace)
+        enhance_report_with_conversation(context.report, st.session_state.display_messages, language)
         refresh_zip_from_context(context)
         save_current_file_state()
         for tool_result in result.tool_results:
@@ -569,7 +655,7 @@ def main() -> None:
         st.subheader(t(language, "data_results"))
         uploaded_files = st.file_uploader(
             t(language, "uploader"),
-            type=["xlsx", "xls"],
+            type=["xlsx", "xls", "csv", "pea", "txt", "dat"],
             accept_multiple_files=True,
         )
         register_uploaded_files(uploaded_files or [])

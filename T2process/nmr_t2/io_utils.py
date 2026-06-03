@@ -7,6 +7,7 @@ consistent file names, sheet names, and data columns.
 
 from __future__ import annotations
 
+import csv
 import re
 from pathlib import Path
 from typing import Dict, Iterable, Tuple
@@ -15,6 +16,10 @@ import numpy as np
 import pandas as pd
 
 from .models import TrimmedSignal
+
+
+TEXT_TABLE_SUFFIXES = {".csv", ".txt", ".dat", ".pea"}
+FLOAT_PATTERN = re.compile(r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?")
 
 
 def safe_token(text: str) -> str:
@@ -102,6 +107,92 @@ def cell_to_float(value: object) -> float:
     return np.nan
 
 
+def _read_text_with_fallbacks(file_path: Path) -> str:
+    for encoding in ("utf-8-sig", "utf-8", "gb18030", "latin1"):
+        try:
+            return file_path.read_text(encoding=encoding)
+        except UnicodeDecodeError:
+            continue
+    return file_path.read_text(encoding="utf-8", errors="replace")
+
+
+def _parse_text_header(line: str, expected_columns: int) -> list[str]:
+    cleaned = line.strip()
+    if not cleaned:
+        return []
+
+    if "," in cleaned or "\t" in cleaned or ";" in cleaned:
+        try:
+            tokens = next(csv.reader([cleaned]))
+        except csv.Error:
+            tokens = re.split(r"[,;\t]+", cleaned)
+    else:
+        tokens = re.split(r"\s*(?:--+)\s*|\s{2,}", cleaned)
+
+    labels = [token.strip().strip("-") for token in tokens if token.strip().strip("-")]
+    if len(labels) == 1 and expected_columns > 1:
+        labels = re.split(r"\s+", labels[0])
+    return labels[:expected_columns]
+
+
+def _read_numeric_text_table(file_path: Path, *, max_columns: int | None = None) -> pd.DataFrame:
+    """Read text decay formats such as `.pea`, keeping metadata out of the table."""
+
+    lines = _read_text_with_fallbacks(file_path).splitlines()
+    numeric_rows: list[list[float]] = []
+    header_line: str | None = None
+    data_started = False
+
+    for line in lines:
+        stripped = line.strip()
+        if not stripped:
+            continue
+
+        values = [float(match.group(0)) for match in FLOAT_PATTERN.finditer(stripped)]
+        if len(values) >= 2:
+            numeric_rows.append(values[:max_columns] if max_columns else values)
+            data_started = True
+            continue
+
+        if not data_started and "=" not in stripped and re.search(r"[A-Za-z\u4e00-\u9fff]", stripped):
+            header_line = stripped
+
+    if not numeric_rows:
+        raise ValueError(f"No numeric data rows were detected in text file: {file_path}")
+
+    column_count = max(len(row) for row in numeric_rows)
+    normalized_rows = [row + [np.nan] * (column_count - len(row)) for row in numeric_rows]
+    rows: list[list[object]] = []
+    if header_line:
+        labels = _parse_text_header(header_line, column_count)
+        if len(labels) >= 2:
+            rows.append(labels + [f"col_{idx + 1}" for idx in range(len(labels), column_count)])
+    rows.extend(normalized_rows)
+    return pd.DataFrame(rows)
+
+
+def read_source_table(file_path: Path) -> pd.DataFrame:
+    """Read a supported upload/source table as raw cells with no inferred header.
+
+    Excel workbooks remain the primary input format. Plain-text decay exports,
+    including `.pea` echo peak files, are parsed by skipping metadata lines and
+    retaining numeric rows.
+    """
+
+    path = Path(file_path)
+    suffix = path.suffix.lower()
+    if suffix in {".xlsx", ".xls"}:
+        return pd.read_excel(path, header=None, dtype=object)
+    if suffix in TEXT_TABLE_SUFFIXES:
+        if suffix == ".csv":
+            try:
+                return pd.read_csv(path, header=None, dtype=object)
+            except Exception:
+                return _read_numeric_text_table(path)
+        return _read_numeric_text_table(path, max_columns=2 if suffix == ".pea" else None)
+    raise ValueError(f"Unsupported input file type: {path.suffix or '(none)'}")
+
+
 def load_decay_table_multi_column(
     file_path: Path,
     *,
@@ -132,7 +223,7 @@ def load_decay_table_multi_column(
         Excel 1-based column ids for retained signal columns.
     """
 
-    table = pd.read_excel(file_path, header=None, dtype=object)
+    table = read_source_table(file_path)
     if table.empty:
         raise ValueError(f"Input workbook is empty: {file_path}")
 

@@ -1,7 +1,9 @@
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
+from matplotlib.text import Annotation
 
 from t2_agent.guidance import build_parameter_guidance, infer_requested_plan
 from t2_agent.tools import (
@@ -16,10 +18,15 @@ from t2_agent.tools import (
     validate_workbook,
 )
 
+from T2process.nmr_t2.io_utils import load_decay_table_multi_column
+from T2process.nmr_t2.models import LCurveInversionResult
+from T2process.nmr_t2.plotting import plot_lcurve_result
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SIMULATION = ROOT / "T2process" / "Example data" / "SimulationDecay.xlsx"
 SWAPPED_EXPERIMENTAL = ROOT / "T2process" / "Example data" / "ExperimentalDecay.xlsx"
+PEA_DECAY = ROOT / "testData" / "standard 30%.1.pea"
 
 
 def test_validate_workbook_detects_decay_data_and_recommends_seconds_scale():
@@ -69,6 +76,67 @@ def test_validate_and_repair_experimental_decay_fixture(tmp_path):
     assert list(frame.columns)[:2] == ["time_ms", "Peak"]
     assert frame["time_ms"].iloc[0] == 0.1005
     assert frame["Peak"].iloc[0] == 7282.1999
+
+
+def test_validate_and_repair_pea_decay_uses_first_two_columns(tmp_path):
+    result = validate_workbook(PEA_DECAY)
+
+    assert result.status == "success", result.error
+    assert result.summary["data_kind"] == "decay"
+    assert result.summary["valid_time_rows"] == 8000
+    assert result.summary["recommended_time_to_ms_scale"] == 1.0
+    assert result.summary["time_column_label"] == "Time(ms)"
+    assert result.summary["signal_column_labels"][0] == "Amplitude"
+    assert result.summary["signal_excel_columns"][0] == 2
+
+    repaired = repair_workbook(PEA_DECAY, tmp_path, result.summary["recommended_time_to_ms_scale"])
+    frame = pd.read_excel(repaired.artifacts[0])
+
+    assert repaired.status == "success", repaired.error
+    assert list(frame.columns)[:2] == ["time_ms", "Amplitude"]
+    assert frame["time_ms"].iloc[0] == 0.201001
+    assert frame["Amplitude"].iloc[0] == 1098.5267
+
+
+def test_low_level_pea_decay_loader_keeps_first_two_numeric_columns():
+    time_ms, signal_matrix, signal_names, column_ids = load_decay_table_multi_column(PEA_DECAY)
+
+    assert time_ms.shape == (8000,)
+    assert signal_matrix.shape[0] == 8000
+    assert signal_names[0] == "col_2"
+    assert column_ids[0] == 2
+    assert time_ms[0] == 0.201001
+    assert signal_matrix[0, 0] == 1098.5267
+
+
+def test_lcurve_plot_labels_best_regularization_at_selected_point(monkeypatch):
+    monkeypatch.setattr(plt, "close", lambda figure: None)
+    result = LCurveInversionResult(
+        signal_name="col_2",
+        t2_bins_ms=np.array([1.0, 10.0]),
+        spectrum=np.array([0.2, 0.8]),
+        fit_time_ms=np.array([1.0, 2.0]),
+        fit_amplitude=np.array([1.0, 0.8]),
+        residual=np.array([0.0, 0.1]),
+        best_regularization=7.609e-2,
+        best_index=1,
+        alpha_values=np.array([1e-3, 7.609e-2, 1.0]),
+        residual_norms=np.array([20.0, 40.0, 120.0]),
+        roughness_norms=np.array([300.0, 140.0, 20.0]),
+        zeta_values=np.array([0.0, 0.0, 0.0]),
+        eta_values=np.array([0.0, 0.0, 0.0]),
+        slope_reciprocal_values=np.array([0.4, 0.2156, 0.1]),
+        used_range_filter=True,
+        metadata={},
+    )
+
+    plot_lcurve_result(result)
+    axis = plt.gcf().axes[0]
+    annotations = [text for text in axis.texts if isinstance(text, Annotation)]
+
+    assert any("Best eps = 7.609e-02" in item.get_text() for item in annotations)
+    assert any("R = 0.2156" in item.get_text() for item in annotations)
+    assert all(item.arrow_patch is not None for item in annotations)
 
 
 def test_validate_workbook_handles_multi_signal_layout_without_named_headers(tmp_path):

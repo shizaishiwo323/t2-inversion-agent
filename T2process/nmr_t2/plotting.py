@@ -128,6 +128,23 @@ def plot_lcurve_result(
         label=f"Best eps={result.best_regularization:.3e}",
     )
 
+    best_residual = float(result.residual_norms[result.best_index])
+    best_roughness = float(result.roughness_norms[result.best_index])
+    best_reciprocal = float(result.slope_reciprocal_values[result.best_index])
+    best_label = f"Best eps = {result.best_regularization:.3e}\nR = {best_reciprocal:.4f}"
+    axis.annotate(
+        best_label,
+        xy=(best_residual, best_roughness),
+        xycoords="data",
+        xytext=(28, 24),
+        textcoords="offset points",
+        fontsize=font_sizes["annotation"],
+        ha="left",
+        va="bottom",
+        bbox={"boxstyle": "round,pad=0.3", "facecolor": "white", "edgecolor": c_best, "alpha": 0.88},
+        arrowprops={"arrowstyle": "->", "color": c_best, "linewidth": 1.4},
+    )
+
     axis.set_xlabel("Residual norm ||W(Af - b)||", fontsize=font_sizes["axis_label"])
     axis.set_ylabel("Roughness norm ||Lf||", fontsize=font_sizes["axis_label"])
     axis.set_title(f"L-curve: {result.signal_name}", fontsize=font_sizes["axis_title"])
@@ -135,11 +152,7 @@ def plot_lcurve_result(
     axis.grid(True, which="both", alpha=0.25)
     axis.legend(fontsize=font_sizes["legend"], loc="best")
 
-    text = (
-        f"Best eps = {result.best_regularization:.3e}\n"
-        f"R = {float(result.slope_reciprocal_values[result.best_index]):.4f}"
-    )
-    axis.text(0.03, 0.05, text, transform=axis.transAxes, fontsize=font_sizes["annotation"])
+    axis.text(0.03, 0.05, best_label, transform=axis.transAxes, fontsize=font_sizes["annotation"])
 
     if output_path is not None:
         output_path.parent.mkdir(parents=True, exist_ok=True)

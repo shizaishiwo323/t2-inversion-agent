@@ -18,7 +18,7 @@ if str(T2PROCESS_ROOT) not in sys.path:
     sys.path.insert(0, str(T2PROCESS_ROOT))
 
 from nmr_t2.config import GaussianConfig, LCurveConfig, NnlsConfig, PlotConfig  # noqa: E402
-from nmr_t2.io_utils import cell_to_float, parse_time_cell, safe_token  # noqa: E402
+from nmr_t2.io_utils import cell_to_float, parse_time_cell, read_source_table, safe_token  # noqa: E402
 from nmr_t2.pipelines import (  # noqa: E402
     run_gaussian_decomposition_on_spectrum_workbook,
     run_lcurve_workbook,
@@ -367,7 +367,7 @@ def _profile_columns(table: pd.DataFrame) -> list[dict[str, Any]]:
 
 
 def inspect_workbook_schema(input_workbook: Path, preview_rows: int = 8, language: str = "中文") -> AgentToolResult:
-    """Return workbook preview and column profiles for AI reasoning."""
+    """Return uploaded table preview and column profiles for AI reasoning."""
 
     try:
         english = _is_english(language)
@@ -376,9 +376,9 @@ def inspect_workbook_schema(input_workbook: Path, preview_rows: int = 8, languag
             message = f"Uploaded file not found: {input_path}" if english else f"找不到上传文件：{input_path}"
             return AgentToolResult("failed", message, error="file_not_found")
 
-        workbook = pd.ExcelFile(input_path)
-        sheet_name = workbook.sheet_names[0]
-        table = pd.read_excel(input_path, sheet_name=sheet_name, header=None, dtype=object)
+        workbook = pd.ExcelFile(input_path) if input_path.suffix.lower() in {".xlsx", ".xls"} else None
+        sheet_name = workbook.sheet_names[0] if workbook else input_path.name
+        table = read_source_table(input_path)
         preview = table.head(int(preview_rows)).where(pd.notnull(table.head(int(preview_rows))), None).values.tolist()
         profiles = _profile_columns(table)
         preliminary_data_kind = "unknown"
@@ -409,7 +409,7 @@ def inspect_workbook_schema(input_workbook: Path, preview_rows: int = 8, languag
             "success",
             message,
             summary={
-                "sheet_names": workbook.sheet_names,
+                "sheet_names": workbook.sheet_names if workbook else [input_path.name],
                 "active_sheet": sheet_name,
                 "shape": [int(table.shape[0]), int(table.shape[1])],
                 "preliminary_data_kind": preliminary_data_kind,
@@ -469,7 +469,7 @@ def _add_pair_plot_artifacts(
 
 
 def _read_raw_table(input_workbook: Path) -> pd.DataFrame:
-    return pd.read_excel(input_workbook, header=None, dtype=object)
+    return read_source_table(input_workbook)
 
 
 def _column_label(table: pd.DataFrame, column_idx: int) -> str:
