@@ -4,9 +4,11 @@ from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from t2_agent.agent import AgentRuntimeContext, build_tool_specs, execute_agent_tool, run_deepseek_agent_turn
 from t2_agent.models import AgentToolResult
+from tests.test_simulation_2d import pygimli_available
 
 
 def _message(content=None, tool_calls=None):
@@ -159,6 +161,39 @@ def test_full_2d_simulation_workflow_reuses_existing_inversion_tools(tmp_path, m
     assert context.repaired_path == decay_path
     assert context.spectrum_path == spectrum_path
     assert result.summary["simulation_decay_xlsx"] == str(decay_path)
+
+
+@pytest.mark.skipif(not pygimli_available(), reason="pyGIMLi is not installed")
+def test_full_2d_rule_simulation_workflow_runs_real_inversion(tmp_path):
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace")
+
+    result = execute_agent_tool(
+        "run_2d_simulation_full_workflow",
+        {
+            "geometry_mode": "rule",
+            "canvas_width_px": 60,
+            "canvas_height_px": 40,
+            "large_pore_radius_px": 10,
+            "small_pore_radius_px": 8,
+            "throat_width_px": 4,
+            "dt_ms": 5.0,
+            "t_max_ms": 60.0,
+            "mesh_bulk_size_um": 4.0,
+            "mesh_boundary_size_um": 2.0,
+            "mesh_max_points": 4000,
+            "num_bins": 30,
+            "alpha_count": 6,
+        },
+        context,
+    )
+
+    assert result.status == "success", result.error
+    assert context.simulation_decay_path is not None
+    assert context.simulation_decay_path.exists()
+    assert context.spectrum_path is not None
+    assert context.spectrum_path.exists()
+    assert any(item.summary.get("simulation_stages") for item in context.results)
+    assert any(item.summary.get("spectrum_xlsx") == str(context.spectrum_path) for item in context.results)
 
 
 def test_execute_run_lcurve_forwards_alpha_search_range(tmp_path, monkeypatch):
