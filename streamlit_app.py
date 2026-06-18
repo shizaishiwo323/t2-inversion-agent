@@ -17,6 +17,7 @@ from t2_agent.models import AgentToolResult
 APP_ROOT = Path(__file__).resolve().parent
 RUNS_ROOT = APP_ROOT / "runs"
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
+SIMULATION_STAGE_ORDER = ["geometry", "mesh", "decay", "inversion", "gaussian", "report"]
 MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 REPORT_ANALYSIS_START = "<!-- conversation-analysis:start -->"
 REPORT_ANALYSIS_END = "<!-- conversation-analysis:end -->"
@@ -313,6 +314,22 @@ def resolve_artifact_image_reference(reference: str, artifacts: list[Path]) -> P
     return None
 
 
+def group_simulation_stage_artifacts(result: AgentToolResult) -> dict[str, list[Path]]:
+    stage_map = result.summary.get("simulation_stages") if result.summary else None
+    if not isinstance(stage_map, dict):
+        return {}
+
+    grouped: dict[str, list[Path]] = {}
+    for stage in SIMULATION_STAGE_ORDER:
+        paths = stage_map.get(stage)
+        if not isinstance(paths, list):
+            continue
+        existing = [Path(path) for path in paths if Path(path).exists()]
+        if existing:
+            grouped[stage] = existing
+    return grouped
+
+
 def render_chat_content(content: str, artifacts: list[Path] | None = None) -> None:
     """Render chat markdown and show referenced generated images inline."""
 
@@ -370,6 +387,18 @@ def render_result(result: AgentToolResult) -> None:
         language = st.session_state.get("language", "中文")
         with st.expander(t(language, "structured_summary"), expanded=False):
             st.json(result.summary)
+
+    grouped = group_simulation_stage_artifacts(result)
+    if grouped:
+        language = st.session_state.get("language", "中文")
+        for stage, paths in grouped.items():
+            with st.expander(t(language, f"simulation_stage_{stage}"), expanded=stage in {"geometry", "mesh", "decay"}):
+                for path in paths:
+                    if path.suffix.lower() in IMAGE_SUFFIXES:
+                        st.image(str(path), caption=path.name, width="stretch")
+                    else:
+                        st.caption(path.name)
+        return
 
     image_paths = [Path(path) for path in result.artifacts if Path(path).suffix.lower() in IMAGE_SUFFIXES]
     for image_path in image_paths[:6]:
@@ -662,7 +691,7 @@ def main() -> None:
         st.subheader(t(language, "data_results"))
         uploaded_files = st.file_uploader(
             t(language, "uploader"),
-            type=["xlsx", "xls", "csv", "pea", "txt", "dat"],
+            type=["xlsx", "xls", "csv", "pea", "txt", "dat", "png"],
             accept_multiple_files=True,
         )
         register_uploaded_files(uploaded_files or [])
@@ -683,7 +712,8 @@ def main() -> None:
         context = current_context()
         if context and context.uploaded_path:
             st.info(t(language, "current_file", filename=Path(context.uploaded_path).name))
-            st.caption(t(language, "upload_hint"))
+            active_suffix = Path(context.uploaded_path).suffix.lower()
+            st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
 
         if context and context.validation:
             st.markdown(t(language, "diagnosis"))

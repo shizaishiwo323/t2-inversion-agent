@@ -8,6 +8,7 @@ from streamlit_app import (
     DEFAULT_THINKING_ENABLED,
     enhance_report_with_conversation,
     exportable_assistant_analysis,
+    group_simulation_stage_artifacts,
     make_zip,
     resolve_artifact_image_reference,
 )
@@ -28,6 +29,24 @@ def test_agent_tool_result_can_carry_simulation_stage_metadata():
 
     assert result.summary["stage"] == "mesh"
     assert result.summary["simulation_stages"]["mesh"] == ["mesh.png"]
+
+
+def test_group_simulation_stage_artifacts_uses_summary_stage_map(tmp_path):
+    mesh = tmp_path / "mesh.png"
+    decay = tmp_path / "decay.png"
+    mesh.write_bytes(b"mesh")
+    decay.write_bytes(b"decay")
+    result = AgentToolResult(
+        "success",
+        "ok",
+        artifacts=[str(mesh), str(decay)],
+        summary={"simulation_stages": {"mesh": [str(mesh)], "decay": [str(decay)]}},
+    )
+
+    grouped = group_simulation_stage_artifacts(result)
+
+    assert grouped["mesh"] == [mesh]
+    assert grouped["decay"] == [decay]
 
 
 def test_resolve_artifact_image_reference_matches_stem_and_basename(tmp_path):
