@@ -2,12 +2,15 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pytest
 from PIL import Image
 
 from t2_agent.simulation_2d import (
     SOLID,
+    Simulation2DParams,
     WATER,
     inspect_png_phase_map,
+    run_png_mesh_decay,
     write_standard_decay_workbook,
 )
 
@@ -61,3 +64,38 @@ def test_write_standard_decay_workbook_uses_time_ms_signal_columns(tmp_path: Pat
     assert list(frame.columns) == ["time_ms", "signal"]
     assert frame["time_ms"].tolist() == [0, 5, 10]
     assert frame["signal"].tolist() == [1.0, 0.8, 0.6]
+
+
+def pygimli_available() -> bool:
+    try:
+        import pygimli  # noqa: F401
+        import pygimli.meshtools  # noqa: F401
+    except Exception:
+        return False
+    return True
+
+
+@pytest.mark.skipif(not pygimli_available(), reason="pyGIMLi is not installed")
+def test_run_png_mesh_decay_writes_mesh_decay_and_workbook(tmp_path: Path):
+    png_path = tmp_path / "phase.png"
+    _write_phase_png(png_path)
+    params = Simulation2DParams(
+        dt_ms=25.0,
+        t_max_ms=50.0,
+        max_grid_size=None,
+        mesh_bulk_size_um=3.0,
+        mesh_boundary_size_um=1.5,
+        mesh_max_points=5000,
+    )
+
+    result = run_png_mesh_decay(png_path, tmp_path / "run", params)
+
+    assert result["status"] == "success"
+    assert Path(result["mesh_png"]).exists()
+    assert Path(result["pygimli_mesh_bms"]).exists()
+    assert Path(result["mesh_quality_csv"]).exists()
+    assert Path(result["mesh_quality_histogram_png"]).exists()
+    assert Path(result["curve_csv"]).exists()
+    assert Path(result["curve_png"]).exists()
+    assert Path(result["standard_decay_xlsx"]).exists()
+    assert result["time_point_count"] == 3
