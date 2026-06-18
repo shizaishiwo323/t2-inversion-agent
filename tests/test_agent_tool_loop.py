@@ -441,6 +441,50 @@ def test_agent_loop_interprets_existing_results_when_user_asks(tmp_path):
     assert "main_peak_t2_ms" in result.tool_results[0].summary
 
 
+def test_agent_loop_can_call_full_2d_simulation_tool(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake-png")
+    decay_path = tmp_path / "decay.xlsx"
+    spectrum_path = tmp_path / "spectrum.xlsx"
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+
+    def fake_run_2d_mesh_and_decay(input_path, output_dir, params, language="中文"):
+        return AgentToolResult(
+            "success",
+            "mesh ok",
+            artifacts=[str(tmp_path / "mesh.png"), str(decay_path)],
+            summary={"standard_decay_xlsx": str(decay_path), "simulation_stages": {"decay": [str(decay_path)]}},
+        )
+
+    def fake_run_lcurve(input_workbook, output_dir, params, language="中文"):
+        return AgentToolResult("success", "lcurve ok", artifacts=[str(spectrum_path)], summary={"spectrum_xlsx": str(spectrum_path)})
+
+    monkeypatch.setattr("t2_agent.agent.run_2d_mesh_and_decay", fake_run_2d_mesh_and_decay)
+    monkeypatch.setattr("t2_agent.agent.run_lcurve", fake_run_lcurve)
+    fake_client = FakeClient(
+        [
+            _message(tool_calls=[_tool_call("run_2d_simulation_full_workflow", {"geometry_mode": "png", "num_bins": 30, "alpha_count": 6})]),
+            _message(content="二维 NMR 模拟和 T2 反演已经完成。"),
+        ]
+    )
+
+    result = run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="请用这个红黄PNG跑完整二维NMR模拟并做T2反演",
+        context=context,
+        prior_messages=[],
+        client=fake_client,
+    )
+
+    assert "二维 NMR 模拟" in result.assistant_message
+    assert result.trace[1]["tool_name"] == "run_2d_simulation_full_workflow"
+    assert result.tool_results[0].status == "success"
+    assert context.simulation_decay_path == decay_path
+    assert context.spectrum_path == spectrum_path
+
+
 def test_agent_loop_can_batch_process_all_uploaded_files(tmp_path):
     time_ms = np.linspace(0.1, 80.0, 80)
     file_a = tmp_path / "sample_a.xlsx"

@@ -14,7 +14,26 @@ decomposition, result interpretation, and report generation.
 - Runs fixed-regularization NNLS when users provide a smoothing factor.
 - Generates plots, Gaussian peak fits, interpretation notes, reports, and a
   zip download for all outputs created during a task.
+- Runs a first-version 2D NMR simulation workflow from rule geometry or PNG
+  phase maps into the existing T2 inversion tools.
 - Supports Chinese and English UI switching.
+
+## 2D NMR Simulation Workflow
+
+The app can also run a first-version 2D NMR simulation workflow:
+
+```text
+rule geometry or red/yellow/white PNG -> pyGIMLi triangular mesh -> T2 decay solve -> T2 inversion
+```
+
+PNG phase maps must use:
+
+- red for liquid/water pore space;
+- yellow for solid matrix;
+- white for outside/background.
+
+White borders are cropped automatically. The first version supports 2D only
+and does not perform CT segmentation, 3D simulation, T2-T2, or D-T2.
 
 ## Local Run
 
