@@ -11,8 +11,8 @@ from uuid import uuid4
 import pandas as pd
 import streamlit as st
 
-from t2_agent.agent import AgentRuntimeContext, run_deepseek_agent_turn
-from t2_agent.deepseek import get_deepseek_api_key
+from t2_agent.agent import AgentRuntimeContext, execute_agent_tool, run_deepseek_agent_turn
+from t2_agent.deepseek import get_deepseek_api_key_source
 from t2_agent.i18n import t
 from t2_agent.interactive_lcurve import alpha_path_figure, lcurve_metric_figure, selected_alpha_from_plotly_selection, t2_spectrum_figure
 from t2_agent.models import AgentToolResult
@@ -24,7 +24,7 @@ RUNS_ROOT = APP_ROOT / "runs"
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
 TABLE_SUFFIXES = {".xlsx", ".xls", ".csv"}
 REPORT_SUFFIXES = {".md", ".txt"}
-SIMULATION_STAGE_ORDER = ["geometry", "mesh", "decay", "inversion", "gaussian", "report"]
+SIMULATION_STAGE_ORDER = ["geometry", "mesh", "decay", "t2_t2", "inversion", "gaussian", "report"]
 MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 REPORT_ANALYSIS_START = "<!-- conversation-analysis:start -->"
 REPORT_ANALYSIS_END = "<!-- conversation-analysis:end -->"
@@ -45,13 +45,14 @@ WELCOME_MESSAGES = {
 - 生成衰减曲线、T2 谱图、L-curve 图
 - 对 T2 谱做 Gaussian 分峰，并解释峰位置和面积比例
 - 做二维 NMR 模拟：规则几何或红黄白 PNG 相图 -> pyGIMLi 网格 -> T2 衰减 -> T2 反演
+- 做本地 NMR 理想三角演示：克隆项目生成三角网格、T2 衰减和 T2-T2 图，T2 反演仍走当前成熟流程
 - 仍然支持只做 T2 反演，不需要先跑模拟
 - 读取已经生成的结果，解释这个结果说明什么，并给出下一步建议
 
 我现在的边界：
 
 - 专注 2D NMR 模拟、T2 decay / T2 spectrum 数据处理
-- 第一版模拟仅支持 2D；不做 CT 分割、3D、T2-T2 或 D-T2
+- 第一版常规模拟仅支持 2D T2；本地理想三角演示可生成 T2-T2 图；不做 CT 分割、3D 或 D-T2
 - 不替代专业判断，结果解释需要结合样品背景
 
 你可以先问我：
@@ -73,13 +74,14 @@ What I can do:
 - Generate decay plots, T2 spectrum plots, and L-curve figures
 - Run Gaussian peak decomposition and explain peak positions and area fractions
 - Run first-version 2D NMR simulation: rule geometry or red/yellow/white PNG phase map -> pyGIMLi mesh -> T2 decay -> T2 inversion
+- Run the local ideal-triangle NMR demo: the cloned project generates triangular mesh, T2 decay, and a T2-T2 map; T2 inversion still uses the current mature pipeline
 - Still support standalone T2 inversion without a simulation step
 - Read generated results and explain what they mean, with suggestions for next steps
 
 Current boundaries:
 
 - Focused on 2D NMR simulation, T2 decay, and T2 spectrum processing
-- First-version simulation supports 2D only; it does not perform CT segmentation, 3D simulation, T2-T2, or D-T2
+- The ordinary first-version simulation supports 2D T2 only; the local ideal-triangle demo can generate a T2-T2 map; CT segmentation, 3D simulation, and D-T2 are out of scope
 - Does not replace domain judgment; interpretation still depends on sample context
 
 You can ask first:
@@ -119,6 +121,7 @@ def init_state() -> None:
         "welcome_language": "中文",
         "intro_seen": False,
         "intro_suppressed": False,
+        "top_shell_collapsed": False,
         "zip_bytes": None,
     }
     for key, value in defaults.items():
@@ -140,6 +143,33 @@ def query_param_enabled(key: str) -> bool:
     if isinstance(value, list):
         value = value[-1] if value else None
     return str(value).lower() in {"1", "true", "yes", "on"}
+
+
+def should_run_local_demo_without_api(prompt: str) -> bool:
+    """Allow deterministic local simulation paths when no DeepSeek key is configured."""
+
+    text = prompt.lower()
+    compact = re.sub(r"\s+", "", text)
+    has_nmr = "nmr" in text or "核磁" in prompt
+    has_triangle = "理想三角" in prompt or ("ideal" in text and "triangle" in text)
+    asks_simulation = any(token in prompt for token in ("模拟", "跑", "反演", "演示", "完整")) or any(
+        token in text for token in ("simulation", "inversion", "demo", "t2", "t2-t2", "t2_t2")
+    )
+    mentions_t2 = "t2" in compact or "反演" in prompt
+    return has_triangle and asks_simulation and (has_nmr or mentions_t2)
+
+
+def local_demo_params_from_prompt(prompt: str) -> dict[str, object]:
+    """Extract supported fixed-inversion parameters from a local demo prompt."""
+
+    params: dict[str, object] = {}
+    regularization_match = re.search(r"(?:regularization|reg|alpha)\s*[=:：]?\s*([0-9.eE+-]+)", prompt)
+    if regularization_match:
+        params["regularization"] = float(regularization_match.group(1))
+    num_bins_match = re.search(r"(?:num_bins|bins?)\s*[=:：]?\s*(\d+)", prompt, flags=re.IGNORECASE)
+    if num_bins_match:
+        params["num_bins"] = int(num_bins_match.group(1))
+    return params
 
 
 def clear_query_param(key: str) -> None:
@@ -829,6 +859,42 @@ def refresh_zip_from_context(context: AgentRuntimeContext) -> None:
         st.session_state.file_zip_bytes[active_path] = st.session_state.zip_bytes
 
 
+def workspace_style_css() -> str:
+    """Return layout overrides that keep live chat turns inside the history panel."""
+
+    return """
+        :root {
+            --t2-chat-input-clearance: 9.5rem;
+        }
+        .t2-chat-scroll {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            min-height: 0;
+        }
+        div[data-testid="stVerticalBlock"].st-key-t2_chat_history_panel {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            height: max(360px, calc(100vh - 430px)) !important;
+            min-height: max(360px, calc(100vh - 430px)) !important;
+            padding-bottom: var(--t2-chat-input-clearance);
+            scroll-padding-bottom: var(--t2-chat-input-clearance);
+        }
+        [data-testid="stMain"]:has(.t2-top-collapsed-marker) div[data-testid="stVerticalBlock"].st-key-t2_chat_history_panel {
+            height: max(500px, calc(100vh - 230px)) !important;
+            min-height: max(500px, calc(100vh - 230px)) !important;
+        }
+        @media (max-width: 900px) {
+            div[data-testid="stVerticalBlock"].st-key-t2_chat_history_panel {
+                height: auto !important;
+                min-height: 360px !important;
+                padding-bottom: var(--t2-chat-input-clearance);
+            }
+        }
+    """
+
+
 def apply_workspace_style() -> None:
     """Apply the agent-workbench shell without changing processing logic."""
 
@@ -836,9 +902,10 @@ def apply_workspace_style() -> None:
         """
         <style>
         .block-container {
-            padding-top: 0.7rem;
+            padding-top: 0.25rem;
             padding-bottom: 7.5rem;
             max-width: 1320px;
+            min-height: 100vh;
         }
         [data-testid="stAppViewContainer"] {
             background:
@@ -885,6 +952,20 @@ def apply_workspace_style() -> None:
             align-items: center;
             min-height: 0.25rem;
         }
+        .t2-top-shell-toggle button {
+            min-height: 2.2rem;
+            border-radius: 8px;
+        }
+        .t2-top-shell-toggle {
+            min-height: 2.8rem;
+            display: flex;
+            align-items: center;
+        }
+        .t2-top-shell-collapsed-note {
+            color: #64748b;
+            font-size: 0.78rem;
+            margin: 0.25rem 0 0.45rem;
+        }
         .t2-chat-toolbar {
             display: flex;
             align-items: flex-end;
@@ -902,9 +983,38 @@ def apply_workspace_style() -> None:
             font-size: 0.86rem;
         }
         .t2-chat-scroll {
-            max-height: calc(100vh - 250px);
-            overflow-y: auto;
-            padding: 0.35rem 0.55rem 5.6rem 0;
+            overflow: visible;
+            padding: 0.15rem 0.45rem 0.85rem 0;
+        }
+        div[data-testid="stVerticalBlock"].st-key-t2_chat_history_panel {
+            height: calc(100vh - 430px) !important;
+            min-height: 220px !important;
+            max-height: 560px !important;
+            overflow-y: auto !important;
+            overflow-x: hidden !important;
+            padding-right: 0.25rem;
+            padding-bottom: 8.25rem;
+            overscroll-behavior: contain;
+            scroll-padding-bottom: 8.25rem;
+        }
+        div[data-testid="stVerticalBlock"].st-key-t2_results_scroll_panel {
+            height: calc(100vh - 260px) !important;
+            min-height: 360px !important;
+            max-height: 720px !important;
+            overflow-y: scroll !important;
+            overflow-x: hidden !important;
+            padding-right: 0.45rem;
+            overscroll-behavior: contain;
+        }
+        [data-testid="stMain"]:has(.t2-top-collapsed-marker) div[data-testid="stVerticalBlock"].st-key-t2_chat_history_panel {
+            height: calc(100vh - 230px) !important;
+            min-height: 360px !important;
+            max-height: 820px !important;
+        }
+        [data-testid="stMain"]:has(.t2-top-collapsed-marker) div[data-testid="stVerticalBlock"].st-key-t2_results_scroll_panel {
+            height: calc(100vh - 150px) !important;
+            min-height: 500px !important;
+            max-height: 920px !important;
         }
         .t2-artifact-card {
             border: 1px solid rgba(148, 163, 184, 0.28);
@@ -927,6 +1037,9 @@ def apply_workspace_style() -> None:
         .t2-right-rail {
             position: sticky;
             top: 1rem;
+        }
+        div[data-testid="stVerticalBlock"].st-key-t2_results_scroll_panel .t2-right-rail {
+            position: static;
         }
         .t2-section-divider {
             height: 1px;
@@ -951,10 +1064,10 @@ def apply_workspace_style() -> None:
         }
         div[data-testid="stVerticalBlock"] > div:has(.t2-floating-model-anchor) + div {
             position: fixed;
-            left: calc(max(1.5rem, calc((100vw - 1120px) / 2)) + min(660px, calc((100vw - 3rem) * 0.62 - 2rem)) - 180px);
+            left: calc(max(1.5rem, calc((100vw - 1120px) / 2)) + min(660px, calc((100vw - 3rem) * 0.62 - 2rem)) - 166px);
             bottom: 1.95rem;
             z-index: 1003;
-            width: 128px;
+            width: 96px;
         }
         div[data-testid="stVerticalBlock"] > div:has(.t2-floating-model-anchor) + div button {
             min-height: 2.35rem;
@@ -971,9 +1084,14 @@ def apply_workspace_style() -> None:
                 padding-bottom: 8.5rem;
             }
             .t2-chat-scroll {
-                max-height: none;
                 overflow: visible;
-                padding-bottom: 1rem;
+                padding-bottom: 0.85rem;
+            }
+            div[data-testid="stVerticalBlock"].st-key-t2_chat_history_panel,
+            div[data-testid="stVerticalBlock"].st-key-t2_results_scroll_panel {
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
             }
             .t2-right-rail {
                 position: static;
@@ -995,6 +1113,7 @@ def apply_workspace_style() -> None:
         """,
         unsafe_allow_html=True,
     )
+    st.markdown(f"<style>{workspace_style_css()}</style>", unsafe_allow_html=True)
 
 
 def artifact_kind(path: Path) -> str:
@@ -1258,7 +1377,14 @@ def enhance_report_with_conversation(report: AgentToolResult | None, messages: l
     return True
 
 
-def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bool, live_results_container=None) -> None:
+def run_agent_prompt(
+    prompt: str,
+    api_key: str,
+    model: str,
+    thinking_enabled: bool,
+    live_results_container=None,
+    live_chat_container=None,
+) -> None:
     context = current_context()
     if context is None:
         workspace = ensure_workspace()
@@ -1269,47 +1395,149 @@ def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bo
     st.session_state.display_messages.append(("user", prompt))
     st.session_state.display_traces.append([])
     st.session_state.display_artifacts.append([])
-    with st.chat_message("user"):
-        st.markdown(prompt)
+    live_chat_surface = live_chat_container.container() if live_chat_container is not None else st.container()
+    with live_chat_surface:
+        with st.chat_message("user"):
+            st.markdown(prompt)
 
-    live_trace_box = st.empty()
-    live_trace: list[dict] = []
+        live_trace_box = st.empty()
+        live_trace: list[dict] = []
 
-    def show_live_trace(event: dict) -> None:
-        live_trace.append(event)
-        with live_trace_box.container():
-            render_trace(live_trace, expanded=True)
+        def show_live_trace(event: dict) -> None:
+            live_trace.append(event)
+            with live_trace_box.container():
+                render_trace(live_trace, expanded=True)
 
-    def show_live_tool_result(_result: AgentToolResult) -> None:
-        refresh_zip_from_context(context)
-        save_current_file_state()
-        if live_results_container is not None:
-            with live_results_container.container():
-                st.subheader(t(language, "data_results"))
-                render_context_outputs(context, language)
+        def show_live_tool_result(_result: AgentToolResult) -> None:
+            refresh_zip_from_context(context)
+            save_current_file_state()
+            if live_results_container is not None:
+                with live_results_container.container():
+                    st.subheader(t(language, "data_results"))
+                    render_context_outputs(context, language)
 
-    with st.status(t(language, "running_status"), expanded=True) as status:
-        result = run_deepseek_agent_turn(
-            api_key=api_key,
-            model=model,
-            thinking_enabled=thinking_enabled,
-            user_message=prompt,
-            context=context,
-            prior_messages=st.session_state.agent_messages,
-            on_trace=show_live_trace,
-            on_tool_result=show_live_tool_result,
-            response_language=language,
+        with st.status(t(language, "running_status"), expanded=True) as status:
+            result = run_deepseek_agent_turn(
+                api_key=api_key,
+                model=model,
+                thinking_enabled=thinking_enabled,
+                user_message=prompt,
+                context=context,
+                prior_messages=st.session_state.agent_messages,
+                on_trace=show_live_trace,
+                on_tool_result=show_live_tool_result,
+                response_language=language,
+            )
+            st.session_state.agent_messages = result.messages
+            st.session_state.display_messages.append(("assistant", result.assistant_message))
+            st.session_state.display_traces.append(result.trace)
+            st.session_state.display_artifacts.append(collect_turn_artifacts(result.tool_results))
+            enhance_report_with_conversation(context.report, st.session_state.display_messages, language)
+            refresh_zip_from_context(context)
+            save_current_file_state()
+            for tool_result in result.tool_results:
+                st.write(f"{tool_result.status}: {tool_result.message}")
+            status.update(label=t(language, "done_status"), state="complete")
+
+
+def run_local_demo_prompt(prompt: str, live_results_container=None, live_chat_container=None) -> None:
+    context = current_context()
+    if context is None:
+        workspace = ensure_workspace()
+        context = AgentRuntimeContext(workspace=workspace, uploaded_paths=[Path(path) for path in st.session_state.get("uploaded_paths", [])])
+        st.session_state.agent_context = context
+
+    language = st.session_state.get("language", "中文")
+    st.session_state.display_messages.append(("user", prompt))
+    st.session_state.display_traces.append([])
+    st.session_state.display_artifacts.append([])
+    live_chat_surface = live_chat_container.container() if live_chat_container is not None else st.container()
+    with live_chat_surface:
+        with st.chat_message("user"):
+            st.markdown(prompt)
+
+        args = local_demo_params_from_prompt(prompt)
+        trace = [
+            {
+                "kind": "plan",
+                "message": "没有配置 DeepSeek API key；该请求明确是本地 NMR 理想三角 T2-T2 演示，因此直接调用白名单本地工具。"
+                if language != "English"
+                else "No DeepSeek API key is configured; this request is explicitly for the local NMR ideal-triangle T2-T2 demo, so the whitelisted local tool is called directly.",
+            },
+            {
+                "kind": "tool_call",
+                "tool_name": "run_local_nmr_triangle_demo",
+                "arguments": args,
+                "message": "本地调用工具 `run_local_nmr_triangle_demo`。"
+                if language != "English"
+                else "Calling local tool `run_local_nmr_triangle_demo`.",
+            },
+        ]
+        with st.status(t(language, "running_status"), expanded=True) as status:
+            result = execute_agent_tool("run_local_nmr_triangle_demo", args, context, response_language=language)
+            context.tool_history.append(result)
+            trace.append(
+                {
+                    "kind": "tool_result",
+                    "tool_name": "run_local_nmr_triangle_demo",
+                    "status": result.status,
+                    "message": result.message,
+                    "error": result.error,
+                    "summary_keys": sorted(result.summary.keys()),
+                    "artifact_count": len(result.artifacts),
+                }
+            )
+            assistant_message = (
+                "本地 NMR 理想三角 T2-T2 演示已运行完成，T2 反演使用当前成熟 fixed NNLS 流程。"
+                if result.status == "success" and language != "English"
+                else "Local NMR ideal-triangle T2-T2 demo completed, with T2 inversion handled by the current mature fixed NNLS workflow."
+                if result.status == "success"
+                else result.message
+            )
+            st.session_state.display_messages.append(("assistant", assistant_message))
+            st.session_state.display_traces.append(trace)
+            st.session_state.display_artifacts.append(collect_turn_artifacts([result]))
+            refresh_zip_from_context(context)
+            save_current_file_state()
+            if live_results_container is not None:
+                with live_results_container.container():
+                    st.subheader(t(language, "data_results"))
+                    render_context_outputs(context, language)
+            st.write(f"{result.status}: {result.message}")
+            status.update(label=t(language, "done_status"), state="complete" if result.status == "success" else "error")
+
+
+def run_offline_debug_prompt(prompt: str, live_chat_container=None) -> None:
+    language = st.session_state.get("language", "中文")
+    st.session_state.display_messages.append(("user", prompt))
+    st.session_state.display_traces.append([])
+    st.session_state.display_artifacts.append([])
+    live_chat_surface = live_chat_container.container() if live_chat_container is not None else st.container()
+    with live_chat_surface:
+        with st.chat_message("user"):
+            st.markdown(prompt)
+        assistant_message = (
+            "当前处于本地调试模式：没有检测到 DeepSeek API key，所以不会调用外部模型。"
+            "你可以直接发送“用默认理想三角孔跑完整二维 NMR 模拟并做 T2 反演”，我会走本地模拟和成熟 T2 反演流程。"
+            if language != "English"
+            else "Local debug mode is active: no DeepSeek API key was detected, so no external model is called. "
+            "Ask for the default ideal-triangle NMR simulation with T2 inversion to run the local pipeline directly."
         )
-        st.session_state.agent_messages = result.messages
-        st.session_state.display_messages.append(("assistant", result.assistant_message))
-        st.session_state.display_traces.append(result.trace)
-        st.session_state.display_artifacts.append(collect_turn_artifacts(result.tool_results))
-        enhance_report_with_conversation(context.report, st.session_state.display_messages, language)
-        refresh_zip_from_context(context)
-        save_current_file_state()
-        for tool_result in result.tool_results:
-            st.write(f"{tool_result.status}: {tool_result.message}")
-        status.update(label=t(language, "done_status"), state="complete")
+        with st.chat_message("assistant"):
+            st.markdown(assistant_message)
+    st.session_state.display_messages.append(("assistant", assistant_message))
+    st.session_state.display_traces.append(
+        [
+            {
+                "kind": "plan",
+                "message": "无 API 本地调试模式：跳过外部模型，只提供本地可运行流程提示。"
+                if language != "English"
+                else "No-API local debug mode: skipped the external model and returned local workflow guidance.",
+            }
+        ]
+    )
+    st.session_state.display_artifacts.append([])
+    save_current_file_state()
 
 
 def main() -> None:
@@ -1320,58 +1548,83 @@ def main() -> None:
     apply_workspace_style()
     render_intro_dialog(language)
 
-    stored_api_key = get_deepseek_api_key(st.secrets)
+    stored_api_key, stored_api_key_source = get_deepseek_api_key_source(st.secrets)
     user_api_key = ""
 
-    language_cols = st.columns([0.70, 0.14, 0.16], gap="small")
-    with language_cols[1]:
-        with st.popover(t(language, "api_settings"), use_container_width=True):
-            user_api_key = st.text_input(
-                "DeepSeek API Key",
-                type="password",
-                placeholder="sk-...",
-                help=t(language, "api_key_help"),
+    top_shell_collapsed = bool(st.session_state.get("top_shell_collapsed", False))
+    st.markdown("<span class='t2-top-collapsed-marker'></span>" if top_shell_collapsed else "<span class='t2-top-expanded-marker'></span>", unsafe_allow_html=True)
+
+    top_control_cols = st.columns([0.16, 0.54, 0.14, 0.16], gap="small")
+    with top_control_cols[0]:
+        toggle_label = "展开顶部区域" if top_shell_collapsed else "收起顶部区域"
+        if st.button(toggle_label, width="content"):
+            st.session_state.top_shell_collapsed = not top_shell_collapsed
+            st.rerun()
+
+    if top_shell_collapsed:
+        with top_control_cols[1]:
+            st.markdown("<div class='t2-top-shell-collapsed-note'>顶部说明、任务管理和 API 设置已收起。</div>", unsafe_allow_html=True)
+    else:
+        with top_control_cols[2]:
+            with st.popover(t(language, "api_settings"), use_container_width=True):
+                if stored_api_key:
+                    if stored_api_key_source in {"environment", "windows_user_environment", "windows_machine_environment"}:
+                        ready_key = "api_key_ready_environment"
+                    elif stored_api_key_source == "streamlit_secrets":
+                        ready_key = "api_key_ready_streamlit_secrets"
+                    else:
+                        ready_key = "api_key_ready"
+                    st.success(t(language, ready_key))
+                    with st.expander(t(language, "api_key_override"), expanded=False):
+                        user_api_key = st.text_input(
+                            "DeepSeek API Key",
+                            type="password",
+                            placeholder="sk-...",
+                            help=t(language, "api_key_help"),
+                        )
+                else:
+                    st.warning(t(language, "api_key_missing"))
+                    user_api_key = st.text_input(
+                        "DeepSeek API Key",
+                        type="password",
+                        placeholder="sk-...",
+                        help=t(language, "api_key_help"),
+                    )
+        with top_control_cols[3]:
+            language = st.selectbox(
+                t(language, "language"),
+                ["中文", "English"],
+                index=0 if language == "中文" else 1,
+                format_func=lambda option: t(option, "language_option_zh") if option == "中文" else t(option, "language_option_en"),
+                key="language",
+                label_visibility="collapsed",
             )
-            if user_api_key.strip() or stored_api_key:
-                st.success(t(language, "api_key_ready"))
-            else:
-                st.warning(t(language, "api_key_missing"))
-    with language_cols[2]:
-        language = st.selectbox(
-            t(language, "language"),
-            ["中文", "English"],
-            index=0 if language == "中文" else 1,
-            format_func=lambda option: t(option, "language_option_zh") if option == "中文" else t(option, "language_option_en"),
-            key="language",
-            label_visibility="collapsed",
-        )
-        sync_language_seed_messages()
+            sync_language_seed_messages()
 
-    render_topbar(language)
+        render_topbar(language)
 
-    with st.expander(t(language, "task_management"), expanded=False):
-        st.caption(t(language, "new_task_caption"))
-        action_cols = st.columns([0.5, 0.5])
-        with action_cols[0]:
-            if st.button(t(language, "new_task"), width="stretch"):
-                start_new_task()
-                st.rerun()
-        with action_cols[1]:
-            if st.button(t(language, "show_intro"), width="stretch"):
-                st.session_state.intro_seen = False
-                st.session_state.intro_suppressed = False
-                clear_query_param(INTRO_QUERY_KEY)
-                st.rerun()
+        with st.expander(t(language, "task_management"), expanded=False):
+            st.caption(t(language, "new_task_caption"))
+            action_cols = st.columns([0.5, 0.5])
+            with action_cols[0]:
+                if st.button(t(language, "new_task"), width="stretch"):
+                    start_new_task()
+                    st.rerun()
+            with action_cols[1]:
+                if st.button(t(language, "show_intro"), width="stretch"):
+                    st.session_state.intro_seen = False
+                    st.session_state.intro_suppressed = False
+                    clear_query_param(INTRO_QUERY_KEY)
+                    st.rerun()
 
     left, right = st.columns([0.62, 0.38], gap="large")
 
     with left:
         st.markdown(f"<div class='t2-panel-title'>{t(language, 'agent_chat')}</div>", unsafe_allow_html=True)
-        st.caption(t(language, "chat_caption"))
         traces = st.session_state.get("display_traces", [])
         message_artifacts = st.session_state.get("display_artifacts", [])
         context_artifacts = collect_context_artifacts(current_context()) if current_context() else []
-        with st.container(height=520, border=False):
+        with st.container(border=False, key="t2_chat_history_panel"):
             st.markdown("<div class='t2-chat-scroll'>", unsafe_allow_html=True)
             for idx, (role, content) in enumerate(st.session_state.display_messages):
                 with st.chat_message(role):
@@ -1380,6 +1633,7 @@ def main() -> None:
                         render_turn_artifacts(message_artifacts[idx], language, idx)
                     if role == "assistant" and idx < len(traces):
                         render_trace(traces[idx])
+            live_chat_container = st.empty()
             st.markdown("</div>", unsafe_allow_html=True)
 
         st.markdown("<span class='t2-floating-model-anchor'></span>", unsafe_allow_html=True)
@@ -1401,73 +1655,71 @@ def main() -> None:
         prompt = st.chat_input(t(language, "chat_placeholder"))
         if prompt:
             if not api_key:
-                st.session_state.display_messages.append(("user", prompt))
-                st.session_state.display_traces.append([])
-                st.session_state.display_artifacts.append([])
-                st.session_state.display_messages.append(("assistant", t(language, "missing_key_reply")))
-                st.session_state.display_traces.append([])
-                st.session_state.display_artifacts.append([])
-                save_current_file_state()
+                if should_run_local_demo_without_api(prompt):
+                    run_local_demo_prompt(prompt, live_chat_container=live_chat_container)
+                else:
+                    run_offline_debug_prompt(prompt, live_chat_container=live_chat_container)
                 st.rerun()
-            run_agent_prompt(prompt, api_key, model, thinking_enabled)
+            run_agent_prompt(prompt, api_key, model, thinking_enabled, live_chat_container=live_chat_container)
             st.rerun()
 
     with right:
         st.markdown(f"<div class='t2-panel-title'>{t(language, 'data_results')}</div>", unsafe_allow_html=True)
-        uploaded_files = st.file_uploader(
-            t(language, "uploader"),
-            type=["xlsx", "xls", "csv", "pea", "txt", "dat", "png"],
-            accept_multiple_files=True,
-        )
-        register_uploaded_files(uploaded_files or [])
-
-        uploaded_paths = st.session_state.get("uploaded_paths", [])
-        if uploaded_paths:
-            selected_path = st.selectbox(
-                t(language, "active_file"),
-                uploaded_paths,
-                index=max(0, uploaded_paths.index(st.session_state.loaded_active_uploaded_path))
-                if st.session_state.loaded_active_uploaded_path in uploaded_paths
-                else 0,
-                format_func=lambda path: Path(path).name,
+        with st.container(border=False, key="t2_results_scroll_panel"):
+            uploaded_files = st.file_uploader(
+                t(language, "uploader"),
+                type=["xlsx", "xls", "csv", "pea", "txt", "dat", "png"],
+                accept_multiple_files=True,
             )
-            activate_uploaded_path(Path(selected_path))
-            st.caption(t(language, "uploaded_count", count=len(uploaded_paths)))
+            register_uploaded_files(uploaded_files or [])
 
-        context = current_context()
-        if context and context.uploaded_path:
-            st.info(t(language, "current_file", filename=Path(context.uploaded_path).name))
-            active_suffix = Path(context.uploaded_path).suffix.lower()
-            st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
+            uploaded_paths = st.session_state.get("uploaded_paths", [])
+            if uploaded_paths:
+                selected_path = st.selectbox(
+                    t(language, "active_file"),
+                    uploaded_paths,
+                    index=max(0, uploaded_paths.index(st.session_state.loaded_active_uploaded_path))
+                    if st.session_state.loaded_active_uploaded_path in uploaded_paths
+                    else 0,
+                    format_func=lambda path: Path(path).name,
+                )
+                activate_uploaded_path(Path(selected_path))
+                st.caption(t(language, "uploaded_count", count=len(uploaded_paths)))
 
-        render_artifact_rail(context, language)
-        st.markdown("<div class='t2-section-divider'></div>", unsafe_allow_html=True)
+            context = current_context()
+            if context and context.uploaded_path:
+                st.info(t(language, "current_file", filename=Path(context.uploaded_path).name))
+                active_suffix = Path(context.uploaded_path).suffix.lower()
+                st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
 
-        if context and context.validation:
-            st.markdown(t(language, "diagnosis"))
-            render_result(context.validation)
+            render_artifact_rail(context, language)
+            st.markdown("<div class='t2-section-divider'></div>", unsafe_allow_html=True)
 
-        if context and context.repaired_path:
-            st.markdown(t(language, "standardized_file"))
-            st.success(t(language, "standardized_file_name", filename=Path(context.repaired_path).name))
+            if context and context.validation:
+                st.markdown(t(language, "diagnosis"))
+                render_result(context.validation)
 
-        if context and context.results:
-            st.markdown(t(language, "tool_results"))
-            for idx, result in enumerate(context.results):
-                render_result(result)
-                render_lcurve_parameter_picker(context, result, idx, language)
+            if context and context.repaired_path:
+                st.markdown(t(language, "standardized_file"))
+                st.success(t(language, "standardized_file_name", filename=Path(context.repaired_path).name))
 
-        if context and context.report:
-            st.markdown(t(language, "report"))
-            report = context.report
-            render_result(report)
-            if report.artifacts:
-                report_path = Path(report.artifacts[0])
-                if report_path.exists():
-                    render_chat_content(report_path.read_text(encoding="utf-8"), collect_context_artifacts(context))
+            if context and context.results:
+                st.markdown(t(language, "tool_results"))
+                for idx, result in enumerate(context.results):
+                    render_result(result)
+                    render_lcurve_parameter_picker(context, result, idx, language)
 
-        if st.session_state.zip_bytes:
-            st.caption(t(language, "download_caption"))
+            if context and context.report:
+                st.markdown(t(language, "report"))
+                report = context.report
+                render_result(report)
+                if report.artifacts:
+                    report_path = Path(report.artifacts[0])
+                    if report_path.exists():
+                        render_chat_content(report_path.read_text(encoding="utf-8"), collect_context_artifacts(context))
+
+            if st.session_state.zip_bytes:
+                st.caption(t(language, "download_caption"))
 
 
 if __name__ == "__main__":

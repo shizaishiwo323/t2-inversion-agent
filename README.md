@@ -2,7 +2,7 @@
 
 A Streamlit-based AI workflow assistant for NMR 2D simulation and T2 inversion.
 The app combines DeepSeek-guided conversation with a whitelisted local Python
-tool layer for PNG/rule-geometry simulation, pyGIMLi triangular meshing, T2
+tool layer for upstream-style ideal-triangle simulation, PNG phase-map simulation, pyGIMLi triangular meshing, T2
 decay solving, data diagnosis, workbook repair, T2 inversion, visualization,
 Gaussian peak decomposition, result interpretation, and report generation.
 
@@ -15,8 +15,12 @@ Gaussian peak decomposition, result interpretation, and report generation.
 - Runs fixed-regularization NNLS when users provide a smoothing factor.
 - Generates plots, Gaussian peak fits, interpretation notes, reports, and a
   zip download for all outputs created during a task.
-- Runs a first-version 2D NMR simulation workflow from rule geometry or PNG
-  phase maps into the existing T2 inversion tools.
+- Runs a first-version 2D NMR simulation workflow from the built-in ideal
+  triangular-pore input or from uploaded PNG phase maps into the existing T2
+  inversion tools.
+- Runs the cloned local NMR ideal-triangle demonstration for pyGIMLi mesh,
+  T2 decay, and T2-T2 exchange-map visualization, while still sending the
+  simulated decay into the existing fixed NNLS T2 inversion pipeline.
 - Supports Chinese and English UI switching.
 
 ## 2D NMR Simulation Workflow
@@ -24,7 +28,7 @@ Gaussian peak decomposition, result interpretation, and report generation.
 The app can also run a first-version 2D NMR simulation workflow:
 
 ```text
-rule geometry or red/yellow/white PNG -> pyGIMLi triangular mesh -> T2 decay solve -> T2 inversion
+ideal triangular-pore input or red/yellow/white PNG -> pyGIMLi triangular mesh -> T2 decay solve -> T2 inversion
 ```
 
 PNG phase maps must use:
@@ -33,8 +37,11 @@ PNG phase maps must use:
 - yellow for solid matrix;
 - white for outside/background.
 
-White borders are cropped automatically. The first version supports 2D only
-and does not perform CT segmentation, 3D simulation, T2-T2, or D-T2.
+White borders are cropped automatically. The ordinary first-version workflow
+supports 2D T2 simulation only and does not perform CT segmentation, 3D
+simulation, or D-T2. A separate local ideal-triangle demo can produce T2-T2
+exchange-map artifacts from the cloned For-Bin simulator; its T2 inversion
+step still uses this app's mature T2 processing tools.
 
 ## Local Run
 
@@ -46,8 +53,12 @@ streamlit run streamlit_app.py
 ```
 
 The full 2D simulation workflow requires `pygimli` and uses the pyGIMLi
-triangular mesh path. Do not use `base` unless `python
+triangular mesh path. The no-upload/default simulation path uses the upstream
+For-Bin ideal triangular-pore input, not a generated PNG phase map. Do not use `base` unless `python
 scripts/check_t2agent_env.py` confirms that all required packages are present.
+The project conda environment intentionally uses Python 3.11 with the main
+scientific stack from conda-forge and the pyGIMLi wheel from PyPI; this is the
+combination verified for the public Docker image.
 
 Set a local DeepSeek key in `.streamlit/secrets.toml` or enter it in the web
 page:
@@ -69,9 +80,10 @@ Docker platform. This repository includes:
 - `scripts/check_t2agent_env.py` for dependency verification.
 
 Pure pip-only hosts may fail to install pyGIMLi. For full public operation,
-use the Dockerfile rather than a plain Streamlit Community Cloud build. If no
-Cloud secret is configured, users can still provide their own DeepSeek API key
-in the page.
+use the Dockerfile rather than a plain Streamlit Community Cloud build. The
+Docker image supports the platform `PORT` environment variable and includes a
+Streamlit health check. If no Cloud secret is configured, users can still
+provide their own DeepSeek API key in the page.
 
 ## Safety Boundary
 

@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
+import t2_agent.agent as agent_module
 from t2_agent.agent import AgentRuntimeContext, build_tool_specs, execute_agent_tool, run_deepseek_agent_turn
 from t2_agent.models import AgentToolResult
 from tests.test_simulation_2d import pygimli_available
@@ -71,6 +72,7 @@ def test_agent_tool_schema_exposes_2d_simulation_tools():
     assert "inspect_2d_geometry_input" in names
     assert "run_2d_mesh_and_decay" in names
     assert "run_2d_simulation_full_workflow" in names
+    assert "run_local_nmr_triangle_demo" in names
 
 
 def test_execute_2d_mesh_and_decay_updates_context(tmp_path, monkeypatch):
@@ -163,6 +165,73 @@ def test_full_2d_simulation_workflow_reuses_existing_inversion_tools(tmp_path, m
     assert result.summary["simulation_decay_xlsx"] == str(decay_path)
 
 
+def test_local_nmr_triangle_demo_uses_upstream_simulation_and_existing_fixed_inversion(tmp_path, monkeypatch):
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace")
+    upstream_decay = tmp_path / "upstream" / "tables" / "ideal_triangle_t2_decay.csv"
+    upstream_decay.parent.mkdir(parents=True)
+    pd.DataFrame(
+        {
+            "time_ms": [0.0, 10.0, 20.0],
+            "uncoupled_signal_normalized": [1.0, 0.82, 0.67],
+            "coupled_signal_normalized": [1.0, 0.78, 0.61],
+        }
+    ).to_csv(upstream_decay, index=False)
+    mesh_png = tmp_path / "upstream" / "figures" / "ideal_coupled_triangle_mesh.png"
+    t2_t2_png = tmp_path / "upstream" / "figures" / "ideal_triangle_t2_t2_fixed_alpha.png"
+    mesh_bms = tmp_path / "upstream" / "mesh" / "ideal_coupled_triangle_mesh.bms"
+    for artifact in [mesh_png, t2_t2_png, mesh_bms]:
+        artifact.parent.mkdir(parents=True, exist_ok=True)
+        artifact.write_bytes(b"artifact")
+    spectrum_path = tmp_path / "mature_spectrum.xlsx"
+    captured = {}
+
+    def fake_run_upstream(output_dir, params):
+        return {
+            "status": "success",
+            "standard_decay_source_csv": str(upstream_decay),
+            "mesh_png": str(mesh_png),
+            "t2_t2_png": str(t2_t2_png),
+            "mesh_bms": str(mesh_bms),
+            "simulation_stages": {
+                "mesh": [str(mesh_png), str(mesh_bms)],
+                "t2_t2": [str(t2_t2_png)],
+                "decay": [str(upstream_decay)],
+            },
+        }
+
+    def fake_run_fixed_nnls(input_workbook, output_dir, params, language="中文"):
+        captured["input_workbook"] = Path(input_workbook)
+        captured["params"] = params
+        return AgentToolResult(
+            "success",
+            "fixed inversion",
+            artifacts=[str(spectrum_path)],
+            summary={"spectrum_xlsx": str(spectrum_path), "regularization": params["regularization"]},
+        )
+
+    monkeypatch.setattr("t2_agent.agent.run_local_nmr_triangle_t2_t2", fake_run_upstream)
+    monkeypatch.setattr("t2_agent.agent.run_fixed_nnls", fake_run_fixed_nnls)
+
+    result = execute_agent_tool(
+        "run_local_nmr_triangle_demo",
+        {"regularization": 1.0, "num_bins": 40},
+        context,
+    )
+
+    assert result.status == "success"
+    assert captured["input_workbook"].exists()
+    standardized = pd.read_excel(captured["input_workbook"])
+    assert list(standardized.columns) == ["time_ms", "signal"]
+    assert standardized["signal"].tolist() == [1.0, 0.78, 0.61]
+    assert captured["params"]["regularization"] == 1.0
+    assert captured["params"]["num_bins"] == 40
+    assert context.simulation_decay_path == captured["input_workbook"]
+    assert context.repaired_path == captured["input_workbook"]
+    assert context.spectrum_path == spectrum_path
+    assert result.summary["t2_inversion_source"] == "existing_t2process_fixed_nnls"
+    assert "t2_t2" in result.summary["simulation_stages"]
+
+
 @pytest.mark.skipif(not pygimli_available(), reason="pyGIMLi is not installed")
 def test_full_2d_rule_simulation_workflow_runs_real_inversion(tmp_path):
     context = AgentRuntimeContext(workspace=tmp_path / "workspace")
@@ -192,7 +261,12 @@ def test_full_2d_rule_simulation_workflow_runs_real_inversion(tmp_path):
     assert context.simulation_decay_path.exists()
     assert context.spectrum_path is not None
     assert context.spectrum_path.exists()
-    assert any(item.summary.get("simulation_stages") for item in context.results)
+    simulation_result = next(item for item in context.results if item.summary.get("geometry_source") == "upstream_ideal_triangle")
+    assert simulation_result.summary["modules"] == ["T2"]
+    assert simulation_result.summary["t2_t2_enabled"] is False
+    assert simulation_result.summary["dt2_enabled"] is False
+    assert Path(simulation_result.summary["t2_dashboard_png"]).exists()
+    assert any("t2" in item.summary.get("simulation_stages", {}) for item in context.results)
     assert any(item.summary.get("spectrum_xlsx") == str(context.spectrum_path) for item in context.results)
 
 
@@ -279,6 +353,54 @@ def test_agent_loop_can_request_english_response_language(tmp_path):
     system_message = fake_client.chat.completions.calls[0]["messages"][0]["content"]
     assert "Reply in English" in system_message
     assert "Available T2 skills/tools" in system_message
+
+
+def test_agent_loop_returns_after_successful_local_demo_without_second_model_call(tmp_path, monkeypatch):
+    context = AgentRuntimeContext(workspace=tmp_path)
+    artifact = tmp_path / "ideal_triangle_t2_t2_fixed_alpha.png"
+    artifact.write_bytes(b"png")
+
+    def fake_execute(name, args, runtime_context, response_language="中文"):
+        assert name == "run_local_nmr_triangle_demo"
+        return AgentToolResult(
+            "success",
+            "本地 NMR 理想三角网格、T2 衰减和 T2-T2 演示模拟完成。",
+            artifacts=[artifact],
+            summary={"simulation_stages": {"t2_t2": [str(artifact)]}},
+        )
+
+    monkeypatch.setattr(agent_module, "execute_agent_tool", fake_execute)
+    live_results = []
+    fake_client = FakeClient(
+        [
+            _message(
+                tool_calls=[
+                    _tool_call(
+                        "run_local_nmr_triangle_demo",
+                        {"regularization": 1.0, "num_bins": 40},
+                    )
+                ]
+            )
+        ]
+    )
+
+    result = run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="请运行本地 NMR 理想三角 T2-T2 演示",
+        context=context,
+        prior_messages=[],
+        client=fake_client,
+        on_tool_result=live_results.append,
+    )
+
+    assert "本地 NMR 理想三角 T2-T2 演示已完成" in result.assistant_message
+    assert "右侧结果栏已同步 1 个产物" in result.assistant_message
+    assert result.tool_results[0].artifacts == [artifact]
+    assert len(live_results) == 1
+    assert len(fake_client.chat.completions.calls) == 1
+    assert result.messages[-1]["role"] == "assistant"
 
 
 def test_agent_loop_refreshes_existing_system_prompt_when_language_changes(tmp_path):

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
@@ -18,6 +19,7 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 from scipy import ndimage
+from scipy.optimize import nnls
 from scipy.sparse import csr_matrix, diags, eye
 from scipy.sparse.linalg import factorized
 from skimage import measure
@@ -97,6 +99,16 @@ class RuleGeometry2D:
     small_pore_radius_px: int = 16
     throat_length_px: int = 30
     throat_width_px: int = 8
+    large_side_um: float = 20.0
+    small_side_um: float = 8.0
+    large_depth_um: float = 20.0
+    small_depth_um: float = 8.0
+    throat_length_um: float = 5.0
+    throat_width_um: float = 1.0
+    large_air_area_um2: float = 0.0
+    small_air_area_um2: float = 0.0
+    ideal_mesh_area_um2: float = 0.05
+    ideal_mesh_quality: float = 34.0
 
 
 def classify_png(rgb: np.ndarray) -> np.ndarray:
@@ -917,17 +929,407 @@ def save_rule_geometry_png(path: Path, geometry: RuleGeometry2D) -> Path:
     return path
 
 
+def create_ideal_triangle_pore_geometry(
+    side_length_um: float,
+    target_air_area_um2: float,
+    *,
+    is_inverted: bool = False,
+    y_shift_um: float = 0.0,
+):
+    """Create the ideal triangular pore geometry used by the upstream For-Bin scripts."""
+
+    if mt is None or pg is None:
+        raise RuntimeError("pyGIMLi meshtools are not available; cannot create ideal triangular pore geometry.")
+
+    side = float(side_length_um)
+    height = side * math.sqrt(3.0) / 2.0
+    total_area = (math.sqrt(3.0) / 4.0) * side**2
+    water_area = total_area - float(target_air_area_um2)
+    if water_area < 1e-5:
+        return None
+
+    sign = -1.0 if is_inverted else 1.0
+    vertices = [[0.0, height * sign + y_shift_um], [-side / 2.0, y_shift_um], [side / 2.0, y_shift_um]]
+    center = [0.0, height / 3.0 * sign + y_shift_um]
+    full_water_transition = 1.0 - math.pi / (3.0 * math.sqrt(3.0))
+
+    if target_air_area_um2 < 1e-4:
+        geom = mt.createPolygon(vertices, isClosed=True)
+        for boundary in geom.boundaries():
+            boundary.setMarker(1)
+        return geom
+
+    saturation = water_area / total_area
+    if saturation > full_water_transition + 0.001:
+        geom = mt.createPolygon(vertices, isClosed=True)
+        for boundary in geom.boundaries():
+            boundary.setMarker(1)
+        gas_radius = math.sqrt(float(target_air_area_um2) / math.pi)
+        circle_points = [
+            [
+                center[0] + gas_radius * math.cos(2.0 * math.pi * i / 60.0),
+                center[1] + gas_radius * math.sin(2.0 * math.pi * i / 60.0),
+            ]
+            for i in range(60)
+        ]
+        circle = mt.createPolygon(circle_points, isClosed=True)
+        for boundary in circle.boundaries():
+            boundary.setMarker(99)
+        final_geom = geom + circle
+        final_geom.addHoleMarker(center)
+        return final_geom
+
+    area_per_corner = water_area / 3.0
+    meniscus_radius = math.sqrt(area_per_corner / (math.sqrt(3.0) - math.pi / 3.0))
+    contact_length = meniscus_radius * math.sqrt(3.0)
+
+    def unit(vector: list[float]) -> list[float]:
+        norm = math.hypot(vector[0], vector[1])
+        return [vector[0] / norm, vector[1] / norm]
+
+    polygons = []
+    edges = [
+        (vertices[0], vertices[1], vertices[2]),
+        (vertices[1], vertices[0], vertices[2]),
+        (vertices[2], vertices[0], vertices[1]),
+    ]
+    for vertex, adjacent_1, adjacent_2 in edges:
+        direction_1 = unit([adjacent_1[0] - vertex[0], adjacent_1[1] - vertex[1]])
+        direction_2 = unit([adjacent_2[0] - vertex[0], adjacent_2[1] - vertex[1]])
+        point_1 = [vertex[0] + contact_length * direction_1[0], vertex[1] + contact_length * direction_1[1]]
+        point_2 = [vertex[0] + contact_length * direction_2[0], vertex[1] + contact_length * direction_2[1]]
+        bisector = unit([center[0] - vertex[0], center[1] - vertex[1]])
+        arc_center = [vertex[0] + 2.0 * meniscus_radius * bisector[0], vertex[1] + 2.0 * meniscus_radius * bisector[1]]
+        angle_1 = math.atan2(point_1[1] - arc_center[1], point_1[0] - arc_center[0])
+        angle_2 = math.atan2(point_2[1] - arc_center[1], point_2[0] - arc_center[0])
+        if angle_2 - angle_1 > math.pi:
+            angle_2 -= 2.0 * math.pi
+        elif angle_1 - angle_2 > math.pi:
+            angle_2 += 2.0 * math.pi
+        arc_points = [
+            [
+                arc_center[0] + meniscus_radius * math.cos(angle_1 + (angle_2 - angle_1) * i / 29.0),
+                arc_center[1] + meniscus_radius * math.sin(angle_1 + (angle_2 - angle_1) * i / 29.0),
+            ]
+            for i in range(30)
+        ]
+        polygon = mt.createPolygon([vertex] + arc_points, isClosed=True)
+        for boundary in polygon.boundaries():
+            bcenter = boundary.center()
+            dist = math.hypot(bcenter.x() - arc_center[0], bcenter.y() - arc_center[1])
+            boundary.setMarker(99 if abs(dist - meniscus_radius) < meniscus_radius * 0.05 else 1)
+        polygons.append(polygon)
+
+    final_geom = polygons[0]
+    for polygon in polygons[1:]:
+        final_geom += polygon
+    return final_geom
+
+
+def solve_pygimli_decay(mesh, params: Simulation2DParams, *, volumes: np.ndarray | None = None) -> np.ndarray:
+    if pg is None:
+        raise RuntimeError("pyGIMLi is not available; cannot solve ideal triangular pore decay.")
+    times = np.arange(0.0, params.t_max_ms + 0.5 * params.dt_ms, params.dt_ms)
+    if mesh.nodeCount() < 5:
+        return np.zeros(len(times), dtype=float)
+    field = np.ones(mesh.nodeCount(), dtype=np.float64)
+    amplitudes: list[float] = []
+    a = params.diffusion_um2_per_ms * params.dt_ms
+    b = -(1.0 + params.dt_ms / params.bulk_t2_ms)
+    bc = {"Robin": {1: params.rho_solid_um_per_ms * params.dt_ms}}
+    cell_volumes = np.asarray(mesh.cellSizes(), dtype=float) if volumes is None else np.asarray(volumes, dtype=float)
+    for _ in times:
+        cell_field = np.asarray(pg.interpolate(mesh, field, mesh.cellCenters()), dtype=float)
+        amplitudes.append(float(np.sum(cell_field * cell_volumes)))
+        try:
+            field = np.asarray(pg.solve(mesh, a=a, b=b, f=np.asarray(field, dtype=np.float64), bc=bc), dtype=np.float64)
+        except Exception:
+            field = np.asarray(pg.solver.solve(mesh, a=a, b=b, f=np.asarray(field, dtype=np.float64), bc=bc), dtype=np.float64)
+    return np.asarray(amplitudes, dtype=float)
+
+
+def coupled_triangle_cell_volumes(mesh, geometry: RuleGeometry2D) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    cell_areas = np.asarray(mesh.cellSizes(), dtype=float)
+    centers_y = np.array([cell.center().y() for cell in mesh.cells()], dtype=float)
+    half_throat = float(geometry.throat_length_um) / 2.0
+    idx_large = centers_y > half_throat
+    idx_small = centers_y < -half_throat
+    volumes = np.zeros_like(cell_areas)
+    volumes[idx_large] = cell_areas[idx_large] * float(geometry.large_depth_um)
+    volumes[idx_small] = cell_areas[idx_small] * float(geometry.small_depth_um)
+    return volumes, idx_large, idx_small
+
+
+def plot_ideal_triangle_mesh(meshes: list[tuple[str, Any]], output_path: Path) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig, ax = plt.subplots(figsize=(7.5, 5.0))
+    for label, mesh in meshes:
+        if mesh is None or mesh.nodeCount() <= 0:
+            continue
+        arrays = pg_mesh_to_arrays(mesh)
+        points = arrays["points"]
+        triangles = arrays["triangles"]
+        triangulation = mtri.Triangulation(points[:, 0], points[:, 1], triangles)
+        ax.triplot(triangulation, lw=0.35, label=label)
+    ax.set_aspect("equal", adjustable="box")
+    ax.set_xlabel("x (um)")
+    ax.set_ylabel("y (um)")
+    ax.set_title("Upstream ideal triangular pore mesh")
+    if len(meshes) > 1:
+        ax.legend(loc="best")
+    fig.tight_layout()
+    fig.savefig(output_path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+
+def invert_t2_fixed_spectrum(
+    time_ms: np.ndarray,
+    signal: np.ndarray,
+    t2_axis_ms: np.ndarray,
+    regularization: float = 0.5,
+    normalize_by: float | None = None,
+) -> np.ndarray:
+    signal_arr = np.asarray(signal, dtype=float)
+    if signal_arr.size == 0 or float(np.max(signal_arr)) <= 1e-30:
+        return np.zeros_like(t2_axis_ms, dtype=float)
+    normalizer = float(signal_arr[0]) if normalize_by is None else float(normalize_by)
+    normalized = signal_arr / max(normalizer, 1e-30)
+    kernel = np.exp(-np.outer(np.asarray(time_ms, dtype=float), 1.0 / np.asarray(t2_axis_ms, dtype=float)))
+    augmented_kernel = np.vstack([kernel, float(regularization) * np.eye(len(t2_axis_ms))])
+    augmented_signal = np.concatenate([normalized, np.zeros(len(t2_axis_ms), dtype=float)])
+    spectrum, _ = nnls(augmented_kernel, augmented_signal)
+    return spectrum
+
+
+def write_ideal_triangle_t2_components(
+    output_path: Path,
+    time_ms: np.ndarray,
+    total_signal: np.ndarray,
+    large_signal: np.ndarray,
+    small_signal: np.ndarray,
+    *,
+    regularization: float = 0.5,
+) -> tuple[Path, pd.DataFrame]:
+    t2_axis = np.logspace(0.0, 4.0, 150)
+    total_initial = max(float(np.asarray(total_signal, dtype=float)[0]), 1e-30)
+    large_spec = invert_t2_fixed_spectrum(time_ms, large_signal, t2_axis, regularization, normalize_by=total_initial)
+    small_spec = invert_t2_fixed_spectrum(time_ms, small_signal, t2_axis, regularization, normalize_by=total_initial)
+    total_spec = large_spec + small_spec
+    frame = pd.DataFrame(
+        {
+            "T2_Time_ms": t2_axis,
+            "IdealTriangle_Total": total_spec,
+            "IdealTriangle_Large": large_spec,
+            "IdealTriangle_Small": small_spec,
+        }
+    )
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    frame.to_excel(output_path, index=False)
+    return output_path, frame
+
+
+def save_ideal_triangle_t2_dashboard(
+    output_path: Path,
+    time_ms: np.ndarray,
+    total_signal: np.ndarray,
+    large_signal: np.ndarray,
+    small_signal: np.ndarray,
+    t2_components: pd.DataFrame,
+) -> Path:
+    norm = max(float(total_signal[0]), 1e-30)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig, axes = plt.subplots(1, 2, figsize=(12.0, 4.6))
+    axes[0].plot(time_ms, total_signal / norm, "k--", lw=2.0, label="Total")
+    axes[0].plot(time_ms, large_signal / norm, color="#78C296", lw=1.8, label="Large")
+    axes[0].plot(time_ms, small_signal / norm, color="#E59866", lw=1.8, label="Small")
+    axes[0].set_xlabel("time (ms)")
+    axes[0].set_ylabel("normalized signal")
+    axes[0].set_title("Ideal triangle T2 decay")
+    axes[0].set_ylim(bottom=0.0)
+    axes[0].grid(alpha=0.3)
+    axes[0].legend()
+
+    t2_axis = t2_components["T2_Time_ms"].to_numpy(dtype=float)
+    axes[1].fill_between(t2_axis, t2_components["IdealTriangle_Large"].to_numpy(dtype=float), color="#78C296", alpha=0.65, label="Large")
+    axes[1].fill_between(t2_axis, t2_components["IdealTriangle_Small"].to_numpy(dtype=float), color="#E59866", alpha=0.65, label="Small")
+    axes[1].plot(t2_axis, t2_components["IdealTriangle_Total"].to_numpy(dtype=float), "k-", lw=1.8, label="Total")
+    axes[1].set_xscale("log")
+    axes[1].set_xlabel("T2 (ms)")
+    axes[1].set_ylabel("amplitude")
+    axes[1].set_title("Ideal triangle T2 components")
+    axes[1].grid(True, which="both", ls="--", alpha=0.3)
+    axes[1].legend()
+
+    fig.tight_layout()
+    fig.savefig(output_path, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+    return output_path
+
+
 def run_rule_geometry_mesh_decay(
     geometry: RuleGeometry2D,
     output_dir: Path,
     params: Simulation2DParams | None = None,
 ) -> dict[str, Any]:
+    if mt is None or pg is None:
+        raise RuntimeError("pyGIMLi meshtools are not available; cannot run ideal triangular pore simulation.")
+
+    cfg = params or Simulation2DParams()
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    phase_png = save_rule_geometry_png(output_dir / "input" / "rule_geometry_phase.png", geometry)
-    result = run_png_mesh_decay(phase_png, output_dir, params)
-    result["geometry_mode"] = "rule"
-    result["rule_geometry"] = asdict(geometry)
-    result["phase_png"] = str(phase_png)
+    mesh_png = output_dir / "mesh" / "ideal_triangle_triangular_mesh.png"
+    mesh_bms = output_dir / "mesh" / "ideal_triangle_triangular_mesh.bms"
+    mesh_quality_csv = output_dir / "mesh" / "ideal_triangle_mesh_quality.csv"
+    mesh_quality_hist = output_dir / "mesh" / "ideal_triangle_mesh_quality_histogram.png"
+    curve_csv = output_dir / "decay" / "ideal_triangle_nmr_decay.csv"
+    curve_png = output_dir / "decay" / "ideal_triangle_nmr_decay.png"
+    raw_decay_xlsx = output_dir / "decay" / "Triangle_Raw_Decay.xlsx"
+    decay_xlsx = output_dir / "decay" / "ideal_triangle__standard_decay.xlsx"
+    t2_components_xlsx = output_dir / "t2" / "IdealTriangle_T2_Components.xlsx"
+    t2_dashboard_png = output_dir / "t2" / "IdealTriangle_T2_Dashboard.png"
+
+    large_geom = create_ideal_triangle_pore_geometry(
+        geometry.large_side_um,
+        geometry.large_air_area_um2,
+        is_inverted=False,
+        y_shift_um=geometry.throat_length_um / 2.0 if geometry.coupled else 0.0,
+    )
+    small_geom = create_ideal_triangle_pore_geometry(
+        geometry.small_side_um,
+        geometry.small_air_area_um2,
+        is_inverted=True,
+        y_shift_um=-geometry.throat_length_um / 2.0 if geometry.coupled else 0.0,
+    )
+    if large_geom is None or small_geom is None:
+        raise ValueError("Ideal triangular pore water area is too small to mesh.")
+
+    times = np.arange(0.0, cfg.t_max_ms + 0.5 * cfg.dt_ms, cfg.dt_ms)
+    if geometry.coupled:
+        throat = mt.createRectangle(
+            start=[-float(geometry.throat_width_um) / 2.0, -float(geometry.throat_length_um) / 2.0],
+            end=[float(geometry.throat_width_um) / 2.0, float(geometry.throat_length_um) / 2.0],
+        )
+        for boundary in throat.boundaries():
+            boundary.setMarker(100)
+        coupled_mesh = mt.createMesh(
+            large_geom + throat + small_geom,
+            area=max(float(geometry.ideal_mesh_area_um2), 1e-6),
+            quality=float(geometry.ideal_mesh_quality),
+        )
+        volumes, idx_large, idx_small = coupled_triangle_cell_volumes(coupled_mesh, geometry)
+        total_signal = solve_pygimli_decay(coupled_mesh, cfg, volumes=volumes)
+        field = np.ones(coupled_mesh.nodeCount(), dtype=np.float64)
+        large_signal: list[float] = []
+        small_signal: list[float] = []
+        a = cfg.diffusion_um2_per_ms * cfg.dt_ms
+        b = -(1.0 + cfg.dt_ms / cfg.bulk_t2_ms)
+        bc = {"Robin": {1: cfg.rho_solid_um_per_ms * cfg.dt_ms}}
+        for _ in times:
+            cell_field = np.asarray(pg.interpolate(coupled_mesh, field, coupled_mesh.cellCenters()), dtype=float)
+            large_signal.append(float(np.sum(cell_field[idx_large] * volumes[idx_large])))
+            small_signal.append(float(np.sum(cell_field[idx_small] * volumes[idx_small])))
+            try:
+                field = np.asarray(pg.solve(coupled_mesh, a=a, b=b, f=np.asarray(field, dtype=np.float64), bc=bc), dtype=np.float64)
+            except Exception:
+                field = np.asarray(pg.solver.solve(coupled_mesh, a=a, b=b, f=np.asarray(field, dtype=np.float64), bc=bc), dtype=np.float64)
+        large_signal_arr = np.asarray(large_signal, dtype=float)
+        small_signal_arr = np.asarray(small_signal, dtype=float)
+        mesh_for_quality = pg_mesh_to_arrays(coupled_mesh)
+        mesh_artifacts = [("coupled", coupled_mesh)]
+    else:
+        large_mesh = mt.createMesh(large_geom, area=max(float(geometry.ideal_mesh_area_um2), 1e-6), quality=float(geometry.ideal_mesh_quality))
+        small_mesh = mt.createMesh(small_geom, area=max(float(geometry.ideal_mesh_area_um2), 1e-6), quality=float(geometry.ideal_mesh_quality))
+        large_signal_arr = solve_pygimli_decay(large_mesh, cfg) * float(geometry.large_depth_um)
+        small_signal_arr = solve_pygimli_decay(small_mesh, cfg) * float(geometry.small_depth_um)
+        total_signal = large_signal_arr + small_signal_arr
+        mesh_for_quality = pg_mesh_to_arrays(large_mesh)
+        mesh_artifacts = [("large", large_mesh), ("small", small_mesh)]
+
+    plot_ideal_triangle_mesh(mesh_artifacts, mesh_png)
+    save_pygimli_mesh(mesh_for_quality, mesh_bms)
+    quality_frame = triangle_quality_table(mesh_for_quality)
+    mesh_quality_csv.parent.mkdir(parents=True, exist_ok=True)
+    quality_frame.to_csv(mesh_quality_csv, index=False)
+    save_mesh_quality_histogram(quality_frame, mesh_quality_hist)
+
+    normalized = total_signal / max(float(total_signal[0]), 1e-30)
+    curve_csv.parent.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(
+        {
+            "time_ms": times,
+            "total_signal": total_signal,
+            "large_signal": large_signal_arr,
+            "small_signal": small_signal_arr,
+            "normalized_signal": normalized,
+        }
+    ).to_csv(curve_csv, index=False)
+    pd.DataFrame(
+        {
+            "Time": times,
+            "IdealTriangle_Total": normalized,
+            "IdealTriangle_Large": large_signal_arr / max(float(total_signal[0]), 1e-30),
+            "IdealTriangle_Small": small_signal_arr / max(float(total_signal[0]), 1e-30),
+        }
+    ).to_excel(raw_decay_xlsx, index=False)
+    save_decay_plot(times, normalized, curve_png, title="Ideal triangle T2 decay")
+    write_standard_decay_workbook(decay_xlsx, times, total_signal)
+    t2_components_path, t2_components = write_ideal_triangle_t2_components(
+        t2_components_xlsx,
+        times,
+        total_signal,
+        large_signal_arr,
+        small_signal_arr,
+    )
+    save_ideal_triangle_t2_dashboard(
+        t2_dashboard_png,
+        times,
+        total_signal,
+        large_signal_arr,
+        small_signal_arr,
+        t2_components,
+    )
+
+    mesh_summary = summarize_mesh_quality(mesh_for_quality, quality_frame)
+    mesh_summary.update(
+        {
+            "geometry_source": "upstream_ideal_triangle",
+            "coupled": bool(geometry.coupled),
+            "large_side_um": float(geometry.large_side_um),
+            "small_side_um": float(geometry.small_side_um),
+            "throat_length_um": float(geometry.throat_length_um),
+            "throat_width_um": float(geometry.throat_width_um),
+        }
+    )
+    result: dict[str, Any] = {
+        "status": "success",
+        "stage": "decay",
+        "geometry_mode": "rule",
+        "geometry_source": "upstream_ideal_triangle",
+        "solver_used": "pygimli_pg_solve",
+        "modules": ["T2"],
+        "t2_t2_enabled": False,
+        "dt2_enabled": False,
+        "pygimli_available": True,
+        "rule_geometry": asdict(geometry),
+        "params_used": asdict(cfg),
+        "mesh_png": str(mesh_png.resolve()),
+        "pygimli_mesh_bms": str(mesh_bms.resolve()),
+        "mesh_quality_csv": str(mesh_quality_csv.resolve()),
+        "mesh_quality_histogram_png": str(mesh_quality_hist.resolve()),
+        "curve_csv": str(curve_csv.resolve()),
+        "curve_png": str(curve_png.resolve()),
+        "raw_decay_xlsx": str(raw_decay_xlsx.resolve()),
+        "standard_decay_xlsx": str(decay_xlsx.resolve()),
+        "t2_components_xlsx": str(t2_components_path.resolve()),
+        "t2_dashboard_png": str(t2_dashboard_png.resolve()),
+        "mesh_or_boundary_summary": mesh_summary,
+        "time_point_count": int(len(times)),
+        "simulation_stages": {
+            "geometry": [],
+            "mesh": [str(mesh_png), str(mesh_bms), str(mesh_quality_csv), str(mesh_quality_hist)],
+            "decay": [str(curve_csv), str(curve_png), str(raw_decay_xlsx), str(decay_xlsx)],
+            "t2": [str(t2_components_xlsx), str(t2_dashboard_png)],
+        },
+    }
     result["summary_json"] = str(write_json_summary(output_dir / "simulation_2d_summary.json", result))
     return result

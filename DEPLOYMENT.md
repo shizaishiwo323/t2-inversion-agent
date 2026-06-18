@@ -1,9 +1,19 @@
 # Public Deployment
 
 This app includes a full pyGIMLi triangular-mesh 2D NMR simulation workflow.
+The default no-upload path uses the upstream For-Bin ideal triangular-pore
+input directly; uploaded red/yellow/white PNG phase maps are a separate input
+route.
 For that workflow, deploy from GitHub to a public host that supports Docker or
 conda environments. Pure pip-only Streamlit Community Cloud builds may not
 install pyGIMLi reliably.
+
+The supported public image uses Python 3.11, installs the application science
+stack from conda-forge, and installs `pygimli` from the PyPI wheel inside that
+isolated conda environment. This combination was chosen after container
+testing: the latest Linux `gimli::pygimli` conda package can solve the
+environment, but its `pg.solve` runtime path crashed during the ideal-triangle
+workflow in Docker.
 
 ## Local run
 
@@ -42,8 +52,10 @@ Use the repository `Dockerfile`. It creates the `t2agent` conda environment
 from `environment.yml` and starts:
 
 ```bash
-streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port 8501
+streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port ${PORT:-8501}
 ```
+
+The Dockerfile also defines a Streamlit health check at `/_stcore/health`.
 
 Recommended GitHub-backed hosts:
 
@@ -52,14 +64,21 @@ Recommended GitHub-backed hosts:
 - Railway Dockerfile deployment.
 - Any VPS or container host that builds the repository Dockerfile.
 
-After deployment, verify the public app by running a rule-geometry request:
+If you need the optional cloned local NMR ideal-triangle demo, enable Git
+submodule cloning on the host or run `git submodule update --init --recursive`
+before building. The ordinary built-in ideal-triangle and PNG 2D workflows do
+not require the submodule.
+
+After deployment, verify the public app by running an ideal-triangle request:
 
 ```text
-用默认规则几何跑完整二维 NMR 模拟，并做 T2 反演
+用默认理想三角孔跑完整二维 NMR 模拟，并做 T2 反演
 ```
 
-The result should include geometry preview, pyGIMLi mesh image/BMS, mesh
-quality CSV/histogram, simulated decay workbook, and an L-curve T2 spectrum.
+The result should include a pyGIMLi ideal-triangle mesh image/BMS, mesh quality
+CSV/histogram, `Triangle_Raw_Decay.xlsx`, a standard decay workbook, and an
+L-curve T2 spectrum. It should not require or generate a `rule_geometry_phase.png`
+PNG input.
 
 ## Streamlit Community Cloud note
 
@@ -68,7 +87,7 @@ If you still create an app from Streamlit Community Cloud, use:
 - Repository: `shizaishiwo323/t2-inversion-agent`
 - Branch: `main`
 - Main file path: `streamlit_app.py`
-- Python version: a supported Python 3 version, preferably Python 3.12
+- Python version: Python 3.11 if the platform lets you choose
 
 This mode is suitable only if pyGIMLi installs successfully on the Cloud build
 image. For the required pyGIMLi mesh workflow, Docker/conda deployment is the

@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import hashlib
+import json
+import os
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -17,11 +20,13 @@ from .simulation_2d import (
     inspect_png_phase_map,
     run_png_mesh_decay,
     run_rule_geometry_mesh_decay,
+    write_standard_decay_workbook,
 )
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 T2PROCESS_ROOT = REPO_ROOT / "T2process"
+LOCAL_NMR_ROOT = REPO_ROOT / "NMR-simulation-of-2D-3D-projext"
 if str(T2PROCESS_ROOT) not in sys.path:
     sys.path.insert(0, str(T2PROCESS_ROOT))
 
@@ -188,6 +193,16 @@ def _rule_geometry_from_args(args: dict[str, Any]) -> RuleGeometry2D:
         small_pore_radius_px=int(args.get("small_pore_radius_px", 16)),
         throat_length_px=int(args.get("throat_length_px", 30)),
         throat_width_px=int(args.get("throat_width_px", 8)),
+        large_side_um=float(args.get("large_side_um", 20.0)),
+        small_side_um=float(args.get("small_side_um", 8.0)),
+        large_depth_um=float(args.get("large_depth_um", 20.0)),
+        small_depth_um=float(args.get("small_depth_um", 8.0)),
+        throat_length_um=float(args.get("throat_length_um", 5.0)),
+        throat_width_um=float(args.get("throat_width_um", 1.0)),
+        large_air_area_um2=float(args.get("large_air_area_um2", 0.0)),
+        small_air_area_um2=float(args.get("small_air_area_um2", 0.0)),
+        ideal_mesh_area_um2=float(args.get("ideal_mesh_area_um2", 0.05)),
+        ideal_mesh_quality=float(args.get("ideal_mesh_quality", 34.0)),
     )
 
 
@@ -197,6 +212,122 @@ def _simulation_artifacts_from_summary(summary: dict[str, Any]) -> list[str]:
         if key.endswith(("_png", "_csv", "_xlsx", "_bms", "_json")) and value:
             artifacts.append(str(value))
     return artifacts
+
+
+def _resolve_local_nmr_python(params: dict[str, Any]) -> Path:
+    configured = params.get("python_executable") or os.environ.get("NMR_SIM_PYTHON")
+    if configured:
+        return Path(str(configured))
+    local_app_data = os.environ.get("LOCALAPPDATA")
+    if local_app_data:
+        codex_venv = Path(local_app_data) / "Codex" / "nmr_pygimli_venv" / "Scripts" / "python.exe"
+        if codex_venv.exists():
+            return codex_venv
+    return Path(sys.executable)
+
+
+def run_local_nmr_triangle_t2_t2(output_dir: Path, params: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Run the cloned For-Bin ideal-triangle T2/T2-T2 demo as the local NMR simulator."""
+
+    params = params or {}
+    script_path = LOCAL_NMR_ROOT / "advanced_tools" / "run_ideal_triangle_t2_t2.py"
+    if not script_path.exists():
+        return {
+            "status": "failed",
+            "error": "missing_local_nmr_project",
+            "message": f"Local NMR simulator was not found at {LOCAL_NMR_ROOT}.",
+        }
+
+    python_executable = _resolve_local_nmr_python(params)
+    output_path = Path(output_dir)
+    output_path.mkdir(parents=True, exist_ok=True)
+    env = os.environ.copy()
+    env["PYTHONPATH"] = "."
+    completed = subprocess.run(
+        [
+            str(python_executable),
+            str(script_path),
+            "--output-dir",
+            str(output_path.resolve()),
+        ],
+        cwd=LOCAL_NMR_ROOT,
+        env=env,
+        capture_output=True,
+        text=True,
+        timeout=int(params.get("timeout_seconds", 900)),
+        check=False,
+    )
+    if completed.returncode != 0:
+        return {
+            "status": "failed",
+            "error": "local_nmr_simulation_failed",
+            "message": "Local NMR ideal-triangle simulation failed.",
+            "python_executable": str(python_executable),
+            "stdout": completed.stdout,
+            "stderr": completed.stderr,
+        }
+
+    manifest_path = output_path / "run_manifest.json"
+    manifest: dict[str, Any] = {}
+    if manifest_path.exists():
+        try:
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        except Exception:
+            manifest = {}
+
+    mesh_png = output_path / "figures" / "ideal_coupled_triangle_mesh.png"
+    decay_png = output_path / "figures" / "ideal_triangle_t2_decay.png"
+    upstream_t2_png = output_path / "figures" / "ideal_triangle_t2_fixed_alpha.png"
+    t2_t2_png = output_path / "figures" / "ideal_triangle_t2_t2_fixed_alpha.png"
+    mesh_bms = output_path / "mesh" / "ideal_coupled_triangle_mesh.bms"
+    mesh_summary_csv = output_path / "tables" / "ideal_triangle_mesh_summary.csv"
+    decay_csv = output_path / "tables" / "ideal_triangle_t2_decay.csv"
+    t2_t2_signal_csv = output_path / "tables" / "ideal_triangle_t2_t2_signal.csv"
+    t2_t2_map_csv = output_path / "tables" / "ideal_triangle_t2_t2_map.csv"
+    artifacts = [
+        str(path.resolve())
+        for path in [
+            manifest_path,
+            mesh_png,
+            decay_png,
+            upstream_t2_png,
+            t2_t2_png,
+            mesh_bms,
+            mesh_summary_csv,
+            decay_csv,
+            t2_t2_signal_csv,
+            t2_t2_map_csv,
+        ]
+        if path.exists()
+    ]
+    return {
+        "status": "success",
+        "stage": "local_nmr_triangle_simulation",
+        "model_dimension": "2D",
+        "geometry_source": "cloned_for_bin_ideal_triangle",
+        "local_nmr_root": str(LOCAL_NMR_ROOT),
+        "python_executable": str(python_executable),
+        "output_dir": str(output_path.resolve()),
+        "manifest_json": str(manifest_path.resolve()) if manifest_path.exists() else None,
+        "mesh_png": str(mesh_png.resolve()) if mesh_png.exists() else None,
+        "decay_png": str(decay_png.resolve()) if decay_png.exists() else None,
+        "upstream_reference_t2_png": str(upstream_t2_png.resolve()) if upstream_t2_png.exists() else None,
+        "t2_t2_png": str(t2_t2_png.resolve()) if t2_t2_png.exists() else None,
+        "mesh_bms": str(mesh_bms.resolve()) if mesh_bms.exists() else None,
+        "mesh_summary_csv": str(mesh_summary_csv.resolve()) if mesh_summary_csv.exists() else None,
+        "standard_decay_source_csv": str(decay_csv.resolve()) if decay_csv.exists() else None,
+        "t2_t2_signal_csv": str(t2_t2_signal_csv.resolve()) if t2_t2_signal_csv.exists() else None,
+        "t2_t2_map_csv": str(t2_t2_map_csv.resolve()) if t2_t2_map_csv.exists() else None,
+        "manifest": manifest,
+        "artifacts": artifacts,
+        "simulation_stages": {
+            "mesh": [str(path.resolve()) for path in [mesh_png, mesh_bms, mesh_summary_csv] if path.exists()],
+            "decay": [str(path.resolve()) for path in [decay_png, decay_csv] if path.exists()],
+            "t2_t2": [str(path.resolve()) for path in [t2_t2_png, t2_t2_signal_csv, t2_t2_map_csv] if path.exists()],
+        },
+        "stdout": completed.stdout,
+        "stderr": completed.stderr,
+    }
 
 
 def inspect_2d_geometry_input(
@@ -212,8 +343,15 @@ def inspect_2d_geometry_input(
             geometry = _rule_geometry_from_args(params)
             return AgentToolResult(
                 "success",
-                "规则二维几何参数已读取。" if not _is_english(language) else "Rule-based 2D geometry parameters were read.",
-                summary={"stage": "geometry", "geometry_mode": "rule", "rule_geometry": geometry.__dict__},
+                "理想三角孔模拟参数已读取。未上传 PNG 时会直接使用 pyGIMLi 构建三角孔网格。"
+                if not _is_english(language)
+                else "Ideal triangular-pore simulation parameters were read. Without a PNG upload, pyGIMLi will build the triangular-pore mesh directly.",
+                summary={
+                    "stage": "geometry",
+                    "geometry_mode": "rule",
+                    "geometry_source": "upstream_ideal_triangle",
+                    "rule_geometry": geometry.__dict__,
+                },
             )
         if input_path is None:
             return AgentToolResult(

@@ -1,6 +1,7 @@
 from pathlib import Path
 from zipfile import ZipFile
 import io
+import inspect
 
 import pandas as pd
 
@@ -21,6 +22,7 @@ from streamlit_app import (
     query_param_enabled,
     resolve_artifact_image_reference,
     selected_alpha_fixed_nnls_params,
+    should_run_local_demo_without_api,
     should_offer_lcurve_parameter_picker,
     lcurve_picker_state_keys,
 )
@@ -29,6 +31,24 @@ from streamlit_app import (
 def test_default_chat_model_uses_deepseek_pro_thinking_mode():
     assert DEFAULT_MODEL == "deepseek-v4-pro"
     assert DEFAULT_THINKING_ENABLED is True
+
+
+def test_workspace_style_keeps_first_chat_message_above_fixed_input():
+    css = streamlit_app.workspace_style_css()
+
+    assert ".st-key-t2_chat_history_panel" in css
+    assert "display: flex;" in css
+    assert "flex-direction: column;" in css
+    assert "justify-content: flex-start;" in css
+    assert "padding-bottom: var(--t2-chat-input-clearance);" in css
+    assert "min-height: max(360px, calc(100vh - 430px)) !important;" in css
+    assert "scroll-padding-bottom: var(--t2-chat-input-clearance);" in css
+
+
+def test_live_agent_turns_can_render_inside_chat_history_panel():
+    assert "live_chat_container" in inspect.signature(streamlit_app.run_agent_prompt).parameters
+    assert "live_chat_container" in inspect.signature(streamlit_app.run_local_demo_prompt).parameters
+    assert "live_chat_container" in inspect.signature(streamlit_app.run_offline_debug_prompt).parameters
 
 
 def test_agent_tool_result_can_carry_simulation_stage_metadata():
@@ -108,6 +128,14 @@ def test_intro_query_preference_helpers(monkeypatch):
 
     assert INTRO_QUERY_KEY not in query_params
     assert query_params["other"] == "kept"
+
+
+def test_should_run_local_demo_without_api_is_narrow():
+    assert should_run_local_demo_without_api("请运行本地 NMR 理想三角 T2-T2 演示")
+    assert should_run_local_demo_without_api("Run the local NMR ideal triangle T2-T2 demo")
+    assert should_run_local_demo_without_api("用默认理想三角孔跑完整二维NMR模拟并做T2反演")
+    assert not should_run_local_demo_without_api("我不懂参数，请自动做 T2 反演")
+    assert not should_run_local_demo_without_api("用红黄 PNG 相图跑二维模拟")
 
 
 def test_resolve_artifact_image_reference_rejects_non_images(tmp_path):

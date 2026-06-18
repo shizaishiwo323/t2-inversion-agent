@@ -8,9 +8,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable
 
+import pandas as pd
+
 from .deepseek import DEEPSEEK_BASE_URL
 from .guidance import build_parameter_guidance, infer_requested_plan
 from .models import AgentToolResult
+from .simulation_2d import write_standard_decay_workbook
 from .skills import render_skill_prompt
 from .tools import (
     generate_report,
@@ -22,6 +25,7 @@ from .tools import (
     run_2d_mesh_and_decay,
     run_fixed_nnls,
     run_gaussian_peaks,
+    run_local_nmr_triangle_t2_t2,
     run_lcurve,
     validate_workbook,
 )
@@ -107,13 +111,17 @@ def build_tool_specs() -> list[dict[str, Any]]:
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "geometry_mode": {"type": "string", "enum": ["png", "rule"], "description": "Use png for uploaded red/yellow/white phase maps, or rule for generated rule geometry."},
-                        "coupled": {"type": "boolean", "description": "For rule geometry, whether two pore bodies are connected by a throat."},
-                        "canvas_width_px": {"type": "integer", "description": "Rule geometry canvas width in pixels."},
-                        "canvas_height_px": {"type": "integer", "description": "Rule geometry canvas height in pixels."},
-                        "large_pore_radius_px": {"type": "integer", "description": "Rule geometry large pore radius in pixels."},
-                        "small_pore_radius_px": {"type": "integer", "description": "Rule geometry small pore radius in pixels."},
-                        "throat_width_px": {"type": "integer", "description": "Rule geometry throat width in pixels."},
+                        "geometry_mode": {"type": "string", "enum": ["png", "rule"], "description": "Use png only for uploaded red/yellow/white phase maps. Use rule for the upstream ideal triangular-pore simulation input."},
+                        "coupled": {"type": "boolean", "description": "For ideal triangle input, whether the large and small triangular pores are connected by a throat."},
+                        "large_side_um": {"type": "number", "description": "Large ideal triangle side length in micrometers. Default: 20."},
+                        "small_side_um": {"type": "number", "description": "Small ideal triangle side length in micrometers. Default: 8."},
+                        "large_depth_um": {"type": "number", "description": "Large triangle out-of-plane depth used for volume weighting. Default: 20."},
+                        "small_depth_um": {"type": "number", "description": "Small triangle out-of-plane depth used for volume weighting. Default: 8."},
+                        "throat_length_um": {"type": "number", "description": "Coupling throat length in micrometers. Default: 5."},
+                        "throat_width_um": {"type": "number", "description": "Coupling throat width in micrometers. Default: 1."},
+                        "large_air_area_um2": {"type": "number", "description": "Optional gas/bubble area inside the large triangle. Default: 0 for full water."},
+                        "small_air_area_um2": {"type": "number", "description": "Optional gas/bubble area inside the small triangle. Default: 0 for full water."},
+                        "ideal_mesh_area_um2": {"type": "number", "description": "pyGIMLi target triangle area for ideal triangle mesh. Default: 0.05."},
                     },
                     "required": [],
                     "additionalProperties": False,
@@ -128,7 +136,7 @@ def build_tool_specs() -> list[dict[str, Any]]:
                 "parameters": {
                     "type": "object",
                     "properties": {
-                        "geometry_mode": {"type": "string", "enum": ["png", "rule"], "description": "Use png for uploaded red/yellow/white phase maps, or rule for generated rule geometry."},
+                        "geometry_mode": {"type": "string", "enum": ["png", "rule"], "description": "Use png only for uploaded red/yellow/white phase maps. Use rule for the upstream ideal triangular-pore simulation input."},
                         "pixel_size_um": {"type": "number", "description": "Pixel size in micrometers when x and y pixel sizes are equal. Default: 1."},
                         "pixel_size_x_um": {"type": "number", "description": "Horizontal pixel size in micrometers."},
                         "pixel_size_y_um": {"type": "number", "description": "Vertical pixel size in micrometers."},
@@ -141,12 +149,16 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "mesh_bulk_size_um": {"type": "number", "description": "Target interior mesh spacing. Larger is coarser. Default: 8."},
                         "mesh_boundary_size_um": {"type": "number", "description": "Target boundary mesh spacing. Default: 2."},
                         "mesh_max_points": {"type": "integer", "description": "Safety limit for mesh node count. Default: 25000."},
-                        "coupled": {"type": "boolean", "description": "For rule geometry, whether two pore bodies are connected by a throat."},
-                        "canvas_width_px": {"type": "integer", "description": "Rule geometry canvas width in pixels."},
-                        "canvas_height_px": {"type": "integer", "description": "Rule geometry canvas height in pixels."},
-                        "large_pore_radius_px": {"type": "integer", "description": "Rule geometry large pore radius in pixels."},
-                        "small_pore_radius_px": {"type": "integer", "description": "Rule geometry small pore radius in pixels."},
-                        "throat_width_px": {"type": "integer", "description": "Rule geometry throat width in pixels."},
+                        "coupled": {"type": "boolean", "description": "For ideal triangle input, whether the large and small triangular pores are connected by a throat."},
+                        "large_side_um": {"type": "number", "description": "Large ideal triangle side length in micrometers. Default: 20."},
+                        "small_side_um": {"type": "number", "description": "Small ideal triangle side length in micrometers. Default: 8."},
+                        "large_depth_um": {"type": "number", "description": "Large triangle out-of-plane depth used for volume weighting. Default: 20."},
+                        "small_depth_um": {"type": "number", "description": "Small triangle out-of-plane depth used for volume weighting. Default: 8."},
+                        "throat_length_um": {"type": "number", "description": "Coupling throat length in micrometers. Default: 5."},
+                        "throat_width_um": {"type": "number", "description": "Coupling throat width in micrometers. Default: 1."},
+                        "large_air_area_um2": {"type": "number", "description": "Optional gas/bubble area inside the large triangle. Default: 0 for full water."},
+                        "small_air_area_um2": {"type": "number", "description": "Optional gas/bubble area inside the small triangle. Default: 0 for full water."},
+                        "ideal_mesh_area_um2": {"type": "number", "description": "pyGIMLi target triangle area for ideal triangle mesh. Default: 0.05."},
                     },
                     "required": [],
                     "additionalProperties": False,
@@ -157,7 +169,7 @@ def build_tool_specs() -> list[dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "run_2d_simulation_full_workflow",
-                "description": "Run the complete first-version 2D NMR workflow: geometry input, pyGIMLi mesh, T2 decay solve, T2 inversion, optional Gaussian decomposition.",
+                "description": "Run the first-version 2D NMR T2 workflow: geometry input, pyGIMLi mesh, T2 decay solve, T2 inversion, optional Gaussian decomposition. Does not run T2-T2 or D-T2.",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -184,11 +196,33 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "mesh_boundary_size_um": {"type": "number"},
                         "mesh_max_points": {"type": "integer"},
                         "coupled": {"type": "boolean"},
-                        "canvas_width_px": {"type": "integer"},
-                        "canvas_height_px": {"type": "integer"},
-                        "large_pore_radius_px": {"type": "integer"},
-                        "small_pore_radius_px": {"type": "integer"},
-                        "throat_width_px": {"type": "integer"},
+                        "large_side_um": {"type": "number"},
+                        "small_side_um": {"type": "number"},
+                        "large_depth_um": {"type": "number"},
+                        "small_depth_um": {"type": "number"},
+                        "throat_length_um": {"type": "number"},
+                        "throat_width_um": {"type": "number"},
+                        "large_air_area_um2": {"type": "number"},
+                        "small_air_area_um2": {"type": "number"},
+                        "ideal_mesh_area_um2": {"type": "number"},
+                    },
+                    "required": [],
+                    "additionalProperties": False,
+                },
+            },
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "run_local_nmr_triangle_demo",
+                "description": "Run the cloned local NMR ideal-triangle demonstration: pyGIMLi triangular mesh, T2 decay, T2-T2 exchange-map visualization, then send the simulated decay into the existing mature fixed NNLS T2 inversion workflow.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "regularization": {"type": "number", "description": "Fixed smoothing/regularization factor for the existing T2 inversion pipeline. Default: 1.0."},
+                        "t2_min_ms": {"type": "number", "description": "Lower bound for the existing T2 inversion search range. Default: 1 ms."},
+                        "t2_max_ms": {"type": "number", "description": "Upper bound for the existing T2 inversion search range. Default: 10000 ms."},
+                        "num_bins": {"type": "integer", "description": "Number of T2 bins for the existing T2 inversion pipeline. Default: 200."},
                     },
                     "required": [],
                     "additionalProperties": False,
@@ -542,6 +576,109 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
             context.repaired_path = Path(standard_decay)
         return result
 
+    if name == "run_local_nmr_triangle_demo":
+        demo_root = context.workspace / "local_nmr_triangle_demo"
+        simulation = run_local_nmr_triangle_t2_t2(demo_root / "simulation", args)
+        simulation_artifacts = list(simulation.get("artifacts", []))
+        simulation_result = AgentToolResult(
+            "success" if simulation.get("status") == "success" else "failed",
+            "本地 NMR 理想三角网格、T2 衰减和 T2-T2 演示模拟完成。"
+            if not _is_english(response_language)
+            else "Local NMR ideal-triangle mesh, T2 decay, and T2-T2 demo simulation completed.",
+            artifacts=simulation_artifacts,
+            summary=simulation,
+            error=simulation.get("error"),
+        )
+        context.results.append(simulation_result)
+        if simulation_result.status != "success":
+            return simulation_result
+
+        decay_csv = simulation.get("standard_decay_source_csv")
+        if not decay_csv:
+            return AgentToolResult(
+                "failed",
+                "本地 NMR 模拟没有生成可用于 T2 反演的衰减 CSV。"
+                if not _is_english(response_language)
+                else "Local NMR simulation did not produce a decay CSV for T2 inversion.",
+                error="missing_simulation_decay_csv",
+            )
+        decay_frame = pd.read_csv(Path(decay_csv))
+        if "time_ms" not in decay_frame.columns:
+            return AgentToolResult(
+                "failed",
+                "本地 NMR 衰减 CSV 缺少 time_ms 列。"
+                if not _is_english(response_language)
+                else "Local NMR decay CSV is missing the time_ms column.",
+                error="missing_time_column",
+            )
+        signal_column = next(
+            (
+                column
+                for column in [
+                    "coupled_signal_normalized",
+                    "normalized_signal",
+                    "total_signal",
+                    "uncoupled_signal_normalized",
+                ]
+                if column in decay_frame.columns
+            ),
+            None,
+        )
+        if signal_column is None:
+            return AgentToolResult(
+                "failed",
+                "本地 NMR 衰减 CSV 缺少可用于 T2 反演的信号列。"
+                if not _is_english(response_language)
+                else "Local NMR decay CSV is missing a signal column for T2 inversion.",
+                error="missing_signal_column",
+            )
+        standard_decay = write_standard_decay_workbook(
+            demo_root / "decay" / "local_nmr_triangle_coupled__standard_decay.xlsx",
+            decay_frame["time_ms"].to_numpy(dtype=float),
+            decay_frame[signal_column].to_numpy(dtype=float),
+        )
+        context.simulation_decay_path = standard_decay
+        context.repaired_path = standard_decay
+
+        inversion_params = {
+            "time_to_ms_scale": 1.0,
+            "regularization": float(args.get("regularization", 1.0)),
+            "t2_min_ms": float(args.get("t2_min_ms", 1.0)),
+            "t2_max_ms": float(args.get("t2_max_ms", 1e4)),
+            "num_bins": int(args.get("num_bins", 200)),
+        }
+        inversion = run_fixed_nnls(
+            standard_decay,
+            demo_root / "nnls",
+            inversion_params,
+            language=response_language,
+        )
+        context.results.append(inversion)
+        if inversion.status == "success" and "spectrum_xlsx" in inversion.summary:
+            context.spectrum_path = Path(inversion.summary["spectrum_xlsx"])
+
+        simulation_stages = dict(simulation.get("simulation_stages", {}))
+        simulation_stages["decay"] = [*simulation_stages.get("decay", []), str(standard_decay)]
+        simulation_stages["inversion"] = list(inversion.artifacts)
+        return AgentToolResult(
+            "success" if inversion.status == "success" else "failed",
+            "本地 NMR 理想三角演示已完成；T2 反演已使用当前成熟 fixed NNLS 流程。"
+            if not _is_english(response_language)
+            else "Local NMR ideal-triangle demo completed; T2 inversion used the current mature fixed NNLS workflow.",
+            artifacts=[*simulation_artifacts, str(standard_decay), *inversion.artifacts],
+            summary={
+                "stage": "local_nmr_triangle_demo",
+                "simulation_decay_xlsx": str(standard_decay),
+                "spectrum_xlsx": str(context.spectrum_path) if context.spectrum_path else None,
+                "t2_inversion_source": "existing_t2process_fixed_nnls",
+                "regularization": inversion_params["regularization"],
+                "simulation_stages": simulation_stages,
+                "local_nmr_simulation": simulation,
+                "t2_inversion": inversion.summary,
+            },
+            error=inversion.error,
+        )
+
     if name == "run_2d_simulation_full_workflow":
         mesh = run_2d_mesh_and_decay(
             context.uploaded_path,
@@ -744,6 +881,22 @@ def _assistant_to_dict(message: Any) -> dict[str, Any]:
     return {key: value for key, value in data.items() if value is not None}
 
 
+def _local_demo_completion_message(result: AgentToolResult, response_language: str) -> str:
+    artifact_count = len(result.artifacts)
+    if _is_english(response_language):
+        return (
+            "The local NMR ideal-triangle T2-T2 demo has completed. "
+            "The cloned simulator produced the mesh, T2 decay, and T2-T2 artifacts, "
+            "and the simulated decay was sent through the existing fixed NNLS T2 inversion workflow. "
+            f"{artifact_count} artifact(s) are available in the result panel."
+        )
+    return (
+        "本地 NMR 理想三角 T2-T2 演示已完成。克隆项目已经生成网格、T2 衰减和 T2-T2 产物，"
+        "模拟衰减也已接入当前成熟的 fixed NNLS T2 反演流程。"
+        f"右侧结果栏已同步 {artifact_count} 个产物。"
+    )
+
+
 def run_deepseek_agent_turn(
     *,
     api_key: str,
@@ -776,9 +929,13 @@ def run_deepseek_agent_turn(
     system_content = (
         "You are an NMR 2D simulation and T2 inversion agent that can call real tools. "
         "For 2D simulation requests, use the simulation tools instead of spreadsheet validation tools. "
-        "If the user uploads a PNG or asks for red/yellow phase-map simulation, call inspect_2d_geometry_input and then run_2d_mesh_and_decay or run_2d_simulation_full_workflow. "
+        "If the user uploads a PNG or asks for red/yellow phase-map simulation, call inspect_2d_geometry_input and then run_2d_mesh_and_decay or run_2d_simulation_full_workflow with geometry_mode='png'. "
+        "If the user asks for the built-in ideal triangle simulation and has not uploaded a PNG, call run_2d_mesh_and_decay or run_2d_simulation_full_workflow with geometry_mode='rule'; do not create a PNG phase map as an intermediate input. "
         "For the first version, only 2D simulation is supported, and mesh generation must use pyGIMLi triangular meshing. "
-        "When the user asks for the whole simulation flow, call run_2d_simulation_full_workflow so mesh, decay, T2 inversion, and optional Gaussian decomposition are connected. "
+        "For the ordinary first-version ideal-triangle simulation, run only the 1D T2 workflow. "
+        "If the user explicitly asks for the local NMR simulator, ideal triangle mesh demonstration, or T2-T2 simulation/demo, call run_local_nmr_triangle_demo; it generates T2-T2 artifacts with the cloned local NMR project and still sends the simulated decay into the existing fixed NNLS T2 inversion pipeline. "
+        "Do not attempt D-T2 unless a future tool explicitly supports it. "
+        "When the user asks for the whole local T2 simulation flow, call run_2d_simulation_full_workflow so mesh, decay, T2 inversion, and optional Gaussian decomposition are connected. "
         "When the user only asks for T2 inversion, keep using the existing T2 workbook tools and do not force simulation. "
         "When the user has uploaded data and asks to inspect, run, or interpret it, first call inspect_workbook_schema, then call validate_workbook. "
         "If the user only asks about capabilities, parameter meanings, boundaries, expected data format, workflow, or usage advice, do not call tools; answer clearly. "
@@ -879,6 +1036,10 @@ def run_deepseek_agent_turn(
             if on_trace:
                 on_trace(trace[-1])
             messages.append({"role": "tool", "tool_call_id": tool_call.id, "content": _result_payload(result)})
+            if name == "run_local_nmr_triangle_demo" and result.status == "success":
+                completion = _local_demo_completion_message(result, response_language)
+                messages.append({"role": "assistant", "content": completion})
+                return AgentTurnResult(completion, messages, tool_results, trace)
 
     fallback = (
         "I called several rounds of tools but did not receive a final assistant reply yet. Please check the tool results on the right, or ask me to continue the analysis."

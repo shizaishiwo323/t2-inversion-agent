@@ -6,3 +6,7 @@ runs
 .streamlit/secrets.toml
 streamlit_server_*.log
 *.pyc
+NMR-simulation-of-2D-3D-projext/.git
+NMR-simulation-of-2D-3D-projext/**/__pycache__
+NMR-simulation-of-2D-3D-projext/.pytest_cache
+NMR-simulation-of-2D-3D-projext/simulation_outputs

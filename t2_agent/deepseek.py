@@ -9,20 +9,63 @@ from .guidance import build_parameter_guidance
 from .models import UserWorkflowPlan
 
 
-DEEPSEEK_BASE_URL = "https://api.deepseek.com"
+DEEPSEEK_BASE_URL = os.getenv("DEEPSEEK_BASE_URL", "https://api.deepseek.com")
 
 
-def get_deepseek_api_key(secrets: Any | None = None) -> str | None:
-    """Read API key from Streamlit secrets first, then environment."""
+def _windows_environment_value(name: str) -> tuple[str | None, str | None]:
+    if os.name != "nt":
+        return None, None
+
+    try:
+        import winreg
+    except Exception:
+        return None, None
+
+    locations = [
+        (winreg.HKEY_CURRENT_USER, r"Environment", "windows_user_environment"),
+        (
+            winreg.HKEY_LOCAL_MACHINE,
+            r"SYSTEM\CurrentControlSet\Control\Session Manager\Environment",
+            "windows_machine_environment",
+        ),
+    ]
+    for root, path, source in locations:
+        try:
+            with winreg.OpenKey(root, path) as key:
+                value, _kind = winreg.QueryValueEx(key, name)
+        except OSError:
+            continue
+        if value:
+            return str(value), source
+    return None, None
+
+
+def get_deepseek_api_key_source(secrets: Any | None = None) -> tuple[str | None, str | None]:
+    """Read API key and report where it came from."""
 
     if secrets is not None:
         try:
             value = secrets.get("DEEPSEEK_API_KEY")
             if value:
-                return str(value)
+                return str(value), "streamlit_secrets"
         except Exception:
             pass
-    return os.getenv("DEEPSEEK_API_KEY")
+
+    value = os.getenv("DEEPSEEK_API_KEY")
+    if value:
+        return value, "environment"
+
+    value, source = _windows_environment_value("DEEPSEEK_API_KEY")
+    if value:
+        return value, source
+    return None, None
+
+
+def get_deepseek_api_key(secrets: Any | None = None) -> str | None:
+    """Read API key from Streamlit secrets first, then environment."""
+
+    value, _source = get_deepseek_api_key_source(secrets)
+    return value
 
 
 def build_agent_reply(
