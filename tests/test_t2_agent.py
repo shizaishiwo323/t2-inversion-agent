@@ -37,6 +37,19 @@ SWAPPED_EXPERIMENTAL = ROOT / "T2process" / "Example data" / "ExperimentalDecay.
 PEA_DECAY = ROOT / "testData" / "standard 30%.1.pea"
 
 
+def test_guidance_detects_2d_png_simulation_intent():
+    plan = infer_requested_plan("上传红黄PNG，帮我做二维NMR模拟并T2反演")
+
+    assert plan.workflow == "simulation_2d_png"
+    assert plan.needs_gaussian is False
+
+
+def test_guidance_detects_rule_geometry_simulation_intent():
+    plan = infer_requested_plan("设置规则几何，两个孔耦合，跑一次完整二维模拟")
+
+    assert plan.workflow == "simulation_2d_rule"
+
+
 def test_validate_workbook_detects_decay_data_and_recommends_seconds_scale():
     result = validate_workbook(SIMULATION)
 

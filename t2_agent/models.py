@@ -24,7 +24,15 @@ class AgentToolResult:
 class UserWorkflowPlan:
     """Inferred user intent and key processing parameters."""
 
-    workflow: Literal["lcurve_inversion", "fixed_nnls", "gaussian_only", "full_analysis"] = "lcurve_inversion"
+    workflow: Literal[
+        "lcurve_inversion",
+        "fixed_nnls",
+        "gaussian_only",
+        "full_analysis",
+        "simulation_2d_png",
+        "simulation_2d_rule",
+        "simulation_2d_full",
+    ] = "lcurve_inversion"
     needs_gaussian: bool = False
     peak_count: int = 2
     regularization: float | None = None

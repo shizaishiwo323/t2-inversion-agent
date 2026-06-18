@@ -1,0 +1,1038 @@
+--- PAGE 1 ---
+PHYSICAL REVIEW B VOLUME 44, NUMBER 14 1 OCTOBER 1991-II
+Magnetization evolution in connected yore systems
+K. R. Mccall
+Schlumberger Dol-l Research, Old Quarry Road, Ridgefteld, Connecticut 06877
+and Department ofPhysics and Astronomy, Uniuersity ofMassachusetts, Amherst, Massachusetts 01003
+D. L. Johnson
+Schlumberger Doll -Research, Old Quarry Road, Ridgefield, Connecticut 06877
+R. A. Guyer
+Department ofPhysics and Astronomy, Uniuersity ofMassachusetts, Amherst, Massachusetts 01003
+(Received 5 April 1991;revised manuscript received 8 July 1991)
+The equations governing magnetization evolution in Quid-filled pore systems are developed. Particu-
+lar attention is given to the eQ'ect of coupling between pores. In pore systems with a range of pore sizes
+(and/or decay rates}, the evolution of the total dipole moment is described exactly by a spectrum of de-
+cay rates, leading to multiple-exponential decay. We study this spectrum of decay rates as a function of
+coupling strength between pores, using perturbation theory, e8'ective-medium theory, and matrix diago-
+nalization. The spectrum of decay rates evolves from the individual pore decay-rate distribution, at zero
+coupling, to a 5-function distribution, at infinite coupling. The development of the spectrum of decay
+rates between the two extremes of weak and strong coupling is discussed. The three methods employed
+to study this problem are in good agreement. The e8'ect of coupling between pores is important in NMR
+measurements when comparing di6'erent porous materials and in the study of the temperature depen-
+dence of characteristic decay rates in these materials.
+I. INTRODUCTION
+Porous-media systems consist of matrix, pore Quid, and
+probe particle. For example, in water saturated fused
+glass beads, the glass matrix is complementary to the
+pore space which is filled with weakly ionized water. In
+an electrical measurement the probe particle is an ion,
+e.g., Na+, which probes the pore space as a participant in
+the current carrying process. In an NMR measurement,
+the probe particle is the H atom on a water molecule, the
+carrier of a H nuclear magnetic moment. This molecule
+explores the pore space by di6'usive motion. The magnet-
+ic moment it carries relaxes due to dipolar interactions
+with other molecules and interactions at the pore-
+Quid —matrix interface. The magnetization evolves by
+diffusive motion and relaxation processes. It responds to
+features of the geometry of the pore space. We are in-
+terested in the geometrical information which may be
+garnered from NMR studies of magnetization evolution.
+Brownstein and Tarr, ' in a classic work, have discussed
+magnetization evolution in independent pores. Our in-
+terest is in magnetization evolution in coupled-pore sys-
+tems. We take the characteristics of the diffusive motion
+and the relaxation mechanisms to be known and concern
+ourselves with geometry. The geometry of the pore sys-
+tem we wish to study is that of a lattice of pores (e.g.,
+sites characterized by volume and surface) connected by
+throats (e.g., bonds characterized by cross-sectional area).
+See Fig. 1. Thus, we describe the pore space with a set of
+geometrical parameters: V the volume of a pore; A the
+surface area of a pore; S the cross-sectional area of a
+throat; and l the distance between the center of adjacent
+pores. In addition, we defi.ne a pore size a, where
+a = V/A.
+The behavior of magnetization in a pore space is con-
+trolled by four rates.
+(1) to~ =1/T, tt, the bulk relaxation rate, an intrinsic
+property of ihe pore Quid.
+(2) w =p/a, the relaxation rate in the vicinity of the
+fiuid-matrix interface. [p=d(l/r — 1/T, ~), where d is
+the thickness of the Quid layer next to the matrix walls
+FIG. 1. Schematic of a porous-medium cross-sectional area.
+The porous medium is characterized by large voids, each as-
+signed a volume V and surface area A, connected by narrow
+channels of cross-sectional area S. The distance between pores
+is I and a = V/A.
+O~1991 The American Physical Society
+
+--- PAGE 2 ---
+MAGNETIZATION EVOLUTION IN CONNECTED PORE SYSTEMS 7345
+which is influenced by the matrix and ~ is the relaxa-
+tion rate of Quid in d. Thus, p has units of a velocity and
+characterizes how well the matrix relaxes the fiuid in con-
+tact with it.]
+(3) wz =D/a, the rate of molecular diffusion to the
+fiuid-matrix interface (D is the bulk Quid diffusion
+coefficient).
+(4) w, =SD/Vl, the rate of molecular diffusion between
+pores, the interpore coupling rate.
+The effect of a finite value for w~ can be accounted for
+exactly and simply in terms of the solution when wz —=0,
+thus we will neglect w~ in our discussion. Also, note
+W~ ( WD.
+The work of Brownstein and Tarr' (BT) on single pores
+corresponds to the weak coupling limit w, —+0. These au-
+thors describe the behavior of the magnetization in the
+slow diffusion limit wp »10wD, the crossover from slow
+diffusion to fast diffusion at w = wD, and the behavior ofp D&
+the magnetization in the fast diffusion limit w
+See Fig. 2. In the fast diffusion limit, the surface relaxa-
+tion rate is slow compared to the rate of diffusive magne-
+tization equilibration; the magnetization is approximately
+uniform across a pore and the decay is single exponential.
+Coupling between pores can be important in the fast
+difFusion regime.
+In Fig. 2 we show that BT have discussed the behavior
+of the magnetization in going from point 1 to 2 in rate
+space. In this paper we develop methods of studying the
+behavior of the magnetization in going from point 2 to
+point 3 in this space. The BT methodology is valid here,
+in principle, but cumbersome in describing this evolution,
+in practice. It seems to be the case that sedimentary
+rocks correspond to a point somewhere along the 2~3
+line of Fig. 2. Individual pores would be in the fast
+diffusion limit were they uncoupled from their neighbors
+and the spectrum of decay rates is conventionally inter-
+preted as a spectrum of pore sizes. If the coupling w, is
+"strong enough, " however, then the entire pore space be-
+comes a single pore in the fast diffusion limit and the de-
+cay spectrum narrows to a 5 function at the rate
+wz =pA /V, where 2 and V are the total area and pore
+volume of the system. Decay in this limit is strictly single— w t
+exponential, M(t) =M(0)e, where M is the total di-
+pole moment of the system. A goal of this paper is to un-
+derstand this evolution and what constitutes "strong
+enough" coupling. Since w, is proportional to the
+diffusion constant, it can be increased by a factor of -20
+simply by superheating the sample past the boiling point
+of water. Thus, we feel that temperature dependent de-
+cay spectra should prove to be a powerful probe of the
+physics of magnetization evolution.
+Section II contains a description of various measures of
+magnetic behavior that concern us. The model porous
+medium we study is described. The equations of motion
+of the magnetization in this porous medium are dis-
+cussed. In Sec. III, we develop perturbation theory solu-
+tions to the equations of motion in both the weak and
+strong coupling limits (points 2 and 3 in Fig. 2). Section
+IV contains a description and results of an effective medi-
+um theory treatment of the equations of motion. We dis-
+cuss numerically exact solutions to the equation of
+motion for several small system realizations of the model
+porous medium in Sec. V. Finally, in Sec. VI we compare
+the three methods we have employed to study the behav-
+ior of magnetization and discuss the relevance of our re-
+sults to physical systems.
+II. MAGNETIZATION EQUATIONS AND
+POROUS MEDIA MODEL
+In a typical magnetization measurement, the time evo-
+lution of the total dipole moment is probed, i.e., M(t)
+versus t. The total dipole moment may decay as a single
+exponential, a multiple exponential, a stretched exponen-
+tial, etc. To examine the content of a decay curve in a
+model independent way, we define the mean lifetime:
+f t (dM/dt)dt f M (t)dt
+f "(dM/dr)dr
+0
+Wcjj=.
+Wp
+fast — strong
+where M(t) is the total dipole moment of the system at
+time t. Note that ~ is directly related to the Fourier-
+Laplace transform of M, M(s, k),
+lim limM(s, k) .M 0 s-01-0 (2)
+fast - weak
+II
+BTeeaeeQ'@
+WD
+Wp
+FIG. 2. Rate space for magnetization decay in pore systems.
+Brownstein and Tarr discuss evolution from slow to fast
+diffusion, 1~2. We discuss evolution from weak to strong cou-
+pling, 2~3.
+This quantity is discussed by Torquato in the context of
+permeability and by Wilkinson, Johnson, and Schwartz
+in the context of magnetization decay in isolated pores.
+Given that the magnetization evolution involves both
+diffusion and decay, it is reasonable to expect to represent
+(M) in the form
+di, n (t)e
+0
+where n (A, ) is the spectrum of decay rates. In fact n(A, )
+can be expressed uniquely as n (A, )=+„I„5(k— A,„),
+where A,
+„
+is the eigenvalue and I„its amplitude, as dis-
+cussed by BT. Then,
+
+--- PAGE 3 ---
+K. R. McCALL, D. L. JOHNSON, AND R. A. GUYER
+M(t)
+M(0) ro
+(5)
+—— I "dA,— n (k)—:& A, (4)
+0
+i.e., ~ is the appropriately weighted average of X
+Thus, -, , the n = — 1 moment of n (A, ), favors small A, or
+slow decay rates.
+At early time, t~O, the decay of the total dipole mo-
+ment is given by
+where r, = A, V/A V, , s,"=S;./S, U, = V, /V, w, =DS/iV,
+wz =p A /V (n«e, wz —= 1/ro) and the sum is over all sites
+j which are nearest neighbors (NN) to i Overbars indi-
+cate averages.
+We seek solutions to Eq. (8) subject to the initial condi-
+tion at t =0 of uniform magnetization, M, (0)=mV, ,
+where m is the magnetization. Since s;~ =s~„but U;AUJ
+(usually) the operator %," is not symmetric in the inter-
+change of i and j. Equation (8) is symmetrized by using
+M; =QU;8;; then
+= J dAAn(A, )—:&A, & .
+'To 0
+The short-time behavior provides a measure of the n = 1
+moment of n(k). Given that surface eff'ects are the dom-
+inant mechanism for relaxation, magnetization decay at
+the very shortest times is proportional to the total matrix
+surface to total Quid volume in the system; i.e.,
+1/ro=p A /V= w .
+In the strong coupling limit, e.g., D —+~, the entire
+system can be viewed as a single pore with total dipole
+moment decay given by its surface to volume ratio; i.e.,
+1/r =pA/V. Thus,
+1limD~oo &
+NN s.g S.Jw p+w g — 5J w
+Jk i VV.
+(10)
+M(0)
+=
+& 8(0)I8(t) &,
+and s; =0 for j not a nearest neighbor of i. Given our in-
+itial condition we find that the total dipole moment
+M (t)= g, M; can be expressed as
+We will focus our attention on the quantities ~, ~o, and
+n (A, ). Through calculations of M(t) in terms of n (A, ) we
+hope to learn n(A, ) (and therefore r and ro) and its rela-
+tionship to the geometry of the pore space.
+While the Quid-saturated rocks in which we are pri-
+marily interested do not contain a regular lattice of pores,
+they do contain a multiply connected system of pores far
+from the percolation threshold. In addition, the magneti-
+zation evolution is governed by diffusive processes which
+are independent of the precise connectivity of the lattice.
+Thus, to have a speci6c model of a pore system, we
+choose a hypercubic lattice of pores and throats. We
+identify pores with sites in a lattice and throats with
+bonds between sites. Each site is characterized by a
+volume V; and a surface area A, . Each bond is charac-
+terized by a cross-sectional area S,- and a length l; .
+Thus, in a hypercubic lattice model in d dimension, we
+admit X possible values of V and 3, and dX possible
+values of l and S, where X is the number of sites. For ex-
+ample, in a particularly simple model we might take
+2;=4mB;, V;=4mB; /3, l;-=l, and S;-=S, where R,- is a
+pore radius.
+Following Cohen and Mendelson, we assume that
+each pore is in the fast diffusion limit (or would be if it
+were uncoupled from the rest of the system) and that all
+of the lengths i,. are the same. We are led to Eq. (6.15a)
+of Cohen and Mendelson for the dipole moment in pore
+;.MJ,
+J
+(14)
+Iin the present case the matrix, Eq. (10), is real sym-
+metric, the IP„& are a complete set of orthornormal
+states and the A,„arepositive definite] we find
+I 8(t) &
+= g & P„I8(0) & (15)
+(16)
+Upon comparison with Eq. (3) we have
+n (A )= y I & 8(0)Iy„&I'5(A, — X„). (17)
+The rates A,„arethe eigenvalues of &. The amplitude at
+each rate A,
+„
+is the overlap of If„&, from Eq. (14), with
+&8(0)I, the state created in experiment by making the
+magnetization uniform at t =O. In the next three sec-
+tions of this paper we will describe three methods for de-
+veloping solutions to Eqs. (16) and (17).
+and & 8(0) I 8(0) &
+= 1. Expanding I 8 & in terms of the com-
+plete set of eigenstates of &,
+(13)
+
+--- PAGE 4 ---
+MAGNETIZATION EVOLUTION IN CONNECTED PORE SYSTEMS
+III. PERTURBATION THEORY FOR
+STRONG AND %'EAK COUPLINGS
+and look for solutions to
+(u")+~v) Iy„&=x„l1(„& (22)
+We wish to find perturbation theory solutions to Eq.
+(9), given the Hamiltonian in Eq. (10). The ratio w, /w
+determines whether the system is in the weak coupling
+limit (near point 2 in Fig. 2) or the strong coupling limit
+(near point 3 in Fig. 2). Therefore, we rewrite Eq. (9) as
+= — (m(0)+~V)I8&, (18)d7.
+7(,„=E„+~&nIVIn &+a' &k vn&'
+k(e )
+and to first order
+(23)
+in terms of E„and I n &. To second order in the perturba-
+tion,
+where e is the small parameter and the quantities r, &( ',
+and V are chosen according to the region of interest.
+Strong coupling:
+wp
+T— Wctw
+I@„&=c„In &+~ y Ik &
+k (An) n k
+Here c„is given by
+(24)
+(25)
+NN S.k
+k i
+V,, =r, 5,,
+8'eak coupling:
+S;
+~
+Ug UJ
+(19)
+k (An) (En Ek )
+correct to second order in the perturbation. From Eq.
+(16) the normalized total dipole moment is given by
+W
+E'=
+wp
+r=w, t, m',,0)=r, fi,,
+&"'In &=E„In&, (21)
+I
+lJNN S'k S''
+1J ~ lJ
+k i ~ U;UJ
+Using standard Schrodinger perturbation theory we
+may investigate either the strong or the weak coupling
+limit. We assume we know the eigenvalues E„andeigen-
+kets I n & which satisfy
+The problem at hand is to solve Eq. (21) for In & and E„
+and to use the results to find M(t).
+We consider the strong coupling case first. By inspec-
+tion we see that the ground state of &' ', with energy
+E0=0, is equivalent to the t =0 solution for
+I
+8 & de-
+scribed in Sec. II, i.e., IO &
+=
+I 8(0) &, where I 8(0) & is given
+in Eq. (12). Since l8(0) & is orthogonal to all nonzero In &
+and & OI VI 0 &
+= 1 we can write the normalized total dipole
+moment in the strong coupling limit, using Eqs.
+(23)— (26), in the form
+I&klvlO&l'. . . I&klvlO&l'
+k (%0) Ek k (%0)
+wp
++e g exp — Ekw, +w &klvIk&+ew g tI&mIvIk &I' (27)
+k (%0) Ek m (Xk) k m
+correct to second order in the perturbation. As expected, for infinitely strong coupling between pores (e=O) the mag-
+netization is single exponential with decay rate w reQecting the total surface to volume ratio in the system. The first
+correction to the decay rate (second order in the perturbation, first order in e) decreases it below w . Note that the first
+correction to the amplitude is second order in the small parameter E' wp/w, . The multiple exponential spectrum due
+to second-order corrections consists of small amplitude contributions at very high rates. As w, —+~, the dominant
+term in the decay rate is Ekw, ; thus we expect the decay rates to increase in proportion to w, . These fast rates corre-
+spond to the transfer of magnetization between pores due to high coupling. From Eq. (17)
+I & k IVIO& I'
+2
+k (%0) Ek k (WO)
+I & m IVIk & I'+ 6' (28)
+a 5 function of almost unit amplitude and small ampli-
+tude contributions at rates increasing in proportion to w, .
+Note, to zeroth order in the perturbation, z =&0=1jw
+as expected Isee Eq. (7)]. This perturbation expansion of
+l
+the spectrum of rates is valid when a magnetic moment
+has had time to explore enough of the pore space to be
+inAuenced by the average geometry of the system, as op-
+posed to isolated sections, before decaying due to relaxa-
+
+--- PAGE 5 ---
+7348 K. R. McCALL, D. L. JOHNSON, AND R. A. GUYER
+NN s
+(kV~n ) = y™5„„—
+m n VkVn
+(29)
+The total dipole moment to first order can be written ex-
+plicitly in the weak coupling limit:
+M(t) un 2e kn
+M (0) „N u„kr„—rk
+tion at the walls. In the next section, in connection with
+effective medium theory, we present a simple self-
+consistent perturbation theory (SCPT) which has some
+computational advantages.
+We now turn to the weak coupling case. Here, the un-
+perturbed Hamiltonian &' ' is diagonal, so we find
+E„=r„and~n ) is a vector with 1 in the nth place and 0
+elsewhere. The matrix elements (k~V~n ) can be evalu-
+ated analytically; we find
+M(s) I ~ n(A)d~,
+M(0) "o s+A, (32)
+Since M(s) is analytic everywhere except on the negative
+real axis, the contour integral which takes one from M(s)
+to M(t) can be wrapped around the negative real axis
+with the result that Eq. (3) is reproduced. Furthermore,
+n (A, ) can be obtained from Eq. (32) by
+To illustrate the application of EMT we examine the
+physical system in an extreme approximation. We take
+all of the cross-sectional areas equal and all of the
+volumes equal, i.e., s, .=1 or 0 and v; =1. We retain dis-
+order only in the pore decay rates, e.g., due to variation
+of p from pore to pore (r; =p;/P).
+It is particularly convenient to work in the Laplace
+transform domain. Before we describe EMT, we review
+some exact relationships. From Eqs. (16) and (17) we
+have
+NN sk
+Xexp — r„w +w, g t
+Vn
+(30)
+n(A, )=— lim Im1 M(s)
+7T s~ A, lE
+(33)
+NN sk
+X5 k — r„w +w, g
+k Vn
+(31)
+When the pores are decoupled (e =0, w, =— 0) the total di-
+pole moment contains a spectrum of decay rates corre-
+sponding to the spectrum of surface to volume ratios of
+the individual pores. The amplitudes of the exponential
+contributions are proportional to the volumes of the
+pores. The first-order correction for weak coupling
+changes the amplitudes up or down depending on the rel-
+ative size of nearest-neighbor decay rates, and increases
+the decay rates by a factor proportional to the coupling
+rate u, . The spectrum of rates is
+Vn 2~ NN
+(nA, )= g 1—
+N V
+If all the r; are equal to a common value r, then
+n(k)=6(A, — w r) and M(s)/M(0)=[s+w r] '. When
+the values of r; are not all equal, we define the complex
+valued function r(s) such that
+M(s) 1
+s+w r(s)
+(34)
+The goal of EMT is to determine the optimal r(s), analo-
+gous to the self-energy in quantum mechanics (see below).
+Following the EMT prescription we replace all decay
+rates r, by an effective rate r. We seek to find r such that
+changing the decay rate at one site, i =0, back to its orig-
+inal value does not change the total dipole moment, on
+average. Taking the Laplace transform of Eq. (8), using
+r; =r +hr 5;0, where hr =r — r, we find
+In this case, the zeroth order lifetimes ~ and ~0 are not
+equivalent: r =g„u„/Nwzr„andru=N/(wz g„u„rn).
+The former weights long times, the latter weights short
+times.
+The perturbation theory expressions found for the total
+dipole moment and spectrum of rates in the strong and
+weak coupling limits are useful benchmarks for more ela-
+borate calculations which allow us to explore the full
+range of coupling strength.
+IV. EFFECTIVE MEDIUM THEORY
+Eff'ective medium theory (EMT) has been described
+previously for calculations of electrical conduction in
+resistor networks, as well as for electronic structure cal-
+culations where it is known as the coherent potential ap-
+proximation (CPA). ' Random values of conductance are
+replaced by an average value, chosen such that when one
+resistor is changed back to its original value, the eftect on
+the conductance is on average zero. EMT works best for
+very simply problems. Equation (8), the equation of
+motion for the dipole moment at site i, contains bond dis-
+order, S;., as well as two kinds of site disorder, A, and V;.
+(s+w r)M, =mV — w b, rM. 05;o+w, g(M — M, ), (35)
+J
+where I is the initial magnetization. We solve for the di-
+pole moment on the zeroth site using a Fourier series
+transform and find
+IV
+0 s+w r
+w I(s, r)b, r1—
+1+w I(s, r)b, r
+(36)
+where
+I(s,r)
+1
+f
+7I
+f
+7T
+d 0 ' 0
+s + w r +4w, g," &sin.2
+(37)
+and d is the dimension of the hypercubic lattice. [We
+often use I(s) as shorthand for I(s, r) when there is no
+ambiguity. ]
+We impose the condition that at site zero the dipole
+moment averaged over the distribution of rates p(r) is
+
+--- PAGE 6 ---
+MAGNETIZATION EVOLUTION IN CONNECTED PORE SYSTEMS 7349
+the same as the total dipole moment of the model system,
+i.e., a system made up entirely of rates r. This condition
+is imposed at 6nite s. Thus r is a function of s. We re-
+quire
+w =100
+dr p(r) =0,r r(—s)
+1+w I(s)[r — r(s)]
+(38)
+where p (r) is the distribution of rates r. Equation (38) is
+a single-site approximation. Given a distribution of rates
+we can find an r for each s. Calculations of n (A, ), M(t),
+, and ~0 are straightforward, once we have r(s)
+We note that if we write out the Hamiltonian in Eq.
+(10) with u; and s, independent of i and j (the extreme ap-
+proximation under discussion) we see that &;J corre-
+sponds to a tight-binding Hamiltonian with site disorder
+r, . Therefore, there is an ismorphism between the two
+problems:
+03
+Ol
+5~Z,
+WpP'; F;
+Wc~t
+I~F0,
+w I'~X
+n(A)~A (k, =O, E) .
+(39)
+0 1
+P (time )
+O.OI
+The quantities on the right are those defined in Ref. 11.
+Equation (38) is the CPA equation. Note in particular
+that the spectral density relevant to this problem, n(A, ), is
+not the total density of states, but rather it is the k=0
+component only, rejecting the condition that the system
+was initially magnetized uniformly.
+A calculation of (An, ) in EMT, requires a solution to
+the integral I(s, r ). Equation (37) can be solved in closed
+form in the case of a one-dimensional lattice,
+FIG. 3. One-dimensional spectra of decay rates from EMT.
+The distribution of individual pore decay rates is given by Eq.
+(42) (dotted lines). The coupling rate varies; m =~o '=1. The
+mean decay rate ~ ' is marked by short vertical lines. As
++c~ ~) &m ~&O
+1
+I, (s, r )=-
+4w, &z &z+ I (40)
+where z =(s+w r)/4w, In hig. her dimension, the in-
+tegral must be evaluated numerically. For the three-
+dimensional case, one integration can be done by hand
+and we did the remaining two-dimensional integral:
+a/2 m/2 1
+I, ( rs) = dx dy
+z+sin x+sin y z+sin x+sin y+1
+(41)
+p(r)=sin (~r), 0 r~~2 . (42)
+In Figs. 3 and 4 we show n(A, ) calculated in EMT (the
+solid line) for the one-dimensional and three-dimensional
+cases, respectively. The spectra of decay rates were cal-
+culated for various values of w„0.01~w, /w ~100 in
+Fig. 3 and 0.01 ~ w, /w ~0.2 in Fig. 4. To find n (A, ) we
+by brute force. Equation (37) can also be rewritten as a
+single integral in time over a modified Bessel function of
+complex argument raised to the dimensional power. "
+We did not pursue this method here.
+Our first choice of decay rate distribution is the bimo-
+dal distribution given by
+use the following procedure.
+(1) Choose w =1, @=0.001 and p (r) given in Eq. (42).
+We choose e small enough that smaller choices produce
+no visible change in n (A.).
+(2) For each s = — A.— i E, numerically minimize the ab-
+solute value of the left-hand side of Eq. (38) with respect
+to r.
+(3) Use the resultant F( — A, — is) and Eqs. (33) and (34)
+to find n (A, ).
+The results shown in Figs. 3 and 4 con6rm those ex-
+pected from perturbation theory. In the weak coupling
+limit n (A, ) is the same as the original distribution of rates.
+In the strong coupling limit n (A, ) approaches a 5 function
+
+--- PAGE 7 ---
+7350 K. R. McCALL, D. L. JOHNSON, AND R. A. GUYER
+with a tail on the high rate side. Note that the rates in
+n(A, ) extend beyond the A, =2 limit of p(r) as w, in-
+creases. The mean lifetime ~, whose inverse is marked
+with a vertical line on the figures, approaches 7.o= 1 in the
+limit of infinite coupling. The most striking di6'erence be-
+tween the one- and three-dimensional cases is that the
+spectrum of decay rates narrows for much lower values of
+the coupling ratio in three dimensions than in one dimen-
+sion. The degree of connectedness of the system, provid-
+ing more ways for magnetic moments to move from one
+pore to another, has a strong effect on the resulting spec-
+trum of decay rates.
+Because of the connection with the quantum mechani-
+cal problem we can bring to bear on the problem set by
+Eqs. (9)— (17), any of a variety of approximate methods
+designed for electron and phonon problems. As an illus-
+tration we sketch in Appendix A the treatment of Eqs.
+(9)— (17) using the self-consistent perturbation theory
+(SCPT) formalism of Ehrenreich and Schwartz. ' The
+outcome of this treatment is a self-consistent equation
+that provides r,
+where I(s,F(s)) is given by Eq. (37), for use in Eqs. (33)
+and (34). Equation (43) can also be found from approxi-
+mate treatment of the EMT condition, Eq. (38). In Fig. 4
+we show n(A, ) versus A, with r(s) from Eq. (43) (the
+dashed line) for the three-dimensional case. The distribu-
+tion of decay rates is given by Eq. (42). Since Eq. (43) is
+dependent on the first and second moments of the rate
+distribution and an integral determined by the crystal
+structure only, SCPT captures the width of the spectrum
+of rates, but not the details of the exact n (A, ). The ap-
+proximate treatment of EMT, Eq. (43), is in good agree-
+ment with its exact implementation for & (Ar ) & /w, (( I
+( w, )0.2 in our example).
+EMT is a valuable method for studying the spectrum
+of decay rates in a simple system. In this case, the system
+contains variation in pore values of p only. We are also
+interested in situations in which there are variations in
+pore radius and interpore throat size. Having more than
+one varying quantity in an EMT calculation leads to am-
+biguities in the choice of conditions and their meaning.
+Instead of expanding the discussion of EMT calculations
+we turn to matrix diagonalization.
+w =Q.P—
+002
+P (time )
+0
+FIG. 4. Three-dimensional spectra of decay rates from EMT
+and SCPT. The EMT results are the solid lines; the SCPT re-
+sults are the dashed lines. The distribution of individual pore
+decay rates is given by Eq. {42) (dotted lines). The coupling rate
+varies; w p 7 o = 1. The mean decay rate ~ ' from EMT is
+marked by short vertical lines.
+In principle, the total dipole moment and spectrum of
+rates n (A, ) can be found exactly for any given porous sys-
+tem by diagonalizing the Hamiltonian in Eq. (10). In
+practice, computation time and memory constraints re-
+quire the model porous medium systems we study by this
+method to be orders of magnitude smaller than any ex-
+perimentally studied piece of material. However, for
+these small systems we may examine the consequences of
+variations in volume, surface area, and cross-sectional
+al ea.
+We use the following procedure to find n (A, ).
+(1) Diagonalize the Hamiltonian &;. to find the eigen-
+values and eigenvectors of the matrix.
+(2) Find the overlap of each eigenvector ~g„& with
+~8(0) & given in Eq. (12). The square of this overlap is the
+amplitude of the spectrum of rates at the rate equal to the
+corresponding eigenvalue A,„[seeEq. (17)j.
+In order to compensate for our finite-size systems we
+use periodic boundary conditions in the Hamiltonian and
+average n (A, ) over many realizations, typically 500 or
+1000 for systems of 8 X 8 X 8=512 pores. The results of
+matrix diagonalization (MD) in several cases are de-
+scribed in the following.
+(1) The spectra of decay rates n (k) shown in Fig. 5 are
+for a one-dimensional lattice of pores. The pore volumes
+and throat cross-sectional areas are constant; the indivi-
+dual pore decay rates vary with the rate distribution
+given by Eq. (42). The lattice size is 512 pores and the re-
+sults are averaged over 500 realizations. The coupling ra-
+tio m, /m varies from 0.01 to 100; m =1. The dashed
+curves are the EMT results shown in Fig. 3; we find the
+spectra of decay rates very well approximated by EMT.
+When m, =10, the spectrum of decay rates is that of
+the individual pore decay rates. As m, increases, the
+spectrum of decay rates collapses such that the majority
+of the amplitude is in a sharp peak at X=1. Although
+
+--- PAGE 8 ---
+MAGNETIZATION EVOLUTION IN CONNECTED PORE SYSTEMS 7351
+high rate amplitudes are decreasing, the maximum rate is
+increasing proportional to w, for large w, /w as predict-
+ed from perturbation theory.
+(2) In Fig. 6 we show n (A, ) for a three-dimensional lat-
+tice of pores. The pore volumes and throat cross-
+sectional areas are constant; the individual pore decay
+rates vary with the rate distribution given by Eq. (42).
+The lattice size is 8 X 8 X 8=512 pores and the results are
+averaged over 500 realizations. The coupling ratio range
+is 0.01~w, /w ~0.2; w =1. Each pore has six nearest
+neighbors rather than two as in the one-dimensional case.
+This increased connectivity causes the spectrum of rates
+to collapse to a 5 function much more rapidly with in-
+creasing w, than for the one-dimensional case. The
+width of the spectrum of decay rates is already very nar-
+row when w, =0.2, although ~ '(w . Although the
+EMT results of Fig. 4 are plotted in Fig. 6, they are al-
+most not visible. The EMT approximation is known to
+improve as dimension is increased.
+The previous examples have focused on cases where
+the decay rates vary between pores, but are independent
+of volume. In a physical system in the fast diffusion re-
+gime, mD /w & 1, we expect an individual pore decay rate
+to be determined by the surface to volume ratio of the
+pore. In addition, the spectrum of decay rates measured
+experimentally in uncoupled pores is the volume weight-
+ed distribution of individual pore decay rates. That is,
+larger pores will contribute more signal to a measurement
+since they contain more magnetic moments. Making the
+assumption that all pores are spherical we can assign
+volumes and decay rates to individual pores given a dis-
+tribution of radii a, ,
+Vg = (44)
+A 2~a min
+p (a)= sina' a (45)
+where a;„and A are chosen such that ( a ) = 1 and the
+spectrum of rates n (A, ) is given by Eq. (42) when the
+pores are uncoupled. The lattice size is 8X8X8=512
+pores and the results are averaged over 1000 realizations.
+where (a") is the average of a;". Allowing U; to vary in-
+troduces substantial variation in the coupling terms of
+the Hamiltonian &, even if there is no variation in cross-
+sectional area s; .
+(3) In Fig. 7 we show n (A, ) for a three-dimensional lat-
+tice of pores. The throat cross-sectional areas are con-
+stant; the pore radii are chosen from the distribution
+wc=100 w =O.P, —
+~ ~ ~
+2
+l
+I
+' ~ e, I 'I
+I,
+01 0.02
+O.OT .OI
+0 1 2
+P (time )
+0 1 2
+X (time )
+FIG. 5. One-dimensional spectra of decay rates from MD.
+The distribution of pore decay rates is given by Eq. (42) (dotted
+line). The coupling rate varies; wp 7o =1. The mean decay
+rate ~ is marked by vertical lines. The EMT results of Fig. 3
+are the dashed lines.
+FIG. 6. Three-dimensional spectra of decay rates from MD.
+The distribution of pore decay rates is given by Eq. (42) (dotted
+line). The couPling rate varies; wp=zo '=1. The mean decay
+rate v. ' is marked by vertical lines. The dashed lines are the
+EMT results of Fig. 4.
+
+--- PAGE 9 ---
+7352 K. R. McCALL, D. L. JOHNSON, AND R. A. GUYER
+The coupling ratio range is 10 ~m, /m ~10; w =1.
+Note that the distribution of pore radii is heavily weight-
+ed toward small pores. In order that the volume weight-
+ed distribution of rates at zero coupling have equal size
+peaks above and below A, = 1, 95% of the pores have de-
+cay rates in the range 1 & A, (2. Thus we can think of the
+large pores (small decay rates) as dilute disorder in a sys-
+tem of very small pores. Initially, as m, is increased, the
+small pores couple to each other forming a narrow peak
+in the decay spectrum at A, =1.5, while the large pores
+remain relatively unefFected. This is due to the compara-
+tively large number of small pores and also to the inverse
+volume e6'ect in the coupling terms of the Hamiltonian
+Isee Eq. (10)]. The effective coupling of large pores to
+their neighbors is much smaller than that of small pores.
+This feature is retained even to w, = 10; n (A, ) still has
+finite amplitude at small A, in contrast to the results of
+Fig. 6.
+(4) In Fig. 8 we show n (A, ) for a three-dimensional lat-
+tice of pores. The throat cross-sectional areas are con-
+stant; the pore radii are chosen from a log-normal distri-
+bution
+1 (1na — uo )
+p(a)= expoaV.'2,~ (46)
+where uo= — —' and o. = —,', values which make the aver-
+age pore radius one. Experimental measurements on
+rocks show the pore size distribution may vary over an
+order of magnitude or more. The distribution of Eq. (46)
+is an attempt to mimic a very broad spectrum such as
+might be seen in rocks. The lattice size 8XSX8=512
+pores and the results are averaged over 1000 realizations.
+The coupling ratio range is 0~w, /w ~100; w =1. The
+raggedness of the results decreases slowly with increased
+number of realizations and increased bin size; each
+smooth curve is constructed using 50 bins spaced evenly
+on a logarithmic scale from 10 ' to 10'. The small A,
+part of the spectrum has substantial amplitude even for
+large coupling rates, due to the inverse volume e6'ect in
+the coupling term of the Hamiltonian. Decay due to cou-
+pling is enhanced for small pores and decreased for large
+pores when volume e6'ects are included in the coupling
+term of the Hamiltonian.
+vr =100— w =10
+~.. I
+I
+I
+Q
+I I I I I I I
+I I I I I I III
+01-
+l I t I I I
+0
+2
+P (time )
+0.1
+A. (time )
+FICx. 7. Spectra of decay rates from MD when rates and
+volumes are correlated. The distribution of pore radii is given
+by Eq. (45). The coupling rate varies; m~=~p '=1. The mean
+decay rate ~ ' is marked by vertical lines. The dotted lines are
+the uncoupled pore result, Eq. (42).
+FIG. 8. Spectra of decay rates from MD for a broad distribu-
+tion of pore radii. The distribution of pore radii is given by Eq.
+(46). The coupling 1ate var ies LU& 7 p = 1. The mean decay
+rate ~ ' is marked by vertical lines. The dashed lines are n (A, )
+for the uncoupled system.
+
+--- PAGE 10 ---
+MAGNETIZATION EVOLUTION IN CONNECTED PORE SYSTEMS 7353
+8
+Al II[ I I I I I I II[ I I I I I I Ii) 10
+103
+106
+..~
+'' Q' ..~.'
+jp''' .&' .0105
+32::4""
+104
+I IIII I I I I I IIII I I I I I IIII I I I I I IIII
+10 ' 10' 10' 10'
+101
+10'
+FIG. 9. Maximum decay rate as a function of coupling rate.
+The maximum decay rates are shown for the MD results of
+Figs. 5 (o ) and 6 (4) for which the distribution of pore decay
+rates is given by Eq. (42), and Figs. 7 ( ) and 8 (V) for which
+the distributions of pore radii are given by Eqs. (45) and (46), re-
+spectively. A, ,„ccm, as predicted by perturbation theory in the
+strong coupling limit.
+One of the predictions of perturbation theory in the
+strong coupling limit [see Eq. (28)] is that the small am-
+plitude contributions to n (A, ) are at rates which increase
+in proportion to the coupling rate; A, ~ w, . We show this
+to be the case in Fig. 9, where the maximum decay rate
+k,
+„
+is plotted against the coupling rate w, for all four of
+the MD examples. Increased coupling causes very high
+frequency modes of very low amplitude as the magnetiza-
+tion Aux from one pore to its neighbors increases. For
+the special cases in which only the pore rates vary, it is
+simple to show from Eq. (19) that lim A, ,„=4dw„
+C
+where d is the dimension. This is borne out in Fig. 9.
+MD is a powerful method for studying the magnetiza-
+tion equation for connected pore systems. Any quantity
+appearing in the equation may be varied. We chose to
+study systems where only the individual pore rate varied,
+confirming our EMT results, and where both rate and
+volume vary. There are many more options to consider:
+the throat cross-sectional areas between pores are not all
+the same in a physical system, and the surface area and
+volume of a pore are not necessarily strictly related. MD
+is the most accurate method we discuss for studying the
+effects of a variety of geometrical features on the tota1 di-
+pole moment spectrum of decay rates.
+O.f5
+10
+I f i IIII I I I I I IIII I I I I I III
+10 10 10
+w, , (time )
+10
+particular system's decay-rate spectrum as the coupling
+between pores is increased. The results of all three
+methods are in good agreement. The important qualita-
+tive features appearing in all three methods of solution
+are (1) when the coupling between pores is zero or very
+weak, the spectrum of decay rates is that of the individual
+pores. (2) As the coupling is increased, the range of de-
+cay rates increases, shifting to high rates. (3) For very
+strong coupling, the spectrum of decay rates narrows to a
+peak at a rate determined by the ratio of the total surface
+to total volume in the pore system.
+The mean lifetime ~ is a single parameter which
+characterizes a spectrum of decay rates in a model in-
+dependent way. In Fig. 10 we summarize our results for
+as a function of the coupling rate w, for the various
+situations we have encountered. In all cases, ~0 is unity.
+The EMT and MD results for similar distribution and di-
+mension are in good agreement. The upper pair of curves
+are from the three-dimensional MD calculations using
+log-normal [Eq. (46)] and bimodal [Eq. (45)] distribution
+of pore sizes. The central pair of curves is from the one-
+dimensional MD and EMT calculations using the bimo-
+dal distribution of pore decay rates given by Eq. (42).
+The lower triplet is from the three-dimensional MD,
+EMT, and SCPT calculations using the birnodal distribu-
+tion of pore decay rates given by Eq. (42). The most not-
+able feature of this figure is that the crossover from un-
+coupled to strongly coupled behavior occurs over approx-
+imately two decades in the coupling strength.
+In order to relate our theoretical study to physical sys-
+tems we must make some estimate of the coupling be-
+tween pores. Two examples of porous media with widely
+differ, ent properties are sandstone and sol-gel glass. Both
+VI. CONCLUSIONS
+We have developed equations governing the magneti-
+zation evolution in Quid-filled connected pore systems.
+The evolution of the total dipole moment can be de-
+scribed by a spectrum of decay rates which rejects the
+decay rates of individual pores as well as the strength of
+the coupling between pores. We have used three
+methods, perturbation theory, effective-medium theory,
+and matrix diagonalization, to study the evolution of a
+FIG. 10. Mean lifetime versus coupling strength. In the
+strong coupling limit, ~ —+~0=1.0. The lines are a guide for
+the eye. The mean lifetime is plotted for all the cases previously
+discussed. For distribution of pore decay rates given by Eq.
+(42): the one-dimensional cases in Figs. 3 (+) and 5 (0), and
+the three-dimensional cases in Fig. 4 ( X, EMT; Q, SCPT), and 6
+( ). For the three-dimensional cases using the distribution of
+pore radii given in Eq. (45) and shown in Fig. 7 (& ), and using
+the distribution of pore radii given in Eq. (46) and shown in Fig.
+8 (V).
+
+--- PAGE 11 ---
+K. R. McCALL, D. L. JOHNSON, AND R. A. GUYER
+systems have been studied extensively using nuclear mag-
+netic resonance to measure the decay of the total dipole
+moment in water-saturated samples. Using data for vari-
+ous sandstones from Kenyon et al. , we estimate a typi-
+cal porosity of 20%, pore diameter of 80 pm, and throat
+diameter of 30 pm. A typical mean T, is 250 ms; we take
+this to be approximately v.o. The data were taken at room
+temperature, where the di6'usion coe%cient of water is
+D =2.5X10 cm /s. These numbers imply a coupling
+strength w, /w (0.1. Kenyon et al. have decomposed
+their total dipole moment measurements into spectra of
+decay times which are one or more orders of magnitude
+wide. The decomposition is dependent on the assumption
+that the pores are uncoupled, i.e., w, =0. Given our
+small estimated coupling strength and the very broad dis-
+tribution of pore sizes typically found in sandstones, the
+assumption that a spectrum of decay rates reAects the
+density of pore sizes in the rocks is probably a good one.
+Data on sandstones correspond to the w, ~0. 1 spectra in
+Fig. 8.
+The sol-gel glasses characterized by Bhattacharja,
+et al. ' have very diferent characteristics from the sand-
+stones just discussed. The typical porosity in these sys-
+tems is 85%, a representative pore diameter (assuming
+spherical pores) is 0.50 pm, and an average throat diame-
+ter is 0.24 pm. The magnetization decay measured for
+these water-saturated silica glasses was single exponential
+with a decay time T& =100 ms at room temperature.
+These numbers imply a coupling strength w, /w =10,
+which is certainly in agreement with the single exponen-
+tial result. In such highly coupled pore systems, we
+would expect the spectrum of decay rates to be a 6 func-
+tion, particularly in sol-gel glasses where the distribution
+of pore sizes is ~arrow.
+An obvious question is whether there exist physical
+systems in which a range of coupling strength between
+pores can be explored. A possible method of attack is to
+change the diA'usion coefficient of the saturating Quid by
+raising or lowering the temperature. In this way the cou-
+pling strength between pores may be changed by an order
+of magnitude or more. On the other hand, if the porous
+sample used in such an experiment has a very broad spec-
+trum of pore sizes, the extra range in coupling may not
+make an experimentally evident change in the spectrum
+of decay rates. In the future we hope to compare our re-
+sults with relevant experiments exploring coupling be-
+tween pores.
+ACKNOWLEDGMENTS
+The authors thank B. Halperin, R. Kleinberg, L.
+Schwartz, P. Sen, A. Sezginer, and D. Wilkinson for help-
+ful discussions.
+APPENDIX SELF-CGNSISTKNT
+PKRTURBATIQN THKGRY IN THK
+STRO)NG COUPLING LIMIT
+Here we employ a perturbation theory in the strong
+coupling limit appropriate to the problem in which there
+is a decay rate distribution whose width is small com-
+pared to the coupling parameter w, . Vr'e write the Ham-
+iltonian as the sum of an unperturbed term describing a
+perfect tight-binding crystal and a perturbation term due
+to small fluctuations in rates:
+(Al)
+(A2)
+V, =br, 5) . (A3)
+Here x is the number of nearest neighbors, j„„is a nearest
+neighbor to i, r' ' is an arbitrary dimensionless rate
+describing the perfect crystal, and Ar, =r; — r '. The
+average Green function defines a self-energy, X, through
+the expression
+«)= 1 1
+z —w"' — v z —w'" —r
+Expanding X to second order in V we find
+r= ( v)+ & vG"') — ( v) G"'&v),
+(A4)
+(A5)
+where 6' ' is the Green function for a perfect tight-
+binding crystal. In the magnetization problem, the self-
+energy describes the change in an e6'ective rate of decay
+from the reference point r' '. Thus, inserting the perfect
+crystal Green function, we find the r of Eq. (34) can be
+written
+r = (r ) — w ((r — (r ) )')I(s,r"'),
+where I(s, r' ') is given by Eq. (37). The method of SCPT
+suggests we replace r' ' in the integral I(s, r' ') with r.
+We then have a self-consistent equation for r which is in-
+dependent of the reference value r' ' in the original prob-
+lem [Eq. (43)]. In this formalism the value of r is given by
+the average and the second moment of the distribution of
+rates and an integral which depends only on the crystal
+structure. It is straightforward, but slightly tedious, to
+show that Eqs. (43) and (28) are equivalent to first order
+in e.
+K. R. Brownstein and C. E. Tarr, Phys. Rev. A 19, 2446 (1979).
+2%". E. Kenyon, P. I. Day, C. Straley, and J. F. Willemsen, So-
+ciety of Petroleum Engineering, Report No. 15643 (1986).
+3W. E. Kenyon, J. J. Howard, A. Sezginer, C. Straley, A. Mat-
+teson, K. Horkowitz, and R. Ehrlich, Transactions of the So-
+ciety of Professional Well Log Analysts, paper LL (1989).
+4M. H. Cohen and K. S. Mendelson, J. Appl. Phys. 53, 1127
+(1982).
+5S. Torquato, Phys. Rev. Lett. 64, 2644 (1990).
+60. Wilkinson, D. L. Johnson, and L. M. Schwartz, Phys. Rev.
+
+--- PAGE 12 ---
+MAGNETIZATION EVOLUTION IN CONNECTED PORE SYSTEMS 7355
+B 44, 4960 (1991).
+7W. P. Halperin, F. D'Orazio, S. Bhattacharja, and J. C.
+Tarczon, in Molecular Dynamics in Restricted Geometries,
+edited by J. Klafter and J. M. Drake (Wiley, New York,
+1989), Chap. 11.
+8For examp1e, J. J. Sakurai, Modern Quantum Mechanics
+(Benjamin/Cummings, Menlo Park, CA, 1985), Chap. 5.
+W. Kirkpatrick, Phys. Rev. Lett. 27, 1722 (1971).
+OH. Ehrenreich and L. M. Schwartz, in Solid State Physics,
+edited by H. Ehrenreich, F. Seitz, and D. Turnbull (Academ-
+ic, New York, 1976), Vol. 31.
+T. Wolfram and J. Callaway, Phys. Rev. 130, 2207 (1963).
+2S. Bhattacharja, F. D'Orazio, J. C. Tarczon, W. P. Halperin,
+and R. Gerhardt, J. Am. Ceram. Soc. 72, 2126 (1989).
+
+--- PAGE 13 ---
+
+--- PAGE 14 ---

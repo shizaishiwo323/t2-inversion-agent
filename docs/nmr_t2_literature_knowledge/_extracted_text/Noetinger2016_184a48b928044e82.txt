@@ -1,0 +1,2518 @@
+--- PAGE 1 ---
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/301575417
+Random Walk Methods for Modeling Hydrodynamic Transport in Porous and
+Fractured Media from Pore to Reservoir Scale
+Article  in  Transport in Porous Media · November 2016
+DOI: 10.1007/s11242-016-0693-z
+CITATIONS
+74
+READS
+553
+8 authors, including:
+Some of the authors of this publication are also working on these related projects:
+CO2 sequestration View project
+Characterization of fractured rocks View project
+Benoit Noetinger
+IFP Energies nouvelles
+130 PUBLICATIONS   2,267 CITATIONS   
+SEE PROFILE
+Delphine Roubinet
+CNRS
+33 PUBLICATIONS   397 CITATIONS   
+SEE PROFILE
+Anna Russian
+Politecnico di Milano
+20 PUBLICATIONS   469 CITATIONS   
+SEE PROFILE
+Marco Dentz
+Spanish National Research Council
+288 PUBLICATIONS   7,654 CITATIONS   
+SEE PROFILE
+All content following this page was uploaded by Delphine Roubinet on 10 January 2018.
+The user has requested enhancement of the downloaded file.
+
+--- PAGE 2 ---
+Noname manuscript No.
+(will be inserted by the editor)
+Random walk methods for modeling hydrodynamic
+transport in porous and fractured media from pore to
+reservoir scale
+Benoit Noetinger · Delphine Roubinet ·
+Anna Russian · Tanguy Le Borgne ·
+Frederick Delay · Marco Dentz ·
+Jean-Raynald de Dreuzy · Philippe Gouze
+This work is published in Transport in Porous Media, please cite as:
+Noetinger, B., D. Roubinet, A. Russian, T. Le Borgne, F. Delay , M. Dentz, J.-R. de
+Dreuzy , and P . Gouze (2016), Random walk methods for modeling hydrodynamic
+transport in porous and fractured media from pore to reservoir scale, T ransport
+in Porous Media, 1-41, doi:10.1007/s11242-016-0693-z
+Abstract Random walk (RW) methods are recurring Monte Carlo methods used
+to model convective and diﬀusive transport in complex heterogeneous media. Many
+applications can be found, including ﬂuid mechanic, hydrology, and chemical re-
+actors modeling. These methods are easy to implement, very versatile and ﬂexible
+enough to become appealing for many applications because they generally overlook
+or deeply simplify the building of explicit complex meshes required by deterministic
+methods. RW provide a good physical understanding of the interactions between
+the space scales of heterogeneities and the transport phenomena under consider-
+ation. In addition, they can result in eﬃcient up-scaling methods, especially in
+B. Noetinger
+IFPEN 1-4 avenue de Bois Pr´ eau, 92852, France
+E-mail: benoit.noetinger@ifpen.fr
+D. Roubinet
+Applied and Environmental Geophysics Group, Institute of Earth Sciences, University of Lau-
+sanne, 1015 Lausanne, Switzerland
+A. Russian
+G´ eosciences, Universit´ e de Montpellier 2, CNRS
+T. le Borgne
+Universit´ e de Rennes 1, CNRS, G´ eosciences Rennes, UMR 6118, Rennes, France
+F. Delay
+Laboratoire dHydrologie et de G´ eochimie de Strasbourg, Univ. Strasbourg/EOST, CNRS
+UMR 7517, 1 rue Blessig, 67000 Strasbourg, France
+M. Dentz
+Institute of Environmental Assessment and Water Research, Spanish National Research Coun-
+cil, Barcelona, Spain
+J.R. de Dreuzy
+G´ eosciences Rennes, CNRS, UMR 6118, Rennes, France
+P. Gouze
+G´ eosciences, Universit´ e de Montpellier 2, CNRS
+
+--- PAGE 3 ---
+2 Benoit Noetinger et al.
+the context of ﬂow and transport in fractured media. In the present study, we
+review the applications of RW to several situations that cope with diverse spatial
+scales, and diﬀerent insights into up-scaling problems. The advantages and down-
+sides of RW are also discussed, thus providing a few avenues for further works and
+applications.
+Keywords Random walk · Random Media · Fractured media · Diﬀusion·
+Dispersion· Up-scaling· Transfers· Multiple Porosity
+1 Introduction
+In the early 20 th century, thanks to seminal contributions of major scientists
+such as Einstein, Langevin, le Chatelier and Wiener among others, the Random
+walk (RW) approach introduced the ﬁrst quantiﬁed depiction of brownian motion
+which resulted in a fruitful microscopic picture of the diﬀusion mechanism (Scher
+et al, 2002a). The conceptual simplicity of RW associated with its easiness of im-
+plementation were conductive to a fast dissemination of associated techniques and
+algorithms in many areas of science, from biology and colloidal science to modern
+ﬁnance, including statistical physics, chemical engineering, and geosciences. Re-
+garding the latter topic, many applications can be found in the ﬁeld of hydrology,
+oil and gas industry or subsurface repository of various wastes. As an illustration,
+RW techniques can also be employed as a direct simulation technique for passive
+tracer or pollutant transport in aquifers (Kinzelbach, 1988; Kinzelbach and Uﬃnk,
+1991; Zimmermann et al, 2001; Hoteit et al, 2002b; Delay et al, 2005). At the labo-
+ratory scale, the recent advances in the imaging techniques of rock textures provide
+high resolution pictures of the pore space (Nunes et al, 2015). This very exhaus-
+tive and complex information needs for post-processing aimed at inferring eﬀective
+transport properties in porous media such as permeability, porosity, and electrical
+conductivity, to mention a few. For example, electrical conductivity was ﬁrst com-
+puted using RW by Kim and Torquato (1992) and several authors ((Sahimi, 2011)
+and reference therein). At the same pore-to-sample scale, RW techniques were also
+used to interpret Nuclear Magnetic Resonance (NMR) data (N´ eel et al, 2011, 2014;
+Guillon et al, 2013, 2014; Fleury et al, 2015). At a larger scale, typically from m
+to km, a major issue of various applications, especially those performing ﬂow and
+transport simulations in subsurface reservoirs, is the capability of accounting for
+the detailed natural variability of the host medium with the maximum accuracy
+over objects of large sizes (typically several km in the case of aquifers or oil & gas
+reservoirs). These applications range from a better understanding of the fate of
+pollutants in the subsurface, to improving oil and gas recovery. At the large scale,
+most calculations are still performed using Finite Volume, Finite Diﬀerence or Fi-
+nite Element approaches requiring a high resolution and cumbersome meshing to
+represent the geometry of the modeled domain. However, because the size of an
+elementary mesh is often too large, discrete descriptions of the domain may also
+require the availability of eﬀective transport equations at the scale of the mesh and
+accounting for eventual unresolved sub-grid scale eﬀects. In most cases, it is as-
+sumed that transport is still ruled by the Advection Dispersion Equation (ADE)
+which is of questionable validity at the small scale (Matheron and de Marsily,
+1980; Bouchaud and Georges, 1990; Berkowitz and Scher, 1998; Berkowitz et al,
+
+--- PAGE 4 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 3
+2000; Scher et al, 2002a; N´ eel et al, 2011). In addition, the parameters associ-
+ated with ﬂow and transport are usually poorly known a priori and have to be
+inferred by facing model outputs with available data. RW techniques are good
+candidates for both identifying sub-grid eﬀects and parameters (Berkowitz and
+Balberg, 1993; N´ eel et al, 2011). In particular, obtaining valuable descriptions
+of transport in low permeability media concealing widespread heterogeneities in-
+volving stagnant zones, adsorption and chemical reactions properties is of major
+interest. These highly disordered media can exhibit very rich anomalous transport
+properties preventing any classical description relying upon standard Darcy’s law
+and ADE. RW methods can for instance represent ”fractional derivative” trans-
+port equation accounting for memory eﬀects over wide ranges of time (Matheron
+and de Marsily, 1980; O’Shaughnessy and Procaccia, 1985; Charlaix et al, 1987;
+Barker, 1988; Chang and Yortsos, 1990; Bouchaud and Georges, 1990; Metzler
+et al, 1994; Noetinger and Gautier, 1998; Metzler and Klafter, 2000). In the ex-
+treme case of fractured media, Continuous Time Random Walk (CTRW) or Time
+Domain Random Walk (TDRW) algorithms techniques were successfully employed
+to determine transfer functions that are key for implementing the so called dual
+porosity models (Noetinger and Estebenet, 2000; Noetinger et al, 2001a,b).
+RW algorithms are very well suited to capture the motion and the spreading
+of a diﬀusive set of particles representing a tracer plume in an advecting ﬂow ﬁeld.
+The rather subtle interplay between molecular diﬀusion and the heterogeneous
+velocity ﬁeld can be simulated directly, resulting in a clear physical interpretation
+of the relevant characteristic times and scales prevailing during transport. Ana-
+lytical results of the Taylor and Aris (Taylor, 1954; Aris, 1956) dispersion can
+be retrieved (Salles et al, 1993). In turn, these results can be used to estimate
+dispersivity in more complex geometries. In the case of spatially varying diﬀusion
+coeﬃcients, including discontinuous cases, the RW may experience some diﬃcul-
+ties. To avoid spurious accumulation of particles in low diﬀusivity zones, some
+”reﬂection rules” have to be imposed at the locations of discontinuities (Kinzel-
+bach, 1988; Kinzelbach and Uﬃnk, 1991; Hoteit et al, 2002b). In addition, the
+algorithm can become ineﬃcient in low diﬀusivity zones because the spatial time
+step needed for an accurate resolution of transport can become very small. Both
+issues can be corrected using suitable time step increments that avoid expansive
+and unnecessary iterations in low velocity and low diﬀusion zones. The main idea
+is using ﬁxed spatial meshes instead of even time steps. In that framework, RW
+methods loose their original ”meshless character”, and are found to be connected
+to usual Finite Volume schemes. This leads to model diﬀusion over a ﬁxed lat-
+tice or graph that can be built with standard meshing tools. For its part, the
+residence time at a given site becomes a random variable, with the consequence
+that the resulting algorithm belongs to a wider class of techniques, namely the
+Time Domain Random Walk (TDRW). These TDRW algorithms are also partic-
+ularly well suited to implementations on highly parallel computing resources. An
+additional interest is that the resulting formulation is quite close to the classical
+solutions as that provided by standard numerical analysis. Anomalous dispersion
+eﬀects mainly due to the persistence of large scale correlations in a ﬂow ﬁeld can
+thus be simulated using RW with suitable kernels (Berkowitz and Scher, 1998;
+Berkowitz et al, 2000; N´ eel et al, 2011; Scher et al, 2002a,b). For their numerical
+part, RW methods can be implemented using structured or unstructured meshes,
+which allows to tackle the problem of diﬀusion in very complex media, includ-
+
+--- PAGE 5 ---
+4 Benoit Noetinger et al.
+ing fracture networks (Noetinger and Estebenet, 2000; Noetinger et al, 2001a,b;
+Roubinet et al, 2010, 2013). Adsorption phenomena, as well as chemical reactions
+can also be accounted for. By nature, RW methods are very well suited for highly
+parallel computing architectures which reveals useful to perform calculations over
+complex domains or when moving multiple reacting species in solution.
+RW methods provide interesting insights into transport mechanisms that can
+enlighten us about our understanding of mixing processes in disordered ﬂows. In
+the case of fractured media, a careful interpretation of the output of RW sim-
+ulations give eﬃcient and direct tools to parameterize multiple porosity large
+scale models by way of a complete determination of transient transfer functions
+(Noetinger and Estebenet, 2000; Noetinger et al, 2001a,b; Roubinet et al, 2010,
+2013). These functions can thus help to pattern multiple rate transfer models
+(Haggerty and Gorelick, 1995) or Multiple Interacting Continua (MINC) models
+(Narasimhan and Pruess, 1988). Characteristic exponents associated with anoma-
+lous diﬀusion/dispersion processes can be estimated using RW methods (de Ar-
+cangelis et al, 1986; Berkowitz and Scher, 1997; McCarthy, 1993a; Koplik et al,
+1988; Bouchaud and Georges, 1990), as well as the REV or mixing lengths, even
+if large scale practical simulations still remain the playing ﬁeld of conventional
+meshed models.
+The goal of the present paper is to review the state of the art regarding appli-
+cations of RW, TDRW or CTRW to the up scaling of ﬂows and mass transfers in
+heterogeneous and fractured media.
+The contribution is organized as follows. We ﬁrst review in section 2.4 the un-
+derlying theory of RW algorithms for solving an advection diﬀusion equation. We
+focus on TDRW that solves spatially discretized equations having the same form
+than those arising from Finite Volume discretization of advection dispersion opera-
+tors. Next, numerical issues are addressed, from fully coupled advection dispersion
+diﬀusion equations 3 to purely diﬀusive issues including heterogeneous, fractured
+media and the double porosity large scale description 3.3. These models can be
+generalized to Multiple Rate Transfer Models involving transfer functions between
+the matrix and the fractures that can be evaluated using TDRW techniques. In
+a next section 3.5, application of RW to understanding and modeling mixing are
+discussed. Applications from pore to ﬁeld scale 4, including radial ﬂows in the
+vicinity of wells are discussed. Finally, some other applications are discussed and
+some conclusions and avenues for future research are discussed.
+2 Theoretical Background for Random Walk Methods
+This section summarizes the basis on which random walk methods are built to de-
+scribe solute transport in heterogeneous media. We start with classical or discrete
+time random walks, then brieﬂy review its generalization to the continuous time
+random walk (CTRW) framework. Based on the CTRW approach, we report on the
+fundaments of the time domain random walk method (TDRW). Finally, we review
+the use of the CTRW as an averaging framework for transport in heterogeneous
+media.
+
+--- PAGE 6 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 5
+2.1 Classical (Discrete-Time) Random Walks
+Classical random walk particle tracking is based on the equivalence between the
+Fokker-Planck equation and the equation of motion of solute particles subject to
+advective and diﬀusive-dispersive mass transfer. A general Fokker-Planck equation
+for the scalar quantity P (x,t ) can be written as (Risken, 1996)
+∂P (x,t )
+∂t +∇· [v(x)P (x,t )] +∇⊗∇ : [B(x)P (x,t )] = 0, (1)
+where⊗ denotes the outer and : the inner tensor product. The drift vector and
+dispersion tensor are denoted by v(x) and B(x), respectively. As shown in Ap-
+pendix A, this Fokker-Planck equation is exactly equivalent to the Langevin equa-
+tion
+dx(t)
+dt = v[x(t)] +
+√
+2B[x(t)]· ζ(t), (2)
+where
+√
+B(x) is the square-root of the tensor B(x), ζ(t) denotes a Gaussian white
+noise characterized by zero mean⟨ζ(t)⟩ = 0 and variance⟨ζi(t)ζj(t′)⟩ =δijδ(t−t′).
+The angular brackets denote the noise average over all particles. The particle
+distribution P (x,t ) can be written in terms of the particle trajectories x(t) as
+P (x,t ) =⟨δ[x− x(t)]⟩. (3)
+We name this modeling approach as a discrete time random walk because particle
+positions are incremented in constant time intervals as
+x(t +dt) = x(t) + v[x(t)]dt +
+√
+2B[x(t)]· η(t), η(t) =
+t+dt∫
+t
+dt′ζ(t′). (4)
+Note that we use here the Ito interpretation of the stochastic integral (Risken,
+1996). The random increment η(t) has zero mean and variance⟨ηi(t)ηj(t)⟩ =δijdt.
+Solute or heat transport as well as hydraulic head propagation in a heteroge-
+neous porous medium are not in general described by a Fokker-Planck equation of
+the form (1), but the advection dispersion equation (ADE) for the scalar c(x,t )
+φ(x)∂c(x,t )
+∂t +∇· [u(x)c(x,t )]−∇· [D(x)∇c(x,t )] = 0. (5)
+For solute transport c(x,t ) denotes the concentration, φ(x) is the porosity and
+D(x) is the hydrodynamic dispersion tensor. For hydraulic head propagation, we
+set the ﬂow velocity u(x) = 0, φ(x) denotes the speciﬁc storage and D(x) is the
+hydraulic conductivity tensor. It is important to note that c(x,t ) in (5) is not a
+conserved quantity because it is φ(x)c(x,t ) that is conserved. Thus, introducing
+P (x,t ) =φ(x)c(x,t ), (6)
+which satisﬁes the equation
+∂P (x,t )
+∂t +∇·
+[u(x)
+φ(x)P (x,t )
+]
+−∇·
+[
+D(x)∇P (x,t )
+φ(x)
+]
+= 0. (7)
+
+--- PAGE 7 ---
+6 Benoit Noetinger et al.
+We can reformulate this equation in the form of the Fokker-Planck equation (1)
+as
+∂P (x,t )
+∂t +∇·
+[u(x)
+φ(x) +∇· D(x)
+φ(x)
+]
+P (x,t )−∇⊗∇ :
+[D(x)
+φ(x)P (x,t )
+]
+= 0. (8)
+Through the equivalence between (1) and (2), we ﬁnd the Langevin equation that
+is equivalent to (5) as (Kinzelbach, 1988)
+dx(t)
+dt = u[x(t)]
+φ[x(t)] +∇· D[x(t)]
+φ[x(t)] +
+√
+2D[x(t)]
+φ[x(t)] · ζ(t). (9)
+The solute concentrationc(x,t ) is given in terms of the particle trajectories through (3)
+and (6) as
+c(x,t ) =⟨δ[x− x(t)]⟩
+φ(x) . (10)
+2.2 Continuous Time Random Walks
+We present here a generalization of the previous depiction of discrete time random
+walk to continuous time (Berkowitz et al, 2002, 2006). The particle position and
+time are now incremented at each random walk step as
+xn+1 = xn + A(xn), t n+1 =tn +τ(xn). (11)
+The random space and time increments A(xn) and τ(xn) depend in general on
+the particle position and they can be coupled (Scher and Lax, 1973a), and char-
+acterized by their joint probability density function (PDF) ψ(a,t ; x). Notice that
+both space and time are continuous variables. The particle density P (x,t ) can be
+described by the following system of equations (Berkowitz et al, 2002; Srinivasan
+et al, 2010)
+P (x,t ) =
+t∫
+0
+dt′R(x,t′)
+∞∫
+t−t′
+dt′′ψ(t′′; x) (12a)
+R(x,t ) =P (x,t )δ(t) +
+∫
+da
+t∫
+0
+dt′ψ(a,t′; x− a)R(x− a,t−t′). (12b)
+The ﬁrst equation states that the probability of a particle to be in the volume
+[x, x+dx] at timet is equal to the probabilityR(x,t′) that the particle just arrive
+in the volume [x, x+dx] at a time in [t′,t′ +dt′] and remains there for the duration
+of t−t′. The marginal PDF of transition times is given by
+ψ(t; x) =
+∫
+daψ(a,t ; x). (13)
+The second equation of 12 can be viewed as a Chapman Kolmogorov equation
+for the probability density R(x,t ). The linear system (12) can be solved for the
+
+--- PAGE 8 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 7
+Laplace transform (Abramowitz and Stegun, 1972) of the particle density P (x,t ),
+which gives after some algebra the integral equation: 1
+sP (x,s ) =P (x, 0) +
+∫
+dasψ(a,s ; x− a)
+1−ψ(s; x− a)P (x− a,s )
+∫
+dasψ(a,s ; x)
+1−ψ(s; x)P (x,s ). (14)
+Inverse Laplace transform gives the generalized Master equation (Kenkre et al,
+1973)
+dP (x,t )
+dt =
+t∫
+0
+dt′
+∫
+daM(a,t ; x− a)P (x− a,t )
+−
+t∫
+0
+dt′
+∫
+daM(a,t ; x− a)P (x,t ), (15)
+where we deﬁne the memory function
+M(a,s ; x) = sψ(a,s ; x)
+1−ψ(s; x). (16)
+Under the assumption that M(a,t ; x− a) is sharply peaked around 0 the spatial
+convolution in (15) may be localized through a Taylor expansion of the integrand
+about x (Berkowitz et al, 2002) such that
+∂P (x,t )
+∂t +
+t∫
+0
+dt′∇·
+[
+ν(x,t−t′)P (x,t′)
+]
+−
+t∫
+0
+dt′∇⊗∇·
+[
+β(x,t−t′)P (x,t′)
+]
++··· = 0, (17)
+where the dots represent higher order contributions in the moments of M(a,t ; x).
+Notably, the velocity and dispersion kernels ν(x,t ) and β(x,t ) have been deﬁned
+in (17) as
+ν(x,t ) =
+∫
+da aM(a,t ; x), β(x,t ) =
+∫
+da a⊗ aM(a,t ; x). (18)
+2.3 Time Domain Random Walks
+Time domain random walk (TDRW) methods have been used as eﬃcient alter-
+natives to discrete time random walks for the solution of solute transport and
+ﬂow problems in heterogeneous media as described by (5). Complementary to the
+classical discrete time random walk approach, the TDRW ﬁxes the spatial particle
+transition length and asks for the time that is needed to travel over this distance.
+1 To simplify notations, functions with ”s” variables correspond to Laplace transforms
+throughout the rest of the paper.
+
+--- PAGE 9 ---
+8 Benoit Noetinger et al.
+This approach is obviously in the spirit of and inherits from the CTRW discussed
+in the previous section. Let us elucidate this relation by considering the ADE (5)
+discretized in space. Using a ﬁnite diﬀerence or a ﬁnite volume discretization, it
+can be written (Delay et al, 2002; Dentz et al, 2012; Russian et al, 2016)
+φi
+dci(t)
+dt =
+∑
+[ij]
+bijcj(t)−
+∑
+[ij]
+bjici(t), (19)
+where ci(t) is the concentration at voxel i. The notation ∑
+[ij] means summation
+over the nearest neighbors of voxel i. The coeﬃcients bij are given in terms of
+the ﬂow velocity and dispersion coeﬃcients as (Gjetvaj et al, 2015; Russian et al,
+2016)
+bij =
+ˆDij
+ξ2 +|uij|
+2ξ
+( uij
+|uij| + 1
+)
+, (20)
+with the discretization length ξ. For the sake of simplicity we assume that the
+discretization is uniform and that all grid cells, or voxels, have the same volumeV
+and surface areaS. The velocity componentuij of uj is the ﬂow velocity at voxelj
+in direction of voxeli, that isuij = uj·eij, where the vector eij is oriented fromj
+toi. Thus,uij > 0 implies that voxeli is downstream from voxelj, and vice versa.
+The dispersion coeﬃcient ˆDij measures the dispersive mass ﬂux between voxels
+i and j. It is typically given by a suitable average of the dispersion coeﬃcient in
+neighboring voxels (Noetinger and Estebenet, 2000; Dentz et al, 2012).
+The equivalence with the CTRW approach can be evidenced by following
+Dentz et al (2012) and rewriting the generalized Master equation (15) in the dis-
+crete space,
+dPi(t)
+dt =
+t∫
+0
+dt′∑
+[ij]
+[
+Mij(t−t′)Pj(t′)−Mji(t−t′)Pi(t′)
+]
+, (21)
+where we assume that interactions of the modeled process only occur between near-
+est neighbors. Furthermore, we setP (xi,t ) =Pi(t) andM(xi−xj,t ; xj) =Mij(t).
+We assume now that the transition pdf for length and time can be decoupled into
+ψij(t) = wijψj(t) with wij the probability to make a transition from j to i. We
+also specify the transition time pdf as an exponential function (Scher and Lax,
+1973a)
+ψj(t) = exp(−t/τj)/τj. (22)
+Thus, Laplace transform of the memory function Mij(t) simpliﬁes to
+Mij(s) = wij
+τj
+. (23)
+The generalized Master equation then reads as
+dPi(t)
+dt =
+∑
+[ij]
+wij
+τj
+Pj(t)−
+∑
+[ij]
+wji
+τi
+Pi(t). (24)
+
+--- PAGE 10 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 9
+By identifying Pi(t) = φici(t) and bij =wijφj/τj, (19) and (24) become similar.
+In this sense, the discretized ADE (19) can be solved through a TDRW, whose
+transition probability in space and transition time are given by
+wij = bijτj
+φj
+, τ i = φi∑
+[ij]bji
+. (25)
+2.4 The Continuous Time Random Walk as an Average Transport Approach
+The CTRW approach has been used as an upscaling framework to describe aver-
+age transport in heterogeneous media (Klafter and Silbey, 1980; Berkowitz et al,
+2006). The pioneering works of Scher and Lax (1973a) and Scher and Lax (1973b)
+model the transport of charge carries in impure semiconductors with a CTRW
+whose PDF of waiting times reﬂects some charge trapping in the potential wells
+created by charged impurities. This approach allowed for the explanation and
+prediction of observed charge currents, or in other words, arrival time distribu-
+tions, that show the heavy tails characterizing anomalous transport. Since then,
+the CTRW has been used as an approach to model the history-dependent average
+dynamics in diverse types of ﬂuctuating and disordered systems. One can men-
+tion: particle transport in media with both heterogeneity at the pore and Darcy
+scales (Berkowitz and Scher, 1998, 1997; Hatano and Hatano, 1998; Berkowitz
+et al, 2000; Cortis and Berkowitz, 2004; Le Borgne et al, 2008a; de Anna et al,
+2013; Kang et al, 2014; Holzner et al, 2015), light dispersion in heterogeneous op-
+tical media (Barthelemy et al, 2008), the description of ﬁnancial distributions, the
+motion and migrations of animals, and many more (Klafter and Sokolov, 2005).
+In the context of average transport or transport upscaling for heterogeneous
+media, the CTRW maps the spatial distributions of the ﬂuctuating medium prop-
+erties onto the (joint) distribution of transition lengths and durations ψ(a,t ). It is
+worth noticing that in general the joint PDF depends on the spatial position, as in
+sections 2.2 and 2.3. This spatial dependence is here homogenized by the ensemble
+average as outlined in Scher and Lax (1973a) and Scher and Lax (1973b). To illus-
+trate this approach, we adopt the method reported in Appendix B of the paper by
+Scher and Lax (1973a) dealing with pure diﬀusion in a medium characterized by
+spatially distributed particle traps (see also, Bouchaud and Georges, 1990; Dentz
+et al, 2016). Our starting point is equation (19) for a medium that is characterized
+by constant and isotropic dispersion properties, but a spatially variable porosity
+or retardation coeﬃcient φi, which quantiﬁes the strength of the particle trap.
+Under these conditions, the coeﬃcients bij in (20) simplify into
+b = D
+ξ2. (26)
+Therefore, the CTRW for this transport system is characterized by the joint tran-
+sition pdf
+ψij(t) = 1
+2dψj(t), ψ j(t) = exp(−t/τj)/τj, τ j =φjτD, (27)
+
+--- PAGE 11 ---
+10 Benoit Noetinger et al.
+where τD = ξ2/D, and d is the dimension of space. The CTRW equations (12)
+now rewrite as
+Pi(t) =
+t∫
+0
+dt′Ri(t′)
+∞∫
+t−t′
+dt′′ψi(t′′) (28a)
+Ri(t) =P0(t)δ(t) +
+∑
+[ij]
+t∫
+0
+dt′ 1
+2dψj(t−t′)Rj(t′). (28b)
+The average transport behavior can be obtained by way of an ensemble averaging
+over the disorder, with the meaning here of averaging the distribution ofφi. To this
+end, we assume that the φi at diﬀerent sites i and j are uncorrelated. We remind
+thatRi(t) represents the probability density that a particle just arrive at site i at
+time t. This probability conceals information on all the other sites visited before.
+We also remind that the average number of new sites visited for an isotropic lattice
+random walk in d > 3 spatial dimensions increases with the number of random
+walk steps (Bouchaud and Georges, 1990). This means that Ri(t) and ψi(t) can
+be assumed to be statistically independent because it is unlikely that a particle
+returns to the same site. Consequently, for d = 3 dimensions we can perform the
+ensemble average through the integration of (28) over the distribution pφ(φ) of
+point values of φi, which renders
+Pi(t) =
+t∫
+0
+dt′Ri(t′)
+∞∫
+t−t′
+dt′′ψ(t′′) (29a)
+Ri(t) =P0(t)δ(t) +
+∑
+[ij]
+t∫
+0
+dt′ 1
+2dψ(t−t′)Rj(t′), (29b)
+where the pdf of transition times integrates the disorder distributions as
+ψ(t) =
+∞∫
+0
+dφpφ(φ)
+exp
+(
+− t
+φτD
+)
+φτD
+. (30)
+It is noteworthy that such an average transport description holds under the con-
+dition that the disorders experienced by the particle at subsequent steps are inde-
+pendent.
+In this spirit, CTRW has been applied to advective and dispersive transport in
+heterogeneous media. For advection-dominated transport, the transition time τ is
+related to the advection travel time over a characteristic lengthℓ, of the same order
+of magnitude as the correlation distance of the particle velocity along a streamline,
+i.e.,
+τ = ℓ
+v, (31)
+where v is the particle velocity. The spatial correlation properties of Lagrangian
+particle velocities along streamlines, and the representation of transport by CTRW
+have been studied for pore and Darcy scale transport (Le Borgne et al, 2008b,a;
+
+--- PAGE 12 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 11
+Kang et al, 2011; de Anna et al, 2013; Kang et al, 2014). The relation between the
+spatial distribution of hydraulic conductivity and transition times has been studied
+in Edery et al (2014). The CTRW as an average transport approach has been em-
+ployed in the interpretation and prediction of diverse anomalous and non-Fickian
+behaviors observed in geological media (Berkowitz et al, 2006). In the following, we
+brieﬂy summarize the behaviors of breakthrough curves and spatial concentration
+moments that are obtained within the CTRW framework for a transition time pdf
+that decays algebraically as ψ(t)∝t−1−β with 0 <β < 2.
+2.4.1 Breakthrough Curves
+Hydrodynamic transport in natural formations is frequently characterized by break-
+through curves that here depict the ﬁrst passage time pdfs, or solute ﬂuxes. Both
+forms of breakthroughs are quite similar in the case of advection-dominated trans-
+port. The ﬁrst passage timet(x1) at a control plane located atx1 can be formulated
+in terms of particle trajectories as
+t(x1) = inf[t|x(t)≥x1]. (32)
+The pdf of ﬁrst passage times can then be written as
+f(t,x 1) =⟨δ[t−t(x1)]⟩. (33)
+For an instantaneous particle injection into an inﬁnite or semi-inﬁnite domain, it
+has been found (Berkowitz et al, 2006) that f(t,x 1) scales as the transition time
+pdf,
+f(t,x 1)∝t−1−β. (34)
+2.4.2 Spatial Concentration Moments
+Other observables characterizing the global plume behavior can be found in the
+ﬁrst and second centered moments of the solute spatial distribution. The ﬁrstm(1)
+i
+and second m(2)
+ij spatial moments of P (x,t ) are deﬁned as
+m(1)
+i (t)≡
+∫
+ddxxiP (x,t ) m(2)
+ij (t)≡
+∫
+ddxxixjP (x,t ). (35)
+In terms of the particle trajectories, these moments are given by m(1)
+i (t) =⟨xi(t)⟩
+and m(2)
+ij (t) = ⟨xi(t)xj(t)⟩. The second centered moments are a measure of the
+global plume width, and are deﬁned by
+κij(t) =m(2)
+ij (t)−m(1)
+i (t)m(1)
+j (t). (36)
+With concern to the behavior in time of the spatial moments, we distinguish the
+range of β values between 0 and 1 from the range between 1 and 2. For 0 <β < 1
+it has been found that (Berkowitz et al, 2006)
+m1(t)∝tβ, κ 11(t)∝t2β, κ 22(t)∝tβ. (37)
+
+--- PAGE 13 ---
+12 Benoit Noetinger et al.
+In the range 1 <β < 2 the moments behave as
+m1(t)∝t, κ 11(t)∝t3−β, κ 22(t)∝t. (38)
+These behaviors are valid in their asymptotic trend if there exist time regimes for
+which the transition time pdf shows the power-law behavior ψ(t)∝t−1−β for 0<
+β <2. For β >2 the breakthrough and dispersion behaviors are asymptotically
+Fickian. One could also expect that there exists a cut-oﬀ scale, seemingly linked
+to the largest velocity scale, beyond which the transition time pdf drops faster
+than a power-law. Such situations and the transitions from anomalous to normal
+transport behaviors have been investigated in Dentz et al (2004).
+3 Numerical Random Walk Particle Tracking Methods
+3.1 Classical Random Walks
+The simplest random particle tracking algorithm to solve the ADE (5) is obtained
+by time discretization of the Langevin equation (9) relying on the Ito convention
+of the stochastic integral of dx/dt,
+x(t +∆t) = x(t) + u[x(t)]
+φ[x(t)]∆t +∇· D[x(t)]
+φ[x(t)] ∆t +
+√
+2D[x(t)]∆t
+φ[x(t)] · Z(t), (39)
+which yields an Euler scheme of the particle displacement. In the preceding equa-
+tion, the time step is supposed to be discretized in increments dt. In the basic
+version, time steps are assumed to be constant. The Z(t) are independent ran-
+dom vectors of Gaussian components with zero mean, ⟨Z(t)⟩ = 0 and covariance
+⟨Zi(t)Zj(t)⟩ = δij. In practice, the random noise Z(t) can be replaced by any
+random vector with zero mean and unit variance. In the heterogeneous case, in-
+cluding media characterized by discontinuous properties, this classical formulation
+of RW has several drawbacks. Intuitively, one can anticipate spurious phenomena
+because of the Dirac delta function that appears in the evaluation of the gradient
+of discontinuous diﬀusivity. The ﬁrst methods were based on reﬂection principles
+approximating the complete solution to the discontinuous interface, which can be
+obtained through the so-called method of images (Uﬃnk, 1985; Semra et al, 1993;
+Kinzelbach and Uﬃnk, 1991; Kinzelbach, 1988; Zimmermann et al, 2001; Hoteit
+et al, 2002a,b; Bechtold et al, 2011). When crossing the interface, random walk-
+ers are either reﬂected or transmitted. Starting from the higher dispersion side,
+random walkers are more likely reﬂected than dispersed, thus preventing from spu-
+rious accumulation of particles in the lower dispersive side. Thorough investigation
+of these approximations have been performed both theoretically by deﬁning con-
+vergence conditions that should respect the proposed diﬀusive processes (LaBolle
+et al, 1998) and numerically by comparing them on diﬀerent benchmarks (Salamon
+et al, 2006a; Lejay and Pichot, ????). Numerical studies point out the complexity
+of their implementation especially when coupling them with advanced discretiza-
+tion scheme for transport. Another drawback is that the basic algorithm leads
+to ineﬃcient small spatial displacements in very low diﬀusion coeﬃcient zones.
+The particles remain trapped in low diﬀusion zones, increasing the eﬀective com-
+putational cost which is proportional to the number of time iterations. In the
+
+--- PAGE 14 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 13
+heterogeneous case, including media characterized by discontinuous properties,
+this classical formulation of RW has several drawbacks. Intuitively, one can an-
+ticipate spurious phenomena because of the Dirac delta function that appears in
+the evaluation of the gradient of discontinuous diﬀusivity. In the classical form of
+RW, accounting for these diﬀusivity discontinuities requires the implementation
+of quite complex ”reﬂection” rules of the particles at the interface between two
+media
+3.2 Fully coupled advection-dispersion-diﬀusion equation
+Introducing advective and dispersive terms in the same equation raises speciﬁc
+numerical issues mostly linked to discontinuities in the dispersion gradient and to
+the coupling between the ﬁrst-order advective term and the second-order diﬀusive-
+dispersive term. Nonetheless, RW methods remain widely used because of their
+good numerical properties, irrespective the rate of advection to diﬀusion-dispersion
+and also because they are easily implemented. Time domain variants have dras-
+tically improved the performances of RW methods, especially when dealing with
+heterogeneous media. At the local scale, hydrodynamic dispersion is generally
+modeled as a Fickian diﬀusion with the diﬀusion-dispersion coeﬃcient D( x) of
+equation (5) expressed as a tensor of components (Bear, 1973):
+Dij = (αT|v| +d)δij + (αL−αT )vivj
+|v| (40)
+whered is the diﬀusion coeﬃcient, αL andαT are the longitudinal and transverse
+dispersivities, vi is the velocity in direction xi,|v| is the norm of the velocity,
+andδij is the Kronecker symbol. Along the principal directions of dispersion, this
+expression simpliﬁes into
+D =
+
+
+d +αL|v| 0 0
+0 d +αT|v| 0
+0 0 d +αT|v|
+
+ (41)
+where the ﬁrst coordinate is taken along the direction given by the velocity and
+the two other directions are in the plane normal to the velocity.
+Both the advective and dispersive terms require the determination of the veloc-
+ity v at any location in the modeled domain, while Eulerian methods only require
+the knowledge of velocities at the scale of the mesh cell. When the velocity ﬁeld
+has been obtained numerically from the discretization of the ﬂow equation over
+a calculation grid, the velocity is expressed within each mesh cell by means of
+appropriate methods. If the numerical scheme is based on ﬂux conservative Fi-
+nite Element methods (e.g., Mixed Finite Element, Mixed Hybrid Finite Element)
+(Brezzi and Fortin, 1991; Hoteit et al, 2002a; Mos´ e et al, 1994; Pichot et al, 2010;
+Roberts and Thomas, 1991), the velocity is directly derived from a combination
+of the ﬁnite element basis functions (Hoteit et al, 2002b). With more standard
+Finite Element approaches, conservative velocity schemes can still be derived us-
+ing ﬂux-conserving sub-cell subdivisions (Cordes and Kinzelbach, 1992, 1996). For
+Finite Diﬀerence and Finite Volume schemes, velocities are most commonly cal-
+culated within mesh cells via multi-linear interpolations (linear along the diﬀerent
+directions of the meshing) (Pollock, 1988; Maier and B¨ urger, 2013). In fact, only
+
+--- PAGE 15 ---
+14 Benoit Noetinger et al.
+the linear interpolation scheme is ﬂux-conservative. In the speciﬁc cases handling
+regular grids, the linear interpolation scheme can also be derived from the equiva-
+lence between Finite Volume methods and Mixed Hybrid Finite Element schemes
+(Chavent and Roberts, 1991). While mass-conservative transport schemes require
+ﬂux-conservative schemes, they do not impose any condition to the transverse ve-
+locity across mesh faces that appear in general to be discontinuous. In association
+with the multi-linear interpolation schemes, shear deformation tends to accumulate
+at the edges of the mesh cell and is zero outside. This is a strong limitation when
+studying solute mixing mechanisms with geometrical and process-based analysis
+(Le Borgne et al, 2015). Alternative quadratic velocity interpolation schemes have
+been proposed to ensure non-slip boundary conditions at impervious limits (Nunes
+et al, 2015). Mass conservation conditions are no longer fulﬁlled locally but they
+are globally, over cell facets. This type of interpolation scheme becomes appro-
+priate in the presence of numerous no-ﬂow boundary conditions (e.g. modeling
+transport at the pore scale).
+While classical Eulerian schemes only need the expression of the dispersion
+tensor D (Zheng and Bennett, 2002), random walk methods also require the dis-
+persion gradient (equation (5)), and thus the velocity gradient. This is an impor-
+tant speciﬁcity of RW methods that conditions the choice of both the numerical
+schemes and the implementation methods. The main diﬃculty stems from the
+discontinuity of the velocity gradient and hence of the dispersion gradient across
+cells. We ﬁrst underline that the eﬀect of the discontinuity at the cell facet is not
+systematically critical and is sometimes negligible compared with the other eﬀects
+of transport. This is the case of heterogeneous permeability ﬁelds as the classical
+multi-Gaussian lognormal ﬁelds for which the transition between high and low
+ﬂow zones remains gradual enough (Salamon et al, 2006b). While not fully tested,
+this point was hinted in previous studies (Tompson and Gelhar, 1990). In these
+conditions of heterogeneity, random walkers are much more dispersed by the ve-
+locity ﬁeld and its gradient within the mesh cells than by discontinuities at the
+cell interfaces.
+TDRW methods are in essence more appealing than RW because their random
+walkers stop at the interface before being transferred to neighboring cells (Bodin
+et al, 2007; Delay and Bodin, 2001). The travel time to the interface is drawn from
+exact or approximate analytical solutions to transport in homogeneous media. De-
+veloped ﬁrst in one-dimensional media for simulating solute transport in fracture
+segments (Bodin et al, 2003; Painter and Cvetkovic, 2005), TDRW have been ex-
+tended to multidimensional media (Bodin, 2015; Delay et al, 2002). When local
+analytical solutions of the travel time distribution can be obtained, TDRW meth-
+ods are highly eﬃcient to couple the advective and diﬀusive/dispersive transport
+processes. In the absence of local analytical solutions, alternative methods have
+been developed as a mix between ”space-domain” random walk (classical random
+walk) and time-domain random walk and trying to combine both the spatial and
+temporal advantages. The constant displacement scheme consists in choosing a
+spatial scale ∆x much smaller than the mesh scale l and deriving the time step
+∆t from the spatial scale divided the local velocity v (Beaudoin et al, 2007; Wen
+and Gomez-Hernandez, 1996; de Dreuzy et al, 2007): ∆t = ∆x/v. The classical
+space-domain random walk method is then run once for this time step ∆t using
+both advection and dispersion mechanisms. The control by the velocity at the lo-
+cation of the random walker ensures that the mean displacement remains always
+
+--- PAGE 16 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 15
+equal to ∆x. The characteristic number of steps taken within the mesh cell n can
+be obviously ﬁxed by choosing ∆x = l/n. The varying time step ∆t according
+to the location in the domain maintains an even balance between accuracy and
+eﬃciency over the whole modeled domain. This method combines part of the eﬃ-
+ciency of the TDRW method by ﬁxing the mean displacement and the generality of
+the classical Space-Domain RW. It also fundamentally respects the ﬂow structure
+within the mesh cell because the small displacements correctly follow the structure
+of ﬂow lines in each cell. In classical implementations, dispersion discontinuities
+treated by the reﬂection method is again an issue. It could be solved by switching
+to TDRW when the random walker comes close enough to one of the cell facets.
+Close to cell corners, only the interface in the direction of the velocity could be
+considered.
+3.3 Purely diﬀusive issues
+In the case of purely diﬀusive issues as for Darcian ﬂuid ﬂow, we setu(x) = 0 in the
+ADE and rewrite the equation for the ﬂuid pressure p (that replaces the notation
+c for this section) as:
+φ(x)∂p(x,t )
+∂t =∇· [D(x)∇p(x,t )] +S(x,t ). (42)
+In the hydrogeology practice, or in the oil and gas industry, D(x) is the diﬀusivity
+given by D(x) = k(x)
+µct
+, k is the permeability, µ is the ﬂuid viscosity and ct the
+total compressibility of the medium (rock plus ﬂuid). A source term in the form
+S(x,t ) representing either sources and sinks, or boundaries has been added in the
+right hand side of the equation. Note that the equation can describe either tracer,
+thermal or pressure diﬀusion in a porous medium of weak compressibility. The
+linearity of this equation allows us to consider the cases where S(x,t ) is in the
+form δ(t)δ(x− x0). This means that we are interested in the Green’s function
+of the previous equation. To go farther, a ﬁrst step is to represent properly the
+heterogeneous (or fractured) medium by means of a geometrical meshing. In a
+second step, using an appropriate numerical scheme results in a discrete set of
+equations to be solved. Finally, RW methods are used to solve the equations and
+to glance at some information concealed in these equations.
+3.3.1 Discretization of heterogeneous and fractured media
+A discretization of the medium can be obtained via any available mesh builder
+handling triangular or quadrangular elements (or the corresponding elements in the
+three-dimensional case). In the case of bulk heterogeneities such as those mimicked
+by geostatistical random ﬁelds, any suﬃciently reﬁned meshing compared with the
+underlying correlation length will capture most of the heterogeneities (Fig. 1).
+In the case of sharp heterogeneities enclosing discontinuities such as between
+diﬀerent layers, it is assumed that the meshing follows the discontinuities. For
+densely fractured media, building conform meshes (i.e., meshes not too much dis-
+torted) closely following the discrete network of fractures becomes almost infeasible
+(Fig. 2).
+
+--- PAGE 17 ---
+16 Benoit Noetinger et al.
+Fig. 1 An heterogeneous medium and the associated mesh
+Fig. 2 A fractured unit cell and its triangulation
+Fig. 3 Local zoom of the mesh
+
+--- PAGE 18 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 17
+In a second step, the diﬀusion equation (42) can be discretized using Finite
+Volume or Finite Element methods, yielding usually a linear diﬀerential set of
+equations in the form of:
+Viφi
+∂pi(t)
+∂t = ∑
+j neighbor i
+Tij(pj(t)−pi(t))
++
+∫
+grid block iS(x,t )dx.
+(43)
+Here,Vi denotes the volume of the i-th grid block. This step can result in additional
+geometrical constraints for the meshing that are beyond the scope of this study.
+Considering for illustration a Cartesian regular grid of spatial step ∆x, using a
+Finite Volume approach, the discretized version of this equation in d dimensions
+for each grid block of size (∆x)d can be written as:
+(∆x)dφi
+∂pi(t)
+∂t = ∑
+j neighbor i
+Tij(pj(t)−pi(t))
++
+∫
+grid block iS(x,t )dx.
+(44)
+The summation is carried out with respect to indexj labeling the nearest neighbors
+of the current grid block i.
+It remains to deﬁne the so called transmissivities or inter block conductivi-
+ties Tij between two adjacent grid cells i and j with respect to the underlying
+heterogeneous map. A classical choice is the harmonic mean given by:
+Tij = 2DiDj(∆x)(d−2)
+(Di +Dj) (45)
+where subscript i indicates that the values are evaluated at the center xi of
+the i-th grid block. This provides a consistent discretization of (43) (McCarthy,
+1990, 1991, 1993a,b). In the speciﬁc case of a fractured porous medium, mixing
+hydraulic properties of fractures and matrix, a diﬀerent option is usually taken by
+assigning diﬀusion coeﬃcient to meshes i in the form:
+Di =
+{
+(∆x)(d−2)Dm, if xi∈Ωm,
+(∆x)(d−2)Df, if xi∈Ωf.
+}
+(46)
+Here,Ωf andΩm represent the fracture and the matrix domains, respectively.
+Using a suﬃciently reﬁned grid, allows relying upon standard Euler time discretiza-
+tion and associated solvers to produce accurate solutions of the discretized version
+of (43).
+It is noteworthy that many discretization methods yield linear systems in the
+form of (43). Combining various mesh generators with compatible discretization
+schemes for the diﬀusion operator will always render the same general form of the
+discretized equations, the latter simply changing by the stencil of neighbor cells
+involved in each equation and the formulas of inter-block transmissivities (45). A
+rather complete analysis of this last issue can be found in Romeu and Noetinger
+(1995). It was observed that convergence to the solution of the continuous equa-
+tions can be greatly accelerated according to the meshing and discrete scheme
+used. More recently, Wang et al (2014) and Qu et al (2014) detailed the local
+ﬂow ﬁeld close to adjacent corners of neighbor grid cells. These authors were able
+to justify the general power law averaging as the rule for generating inter-block
+
+--- PAGE 19 ---
+18 Benoit Noetinger et al.
+coeﬃcients by using the so called ”ﬁnite analytic approach”. It must be kept in
+mind that that with extreme contrasts of diﬀusion properties between cells, the
+standard choice of harmonic means (45) results in severe underestimations of the
+large scale diﬀusion, the harmonic mean being mainly controlled by the smallest
+value. In the case of percolation lattices involving highly contrasted properties, the
+percolation threshold might be artiﬁcially shifted. In the sequel, we will no longer
+come back to the choice of inter-block parameters even though it is an important
+feature for solving ﬂow and transport equations.
+3.4 Random walk methods for dual-porosity models
+Fractured media are generally made of highly conductive fractures present at sev-
+eral scales and embedded in a low permeability matrix. This high contrast of
+properties led to the introduction of dual-porosity models where matrix and frac-
+tures are treated separately and coupled through an exchange term. These models
+have been used to simulate various processes, such as ﬂuid ﬂow (Barenblatt and
+Zheltov, 1960; Warren and Root, 1963), solute transport (Dershowitz and Miller,
+1995; Cvetkovic et al, 2004), and electric current ﬂow (Roubinet and Irving, 2014).
+They can also be associated with Dual-porosity models can also rely upon Discrete
+Fracture Networks (DFN) approaches to consider the geometrical complexity of
+realistic fracture networks (Cacas et al, 1990; Delorme et al, 2013a). In the purely
+diﬀusive case, these dual-porosity models can be ruled by the following equation:
+∫ ∞
+0
+dτ[φfVfδ(t−τ)+φmVmf(t−τ)]∂p(x,τ )
+∂τ =∇· [D(x)∇p(x,t )]+S(x,t ). (47)
+Here, Vf and Vm denote the volume fractions of the fractures and the matrix,
+respectively, andφf and φm are the associated porosity.
+The Laplace transform of eq (47) yields:
+[φfVf +φmVmf(s)][sp (x,s )−p(x,t = 0)] =∇· [D(x)∇p(x,s )] +S(x,s ). (48)
+In some dual-porosity models, RW methods have been used for: (i) up-scaling the
+transfer properties required to describe averaged fracture-matrix interactions, (ii)
+directly solving the considered ﬂow or/and transport problem, and (iii) evaluating
+ﬂow or/and transport eﬀective properties. In this section, we describe a few of
+these applications distinguishing the dual-porosity models based on a continuous
+representation of the fractures (section 3.4.1) from models based on an explicit
+representation of the DFN (section 3.4.2).
+3.4.1 Up-scaling DFN to continuum dual-porosity models
+Solving ﬂuid ﬂow in fractured porous media can be carried out by resorting to a
+continuous dual-porosity model, such as the one described in Appendix B. The
+model description handled in the present study lets appear transfer functions and
+coeﬃcients between fracture and matrix continua, denotedf(t) andλ, respectively.
+Although these functions and coeﬃcients can be determined analytically for simple
+cases (expressions (70)-(71)), a numerical evaluation is required for the complex
+cases. In this context, Noetinger and Estebenet (2000), Noetinger et al (2001a,b)
+
+--- PAGE 20 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 19
+and Landereau et al (2001) applied directly a TDRW method (named CTRW
+in their papers) to determine these transfer parameters. The key observation of
+Noetinger and Estebenet (2000) and Noetinger et al (2001a) is that f(t) can be
+interpreted as the probability density function (pdf) of the ﬁrst exit time of a
+particle initially launched from a random location in the matrix, then undergoing
+a random motion in the matrix and ﬁnally exiting toward the fracture domain
+at the matrix boundary. This function f(t) might also be identiﬁed as the local
+memory introduced for general processes hosting mobile-immobile physical and
+chemical interactions (Carrera et al, 1998; Willmann et al, 2008). It can be veriﬁed
+explicitely on the few analytical solutions of f(s) (Appendix B) that the transfer
+function can be developed as a power serie of s (Noetinger and Estebenet, 2000;
+Noetinger et al, 2001a):
+f(s) = 1− φmVm
+λ s +.... (49)
+Recasting the equation in the real domain yields ⟨t⟩ =
+∫ +∞
+0 tf(t)dt = φmVm
+λ .
+Therefore, the mean residence time of random walkers in the matrix is directly
+related to the transfer coeﬃcient introduced in dual-porosity models. It can be
+shown mathematically that the λ coeﬃcient arising from this deﬁnition exactly
+coincides with the coeﬃcient obtained from large scale averaging or homogeniza-
+tion theory (Noetinger et al, 2001b). These considerations result in the following
+algorithm that provides a full determination of the exchange function f(t) as well
+as the parameter λ. Without loss of generality, we assume φm = 1. It is assumed
+that the matrix was meshed and that a ﬁnite volume scheme led to a discretized
+set of equations having the form of 43. We introduce the notations: Bi =∑
+[ij]Tij
+and wij = Tij
+Bi
+The following algorithm can be easily implemented:
+1. Choose the number N of independent particles.
+2. To start the i-th particle, choose one matrix node ji with a probability pro-
+portional to the volume of the associated grid block, k=1.
+3. While the particle has not left the matrix, at step k of the algorithm, move the
+particle from site “i” to its nearest neighbor site “j”, with a probability equal
+to wij
+4. Update the time counter with the relation:
+tk =tk−1− Vi
+Bi
+Log(rand).
+Here, rand stands for a random number picked from a uniform distribution
+over [0, 1].
+5. If at iteration k the particle enters a grid block belonging to the fracture region
+at iteration k, store the exit time ti = tk of the current particle i and launch
+the i+1 th particle.
+6. Store the N independent exit times t(1),..., t(N ).
+7. End.
+It is then easy to obtain the histogram of the distribution yielding f(t). The
+quantityλ can be estimated by means of the relation
+λ = Vm
+⟨tmf⟩≃ Vm
+1
+N
+∑N
+i=1t(i).
+
+--- PAGE 21 ---
+20 Benoit Noetinger et al.
+The above algorithm, which returns a direct determination of the complete ex-
+change function, is very fast and eﬃcient because there is no need of iterations
+(particle motions) in the fractures. It was successfully tested on simple geometries
+consisting of for stratiﬁed media, or spherical matrix blocks and provided good
+comparison with the corresponding analytical determinations of both f(t) and λ
+(Noetinger and Estebenet, 2000; Noetinger et al, 2001b,a). In addition in these
+papers, it was shown that this exchange functionf(t) is closely related to the time
+autocorrelation function of If(t). Here, the fracture indicator function is deﬁned
+as If(t) = 1 if the particle in the fracture at time t, 0 else. This corresponds to
+the curve labelled by FMF in (Fig. 4).
+Several tests on simple DFN’s with some randomness in the fracture character-
+istics were also carried out (Fig. 4). The residence time distribution f(t) obtained
+by TDRW compared very well with the corresponding ﬁnite volume solutions.
+These solutions were obtained by solving the relaxation problem given in the ap-
+pendix 67 that is closely related to determination of the ﬁsrt exit time distribution
+f(t).
+Fig. 4 Left: a fractured medium. Right: transfer function computed by TDRW and by ﬁnite
+diﬀerences.
+It remains to characterize transfer functions for complex DFN. Finding generic
+analytical forms generalizing the known analytical forms given in appendix B
+(69,70, 71) and able to account for very wide distributions of matrix block size
+remains to be done. At short times, corresponding to large Laplace parameter s,
+the function f(t) is sensitive to the ratio of the fracture surface to total volume.
+At larger times, f(t) samples the whole block size distribution, making that some
+fractal and thus ”anomalous” power law behavior may be anticipated. This could
+lead in the real time domain to anomalous transfer kernels equivalent to fractional
+derivatives (N´ eel et al, 2011, 2014). There is no doubt that the TDRW method
+depicted above would be useful to feed the investigations with numerical results.
+As an illustration the method was implemented to estimate some properties of
+fractured medium constructed with percolation lattices. Fig. 5 shows a realization
+of a percolation lattice with a proportion p = 0.57 of active fractures. In Fig. 6, we
+plotted the dependence on p−pc of the mean residence time in the matrix (with
+diﬀusivity equal to one) with respect to the proportion of active fractures. The
+ﬂexibility of the TDRW approach allows to compute several mean residence times
+of interest, that depend on the fracture sub-network that is retained to decide to
+stop the particle’s motion in the algorithm above (the reader can remark that any
+
+--- PAGE 22 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 21
+150 x 150, p = 0.57
+Fig. 5 A bond percolation network at proportion p = 0.57 of active fractures, red = isolated
+clusters, black = backbone, green= dead-ends
+arbitrary stopping criterion can be imposed in the algorithm above). This freedom
+was used to study the residence time distribution computed once retaining the
+whole fracture network (the basic algorithm), or only the connected cluster, or
+only the resulting backbone, neglecting dead ends. In order to account for ﬁnite
+clusters, particles attaining an isolated cluster, are instantaneously released at
+a random location in a matrix mesh bounding this cluster (so called ”speed on
+isolated clusters”) and may continue their diﬀusive motion before attaining the
+sub-network of interest at which the exit time ti is stored. Then average residence
+times can be evaluated depending on the proportion p of active fractures.
+A set diﬀerent curves corresponding to diﬀerent mean residence times ⟨t⟩ is
+obtained. Each curve depends on the fracture subnetwork that was kept, i.e., all the
+fractures including non-relevant isolated clusters (red dots), or only the percolation
+backbone (black triangles) corresponding to the extreme cases. Intermediate curves
+correspond to diﬀerent treatments of the remaining ﬁnite clusters. Notably, keeping
+the whole set of fractures (red dots) in Fig. 6 does not lead to any critical divergence
+of the mean residence time close to pc (pc = 0.5 in the case of a 2D bond square
+lattice). Further studies should be carried out to obtain a better characterization
+of the associated critical exponents. This result illustrates that even starting from
+the same DFN, exchange coeﬃcients may be process dependent, depending on the
+role of ﬁnite clusters or dead-ends in the transport process under consideration.
+It can be mentioned that random walk methods have also been used in contin-
+uous dual-porosity models to directly model transport in fractured porous media
+(Liu et al, 2000; Pan and Bodvarsson, 2002). In these studies, advection-dispersion
+
+--- PAGE 23 ---
+22 Benoit Noetinger et al.
+10
+−1
+10
+0
+10
+−2
+10
+−1
+10
+0
+10
+1
+10
+2
+10
+3
+p−pc
+MEAN TIME
+stop on every fracture
+stop on infinite path
+speed on isolated cluster
+stop on backbone
+speed on isolated cluster
+stop on infinite path
+no isolated cluster
+stop on backbone
+no isolated cluster
+−0.12584
+−1.7846
+−2.5792
+−3.6168
+−3.4314
+Fig. 6 Exchange coeﬃcient computed for the percolation network as a function of p−pc
+. The indicated numbers correspond to the estimated slopes of the apparent scaling laws in
+this Log Log representation.
+equations were considered in both the fracture and matrix continua, and the prob-
+ability of transfer between these two continua was deﬁned analytically.
+3.4.2 Random walk simulations on discrete fracture networks accounting for the
+matrix
+In the preceding section, it was shown that the transfer function f(t) could be
+determined eﬃciently using TDRW. Once f(t) is found applications can be envi-
+sioned by using the continuous double porosity equations (60) or the alternative
+form (63). Another option is to keep the details of the DFN topology explicitly,
+without keeping an expensive explicit meshing of the fractures. In two dimensions,
+the DFN is represented by means of a resistor/capacitor network with pressure
+unknowns located only at the intersections of the fractures. This class of models
+are called pipe network models. Chang and Yortsos (1990) and Acuna and Yort-
+sos (1995) carried out simulations of pressure transient (well tests) in this way
+using two-dimensional DFN close to the percolation threshold. The components
+of ﬂow between matrix and fractures were neglected, corresponding to studying
+an impervious matrix. A three-dimensional generalization of this pipe network ap-
+proach including these components was proposed by Noetinger and Jarrige (2012)
+and Noetinger (2015). The main diﬃculty is that in 3 d, intersections between
+fractures are segments, so describing pressure proﬁles at these intersections in-
+volves many degrees of freedom. By introducing the set of fracture intersections
+
+--- PAGE 24 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 23
+labeled by j, and denoting pj as the average pressure on the j-th intersection, it is
+possible to derive the following set of equations that corresponds to a lowest order
+approximation:
+∀i = 1,N∩,
+∑
+j∈J(i)
+K 11
+ij (Vf +Vmf(s))[spj(s)−pj(t = 0)] =
+∑
+j∈J(i)
+VfT 11
+ij pj(s).(50)
+To simplify notations, both matrix and fracture porosity are here equal to unity.
+The quantities K 11
+ij and T 11
+ij depend explicitly on the shape of the fractures and
+can be determined with fast algorithms (Khvoenkova and Delorme, 2011; Delorme
+et al, 2013b). One can note that the number of unknowns corresponds to the num-
+ber of intersections between fractures, so the method allows treating large DFN’s.
+If a better accuracy is needed, one can increase the order of the approximation, but
+the number of unknown remains still Noetinger and Jarrige (2012) and Noetinger
+(2015). The set of equations 50 has the same form that a discrete form of the set
+of equations (63) that can be solved using TDRW with trapping as introduced
+by Dentz et al (2012), equations (26), (29), (30) and (31) of their contribution.
+Identiﬁcation is obtained by stating
+(Vf +Vmf(s)) = 1
+µ(x,s ) (51)
+where µ(x,s ) is the local memory function introduced in Dentz et al (2012). To
+summarize, one can state that TDRW is useful to both:
+– determine f(t) using random walkers in the matrix only, the DFN acting as a
+boundary
+– once f(t) properly known, solving equations (50) to up-scale the DFN in or-
+der to parameterize a continuous double porosity model useful for engineering
+applications.
+TDRW methods associated with an explicit representation of the DFN have
+also been used to model transport processes in fractured media Geiger et al (2010).
+Some models only consider advective displacement in the fractures with the aim
+of studying hydrodynamic dispersion in two-dimensional heterogeneous percola-
+tion networks (Rivard and Delay, 2004). In these studies, binary and log-normally
+distributed hydraulic conductivity ﬁelds are considered, and the impact of this
+heterogeneity on the longitudinal dispersion coeﬃcient is analyzed at the perco-
+lation threshold. In other models, advection-diﬀusion mechanisms in the fractures
+and pure diﬀusion in the matrix are considered, with sometimes a mesh-free rep-
+resentation of the matrix. This dual-porosity formulation reduces the numerical
+cost and the algorithm complexity related to the meshing step of each simulation.
+With these techniques, particles only move in the fractures and their diﬀusion into
+the surrounding matrix is considered via an additional retardation time (Cvetkovic
+et al, 2004; Dershowitz and Miller, 1995; Roubinet et al, 2010). When derived from
+analytical solutions, this retardation time relies on specﬁc physical and geometrical
+assumptions. For example, Dershowitz and Miller (1995) consider a pure-diﬀusion
+equation in matrix blocks of regular shape. In Cvetkovic et al (2004), retention
+models based on analytical solutions of fracture-matrix systems (e.g., Tang et al
+(1981)) are employed under the assumption that the matrix surrounding each frac-
+ture is inﬁnite yielding no limitation of matrix diﬀusion by nearby fractures. To
+
+--- PAGE 25 ---
+24 Benoit Noetinger et al.
+overcome this restrictive assumption, Roubinet et al (2010) add the possibility for
+each particle to transfer from one fracture to another by diﬀusion through the
+matrix blocks. The method is applicable to heterogeneous fractured porous media
+without constraint on the matrix block geometry or network density.
+The numerical methods previously described have been used to evaluate up-
+scaled transport properties and to analyze the impact of structural heterogeneity
+at the large-scale on the behavior of transport in fractured media. In Cvetkovic
+et al (2004), Painter and Cvetkovic (2005), and Painter et al (2008), up-scaled
+transport properties are ﬁrst evaluated over small discrete fracture networks, and
+then used to perform large-scale simulations. This eﬃcient two-step method has
+been applied to the ¨Asp¨ o Hard Rock Laboratory in Sweden (Cvetkovic et al, 2004;
+Painter and Cvetkovic, 2005) and has been extended by introducing ﬁrst-order
+(kinetics) solute transformations (Painter et al, 2008). Other RW methods associ-
+ated with a DFN representation have helped to understand the impact of the DFN
+heterogeneity on large-scale eﬀective transport properties. More precisely, Liu et al
+(2007) aimed their study at the dependence with the space scale of the eﬀective
+matrix diﬀusion coeﬃcient deduced from ﬁeld tracer experiments. This scale eﬀect
+has been observed in numerous characterization studies of fractured rocks, and the
+numerical simulations conducted in Liu et al (2007) showed that this eﬀect was
+related to the DFN heterogeneity. The impact of DFN heterogeneity has also been
+studied in Roubinet et al (2013) by way of numerical transport simulations con-
+ducted over synthetic fracture networks with large ranges of hydraulic properties
+and wide distributions of matrix block size.
+3.5 Measuring Mixing Properties From Random Walk Simulations
+Mixing is one of the key mechanisms of interest when studying transport and re-
+action phenomena in heterogeneous porous and fractured media (Kitanidis, 1994;
+Dentz et al, 2011). While dispersion measures the spatial extent of conveyed
+plumes, mixing quantiﬁes the distribution of concentration of dissolved chemi-
+cal species in the ﬂuid phase (Le Borgne et al, 2015). Therefore, mixing measures
+both the dilution of plume in the resident ﬂuid and the probability of dissolved re-
+active species to meet and react (de Simoni et al, 2005). Diﬀerent mixing measures
+have been proposed including the dilution index (Kitanidis, 1994), the intensity of
+segregation (Danckwerts, 1952) and the scalar dissipation rate (Ottino, 1989). The
+latter measures the rate at which concentration gradients are dissipated under the
+combined action of advection and diﬀusion. It can be directly translated into an
+eﬀective reaction rate when fast reactions are considered (Le Borgne et al, 2010;
+de Simoni et al, 2005).
+Numerical particle tracking methods are particularly useful to investigate dis-
+persion and mixing as they avoid numerical dispersion. Nevertheless, handling a
+ﬁnite set of particles is typically faced with signiﬁcant noise and imprecisions in
+the calculation of concentration gradients, whose reduction requires a large density
+of particles. This is an issue when estimating scalar dissipation rates that depend
+on the concentration gradients according to
+χ(t) =
+∫
+dxD [∇c]2, (52)
+
+--- PAGE 26 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 25
+whereD is the local diﬀusion coeﬃcient andc is the local concentration. This local
+value ofD [∇c]2 is also useful as the interpretation of the sensistivity of large scale
+parameters to local heterogeneities (Noetinger, 2013). This measures of mixing is
+signiﬁcantly aﬀected by errors in concentration gradients since the latter appear
+squared in the measure. However, for ﬁnite time injection conditions, i.e. when no
+additional solute is injected in the domain when scalar dissipation is measured, it
+can be shown that the scalar dissipation rate is directly linked to the derivative
+with respect to time of the squared concentration as,
+χ(t) =−1
+2
+d
+dt
+∫
+dxc 2. (53)
+The expression shows that the scalar dissipation rate is a measure of the decay of
+concentration variance as the transported plume is diluted in the resident ﬂuid.
+As illustrated in Fig. 7 and discussed in Le Borgne et al (2010), it comes out that
+expression (53) is far less sensitive to numerical noise than the classical expression
+of the scalar dissipation rate (equation (52)) because it does not require evaluating
+concentration gradients. With measure based on (53), mixing can be evaluated
+eﬃciently from random walk particle tracking simulation in heterogeneous media
+(Le Borgne et al, 2010). As illustrated in Fig. 7d, heterogeneity in permeability is
+found to induce temporal scaling eﬀects of the mixing rates that distinguish from
+those expected for homogeneous media. This phenomenon can be explained by
+an enhancement of diﬀusion due to the stretching of the solute plume by velocity
+gradients (Le Borgne et al, 2013).
+4 Application from pore to ﬁeld scale
+4.1 Eﬀective ﬂow and transport parameters
+A direct application of RW methods for diﬀusion problem is the determination
+of eﬀective conductivity (or diﬀusivity) of heterogeneous media, by means of the
+Einstein relation bridging the mean square displacement to the eﬀective diﬀusion
+coeﬃcient of the handled equation (Einstein, 1956):
+R2(t) =⟨(x(t)−x(t = 0))2⟩ = 2dD(t)t, (54)
+whered is the dimensionality of the system andD(t) denotes the scaling coeﬃcient
+of the diﬀusion equation under consideration (diﬀusion, diﬀusivity or conductiv-
+ity). In the case of bulk heterogeneous media, it is possible to show that the
+convergence of D(t) to its asymptotic value Deff is reached once R2(t)≫ lc,
+where lc is the permeability correlation length (Noetinger and Gautier, 1998).
+Physical considerations show that at short times, R2(t)∼ ¯Dt where ¯D denotes
+the average diﬀusivity, because the diﬀusive particles sample local homogeneous
+regions of size lc. The cross-over between both regimes can provide information
+on the REV size. This technique has also been often used to analyze binary me-
+dia, for instance that obtained from X-ray tomographic imaging (e.g. Gouze and
+Luquot (2011)). The eﬀective diﬀusion and tortuosity can be obtained from the
+asymptotic regime but but the surface to volume ratio is also obtained from the
+transient regime (Sen et al, 1994; Sen, 2003, 2004). RW calculations inferring the
+
+--- PAGE 27 ---
+26 Benoit Noetinger et al.
+a) Numerical simulation of plume advection and diﬀusion 
+ with RW particle tracking in homgeneous media 
+b) Temporal evolution of the scalar dissipation rate in homogeneous media 
+(a) t/τ =0.8a (b) t/τ =2.6 a (c) t/ τ =8.2 a
+ y/λ
+0
+10 
+20 
+30 
+40 
+50 
+60 
+70 
+80 
+90 
+100 
+0
+10 
+20 
+30 
+40 
+50 
+60 
+70 
+80 
+90 
+100 
+0
+10 
+20 
+30 
+40 
+50 
+60 
+70 
+80 
+90 
+100 
+ y/λ y/ λ
+0 10 0 10 20 0 10 20 30 40 50 
+ x/λ x/λ x/ λ
+-3.5 
+-4 
+-4.5 
+-5 
+-5.5 
+-6 
+-4 
+-4.5 
+-5 
+-5.5 
+-6 
+-4.2 
+-4.6 
+--5 
+-5.4 
+-5.8 
+c) Numerical simulation of plume advection and diﬀusion 
+ with RW particle tracking in heterogeneous media 
+d) Temporal evolution of the scalar dissipation rate in heterogeneous media 
+a
+10
+-1 
+10
+0
+10
+1
+10
+2
+10 
+3
+10
+-7 
+10
+-6 
+10
+-5 
+10
+-4 
+10
+-3 
+10
+-2 
+10
+-1 
+10
+0
+10
+1
+10
+2
+χ(t) / χ1D (τa)
+t / τa
+σ
+2
+=0.01
+σ
+2
+lnK=1
+σ
+2
+=9lnK
+lnK
+10 
+0
+10
+1
+10
+2
+10
+3
+10
+-6 
+10
+-5 
+10
+-4 
+10
+-3 
+10
+-2 
+10
+-1 
+10 
+0
+χ(t)/ χ1D(τD)
+t / τD
+ analytical solution
+ Estimation from local gradients
+ Estimation from temporal derivative of M(t) 
+Fig. 7 a. Numerical simulation of the transport of a line of tracer in a homogeneous media
+under advection and diﬀusion with particle tracking. τD is the characteristic diﬀusion time
+over a pixel of size ∆x,τD =∆2
+x/D b. Estimation of the scalar dissipation rate from the local
+concentration gradients (52) and from the local concentration squared M(t) =
+∫
+dxc2 (53).
+The latter compared much better than the former to the analytical solution for a homoge-
+neous media χ1D(t) = C2
+0Lyt−3/2
+8
+√
+2πD . c. Numerical simulation of the transport of a line of tracer
+in a heterogeneous media under advection and diﬀusion with particle tracking. d. Temporal
+evolution of scalar dissipation rates estimated for diﬀerent permeability ﬁeld variances. Het-
+erogeneity in permeability aﬀects the temporal scaling of the scalar dissipation rate and thus
+the global mixing rate. Adapted from Le Borgne et al (2010).
+eﬀective properties at the sample scale of binary images of porous media can be
+eﬃciently performed using a TDRW approach. The regular lattice over which par-
+ticles are moved by jumps of prescribed sizes is mapped onto the image voxels.
+Calculation ofDeff from binarized media can be performed by solving a boundary
+value problem mimicking a diﬀusion experiment where the particles are initially
+located at one boundary of the medium and the ﬁrst passage time monitored at
+the opposite boundary. A more eﬃcient method is to distribute randomly the par-
+ticle in the pore space (initial value problem) and apply directly (54) to measure
+the evolution of D(t) in time t and obtain Deff from the asymptotic behavior
+of D(t). Practically, it may become diﬃcult to observe the asymptotic behavior
+of D(t) because the sample does not enclose heterogeneity of ﬁnite scale and/or
+because calculations were stopped too early. For example, particles might spend a
+huge time to reach tiny connected paths in binary media close to the percolation
+threshold, making that anomalous diﬀusion occurs (Sahimi, 2011; Redner, 1989).
+RW methods have also been employed to calculate the eﬀective dispersion of
+binarized porous media by solving (5) in which a steady-state velocity ﬁeld is
+obtained solving the Navier-Stokes equations using a classical Finite Volume ap-
+proach. This approach was initiated by Salles et al (1993). The geometry of the
+simulations as well as the boundary and initial conditions are generally chosen to
+
+--- PAGE 28 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 27
+mimic laboratory tracer tests experiments through core samples. The settings are
+usually of ”permeameter” type with a passive tracer injected at one side of the core
+and the tracer breakthrough curve (BTC) monitored at the opposite side. A pulse
+injection is usually mimicked in the numerical simulation instead of continuous
+injections of actual experiments because the pulse fasten computations (less par-
+ticles in the system). In general, the size of the domain is limited by the computa-
+tional eﬀort needed to solve the Navier-Stokes equations; the current pattern being
+three dimensional lattices of 300 3 to 1000 3 nodes that correspond to millimeter-
+sized rock samples. Nevertheless, this approach relying upon TDRW calculations
+remains appealing regarding the studies on the relationships between ﬂow ﬁeld
+properties and solute dispersion evidenced by markedly non-Fickian breakthrough
+curves. Bijeljic et al (2013a,b) studied the dispersion in carbonate and sandstone
+rock samples using binarized images of X-ray tomography. They simulated trans-
+port in moving particles by advection along streamlines (previously computed
+from the ﬂow ﬁeld) and using a classical RW with jumps of constant time step
+to simulate molecular diﬀusion. The authors characterized the heterogeneity of
+the porous medium as the distribution of pore throat size and showed that an
+asymptotic diﬀusion was reached after the particles had visited many throats.
+Conversely, Gjetvaj et al (2015) investigated the origin of non-Fickian transport
+using the Berea sandstone containing a small fraction of micro-porous cement with
+pore size below the resolution of X-ray micro-tomography (Fig. 8). The authors
+showed that the micro-porous phase was fairly well depicted as an immobile dif-
+fusive domain while the solute transport in the macro-porosity taken as a mobile
+domain was solved as a combination of Navier-Stokes and diﬀusion equations. So-
+lute motion in the modeled sample was simulated by TDRW and showed that
+breakthrough curves exhibited non-Fickian diﬀusion processes stemming from the
+heterogeneity of the ﬂow ﬁeld and the diﬀusion into the micro-porosity. Finally,
+the authors proposed an up-scaled one-dimensional model calculating transition
+times of particles conditioned by (time)truncated power law distributions repre-
+senting the eﬀects of both the ﬂow ﬁeld heterogeneity and trapping plus diﬀusion
+mechanisms in the micro-porosity.
+McCarthy (1990, 1991, 1993a,b) was the ﬁrst author carrying out TDRW cal-
+culations for the purpose of up-scaling hydraulic-conductivities. Latter, random
+walk methods were also used to up-scale the transport properties of heterogeneous
+porous media at diverse scales. For example, at the large scale, heterogeneity of
+permeability has been represented by a lognormal exponentially correlated distri-
+bution and the ﬂow equation was discretized and solved with a Finite Diﬀerence
+scheme (de Dreuzy et al, 2007; Beaudoin et al, 2010; Beaudoin and de Dreuzy,
+2013). Then, the eﬀective longitudinal and transversal dispersions were inferred
+by way of two-dimensional (Beaudoin et al, 2010; de Dreuzy et al, 2007) and
+three-dimensional (Beaudoin and de Dreuzy, 2013) TDRW calculations. An addi-
+tional advantage of TDRW methods for advective-dispersive transport in fractured
+networks is their capability to separate the transport within the fractures from
+mechanisms at fracture intersections. Diﬀerent assumptions can be applied at the
+fracture intersections from complete mixing to streamline routing (Berkowitz et al,
+1994; Kosakowski and Berkowitz, 1999; Park et al, 2003), resulting in markedly
+diﬀerent solute mixing behaviors at the network scale (Bruderer and Bernab´ e,
+2001; de Dreuzy et al, 2001; Park et al, 2001).
+
+--- PAGE 29 ---
+28 Benoit Noetinger et al.
+10
+−1
+10
+0
+10
+1
+10
+2
+10
+3
+10
+410
+−8
+10
+−7
+10
+−6
+10
+−5
+10
+−4
+10
+−3
+10
+−2
+10
+−1
+10
+0
+time [s]
+Np/Np0
+Pe=102
+Pe=1
+Pe=10
+Fig. 8 Left: three-dimensional visualization of the pore network (blue) and the connected
+microporosity (yellow) for a sub-volume of 120 3 voxels of the (0.8 mm3) Berea sandstone
+sample studied by Gjetvaj et al (2015). Right: BTCs for pore-scale mobile-immobile transport
+through the Berea sample for diﬀerent values of the Peclet number computed by TDRW.
+4.2 Interpretation of solute transport experiments
+At the laboratory scale, CTRW has been used to interpret transport experiments
+set up as either saturated and unsaturated ﬂow cells conveying sorbing and non-
+sorbing solutes (Hatano and Hatano, 1998; Berkowitz et al, 2000; Bromly and Hinz,
+2004; Cortis and Berkowitz, 2004), or a single fracture in granitic core samples
+percolated with non-sorbing tracers (Jimenez-Hornero et al, 2005).
+Random Walk approaches have also been used to interpret non-Fickian diﬀu-
+sion evidenced by in-situ ﬁeld tracer test experiments. One of the most common
+evidence of non-Fickian transport processes is the ﬂat tailing of breakthrough
+curves at long travel times that marks slow release of weak solute concentrations
+(Fig. 9) (Haggerty et al, 2000; Berkowitz et al, 2006). This tailing behavior holds
+information about the underlying processes triggering non-Fickian transport.
+For example, matrix diﬀusion is known to impart strong tailings. As explained
+in section 2, this problem can be modeled in adding to the Fickian ADE a sink-
+source term accounting for mass transfers between the mobile domain and the
+matrix (immobile domain) where diﬀusion dominates:
+φ(x)∂c(x,t )
+∂t −∇· [D∇c(x,t ) + vc(x,t )] +S(x,t ) = 0 (55)
+with
+S(x,t ) =φ′(x)∂
+∂t
+∫
+dt′M(x,t−t′)c(x,t′), (56)
+whereφ andφ′ denote the porosity in the mobile and immobile domain respectively
+andM is the (eventually spatially distributed) memory function that contains all
+the information on the geometry, the volume fraction of the immobile domain, and
+its accessibility to tracer particles conveyed in the mobile domain.
+Various formulation of this sink-source term S(x,t ) were given to model the
+multi-rate nature of mobile-immobile mass exchanges that even occur in homoge-
+neous media with simple geometries (Haggerty and Gorelick, 1995; Carrera et al,
+
+--- PAGE 30 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 29
+1998; Haggerty et al, 2000). For these simple conﬁgurations, the tailing of break-
+through curves drops as c(t)∼t−1.5.
+However, natural systems often display widespread clusters of matrix with
+heterogeneous diﬀusion properties (see for example Fig. 8) from which diverse
+tailing eﬀects can be expected. Field observations report on power law distributions
+of large travel times of concentrations c(t)∼ t−1−β, with power law exponents
+spanning the wide range 0 <β < 2 (Haggerty et al, 2000). Another form of tailing
+is the one displaying several slopes like the tracer tests by injection-withdrawal in
+a single well (”push-pull” experiment) discussed in Gouze et al (2008a).
+Gouze et al (2008b) computed the memory function M(t) associated with
+solute transport simulated over X-ray micro-tomography images. As a ﬁrst step,
+the authors processed the images to delineate the interface between the mobile
+immobile domains and to evaluate the diﬀusion coeﬃcient distribution within the
+immobile domain. In a second step, they computed the memory function by way
+of a constant time step RW approach. The calculation was implemented as follows.
+N random walkers uniformly distributed over the mobile-immobile interface are
+released at the initial time (t=0). The diﬀusion equation is solved by a discretized
+version of the Langevin equation (see (39)) and a speciﬁc procedure is applied
+to determine the trajectory of the random walkers through the heterogeneous
+pixelized matrix at each time increment. For t> 0, the mobile-immobile interface
+is considered as an absorbing boundary, making that random walkers jumping
+from the immobile domain toward the mobile domain are removed. The total
+number of random walkers inside the immobile domain N′(t) is recorded until the
+last particle leaves the immobile domain. The authors showed that the memory
+function M(t) could be obtained from the ratio N′(t)/N. Finally, Gouze et al
+(2008a) compared the memory function computed at the pore scale on X-ray
+micro-tomography images of core samples to the memory function of ﬁeld scale
+tracer tests experiments in the limestone (Gouze et al, 2008a) where the core
+samples had been imaged. The authors concluded that the non-Fickian dispersion
+measured at the meter scale (ﬁeld experiment) was fairly well explained by the
+microscale diﬀusion processes in the rock matrix of cores.
+Le Borgne and Gouze (2008) developed a speciﬁc model to explain the two-
+slope tailing breakthrough curves discussed in Gouze et al (2008a) about push-
+pull tracer tests in a single well. The op. cit. authors implemented a continuous
+time random walk (CTRW) similar to that presented in section 2.2 and handling a
+transition time distributionψ(t) of dual-slope power law type. The best ﬁt of tracer
+test data was obtained with a transitional regime modeled by ψ(t)∝t−2 and the
+asymptotic regime of a homogeneous dual-porosity model (i.e. ψ(t)∝t−1.5).
+As alternative interpretations to the heterogeneous diﬀusion modeled by multi-
+rate mass transfer or CTRW, diverse processes have been evoked to explain the
+exponents of power-law travel time distributions, including heterogeneous advec-
+tion in independent ﬂow paths modeled by stochastic stream tube approaches
+(Becker and Shapiro, 2003). Both multi-rate mass transfer and heterogeneous ad-
+vection have been modeled by random walk approaches (Kang et al, 2015; Gjetvaj
+et al, 2015).
+In the CTRW framework, a power law tailing c(t)∼ t−1−β can be modeled
+by considering a transition time pdf in the form of ψ(t)∼ t−1−β. The evolution
+toward Fickian transport can be modeled by including a cut-oﬀ threshold in the
+above power law (Dentz et al, 2004). While CTRW approaches generally describe
+
+--- PAGE 31 ---
+30 Benoit Noetinger et al.
+non-Fickian transport as series of uncorrelated particle motions of very large dura-
+tions, stochastic stream tube approaches (Becker and Shapiro, 2003) assume that
+particle velocities are constant along each streamline (particle jumps are therefore
+correlated) but diﬀer from a streamline to one another. Becker and Shapiro (2003)
+have reported that this process led to the tailing of breakthrough curves obeying
+the relationc(t)∼t−2 under convergent tracer test conditions. Diﬀerent exponents
+were found for ”push-pull” test depending on the duration of the injection (push)
+step. Kang et al (2015) showed that both non-Fickian transport and heteroge-
+neous advection could be modeled by CTRW algorithm with correlated transition
+times, whose correlation are varied from zero to represent non-Fickian transport,
+to inﬁnity to represent heterogeneous advection. It is not always straightforward
+to decipher and separate the role of diﬀusive and advective processes as they can
+lead to similar power law exponents of breakthrough tails. As shown by Kang
+et al (2015), this uncertainty on process controlling ”anomalous” transport can
+be resolved by combining tracer test experiments under diﬀerent conditions, in-
+cluding cross-borehole and push-pull tests. Cross borehole tests are more sensitive
+to heterogeneous advection, while push pull tests are more sensitive to diﬀusive
+mechanisms (Fig. 9).
+1. illustration of convergent and push pull experiments in factured media 2. Breakthrough curves and random walk model 
+Fig. 9 1. Illustration of convergent and push pull tracer experiments in fractured media, from
+Kang et al (2015), 2. Breakthrough curves measured at the Ploemeur site (H+ network) under
+convergent and push pull conditions, and random walk modeling (dashed lines) with a Markov
+Chain CTRW model, from Kang et al (2015).
+4.3 Modeling of transport processes under ambient conditions
+RW methods have also been used to improve our understanding of transport pro-
+cesses under ambient conditions in natural environments. A lot of these studies
+have been conducted on fractured rocks using TDRW methods within the frame-
+work of discrete dual-porosity representations of the medium. Some of these mod-
+els are described in section 3.4.2 and have been used, for example, to describe the
+migration of radionuclides through fractured rocks at the ¨Asp¨ o Hard Rock Labo-
+ratory in Sweden (Cvetkovic et al, 2004) and the Topopah Spring welded unit in
+Yucca Mountain (Pan and Bodvarsson, 2002). Other applications target the frac-
+tured Laxemar site in Sweden, which is part of the candidate repositories of spent
+
+--- PAGE 32 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 31
+nuclear fuel (Cvetkovic and Frampton, 2012), and the Kamaiski experimental mine
+site in Japan (Dershowitz and Miller, 1995).
+Transport processes have also been modeled with RW methods in the context
+of colloidal transport in a shear zone (Kosakowski, 2004), for identifying chemical
+retention times in water catchments (Scher et al, 2002b), and for solute trans-
+port in rivers (Boano et al, 2007). CTRW has also been used to interpret the
+observations made in a heterogeneous alluvial aquifer at the Macrodispersion Ex-
+periment (MADE) site of the Columbus Air Force Base (Mississippi) (Berkowitz
+and Scher, 1998) and in a fractured till located on the island of Funen (Denmark)
+(Kosakowski et al, 2001). Finally, CTRW was also used for breakthrough curve
+analysis of numerical experiments mimicking transport in fault zones (O’Brien
+et al, 2003b,a).
+4.4 Other applications
+As explained in section 2.4, CTRW has been largely used as average transport
+model; in fact the ensemble particle motions in many quenched disordered systems
+obey a CTRW dynamic (Berkowitz et al, 2006). For this reason and motivated by
+the results of single particle tracking for diﬀusion in heterogeneous media, CTRW
+models has been used to study the question of ergodicity in complex media (Bel
+and Barkai, 2005; He et al, 2008; Barkai et al, 2012; Metzler et al, 2014). More
+recently, Dentz et al (2016) used TDRW to study the self-averaging properties
+and ergodicity of subdiﬀusion in random media. As seen in section 2.3, TDRW
+is equivalent to the discretized ADE and allows to distinguish between ensemble
+particle motion (CTRW) and diﬀusive random motion in a single realization.
+Todays, the limits of RW and TDRW methods are for some extent in the recon-
+struction of concentration ﬁelds and their use for reactive transport simulations
+involving non-linear chemical reactions. A few methods have been developed to
+reconstruct the concentration ﬁeld a posteriori from the random walkers while
+keeping their independence [Fernandez-Garcia and Sanchez-Vila, 2011]. Others
+decouple the advective and dispersive terms, simulate the advective term with a
+particle tracking method and the dispersive term with Smoothed Particle Hydro-
+dynamic (SPH) methods (Herrera et al, 2009, 2010; Herrera and Beckie, 2013).
+With SPH, each particle is considered as an elementary volume of water contain-
+ing solutes and exchanging mass with the neighboring volumes according to a
+prescribed interpolation kernel, which is also eventually used to reconstruct the
+concentration ﬁeld. With this method, random walkers remain independent and
+dispersive processes stem from the particle positions without feedback from the
+concentration ﬁeld to the particle displacements. Heterogeneous distributions of
+particles with rarefaction in low ﬂow zones may critically decrease the accuracy of
+calculated concentrations. Increasing the particle number or performing particle
+re-meshing are sometimes necessary and impact numerical performances or nu-
+merical diﬀusion. To summarize, these methods are intermediary between RW, full
+SPH, and Particle Strength Exchange (PSE) methods that introduce the inﬂuence
+of concentration ﬁelds on the motion of particles and subsequent interdependence
+of the particles (Beaudoin et al, 2002, 2003; Monaghan, 2005; Tartakovsky and
+Meakin, 2006). Like SPH and PSE, several implementations of RW and TDRW
+can be considered as mesh-free methods that can easily adapt their resolution to
+
+--- PAGE 33 ---
+32 Benoit Noetinger et al.
+local physical or chemical properties without extensive re-meshing eﬀorts. When
+chemistry mostly consists of ﬂuid-rock interactions rather of reactions in solution,
+particles can again be taken as water volumes or ”ﬁnite cells” with their embed-
+ded solutes chemically interacting with the solid (Besnard et al, 2011; Sun, 1999,
+2002). This role is especially well suited when dispersion is dominated by ﬂuid-
+rock interactions or mobile-immobile types of exchanges (Cirpka, 2005; Michalak
+and Kitanidis, 2000). More generally, appropriate combination of these Lagrange-
+based methods could be welcomed to locally separate solute dispersion from solute
+mixing. Dispersion would be simulated as particle movements, and mixing as ex-
+changes between particles. The sharing between dispersion and mixing could be
+derived from some local properties of the particle position or of the reconstructed
+concentration pattern (de Dreuzy et al, 2012; Le Borgne et al, 2011, 2015). In this
+framework, RW and TDRW methods have a strong capacity to integrate detailed
+physical processes beyond the resolution of the coarse mesh-cell scale that may be
+used in practical applications, for example by means of the ﬂexibility oﬀered by
+the choice of the transition time distribution.
+Finally, RW methods have been used at the small scale to model heat transfer
+(Emmanuel and Berkowitz, 2007) and emulsion transport in porous media (Cortis
+and Ghezzehei, 2007). At a larger scale, additional applications are related to the
+interpretation of hydraulic pumping tests in heterogeneous porous media (Cortis
+and Knudby, 2006), to the impact of matrix heterogeneity on the residence times
+of solutes in fractured media (Robinet et al, 2007), and to the interpretation of
+water age data sampled under pumping conditions (Leray et al, 2014).
+5 Conclusions
+RW methods have become a mature tool with skills to handle eﬃciently diﬀusion
+processes or advection dispersion in porous media riddled with multiscale quenched
+heterogeneities, including complex fracture patterns. The spatial scales of interest
+range from nanometers (molecules) and microns for simulations over images of the
+pore space to kilometers for ﬁeld scale investigations. Radially convergent ﬂows
+can also be accounted for. The RW class of methods is usually easy to imple-
+ment and possesses a natural structure adapted to High Performance Computing
+(HPC), which in turn renders the methods powerful and suited to up-scaling appli-
+cations. CTRW and TDRW have earned a rigorous probabilistic connection with
+ﬁnite volume methods which allow us to compare the calculations with the con-
+ventional equations of the physics of ﬂow and transport. All these features provide
+a natural framework for elaborating new theories of normal or anomalous large-
+scale dispersion as they give a natural picture of solute mixing and spreading. RW
+techniques highlight the competition between advection, dispersion and the under-
+lying quenched disorder of the medium. The eﬀects of retention and of chemical
+reactions can also be modeled.
+Future research might take several directions. To mention a few, it could be
+worth ﬁnding some robust parameterizations of the scattering kernelsM(a,t ; x−a)
+or of the transfer functionsf(.) and link them with the medium disorder (Noetinger
+and Gautier, 1998; Liu et al, 2000). Adsorption processes and chemical reactions
+could also be simulated, at least in the linear regime, by adding a suitable variable
+characterizing the state of the particle during its random motion. For example, one
+
+--- PAGE 34 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 33
+could consider a two state vector denoted x(t)→ x(t)
+[c1(t)
+c2(t)
+]
+, in which the indi-
+cator of the state of the particle c1(t) can take the value 0 or 1, (c2(t) = 1−c1(t)).
+These binary states could correspond to the fact that a particle is in the fractures
+or not, or is in the phase of a speciﬁc chemical component, etc... Choosing suitable
+transition probabilities for the elementary time step in the corresponding Langevin
+formulation (thus allowing the particle to swap between states randomly) would
+provide a direct RW interpretation of the double porosity equations (60) or of
+chemical reactions in solution and with the solid. Another important topic is be-
+ing able to generalize RW methods with the aim of coupling explicitly the particle
+concentrations and properties of ﬂuid and ﬂuid ﬂow, leading for instance to vis-
+cous or density driven ﬁngering patterns. The diﬃculty resides in the fact that at
+any time ﬂow depends on the whole map of particle concentrations with the conse-
+quence of manipulating fully coupled ﬂow-transport problem (Saﬀman and Taylor,
+1958; Dagan, 1989) where RW methods lose eﬃciency (cumbersome calculations
+of local concentrations, breaks in parallel chains of computations, limitations for
+solving non-linearity, etc.) At ﬁrst glance, the framework of independent particles
+undergoing RW seems not suited to that kind of complex coupling with non-linear
+relationships between ﬂow and transport. Nevertheless, the successful RW picture
+of Diﬀusion Limited Aggregation (DLA) provided in Witten and Sander (1983)
+and Tang (1985) and corresponding to ﬂuid ﬁngering with inﬁnite mobility con-
+trasts gives hope that RW could come out as a relevant method to address that
+kind of issues. In particular, framing the macroscopic depiction of the motion of
+unstable interfaces in random quenched disordered media could be undertaken by
+relying upon a RW approach with particle motion conditioned by the degrees of
+freedom describing the ﬂuid fronts (Nœtinger et al, 2004; Tallakstad et al, 2009;
+Teodorovich et al, 2011).
+In addition, we can mention a last application of RW to calibrate the large-scale
+model parameters that are needed in the traded or industrial simulators built for
+the purpose of diverse applications at the ﬁeld scale. Among these practical tools,
+some operational methods use RW techniques in order to sample the admissible
+space of the parameters to be calibrated. Such approaches were followed by (Hu,
+2000; Romary, 2009). Increasingbly popular Kalman Filtering approaches (Oliver
+et al, 1997; Evensen, 2009; Aanonsen et al, 2009) may also be included as being a
+particular class of RW methods applied at the reservoir scale.
+Finally, this review tentatively showed that the RW methods and more gen-
+erally the Lagrangian approaches to ﬂuid dynamics, was still a fairway for fertile
+research activity in the domain of ﬂow and transport in porous (fractured) media.
+Comparisons with other methods were not considered to emphasize the general
+elegance of random walk methods in the way they tackle various problems.
+A Langevin equation and Fokker Planck equation
+In this section, we show the equivalence between the Fokker-Planck equation (1) and the
+Langevin equation (2). To this end, we use a duality argument. Letf(x) be a twice diﬀerentiable
+function. We consider now the average⟨f[x(t)]⟩. By virtue of (3), this average may be written
+as
+⟨f[x(t)]⟩ =
+∫
+dxP (x,t )f(x). (57)
+
+--- PAGE 35 ---
+34 Benoit Noetinger et al.
+We consider now⟨f[x(t +dt)]⟩. To this end, we note that x(t +dt) is according to (2)
+x(t +dt) = x(t) + v[x(t)]dt +
+√
+2B[x(t)]·η(t)≡ x(t) +∆x(t) (58)
+where we use the Ito interpretation of the stochastic integral (Risken, 1996); η(t) is a Gaussian
+random variable with 0 mean and unit variance. Taylor expansion off[x(t)+∆x(t)] consistently
+up to order dt then gives
+f[x(t +dt)]−f[x(t)] =∇f[x(t)]· v[x(t)]dt +∇⊗∇ f[x(t)] : B[x(t)]dt. (59)
+It is worthwile noting that this equation is also called the Ito formula, or chain rule of stochastic
+calculus (Risken, 1996). Taking the average of (59) and using (57) gives after integration by
+parts the Fokker-Planck equation (1).
+B Dual-porosity models
+Fractured porous media are characterized by a high property contrast between fractures and
+matrix. This leads to introducing a new class of models, starting from the steady state double
+porosity models (Barenblatt and Zheltov, 1960; Warren and Root, 1963) as derived by Arbogast
+et al (1990) and Quintard and Whitaker (1993) that couple matrix and fracture by means of
+a linear exchange term:
+{
+φfVf
+∂Pf (x,t)
+∂t = Df∇2Pf (x,t ) +Q(x,t )
+φmVm
+∂Pm(x,t)
+∂t = Dm∇2Pm(x,t )−Q(x,t ).
+(60)
+Here, φfVf and φmVm represent respectively the overall proportions of fracture and matrix
+volumes (weighted by the relevant porosity and compressibility). The operation∗ represents a
+convolution operator. The model is closed once the interporosity ﬂux Q(x,t ) is expressed as a
+function of Pf (x,t ) and Pm(x,t ). In the steady state case, Q(x,t ) is given by:
+Q(x,t ) =λ
+(
+Pm(x,t )−Pf (x,t )
+)
+. (61)
+The transfer coeﬃcient λ, reciprocal of a time depends mainly on the geometry of the matrix
+blocks. It is proportional to Dm. Its determination from the detailed DFN geometry will be
+discussed in section 3.4.1.
+More general models using memory functions accounting for more details of the diﬀusion
+inside the matrix can be introduced (Odeh, 1965; de Swaan, 1976; Carslaw and Jaeger, 1986;
+Daviau, 1986; Chen, 1989; de Swann and Ramirez-Villa, 1993). These models belongs to the
+general class of Multiple Rate Mass Transfer (MRMT) models or Multiple Interacting Continua
+(MINC) (Narasimhan and Pruess, 1988; Haggerty and Gorelick, 1995; de Dreuzy et al, 2013).
+These models correspond to quite diﬀerent formulations of the same physics diﬀer through the
+formulation of the exchange term. The latter appears as a time convolution expressed by:
+Q(x,t ) =
+∫t
+0G(t−τ)
+(d(Pm(x,τ )−Pf (x,τ ))
+dτ
+)
+dτ. (62)
+In all cases, the exchange kernel G(t) is scaled by a parameter λ which depends only on
+the geometry of the matrix blocks. It was shown in Landereau et al (2001) and Babey et al
+(2015) that Multiple porosity models, MRMT models and transient models are equivalent and
+correspond to diﬀerent formulations of the same idea.
+In most cases, the term Dm∇2Pm(x,t ) may be neglected in the double porosity equa-
+tions (60), so Pm(x,t ) may be eliminated from the equations to provide the following generic
+form:
+∫ t
+0
+dτ(φfVfδ(t−τ) +φmVmf(t−τ))∂Pf (x,τ )
+∂τ =∇.(Df∇Pf (x,t )). (63)
+
+--- PAGE 36 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 35
+The quantity f(t) is the time dependent exchange function. Introducing the average pressure
+in the fractures < ˆPf > (t) solution of the following initial value problem:
+φ(x)∂Pf (x,t )
+∂t =∇.(D(x)∇Pf (x,t )) (64)
+∀x∈ΩfPf (x,t = 0) = 1 (65)
+∀x∈ΩmPf (x,t = 0) = 0 (66)
+<Pf > (t) = 1
+|Ωf|
+∫
+Ωf
+dxPf (x,t ) (67)
+It is possible to show the following relation in the Laplace domain:
+<Pf > (s) = φfVf
+s(φfVf +φmVmf(s)). (68)
+The practical interest of introducing the f(s) function is that it can be shown that the general
+solution of a double porosity system (60) can be directly related to a solution of a single
+porosity equation replacing the argument s of the single porosity solution by the argument
+s(φfVf +sφmVmf(s)). The large amount of analytical single porosity solutions that are well
+known is suﬃcient for most practical situations. This means that all the double porosity
+behavior is captured by f(s), which appears to be a renormalized apparent storativity. The
+initial value problem (67) deﬁning < ˆPf > (t) has in turn a simple RW interpretation. The
+quantity< Pf > (t) corresponds to the average proportion of particle undergoing RW (with
+diﬀusivity Dm) that belongs to the fractures at time t given they was released at a random
+location in the fractures at time t = 0. In the steady state case, the function f(s) is given by
+(Noetinger and Estebenet, 2000; Noetinger et al, 2001a):
+f(s) = λ
+φmVms +λ. (69)
+It appears that λ is a characteristic diﬀusion time in the matrix. Explicit expressions may be
+given for f(s) for either a layered medium, or for spherical blocks:
+– for the layered case
+f(s) =
+√
+λ
+3sVm
+tanh
+√
+3Vms
+λ , (70)
+– for the spherical case
+f(s) = λ
+5sVm
+(√
+15Vms
+λ cotanh
+√
+15Vms
+λ − 1
+)
+. (71)
+These generic forms, or others can be used for large scale applications, solving (63) using any
+numerical approach. It remains to be able to evaluate the transfer coeﬃcient λ or the full f(t)
+function. This is the objective of section 3.4.1.
+References
+Aanonsen SI, Nævdal G, Oliver DS, Reynolds AC, Vall` es B, et al (2009) The ensemble kalman
+ﬁlter in reservoir engineering–a review. Spe Journal 14(03):393–412
+Abramowitz M, Stegun IA (1972) Handbook of Mathematical Functions. Dover Publications,
+New York
+Acuna JA, Yortsos YC (1995) Application of fractal geometry to the study of networks
+of fractures and their pressure transient. Water Resources Research 31(3):527–540, DOI
+10.1029/94WR02260
+de Anna P, Le Borgne T, Dentz M, Tartakovsky A, Bolster D, Davy P (2013) Flow intermit-
+tency, dispersion, and correlated continuous time random walks in porous media. Physical
+Review Letters 110(18), DOI 10.1103/PhysRevLett.110.184502
+
+--- PAGE 37 ---
+36 Benoit Noetinger et al.
+Arbogast T, Douglas J, Hornung U (1990) Derivation of the double porosity model of single
+phase ﬂow via homogeneization theory. SIAM J Math Anal 21(4):823–836
+de Arcangelis L, Koplik J, Redner S, Wilkinson D (1986) Hydrodynamic dispersion
+in network models of porous media. Physical Review Letters 57(8):986–999, DOI
+10.1103/PhysRevLett.57.996
+Aris R (1956) On the dispersion of a solute in a ﬂuid ﬂowing through a tube. In: Proceedings
+of the Royal Society of London A-Mathematical and Physical Sciences, vol 235, pp 67–77,
+DOI 10.1098/rspa.1956.0065
+Babey T, de Dreuzy J-R, Casenave C (2015) Multi-Rate Mass Transfer (MRMT) models
+for general diﬀusive porosity structures. Advances in Water Resources 76:146–156, DOI
+10.1016/j.advwatres.2014.12.006
+Barenblatt GI, Zheltov YP (1960) Fundamental equations of homogeneous liquids in ﬁssured
+rocks. Dokl Akad Nauk SSSR 132(3):545–548
+Barkai E, Garini Y, Metzler R (2012) Strange kinetics of single molecules in living cells. Physics
+Today 65(8):29–35, DOI 10.1063/PT.3.1677
+Barker JA (1988) A generalized radial ﬂow model for hydraulic tests in fractured rock. Water
+Resources Research 24(10):1796–1804, DOI 10.1029/WR024i010p01796
+Barthelemy P, Bertolotti J, Wiersma DS (2008) A L´ evy ﬂight for light. Nature 453(7194):495–
+498, DOI 10.1038/nature06948
+Bear J (1973) Dynamics of Fluids in Porous Media. Dover Publications
+Beaudoin A, de Dreuzy JR (2013) Numerical assessment of 3-D macrodispersion in heteroge-
+neous porous media. Water Resources Research 49(5):2489–2496, DOI 10.1002/wrcr.20206
+Beaudoin A, Huberson S, Rivoalen E (2002) Anisotropic particle method. Comptes Rendus
+Mecanique 330(1):51–56, DOI 10.1016/S1631-0721(02)01429-8
+Beaudoin A, Huberson S, Rivoalen E (2003) Simulation of anisotropic diﬀusion by means
+of a diﬀusion velocity method. Journal of Computational Physics 186(1):122–135, DOI
+10.1016/S0021-991(03)00024-X
+Beaudoin A, de Dreuzy JR, Erhel J (2007) An eﬃcient parallel tracker for advection-diﬀusion
+simulations in heterogeneous porous media. In: Springer-Verlag B, Heidelberg (eds) Europar,
+pp 28–31
+Beaudoin A, de Dreuzy JR, Erhel J (2010) Numerical Monte Carlo analysis of the inﬂuence
+of pore-scale dispersion on macrodispersion in 2-D heterogeneous porous media. Water Re-
+sources Research 46:12, DOI 10.1029/2010WR009576
+Bechtold M, Vanderborght J, Ippisch O, Vereecken H (2011) Eﬃcient random walk par-
+ticle tracking algorithm for advective-dispersive transport in media with discontinu-
+ous dispersion coeﬃcients and water contents. Water Resources Research 47:10, DOI
+10.1029/2010WR010267
+Becker MW, Shapiro AM (2003) Interpreting tracer breakthrough tailing from diﬀerent forced-
+gradient tracer experiment conﬁgurations in fractured bedrock. Water Resources Research
+39(1):1024, DOI 10.1029/2001WR001190
+Bel G, Barkai E (2005) Weak ergodicity breaking in the continuous-time random walk. Physical
+Review Letters 94:240,602, DOI 10.1103/PhysRevLett.94.240602
+Berkowitz B, Balberg I (1993) Percolation theory and its application to groundwater hydrology.
+Water Resources Research 29(4):775–794, DOI 10.1029/92WR02707
+Berkowitz B, Scher H (1997) Anomalous transport in random fracture networks. Physical
+Review Letters 79(20):4038–4041, DOI 10.1103/PhysRevLett.79.4038
+Berkowitz B, Scher H (1998) Theory of anomalous chemical transport in random fracture
+networks. Physical Review E 57(5):5858–5869, DOI 10.1103/PhysRevE.57.5858
+Berkowitz B, Naumann C, Smith L (1994) Mass-transfer at fracture intersections -
+An evaluation of mixing models. Water Resources Research 30(6):1765–1773, DOI
+10.1029/94WR00432
+Berkowitz B, Scher H, Silliman S (2000) Anomalous transport in laboratory-scale, heteroge-
+neous porous media. Water Resources Research 36(1):149–158, DOI 10.1029/1999WR900295
+Berkowitz B, Klafter J, Metzler R, Scher H (2002) Physical pictures of transport in hetero-
+geneous media: Advection-dispersion, random-walk, and fractional derivative formulations.
+Water Resources Research 38(10):1191, DOI 10.1029/2001WR001030
+Berkowitz B, Cortis A, Dentz M, Scher H (2006) Modeling non-Fickian transport in geological
+formations as a continuous time random walk. Reviews of Geophysics 44(2):RG2003, DOI
+10.1029/2005RG000178
+
+--- PAGE 38 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 37
+Besnard K, de Dreuzy JR, Davy P, Aquilina L (2011) A modiﬁed lagrangian-volumes method to
+simulate nonlinearly and kinetically sorbing solute transport in heterogeneous porous media.
+Journal of Contaminant Hydrology 120-21(SI):89–98, DOI 10.1016/j.jconhyd.2010.03.004
+Bijeljic B, Mostaghimi P, Blunt M (2013a) Insights into non-ﬁckian solute transport in car-
+bonates. Water Resources Research 49(5):2714–2728
+Bijeljic B, Raeini A, Mostaghimi P, Blunt M (2013b) Predictions of non-ﬁckian solute transport
+in diﬀerent classes of porous media using direct simulation on pore-scale images. Physical
+Review E 87(1), DOI 10.1103/PhysRevE.87.013011
+Boano F, Packman AI, Cortis A, Revelli R, Ridolﬁ L (2007) A continuous time random
+walk approach to the stream transport of solutes. Water Resources Research 43(10), DOI
+10.1029/2007WR006062
+Bodin J (2015) From analytical solutions of solute transport equations to multidimensional
+time-domain random walk (TDRW) algorithms. Water Resources Research 51(3):1860–1871,
+DOI 10.1002/2014WR015910
+Bodin J, Porel G, Delay F (2003) Simulation of solute transport in discrete fracture networks
+using the time domain random walk method. Earth and Planetary Science Letters 208(3-
+4):297–304, DOI 10.1016/S0012-821X(03)00052-9
+Bodin J, Porel G, Delay F, Ubertosi F, Bernard S, de Dreuzy JR (2007) Simulation and
+analysis of solute transport in 2D fracture/pipe networks: The SOLFRAC program. Journal
+of Contaminant Hydrology 89(1-2):1–28, DOI 10.1016/j.jconhyd.2006.07.005
+Bouchaud JP, Georges A (1990) Anomalous diﬀusion in disordered media: statistical
+mechanisms, models and physical applications. Physics Reports 195(4-5):127–293, DOI
+10.1016/0370-1573(90)90099-N
+Brezzi F, Fortin M (1991) Mixed and Hybrid Finite Element Methods. Springer, Berlin
+Bromly M, Hinz C (2004) Non-ﬁckian transport in homogeneous unsaturated repacked sand.
+Water Resources Research 40(7), DOI 10.1029/2003WR002579
+Bruderer C, Bernab´ e Y (2001) Network modeling of dispersion: transition from taylor disper-
+sion in homogeneous networks to mechanical dispersion in very heterogeneous ones. Water
+Resources Research 37(4):897–908, DOI 10.1029/2000WR900362
+Cacas MC, Ledoux E, de Marsily G, Barbreau A, Calmels P, Gaillard B, Margritta R (1990)
+Modeling fracture ﬂow with a stochastic discrete network: Calibration and validation. 2. The
+transport model. Water Resources Research 26(3):491–500, DOI 10.1029/WR026i003p00491
+Carrera J, Sanchez-Vila X, Benet I, Medina A, Galarza G, Guimera J (1998) On matrix diﬀu-
+sion: formulations, solution methods and qualitative eﬀects. Hydrogeology Journal 6(1):178–
+190, DOI 10.1007/s100400050143
+Carslaw HS, Jaeger JC (1986) Conduction of heat in solids. Oxford science publications,
+Clarendon Press
+Chang J, Yortsos YC (1990) Pressure transient analysis of fractal reservoirs. SPE Formation
+Evaluation 5(1), DOI 10.2118/18170-PA
+Charlaix E, Guyon E, Roux S (1987) Permeability of a random array of fractures of widely
+varying apertures. Transport in Porous Media 2(1):31–43
+Chavent G, Roberts JE (1991) A uniﬁed physical presentation of mixed, mixed-hybrid ﬁnite
+elements and standard ﬁnite diﬀerence approximations for the determination of velocities
+in waterﬂow problems. Advances in Water Resources 14(6):329–348, DOI 10.1016/0309-
+1708(91)90020-O
+Chen ZX (1989) Transient Flow of Slightly Compressible Fluids Through Double-porosity,
+Double-permeability systems - A state-of-the-art review. Transport in Porous Media
+4(2):147–184, DOI 10.1007/BF00134995
+Cirpka OA (2005) Eﬀects of sorption on transverse mixing in transient ﬂows. Journal of Con-
+taminant Hydrology 78(3):207–229, DOI 10.1016/j.jconhyd.2005.05.008
+Cordes C, Kinzelbach W (1992) Continuous groundwater velocity ﬁeld and path lines in linear,
+bilinear and trilinear ﬁnite elements. Water Resources Research 28(11):2903–2911, DOI
+10.1029/92WR01686
+Cordes C, Kinzelbach W (1996) Comment on ”Application of the mixed hybrid ﬁnite ele-
+ment approximation in a groundwater ﬂow model: Luxury or necessity?”. Water Resources
+Research 32(6):1905–1911, DOI 10.1029/96WR00567
+Cortis A, Berkowitz B (2004) Anomalous transport in “classical ” soil and sand columns. Soil
+Science Society of America Journal 68(5):1539–1548
+Cortis A, Ghezzehei TA (2007) On the transport of emulsions in porous media. Journal of
+Colloid and Interface Science 313(1):1–4, DOI 10.1016/j.jcis.2007.04.021
+
+--- PAGE 39 ---
+38 Benoit Noetinger et al.
+Cortis A, Knudby C (2006) A continuous time random walk approach to transient ﬂow in het-
+erogeneous porous media. Water Resources Research 42(10), DOI 10.1029/2006WR005227
+Cvetkovic V, Frampton A (2012) Solute transport and retention in three-dimensional fracture
+networks. Water Resources Research 48, DOI 10.1029/2011WR011086
+Cvetkovic V, Painter S, Outters N, Selroos JO (2004) Stochastic simulation of radionuclide mi-
+gration in discretely fractured rock near the ¨Asp¨ o Hard Rock Laboratory. Water Resources
+Research 40(2), DOI 10.1029/2003WR002655
+Dagan G (1989) Flow and transport in porous formations. Springer-Verlag GmbH & Co. KG.
+Danckwerts PV (1952) The deﬁnition and measurements of some characteristics of mixtures.
+Appl Sci Res 3(4):279–296
+Daviau F (1986) Interpr´ etation des essais de puits, les m´ ethodes nouvelles, technip edn. Pub-
+lications de l’institut francais du p´ etrole, Paris
+Delay F, Bodin J (2001) Time domain random walk method to simulate transport by
+advection-dispersion and matrix diﬀusion in fractured networks. Geophysical Research Let-
+ters 28(21):4051–4054, DOI 10.1029/2001GL013698
+Delay F, Porel G, Sardini P (2002) Modelling diﬀusion in a heterogeneous rock matrix with a
+time-domain lagrangian method and an inversion procedure. Comptes Rendus Geoscience
+334(13):967–973, DOI 10.1016/S1631-0713(02)01835-7
+Delay F, Ackerer P, Danquigny C (2005) Simulating solute transport in porous or fractured
+formations using random walk particle tracking: A review. Vadose Zone Journal 4(2):360–
+379, DOI 10.2136/vzj2004.0125
+Delorme M, Daniel JM, Kada-Kloucha C, Khvoenkova N, Schueller S, Souque C (2013a) An eﬃ-
+cient model to simulate reservoir stimulation and induced microseismic events on 3D discrete
+fracture network for unconventional reservoirs. Unconventional Resources Technology Con-
+ference, 12-14 August, Denver, Colorado, USA, pp 1433–1442, DOI 10.1190/URTEC2013-
+146
+Delorme M, Mota RO, Khvoenkova N, Fourno A, Noetinger B (2013b) A methodology to char-
+acterize fractured reservoirs constrained by statistical geological analysis and production: a
+real ﬁeld case study. Geological Society, London, Special Publications 374(1):273–288
+Dentz M, Cortis A, Scher H, Berkowitz B (2004) Time behavior of solute transport in heteroge-
+neous media: transition from anomalous to normal transport. Advances in Water Resources
+27(2):155–173, DOI 10.1016/j.advwatres.2003.11.002
+Dentz M, Le Borgne T, Englert A, Bijeljic B (2011) Mixing, spreading and reaction in hetero-
+geneous media: A brief review. Journal of Contaminant Hydrology 120-21(SI):1–17, DOI
+10.1016/j.jconhyd.2010.05.002
+Dentz M, Gouze P, Russian A, Dweik J, Delay F (2012) Diﬀusion and trapping in hetero-
+geneous media: An inhomogeneous continuous time random walk approach. Advances in
+Water Resources 49:13–22, DOI 10.1016/j.advwatres.2012.07.015
+Dentz M, Russian A, Gouze P (2016) Self-averaging and ergodicity of subdiﬀusion in quenched
+random media. Physical Review E in press
+Dershowitz W, Miller I (1995) Dual porosity fracture ﬂow and transport. Geophysical Research
+Letters 22(11):1441–1444, DOI 10.1029/95GL01099
+de Dreuzy JR, Davy P, Berkowitz B (2001) Advective transport in the percolation backbone
+in two dimensions. Physical Review E 64(5)
+de Dreuzy JR, Beaudoin A, Erhel J (2007) Asymptotic dispersion in 2D heterogeneous porous
+media determined by parallel numerical simulations. Water Resources Research 43(10), DOI
+10.1029/2006WR005394
+de Dreuzy JR, Carrera J, Dentz M, Le Borgne T (2012) Time evolution of mixing in hetero-
+geneous porous media. Water Resources Research 48, DOI 10.1029/2011WR011360
+de Dreuzy JR, Rapaport A, Babey T, Harmand J (2013) Inﬂuence of porosity structures
+on mixing-induced reactivity at chemical equilibrium in mobile/immobile Multi-Rate Mass
+Transfer (MRMT) and Multiple INteracting Continua (MINC) models. Water Resources
+Research 49(12):8511–8530, DOI 10.1002/2013WR013808
+Edery Y, Guadagnini A, Scher H, Berkowitz B (2014) Origins of anomalous transport in het-
+erogeneous media: Structural and dynamic controls. Water Resources Research 50(2):1490–
+1505, DOI 10.1002/2013WR015111
+Einstein A (1956) Investigations on the theory of the Brownian movement. Dover Publication,
+New York
+Emmanuel S, Berkowitz B (2007) Continuous time random walks and heat transfer in porous
+media. Transport in Porous Media 67(3):413–430, DOI 10.1007/s11242-006-9033-z
+
+--- PAGE 40 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 39
+Evensen G (2009) Data assimilation: the ensemble Kalman ﬁlter. Springer Science & Business
+Media
+Fleury M, Bauer D, N´ eel M (2015) Modeling of super-dispersion in unsaturated porous media
+using nmr propagators. Microporous and Mesoporous Materials 205:75–78
+Geiger S, Cortis A, Birkholzer J (2010) Upscaling solute transport in naturally fractured porous
+media with the continuous time random walk method. Water Resources Research 46(12)
+Gjetvaj F, Russian A, Gouze P, Dentz M (2015) Dual control of ﬂow ﬁeld heterogeneity and
+immobile porosity on non-Fickian transport in Berea sandstone. Water Resources Research
+51(10):8273–8293, DOI 10.1002/2015WR017645
+Gouze P, Luquot L (2011) X-ray microtomography characterization of porosity, permeability
+and reactive surface changes during dissolution. Journal of Contaminant Hydrology 120-
+121(SI):45–55, DOI 10.1016/j.jconhyd.2010.07.004
+Gouze P, Le Borgne T, Leprovost R, Lods G, Poidras T, Pezard P (2008a) Non-Fickian dis-
+persion in porous media: 1. Multiscale measurements using single-well injection withdrawal
+tracer tests. Water Resources Research 44(6), DOI 10.1029/2007WR006278
+Gouze P, Melean Y, Le Borgne T, Dentz M, Carrera J (2008b) Non-ﬁckian dispersion in porous
+media explained by heterogeneous microscale matrix diﬀusion. Water Resources Research
+44(11), DOI 10.1029/2007WR006690
+Guillon V, Fleury M, Bauer D, N´ eel MC (2013) Superdispersion in homogeneous un-
+saturated porous media using NMR propagators. Physical Review E 87(4), DOI
+10.1103/PhysRevE.87.043007
+Guillon V, Bauer D, Fleury M, N´ eel MC (2014) Computing the longtime behaviour of NMR
+propagators in porous media using a pore network random walk model. Transport in Porous
+Media 101(2):251–267, DOI 10.1007/s11242-013-0243-x
+Haggerty R, Gorelick SM (1995) Multiple-rate mass transfer for modeling diﬀusion and surface
+reactions in media with pore-scale heterogeneity. Water Resources Research 31(10):2383–
+2400, DOI 10.1029/95WR01583
+Haggerty R, McKenna SA, Meigs LC (2000) On the late time behavior of tracer test break-
+through curves. Water Resources Research 36(12):3467–3479, DOI 10.1029/2000WR900214
+Hatano Y, Hatano N (1998) Dispersive transport of ions in column experiments: An
+explanation of long-tailed proﬁles. Water Resources Research 34(5):1027–1033, DOI
+10.1029/98WR00214
+He Y, Burov S, Metzler R, Barkai E (2008) Random time-scale invariant diﬀusion and transport
+coeﬃcients. Physical Review Letters 101(5), DOI 10.1103/PhysRevLett.101.058101
+Herrera PA, Beckie RD (2013) An assessment of particle methods for approximating anisotropic
+dispersion. International Journal for Numerical Methods in Fluids 71(5):634–651, DOI
+10.1002/ﬂd.3676
+Herrera PA, Massabo M, Beckie RD (2009) A meshless method to simulate solute trans-
+port in heterogeneous porous media. Advances in Water Resources 32(3):413–429, DOI
+10.1016/j.advwatres.2008.12.005
+Herrera PA, Valocchi AJ, Beckie RD (2010) A multidimensional streamline-based method
+to simulate reactive solute transport in heterogeneous porous media. Advances in Water
+Resources 33(7):711–727, DOI 10.1016/j.advwatres.2010.03.001
+Holzner M, Morales VL, Willmann M, Dentz M (2015) Intermittent lagrangian velocities and
+accelerations in three-dimensional porous medium ﬂow. Physical Review E 92(1), DOI
+10.1103/PhysRevE.92.013015
+Hoteit H, Erhel J, Mos R, Philippe B, Ackerer P (2002a) Numerical reliability for mixed
+methods applied to ﬂow problems in porous media. Computational Geosciences 6(2):161–
+194, DOI 10.1023/A:1019988901420
+Hoteit H, Mose R, Younes A, Lehmann F, Ackerer P (2002b) Three-dimensional modeling of
+mass transfer in porous media using the mixed hybrid ﬁnite elements and the random-walk
+methods. Mathematical Geology 34(4):435–456, DOI 10.1023/A:1015083111971
+Hu LY (2000) Gradual deformation and iterative calibration of gaussian-related stochastic
+models. Mathematical Geology 32(1):87–108
+Jimenez-Hornero F, Giraldez J, Laguna A, Pachepsky Y (2005) Continuous time random walks
+for analyzing the transport of a passive tracer in a single ﬁssure. Water Resources Research
+41(4), DOI 10.1029/2004WR003852
+Kang PK, Dentz M, Le Borgne T, Juanes R (2011) Spatial Markov model of anoma-
+lous transport through random lattice networks. Physical Review Letters 107(18), DOI
+10.1103/PhysRevLett.107.180602
+
+--- PAGE 41 ---
+40 Benoit Noetinger et al.
+Kang PK, de Anna P, Nunes JP, Bijeljic B, Blunt M, Juanes R (2014) Pore-scale intermittent
+velocity structure underpinning anomalous transport through 3D porous media. Geophysical
+Research Letters 41(17):6184–6190, DOI 10.1002/2014GL061475
+Kang PK, Le Borgne T, Dentz T, Bour O, Juanes R (2015) Impact of velocity correlation and
+distribution on transport in fractured media: ﬁeld evidence and theoretical model. Water
+Resources Research 51(2):940–959, DOI 10.1002/2014WR015799
+Kenkre VM, Montroll EW, Shlesinger MF (1973) Generalized master equations for continuous-
+time random walks. J Stat Phys 9(1):45–50
+Khvoenkova N, Delorme M (2011) An optimal method to model transient ﬂows in 3D discrete
+fracture network. IAMG conference 2011:1238–1249, DOI 10.5242/iamg.2011.0088
+Kim IC, Torquato S (1992) Eﬀective conductivity of suspensions of overlapping spheres. Jour-
+nal of Applied Physics 71(6):2727–2735, DOI 10.1063/1.351046
+Kinzelbach W (1988) The random walk method in pollutant transport simulation. In: Ground-
+water ﬂow and quality modelling, Springer, pp 227–245
+Kinzelbach W, Uﬃnk G (1991) The random walk method and extensions in groundwater
+modelling, vol Transport Processes in Porous Media. Springer, Netherlands
+Kitanidis P (1994) The concept of the dilution index. Water Resources Research 30(7):2011–
+2026, DOI 10.1029/94WR00762
+Klafter J, Silbey R (1980) Derivation of the continuous-time random-walk equation. Physical
+Review Letters 44(2):55–58, DOI 10.1103/PhysRevLett.44.55
+Klafter J, Sokolov I (2005) Anomalous diﬀusion spreads its wings. Phys World 18(8):29–32
+Koplik J, Redner S, Wilkinson D (1988) Transport and dispersion in random networks with
+percolation disorder. Physical Review A 37(7):2619–2636, DOI 10.1103/PhysRevA.37.2619
+Kosakowski G (2004) Anomalous transport of colloids and solutes in a shear zone. Journal of
+Contaminant Hydrology 72(1-4):23–46, DOI 10.1016/j.jconhyd.2003.10.005
+Kosakowski G, Berkowitz B (1999) Flow pattern variability in natural fracture intersections.
+Geophysical Research Letters 26(12):1765–1768, DOI 10.1029/1999GL900344
+Kosakowski G, Berkowitz B, Scher H (2001) Analysis of ﬁeld observations of tracer transport
+in a fractured till. Journal of Contaminant Hydrology 47(1):29–51, DOI 10.1016/S0169-
+7722(00)00140-6
+LaBolle EM, Quastel J, Fogg GE (1998) Diﬀusion theory for transport in porous media:
+Transition-probability densities of diﬀusion processes corresponding to advection-dispersion
+equations. Water Resources Research 34(7):1685–1693
+Landereau P, Noetinger B, Quintard M (2001) Quasi-steady two-equation models for diﬀusive
+transport in fractured porous media: large-scale properties for densely fractured systems.
+Advances in Water Resources 24(8):863–876, DOI 10.1016/S0309-1708(01)00015-X
+Le Borgne T, Gouze P (2008) Non-ﬁckian dispersion in porous media: 2. Model vali-
+dation from measurements at diﬀerent scales. Water Resources Research 44(6), DOI
+10.1029/2007WR006279
+Le Borgne T, Dentz M, Carrera J (2008a) A Lagrangian statistical model for trans-
+port in highly heterogeneous velocity ﬁelds. Physical Review Letters 101(9), DOI
+10.1103/PhysRevLett.101.090601
+Le Borgne T, Dentz M, Carrera J (2008b) Spatial Markov processes for modeling la-
+grangian particle dynamics in heterogeneous porous media. Physical Review E 78(2,2),
+DOI 10.1103/PhysRevE.78.026308
+Le Borgne T, Dentz M, Bolster D, Carrera J, de Dreuzy JR, Davy P (2010) Non-ﬁckian mixing:
+Temporal evolution of the scalar dissipation rate in heterogeneous porous media. Advances
+in Water Resources 33(12):1468–1475, DOI 10.1016/j.advwatres.2010.08.006
+Le Borgne T, Dentz M, Davy P, Bolster D, Carrera J, de Dreuzy JR, Bour O (2011) Persistence
+of incomplete mixing: A key to anomalous transport. Physical Review E 84(1,2), DOI
+10.1103/PhysRevE.84.015301
+Le Borgne T, Dentz M, Villermaux E (2013) Stretching, coalescence and mixing in porous
+media. Physical Review Letters 110(20), DOI 10.1103/PhysRevLett.110.204501
+Le Borgne T, Dentz M, Villermaux E (2015) The lamellar description of mixing in porous
+media. Journal of Fluid Mechanics 770:458–498, DOI 10.1017/jfm.2015.117
+Lejay A, Pichot G (????) Simulating diﬀusion processes in discontinuous media: Benchmark
+tests. Journal of Computational Physics
+Leray S, de Dreuzy JR, Aquilina L, Vergnaud-Ayraud V, Labasque T, Bour O, Le Borgne
+T (2014) Temporal evolution of age data under transient pumping conditions. Journal of
+Hydrology 511:555–566, DOI 10.1016/j.jhydrol.2014.01.064
+
+--- PAGE 42 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 41
+Liu H, Zhang Y, Zhou Q, Molz F (2007) An interpretation of potential scale dependence of
+the eﬀective matrix diﬀusion coeﬃcient. Journal of Contaminant Hydrology 90(1-2):41–57,
+DOI 10.1016/j.jconhyd.2006.09.006
+Liu HH, Bodvarsson GS, Pan L (2000) Determination of particle transfer in random walk
+particle methods for fractured porous media. Water Resources Research 36(3):707–713, DOI
+10.1029/1999WR900323
+Maier U, B¨ urger CM (2013) An accurate method for transient particle tracking. Water Re-
+sources Research 49(5):3059–3063
+Matheron G, de Marsily G (1980) Is transport in porous media always diﬀusive? A counterex-
+ample. Water Resources Research 16(5):901–917, DOI 10.1029/WR016i005p00901
+McCarthy JF (1990) Eﬀective permeability of sandstone-shale reservoirs by a random walk
+method. Journal of Physics A: Mathematical and General 23(9):L445
+McCarthy JF (1991) Analytical models of the eﬀective permeability of sand-shale reservoirs.
+Geophys J Int 105(2):513–527, DOI 10.1111/j.1365-246X.1991.tb06730.x
+McCarthy JF (1993a) Continuous-time random walks on random media. Journal of Physics
+A: Mathematical and General 26(11):2495–2503, DOI 10.1088/0305-4470/26/11/004
+McCarthy JF (1993b) Reservoir characterization : eﬃcient random-walk methods for upscaling
+and image selection. SPE Asia Paciﬁc Oil and Gas Conference, 8-10 February, Singapore
+25334
+Metzler R, Klafter J (2000) The random walk’s guide to anomalous diﬀusion: a fractional
+dynamics approach. Physics Reports 339(1):1–77, DOI 10.1016/S0370-1573(00)00070-3
+Metzler R, Glockle WG, Nonnenmacher TF (1994) Fractional model equation for anoma-
+lous diﬀusion. Physica A: Statistical Mechanics and its Applications 211(1):13–24, DOI
+10.1016/0378-4371(94)90064-7
+Metzler R, Jeon JH, Cherstvy AG, Barkai E (2014) Anomalous diﬀusion models and their prop-
+erties: non-stationarity, non-ergodicity, and ageing at the centenary of single particle track-
+ing. Physical Chemistry Chemical Physics 16(44):24,128–24,164, DOI 10.1039/c4cp03465a
+Michalak AM, Kitanidis PK (2000) Macroscopic behavior and random-walk particle track-
+ing of kinetically sorbing solutes. Water Resources Research 36(8):2133–2146, DOI
+10.1029/2000WR900109
+Monaghan JJ (2005) Smoothed particle hydrodynamics. Reports on Progress in Physics
+68(8):1703–1759, DOI 10.1088/0034-4885/68/8/R01
+Mos´ e R, Siegel P, Ackerer P, Chavent G (1994) Application of the mixed hybrid ﬁnite element
+approximation in a groundwater model: Luxury or necessity? Water Resources Research
+30(11):3001–3012, DOI 10.1029/94WR01786
+Narasimhan TN, Pruess K (1988) MINC: An approach for analyzing transport in strongly
+heterogeneous systems. In: Flow G, Modeling Q (eds) Springer Netherlands, 224, pp 375–
+391
+N´ eel MC, Rakotonasyl SH, Bauer D, Joelson M, Fleury M (2011) All order moments and
+other functionals of the increments of some non-markovian processes. Journal of Statistical
+Mechanics: Theory and Experiment DOI 10.1088/1742-5468/2011/02/P02006
+N´ eel MC, Bauer D, Fleury M (2014) Model to interpret pulsed-ﬁeld-gradient NMR
+data including memory and superdispersion eﬀects. Physical Review E 89(6), DOI
+10.1103/PhysRevE.89.062121
+Noetinger B (2013) An explicit formula for computing the sensitivity of the eﬀective con-
+ductivity of heterogeneous composite materials to local inclusion transport properties and
+geometry. SIAM Multiscale Modeling & Simulation 11(3):907–924, DOI 10.1137/120884961
+Noetinger B (2015) A quasi steady state method for solving transient darcy ﬂow in complex
+3D fractured networks accounting for matrix to fracture ﬂow. Journal of Computational
+Physics 283:205–223, DOI 10.1016/j.jcp.2014.11.038
+Noetinger B, Estebenet T (2000) Up-scaling of double porosity fractured media using
+continuous-time random walks methods. Transport in Porous Media 39(3):315–337, DOI
+10.1023/A:1006639025910
+Noetinger B, Gautier Y (1998) Use of the Fourier-Laplace transform and of diagrammatical
+methods to interpret pumping tests in heterogeneous reservoirs. Advances in Water Re-
+sources 21(7):581–590
+Noetinger B, Jarrige N (2012) A quasi steady state method for solving transient Darcy ﬂow
+in complex 3D fractured networks. Journal of Computational Physics 231(1):23–38, DOI
+10.1016/j.jcp.2011.08.015
+
+--- PAGE 43 ---
+42 Benoit Noetinger et al.
+Noetinger B, Estebenet T, Landereau P (2001a) A direct determination of the transient ex-
+change term of fractured media using a continuous time random walk method. Transport
+in Porous Media 44(3):539–557, DOI 10.1023/A:1010647108341
+Noetinger B, Estebenet T, Quintard M (2001b) Up scaling of fractured media: Equivalence
+between the large scale averaging theory and the continuous time random walk method.
+Transport in Porous Media 43(3):581–596, DOI 10.1023/A:1010733724498
+Nœtinger B, Artus V, Ricard L (2004) Dynamics of the water-oil front for two-phase, immis-
+cible ﬂow in heterogeneous porous media. 2-Isotropic media. Transport in Porous Media
+56(3):305–328, DOI 10.1023/B:TIPM.0000026086.75908.ca
+Nunes JP, Bijeljic B, Blunt MJ (2015) Time-of-ﬂight distributions and breakthrough curves in
+heterogeneous porous media using a pore-scale streamline tracing algorithm. Transport in
+Porous Media 109(2):317–336, DOI 10.1007/s11242-015-0520-y
+O’Brien GS, Bean CJ, McDermott F (2003a) Numerical investigations of passive and reactive
+ﬂow through generic single fractures with heterogeneous permeability. Earth and Planetary
+Science Letters 213(3-4):271–284, DOI 10.1016/S0012-821X(03)00342-X
+O’Brien GS, Bean CJ, McDermott F (2003b) A numerical study of passive transport through
+fault zones. Earth and Planetary Science Letters 214(3-4):633–643, DOI 10.1016/S0012-
+821X(03)00398-4
+Odeh AS (1965) Unsteady-state behavior of naturally fractured reservoirs. SPE Journal
+5(1):60–66, DOI 10.2118/966-PA
+Oliver DS, Cunha LB, Reynolds AC (1997) Markov chain monte carlo methods for conditioning
+a permeability ﬁeld to pressure data. Mathematical Geology 29(1):61–91
+O’Shaughnessy B, Procaccia I (1985) Diﬀusion on fractals. Physical Review A 32(5):3073–3083,
+DOI 10.1103/PhysRevA.32.3073
+Ottino JM (1989) The kinematics of mixing: stretching, chaos and transport. Cambridge Uni-
+versity Press
+Painter S, Cvetkovic V (2005) Upscaling discrete fracture network simulations: An al-
+ternative to continuum transport models. Water Resources Research 41(2), DOI
+10.1029/2004WR003682
+Painter S, Cvetkovic V, Mancillas J, Pensado O (2008) Time domain particle tracking methods
+for simulating transport with retention and ﬁrst-order transformation. Water Resources
+Research 44(1), DOI 10.1029/2007WR005944
+Pan L, Bodvarsson GS (2002) Modeling transport in fractured porous media with the random-
+walk particle method: The transient activity range and the particle transfer probability.
+Water Resources Research 38(6), DOI 10.1029/2001WR000901
+Park Y, de Dreuzy JR, Lee KK, Berkowitz B (2001) Transport and intersection mixing in
+random fracture networks with power law length distributions. Water Resources Research
+37(10):2493–2501, DOI 10.1029/2000WR000131
+Park Y, Lee K, Kosakowski G, Berkowitz B (2003) Transport behavior in three-dimensional
+fracture intersections. Water Resources Research 39(8), DOI 10.1029/2002WR001801
+Pichot G, Erhel J, De Dreuzy JR (2010) A mixed hybrid mortar method for solv-
+ing ﬂow in discrete fracture networks. Applicable Analysis 89(10):1629–1643, DOI
+10.1080/00036811.2010.495333
+Pollock DW (1988) Semianalytical computation of path lines for ﬁnite-diﬀerence models.
+Ground Water 26(6):743–750, DOI 10.1111/j.1745-6584.1988.tb00425.x
+Qu ZX, Liu ZF, Wang XH, Zhao P (2014) Finite analytic numerical method for solving two-
+dimensional quasi-laplace equation. Numerical Methods for Partial Diﬀerential Equations
+30(6):1755–1769, DOI 10.1002/num.21863
+Quintard M, Whitaker S (1993) One- and two-equation models for transient diﬀusion pro-
+cesses in two-phase systems. Advances in Heat Transfer 23:369–464, DOI 10.1016/S0065-
+2717(08)70009-1
+Redner S (1989) Transport due to random velocity ﬁelds. Physica D 38(1-3):287–290, DOI
+10.1016/0167-2789(89)90207-8
+Risken H (1996) The Fokker-Planck Equation. Springer Heidelberg New York
+Rivard C, Delay F (2004) Simulations of solute transport in fractured porous media using 2D
+percolation networks with uncorrelated hydraulic conductivity ﬁelds. Hydrogeology Journal
+12(6):613–627, DOI 10.1007/s10040-004-0363-z
+Roberts JE, Thomas JM (1991) Mixed and hybrid methods. In: Handbook of Numerical Anal-
+ysis 2, Finite Element Methods -part 1, Elsevier Science Publishers B.V. (North-Holland),
+pp 523–639
+
+--- PAGE 44 ---
+Random walk methods for hydrodynamic transport from pore to reservoir scale 43
+Robinet JC, Sardini P, Delay F, Hellmuth KH (2007) The eﬀect of rock matrix heterogeneities
+near fracture walls on the residence time distribution (RTD) of solutes. Transport in Porous
+Media 72(3):393–408, DOI 10.1007/s11242-007-9159-7
+Romary T (2009) Integrating production data under uncertainty by parallel interacting markov
+chains on a reduced dimensional space. Computational Geosciences 13(1):103–122
+Romeu RK, Noetinger B (1995) Calculation of internodal transmissivities in ﬁnite diﬀerence
+models of ﬂow in heterogeneous porous media. Water Resources Research 31(4):943–959,
+DOI 10.1029/94WR02422
+Roubinet D, Irving J (2014) Discrete-dual-porosity model for electric current ﬂow in
+fractured rock. Journal of Geophysical Research-Solid Earth 119(2):767–786, DOI
+10.1002/2013JB010668
+Roubinet D, Liu HH, de Dreuzy JR (2010) A new particle-tracking approach to simulating
+transport in heterogeneous fractured porous media. Water Resources Research 46(11), DOI
+10.1029/2010WR009371
+Roubinet D, de Dreuzy JR, Tartakovsky DM (2013) Particle-tracking simulations of anomalous
+transport in hierarchically fractured rocks. Computers & Geosciences 50(SI):52–58, DOI
+10.1016/j.cageo.2012.07.032
+Russian A, Dentz M, Gouze P (2016) Time domain random walks for hydrodynamic transport
+in heterogeneous media. Water Resources Research, under review
+Saﬀman PG, Taylor G (1958) The penetration of a ﬂuid into a porous medium or hele-shaw
+cell containing a more viscous liquid. In: Proceedings of the Royal Society of London A:
+Mathematical, Physical and Engineering Sciences, The Royal Society, vol 245, pp 312–329
+Sahimi M (2011) Flow and transport in porous media and fractured rock: from classical meth-
+ods to modern approaches. John Wiley & Sons
+Salamon P, Fern` andez-Garcia D, G´ omez-Hern´ andez JJ (2006a) A review and numerical as-
+sessment of the random walk particle tracking method. Journal of contaminant hydrology
+87(3):277–305
+Salamon P, Fernandez-Garcia D, Gomez-Hernandez JJ (2006b) A review and numerical as-
+sessment of the random walk particle tracking method. Journal of Contaminant Hydrology
+87(3-4):277–305, DOI 10.1016/j.jconhyd.2006.05.005
+Salles J, Thovert JF, Delannay R, Prevors L, Auriault JL, Adler P (1993) Taylor dispersion in
+porous media. determination of the dispersion tensor. Physics of Fluids A: Fluid Dynamics
+(1989-1993) 5(10):2348–2376
+Scher H, Lax M (1973a) Stochastic transport in a disordered solid. I. Theory. Physical Review
+B 7(10):4491–4502, DOI 10.1103/PhysRevB.7.4491
+Scher H, Lax M (1973b) Stochastic transport in a disordered solid. II. Impurity conduction.
+Physical Review B 7(10):4502–4519, DOI 10.1103/PhysRevB.7.4502
+Scher H, Margolin G, Berkowitz B (2002a) Towards a uniﬁed framework for anomalous
+transport in heterogeneous media. Chemical Physics 284(1-2):349–359, DOI 10.1016/S0301-
+0104(02)00558-X
+Scher H, Margolin G, Metzler R, Klafter J, Berkowitz B (2002b) The dynamical foundation of
+fractal stream chemistry: The origin of extremely long retention times. Geophysical Research
+Letters 29(5), DOI 10.1029/2001GL014123
+Semra K, Ackerer P, Mos´ e R (1993) Three dimensional groundwater quality modeling in hetero-
+geneous media. In: Water pollution II: Modeling, measuring and prediction, Computational
+Mechanics Publications, Southampton, UK, pp 3–11
+Sen P (2003) Time-dependent diﬀusion coeﬃcient as a probe of permeability of the pore-wall.
+Journal of Chemical Physics 119(18):9871–9876, DOI 10.1063/1.1611477
+Sen P (2004) Time-dependent diﬀusion coeﬃcient as a probe of geometry. Concepts in Magnetic
+Resonance Part A 23A(1):1–21, DOI 10.1002/cmr.a.20017
+Sen P, Schwartz L, Mitra P, Halperin B (1994) Surface relaxation and the long-time diﬀusion
+coeﬃcient in porous media: Periodic geometries. Physical Review B 49(1):215–225, DOI
+10.1103/PhysRevB.49.215
+de Simoni M, Carrera J, Sanchez-Vila X, Guadagnini A (2005) A procedure for the solution
+of multicomponent reactive transport problems. Water Resources Research 41(11), DOI
+10.1029/2005WR004056
+Srinivasan G, Tartakosky DM, Dentz M, Viswanathan H, Berkowitz B, Robinson BA (2010)
+Random walk particle tracking simulations of non-ﬁckian transport in heterogeneous media.
+Journal of Computational Physics 229(11):4304–4314, DOI 10.1016/j.jcp.2010.02.014
+
+--- PAGE 45 ---
+44 Benoit Noetinger et al.
+Sun NZ (1999) A ﬁnite cell method for simulating the mass transport process in porous media.
+Water Resources Research 35(12):3649–3662, DOI 10.1029/1999WR900187
+Sun NZ (2002) Modeling biodegradation processes in porous media by the ﬁnite cell method.
+Water Resources Research 38:3, DOI 10.1029/2000WR000198
+de Swaan A (1976) Analytic solutions for determining naturally fractured reservoir properties
+by well testing. SPE J 16(3):117–22
+de Swann A, Ramirez-Villa M (1993) Functions of ﬂow from porous rock blocks. Journal of
+Petroleum Science and Engineering 9(1):39–48, DOI 10.1016/0920-4105(93)90027-C
+Tallakstad KT, Knudsen HA, Ramstad T, Lovoll G, Maloy KJ, Toussaint R, Flekkoy EG
+(2009) Steady-state two-phase ﬂow in porous media: statistics and transport properties.
+Physical Review Letters 102(7), DOI 10.1103/PhysRevLett.102.074502
+Tang C (1985) Diﬀusion-limited aggregation and the Saﬀman-Taylor problem. Physical Review
+A 31(3):1977–1979, DOI 10.1103/PhysRevA.31.1977
+Tang DH, Frind EO, Sudicky EA (1981) Contaminant transport in fractured porous media:
+Analytical solution for a single fracture. Water Resources Research 17(3):555–564, DOI
+10.1029/WR017i003p00555
+Tartakovsky AM, Meakin P (2006) Pore scale modeling of immiscible and miscible ﬂuid ﬂows
+using smoothed particle hydrodynamics. Advances in Water Resources 29(10):1464–1478,
+DOI 10.1016/j.advwatres.2005.11.014
+Taylor GI (1954) Diﬀusion and mass transport in tubes. Proceedings of the Physical Society
+Section B 67(420):857–869, DOI 10.1088/0370-1301/67/12/301
+Teodorovich E, Spesivtsev P, Nœtinger B (2011) A stochastic approach to the two-phase
+displacement problem in heterogeneous porous media. Transport in Porous Media 87(1):151–
+177, DOI 10.1007/s11242-010-9673-x
+Tompson AFB, Gelhar LW (1990) Numerical simulation of solute transport in
+three-dimensional, randomly heterogeneous porous media. Water Resources Research
+26(10):2541–2562, DOI 10.1029/WR026i010p02541
+Uﬃnk GJM (1985) A random walk method for the simulation of macrodispersion in a stratiﬁed
+aquifer. In: 18th Gen. Assembly Proc. Symp., IAHS Publ. 146, IAHS, Wallingford, UK.,
+Hamburg, Germany
+Wang YF, Liu ZF, Wang XH (2014) Finite analytic numerical method for three-dimensional
+ﬂuid ﬂow in heterogeneous porous media. Journal of Computational Physics 278:169–181,
+DOI 10.1016/j.jcp.2014.08.026
+Warren JE, Root PJ (1963) The behavior of naturally fractured reservoirs. The Society of
+Petroleum Engineers Journal 3(3):245–255
+Wen XH, Gomez-Hernandez JJ (1996) The constant displacement scheme for tracking
+particles in heterogeneous aquifers. Ground Water 34(1):135–142, DOI 10.1111/j.1745-
+6584.1996.tb01873.x
+Willmann M, Carrera J, Snchez-Vila X (2008) Transport upscaling in heterogeneous aquifers:
+What physical parameters control memory functions? Water Resources Research 44:12,
+DOI 10.1029/2007WR006531
+Witten TA, Sander LM (1983) Diﬀusion-limited aggregation. Physical Review B 27(9):5686–
+5697, DOI 10.1103/PhysRevB.27.5686
+Zheng C, Bennett GD (2002) Applied contaminant transport modeling, 2nd edn. 440 pp, Wiley
+Interscience
+Zimmermann S, Koumoutsakos P, Kinzelbach W (2001) Simulation of pollutant trans-
+port using a particle method. Journal of Computational Physics 173(1):322–347, DOI
+10.1006/jcph.2001.6879
+View publication statsView publication stats

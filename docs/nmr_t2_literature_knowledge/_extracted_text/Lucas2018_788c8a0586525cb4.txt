@@ -1,0 +1,1038 @@
+--- PAGE 1 ---
+Computational approach to integrate 3D X-ray microtomography
+and NMR data
+Everton Lucas-Oliveira a,⇑, Arthur G. Araujo-Ferreira a, Willian A. Trevizan a,b, Carlos A. Fortulan c,
+Tito J. Bonagamba a
+a Instituto de Física de São Carlos, Universidade de São Paulo, CP 369, 13560-970 São Carlos, São Paulo, Brazil
+b Cenpes-Petrobras, 21941-915 Rio de Janeiro, Rio de Janeiro, Brazil
+c Escola de Engenharia de São Carlos, Universidade de São Paulo, CP 359, 13560-970 São Carlos, São Paulo, Brazil
+article info
+Article history:
+Received 8 December 2017
+Revised 2 May 2018
+Accepted 3 May 2018
+Available online 4 May 2018
+Keywords:
+NMR
+Digital porous media
+Computational methods
+Relaxation
+Diffusion
+abstract
+Nowadays, most of the efforts in NMR applied to porous media are dedicated to studying the molecular
+ﬂuid dynamics within and among the pores. These analyses have a higher complexity due to morphology
+and chemical composition of rocks, besides dynamic effects as restricted diffusion, diffusional coupling,
+and exchange processes. Since the translational nuclear spin diffusion in a conﬁned geometry (e.g. pores
+and fractures) requires speciﬁc boundary conditions, the theoretical solutions are restricted to some spe-
+cial problems and, in many cases, computational methods are required. The Random Walk Method is a
+classic way to simulate self-diffusion along a Digital Porous Medium. Bergman model considers the mag-
+netic relaxation process of the ﬂuid molecules by including a probability rate of magnetization survival
+under surface interactions. Here we propose a statistical approach to correlate surface magnetic relaxivity
+with the computational method applied to the NMR relaxation in order to elucidate the relationship
+between simulated relaxation time and pore size of the Digital Porous Medium. The proposed computa-
+tional method simulates one- and two-dimensional NMR techniques reproducing, for example, longitu-
+dinal and transverse relaxation times (T
+1 and T 2, respectively), diffusion coefﬁcients (D), as well as their
+correlations. For a good approximation between the numerical and experimental results, it is necessary to
+preserve the complexity of translational diffusion through the microstructures in the digital rocks.
+Therefore, we use Digital Porous Media obtained by 3D X-ray microtomography. To validate the method,
+relaxation times of ideal spherical pores were obtained and compared with the previous determinations
+by the Brownstein-Tarr model, as well as the computational approach proposed by Bergman.
+Furthermore, simulated and experimental results of synthetic porous media are compared. These results
+make evident the potential of computational physics in the analysis of the NMR data for complex porous
+materials.
+/C2112018 Elsevier Inc. All rights reserved.
+1. Introduction
+Nuclear spin relaxation in conﬁned ﬂuids has been extensively
+used for decades to obtain information about the structure and
+morphology of porous materials, such as cement, bones, and rocks
+[1–3], as well as the ﬂuid molecules migration [4–6]. During the
+relaxation process, the nuclei are able to permeate the medium
+due to translational diffusion before total magnetization returns
+to the thermal equilibrium. Therefore, the magnetization decay
+due to relaxation contains information about the way the nuclei
+diffused through a porous medium and how they interacted with
+its surfaces. All this information is detected through the measure-
+ment of longitudinal and transverse relaxation times (T 1 and T 2,
+respectively), diffusion coefﬁcients (D), as well as their correlations
+(T1–T2,T 2–T2, D–T 2) [7–9].
+The multi-dimensional NMR experiments allow investigating
+the molecular dynamics of the ﬂuid within porous media. How-
+ever, most analyses are based on the linear relationship between
+relaxation time and pore size, as deﬁned by Brownstein and Tarr
+[10] (henceforth referenced as Brownstein-Tarr when mentioning
+their work). As an example, one could mention the determination
+of the surface magnetic relaxivity, an important parameter in
+obtaining pore size distributions, from a D-T 2 experiment [11,12].
+To get this information from the NMR data it is necessary to apply
+the linear relationship proposed by Brownstein-Tarr to the
+https://doi.org/10.1016/j.jmr.2018.05.001
+1090-7807//C2112018 Elsevier Inc. All rights reserved.
+⇑ Corresponding author.
+E-mail address: everton.lucas.oliveira@usp.br (E. Lucas-Oliveira).
+Journal of Magnetic Resonance 292 (2018) 16–24
+Contents lists available at ScienceDirect
+Journal of Magnetic Resonance
+journal homepage: www.else vier.com/locate/jmr
+
+--- PAGE 2 ---
+restricted diffusion equations proposed by Mitra et al., reinterpret-
+ing this effect from the NMR point of view.
+The relaxation time distributions bear the effects of microscopic
+dynamics. To explore the NMR response in complex materials, dif-
+ferent simulations were developed in the past decades. Mendelson
+et al. [13] and Bergman et al. [14], using a lattice random walk
+method, simulated the spin relaxation in a saturated porous sys-
+tem, reproducing the dynamics and relaxation process, and will
+be referenced along the text as Bergman. Later, Arns et al. [15,16]
+and Shikhov et al. [17] applied this model with the aid of 3D X-
+ray microtomography (micro-CT) images to represent the porous
+matrix of different samples, exploring the NMR techniques and
+permeability.
+Solving the problem of diffusion as a random walk problem is a
+well-established problem in the literature, where the method is
+based in considering that each walker (molecule, nucleus) under-
+goes successive statistically independent displacements [18].I n
+this work, the simulation of the nuclear spin magnetization
+dynamics in a porous medium was modeled based on the spin
+packet concept, presented by Bergman, Arns, and co-workers. This
+approach implies that each walker represents a volumetric ensem-
+ble of excited nuclear spins. The NMR signal contributions are cal-
+culated taking into account the interactions of the nuclei with the
+pore walls and among themselves.
+To preserve the complexity of translational diffusion through
+the porous medium microstructures, micro-CT images were
+acquired to represent the Digital Porous Media. Several NMR
+experiments can be easily reproduced by the developed method,
+such as CPMG, Inversion-Recovery, Exchange and Diffusion, as well
+as their correlations [5,7,19,20].
+The outcomes can be used to improve the interpretation of the
+porous media NMR measurements and correlate them with mor-
+phological and physicochemical parameters, such as surface mag-
+netic susceptibility, pore size distribution, tortuosity, and
+permeability.
+This work is organized as follows. In the ﬁrst section, we pre-
+sent a brief theory of NMR in porous media with some examples
+of the mechanisms that produce relaxation. In the second section,
+we describe the computational method and how it is used to sim-
+ulate diffusion and relaxation inside the porous media. In the last
+section, we present the simulated results and compare them to
+the experimental data indicating the strengths and shortcomings
+of the method.
+2. NMR theory
+Brownstein and Tarr [10] solved the Bloch-Torrey equation [21]
+for simple conﬁned geometries to study the multiple relaxation
+times of water in biological cells. They found that, under certain
+conditions, it is possible to correlate the surface to volume ratio
+of the structure with the ﬂuid’s surface relaxation times, Eq. (1),
+1
+TS
+1;2
+¼ q1;2
+S
+V ¼ q1;2
+c
+R ; ð1Þ
+where q is the surface relaxivity, S/V is the surface to volume ratio
+(SVR), deﬁned here as a length scale (1/ R) of a pore in the porous
+media, and c is a constant dependent on the pore geometry, here
+considered as spherical pores ( c=3 ). Eq. (1) is valid in the fast dif-
+fusion regime, when the relationship ( qR/D0 /C28 1) is satisﬁed; in
+which D0 is the bulk diffusion coefﬁcient. In the intermediate and
+slow regimes, a single pore presents multiple relaxation times and
+there is no analytical representation of the relaxation times in terms
+of pore geometry. However, if the surface relaxivity is known, it is
+possible to numerically solve the transcendental equation that
+correlates the eigenvalues (hence relaxation times) of the
+Brownstein-Tarr equations with the pore length scale (for spherical
+pores), leading to Eqs. (2) and (3) .
+1 /C0 C cotðCÞ/C0 C q1;2
+ﬃﬃﬃﬃﬃﬃﬃﬃ
+T1;2
+D0
+s !
+¼ 0; ð2Þ
+R ¼ C
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+T1;2D0
+p
+; ð3Þ
+in which C is the solution of the transcendental Eq. (2), used to
+determine R in Eq. (3), when the relaxation time and bulk diffusion
+are known (from an experiment or simulation for example). In gen-
+eral, considering the bulk contribution, the total relaxation rates are
+deﬁned by
+1
+T1
+¼ 1
+TSurface
+1
+þ 1
+TBulk
+1
+¼ q1
+S
+V þ 1
+TBulk
+1
+; ð4Þ
+1
+T2
+¼ 1
+TSurface
+2
+þ 1
+TBulk
+2
+¼ q2
+S
+V þ 1
+TBulk
+2
+; ð5Þ
+considering that fast diffusion approximation was assumed for the
+right-hand side of Eqs. (4) and (5) .
+2.1. Longitudinal and transverse surface relaxivities: q1 and q2
+In this section, we will discuss surface and bulk contributions to
+relaxation, disregarding effects on transverse relaxation generated
+by magnetic susceptibility present in most materials, especially in
+the case of rocks.
+According to the Bloembergen-Purcell-Pound (BPP) model [22],
+a good approximation for magnetic relaxation of a ﬂuid containing
+spin 1/2 nuclei associates longitudinal relaxation to the repopula-
+tion of quantum states, and transverse relaxation to both repopu-
+lation of states and loss of coherence. Therefore, for a substance
+in which thermal motion provides a minimum loss of coherence
+(as in a low viscosity ﬂuid), the transverse relaxation will be pri-
+marily due to the repopulation of quantum states, leading to T2 =
+T1. An example of this is bulk water. According to this model, mole-
+cules close to the surface may experience dynamic restrictions due
+to afﬁnity issues, mainly in the translational and rotational move-
+ments, which induce different surface relaxation rates leading in
+most cases to T1
+Surface – T2
+Surface.
+Additionally, Kleinberg et al. [23] described the mechanism for
+the TSurface
+1;2 by the molecular motion close to the surface, in a layer
+assumed to be about the size of a single water molecule. They
+deﬁned that, in the case pore spaces of sedimentary rocks at low
+magnetic ﬁeld, the relaxation mechanisms associated with pure
+diamagnetic sites on the surface and by nuclear-nuclear dipolar
+coupling modulated by hindered molecular reorientation do not
+dominate the NMR relaxation, and the paramagnetic relaxation
+mechanism is the main contribution for the relaxation on surface.
+Korb and co-workers [24] proposed that motion of water mole-
+cules within the layer near the surface consists of a two-
+dimensional random walk and the surface is composed of different
+sites (magnetic and non-magnetic). The exchange processes
+between these sites and between the layers close to the surface
+and the bulk phase of the ﬂuid are characterized by the times sm
+and ss, respectively. This theoretical approach allows analyzing
+the dependence of the surface relaxation versus frequency by the
+ﬁeld-cycling magnetic relaxation measurements [24].
+Independent of the relaxation mechanism on the surface, the
+proportionality between surface relaxation time and SVR is found.
+Song [2] and McDonald et al. [1], presented the relaxation on sur-
+face as a layer d of the ﬂuid, with volume d, S, that relaxes by the
+surface mechanism and with a characteristic time TSurface
+1;2 . Consider-
+ing the total surface S of the pore, and taking the average of the
+E. Lucas-Oliveira et al. / Journal of Magnetic Resonance 292 (2018) 16–24 17
+
+--- PAGE 3 ---
+total molecules that diffuse between this thin layer and the bulk
+phase of the pores (total pore volume of Vp), the relaxation time is:
+1
+T1;2
+¼ dS
+Vp
+1
+TSurface
+1;2
+þ 1
+TBulk
+1;2
+; ð6Þ
+where considering Eq. (1), the relaxivity is given by q1;2 ¼ d=TSurface
+1;2 .
+The dependence of the TSurface
+1;2 with the density functions for the
+motion J0;1;2
+L ðx), detailed elsewhere [24], gives the information
+about the effects of repopulation and decoherence mechanisms on
+the surface in the molecular scale, where d is assumed to be about
+the size of a single water molecule.
+However, here, we will consider that surface relaxation is due
+to the average contribution of all the molecules that diffuse
+between the thin layer near the pore surfaces (nanoscale) and
+the bulk phase, Eq. (6). This approximation is necessary in order
+to simulate the magnetization evolution in a porous material with
+the aid of micro-CT images, where the size of the Digital Porous
+Medium is a few millimeters, which preserves the pore
+morphology.
+The proposal is to write the mechanism of repopulation
+and decoherence by different terms in the surface magnetic
+relaxivity. It is known that the transverse relaxivity ( q2) con-
+tains both mechanisms (repopulation and decoherence) that
+drive the transverse magnetization to zero. However, the lon-
+gitudinal contribution q1, on the other hand, is exclusively
+dependent on repopulation of states on the surface. Therefore,
+we propose to rewrite the relaxivity q2 as the sum of the
+two mechanisms:
+1
+T2
+¼ð q1 þ qphaseÞ S
+V þ 1
+TBulk
+1
+; ð7Þ
+in which qphase is the surface relaxivity exclusively due to the loss of
+coherence.
+Fig. 1 a shows the T 1-T2 correlation. Estimation of larger pore
+sizes is limited by TBulk, as in this regime the relaxation contribu-
+tion due to the surface interaction is negligible compared with
+the relaxation among the ﬂuid molecules (bulk). Fig. 1 b indicates
+the dependence of the pore size and the free path of molecules dur-
+ing the respective transverse relaxation time, kT2 ¼ ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ6DT2
+p . When,
+ðR=kT2 Þ P 1, the relaxation time can be considered as originating
+exclusively from the bulk relaxation and T 2 has no information
+about the pore size. The other limits are the case ðR=kT2 Þ 6 0:1, in
+which the relaxation is due to the surface relaxivity, and the pore
+size can be estimated, and 0 :1 6 ðR=kT2 Þ 6 1, in which the pore size
+can be estimated by subtracting the bulk contribution. However,
+estimation in the latter case is not well deﬁned. Fig. 1 c shows
+the regimes described by Brownstein-Tarr: fast, intermediate and
+slow diffusion, deﬁned for three different limits of the relation
+ðq1;2R=D0Þ . In the limit of ðq1;2R=D0Þ/C29 1; the system is considered
+in a slow diffusion regime, and it indicates the eigen-modes should
+appear. In this same regime the bulk relaxation is predominant;
+therefore, measuring pore sizes in the slow diffusion regime is
+compromised for both effects.
+Eq. (7) indicates that only for qphase /C29 q1 the contribution due to
+the loss of energy (quantum states repopulation) is negligible com-
+pared to the decoherence. Therefore, considering the q2 estimated
+in the NMR experiments and SVR by Eqs. (1) and (3) , one way to
+individually identify the q1 and qphase is measuring the T1 to the
+T2 ratio to obtain ﬁrst q1. Considering water saturated porous
+media, TBulk
+1 ¼ TBulk
+2 , the ratio can be rewritten as:
+T1
+T2
+¼ TBulk
+1 q2ðS=VÞþ 1
+TBulk
+1 q1ðS=VÞþ 1
+; ð8Þ
+rewriting to obtain q1:
+q1 ¼ q2
+T2
+T1
+þ 1
+TBulk
+1
+V
+S
+T2
+T1
+/C0 1
+/C18/C19
+; ð9Þ
+and which this information to obtain qphase. The surface relaxivity
+and SVR can be estimated by NMR experiments (D-T 2 experiment)
+or by complementary methods, such as, mercury injection capillary
+pressure (MICP) and microtomography images correlated with
+relaxation NMR data. Eq. (9) shows the dependence of the surface
+relaxivity with the bulk relaxation and pore size, where for smaller
+pores and longer bulk relaxation the contribution is directly propor-
+tional to the surface mechanism of relaxation. It is also clear that
+when T1 =T 2 in porous media, it implies that q1 ¼ q2, meaning that
+the main contribution on the surface is related to the spectral func-
+tion with the following frequency dependence: J1;2
+L ðx).
+3. Methods
+Based on the random walk method (RW) to simulate the trans-
+lational diffusion of the nuclei in digital rock samples, we propose a
+simple formalism to integrate the computational parameters that
+involve NMR magnetization decay and the surface relaxivity. The
+sample is described by a 3D digital image obtained by micro-CT,
+and segmented in pores and solid materials.
+In this work, the magnetization evolution will be simulated
+inside a Digital Porous Media obtained from synthetic samples:
+Ceramic and Glass Bead. The Digital Porous Media was obtained
+using a Bruker SkyScan 1272 micro-CT, with ﬁlters of Al (80 kV,
+140 lA) and Al-Cu (90 kV, 120 lA), respectively.
+These samples have a clear threshold that identiﬁes the solid
+matrix and void space (pores), therefore, in this case, simple ﬁlters
+and the Interactive Threshold Method were applied to segment the
+Digital Porous Media in Solid and void space (porous) [25]. These
+methods were applied using the software provided by SkyScan/
+Bruker (CTan).
+However, in sandstones and, especially in carbonates, this
+threshold is not easy to deﬁne, and it is necessary to use more
+sophisticated techniques to process the image and identify the
+pores correctly. An example of a ﬁlter method is the noise reduc-
+tion algorithm Non-Local Means, which does not interfere signiﬁ-
+cantly in the surface of the pores when applied [26]. Other
+possible solution, is the identiﬁcation of the interface between
+the pore and solid matrix, for example, by a gradient of the image,
+where the interface can be locked during the segmentation process
+and combined with others advanced methods to provide a better
+Digital Porous Medium.
+3.1. NMR relaxation
+The magnetization decay will be characterized by the two relax-
+ation process: bulk and surface relaxation. To connect the compu-
+tational model with the bulk and surface relaxation times, we will
+ﬁrst introduce the bulk component and later, with similar con-
+cepts, demonstrate the modeling of the surface.
+3.1.1. T 1 Relaxation: bulk
+An NMR relaxation experiment consists in observing the decay-
+ing behavior of the magnetization as it returns to its equilibrium
+state after an excitation produced by a radio frequency pulse
+sequence. In order to describe the relaxation of a system of N nuclei
+under a static uniform magnetic ﬁeld B0, the relaxation will be
+expressed in terms of the probability rate pi;j of a nucleus decaying
+from energy state i to the state j. The hydrogen nucleus, 1H (spin
+1/2), has two possible energy states, +1/2 and /C0 1/2, and the sum
+18 E. Lucas-Oliveira et al. / Journal of Magnetic Resonance 292 (2018) 16–24
+
+--- PAGE 4 ---
+of all nuclei contribution results in a macroscopic magnetization
+MðtÞ [27].
+Mð0Þ¼
+X
+i
+mi; ð10Þ
+in which m ¼ 1 (low energy state) or m ¼/C0 1 (high energy state).
+Each of the excited nuclei will then have a probability per unit time
+pi of returning to the ground state, and considering the nuclei are
+indistinguishable, the rate of transition pi is equal for all of them,
+yielding the magnetization time evolution:
+dM
+dt ¼
+X
+i
+/C0 pimi ¼/C0 p
+X
+i
+mi ¼/C0 pM0: ð11Þ
+Hence,
+MðtÞ¼ Mð0Þe/C0 p ¼ Mð0Þe/C0 t=T1 ; ð12Þ
+where the last part of the equation is the Bloch solution [28].A sa
+result, the bulk longitudinal relaxation is simulated by a random
+process, with time step Dt, and probability p ¼ Dt=T1.
+3.1.2. T 2 Relaxation: bulk
+In addition to the longitudinal relaxation, the random ﬂuctua-
+tions of the magnetic ﬁeld make the Larmor frequency of each spin
+ﬂuctuate around its original value, resulting in a decoherence pro-
+cess for an ensemble of spins initially with the same phase. A deco-
+herence process can be simulated by associating to each random
+walker a phase factor e/C0 iu that can randomly vary for each time
+step Dt.
+From the central limit theorem, if random phases ui are accu-
+mulated, over all the nuclei after n steps, the total phase
+Ui ¼PN
+i ui is normally distributed around its average value [18].
+Since the average value is zero, the probability of ﬁnding spins
+with phase U is a centered Gaussian [29]:
+PðUÞ¼ e/C0 U2 =ð2hU2
+i iÞ
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+2phU2
+i i
+q : ð13Þ
+Here, U2 ¼ nhu2i is the variance of the distribution. The macro-
+scopic magnetization is the average over all nuclear ensemble con-
+tribution, and after n steps we expect:
+M0e
+/C0h U2 i
+2 ¼ M0e
+/C0 nhu2 i
+2 : ð14Þ
+Considering a time evolution t during n equal steps Dt, and the
+transverse magnetization given by the Bloch equation, the relation
+between T2 and the variance of the probability distribution phase
+can be written as:
+M ¼ M0e
+/C0 t
+T2 ¼ M0e
+/C0 nDt
+T2 ¼ M0e
+/C0 nhu2
+i i
+2 ; ð15Þ
+hu2
+i i¼ 2Dt
+T2
+; ð16Þ
+which deﬁnes the probability distribution from which each nucleus
+loses coherence among themselves.
+Fig. 1. (a) T 1-T2 relaxation maps for three different rates of longitudinal surface magnetic relaxivity ( q1) and transverse surface magnetic relaxivity ( qphase). Note that for
+qphase /C2110q1 the transverse relaxation is predominant in the transverse plane and q2 is exclusively due to loss of phase coherence. (b) The transverse relaxation time is
+converted to a ratio of the pore radius and the mean square displacement of the particle during the transverse relaxation time. (c) The x-axis is the con stant proposed the
+Brownstein-Tarr to deﬁne the diffusion regime. The fast diffusion regime is observed when pore sizes are smaller than the mean square displacement an d is mainly due to the
+surface and not the bulk relaxation.
+E. Lucas-Oliveira et al. / Journal of Magnetic Resonance 292 (2018) 16–24 19
+
+--- PAGE 5 ---
+3.1.3. Surface relaxation
+To simulate the relaxation of an ensemble of nuclei in the bulk
+ﬂuid, the parameters p and hui
+2i can be calculated, for example,
+using the BPP model [22], or measured experimentally by the user.
+However, to simulate the evolution of magnetization in complex
+porous media, it is fundamental to preserve the molecular dynam-
+ics, the structure of the sample and the magnetic ﬂuid/surface
+interaction [24]. Here, the loss of magnetization by the surface
+interaction is deﬁned by a relaxivity q1,2, as deﬁned by the
+Brownstein-Tarr formalism [10].
+In each step of the simulation, the nuclei receive a random new
+position in agreement with the bulk diffusion, and the bulk relax-
+ation is applied. However, if the new position is identiﬁed as a col-
+lision with the surface the nuclei receive a longitudinal and
+transverse surface penalization.
+The method developed by Bergman uses a lattice random walk
+method to simulate the spin relaxation of a saturated pore. For
+this purpose, they deﬁne a probability m of a walker dying or sur-
+viving an attempt to move towards a solid voxel of the porous
+media. The probability used in this case is related to the surface
+relaxivity q via,
+Am ¼ qe
+D þ O qe
+D
+/C16/C17 2/C18/C19
+; ð17Þ
+which A is a correction factor of order 1 accounting for the details of
+the random walk implementation, and calculated by Bergman as
+A ¼ 3=2. e is the random walk parameter, related to the time dis-
+cretization and diffusion coefﬁcient D0, given by:
+D0 ¼ e2
+6Dt : ð18Þ
+Eq. (18) is determined considering the 3D unrestricted diffu-
+sion. Computationally, if the nuclei are in a conﬁned pore, the
+new position after diffusing during the time step Dt has a chance
+of lying outside the pore space and within the solid matrix. Two
+methods to return the nuclei to the pore space, in this case, are:
+(i) to return it to the last position (retro-reﬂection) or (ii) to select
+a new random position (diffusive-reﬂection). In situations in which
+there are diffusion and ﬂow, a third method needs to be applied,
+the specular-reﬂection. As ﬂuid ﬂow analysis is out of the scope
+of this work, retro-reﬂection was chosen for dealing with this con-
+tour condition.
+Based on the theory used in the bulk case, the nucleus that
+interacts with the surface in the interval
+Dt, has a rate qs related
+to the longitudinal relaxation and a variance ha2
+i;si for the Gaussian
+probability to gain phase.
+We propose to ﬁnd these parameters as a function of the surface
+magnetic relaxivity q. For this, considering the time evolution t
+during n equal steps Dt, a set of nuclei accumulate a different phase
+a due to M collisions, and loses energy with a rate q. The variance
+a2 and q in for wall collisions is deﬁned by:
+ha2i¼ 2
+T2
+t
+M ¼ 2
+T2
+s; ð19Þ
+q ¼ 1
+T1
+t
+M ¼ s
+T1
+; ð20Þ
+the average time between collisions is deﬁned as s = t/M. As estab-
+lished by Brownstein-Tarr, the relation between T 1,T 2 and q is only
+analytically established in the fast diffusion limit, when Eqs. (19)
+and (20) can be rewritten as:
+ha2i¼ 2qphase
+S
+V s; ð21Þ
+q ¼ q1
+S
+V s: ð22Þ
+For complex porous media, the SVR and average collision time
+are not simply deﬁned. In order to overcome this issue, we propose
+the following approximation for the relation between the collision
+time s and SVR.
+For a time t ¼ nDt, the total number of nuclei that collide with
+the surface in each step Dt is approximately:
+M
+n ¼ ~k S
+V ; ð23Þ
+where ~k is a small layer close to the surface , assumed to be about
+the size of the diffusion length during a time longer than the char-
+acteristic time of the molecular dynamics (see Fig. 2 ).
+Using the diffusion length commonly deﬁned by the Standard
+Deviation and considering only the nuclei that move toward the
+surface, we take ~k ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+2DDt
+p
+=2.
+However, calculating the mean displacement of the nuclei that
+move towards the surface, given by:
+~k ¼h xij0!þ1 ¼ 1
+r
+ﬃﬃﬃﬃﬃﬃﬃ
+2p
+p
+Z þ1
+0
+xe/C0 x2
+2r2 dx ¼
+ﬃﬃﬃﬃﬃﬃﬃ
+r2
+2p
+r
+; ð24Þ
+the distance is ~k ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+DDt=p
+p
+, in which the walker moves in the nor-
+mal direction (1D movement) and, therefore, r2 ¼ 2DDT, consider-
+ing the 1D unrestricted diffusion.
+Hence, the variance and probability of energy loss at the surface
+can be related to surface relaxivity using the standard deviation by
+(
+ﬃﬃﬃﬃﬃﬃﬃﬃ
+hr2i
+p
+model):
+ha2
+i i¼ 2qphase
+S
+V
+t
+M
+/C18/C19
+¼ 4q2Dtﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+2DDt
+p ; ð25Þ
+q ¼ q1
+S
+V
+t
+M
+/C18/C19
+¼ 2q1Dtﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+2DDt
+p ; ð26Þ
+or by the mean displacement ( hr^ni model):
+ha2
+i i¼ 2qphase
+S
+V
+t
+M
+/C18/C19
+¼ 2q2Dtﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+DDt=p
+p ; ð27Þ
+q ¼ q1
+S
+V
+t
+M
+/C18/C19
+¼ q1Dtﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+DDt=p
+p : ð28Þ
+These two approximations are compared in Fig. 3 with the stan-
+dard Bergman model. To compare, we simulated the magnetization
+decay for a set of spherical pores, with the deﬁned radius R ranging
+from 5 to 300 lm, and applied the Inverse Laplace Transform in
+order to obtain the relaxation time distribution. By the general
+Eqs. (2) and (3) , we calculated the experimental radius ( Rexp) for
+the known relaxation time and surface magnetic relaxivity
+(q2 =4 0 lm/s).
+Fig. 2. In a short time interval Dt, the nuclei move in the normal direction of the
+surface, where, in the layer near the surface S, with volume V = ~kS, half of the nuclei
+interact. We deﬁned the mean displacement by two different methods, named as
+h
+ﬃﬃﬃﬃﬃ
+r
+2
+p
+i and hr^n i.
+20 E. Lucas-Oliveira et al. / Journal of Magnetic Resonance 292 (2018) 16–24
+
+--- PAGE 6 ---
+Fig. 3 shows the difference between the experimental and the
+deﬁned radius ( Rexp /C0 R). Independent of the size of the pore and
+diffusion regime, the model hr^ni presents an expected radius with
+a better agreement with the deﬁned radius.
+4. Results and discussions
+To compare the results of our proposed method with that
+expected by the Bergman model, we present here a comparison
+between the analytical results from the Brownstein-Tarr model
+and our simulated results.
+Furthermore, we constructed two synthetic samples to perform
+the NMR experiments and simulations. The ﬁrst one consists of a
+ceramic sample of alumina, where pores are produced by saccha-
+rose crystals which burn out at high temperature [30]. The grains
+of saccharose are selected by different sieves to control the poros-
+ity and size distribution. The second sample is built packing glass
+beads and sintering at a controlled temperature until necks are
+formed. This process provides a rigid glass beads sample that
+ensures it will exhibit the same morphology for both the NMR
+experiments and NMR simulations. Both cylindrical samples have
+10 mm in diameter and 20 mm length.
+For the NMR experiments, it was used a Tecmag LapNMR spec-
+trometer and a 0.47 T permanent magnet, at 30 /C176C, with a Larmor
+frequency of 20 MHz for 1H nuclei. The samples were saturated
+with distilled water, using a vacuum pressure of 90 kP, where the
+samples remained in the water for 60 min.
+4.1. Brownstein-Tarr and simulation
+To analyze the correspondence between the computational
+method proposed and the formalism of Brownstein-Tarr, we simu-
+lated the magnetization evolution in a set of spheres to verify the
+presence of fast and slow regimes.
+Fig. 4 illustrates the results of the CPMG simulations in the
+spherical pores, setting the relaxivity as
+q2 =4 0 lm/s, bulk diffu-
+sion coefﬁcient D 0 = 2.3 /C2 103 lm2/s and radii ranging from 2 to
+300 lm. This ﬁgure shows the distributions of the transverse relax-
+ation times obtained by the Laplace Inversion Method. In this range
+of radii we see results in the fast regime (blue) and intermediary/
+slow regime (red), which is easily identiﬁed because of the pres-
+ence of multiple relaxation times for a single pore.
+To verify the correlation between the theory and the model we
+compare the main peak position in the relaxation time distribution
+with the relaxation time expected from the Brownstein-Tarr solu-
+tion for the eigenvalue of order zero (see Fig. 5 ).
+Using Eq. (1), we can calculate the surface magnetic relaxivity
+under the fast diffusion approximation. In Fig. 6 , we observe that
+the relaxivity q2 remains constant for small radii, but decreases
+as the radius increases because the fast diffusion approximation
+is not appropriate for the intermediary/slow regime the system
+starts to assume, in agreement with the theory. The multiple peaks
+in the relaxation time distribution appear as we get to pores larger
+than 40 lm, and, at this point, the relaxivity q2 is 7% lower than the
+value chosen for the simulation in this case.
+4.2. Ceramic sample
+To test the model in a Digital Porous Medium, a ceramic sample
+was built with three different pore sizes, ranging from 0.1 to 100
+Fig. 3. The radius prediction by the NMR relaxation model, using a standard
+Bergman and the models proposed here. Each model uses a different method to
+calculate the average distance to the wall with which the nuclei have a chance to
+interact. The standard deviation model provides ~k ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+2D
+Dt
+p
+=2, and the mean
+displacement model gives ~k ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+DDt=p
+p
+, taking into account the movement in the
+direction normal to the surface S.
+Fig. 4. The CPMG Decays are analyzed by Inverse Laplace transform, resulting in
+transverse relaxation time distributions that minimize the variance of the ﬁtting.
+We simulated the CPMG for spherical pores in a range of radii ranging from 2 to
+300
+lm. The simulated curves for spheres with radii smaller than 40 lm present a
+single peak, which indicate that the dynamics are in the fast diffusion regime (blue
+lines). Simulated curves for radii larger than 40
+lm have two or more peaks,
+indicating that, in these cases, the dynamics occur under the intermediate diffusion
+regime (red lines). The highlighted curve in black, for 300-
+lm pore, clearly shows
+the ﬁrst order normal mode. (For interpretation of the references to colour in this
+ﬁgure legend, the reader is referred to the web version of this article.)
+Fig. 5. Comparison between the relaxation time predicted by Brownstein-Tarr and
+our simulation. With a linear regression, we obtained an R 2 = 0.99. For the cases of
+long relaxation times, the system is under the slow or intermediate regimes, in
+which the multi-exponential decays due to the eigen-modes occur. Consequently,
+ﬁttings present greater deviation between the simulated and theoretical relaxation
+times.
+E. Lucas-Oliveira et al. / Journal of Magnetic Resonance 292 (2018) 16–24 21
+
+--- PAGE 7 ---
+lm orders of magnitude [30]. However, the images used to con-
+struct the digital porous medium were performed with 2.5 lmo f
+resolution. Due to this resolution limitation, just two pore sizes
+appear in the simulation. The matrix block was created with
+(1000 /C2 1000 /C2 1500) pixel 3, which represent 23.45 mm 3 or 5%
+of the physical sample, Fig. 7 .
+One of the most important parameters estimated from these
+simulations is the surface relaxivity q1,2. To estimate the surface
+relaxivity, we used as reference the longer experimental relaxation
+times because the micro-CT image precision for the larger pores is
+higher. The experimental relaxation time distribution was mea-
+sured by CPMG, with 24,000 echoes, echo time of 250 ls and a
+total decay measurement of 6 s. The T 1-T2 experiment was per-
+formed by the Inversion-Recovery/CPMG, 30 points were chosen
+from 500 ms to 20 s for the T 1 dimension, and 24,000 echoes with
+echo time of 250 ls for the CPMG.
+d’Eurydice et al. [18] reported a complete characterization of a
+similar sample and performed the experiments in a 2 T Oxford
+superconductor magnet. This was possible because of the weak
+magnetic susceptibility presented by this synthetic sample. We
+performed the NMR experiments in a 0.5 T magnet, where the
+effects of the internal magnetic ﬁeld gradient are negligible.
+Starting from an arbitrary relaxivity
+q1,2, it is possible to esti-
+mate the pore size distribution of the sample. Then, using the
+experimental relaxation time information from the peaks with
+longer decay times, we can calculate a ﬁrst approximation of the
+surface relaxivity with Eq. (1). In the simulated relaxation times
+distribution, there are two peaks, the longer one corresponding
+to pores with radii of the order of 60 lm and the shorter one cor-
+responding to pores with 10 lm. The experimental results contain
+the same peaks, but including a shorter one. This shorter peak cor-
+responds to pores of size on the order of micrometers, which is
+close to or smaller than the resolution used in the micro-CT
+images, 2.5 lm. For this reason, the shortest peak is absent in the
+simulations, Fig. 8 (a). For the ceramics, assuming the pores are
+sphere-like, we found q2 =1 7 lm/s. Fig. 8 (b) shows the pore size
+distribution calculated using the fast diffusion equation.
+Fig. 9 shows the simulated and experimental T 1-T2 correlation
+maps. For the large pores in the ceramic sample, using T 1/T2 =
+1.8, Eqs. (8) and (9) provide q1 =6 lm/s and qphase =1 1 lm/s. Here,
+assuming the spherical pores approximation and using a moderate
+surface relaxivity it was found, for the bigger pore, a radius about
+60
+lm, Fig. 8. The bulk water relaxation time used was equal to 3 s.
+The T1-T2 correlation reveals that T 1 to T2 ratio is not a single con-
+stant value and is bigger at shorter relaxation times. This is a con-
+sequence of bulk and surface relaxations being of comparable
+magnitudes for the larger pores, and surface relaxation dominating
+on smaller pore scales, Eqs. (4) and (5) .
+4.3. Glass beads sample and slow/intermediate diffusion
+The ceramic sample presented in the last section has three well
+deﬁned pore distributions. The smaller pores have sizes below the
+micro-CT resolution. Due to this reason, the results from the simu-
+lation and experimental data agree only for relaxation times corre-
+sponding to pores that can be measured with the 2.5- lm micro-CT
+resolution. Selecting glass beads ranging from 250 to 300 lm, we
+produced a second synthetic porous media with larger pores,
+which are well-deﬁned by micro-CT.
+We sintered the glass beads by controlling the temperature
+until it formed the necks. The glass beads and pores are larger than
+the micro-CT resolution (2.5 lm), which accounts for a better
+agreement between the simulated and experimental results. The
+Fig. 6. The relaxivity q2 estimated for different radii diverge for spheres larger than
+40 lm because the diffusion regime of the system changes from fast to interme-
+diate. That is veriﬁed with q2R/D = 0.7 for a sphere with R = 40 lm, q2 =4 0 lm/s,
+and D 0 = 2.3 /C2 103 lm2/s.
+Fig. 7. Ceramic sample with controlled pore sizes to analyze via NMR Experiments
+and Numerical Simulations. The micro-CT images were performed with a resolution
+of 2.5
+lm and the intrinsic pores, with dimensions below the micrometer scale, are
+not visible. For the simulations, the 3D digital porous media is constructed.
+Fig. 8. The NMR experiment was performed in a 0.5 T magnet with a Tecmag
+spectrometer, and the analysis of the CPMG Decay was made using the Laplace
+Inversion Method. (a) The T
+2 distribution for the simulations of the 10 6 nuclei and
+the experimental results are in good agreement. The absence of the shortest peak in
+the simulated data compared to the experimental data can be explained by the size
+of the pores which produce that peak. Their size is of the order of the micro-CT
+resolution, and the radii distribution in the ﬁgure (b) evidences that.
+22 E. Lucas-Oliveira et al. / Journal of Magnetic Resonance 292 (2018) 16–24
+
+--- PAGE 8 ---
+experimental relaxation time distribution was measured by CPMG,
+with 16,000 echoes and echo time of 150 ls. We measured the
+magnetization evolution for different echo times, varying from
+150 to 500 ls to analyze the inﬂuence of the internal magnetic
+ﬁeld gradient. At 150 and 200 ls, no signiﬁcant T 2 changes were
+observed, but there were noticeable variations towards shorter T 2
+for the longer echo times. So, we assume that the internal magnetic
+ﬁeld gradient effects are negligible for the shorter echo times.
+Fig. 10 (a) shows the experimental and simulated relaxation
+time distributions. The agreement between the simulated and
+experimental results is justiﬁed because of better visualization of
+the pore morphology by micro-CT. The short T
+2 peaks are deﬁned
+by us as an eigenvalue of order 1 and 2, for also being present in
+the simulated relaxation time distribution and no pore with small
+size was identiﬁed in the Digital Porous Media. Fig. 10 (b) shows
+the relaxation time distributions for different relaxivities varying
+from 10 to 50 lm/s, or from the fast to the intermediate regime,
+respectively. The shorter T 2 appears only for q2 =3 0 lm/s, and
+increases in amplitude for larger relaxivities. The longer T 2 shifts
+a little for the different relaxivities and has the best ﬁt with the
+experimental value for q2 =5 0 lm/s. The longer T 2 resulted in a
+pore size of /C24 100 lm, in agreement with the value measured
+directly in the Digital Porous Media.
+5. Conclusions
+We developed and validated a Random Walk method to simu-
+late the ﬂuid molecules dynamics inside a porous medium, in the
+macroscopic scale, and the corresponding effects on the NMR data.
+With the aid of micro-CT images and the above-described NMR
+data simulation, we presented an alternative method to estimate
+the surface relaxivity and, consequently, the pore size distribution.
+While the general methods employed to segment the 3D micro-CT
+images take into consideration only the geometric porous media
+features, our proposed method considers the molecular diffusion
+dynamics within digital porous media, which gives appropriate
+correlation between NMR and pore size distribution.
+These results indicate the potential of the simulations for
+exploring and better understanding the correlations between the
+NMR observables, molecular dynamics and the microstructure of
+the porous medium. As an example, the explicit correlation
+between collision number and pore size (hence surface relaxation
+times) expressed in Eqs. (21) and (22) , along with the expression
+for ~k, allows a connection between the translational molecular
+dynamics ( M found in the simulation) and T 2 distributions mea-
+sured experimentally. Based on the porous media images one
+could, for example, recover geometry information by mapping col-
+lision numbers throughout the entire medium, and connecting
+them with T 2 distributions [31]. A similar approach that uses this
+kind of reasoning was reported in Ref. [32] where, using the Berg-
+man model, the authors establish a relationship between the colli-
+sion number mapping and variations in surface relaxivity.
+The analysis of the pores radii using the general solution for the
+diffusion equation highlights the consideration we need to have
+when assuming the validity of the fast diffusion equation. The
+errors in estimating the radii when the relaxivity is known will also
+affect the estimation of the relaxivity, wettability or permeability
+from NMR techniques, which assumes the fast diffusion in the
+equations.
+The synthetic materials are very important to validate the com-
+putational physics methods proposed, and we intend to produce
+other porous media with a wide range of pores visible by micro-
+CT, as well as different connections and surface relaxivities. We
+aim in further studies, with the simulations of the Exchange tech-
+niques and synthetic porous media, to correlate NMR with other
+microstructures parameters and, consequently, the permeability
+properties of porous media [5,6].
+Fig. 9. The T 1 and T 2 bulk relaxation of water at room temperature have the same
+magnitude, and the correlation peak appears in the diagonal. As restrictions to the
+motion increase as the pore sizes decrease, the ratio between relaxation times T
+1
+and T 2 begin to move away from the diagonal. The restrictions imposed by the
+digital porous media reproduce in the simulations the same effect we see in the
+experiment. Using the T
+1 to T 2 ratio for the larger pores we estimate the
+longitudinal relaxivity q1 =6 lm/s.
+ Fig. 10. (a) Three peaks appear in the simulation and experimental results for glass
+beads packing, with a good agreement. (b) Estimating the relaxivity we calculated
+the radii distribution and the T
+2 = 0.1 ms have the respective radius equal 10 lm.
+This pore size is not visualized by the micro-CT images. However, varying the
+surface magnetic relaxivity on the simulation from 10 to 50
+lm/s, we ﬁnd that this
+peak is an eigenvalue contribution (n = 1).
+E. Lucas-Oliveira et al. / Journal of Magnetic Resonance 292 (2018) 16–24 23
+
+--- PAGE 9 ---
+Acknowledgments
+The authors would like to acknowledge the Brazilian Institu-
+tions University of São Paulo (USP), National Council for Scientiﬁc
+and Technological Development (CNPq), CAPES, FAPESP (Project
+No. 2009/54880-6) and Leopoldo Américo Miguez de Mello
+Research & Development Center (Cenpes/Petrobras) for the strong
+support. Authors also acknowledge Dr. Marcel Nogueira d’Eurydice
+and Prof. Leonardo P. Maia for the initial discussions about ﬂuid
+dynamics in Porous Media from the point of view of NMR. E.
+Lucas-Oliveira acknowledges Brazilian PhD CNPq scholarship.
+References
+[1] P. McDonald, J.-P. Korb, J. Mitchell, L. Monteilhet, Surface relaxation and
+chemical exchange in hydrating cement pastes: a two-dimensional NMR
+relaxation study, Phys. Rev. E 72 (2005) 011409, https://doi.org/10.1103/
+PhysRevE.72.011409.
+[2] Y.-Q. Song, Magnetic resonance of porous media (MRPM): a perspective, J.
+Magn. Reson. 229 (2013) 12–24, https://doi.org/10.1016/j.jmr.2012.11.010.
+[3] L. Brizi, M. Barbieri, F. Baruffaldi, V. Bortolotti, C. Fersini, H. Liu, M. Nogueira
+d’Eurydice, S. Obruchkov, F. Zong, P. Galvosas, Bone volume–to–total volume
+ratio measured in trabecular bone by single-sided NMR devices, Magn. Reson.
+Med. (2017), https://doi.org/10.1002/mrm.26697.
+[4] K. Washburn, P. Callaghan, Tracking pore to pore exchange using relaxation
+exchange spectroscopy, Phys. Rev. Lett. 97 (2006) 175502, https://doi.org/
+10.1103/PhysRevLett. 97.175502 .
+[5] R. Dortch, R. Horch, M. Does, Development, simulation, and validation of NMR
+relaxation-based exchange measurements, J. Chem. Phys. 131 (2009) 164502,
+https://doi.org/10.1063/1.3245866.
+[6] M. Van Landeghem, A. Haber, J.B. D’espinose De Lacaillerie, B. Blümich,
+Analysis of multisite 2D relaxation exchange NMR, Concepts in Magnetic
+Resonance Part A, 36 (2010) 153–169, http://doi.org/10.1002/cmr.a.20157.
+[7] Y.-Q. Song, L. Venkataramanan, M. Hürlimann, M. Flaum, P. Frulla, C. Straley,
+T1–T2 correlation spectra obtained using a fast two-dimensional Laplace
+inversion, J. Magn. Reson. 154 (2002) 261–268, https://doi.org/10.1006/
+jmre.2001.2474.
+[8] M. Hürlimann, L. Venkataramanan, Quantitative measurement of two-
+dimensional distribution functions of diffusion and relaxation in grossly
+inhomogeneous ﬁelds, J. Magn. Reson. 157 (2002) 31–42, https://doi.org/
+10.1006/jmre.2002.2567.
+[9] J.L. Paulsen, Y.-Q. Song, Two-dimensional diffusion time correlation
+experiment using a single direction gradient, J. Magn. Reson. 244 (2014) 6–
+11, https://doi.org/10.1016/j.jmr.2014.04.007.
+[10] K.R. Brownstein, C. Tarr, Importance of classical diffusion in NMR studies of
+water in biological cells, Phys. Rev. A 19 (1979) 2446, https://doi.org/10.1016/
+j.jmr.2014.04.007.
+[11] P.P. Mitra, P.N. Sen, L.M. Schwartz, P. Le Doussal, Diffusion propagator as a
+probe of the structure of porous media, Phys. Rev. Lett. 68 (1992) 3555,
+https://doi.org/10.1103/PhysRevLett. 68.3555 .
+[12] L.L. Latour, P.P. Mitra, R.L. Kleinberg, C.H. Sotak, Time-dependent diffusion
+coefﬁcient of ﬂuids in porous media as a probe of surface-to-volume ratio, J.
+Magn. Reson., Ser. A 101 (1993) 342–346, https://doi.org/10.1002/cmr.
+a.20017.
+[13] K.S. Mendelson, Percolation model of nuclear magnetic relaxation in porous
+media, Phys. Rev. B 41 (1990) 562, https://doi.org/10.1103/PhysRevB.41.562.
+[14] D.J. Bergman, K.-J. Dunn, L.M. Schwartz, P.P. Mitra, Self-diffusion in a periodic
+porous medium: a comparison of different approaches, Phys. Rev. E 51 (1995)
+3393, https://doi.org/10.1103/PhysRevE.51.3393.
+[15] C.H. Arns, A comparison of pore size distributions derived by NMR and X-ray-
+CT techniques, Phys. A: Statist. Mech. Appl. 339 (2004) 159–165, https://doi.
+org/10.1016/j.physa.2004.03.033.
+[16] C. Arns, Y. Melean, L. Burcaw, P. Callaghan, K. Washburn, Comparison of
+experimental NMR measurements with simulated responses on digitized
+images of mono-mineralic rocks using Xray-CT, in: Improved Core Analysis for
+Unconventional Fields, number SCA2009-44 in The 23rd International
+Symposium of the Society of Core Analysts, 2009, pp. 1–6.
+[17] I. Shikhov, M.N. d’Eurydice, J.-Y. Arns, C.H. Arns, An experimental and
+numerical study of relative permeability estimates using spatially resolved
+T_1-z NMR, Transp. Porous Media (2017) 1–26, https://doi.org/10.1007/
+s11242-017-0855-7.
+[18]
+F. Reif, Fundamentals of Statistical and Thermal Physics, Waveland Press, 2009 .
+[19] H.Y. Carr, E.M. Purcell, Effects of diffusion on free precession in nuclear
+magnetic resonance experiments, Phys. Rev. 94 (1954) 630, https://doi.org/
+10.1103/PhysRev. 94.630 .
+[20] M. Hurlimann, L. Latour, C. Sotak, Diffusion measurement in sandstone core –
+NMR determination of surface-to-volume ratio and surface relaxivity, Magn.
+Reson. Imaging 12 (1994) 325–327, https://doi.org/10.1016/0730-725X(94)
+91548-2.
+[21] H.C. Torrey, Bloch equations with diffusion terms, Phys. Rev. 104 (1956) 563,
+https://doi.org/10.1103/PhysRev. 104.563 .
+[22] N. Bloembergen, E.M. Purcell, R.V. Pound, Relaxation effects in nuclear
+magnetic resonance absorption, Phys. Rev. 73 (1948) 679, https://doi.org/
+10.1103/PhysRev. 73.679 .
+[23] R. Kleinberg, W. Kenyon, P. Mitra, Mechanism of NMR relaxation of ﬂuids in
+rock, J. Magn. Reson., Ser. A 108 (1994) 206–214, https://doi.org/10.1006/
+jmra.1994.1112.
+[24] J.-P. Korb, M. Whaley-Hodges, R. Bryant, Translational diffusion of liquids at
+surfaces of microporous materials: theoretical analysis of ﬁeld-cycling
+magnetic relaxation measurements, Phys. Rev. E 56 (1997) 1934, https://doi.
+org/10.1103/PhysRevE.56.1934.
+[25]
+P.-Z. Wong, T. Lucatorto, M. De Graef, Methods of the Physics of Porous Media,
+Academic Press, 1999 .
+[26] A. Buades, B. Coll, J.-M. Morel, A non-local algorithm for image denoising, in:
+Computer Vision and Pattern Recognition, 2005. CVPR 2005. IEEE Computer
+Society Conference on, IEEE, 2005, pp. 60–65. http://doi.org/10.1109/CVPR.
+2005.38.
+[27] C.P. Slichter, Principles of magnetic resonance, Springer Series in Solid-State
+Sciences, 1 (1990) 497. ISBN: 9783642080692.
+[28] F. Bloch, Nuclear induction, Phys. Rev. 70 (1946) 460, https://doi.org/10.1103/
+PhysRev. 70.460 .
+[29] R.W. Brown, Y.-C.N. Cheng, E.M. Haacke, M.R. Thompson, R. Venkatesan,
+Magnetic Resonance Imaging: Physical Principles and Sequence Design, John
+Wiley & Sons, 2014 .
+[30] M.N. d’Eurydice, E.T. Montrazi, C.A. Fortulan, T.J. Bonagamba, T2-ﬁltered T2–T2
+exchange NMR, J. Chem. Phys. 144 (2016) 204201, https://doi.org/10.1063/
+1.4951712.
+[31] E.J. Fordham, J. Mitchell, Localization in a single pore, Microporous
+Mesoporous Materi. (2017), https://doi.org/10.1016/j.micromeso.2017.05.029.
+[32] F. Benavides, R. Leiderman, A. Souza, G. Carneiro, R. Bagueira, Estimating the
+surface relaxivity as a function of pore size from NMR T2 distributions and
+micro-tomographic images, Comput. Geosci. (2017), https://doi.org/10.1016/j.
+cageo.2017.06.016.
+24 E. Lucas-Oliveira et al. / Journal of Magnetic Resonance 292 (2018) 16–24

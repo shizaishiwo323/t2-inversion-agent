@@ -1,0 +1,728 @@
+--- PAGE 1 ---
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/274375961
+EVALUATING PORE SPACE CONNECTIVITY BY NMR DIFFUSIVE COUPLING
+Conference Paper · May 2014
+CITATIONS
+3
+READS
+155
+9 authors, including:
+Some of the authors of this publication are also working on these related projects:
+NMR Applications View project
+Postdoctoral research in Nonextensive Statistical Mechanics View project
+Giovanna Carneiro
+Schlumberger Limited
+24 PUBLICATIONS   211 CITATIONS   
+SEE PROFILE
+Andre Souza
+Schlumberger Servicos de Petroleo Ltda.
+41 PUBLICATIONS   577 CITATIONS   
+SEE PROFILE
+Austin Boyd
+Federal University of Rio de Janeiro
+73 PUBLICATIONS   588 CITATIONS   
+SEE PROFILE
+Willian A. Trevizan
+Petróleo Brasileiro S.A.
+16 PUBLICATIONS   93 CITATIONS   
+SEE PROFILE
+All content following this page was uploaded by Bernardo Coutinho on 15 March 2019.
+The user has requested enhancement of the downloaded file.
+
+--- PAGE 2 ---
+SPWLA 55th Annual Logging Symposium, May 18-22, 2014 
+1 
+EVALUATING PORE SPACE CONNECTIVITY BY NMR DIFFUSIVE 
+COUPLING 
+Giovanna Carneiro, Andre Souza, Austin Boyd, Schlumberger Brazil Research and Geoengineering Center 
+Lawrence Schwartz, Yi-Qiao Song, Schlumberger-Doll Research Center, Rodrigo Azeredo, Fluminense Federal 
+University, Willian Trevizan, Bernardo Santos, Edmilson Rios, Vinicius Machado, Petrobras Research and 
+Development Center. 
+Copyright 2014, held jointly by the Society of Petrophysicists and Well Log 
+Analysts (SPWLA) and the submitting authors. 
+This paper was prepared for presentation at the SPWLA 55th Annual Logging 
+Symposium held in Abu Dhabi, United Arab Emirates, May 18-22, 2014. 
+ABSTRACT 
+Nuclear magnetic resonance (NMR) measure -
+ments have been used as a way to evaluate 
+reservoir rocks based, on the longitudinal and 
+transverse relaxation time s, T1 and T2, and the time 
+dependent diffusion coefficient , D(t). Relaxation 
+time distributions can be related to pore sizes and 
+to the free and bound fluid fraction s. In addition, 
+there are well established equations correlating 
+relaxation times to permeability. Regarding 
+diffusion, a t short times D(t) is linked to the pore 
+volume to surface area ratio while at long times it 
+is related to pore tortuosity. Diffusive coupling 
+between pores complicates the interpretation of 
+NMR measurements because the relaxation time 
+distribution will no longer be an accurate 
+representation of the pore size distribution . On the 
+other hand, analyzing the effects of diffusive 
+coupling can provide inform ation about 
+connectivity within the pore space. In particular, 
+knowing whether the macro -pores are connected 
+to each other or are connected only through the 
+micro-pores would provide valuable insight 
+regarding the permeability. 
+In this work a low -field NMR spectrometer is 
+employed to the NMR response of a micro-porous 
+borosilicate glass bead pack. This material is a 
+good representat ion of bimodal porosity systems. 
+It c onsists of spherical grains with a mean 
+diameter of 150 µm; each of these grains is, itself, 
+porous with an average micro -pore diameter of 0.3 
+µm. The system’s total porosity is 80% and is 
+divided equally between the micro - and macro -
+pores. Numerical simulations using three 
+dimensional models incorporate the effec ts of 
+diffusive coupling between micro - and macro -
+porosity and thus support the interpretation of our 
+measurements. Our experimental results show 
+clear evidence of inter -pore diffusion and, 
+therefore, add new information to conventional 
+one-dimensional studies. 
+We have also applied this methodology to evaluate 
+diffusion and connectivity in sedimentary rocks. 
+Image analysis of thin sections provided the 
+geometric parameters that were used as inputs to 
+the computational models . Once again, we were 
+able to simulate the N MR response and obtain 
+good agreement with l ow-field NMR 
+measurements. 
+INTRODUCTION 
+The use of NMR as a tool to evaluate porous 
+media dates back to the early days of the 
+technique. In 1956 Varian fil ed a patent describing 
+a method to investig ate groundwater in subsurface 
+aquifers (Song, 2013) . Later, Browstein and Tarr 
+(Brownstein, 1979 ) showed how magnetic 
+resonance can probe pore size and shape 
+information through di ffusion and relaxation. 
+Currently, NMR is one of the main logging tools 
+used to evaluate reservoir rocks and is employed 
+to estimate porosity, permeability and free and 
+bound fluid content. 
+NMR measurement s are sensitive to protons in the 
+nuclei of hy drogen atoms in fluid saturated porous 
+media. In the presence of an applied magnetic 
+field, the 1H spins are excited by a radio -frequency 
+(rf) pulse. Once the excit ation is over , the spins 
+will return to their original state; this process is 
+known as relaxation and is described by the 
+longitudinal and transversal decay times – T1 and 
+T2, respectively. 
+Inversion-recovery and the Carr-Purcell-
+Meiboom-Gill (CPMG) pulse sequence s are 
+commonly employed to measure T1 and T2, 
+respectively (Levitt, 2002, Meiboom, 1958) . The 
+
+--- PAGE 3 ---
+SPWLA 55th Annual Logging Symposium, May 18-22, 2014 
+ 
+2 
+fluid rela xation process in a porous material is 
+written as 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+, Eq. 1 
+where T1,2,bulk and T1,2,surface are, respectively, the 
+bulk and surface contributions to the relaxation. If 
+the effects of surface relaxation are relatively weak 
+and if diffusion between pores can be neglected 
+then the surface contribution to the lifetime can be 
+written as 
+ 
+ 
+ 
+ 
+ 
+, Eq. 2 
+where ρ1,2, is the surface relaxivity and S/VP is the 
+surface area to pore volume ratio. For brine 
+contained in restricted geometries (e.g., the pores 
+of reservoir rocks) surface relaxation plays a 
+dominant role and the measured T2 distribution can 
+provide valuable information about the pore space. 
+In the simplest cases o ne might expect that each 
+pore would contribute independently to the 
+observed magnetization decay. The measured T2 
+distribution would then be directly related to the 
+distribution of pore sizes. However, experimental 
+results show this is not always true. Because of 
+diffusion between pores of different sizes, 
+relaxation time distribution curves can be quite 
+different than the underlying distribution of pore 
+sizes (Ramakrishnan, 1999). Therefore, in order to 
+estimate pore sizes from NMR responses, this 
+phenomenon must be taken into consideration. 
+NUMERICAL SIMULATION S 
+In order to simulate t he model’s NMR response 
+random walk ers are used to represent diffusi ng 
+water molecules. Each walker carries a magnetic 
+moment that can be relaxed (killed) when the 
+walker hits the pore-grain interface. For larger 
+pores or vugs the bulk fluid relaxation needs to be 
+taken into account as well . A s this mechanism 
+depends only on the type of saturating fluid but not 
+on the diffusion time, it can be included at the final 
+step. 
+The method applied in this study makes use of 
+variable step size random walks (Zhang et al, 
+2011). For dual porosity systems (such as reservoir 
+rocks with large range of pore sizes) using a fixed 
+step size algorithm would be prohibitively 
+inefficient because the step size would have to be 
+small compared to the size of the throats in the 
+smallest pores. In our variable step size algorithm, 
+the step size is defined as the radius R of the 
+largest sphere that can be drawn around the walker 
+without intersecting the pore wall. The walker 
+goes to a random point in the surface of this sphere 
+and the walker’s clock advances by R2/(6D0), 
+where D0 is the saturating fluid diffusion 
+coefficient. Once more, the radius of the largest 
+sphere is determined and the walker steps 
+randomly. The procedure is repeated until the 
+walker reaches a distance δR to the pore wall, 
+where the algorithm will change into a fixed step 
+size walk. Once inside this shell of width δR, the 
+walker will have two possibilities: stepping until it 
+passes out of the shell and then returns to the 
+variable step algorithm, or stepping until it hits the 
+pore wall (inside the macro - or micro-pore space). 
+When the walker hits the wall it has a probability, 
+γ [0 < γ < 1], of dying (relaxing). γ is related to the 
+surface relaxivity, ρ 1,2, and the diffusion 
+coefficient, D0, according to 
+ 
+ 
+ 
+ , Eq. 3 
+where, ε is the step size when the walker is within 
+the layer of width δR. The time at which the 
+walker dies is recorded and another walker is 
+released at a random location in the pore space. 
+MICRO-POROUS GLASS BEADS 
+Micro-porous glass beads are a good physica l 
+model for dual porosity systems (Figure 1) , such 
+as complex reservoir rocks. These are a 
+commercial material used in liquid 
+chromatography and are easily found in different 
+grain sizes. We have selecte d borosilicate beads 
+with a mean diameter of 150 µm. The system’s 
+total porosity is 80% which is equally divided 
+between micro - and macro -porosity. According to 
+the manufacturer’s specifications, the system’s 
+pore volume to surface area ratio is VP/S = 0.31 
+m. 
+The packed micro -porous beads were saturated 
+with water and experiments were carried out to 
+measure the T2 relaxation spectrum and time 
+dependent diffusion coefficient , D(t). Measure-
+ments were carried out in a Magritek Inc. Rock 
+
+--- PAGE 4 ---
+SPWLA 55th Annual Logging Symposium, May 18-22, 2014 
+3 
+Core Analyzer operating at 2.01 MHz. For the T2 
+measurement, a CPMG experiment with 64 scans, 
+1024 echoes and 400 µs echo spacing was 
+performed. T o measure D(t) a pulsed -field 
+gradient stimulated echo ( Tanner, 1970 ) was 
+employed. G radient pulses were applied for 4 ms, 
+the gradient strength was varied from 0 to 45 G/cm 
+and diffusion times, t, ranged from 12 to 100 ms. 
+ 
+Fig. 1 Scanning electron microscope image of the 
+interior of the micro -porous glass beads used in 
+this study. (Millipore.com, 2014) 
+For the first tests on simulating the system’s NMR 
+response, the Micro-Grain Consolida tion (µ -GC) 
+model ( Ramakrishnan, 1999, Zhang, 2011) was 
+used. This model is based on a three -dimensional 
+packing of overlapping spheres which are, in turn, 
+comprised of m icro-spheres ( Figure 2 ). This 
+allows us to represent mixed -porosity systems, 
+such as rocks with bimodal pore size distributions. 
+The grains are arranged on a cubic lattice and by 
+adjusting the radius of the macro and micro -
+spheres (i.e., the degree of overlap) one can 
+control the macro - and micro -porosity of the 
+system. The center to center distance can also be 
+changed and is related to the over -all pore size. A 
+scale factor controls the mismatch betw een the 
+macro- and micro-grids. 
+ 
+Fig. 2 Micro-Grain Consolidation model. On the 
+left, the three -dimensional packing of macro -
+grains and, on the right, the unit cell and the 
+micro-spheres contained within each macro-grain. 
+However, the simulation results did not match the 
+measured D(t) data. (Figure 3). From the scanning 
+electron microscope image shown in Fig ure 1 
+(Millipore.com, 2014 ) it is clear that the micro -
+porous region is not well represented by 
+overlapping grains. As an alternative, we 
+proposed a Swiss Cheese geometry in which the 
+micro-porous region is represented in terms of 
+overlapping spherical pores (rather than grains). 
+Calculations based in this model yielded much 
+better results (Figure 3). 
+ 
+Fig. 3 Experimental and simulated diffusion 
+coefficients ( D) for diffe rent diffusion times ( t). 
+The red dots are the experimental data, with t 
+ranging from 12 to 100 ms. The blue and black 
+lines are the simulated data, the black line is the 
+result from the µ -GC model (with spherical micro -
+grains) and the blue line is the res ult from the 
+Swiss Cheese geometry (spherical micro-pores). 
+The Swiss Cheese geometry was also used to 
+calculate t he T1 and T2 lifetime distributions. In 
+these calculations the values of 1 and 2 were 
+adjusted to give the best fit and we see from 
+Figure 4 that the comparison to the measured 
+distributions is quite good. Both the experimental 
+and simulated magnetization data were processed 
+with a Fast Laplace Inversion algorithm (Song, 
+2002) to produce the T2 distribution curves. 
+One feature of the distri butions shown in Fig. 4 is 
+quite important. Even though the micro - and 
+macro-pores represent equal volumes, the T2 
+distribution does not show two peaks with equal 
+weight. Indeed, this is the signature of diffusion 
+between the two sub -populations in the p ore space 
+Unit Cell
+Micro-porous 
+grains
+
+--- PAGE 5 ---
+SPWLA 55th Annual Logging Symposium, May 18-22, 2014 
+ 
+4 
+(Ramakrishnan, 1999). Note that for the T1 
+distribution there is only a single broadened peak; 
+looking only at this distribution one would not 
+suspect the presence of two pore populations. 
+ 
+Fig. 4 Experimental (full lines ) and calculated 
+(dashed lines ) T2 (blue lines) and T1 
+(red lines) 
+spectrum for the micro-porous glass beads. A very 
+good agreement between the data is observed. 
+In the next paragraphs, we describe the application 
+of numerical simulations to the original µ-GC 
+model (with spherical micro-grains) to 
+sedimentary rocks. 
+IMAGE ANALYSIS 
+The geometrical parameters used as input to the µ-
+GC model are obtained through image analysis of 
+thin sections. For each sample to be tested, a 
+picture of the most representative area of the thin 
+section is taken and processed. First, the visible 
+macro-porosity (blue area) is counted and then 
+micro-porosity is estimated by comparing this 
+value to the gas porosity data. A binary image is 
+created with the thin section pictures and grain and 
+ 
+Fig. 5 On the left, the original thin section picture 
+of the Silurian dolomite rock, where the blue area 
+is the blue epoxy filled porosity. O n the right, the 
+binary image extracted used to measure pore sizes , 
+with pores in black. 
+pore siz es and aspect ratios are measured. In 
+Figure 5 it is shown the binary image for 
+evaluating the pores extracted from the thin 
+section for the Silurian sample. 
+ROCK SAMPLES 
+For the samples we have evaluated (Silurian 
+Dolomite, Indiana Limestone, Red Massil lon and 
+Berea) we have tested only the µ-GC geometry 
+with spherical micro -grains. The ρ2 value used for 
+the simulations were obtained through a Padé 
+fitting of experimental D-T2 maps, as described by 
+Souza (Souza, 2013) and are listed in Table 1, 
+together with porosity and permeability measured 
+for the samples by Helium injection. 
+Table 1. Basic properties for the rock samples. 
+Sample ρ2 
+(µm/s) 
+Gas 
+porosity 
+(p.u.) 
+Gas 
+permeability 
+(mD) 
+Silurian 7 18.3 324.4 
+Indiana 8 15.1 157.1 
+Red 
+Massillon 26 22.8 2,641.6 
+Berea 16 20.6 238 
+ 
+Before the NMR measurements, the samples were 
+saturated with a 50,000 ppm KCl brine. In a Maran 
+Ultra by Oxford Instruments (UK), operating at a 
+Larmor frequency of 2 MHz for 1H, CPMG 
+experiments were carried out with an echo spacing 
+time of 400 µs and the acquisition of 32 scans. The 
+resulting decay curves were processed following the 
+same procedure as for the glass beads. 
+In our numerical simulations the gas porosity and the 
+surface relaxivity values, ρ2, were kept fixed for each 
+sample. Given the value of ρ2 we estimated the size 
+of the micro-pores. The macro-pore dimensions and, 
+if necessary, the weighting of micro - and macro -
+porosity were then varied to get the best agreeme nt 
+with the measured T2 distributions. We found that the 
+micro- and macro-porosities obtained from the thin 
+section images could not be used directly in the 
+simulations. This may be a consequence of the 
+relatively small area covered by the images. The 
+values of macro-porosity used in the simulations are 
+compared to those derived from image analysis in 
+Table 2. 
+
+--- PAGE 6 ---
+SPWLA 55th Annual Logging Symposium, May 18-22, 2014 
+5 
+ 
+Fig. 6 Overlap of experimental and simulated T2 
+distributions for the four rocks analyzed. The 
+match between the measured and calculated data is 
+quite satisfactory. 
+Table 2. Total porosity and macro -porosity 
+fraction determined by Image Analysis and by the 
+simulations for the four samples. 
+Sample 
+Total 
+porosity 
+(p.u.) 
+Macro-porosity 
+fraction (p.u.) 
+Image 
+Analysis Simulation 
+Silurian 18.3 8.0 8.1 
+Indiana 15.1 3.4 7.5 
+Red 
+Masillon 22.8 15.7 11.5 
+Berea 20.6 8.8 10.2 
+ 
+The magnetization decay curves obtained from the 
+simulations were processed as before to get T2 
+distributions. A comparison of the experimental and 
+calculated distributions is shown in Figure 6. 
+Generally the agreement is quite satisfactory. We 
+note that in all cases the T2 distributions have a 
+distinct short time component representing the 
+micro-porosity. However, comparing the area under 
+the micro-porosity part of the distribution with the 
+numbers presented in Table 2, we see that in all four 
+cases there is clear evidence for coupling between 
+the micro- and macro-pores. Indeed, the behavior of 
+these rocks is qualitatively similar to micro -porous 
+glass bead results shown in Fig. 4. In all four rocks 
+the fraction of micro-porosity is roughly 50% but the 
+area under the short time feature of the T2 
+distributions is considerably smaller. 
+To further illustrate this point, we can repeat the 
+simulations with a barrier that separates the micro- 
+and macro-pores and eliminates diffusi on between 
+these populations. Results for the Indiana limestone 
+are presented in In Fig. 7. If we measure to the left 
+and right of the minimum in the barrier distribution, 
+we see that the areas under the micro- and macro-
+peaks are now roughly equal. In addition, the 
+position of the macro -peak has shifted to longer 
+times. By contrast, the position of the micro-peak is 
+essentially unchanged; most of the micro -pore 
+relaxation occurs deep within the large micro-porous 
+grain and is unaffected by the barrier. This shift 
+implies that estimating pore sizes directly from the 
+NMR T2 distribution can be difficult because 
+diffusive coupling shifts the position of the peak that 
+represents the larger pores. This point is reinforced if 
+we compare the T2 distribution with MICP data (Fig. 
+8) for Indiana limestone. The MICP measurements 
+10
+-4
+10
+-3
+10
+-2
+10
+-1
+10
+0
+10
+10
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+T2 (s)
+Amplitude (a.u.)
+ 
+ 
+Experimental
+Simulation
+Berea
+10
+-4
+10
+-3
+10
+-2
+10
+-1
+10
+0
+10
+10
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+T2 (s)
+Amplitude (a.u.)
+ 
+ 
+Experimental
+Simulation
+Red Massillon
+10
+-4
+10
+-3
+10
+-2
+10
+-1
+10
+0
+10
+10
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+T2 (s)
+Amplitude (a.u.)
+ 
+ 
+Experimental
+Simulation
+Silurian
+10
+-4
+10
+-3
+10
+-2
+10
+-1
+10
+0
+10
+10
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+T2 (s)
+Amplitude (a.u.)
+ 
+ 
+Experimental
+Simulation
+Indiana
+
+--- PAGE 7 ---
+SPWLA 55th Annual Logging Symposium, May 18-22, 2014 
+ 
+6 
+clearly indicate that, in the T2 distribution, the large 
+pores are shifted to smaller lengths. These 
+considerations are especially relevant because it is 
+the large pores that are most important in estimating 
+permeability. 
+ 
+Fig. 7 For Indiana Limestone the measured T2 
+distribution is compared to two simulations, one of 
+which eliminate diffusive coupling. 
+ 
+Fig. 8 For Indiana limestone we use ρ2 to 
+transform the time scale for the experimental T2 
+distribution to a pore radius (radius=2. ρ2.T2) and 
+then compare to MICP data (both areas are 
+normalized to 1). 
+CONCLUSIONS 
+The µ-GC model together with random walk 
+simulations is able to represent the essential 
+features of the measured NMR properties of the 
+different systems, both synthetic and natural, we 
+have investigated here. Our results indicate that 
+diffusive coupling (i.e., di ffusion between large 
+and small pores) is important in all these systems. 
+In subsequent work we will develop per meability 
+models that take account of the linkage between 
+micro- and macro-pores in these complex systems. 
+REFERENCES 
+Brownstein, K.R. and Tarr, C.E., 1979, importance 
+of classical diffusion in NMR studies of water in 
+biological cells: Physical Review A, 19, 2446-2453. 
+Levitt, M.H., 2002, spin dynamics: basics of nuclear 
+magnetic resonance: John Wiley and Sons LTD. 
+Meiboom, S. and Gil, D., 1958, modified spin-echo 
+method for measuring nuclear relaxation times: 
+Review of Scientific Instruments, 29, 688-691. 
+Millipore.com., 2014. CPG - Millipore. [online] 
+Available at: 
+http://www.millipore.com/catalogue/item/cpg3000bkg 
+[Accessed: Jan 2014] 
+Ramakrishnan, T.S., Schwartz, L.M., Fordham, E.J., 
+Kenyon, W.E., Wilkinson, D.J., 1999, forward 
+models for nuclear magnetic resonance in carbonate 
+rocks: The Log Analyst, 40, 260-270. 
+Song, Y.-Q., Venkataramanan, L., Hürilimann, M. 
+D., Flaum, M., Frulla, P. and Straley, C., 2002 T1-T2 
+correlation spectra obtained using a fast two -
+dimensional Laplace inversion: Journal of Magnetic 
+Resonance, 154, 261-268. 
+Song, Y .-Q., 2013, magnetic resonance of porous 
+media (MRPM): a perspective: Journal of Magnetic 
+Resonance, 229, 12-24. 
+Souza. A., Carneiro, G., Zielinski, L., Polinski, R., 
+Schwartz, L., Hurlimann, M., Boyd, A., Rios, E.H., dos 
+Santos, B.C.C., Trevizan, W.A., Machado, V.F., 
+Azeredo, R.B.V., 2013, permeability prediction 
+improvement using 2D NMR diffusion -T2 maps: In 
+SPWLA 54th annual logging symposium. 
+Tanner, J.E, 1970, u se of the stimulate d echo in 
+NMR diffusion studies: Journal of Chemical Physics, 
+52, 2523-2526. 
+Zhang, Z., Johnson, D.L. and Schwartz, L.M., 2011 
+simulating the time -dependent diffusion coefficient 
+in mixed-pore-size materials. Physical Review E, 84, 
+031129. 
+
+--- PAGE 8 ---
+SPWLA 55th Annual Logging Symposium, May 18-22, 2014 
+7 
+ABOUT THE AUTHORS 
+Giovanna Carneiro 
+Giovanna Carneiro is a Research Associate at 
+Schlumberger Brazil Research and Geoengineering 
+Center. She has a M .S. in Chemistry from Federal 
+University of Espirito Santo, Brazil, and is currently a 
+Ph.D. student at Chemistry Department at Federal 
+Fluminense University. Giovanna joined Schlumberger 
+in 2011 as an intern at Schlumberger -Doll Research in 
+Cambridge, Massachusetts. 
+Andre Souza 
+Andre Souza is a Research Associate at Schlumberger 
+Brazil Research and Geoengineering Center. Andre has 
+a M.S. and a Ph.D. in Material Science and Engineering 
+from University of Sao Paulo, and a B .S. in 
+Engineering Physics from Federal University of Sao 
+Carlos. Andre joined Schlumberger in 2010 as an intern 
+at Schlumberger -Doll Research in Cambridge, 
+Massachusetts. 
+Austin Boyd 
+Austin Boyd is currently Petrophysics Program 
+Manager at Schlumberger Brazil Research and 
+Geoengineering Center, in Rio de Janeiro. Prior to 
+moving to Brazil, he was Program Manager for 
+Petrophysics at Schlumberger -Doll Research. Before 
+moving to research, he held a variety of positions in 
+interpretation development in the US and the Middle 
+East. He joined Schlumberger in 1981 as a fie ld 
+engineer after receiving a B.S. in Electrical Engineering 
+from Dalhousie University. 
+Lawrence Schwartz 
+Lawrence Schwartz joined Schlumberger -Doll 
+Research in 1982. He retired in 2009 and has remained 
+with the company as a consultant working on modeling 
+petrophysical properties. Dr. Schwartz began his career 
+as a professor in the Physics Department at Brandeis 
+University. He holds a Ph.D. from Harvard University 
+and a B.S. from the City College of New York. 
+Yi-Qiao Song 
+Yi-Qiao Song joined Schlumberger -Doll Research in 
+1997. He is currently a Scientific Advisor and Manager 
+of NMR and Fluid Analysis. Dr. Song has served as a 
+Consulting Faculty member at Stanford University and 
+as a Miller Fellow at the University of California 
+Berkeley. He has a Ph.D. from Northwestern 
+University and a B.S. from Peking University in China. 
+Rodrigo Bagueira de Vasconcellos Azeredo 
+Rodrigo Bagueira de Vasconcellos Azeredo is a 
+Professor in the Chemistry Department at Federal 
+Fluminense University in Niteroi, Rio de Janeir o. He 
+has a M .S. and a Ph .D. in Analytical Chemistry from 
+University of Sao Paulo, and a B .S. of Chemical 
+Engineering from Fluminense Federal University. 
+Professor Rodrigo worked for Petrobras Research 
+Center (CENPES) from 2002 to 2004, before his 
+current position as a professor. 
+Edmilson Helton Rios 
+Edmilson Helton Rios has been working as a 
+petrophysicist for three years at the Petrobras Research 
+and Development Center (CENPES) in Rio de Janeiro, 
+Brazil. He received a BSc degree in applied physics 
+(2009) from the Federal University of Minas Gerais 
+(UFMG), Brazil. He also holds an MSc degree in 
+geophysics (2011) from the National Observatory 
+(ON), Brazil, where he is currently a PhD candidate. 
+Bernardo Coutinho Camilo dos Santos 
+Bernardo Coutinho Camilo dos Santos joined Petrobras 
+in 2010 as a geophysicist and since 2011 works at 
+Petrobras Research and Development Center 
+(CENPES). He has a Ph.D. in Physics from Federal 
+Fluminense University in Niteroi, Rio de Janeiro. 
+Willian Andrighetto Trevizan 
+Willian Andrighetto Trevizan is a geophysicist at 
+Petrobras Research and Development Center 
+(CENPES). He has a M .S. in Physics from Physics 
+Institute of Sao Carlos, University of Sao Paulo, and is 
+currently a Ph.D. student at the same Institute. 
+Vinícius de França Machado 
+Vinícius de França Machado is the Rock Log Seismic 
+Integration Manager at the Petrobras Research Center 
+(CENPES) in Rio de Janeiro. He has a joint M.S. from 
+the Federal University of Rio de Janeiro and the 
+University of Texas at Austin, and a B.S. in Civil 
+Engineering from the Rio de Janeiro State University. 
+He joined Petrobras in 2002. 
+View publication statsView publication stats

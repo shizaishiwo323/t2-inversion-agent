@@ -1,0 +1,1265 @@
+--- PAGE 1 ---
+Copyright 2002, Society of Petroleum Engineers Inc. 
+ 
+This paper was prepared for presentation at the SPE Annual Technical Conference and 
+Exhibition held in San Antonio, Texas, 29 September–2 October 2002. 
+ 
+This paper was selected for presentation by an SPE Program Committee following review of 
+information contained in an abstract submitted by the author(s). Contents of the paper, as 
+presented, have not been reviewed by the Society of Petroleum Engineers and are subject to 
+correction by the author(s). The material, as presented, does not necessarily reflect any 
+position of the Society of Petroleum Engineers, its officers, or members. Papers presented at 
+SPE meetings are subject to publication review by Editorial Committees of the Society of 
+Petroleum Engineers. Electronic reproduction, distribution, or storage of any part of this paper 
+for commercial purposes without the written consent of the Society of Petroleum Engineers is 
+prohibited. Permission to reproduce in print is restricted to an abstract of not more than 300 
+words; illustrations may not be copied. The abstract must c ontain conspicuous 
+acknowledgment of where and by whom the paper was presented. Write Librarian, SPE, P.O. 
+Box 833836, Richardson, TX 75083-3836, U.S.A., fax 01-972-952-9435. 
+ 
+Abstract 
+We develop a numerical algorithm to simulate nuclear 
+magnetic resonance (NMR) measurements in the presence of 
+constant magnetic field gradients. The algorithm is based on 
+Monte Carlo conditional random walks in restricted and 
+unrestricted space. Simulations can be performed of three-
+dimensional (3D) porous media that include both arbitrary 
+bimodal pore distributions and multi-phase fluid saturations. 
+The ability to account for the pres ence of a constant external 
+magnetic field gradient allows us to replicate actual well 
+logging conditions that include the effect of CMPG pulse 
+sequences at a microscopic level. This is accomplished by 
+simulating pulse acquisition techniques that include multiple 
+inter-echo times ( TE) similar to those currently used by the 
+well-logging industry. Benchmark examples are presented to 
+validate the accuracy and internal consistency of our algorithm 
+against previously published results for the case of a null 
+magnetic field gradient. Valid ation examples are also 
+presented against actual NMR measurements performed on 
+core samples of carbonate rock formations. 
+Interpretation work is focused to the petrophysical 
+assessment of both partial oil/water saturations and pore 
+structures exhibiting hydraulic coupling. Simulation examples 
+are designed to quantify whether the inclusion of diffusion 
+under a magnetic field gradient can improve the interpretation 
+of multi-phase fluid saturations when hydraulic coupling is 
+significant. The simulation algorithm sheds light to new NMR 
+data acquisition strategies that could be used to improve the 
+detection and quantification of (a) fluid types, (b) complex 
+fluid saturations, and (c) complex pore geometries. 
+Introduction 
+Presence of hydraulic (or diffusion) pore coupling in 
+carbonate rocks (mainly grainstones) challenges conventional 
+NMR interpretation techniques. Although pore coupling 
+phenomena are commonplace in th e majority of rock pore 
+systems, they become relevant to assess NMR measurements 
+when the following three c onditions are met: (a) micro-
+porosity regions are present within the grains, (b) micro-pores 
+are hydraulically well connected (not cemented) to outer 
+macro-porous regions exhibiting low surface-to-volume ratios, 
+and (c) rock surface relaxivity is low enough to prevent decay 
+of proton magnetization within the macro-porosity before 
+protons can enter the micro-porous regions. In addition, fluid 
+diffusivity must be sufficiently large in order for hydraulic 
+coupling to be significant within the time scale of NMR 
+measurements. This is usually the case only for water and light 
+hydrocarbons. As a result, fluid magnetization will be 
+exchanged between micro- and macro-pore regions, and no 
+obvious relationship will exist between NMR transverse 
+relaxation (T
+2) distribution and pore-size distribution. Figure 
+1 illustrates conditions (a) and (b) described above with an 
+example of scanning electron mi croscope (SEM) images of a 
+carbonate rock exhibiting hydraulic coupling. 
+Varying inter-echo times ( TE) is a common NMR data 
+acquisition technique used for in-situ reservoir fluid 
+identification1,2,3. However, in the case of NMR measurements 
+performed in carbonate rocks, there exist no published reports 
+dealing with the impact of diffusion coupling on hydrocarbon 
+typing and quantification using multiple- TE logging 
+techniques. The objectives of this paper are twofold: (a) to 
+develop a simulation algorithm capable of reproducing NMR 
+measurements in complex pore geometries under a variety of 
+experimental conditions and, in particular, under the influence 
+of a constant magnetic field gradient, and (b) to provide 
+simulation examples that will help assess the validity of fluid 
+phase discrimination using multi- TE measurements in porous 
+media exhibiting hydraulic coupling. 
+In the past, numerical models of NMR decay have been 
+proposed based on periodic bimodal packs of spheres that 
+accounted for surface relaxation e ffects. We have reproduced 
+and extended Ramakrishnan et al.
+4’s Monte Carlo algorithm to 
+account for the effect of an external constant magnetic field 
+ 
+SPE 77399 
+Quantification of Multi-Phase Fluid Saturations in Complex Pore Geometries From 
+Simulations of Nuclear Magnetic Resonance Measurements 
+E. Toumelin, SPE, C. Torres-Verdín, SPE, The University of Texas at Austin, and S. Chen, SPE, Baker Atlas 
+
+--- PAGE 2 ---
+2 E. TOUMELIN, C. TORRES-VERDIN, AND S. CHEN SPE 77399 
+gradient of the type enforced by modern NMR tools, and in 
+the presence of a non-wetting phase. The first part of this 
+paper introduces the Monte Carlo simulation algorithm 
+applicable to a bimodal pack of spheres in the presence of a 
+constant magnetic field gradient. A subsequent section 
+describes examples of numerical simulation that illustrate the 
+versatility of the algorithm. Finally, we derive and interpret 
+simulation examples intended to address specific issues of 
+fluid discrimination using multiple inter-echo times in the 
+presence of diffusion coupling. We address four specific cases 
+of NMR T
+2 distributions (two unimodal and two bimodal) by 
+modeling several possible combinations of pore structure, 
+hydraulic coupling, and fluid distribution. These case studies 
+were designed such that different pore configurations created 
+identical NMR signal at low values of TE, but did exhibit 
+differences at high values of TE. 
+ 
+Model for the Simulation of NMR Decay 
+The algorithm developed to simulate numerically NMR 
+magnetization decay in carbonate rocks makes use of 
+conditional Monte Carlo random walks. It is based on the 
+algorithm presented by Ramakrishnan et al.
+4, further 
+generalized to include a microscopic description of diffusivity 
+effects in the presence of a constant magnetic field gradient
+5. 
+The porous medium can either include micro-and macro-
+porous regions (grainstone model) to form a bimodal pore 
+distribution, or can exhibit a single pore size with solid grains 
+(wackestone model). 
+ 
+Model geometry. The simulation model was constructed with 
+a three-dimensional (3D) bimodal pack of spheres that 
+replicates the complex pore-structure geometry encountered in 
+some carbonate formations, namely micro-porous grainstones, 
+where the solid micro-grains are arranged into packs. As in the 
+example shown in Fig. 1 , the model adopted for the 
+simulations accounts for a micro-porosity region immediately 
+surrounding the grains, while different types of macro-
+porosities (characterized by different sizes and degrees of 
+cementation, depending on diagenesis) exist between the 
+packs. The geometrical construction of the 3D model of a 
+bimodal pack of spheres is based on the following 
+assumptions: 
+- Bimodal pore-size distribution, 
+- Periodic geometry, 
+- Isotropic pores, 
+- Spherical, compacted micro-grains, and 
+- Spherical, compacted grain packs. 
+At the micro- (respectively, macro-) scale, each grain 
+(respectively, grain pack) of the model is defined as a sphere 
+inscribed into a concentric cubic cell. If the sphere does not 
+completely fill its cubic unit, then the complementary volume 
+is considered filled with fluids. Furthermore, fixed blobs 
+centered in the macro-pore space can be included in the model 
+to represent partial saturations of immiscible non-wetting oil 
+phase, while the micro-porosity can only be filled with 
+irreducible water. Figure 2 shows a 3D period of the assumed 
+bimodal pore structure. A large variety of pore sizes can be 
+modeled by adjusting the values of the grain (or grain pack) 
+radii, and the sizes of the corresponding cubic cells. 
+Unimodal pore-size distributions can be constructed with 
+the same basic model by allowing no micro-porosity. The 
+NMR response of uncoupled bimodal pore structures, i.e., 
+porous media where no hydraulic coupling occurs, can be 
+simulated by superimposing th e response of each isolated 
+pore mode. 
+ 
+Dual random-walk strategy. At each iteration of the NMR 
+numerical simulation algorithm, a fictitious proton is 
+randomly chosen in the available pore space. This proton is 
+thereafter displaced to a new lo cation yielded by a continuous 
+random walk operating according to two possible strategies. 
+Depending on the proximity of the proton to the surface of 
+material discontinuity (pore wall or fluid phase interface), 
+either a conventional random-walk strategy, or Zheng and 
+Chiew’s First-Passage-Time technique
+6 can be implemented to 
+displace the proton to its new location. 
+The First-Passage-Time strategy was developed to allow 
+macroscopic jumps in the bulk pore space and hence to speed 
+up the otherwise prohibitively long random-walk process. It is 
+based on the analytical solution of the unbounded diffusivity 
+equation, which yields a stochastic relationship between the 
+mean square displacement, < R 
+2 >, during a given step, and its 
+duration, ∆t, with a maximum of probability close to the free 
+space bulk diffusivity, i.e., 
+t
+RDo
+∆
+><= 6
+2
+. (1) 
+Figure 3 illustrates the selection of the random walk 
+strategy according to the dist ance between the particles and 
+the surrounding fluid boundaries . Grain surface and fluid 
+interfaces constitute the wetting phase boundaries, whereas 
+only the interface between fluids constitutes a non-wetting 
+phase boundary). 
+ 
+Model of diffusive relaxation. In general , the apparent 
+transversal relaxation time T
+2 of the decay of magnetization 
+signal can be written as: 
+DBS TTTT 2222
+1111 ++= , (2) 
+where T2S is the surface relaxation, T2B the bulk relaxation, and 
+T2D the decay rate due to di ffusion in the presence of a 
+gradient field (diffusive relaxation). The Monte Carlo 
+algorithm described by Ramakrishnan et al. 4 takes into 
+account the effect of surface re laxation, but does not include 
+the effect of bulk or diffusive relaxations. On the one hand, 
+T2B is governed by fluid properties, regardless of time or 
+geometry, and therefore can be applied independently from the 
+Monte Carlo simulation process. On the other hand, T2D 
+depends on both NMR experiment al parameters (i.e., inter-
+echo time TE and gradient strength G), and the effective fluid 
+diffusivity D, as suggested by the macroscopic expression 
+
+--- PAGE 3 ---
+ QUANTIFICATION OF MULTIPHASE FLUID SATURATIONS IN COMPLEX PORE GEOMETRIES 
+SPE 77399 FROM SIMULATIONS OF NUCLEAR MAGNETIC RESONANCE MEASUREMENTS 3 
+1222
+2
+12
+−
+
+
+
+
+
+= DTEGT D
+γ , (3) 
+where γ is the proton gyromagnetic ratio. When molecules 
+diffuse through restricted geometries, the otherwise free 
+diffusion is hindered and this causes the observed apparent 
+diffusivity to become time and geometry dependent 7. The 
+effective diffusivity D decays from the bulk (free space) value 
+Do at a rate which depends on tortuosity, time, and pore 
+surface-to-volume ratio. Within micro-porous regions in the 
+micrometer range, for instance, the decay of D is 
+instantaneous to reach an asymptotic value equal to the inverse 
+of the tortuosity of the medium. By considering the diversity 
+of pore sizes within carbonate rocks, it then becomes 
+necessary to track the diffusivity effect through the random 
+walk in order to model diffusive relaxation. 
+Since the magnetization signal acquired by the NMR tool 
+is proportional to the cosine of the spin phases of the fluid 
+protons, we designed the algorithm such that it could track the 
+spin dephasing caused by the constant magnetic field gradient. 
+At time t, a proton spin phase is given by the integral 
+∫∫ =⋅=
+tt
+dttzGdttt
+00
+')'(')'()( γγφ rG , (4) 
+where r is the position of the proton, and the gradient vector G 
+is assumed to point in the z-direction. Due to the stochastic 
+nature of the displacement z while using the First-Passage-
+Time technique, the evaluation of the integral of equation (4) 
+is not trivial. To circumvent this problem, we made use of the 
+phase-shift expression derive d by Gudgjartsson and Patz
+8, 
+which is based on a stochastic formulation of the phase shift 
+created by the gradient. This phase-tracking strategy was 
+designed to honor the CPMG sequence with a sampling rate 
+TE, as described below. 
+ 
+Simulation algorithm. The following algorithmic sequence 
+was applied for each proton a nd at each random-walk step, i, 
+to account for the selection of a displacement strategy and of a 
+CPMG sampling protocol: 
+1. Determine the distance d to the closest material 
+interface 
+2. If d is large, then the proton movement is inscribed in 
+free space and the First-Passage-Time technique is 
+applied
+4,6. Due to the constraint of the TE sequence, 
+the duration ∆t is such that it cannot extend beyond a 
+half-TE period. 
+3. If d is small, then the above algorithm does not 
+converge. Therefore, it must be substituted by a 
+conventional random-walk strategy with fixed 
+infinitesimal displacement ε. 
+4. Regardless of d, the phase shift acquired during this 
+step is given by
+8
+: 
+() ( ) () ii
+ii
+ii ttztzztzGtt −
+
+
+
+
+ −+−+= +
++
++ 1
+1
+1
+2
+)0()()0()()()( γφφ
+Normal()6
+)( 3
+1 iio ttDG −+ +γ , (5) 
+where ti, ti+1 and 0 are the initial instant of the step, 
+the final instant of the step, and the time origin, 
+respectively. In equation (5 ), Normal() is a Gaussian 
+probability density function of zero mean and unity 
+variance. 
+5. When nTEti =+1 , where n is an integer, the phase 
+cosine (i.e., the magnetization of the particle at time 
+nTE) is recorded and added to the sum of signals of 
+all the protons simulated at time nTE. 
+6. When TEnti )( 21
+1 +=+ , where n is an integer, the 
+phase is reversed to honor the RF ( π)y re-polarizing 
+CPMG magnetic pulses. 
+7. If contact is made with a surface of material 
+discontinuity (either gr ain or interface between 
+immiscible fluids), then the proton magnetization 
+decays with a probability equal to9 
+oDp ρε= , (6) 
+where ρ is the surface relaxivity of the interface. If no 
+magnetization decay occurs, then the proton rebounds 
+specularly at the surface of the interface. 
+Once a large-enough number of proton trajectories are 
+simulated with the Monte Carlo algorithm, convergence to the 
+average time solution is insured and a total magnetization 
+signal is output. Generally, a few hundreds to a thousand 
+proton trajectories are needed for convergence, depending on 
+the modeled pore-size distribution. The magnetization signal 
+is subsequently inverted into a transverse relaxation ( T
+2) 
+distribution by means of a curvature-smoothing 
+regularization10 generally used to invert noisy experimental 
+NMR magnetization decays. Figure 4 is a flowchart that 
+graphically describes the details of the Monte-Carlo algorithm. 
+ 
+ 
+Testing and Generalization of the Algorithm. 
+Effect of surface relaxivity on hydraulic pore coupling in 
+the absence of a magnetic field gradient. In order to 
+establish a reference for non-gradient experiments, we first 
+conducted NMR simulations to illustrate the effect of surface 
+relaxivity ρ on diffusion coupling. An inter-echo time TE=1 
+ms was adopted in the presence of a null magnetic field 
+gradient. Figure 5 shows an excellent agreement between our 
+simulation results and those published by Ramakrishnan et al.
+4 
+for similar geometrical and fluid properties. A limitation exists 
+to the accuracy of our simulations for small TE sampling in 
+the case of large values of ρ. The principle of hydraulic pore 
+coupling is brought to light by considering the spatial 
+molecular dispersion illustrated of Fig. 6 . Hydraulic pore 
+
+--- PAGE 4 ---
+4 E. TOUMELIN, C. TORRES-VERDIN, AND S. CHEN SPE 77399 
+coupling increases when ρ decreases: the smaller the value of 
+ρ, the higher the proton exchange, and therefore the higher the 
+magnetization exchange between pores. 
+ 
+Effect of dual fluid saturation on the NMR response of 
+coupled pore modes. When immiscible oil blobs are included 
+in the model, the amount of wetting water available for 
+coupled magnetization is naturally reduced. Therefore, the less 
+the water saturation (Sw), the less the transfer of magnetization 
+between the two pore scales, thereby rendering diffusion 
+coupling negligible. This phenomenon is illustrated in Fig. 7. 
+Again, our simulation results are in very good agreement with 
+those published by Ramakrishnan et al.
+ 4 
+ 
+Comparison with analytical relaxation in free diffusion. To 
+test the consistency and accur acy of the dephasing and phase-
+reversing strategies included in our NMR simulation 
+algorithm, an unbounded medium was simulated with grain 
+diameters tending to zero for both 1-cp and 6-cp oils, at a 
+temperature of 370 K. Results from this simulation exercise 
+are shown in Fig. 8. An almost perfect agreement is found 
+between the macroscopic anal ytical expression given in 
+equation (4), and the microscopic numerical results provided 
+by our Monte Carlo simulation algorithm. Once bulk 
+relaxation is applied to the results of the simulations, the 
+match with analytical values, i.e., 1/(1/ T
+2B+1/T2D), is 
+even closer. 
+ 
+Example of simulations of NMR measurements acquired 
+in a coupled carbonate rock. Under the assumption of 
+hydraulic coupling between existing pore modes, we reached 
+very good agreements between experimental and simulation 
+results. For instance, we were able to consistently calibrate the 
+sphere-pack simulation model to geometrical pore core data
+11. 
+Figure 9 provides an example of such simulations results. The 
+numerical simulations compare very well to experimental 
+NMR measurements, including the case in which a magnetic 
+field gradient is present. Based on the temperature dependence 
+of the parameters D
+o and T2B used in the simulation algorithm, 
+we were able to assess the relative effects of diffusion 
+coupling and temperature on NMR measurements11. 
+ 
+Application of the Simulation Algorithm to Fluid 
+Discrimination with Multiple TE Measurements. 
+NMR T2 distributions acquired in carbonate formations often 
+exhibit either a unimodal or a bimodal pattern. Other than the 
+trivial case in which the saturating fluid is irreducible water, 
+the interpretation of unimodal and bimodal distributions is not 
+straightforward in the presence of non-negligible pore-
+coupling effects. Further, when both wetting (water) and non-
+wetting (oil) phases are present, the overall T
+2 distribution is 
+collectively influenced by all of these mechanisms. Previous 
+work on using multiple- TE logging measurements to identify 
+oil saturation and viscosities 1,2,3 was entirely based on the 
+assumption of uncoupled systems. Several NMR simulation 
+examples were designed in oil/water systems to assess pore-
+coupling effects on multiple- TE NMR data acquisition 
+techniques used for hydrocarbon typing. 
+We consider four central case studies for the 
+simulation/interpretation studies reported in this paper. The 
+four cases are classified according to the T
+2 distribution 
+pattern measured at inter-echo echo times of 0.25 ms, and 
+assuming a magnetic field gradient strength of 15 G/cm. 
+Simulation results are obtained for inter-echo times of 1 and 4 
+ms. According to the formulated hypotheses described below, 
+the models used in the simulations account for either a single 
+pore size (for unimodal and uncoupled bimodal structures) or 
+else two coupled pore sizes (for coupled bimodal structures). 
+The nominal pore sizes, as defined on the corresponding pore-
+size distributions of Fig. 10 through 13, were obtained by 
+adjusting the geometrical dimensions of the unit cells of the 
+periodic models. In all cases, the ratio between grain diameter 
+and concentric cube side was ke pt constant and equal to 1.23, 
+the surface relaxivity at the interface between fluids was 
+neglected, and the grain surface re laxivity was held equal to 3 
+µm/s. Both light (1.5 cp) and medium (6 cp) oil grades were 
+considered as non-wetting flui ds, whose bulk properties are 
+summarized in Table 1. 
+ 
+Case 1: Single T
+2 peak at high T2 values (1000 ms). 
+(Fig. 10) 
+Hypothesis 1 (C1H1): Unimodal pore size distribution 
+only filled with water. The T2 peak shifts to the left due to the 
+increased role played by T2D on the NMR time relaxation for 
+TE=4 ms. 
+Hypothesis 2 (C1H2): Same as C1H1, but including blobs 
+of light oil in the pores. At low TE values, the light-oil bulk 
+relaxation equals the surface relaxation of the water filling the 
+rest of the pore space. In comparison with C1H1, this oil grade 
+decays slower than wa ter with increasing TE. However, the 
+difference in total signal is not noticeable. 
+ 
+Case 2: Single T2 peak at average T2 values (200 ms). 
+(Fig. 11) 
+Hypothesis 1 (C2H1): Unimodal pore size distribution 
+filled with only water. The nominal pore size is smaller than in 
+C1H1. 
+Hypothesis 2 (C2H2): Comparable to C1H2, but with a 
+medium-grade oil and a slightly smaller pore size than in 
+C1H2. Oil bulk relaxation is assumed equal to water surface 
+relaxation within the comp lementary pore space. The 
+dominant oil saturation dictates the NMR behavior of the 
+entire system. Since the bulk relaxation of the prominent oil 
+saturation has a magnitude similar to its diffusive relaxation in 
+bulk space (i.e., D~D
+o), the increment in echo time only 
+slightly modifies its T2 peak value. We remark that the total 
+black curve shown in the corresponding panel of Fig. 12 
+represents the joint response due to both fluids, and masks the 
+NMR response of water peaking at T
+2=100 ms (as in the case 
+C2H1). 
+Hypothesis 3 (C2H3): Bimodal, coupled pore structure 
+with micro- and macro-porosity regions, containing water 
+
+--- PAGE 5 ---
+ QUANTIFICATION OF MULTIPHASE FLUID SATURATIONS IN COMPLEX PORE GEOMETRIES 
+SPE 77399 FROM SIMULATIONS OF NUCLEAR MAGNETIC RESONANCE MEASUREMENTS 5 
+only. This pore system behaves in similar fashion to the 
+unimodal C2H1 case described above, except for the case 
+TE=4 ms in which the T2 peak’s relaxation time is equal to 
+half of that obtained for C2H1 (55 ms vs. 100 ms). This means 
+that hydraulically coupled pores manifest themselves as longer 
+diffusion lengths, whereupon their magnetization signal 
+decays faster than the equivale nt signal due to hydraulically 
+uncoupled systems. In hydraulically uncoupled systems, the 
+macro-pores maintain the total T2 response at values higher 
+than that of micro-pores, whereas in hydraulically coupled 
+systems the contribution due to micro-pore dominates the 
+diffusive process thereby leading to lower decay times. 
+Hypothesis 4 (C2H4): Bimodal, coupled pore structure 
+including medium-grade oil in the macro-porous regions. The 
+oil bulk relaxation is close to that of the coupled response 
+described for C2H3. The presence of medium oil maintains 
+the relaxation value of the T
+2 peak of the entire system higher 
+than its value in C2H3, hence equal to that of the unimodal 
+pores of case C2H1. Since oil o ccupies part of the macro-pore 
+space, less space is available fo r water, whereupon hydraulic 
+coupling becomes weak. On the one hand, presence of residual 
+water causes lower decay times because the proportion of 
+micro-porous borne water is higher in the coupling mode. On 
+the other hand, the oil phase exhibits a T
+2 shift much lower 
+than water when TE increases. Collectively, these two adverse 
+effects make the T2 response of the system just slightly more 
+spread than that of case C2H1. 
+ 
+Case 3: Double T2 peak at low and high values of T2 (50 
+and 1000 ms). (Fig. 12) As mentioned previously, the short T2 
+peak can be solely due to irreducible fluid. Hence, this 
+configuration can only be representative of uncoupled pore 
+systems, or else coupled systems that remain effectively 
+uncoupled by the complete oil saturation of the macro-pores. 
+Therefore, this case is more typical of water-oil mixtures. 
+Hypothesis 1 (C3H1): Bimodal uncoupled pore size 
+distribution, filled with water only. The two distinct T
+2 peaks 
+originating from the pore size segregation converge into a 
+single peak when T2D dominates the NMR response of the 
+system. 
+Hypothesis 2 (C3H2): Bimodal uncoupled pore structure 
+with partial saturation of medium oil. Due to the contrast of 
+relaxation times of the two fluids, for TE=0.25 ms, between 
+the oil peak (in red) and the water peaks ( cf. C3H1), the 
+response of the entire system causes a shift of the T2 value of 
+its macro-porosity peak (500 ms vs. 1000 ms for full water 
+saturation). When TE increases, this shift is reinforced and 
+splits the magnetization between two modes for TE=4 ms. 
+Hypothesis 3 (C3H3): Same configuration as in C3H2, but 
+with light oil. The fact that light-oil bulk relaxation is closer to 
+1000 ms than that of medium oil causes the NMR response at 
+low echo time to be the same as that for full water saturation 
+(C3H1). However, a large T
+2 spread appears at the longest echo 
+times where, on the contrary, water alone causes a sharp, 
+selective T2 decay. The difference between this and the medium 
+oil case C3H2 is very subtle and requires further inspection. 
+Hypothesis 4 (C3H4): Bimodal coupled or uncoupled pore 
+structure, with complete light-oil saturation of the macro-
+pores. This case is mainly ch aracterized by a complete 
+segregation of the oil and water T2 peaks at large echo times. 
+Given the important size contrast between micro- and macro-
+pores (a factor of 40), such a situation provides obvious 
+evidence of the complete satura tion of the macro pores with 
+light oil (see also C4H2). Case C3H4 represents a good-
+quality oil reservoir with no free water, in which case diffusive 
+coupling has a negligible impact on NMR interpretation. 
+ 
+Case 4: Double T2 peak at average and high values of T2 
+(100 and 1000 ms). (Fig. 13) 
+Hypothesis 1 (C4H1): Bimodal uncoupled system, same as 
+C3H1 but with larger micro-pores (which become meso pores). 
+Hypothesis 2 (C4H2): Same configuration as C3H4, with 
+light oil and meso-pores instead of micro-pores. The ratio of 
+macro- to meso-pore size is smaller (i.e., 15) than the ratio of 
+macro- to micro-pore size of case C3H4 (i.e., 40). This 
+difference is enough to explain the fact that in case C3H4 two 
+distinct peaks appear for TE=4 ms, whereas in case C4H2 the 
+water magnetization exhibits d ecay times too close from the 
+oil magnetization. In consequence, the total system response 
+exhibits a single, largely spread T2 peak. We conclude that the 
+criterion of reservoir quality derived in case C3H4 (two 
+distinct T2 peaks at long TE) is only valid in the presence of 
+micro-porosity. 
+Hypothesis 3 (C4H3): Unimodal pore structure, partially 
+filled with light oil. The main objective of this simulation case 
+is explore a difference with case C4H2 where, despite the 
+same effective pore size left for water (same peak relaxation at 
+TE=0.25 ms), the actual pore size and structure are completely 
+different. It is observed that the unimodal pore structure 
+exhibits a response at long echo times. Consequently, a more 
+pronounced difference arises between the oil peak and the 
+water peak. However, as shown by case C3H4, the pattern is 
+not unique. 
+Hypothesis 4 (C4H4): Bimodal, hydraulically coupled 
+pore structure partially saturated with light oil. As discussed 
+earlier, a 100-ms T
+2 peak can be the result of hydraulic 
+coupling between micro- and macro-pores. In the presence of 
+both irreducible water and partial light oil saturation, when TE 
+increases this coupled system exhibits an important transfer of 
+magnetization toward short relaxation times. Transfer of 
+magnetization is such that the presence of oil is only 
+evidenced by a tail toward long T
+2 of the total response at high 
+values of TE. 
+Hypothesis 5 (C4H5): This case is constructed with the 
+same uncoupled pore configuration as in C4H1, except for the 
+partial saturation of the macro-porous region with light oil. By 
+direct comparison with the simulation results obtained for case 
+C4H4, we remark that, in similarity with cases C3H2/C3H3, 
+the coupled case C4H4 is not more amenable to phase 
+discrimination than the uncoupled case C4H5. However, this 
+fundamental difference, based on the transfer of the macro-
+porous borne magnetization to shorter values of T
+2, suggests a 
+
+--- PAGE 6 ---
+6 E. TOUMELIN, C. TORRES-VERDIN, AND S. CHEN SPE 77399 
+practical way to discriminate between the coupled or 
+uncoupled nature of the pore structure. 
+ 
+Conclusions 
+A novel numerical algorithm was developed to simulate NMR 
+measurements acquired in the presence of a constant magnetic 
+field gradient. The geometrical and petrophysical model of 
+rock formations included dua l fluid saturations and dual 
+porosity structures. We applied this simulation algorithm to a 
+number of examples of porous media systems and successfully 
+reproduced actual NMR measurements acquired in complex 
+pore geometries exhibiting hydraulic coupling among primary 
+and secondary pores. 
+The algorithm was used to assess the influence of multi 
+inter-echo times in the detection and quantification of partial 
+oil- and water-phase saturations in carbonate rocks. We 
+focused our simulation and interpretation work to cases where 
+a sufficient contrast existed be tween the molecular diffusivity 
+of the saturating fluids. It was found that presence of full light 
+oil saturation in the macro-pores together with water-filled 
+micro-porosity was evidenced by a clear distinction of the 
+corresponding T
+2 peaks at long values of TE. We also found 
+that the presence of diffusive coupling can help to discriminate 
+oil from water. It was observed that it is not always the best 
+choice to use long values of TE for oil identification and 
+saturation estimation in coupled pore systems. Such a standard 
+discrimination method applied to coupled structures may not 
+be suitable for the interpretation of uncoupled pore structures. 
+However, the difference in the NMR response from these two 
+pore systems (coupled and uncoupl ed) constitutes by itself a 
+hint to the geometrical properties of the pore structure. 
+ 
+Nomenclature 
+∆t = duration associated with a First-Passage-Time technique 
+step (ms) 
+ε = unitary displacement of a step of conventional random-
+walk technique applied near the pore wall (nm) 
+γ = proto n gyromagnetic ratio = 2π 4258 rad/(G.s) 
+η = fluid viscosity (cp) 
+ρ = surface relaxivity (µm/s) 
+φ = proton spin phase (rad) 
+D = effective diffusivity (m
+2
+/s) 
+Do = bulk diffusivity (m
+2
+/s) 
+G = strength of external magnetic field gradient applied by 
+NMR tool (G/cm) 
+p = probability of proton ma gnetization decay at fluid 
+surface boundary 
+R = macroscopic displacement of a step of First-Passage-
+Time technique (nm) 
+S/V = surface-to-volume ratio of pore ( µm-1) 
+Sw = water saturation 
+Swir = irreducible water saturation 
+t = time (ms) 
+T2 = total transverse relaxation (ms) 
+T2B = bulk transverse relaxation (ms) 
+T2D = diffusive transverse relaxation (ms) 
+T2S = surface transverse relaxation (ms) 
+TE = inter-echo time of the NMR tool (ms) 
+ 
+Acknowledgements 
+We express our gratitude to Baker Atlas for partially funding 
+this work through an internsh ip position offered to ET during 
+the Summer 2001. We also like to thank Drs. Gigi Zhang and 
+Carl Edwards for useful discussions. Partial support is 
+acknowledged from the Center of Excellence in Formation 
+Evaluation of The University of Texas at Austin, and from the 
+American Chemical Society under grant ACS PRF#37519-
+AC9. The Center of Excellence in Formation Evaluation is an 
+industry research consortium jointly sponsored by Baker 
+Atlas, Halliburton, Schlumberger, and Anadarko. 
+ 
+References 
+1 Chen, S., Georgi, D. T., Olima, O., Gamin, H., and Minetto, J. 
+C.: “Estimation of hydrocarbon viscosity with multiple-TE, 
+dual-TW MRIL logs”, SPE Reservoir evaluation and 
+engineering (December 2000), 3, 6. 
+2 Akkurt, R., et al. : “Enhanced diffusion: Expand the range of 
+NMR direct hydrocarbon-typing applications”, paper GG 
+presented at the 1998 SPWLA Annual Logging Symposium, 
+Keystone, Colorado, May 26-29. 
+3 Looyestijn, W. J.: “Determination of oil saturation from 
+diffusion NMR logs”, paper SS presented at the 1996 SPWLA 
+Annual Logging Symposium, Ne w Orleans, Louisiana, 
+June 16-19. 
+4 Ramakrisnan, T. S., Schwartz, L. M., Fordham, E. J., Kenyon, 
+W. E., and Wilkinson, D. J.: “Forward models for nuclear 
+magnetic resonance in carbonate rocks”, The Log Analyst (July-
+August 1999), 40, 4. 
+5 Toumelin, E.: Monte Carlo simu lations of NMR measurements 
+in carbonate rocks under a constant magnetic field gradient, 
+Master’s thesis, The University of Texas at Austin, Austin, 
+TX (2002). 
+6 Zheng, L. H., and Chiew, Y. C.: “Computer simulation of 
+diffusion-controlled reactions in di spersions of spherical sinks”, 
+Journal of Chemical Physics (1989), 90, 1. 
+7 Coates, G. R., Vinegar, H. J., Tu tunjian, P. N., and Gardner, J. 
+S.: “Restrictive diffusion from uniform gradient NMR well 
+logging”, SPE 26472, 1993. 
+8 Gudgjartsson, H., and Patz, S.: “NMR diffusion simulation 
+based on conditional random walk”, IEEE Transactions on 
+medical imaging (December 1995), 14, 4.Bergman, D. J., Dunn, 
+K.-J., Schwartz, L. M., and Mitra, P. P.: “Self-diffusion in a 
+periodic porous medium: a comparison of different approaches”, 
+Physical Review E (April 1995) 51, 4. 
+9 Bergman, D. J., Dunn, K.-J., Schw artz, L. M., and Mitra, P. P.: 
+“Self-diffusion in a periodic porous medium: a comparison of 
+different approaches”, Physical Review E (April 1995) 51, 4. 
+10 Chen, S., Fang, S., Georgi, D. T., Salyer, J., and Shorey, D.: 
+“Optimization of NMR Logging Acquisition and Processing”, 
+paper SPE 56766 presented at the 1999 SPE Annual Technical 
+Conference and Exhibition, Houston, Texas, October 3-6. 
+11 Toumelin, E., Torres-Verdín, C., Chen, S., Fischer, D. M.: 
+“Analysis of NMR diffusion c oupling effects in two-phase 
+carbonate rocks: comparison of measurements with Monte Carlo 
+simulations”: paper JJJ presented at the 2002 SPWLA Annual 
+Logging Symposium, Oiso, Japan, June 2-5. 
+ 
+ 
+
+--- PAGE 7 ---
+ QUANTIFICATION OF MULTIPHASE FLUID SATURATIONS IN COMPLEX PORE GEOMETRIES 
+SPE 77399 FROM SIMULATIONS OF NUCLEAR MAGNETIC RESONANCE MEASUREMENTS 7 
+ 
+ 
+Fluid η (cp) at 370 K Do (µm
+2
+/ms) T2B (ms) 
+Brine 
+(water) 
+1 2.5 3700 
+Light oil 1.5 1 1000 
+Medium oil 6 0.27 250 
+ 
+Table 1: Summary of bulk fluid properties used for 
+the simulation of NMR fluid saturation effects 
+ 
+ 
+ 
+Fig. 1: SEM images of carbonate rock at 140x (top panel) and 
+1400x (bottom panel) magnifications. A dual porosity structure is 
+clearly evidenced at these two scales: from a diagenetic 
+viewpoint, the grains seen on the top panel were micritized into 
+micro-grains as evidenced on the bottom panel. Therefore, the 
+solid matrix is formed by micro-grains agglomerated into packs 
+or pseudo (micro-porous) macro-grains. 
+ 
+
+--- PAGE 8 ---
+8 E. TOUMELIN, C. TORRES-VERDIN, AND S. CHEN SPE 77399 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig. 2: Three-dimensional representation of the distribution of 
+fluids and rock matrix at the spatial resolution of both macro- 
+and micro-cells. Gas blobs are centered in the macro-pores. 
+Grain compaction is simulated by assigning sphere diameters 
+larger than the concentric cube sizes. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Legend: 
+ 
+ matrix skeleton material discontinuity surface 
+ 
+First-Passage-Time 
+technique used in: 
+Conventional random-walk 
+used in: 
+ 
+water-filled micro-porosity 
+(example of particle P
+1) 
+water-filled porosity (at interface 
+between water and matrix or oil) 
+ 
+water-filled macro-porosity 
+(example of particle P2) 
+oil blob (at interface between 
+water and oil) 
+ 
+oil blob 
+(example of particle P3) 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig. 3: Fraction of a cross-section taken through a pack period. The graph illustrates the criterion used to select a specific random-walk 
+technique according to the location of the particles at the onset of the walk step. A nominal distance of 3 ε is taken as the safety thickness 
+within which the First-Passage-Time technique reverses to a conventional random walk. A wetting layer of thickness LW is also included in 
+order to constrain the rock wettability at the surface of the micro-porous grain (grain pack). 
+Oil 
+Water-filled 
+macro-
+porosity 
+Water-filled 
+micro-
+porosity 
+Grain 
+Top view 
+ 
++ 
+Cmacro 
+ 
+P2 
+ 
++ 
+Oil blob Water 
++ 
+Cmicro 
++ 
+dmacro 
+dblob 
+dmicro 
+3ε 
+3ε 
+3ε 
+LW 
+Water 
+Cblob 
+P1 
+P3 
++ 
++ 
+
+--- PAGE 9 ---
+ QUANTIFICATION OF MULTIPHASE FLUID SATURATIONS IN COMPLEX PORE GEOMETRIES 
+SPE 77399 FROM SIMULATIONS OF NUCLEAR MAGNETIC RESONANCE MEASUREMENTS 9 
+t=0 t=TE t=2TE …
+Echo 1 Echo 2
+π-pulse 1 π -pulse 2
+…
+dmaxsmall?
+Conventional Random Walk
+j = 1, n = 1, t1 = 0, φ = 0 
+i = i + 1
+Particle i: initial position Pi randomly drawn in pore space
+Step j: at onset: Position Pj (3-D)
+Walk time tj
+j = j + 1
+First Arrival Technique
+(Zheng and Chiew, 1988)Yes No
+Model GeometryCPMG Sequence
+Uniformly 
+distributed 
+random 
+variable
+x
+Take <r 2> = dmax2
+∆t = duration of 
+macroscopic step
+<r 2> = mean square 
+displacement of the 
+largest jump from P
+j
+Do = bulk diffusivity
+∆t= x <r2> / Do
+< ∆tmax?
+Take ∆t= ∆tmax
+so that step j 
+stops at nTE
+then
+<r 2> = Do ∆t/ x
+•Spherical 3D displacement of radius √<r2> Æ new position Pj+1
+Time increment ∆t Æ new walk time tj+1 = tj + ∆t
+Dephasing∆φ Æ new phase φj+1= φj + ∆φ
+Spherical 3-D displacement of radius ε
+Æ new position Pj+1
+Æ new walk time tj+1 = tj + ε2/ 6Do
+Pj+1outside of 
+fluid-filled space?
+Calculate: dmax= distance to nearest interface
+∆tmax= time lapse until next TE echo (t=nTE)
+Specular 
+rebound at 
+fluid phase 
+boundary 
+Æ new 
+position Pj+1
+Probability 
+p = ρε / Do
+honored?
+nTE∈ ]tj, tj+1]?
+Generate 
+uniformly 
+distributed 
+variable
+Yes
+No
+Yes
+No
+Yes
+Yes
+No
+Number of 
+particles reached?
+T2
+inversion
+YesNo
+ρ = surface 
+relaxivity
+Do = bulk 
+diffusivity
+Total magnetizationTE 2TE 3TE …nTE
+time
+START
+Total magnetizationTE 2TE 3TE …nTE
+time
+(n-1/2)TE 
+= tj+1?
+Cross π-pulse 
+Reverse the phase
+-φj+1 Æ φj+1
+10 100 1000 10000..
+T2
+(ms)
+Porosity amplitude
+Magnetization signal created by 
+particle i at time nTE = cos(φj+1)
+n = n + 1
+Multiply by
+exp(-t/T2B)
+Yes
+No
+(n-1/2)TE 
+∈ ]tj, tj+1]?
+Cross π-
+pulse 
+Reverse 
+the phase
+-φj+1 Æ φj+1
+Yes
+No
+Particle decays 
+at contact
+between 
+trajectory [Pj
+Pj+1] and 
+material 
+boundary 
+surface
+Dephasing∆φ
+Æ new phase 
+φj+1= φj + ∆φ
+() ( ) () jj
+jj ttzzzzG −
+
+
+
+
+ −+−=∆ +
++
+1
+010
+2γφ
+zPz
+ttDG
+kk
+iio
+⋅=
+−+ +
+ w ith 
+Nor ma l ( ) ,6
+)( 3
+1γ
+i = i + 1
+ 
+ 
+ 
+ 
+Fig. 4: Flowchart of the NMR simulation algorithm used for each fluid phase. In the descriptions, n is the echo index of the CP MG sampling, 
+i is the particle index, j is the step index along particle i’s walk, P j is the 3D position of particle i at the onset of step j, t j is the walk time of 
+particle i at the onset of step j, and φj is the spin phase of particle i at the onset of step j. 
+Simulated NMR decay accounting for 
+surface and diffusive relaxations 
+Simulated NMR decay also 
+including bulk relaxation 
+Simulated NMR T2 distribution 
+
+--- PAGE 10 ---
+10 E. TOUMELIN, C. TORRES-VERDIN, AND S. CHEN SPE 77399 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig. 5: Comparison of simulations of NMR data transformed into equivalent pore-size distributions. (a) Simulations performed wi th our 
+simulation program, and (b) simula tions reported by Ramakrishnan et al .
+4
+, using a single water phase and different values of surface 
+relaxivity ρ. Equivalent pore-size distributions were obtained by multiplying ρ and simulated T2 distributions, and exhibit the importance of ρ 
+in NMR diffusion coupling. Although our algorithm is unable to detect low T2 values in the theoretical case of high ρ values, the agreement 
+between the two sets of simulations is remarkable. 
+ 
+ 
+ 
+Fig. 6: Illustration of the spatial dispersion of fluid particles as a function of surface 
+relaxitivity ρ. Initially, within a period of the dual pack of spheres, dark red dots 
+indicate locations of particles borne by the micro-pore space, whereas light green 
+dots indicate locations of particles borne by the macro-pore space. Final particle 
+positions are either the locations of the particles at their decay, or else current 
+locations of non-decayed particles decayed after a 1-second lapse. 
+ρ=1.5µm/s 
+ρ=7.5µm/s 
+ρ=37.5µm/s 
+ρ=187.5µm/s 
+ρ=937.5µm/s 
+(b) Results of Ramakrishnan et al. 
+(a) Results of our simulations 
+
+--- PAGE 11 ---
+ QUANTIFICATION OF MULTIPHASE FLUID SATURATIONS IN COMPLEX PORE GEOMETRIES 
+SPE 77399 FROM SIMULATIONS OF NUCLEAR MAGNETIC RESONANCE MEASUREMENTS 11 
+ 
+ 
+ 
+Fig. 7: Effect of non-wetting oil saturations on the NMR response 
+of hydraulically coupled systems. Simulation results of (a) our 
+algorithm. and (b) Ramakrishnan et al .
+4
+, obtained for similar 
+coupled geometries. Colored peaks stand for the magnetization 
+within the oil phase, whereas colored lines limit the T2 peaks 
+within wetting water. 
+ 
+ 
+Fig. 8: Comparison of analytical T 2D relaxations (dash) and 
+simulated T 2 distributions (solid) of 1-cp and 6-cp oil grades in 
+unbounded diffusion. The simulation results are considered 
+accounting for no bulk relaxation [before multiplying the output 
+decay by the function exp(-t/T2B)]. T2D values are calculated from 
+equation (3), for TE=0.25, 1, and 4 ms, i.e., 160, 2600, and 
+41500 ms for light oil (1 cp), and 1000, 15000, and 248000 ms for 
+medium oil (6 cp), respectively. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig. 9: Example of comparison of measured and simulated T2 
+distributions in the absence of a magnetic field gradient
+11
+ (G=0), 
+and then with (G=15 G/cm), for echo times of 1 and 2 ms. Blue 
+(respectively, in color) distributions correspond to measurements 
+and simulations performed at irreducible water saturation 
+(respectively, 100% brine saturation). A very good agreement 
+exists in terms of distribution spread for 100% brine saturation 
+and T
+2 peak value for both saturations, especially considering 
+that the exclusively bimodal distribution of the model responsible 
+for the simulated T
+2 peaks sharper than in the measured T2 
+distribution.. 
+1.50 
+NMR porosity (a.u.) 
+10 10 10 10 NMR porosity (a.u.) 
+T2 (ms) 
+T2 (ms) 
+(a) 
+(b) 
+
+--- PAGE 12 ---
+12 E. TOUMELIN, C. TORRES-VERDIN, AND S. CHEN SPE 77399 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig. 10: CASE 1 simulation results. Each row states a hypothesis, symbolizes it in terms of a fluid distribution within the por e system, and 
+presents the results of the corresponding simulations for three valu es of inter-echo time. The first column of graphs summarize s the 
+distribution of fluids in the pore space. Dashed blue (resp. pl ain red) stems represent the porosity fractions of water (resp. oil) in the pore 
+space characterized by the nominal pore sizes described in the hor izontal axis of the plot. Fluid content is indicated in poros ity units. The 
+remaining columns describe the T2 distributions resulting from the simulations with a 15 G/cm gradient, and TE values of 0.25, 1, and 4 ms. 
+Red-filled T2 distributions correspond to the magnetization within oil only, whereas unfilled T2 distributions represent the magnetization 
+within the whole pore system (i.e., including all fluid phases). Total magnetization can be understood as the one acquired with the NMR tool. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig. 11: CASE 2 simulation results. Refer to the caption of Fig. 10 for details on the plotting conventions. Red-filled T2 distributions 
+correspond to the magnetization within oil only, whereas unfilled distributions represent the magnetization within the whole po re system (i.e., 
+also including water). 
+ 
+CASE 1: unimodal 
+distribution, high T2 
+ 
+Hypothesis 1: unimodal 
+pore structure, water only 
+ 
+ 
+ 
+Hypothesis 2: unimodal 
+pore structure, partially 
+filled with light oil 
+CASE 2: unimodal 
+distribution, average 
+T2 
+ 
+Hypothesis 1: unimodal 
+pore structure, water only 
+ 
+ 
+Hypothesis 2: unimodal 
+pore structure, partially 
+filled with medium-grade 
+oil 
+ 
+ 
+Hypothesis 3: coupled 
+pore structure, water only 
+ 
+ 
+ 
+Hypothesis 4: coupled 
+pore structure, macro-
+pores partially filled with 
+medium-grade oil 
+Pore diameter (mm) T2 (ms) T2 (ms) T2 (ms) 
+
+--- PAGE 13 ---
+ QUANTIFICATION OF MULTIPHASE FLUID SATURATIONS IN COMPLEX PORE GEOMETRIES 
+SPE 77399 FROM SIMULATIONS OF NUCLEAR MAGNETIC RESONANCE MEASUREMENTS 13 
+ 
+ 
+Fig. 12: CASE 3 simulation results. Refer to the caption of Fig. 10 for details on the plotting conventions. Red-filled T2 distributions 
+correspond to the oil only, whereas unfilled distributions correspond to the whole pore system (also including water). 
+ 
+ 
+ 
+ 
+Fig. 13: CASE 4 simulation results. Refer to the caption of Fi g. 10 for additional details on the plotting conventions. Red-fil led T2 distributions 
+correspond to the oil only, whereas unfilled distributions correspond to the whole pore system (also including water). 
+CASE 3: bimodal 
+distribution, low/high 
+T2 
+ 
+Hypothesis 1: uncoupled 
+pore structure, water only 
+ 
+ 
+Hypothesis 2: uncoupled 
+pore structure, macro-
+pores partially filled with 
+medium oil 
+ 
+Hypothesis 3: uncoupled 
+pore structure, macro-
+pores partially filled with 
+light oil 
+ 
+Hypothesis 4: coupled or 
+uncoupled pore structure, 
+macro-pores totally filled 
+with light oil 
+CASE 4: bimodal 
+distribution, 
+average/high T2 
+ 
+Hypothesis 1: uncoupled 
+pore structure, water only 
+ 
+ 
+Hypothesis 2: coupled or 
+uncoupled pore structure, 
+macro-pores completely 
+filled with light oil 
+ 
+ 
+Hypothesis 3: unimodal 
+pore structure, partially 
+filled with light oil 
+ 
+ 
+Hypothesis 4: coupled 
+pore structure, macro-
+pores partially filled with 
+light oil 
+ 
+ 
+Hypothesis 5: uncoupled 
+pore structure, macro-
+pores partially filled with 
+light oil

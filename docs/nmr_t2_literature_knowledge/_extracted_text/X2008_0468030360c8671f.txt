@@ -1,0 +1,431 @@
+--- PAGE 1 ---
+Two-Dimensional NMR of Diffusion Systems
+Yi-Qiao Song, Lukasz Zielinski, and Seungoh Ryu
+Schlumberger-Doll Research, 1 Hampshire Street, Cambridge, Massachusetts 02139, USA
+(Received 26 March 2008; published 18 June 2008)
+We consider diffusion in porous media with well-connected pore space for which isolated-pore models
+are insufﬁcient. Explicit pore-to-pore exchange parameters were introduced in recent 2D NMR experi-
+ments. However, such parameters capture only certain aspects of the interpore spin dynamic which, for
+single-ﬂuid saturated media, are wholly determined by diffusion. Here, we develop a theoretical approach
+suitable for a quantitative description of such 2D NMR taking a full account of the underlying diffusion
+modes. We use simple models of one pore and two coupled pores to demonstrate the rich behavior of 2D
+NMR.
+DOI: 10.1103/PhysRevLett.100.248002 PACS numbers: 81.05.Rm, 66.10.cg, 82.56./.0255b
+Connectivity of the pore space in sedimentary rocks
+plays a critical role in the ﬂow of crude oils for petroleum
+extraction. Interconnection between different classes of
+pores in cements and concretes is critical for controlling
+its mechanical and chemical properties. A recent develop-
+ment of 2D NMR [1,2] has shown an exciting possibility of
+characterizing the diffusion of ﬂuid from one pore to
+another in such systems. This is a signiﬁcant progress
+beyond the conventional relaxation measurement (e.g.,
+T
+2), often employed to probe the pore geometry, as the
+latter does not probe the connectivity explicitly. The new
+experiments useT
+1-T2 andT2-T2 correlation spectroscopy
+[3,4] and found that the resulting 2D spectra show signiﬁ-
+cant off-diagonal signals, which are interpreted as evidence
+of diffusion between different pores. The theoretical under-
+standing of such experiments remains incomplete as the
+diffusion within pores is not treated on equal footing with
+the interpore diffusion that is described via a phenomeno-
+logical hopping parameter. As the interpore coupling
+strengthens, the division of the pore space into intra- and
+interpore begins to lose grounds as does any interpreta-
+tional scheme based on such division. Here we provide a
+general theoretical framework for understanding such 2D
+NMR for a porous media, which takes full account of the
+diffusion-based spin dynamics. We demonstrate that such a
+framework provides means to clarify and understand as-
+pects of these experiments in a way free from the limited
+notion of an isolated pore and its variants.
+The differential equation governing the evolution of the
+longitudinal (T
+1) or the transverse ( T2) component of
+nuclear spin magnetization carried by diffusing molecules
+is the well-known Torrey-Bloch equation [5]:
+ 
+@
+@tm/.0133r;t/.0134/.0136Dr2m/.0133r;t/.0134/.0255/.0022m/.0133r;t/.0134; (1)
+where D is the bulk diffusion constant and /.0022is the bulk
+spin relaxation rate.m is the magnetization deviation from
+its equilibrium. The detected signal isM/.0133t/.0134/.0136Rm/.0133r;t/.0134dv.
+Suppressing the bulk relaxation, as it merely adds a con-
+stant decay rate, a solution can be found in the general
+form:
+ m/.0133r;t/.0134/.0136
+X1
+n/.01360
+an/.0030n/.0133r/.0134e/.0255t=Tn; (2)
+where/.0030n andTn are eigenfunctions and eigenvalues of the
+Helmholtz equation
+ /.0030n/.0133r/.0134=Tn /.0135Dr2/.0030n/.0133r/.0134/.01360; (3)
+with the mixed boundary condition at the pore surface:
+D^n/.0001r/.0030n /.0135/.0026/.0030n /.01360 for r 2 /.0006p where ^n is the unit
+vector normal to the pore-matrix interface /.0006p and /.0026is
+the surface relaxivity. The eigenfunctions are normalized
+by/.01331=Vp/.0134Rdv/.00302n /.01361 whereVp is the pore volume. In the
+following, all volume integration should be understood to
+be over Vp, which is taken to be Vp /.01361. The Tn and/.0030n
+can represent the diffusion eigenvalues and eigenfunctions
+of either T1 orT2 processes depending on the experiment
+and will be denoted by T1;n and /.00301;n or T2;n and /.00302;n,
+respectively. The two eigensystems are generally different
+as the surface relaxivity/.0026assumes different values for the
+longitudinal (/.00261) and the transverse (/.00262) dynamics [6].
+Using the completeness and orthogonality of the eigen-
+modes, the amplitude of each mode in the initial magneti-
+zation distribution m/.0133r;0/.0134is given by
+ an /.0136
+Z
+/.0030/.0003n/.0133r/.0134m/.0133r;0/.0134dv: (4)
+Brownstein and Tarr [ 7] investigated the diffusion eigen-
+modes for isolated (closed) pores of elemental geometries
+such as sphere and rectangles, and an extensive body of
+literature exists that has applied their basic techniques to
+various systems. Ryu has further developed a quantum
+mechanics analogy that relates diffusion dynamics in an
+extended pore system to the spectroscopy in a disordered
+environment [ 8]. In general, the Helmholtz equation
+Eq. (3) is of fundamental importance in quantum mechan-
+ics, electromagnetics, and acoustics. The inverse problem
+of determining the geometry of the enclosing space from
+the measured eigenspectrum is at the heart of numerous
+PRL 100, 248002 (2008) PHYSICAL REVIEW LETTERS week ending
+20 JUNE 2008
+0031-9007=08=100(24)=248002(4) 248002-1 © 2008 The American Physical Society
+
+--- PAGE 2 ---
+applications, and has stimulated much theoretical [ 9] and
+experimental [10,11] research.
+We use the diffusion eigensystem to build a theoretical
+framework for experiments such as theT1 /.0255T2 correlation
+shown schematically as
+ /.0025/.0255/.00281|/.0130/.0130/.0130{z/.0130/.0130/.0130}
+T1 relaxation
+/.0255/.0025
+2 /.0255te=2/.0255/.0137/.0025/.0255te/.0138N
+|/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130{z/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130}
+T2 relaxation
+: (5)
+The ﬁrst 180/.0014pulse inverts the nuclear magnetization from
+its initial distribution initiating the T1 relaxation. During
+this period, the magnetization dynamics are described by
+T1 modes; thus, the magnetization at the end of the /.00281
+period is
+ m/.0133r;/.00281/.0134/.0136
+X1
+p/.01360
+ap/.00301;p/.0133r/.0134e/.0255/.00281=T1;p; (6)
+and the coefﬁcient is determined by magnetization right
+after the /.0025pulse, m/.0133r;0/.0134. Since the rf tipping angle is
+uniform on the pore scale, we assume m/.0133r;0/.0134/.0136/.02551.
+After a period of time /.00281, a CPMG pulse sequence
+[12,13] is applied to rotate the magnetization from the
+axis along the external ﬁeld to the transverse plane and
+record the transverse relaxation process. Neglecting the
+relaxation during rf pulses, the magnetization for the
+echo at /.0028
+2 time (after the /.0025=2 pulse)
+ m/.0133r;/.00281;/.00282/.0134/.0136
+X1
+q/.01360
+bq/.00302;q/.0133r/.0134e/.0255/.00282=T2;q; (7)
+wherebq /.0136R/.0030/.0003
+2;q/.0133r/.0134m/.0133r;/.00281/.0134dv. The detected signal is an
+integral ofm/.0133r;/.00281;/.00282/.0134with the rf coil sensitivity, which is
+assumed to be unity. Then the T1-T2 correlation spectrum
+is obtained through two-dimensional Laplace inversion
+[14] of experimental data m/.0133r;/.00281;/.00282/.0134with respect to /.00281
+and /.00282 and its amplitude in the T1-T2 domain will corre-
+spond to
+ 
+S12/.0133T1;T2/.0134/.0136
+X
+p;q
+hfj/.00302;qih/.00302;qj/.00301;pih/.00301;pjii
+/.0002/.0014/.0133T1 /.0255T1;p/.0134/.0014/.0133T2 /.0255T2;q/.0134; (8)
+using the standard bra-ket hji of quantum mechanics for a
+compact and explicit accounting of the sequential order of
+operations. Note that h/.0030j i/.0136Rdv/.0030
+/.0003/.0133r/.0134 /.0133r/.0134and jii and
+jfi represent the initial and the ﬁnal distributions, which
+are both assumed to be uniform here. Experimentally, one
+may employ arbitrary distributions to obtain the S
+12 spec-
+trum weighted differently.
+There are two major features of the spectrum S12. One
+originates from the modes with p /.0136q called diagonal
+features and others with p /.0222q called off-diagonal fea-
+tures. Since the longitudinal and transverse eigensystems
+are only different by surface relaxivity, the T2 and T1
+modes are generally similar, particularly for higher modes.
+Thus the diagonal peaks are almost always stronger than
+the off-diagonal ones, which represent the extent of the
+nonorthogonality of T
+2 and T1 modes. Note also that if
+/.00262 /.0136/.00261, no off-diagonal features should be expected in
+T1 /.0255T2 experiments. Similarly, if both T2 andT1 are in a
+fast diffusion limit, e.g., d/.00261;2=D /.00281 (d is pore size), T2
+andT1 modes are essentially the same and no off-diagonal
+features will be excited. We emphasize that this is the case
+regardless of the geometry of the pore space. A conse-
+quence made clear by this analysis is that, even if the pores
+are interconnected, for systems with/.0026
+1 /.0136/.00262, theT1 /.0255T2
+correlation spectrum will show no off-diagonal peaks. And
+conversely, in a single pore with different /.00261 and/.00262,o f f -
+diagonal peaks may be observed.
+We now examine these notions with an example of one-
+dimensional pore of length L. Figure 1 shows itsT1 /.0255T2
+spectrum, with L/.00261=D /.01360:5, L/.00262=D /.01365, and L2=D /.0136
+1s . We deﬁne K1 /.0017/.00261=D andK2 /.0017/.00262=D, and they are
+the inverse of the length scale that characterizes the
+strength of the surface relaxation. The two peaks indicated
+by the two arrows are the diagonal signals, due to the two
+termsh/.0030
+1;0j/.00302;0i andh/.00301;1j/.00302;1i, respectively. Other peaks
+are off-diagonal signals and the corresponding eigenmodes
+(p,q) are indicated in the brackets.
+When bothLK1 andLK2 are small, 1=T1/.01332/.0134;0 /.0025/.00261/.01332/.0134=L,
+1=T1/.01332/.0134;p>0 /.0025D/.0133p/.0025=L/.01342, the two sets of eigenmodes ( T2
+and T1) are essentially identical and the cross terms be-
+come very small. When both LK1 and LK2 grow very
+large, 1=T1/.01332/.0134;p /.0025D/.0137/.0133p/.01351=2/.0134/.0025=L/.01382, the two sets of
+eigenmodes (T2 andT1) become progressively more inde-
+pendent of /.00261/.01332/.0134and the cross terms again become small.
+When LK1 and LK2 are near unity, the eigenfunctions
+become sensitive toK1/.01332/.0134, and the cross peak gains weight
+(ifK1 /.0222K2), as shown in Fig. 2.
+FIG. 1. T1-T2 spectrum for a one-dimensional pore of lengthL
+withL/.00261=D /.01360:5,L/.00262=D /.01365, and L2=D /.01361s . The relevant
+eigenmodes are indicated for some of the peaks. The dashed line
+is a guide. Note that the cross peaks above the diagonal ( T2 >
+T1) show a negative sign owing to the structure of the eigen-
+functions.
+PRL 100, 248002 (2008) PHYSICAL REVIEW LETTERS week ending
+20 JUNE 2008
+248002-2
+
+--- PAGE 3 ---
+Another type of experiments uses aT1 relaxation period
+/.0001sandwiched between two T2 relaxation periods of dura-
+tion/.0028a
+2 /.0136nte and/.0028b
+2 /.0136mte each:
+ 
+/.0025
+2 /.0255
+/.0020te
+2 /.0255/.0025/.0255te
+2
+/.0021
+n
+/.0255/.0025
+2|/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130{z/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130}
+T2 relaxation /.0133Ta
+2/.0134
+/.0255/.0001/.0255/.0025
+2 /.0255te
+2 /.0255/.0137/.0025/.0255te/.0138m
+|/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130{z/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130/.0130}
+T2 relaxation /.0133Tb
+2/.0134
+:
+(9)
+This sequence rotates the magnetization at the end of the
+ﬁrstT2 period to be parallel to a static ﬁeld B0 by the/.0025=2
+pulse at the end of the period. The magnetization is then
+allowed to relax for time /.0001,a T1 process. Finally, spin
+echoes are detected by the CPMG train in the second T2
+relaxation period. Within the framework described above,
+it is straightforward to write down the evolution of the echo
+amplitudes for this experiment:
+ 
+M/.0133/.0028b
+2;/.0001;/.0028a
+2/.0134/.0136
+X
+p;q;r
+hfj/.00302;pie/.0255/.0028b
+2=T2;ph/.00302;pj/.00301;ri
+/.0002e/.0255/.0001=T1;rh/.00301;rj/.00302;qie/.0255/.0028a
+2=T2;qh/.00302;qjii: (10)
+Thus, Laplace inversion will result in a 2D spectrum:
+ 
+S22/.0133Tb
+2;/.0001;Ta
+2/.0134/.0136
+X
+p;q;r
+h/.00302;pj/.00301;rih/.00301;rj/.00302;qi
+/.0002e/.0255/.0001=T1;rhfj/.00302;pih/.00302;qjii
+/.0002/.0014/.0133Ta
+2 /.0255T2;p/.0134/.0014/.0133Tb
+2 /.0255T2;q/.0134: (11)
+In contrast to the S12, S22 now has a user controlled
+parameter /.0001that can be used to manipulate the weight
+distribution among the modes. For example, when /.0001/.01360,P
+rj/.0030rie/.0255/.0001=T1;rh/.0030rj! 1 and thus
+ 
+S22/.0133Ta
+2;0;Tb
+2/.0134/.0136
+X
+p;q
+/.0014p;qhfj/.00302;pih/.00302;qjii
+/.0002/.0014/.0133Ta
+2 /.0255T2;p/.0134/.0014/.0133Tb
+2 /.0255T2;q/.0134; (12)
+where only diagonal signals survive. When /.0001is long, the
+slowestT1 mode (r /.01360) dominates the evolution and the
+weight distribution will be affected by the nonorthogonal-
+ity h/.00302;pj/.00301;0i between the T1 andT2 modes.
+An example of aT2-T2 single-pore spectrum is shown in
+Fig. 3. Notice that all peaks are positive and the off-
+diagonal peaks show a symmetric pattern as is expected
+from Eq. ( 11). Peaks on both sides of the diagonal line
+corresponding to/.0133p;0/.0134and/.01330;p/.0134up top /.01363 are visible in
+the plot. The lower panel of Fig.3 shows the/.0001dependence
+of the off-diagonal peak /.01330;1/.0134showing a rapid increase
+near /.0001/.00240 and a later decay with the time constant of the
+lowest mode, T1;0 /.01362:34 s. The initial increase is domi-
+nated by the /.00301;1 mode with a time constant of T1;1 /.0136
+0:092 s. This example with a single pore clearly shows
+where the main features of the 2D NMR spectrum originate
+from. The presence of the off-diagonal peaks is due to
+nonorthogonality of T
+1 and T2 modes, which arises from
+K1 /.0222K2.
+Next we examine the spectral effects of interpore con-
+nectivity. Recently, T1-T2 and T2-T2 experiments have
+been used as a probe for the coupling between different
+pores [ 1,2]. Off-diagonal signals were observed in these
+experiments and interpreted as the signature of the pore-to-
+pore diffusion exchange. A heuristic time constant/.0028
+ex was
+deﬁned to describe the diffusion between the pores as
+hopping or chemical exchange.
+Here we numerically compute the eigenmodes of Eq. (1)
+in a coupled two-pore system [ 15] and show that, in the
+FIG. 3. Top: S22 calculated for the 1D-pore model withLK1 /.0136
+0:5, LK2 /.01365, and /.0001/.01361s . Bottom: The amplitude of the off-
+diagonal peak /.01330;1/.0134as a function of /.0001.
+-2 -1 0 1 2 3
+0.05
+0.10
+0.15
+0.20
+FIG. 2. The overlap integral h/.00301;0j/.00302;1i for a range of K1 and
+K2 /.013610K1 (solid line),K2 /.01365K1 (dashed line), and K2 /.01362K1
+(short-dashed line).
+PRL 100, 248002 (2008) PHYSICAL REVIEW LETTERS week ending
+20 JUNE 2008
+248002-3
+
+--- PAGE 4 ---
+T1-T2 experiment, the off-diagonal signal can appear in
+speciﬁc diffusion regimes and that it is sensitive to the
+diffusive coupling. In this model, the diffusion ﬂux be-
+tween the two pores (A andB) is controlled by an effective
+coupling length L
+C and is given by /.0001m=LC (/.0001m is the
+magnetization difference across the interface). The size
+ratio of the two pores was chosen to be LA:LB /.01361:0:121
+[15]. In Fig. 4, three regimes of the interpore coupling are
+shown:LC=LA /.013610/.02552, 5, and106.A tLC=LA /.013610/.02552 (left
+panel), the two pores are fully coupled and the diffusion
+dynamics are similar to a single pore of sizeL
+A /.0135LB; thus,
+the structure of the 2D spectrum is a single peak. For
+L
+C=LA /.0136106 (right panel), the two pores are uncoupled
+and the diffusion dynamics of the two pores are indepen-
+dent. Thus, the 2D spectrum is simply the superposition of
+the two pores, primarily the two peaks corresponding to the
+relaxation modes in each pore, respectively. The peak at
+T
+1 /.00241s is from poreA and the peak atT1 /.00240:1s is from
+LB. A very weak off-diagonal peak at T1 /.00241s and T2 /.0024
+0:01 sis present due to the diffusion within poreA similar
+to Fig. 1; however, it may not be easily seen in the ﬁgure
+given the scale.
+In the intermediate coupling case for LC=LA between 1
+and 10, the diffusion dynamics are more complex and the
+spectrum contains more pronounced off-diagonal peaks.
+AsL
+C increases, the single peak (left panel) splits into two
+near the diagonal, one moves to longer T1 to that of the
+large pore, and one moves to shorter T1 toward the small
+pore. Also, more interestingly, two cross peaks appear at
+two places:T
+1 ofLA andT2 ofLB (positive), andT1 ofLB
+and T2 of LA (negative). The amplitude of these peaks
+grows to a maximum for LC=LA /.00241–10 and then de-
+creases for larger LC.A t LC=LA /.0136106, the two pores are
+decoupled and thus cross peaks disappear.
+Figure 4 shows that the interpore diffusive coupling can
+signiﬁcantly accentuate the off-diagonal peaks that may
+not be visible in a single pore. However, for the appearance
+of these ‘‘exchange’’ cross peaks, just as for the case of a
+single pore, it is necessary to have K
+1 /.0222K2.
+In conclusion, we described a theoretical framework for
+the spin dynamics in a general pore system such as ce-
+ments, rocks, food systems, and granular materials and
+applied it to a single-pore and two coupled-pores systems
+in the context of two-dimensional NMR diffusion-
+relaxation experiments. This framework may accommo-
+date all the relevant diffusion dynamics, such as surface
+relaxation, membrane permeability, and diffusion between
+pores. We demonstrated the richness of the diffusion dy-
+namics that could be further explored for real materials
+with a direct numerical evaluation of eigenmodes [ 16]a s
+well as random-walk simulations. Such 2D NMR is also
+important to polymer and colloid sciences [ 17,18].
+[1] L. Monteilhet, J.-P. Korb, J. Mitchell, and P. J. McDonald,
+Phys. Rev. E 74, 061404 (2006); http://link.aps.org/
+abstract/PRE/v74/e061404.
+[2] K. E. Washburn and P. T. Callaghan, Phys. Rev. Lett. 97,
+175502 (2006); http://link.aps.org/abstract/PRL/v97/
+e175502.
+[3] A. E. English, K. P. Whittall, M. L. G. Joy, and R. M.
+Henkelman, Magn. Reson. Med. 22, 425 (1991).
+[4] J.-H. Lee, C. Labadie, C. S. Springer, Jr., and G. S.
+Harbison, J. Am. Chem. Soc. 115, 7761 (1993).
+[5] H. C. Torrey, Phys. Rev. 104, 563 (1956).
+[6] R. L. Kleinberg, S. A. Farooqui, and M. A. Horsﬁeld,
+J. Colloid Interface Sci. 158, 195 (1993).
+[7] K. R. Brownstein and C. E. Tarr, Phys. Rev. A 19, 2446
+(1979).
+[8] S. Ryu, Magn. Reson. Imaging 19, 411 (2001).
+[9] M. Kac, Am. Math. Mon. 73, 1 (1966).
+[10] Y .-Q. Song, Phys. Rev. Lett. 85, 3878 (2000).
+[11] S. Sridhar and A. Kudrolli, Phys. Rev. Lett. 72, 2175
+(1994).
+[12] H. Y . Carr and E. M. Purcell, Phys. Rev. 94, 630 (1954).
+[13] S. Meiboom and D. Gill, Rev. Sci. Instrum. 29, 688
+(1958).
+[14] Y .-Q. Song, L. Venkataramanan, M. D. Hurlimann, M.
+Flaum, P. Frulla, and C. Straley, J. Magn. Reson. 154,
+261 (2002).
+[15] L. J. Zielinski, Y .-Q. Song, S. Ryu, and P. N. Sen, J. Chem.
+Phys. 117, 5361 (2002).
+[16] A. T. de Hoop and M. D. Prange, J. Phys. A 40, 12463
+(2007); http://stacks.iop.org/1751-8121/40/12463.
+[17] Y . Qiao, P. Galvosas, T. Adalsteinsson, M. Scho¨ nhoff, and
+P. T. Callaghan, J. Chem. Phys. 122, 214912 (2005).
+[18] P. L. Hubbard, K. M. McGrath, and P. T. Callaghan,
+Langmuir 21, 4340 (2005).
+FIG. 4. The 2D NMR T1-T2 spectra of
+coupled pores for different coupling
+lengths: L
+C=LA /.013610/.02552 (left), 5
+(middle), and 106 (right). LAK1 /.01360:5,
+LAK2 /.01362, and L2
+A=D /.01361s .
+PRL 100, 248002 (2008) PHYSICAL REVIEW LETTERS week ending
+20 JUNE 2008
+248002-4

@@ -1,0 +1,1300 @@
+--- PAGE 1 ---
+arXiv:2105.11395v1 [physics.app-ph] 24 May 2021
+NMR of Conﬁned Fluids: a Numerical Study
+using COMSOL with application in
+Petrophysics
+May 25, 2021
+Ivan S. Oliveira
+Brazilian Center for Research in Physics
+Rua Dr. Xavier Sigaud, 150, Rio de janeiro, 22290-180, Brazil
+Contact: ivan@cbpf.br
+Abstract
+Nuclear Magnetic Resonance (NMR) is one of the main experi-
+mental tools to evaluate the production potential of porous rocks in
+oil wells. From the relative areas and mean values obtained f rom
+relaxation time distribution curves, information about ﬂu id content,
+porosity and permeability can be obtained. In this report, a numerical
+study of pulsed NMR of conﬁned ﬂuids using the software COMSO L
+(license 9200972) is presented. This is done by solving the B loch-
+Torrey equations considering surface relaxivity using the “ﬂux/source”
+boundary conditions for diﬀerent geometries, in the fast and slow dif-
+fusion regimes. The study is made for a single ﬂuid and for a mi xture
+of two coupled ﬂuids (McConnell equations), ﬁrst in isolate d pores,
+and then in a “cylindrical porous plug” containing one singl e 20 µ m
+spherical pore surrounded by 800 × 2µ m, unconnected, also spheri-
+cal ones. NMR spectra and transverse relaxation are calcula ted as a
+function of pore sizes and coupling strength between ﬂuids, for single
+π/ 2 pulses, followed by the FFT of the NMR signal (FID), and the
+echo amplitude after a spin-echo pulse sequence, respectiv ely. The
+simulations show that, in the fast diﬀusion regime, pore size s can be,
+1
+
+--- PAGE 2 ---
+in principle, distinguished by transverse relaxation, but even in noise-
+less condition and full control of geometry, only a rough est imate of
+sizes can be obtained. A number of possible follow-up studie s with
+COMSOL are discussed at the concluding remarks.
+Introduction
+The best way to begin this report is, perhaps, stating what it is NOT a bout:
+it is not a treatise on NMR Petrophysics, a subject far complex and d eep.
+But it is not a manual of use of COMSOL, either. So, what is it, then?
+Hopefully it is a motivation for those students or professionals work ing in
+the area of Petrophysics (or any subject involving a porous syste m) and/or
+NMR, seeking new tools which can be used to help understanding the v ery
+rich NMR phenomena inside porous media. The approach here is to exp loit
+the simplest of the NMR experiments to make numerical simulations wit h
+COMSOL, also in the simplest of the geometries, as a “proof of princip le”,
+without going into the inexhaustible list of existing techniques in NMR. S ome
+possible developments are discussed in the Concluding Remarks.
+Nuclear Magnetic Resonance (NMR) is one of the main tools in the in-
+vestigation of petrophysical properties of porous rocks for the determination
+of porosity, permeability and ﬂuid content of natural rocks [1]. NMR data,
+either collected in ﬁeld (NMR logging), or in laboratory, along with othe r
+petrophysical techniques, assist geophysicists, engineers and t echnicians in
+the many million dollars decision of drilling or not an oil well. NMR was
+2
+
+--- PAGE 3 ---
+decisive, for instance, to the discovery of the Brazilian pre salt oil ﬁ eld.
+The two main References which paved the way of NMR to become an
+important petrophysical technique are the 1956 paper by H.C. Tor rey, which
+introduced diﬀusion into the Bloch Equations [2], and the 1979 work b y
+K.R. Brownstein and C.E. Tarr, which applied the so-called Bloch-Torr ey
+equations to the decay of nuclear magnetization decay (usually cha racterized
+by the time constant T2) of conﬁned ﬂuids [4].
+In the rotating reference frame, for a radiofrequency (RF) puls e applied on
+the X −Y plane with arbitrary phase φ, the so-called Bloch-Torrey equations
+can be written, for a single ﬂuid component, in the following matrix for m [3]:
+∂
+∂t
+
+
+
+
+
+
+mx
+my
+mz
+
+
+
+
+
+
++
+
+
+
+
+
+
+1/T2 −∆ ω ω 1 sin φ
+∆ ω 1/T2 −ω1 cos φ
+−ω1 sin φ ω 1 cos φ 1/T1
+
+
+
+
+
+
+
+
+
+
+
+
+mx
+my
+mz
+
+
+
+
+
+
+−
+− D∇2
+
+
+
+
+
+
+mx
+my
+mz
+
+
+
+
+
+
+=
+
+
+
+
+
+
+0
+0
+m0/T1
+
+
+
+
+
+
+(1)
+where m0 is the equilibrium magnetization density, mk(⃗ r, t), k = x, y, z, is
+the kth component of the magnetization density at position ⃗ rand instant
+t, T1 and T2 are, respectively, spin-lattice and spin-spin relaxation times.
+∆ ω is the frequency oﬀset and ω1 the coupling strength to the RF ﬁeld. In
+3
+
+--- PAGE 4 ---
+the following simulations, unless stated otherwise, φ = 0 will be set, which
+corresponds to RF pulses applied along the X direction in the rotating frame.
+However, the general form of Eq.(1) can be used, for instance, t o study the
+eﬀects of phase cycling on the NMR signal.
+The values of relaxation times are strongly aﬀected by pores geome try and
+the interfacial property called surface relaxivity. Indeed, given the boundary
+conditions, simulations aim to obtain the values of T2 for a given geometry
+and ralaxivity. Therefore, the input value of T2 in Eq.(1) will be referred as
+T2in, whereas the output will be labeled simply as T2, or, sometimes, T2out.
+The parameter D is the diﬀusion coeﬃcient (here taken as a scalar),
+which, for bulk water, is D ≈ 2 × 10− 9m2/s [3].
+The NMR observable is the time-dependent magnetization, obtained by
+integrating over the whole volume where the ﬂuid is conﬁned:
+M(t) =
+∫
+V
+m(⃗ r, t)dV (2)
+In the International System of Units, M is measured in A/m and, therefore,
+the unit of m is A/m4.
+The presence of diﬀusion and boundaries introduces a geometric de pen-
+dence on the solutions of Bloch-Torrey equations, whose importan ce was
+correctly picked-up by K.B. Browstein and C.E. Tarr, as explained be low.
+Browstein and Tarr established an important relationship between o ne
+main NMR observable, namely, the spin-spin relaxation time, T2, and the
+4
+
+--- PAGE 5 ---
+geometrical parameters of the conﬁning medium. It is important, h owever, to
+remark that Browstein-Tarr paper does not solve the Bloch-Torr ey equations
+for a RF pulse sequence, what would be a true NMR experiment. Inst ead,
+they assume the free evolution of nuclear magnetization after a π/2 pulse,
+under diﬀusion eﬀects, and propose a multi exponential solution fo r it, as an
+ansatz.
+The truly important insight of Browstein-Tarr was to introduce bou ndary
+conditions at the surface of the conﬁning medium which correctly ca ptures
+the eﬀects of interactions between the ﬂuid nuclear spins with para magnetic
+centers in the solid matrix. For that, they introduce a new paramet er, ρ,
+called surface relaxivity, in the so-called Robin boundary conditions:
+Dˆn · ∇m(⃗ r, t) + ρm(⃗ r, t)|S = 0 (3)
+where ˆn is the unitary vector normal to the surface boundary at position ⃗ r.
+Without the second term, this equation would be a “zero-ﬂux” (Neu -
+mann) kind boundary condition, meaning that no magnetization “leak s out”
+from the volume V . Physically, the main channel of T2-relaxation in a ﬂuid
+bulk are the ﬂuctuations of dipole-dipole interactions between nucle i. The
+above boundary condition introduces a new channel of relaxation a t the walls
+of the conﬁning pores, therefore splitting the ﬂuid in two regions: a bulk re-
+gion and a nanometer-thick layer in contact with the solid surface.
+NMR T2 experiments bring information about porosity, surface ralaxi-
+5
+
+--- PAGE 6 ---
+tivity, wettability and permeability, important petrophysical quantities which
+impact the potential of ﬂuid extraction from an oil-containing porou s rock [1].
+B. Chencarek et al. published a study of petrophysical quantities m easured
+in synthetic rocks with controlled porosity and permeability [8].
+Unfortunately, it is not a simple task to experimentally determine the
+parameter ρ, or to predict it theoretically, but it is usually taken in range
+10–20 µm/s, sometimes higher. Recently, M. Nascimento et al. developed
+a theoretical model which takes explicitly into account microscopic f eatures
+of surface relaxivity [5], and E. Lucas-Oliveira and co-workers est imated ρ
+from T2 distribution and digital rock simulations [6], reporting values of ρ as
+high as 50 µm/s. One interesting statistical approach for relaxation taking
+into account paramagnetic impurities in the solid matrix has been repo rted
+by J.L. Gonzalez and co-workers [7].
+The fundamental result which links spin-spin relaxation time, T2, to a
+porous geometry, and therefore ranks NMR as one of the main pet rophysical
+techniques, can be worked out from the boundary conditions, Eq.( 3), (see
+Ref. [8] for a deduction). It establishes that, in the so-called fast diﬀusion
+regime (see below), the following expression holds:
+1
+T2
+= ρ S
+V (4)
+where S and V are, respectively, the surface and volume of the conﬁning
+pore. For a spherical pore with radius a, this reduces to:
+6
+
+--- PAGE 7 ---
+1
+T2
+= ρ 3
+a (5)
+This expression is valid as long as the diﬀusion during an experiment time
+window τ is such that [4]:
+ρa
+D ≪ 1 (6)
+This condition establishes the so-called fast diﬀusion regime .
+An insightful relation can be obtained by replacing ρ = a/3T2, from Eq.
+(5), into Eq. (6):
+√
+DT2 ≫ a (7)
+The left side is the mean displacement by diﬀusion in the time interval T2.
+This inequality means that, in the fast diﬀusion regime, the spins will pr obe
+the pore walls before the magnetization decays away. This express ion yields
+an useful parameter for numerical calculation.
+From Eq.(4), we see that, in a natural rock with a distribution of por es
+sizes, there will be, accordingly, a distribution of relaxation times. M easur-
+ing a T2 distribution, therefore, should allow obtaining the corresponding
+pore size distribution, characteristic of each rock system. In the presence of
+strong internal ﬁeld gradients, however, as it happens to be the c ase in NMR
+high-frequency experiments, failing to reach the fast-diﬀusion re gime adds
+ambiguity to the problem, as it will be shown below.
+7
+
+--- PAGE 8 ---
+Pulsed-NMR COMSOL Programming
+Two previous publications in which COMSOL was used to study NMR sys-
+tems can be found in Refs. [17, 18], concerning, respectively, stud ies of
+hydrologic parameters of porous rocks, and simulations of pores in ﬂuence on
+NMR signal from human cervical vertebra.
+In the present report, COMSOL (license 9200972) is used to solve t he
+Bloch-Torrey and McConnell equations to simulate the following pulsed NMR
+experiments:
+– NMR spectra, obtained from the FFT of the Free Induction Decay , af-
+ter a π/2 pulse in spherical domains representing the pores, in diﬀerent
+conditions and sizes;
+– Spin-spin relaxation times following the decay of the spin-echo afte r
+a Hahn pulse sequence, in both, fast and slow diﬀusion regimes. Here ,
+an important remark must be done. Hahn sequences are not the be st
+technique to study T2 decay in porous media, particularly in the pres-
+ence of internal magnetic inhomogeneity. The most used technique is
+CPMG. However, as stated at the introduction, it is not the purpos e
+here to investigate the eﬀectiveness or advantages of some NMR t ech-
+niques over others. Magnetic inhomogeneity is neglected in most of t he
+simulations made, and the COMSOL simulation of CPMG is brieﬂy
+discussed at the concluding remarks;
+– The above two studies in a system of two coupled ﬂuids (McConnell
+8
+
+--- PAGE 9 ---
+equations).
+Simulations are made in spherical domains, all the way through. Varia tions of
+this, alongside other studies ideas, are suggested at the concludin g remarks.
+COMSOL is used to solve Equation (1) under the boundary conditions of
+Equation (3) for the following geometries: ﬁrst a sphere with radius 20µm and
+then a 2 µm one. Eﬀects of slow and fast diﬀusion regimes on T2 relaxation
+will be shown, as well as the eﬀects of surface relaxivity. Then, a po rous
+system containing one single 20 µm radius sphere, randomly surrounded by
+800 unconnected 2 µm ones is used to simulate an NMR experiment aimed to
+separate pore sizes by measurement of T2. Finally, the study is repeated for
+a coupled two-ﬂuid model as a function of the coupling strength, by solving
+the McConnell equations.
+COMSOL Multiphysics is a numerical platform to solve diﬀerential equa -
+tions using ﬁnite elements in arbitrary geometries. The control ove r geometry
+is where COMSOL really shines in the present application, since geomet ry is
+so closely related to the petrophysical properties of real oil rock s.
+In the present study the modulus “Mathematics” of COMSOL will be
+used to solve the Bloch-Torrey equations. However, as stated be fore, it is
+not the intention of this report to be a manual of COMSOL. There is p lenty
+of introductory material in books, Youtube and web pages about it (see, for
+instance, https://br.comsol.com/models). The purpose here is sole ly to yield
+a guideline for those with some experience with COMSOL and, hopefully , to
+motivate the NMR community working with porous media to use this ver y
+9
+
+--- PAGE 10 ---
+useful tool.
+After opening COMSOL, follow the clicking path:
+– Model Wizard
+– 3D
+– Mathematics
+– PDE interfaces
+– Coeﬃcient form PDE(c)
+Click “add”. On the right side window, “Review Physics Interface”, d e-
+ﬁne “ m” as the ﬁeld name, “3” as the number of dependent variables, and
+“mx, my, mz” as the dependent variables labels. On “Units” deﬁne “A/m”
+for the custom unit dependent variable, and “A/(m ·s)” for the source term.
+Then click in “study” and select “Time Dependent” in the “General St udies”
+window. Then, click in “Done”.
+COMSOL allows all the physical parameters to be gathered in a table,
+from which they are read by the program. Table I exempliﬁes some pa ram-
+eters used in the simulations reported here.
+10
+
+--- PAGE 11 ---
+Table I
+COMSOL parameters used to solve Eq.(1). Units are mixed, for conv enience.
+Parameter Value Description
+∆B 10− 6 T Magnetic ﬁeld oﬀset
+γn 45 MHz/T Proton gyromagnetic ratio
+τ 3.4907µs Duration of a π/2 pulse
+B1 0.01 T Amplitude of the RF ﬁeld
+nω1 nγnB1 Coupling to the RF: n = 1 ON, n = 0 OFF
+∆ ω γn∆ B Frequency oﬀset
+T1 500 ms Spin-lattice input relaxation time
+T2 50 – 500 ms Spin-spin input relaxation time
+D 2 – 3 ×10− 9m2/s Water bulk diﬀusion coeﬃcient
+ρ 10− 6µm/s Surface relaxivity
+k 0, 10, 100 Hz Coupling strength for the two-ﬂuid model
+m0 1012 A/m4 Equilibrium magnetization density (arbitrary scaling factor)
+11
+
+--- PAGE 12 ---
+For the T2 simulations using Hahn pulse sequences, the parameter “ ω1”
+must be set “ON” during pulses and “OFF” during the intervals. This is
+done by simply setting n equal to “1” or “0”, accordingly, in the ω1 entry
+line.
+The COMSOL “Coeﬃcient Form PDE(c)” modulus presents us with the
+general equation:
+ea
+∂2 ⃗ m
+∂t2 + da
+∂ ⃗ m
+∂t + ∇ · (−c∇ ⃗ m− α ⃗ m+ γ) + β · ∇ ⃗ m+ a ⃗ m= f (8)
+where ⃗ m= (mx, my, mz)T and ∇ = (∂/∂x, ∂/∂y, ∂/∂z ).
+To reproduce Eq.(1) from this general coeﬃcient diﬀerential equa tion, we
+set ea = α = γ = β = 0, da = (1 , 1, 1), c = ( D, D, D) and f = (0 , 0, m0/T1)
+(m0 is only a numerical scale factor for graphical convenience). Set th e
+parameter a as the matrix:
+a =
+
+
+
+
+
+
+1/T2 −∆ ω 0
+∆ ω 1/T2 −ω1
+0 ω1 1/T1
+
+
+
+
+
+
+(9)
+To introduce the boundary conditions of Eq.(3) we choose the “ﬂux /source”
+boundary conditions option and set g = 0 and q = ρ in the equation param-
+eters window. Click in “Initial Values” and set mz = m0 and all the other
+parameters equal to zero.
+12
+
+--- PAGE 13 ---
+After introducing the DE parameters according to Eq.(1) and Table I,
+it is necessary to insert three new studies, each of them describing a time
+interval in the pulse sequence (see below): the ﬁrst study is a π/2-pulse. It is
+followed by a delay ∆ t (the second study). Then, the third study is a π pulse,
+followed by the last study, another ∆ t free-evolution interval. Eq.(1) is solved
+in each interval, taking as initial conditions the last values of mx, my, mz in
+the previous study. In other to do that, the studies must be coup led in
+sequence.
+To add studies, click in the “Add Studies” window three times to creat e
+the other studies. First and third studies are, respectively, π/2 and π pulses,
+whereas the second and fourth studies are free-evolution interv als. To couple
+the ﬁrst study to the second, expand the second study window an d click
+in “Step 1” to open the setting window for this interval. Then, expan d
+the “Values of Dependent Variables” window. In “Settings” choose “user
+controlled”; in “method” choose “solution”; in “study” choose “st udy 1”
+and, ﬁnally, in “time” choose “last”. This will instruct the program to take
+the last point calculated in study 1 (end of π/2 pulse) as the initial condition
+for the second study, the free-evolution interval with duration ∆ t. Repeat
+this procedure for the other two intervals. Each study is run in sep arate.
+Remember to set n = 0 in the intervals in which the pulse is OFF (studies
+2 and 4) or n = 1 in which it is ON (studies 1 and 3), before running the
+program.
+After setting all parameters, the next step is to mesh and run the pro-
+13
+
+--- PAGE 14 ---
+gram. As an example, Figure 1(a) shows the output for the magnet ization
+density distribution in a spherical pore with radius a = 20µm, after the π/2-
+pulse, at the instant of time ∆ t = 2T2 (that is, only studies 1 and 2 were run).
+We can clearly see the diﬀerent patterns of oscillations of the magne tization
+density inside the pore. To emphasize the importance of boundary c ondi-
+tions, Figure 1(b) shows the same study, but using the “zero-ﬂux ” boundary
+condition (that is, ρ = 0). In this case the eﬀects of the interactions be-
+tween the nuclear magnetization and the pore walls, parameterized in ρ, are
+neglected, dramatically modifying the magnetization density distribu tion in-
+side the pore.
+The NMR signal is the time free-evolution of the total magnetization
+after a pulse sequence, i.e., the integration of m(⃗ r, t) over the porous vol-
+ume, Eq.(2). To obtain that, expand the “Results” window and right -click
+on “Derived Values”. Then, ﬁnd the “Integration” option and choo se “Vol-
+ume Integration”. In the setting window click in “evaluate”. The res ult will
+appear as a table. By clicking on the “table graph” option, the total mag-
+netization will be plotted as a function of time. Figure 1(c) shows the result
+for Mx(t) (blue line) and My(t) (green line) after a π/2 pulse applied along
+X. This is the so-called FID signal. The total evolution time was set as
+∆ t = 2 T2in. Finally, Figure 1(d) shows the Fourier transform of this signal,
+which is the NMR spectrum. Unfortunately, the 5.6 version of COMSO L
+used in the present studies does not have a simple way to calculate FF T.
+Figure 1(d) was obtained with MatLab (license 1145007) after expo rting the
+14
+
+--- PAGE 15 ---
+table data calculated by COMSOL (there is a click option to export dat a in
+the menu).
+Rotating Frame and Field Inhomogeneity
+In an experiment, the NMR signal is detected in the so-called “rotat ing refer-
+ence frame”. Mathematically, introducing this frame is rather simple , either
+classically (Bloch-equations) or quantum mechanically (Schrodinger or Liou-
+ville equations) [3]. Electronically, the rotating frame NMR signal dete ction
+is accomplished by setting the receiver reference frequency to a v alue close to
+the theoretical Larmor frequency ω0 = γnB0 of a known NMR probe nucleus .
+Depending on the chemical environment of the probing nucleus, the re will
+be a diﬀerence between the resonance and the reference freque ncies. This is
+called chemical shift and its eﬀect is to produce oscillations in the FID signal.
+Besides that, since no magnet is perfectly homogeneous, the local precessing
+frequency will be a function of the nucleus position inside the magnet . In
+some modern high-resolution magnets the homogeneity can reach a mazing
+0.01 ppm. In the present simulations, both eﬀects, chemical shift a nd magnet
+inhomogeneity, are mapped into the parameter ∆ ω.
+In the rotating frame, for each “pack of spins” which rotates (clo ckwise)
+with frequency +∆ ω there will be another pack rotating (anticlockwise) with
+frequency −∆ ω (Figure 2). In most situations, one of the contributions to
+the signal is canceled, remaining only the perpendicular one.
+15
+
+--- PAGE 16 ---
+Figure 1: Pore distribution of magnetization density (a and b), FID ( c) and
+NMR spectrum (d), calculated in a spherical pore with radius equal t o 20µm:
+(a) magnetization distribution at the instant of time ∆ t = 2 T2 following a
+π/2-pulse along X with “ﬂux/source” boundary condition ( ρ ̸= 0). (b) The
+same as (a) but with “zero-ﬂux” boundary condition ( ρ = 0). Notice how
+the boundary conditions change the pattern of oscillations, leaving a layer of
+surface magnetization in (a). (c) FID (green line My(t) and blue line Mx(t)).
+Notice that right after the pulse, Mx = 0 and My is maximum. (d) NMR
+spectrum (FFT of the FID), with peak at ∆ ω/2π.
+16
+
+--- PAGE 17 ---
+Figure 2: Sketch of the free evolution of nuclear magnetization in th e rotating
+frame, after a π/2 pulse applied along the axis Y . The reference frequency
+is ω0. In this frame, neglecting spin-spin interactions, a pack of spins wit h
+frequency ω0 will remain static pointing along X. Spin packs which sense a
+slightly diﬀerent value of the static ﬁeld B0, due to ﬁeld inhomogeneity and
+chemical shifts will precess symmetrically opposed with frequencies ±∆ ω. In
+most of situations, one the contributions to the NMR signal (in the a bove
+scheme, the Y contribution) is canceled.
+17
+
+--- PAGE 18 ---
+A very important issue related to NMR technique in porous rocks con -
+cerns the magnetic response of the solid matrix to the applied static ﬁeld.
+This response increases the local ﬁeld inhomogeneity, broadening t he NMR
+spectra. Natural rocks will present paramagnetic centers and im purities, and
+even ferromagnetic clusters, besides the ubiquitous diamagnetic r esponse.
+The presence of these elements distort the otherwise nearly-hom ogeneous
+ﬁeld B0 creating strong internal ﬁeld gradients which aﬀect the dynamics o f
+spins in the liquid phase [9]. Each of these magnetic contributions exhib its a
+characteristic magnetic response which will aﬀect the local ﬁeld. Th e overall
+eﬀect on NMR observables are the NMR line broadening and speeding t he
+relaxation.
+Field inhomogeneity can be considered in COMSOL pulsed NMR simu-
+lations. The simplest way is to model the position-dependent magnet ic ﬁeld
+directly in the Bloch-Torrey equations. Since the information about the local
+ﬁeld is in ∆ ω, we can simply model the inhomogeneity using, for instance, a
+Gaussian distribution (or any other, according to the situation):
+∆ ω − →∆ ω × e− (x2+y2)/a2
+(10)
+where a is the pore radius. This inhomogeneity is axisymetric about Z, the
+direction B0 is applied. On the symmetry axis, x, y = 0, the inhomogeneity
+is, ∆ ω, and at the pore walls it is 1/3 of that, approximately. This model
+will be used to exemplify the eﬀect of ﬁeld inhomogeneity on T2 decay in the
+18
+
+--- PAGE 19 ---
+slow and fast diﬀusion regimes.
+Simulation of NMR Spectra in a single pore.
+Eﬀects of size
+The simplest NMR experiment consists on the application of a π/2 pulse
+to the magnetization initially at equilibrium along the Z direction. The
+pulse must be applied perpendicularly to Z. The direction X is considered
+here. The detected signal is the FID (Fig.1(c)) and its Fourier Tran sform is
+the NMR spectrum (Fig. 1(d)). These NMR quantities are aﬀected b y the
+geometrical characteristics of the conﬁning medium, as well as the dynamics
+imposed by the interactions between the ﬂuid and the solid surface.
+Figure 3 shows the FIDs and spectra of two isolated pores, one with
+radius 2 µm and the other with radius 0 .2µm. For comparison, Figs. 1(c,d)
+are reproduced (20 µm pore). Apart from the radii, all other parameters
+were kept the same. We see an obvious change in the decay pattern with the
+linewidth of spectra changing with the pore radius. The size does not aﬀect
+signiﬁcantly the position of the line. For comparison, the calculation s how in
+3(c) is repeated for ρ = 0, as shown in 3(d), which becomes similar to 3(a).
+19
+
+--- PAGE 20 ---
+Figure 3: Eﬀects of pore sizes on FID and NMR spectra. These FIDs were
+calculated using exactly the same parameters of Table I, except fo r the pores
+radii, as indicated in the plots. NMR position line does not show a signif-
+icant change with the pore size, the main eﬀect being the increase of the
+linewidth. Other shapes, however, may aﬀect position, as well. For a matter
+of comparison, Fig 3(d) shows the FID calculation, exactly as in (c), but
+setting surface relaxivity equal to zero. 20
+
+--- PAGE 21 ---
+COMSOL Simulation of spin-spin relaxation in
+single pores.
+The simplest NMR pulse sequence to measure spin-spin relaxation time , T2, is
+shown in Fig.4. One π/2-pulse is applied to the equilibrium magnetization,
+followed by a free-evolution time interval ∆ t. Then, a second π-pulse is
+applied along the same direction as the ﬁrst pulse. The echo signal oc curs
+approximately after a further interval ∆ t. The amplitude of the Hahn echo
+is measured as a function of interpulse delay. Each of these interva ls is a
+separated study in COMSOL, but they must be coupled, as explained before.
+It is important to set correctly the initial and ﬁnal instants of time f or each
+interval, as well as the step. This is done in the “Settings” window of e ach
+study. For instance, the second interval ∆ t divided in 500 steps is set as:
+– Start: ∆ t + 3τ
+– Step: ∆ t/500
+– Stop: 2∆ t + 3τ
+The echo amplitude occurs at the instant 2∆ t + 3τ . In the following simula-
+tions, ∆ t is varied in fractions of the input T2in = 50ms, from T2in/10 (5 ms)
+up to 2 T2in (100 ms), and the echo amplitude is recorded as a function of ∆ t.
+21
+
+--- PAGE 22 ---
+The output values of T2 follow directly from a exponential ﬁtting, as will be
+shown below. The ﬁtted T2 carries the eﬀects of pore size, surface relaxivity
+and diﬀusion. It must be emphasized, however, that the NMR seque nce most
+used to measure T2 is CPMG, which allows a fster determination of T2 values
+and also avoids problems related to diﬀusion in inhomogeneous interna l mag-
+netic ﬁelds (see Ref.[8]). Hahn sequence is used here because its simp licity
+to exemplify the NMR simulations in COMSOL.
+Relaxation time T2 is the time scale for the transverse magnetization to
+loose coherence, due to microscopic spin-spin interactions or othe r intrinsic
+eﬀects leading to local ﬁeld variation inside the material. Another fac tor
+which erases the NMR signal is the presence of magnetic ﬁeld inhomog eneity.
+In a porous system, the interplay between T2, inhomogeneity and diﬀusion
+is essential to recover pore sizes from T2 measurements. Grossly, we want
+the spins, through diﬀusion, to reach the pore walls before the mag netization
+decays away. So, for a pore of radius a, and a ﬂuid with diﬀusion coeﬃcient
+D and relaxation time T2, a condition to meet this requirement is:
+√
+DT2 ≥ a (11)
+For instance, for a sphere with radius a = 2 µm, ﬁlled with water ( D =
+2 × 10− 9m2/s) and T2 = 50ms, √DT2 = 10µm and this condition is fulﬁlled.
+But if a = 100µm, it is not. Therefore, one can expect that in a real porous
+rock this condition may be fulﬁlled for some pores, but not for other s. This
+22
+
+--- PAGE 23 ---
+Figure 4: Hahn sequence to measure T2: π/2 and π pulses are applied for
+various time intervals ∆ t between them. The echo occurs at the instant
+3τ + 2∆ τ from the ﬁrst pulse. Echo amplitude decays approximately as
+exp(−2∆ t/T2). In the present simulations, τ = 3 .4907µs and ∆ t varies in
+the interval between T2/10 (5 ms) and 2 T2 (100 ms)
+brings ambiguity to the interpretation of the results. In Ref.[9] this issue is
+discussed in detail.
+Figure ?? shows the magnetization evolution after the second pulse, for
+various separation intervals ∆ t. The green line is the total component My(t)
+and the blue line Mx(t), the direction the pulses are applied. We see that, at
+the instant of the echo, Mx = 0, which means the magnetization is refocused
+along My, reaching the maximum at instant 3 τ + 2∆ t. This is the echo
+amplitude.
+Fast diﬀusion can be reached by, either increasing the diﬀusion para meter
+(or T2in), or/and decreasing the radius. In order to verify the consisten cy of
+the simulations, the relaxation rate for Hahn sequences was calcula ted as a
+23
+
+--- PAGE 24 ---
+Figure 5: Free evolution of transverse magnetization after a seco nd pulse in
+a Hahn sequence, for various time intervals between the pulses (se e Fig. 4).
+Green line is My(t) and blue line Mx(t). At the instant of the echo, the
+magnetization is always refocused on the −y direction. This calculation ws
+done considering a positive oﬀset, +∆ ω. For the negative counterpart, −∆ ω
+(see Fig. 2), the blue line alone is phase-shifted by 180 degrees.
+function of ρ for spheres of three diﬀerent sizes. Figure 7 shows the results
+for a = 2µm, a = 4 µm and a = 20µm. Diﬀusion was set D = 3 × 10− 9m2/s
+and T2in calculated such as the condition √
+DT2in ≈ 2a is fulﬁlled in each
+case. We see that the linearity predicted in Eq.(4) is correctly obtain ed for
+the three cases. One important observation is that the larger ρ, the more
+distinguished the pores radii become. At ρ = 10µm/s the two lines are much
+closer than at ρ = 50µm/s. Therefore, rocks with large ralaxitivity favor the
+separation of pore sizes by T2.
+Another consistency test was made by varying the radius and plott ing
+1/T2out vs. 3 /a. In the fast diﬀusion regime, the angular coeﬃcient is ρ.
+Figure 8 shows the simulation result for an input value of ρ = 17.5µm/s. The
+recovered value, shown in the ﬁgure, is very close to that. One exp eriment like
+this may just be possible, using modern techniques of lithography to build the
+porous system, as indicated in Refs [10, 11] and using NMR microreso nators
+24
+
+--- PAGE 25 ---
+Figure 6: COMSOL simulation of spin-spin decay for a pore with radius
+a = 100µm. In (a) Gaussian inhomogeneity is included. Slow diﬀusion regime
+in the presence of inhomogeneity results in two relaxation regimes. R emoving
+either the inhomogeneity (b) or diﬀusion (c), results in a single expon ential
+with time decay close to the input value. Surface ralaxivity is ρ = 10µm/s in
+all cases. Figures (a), (b) and (c) were calculated for ρa/D = 0.5. In Figure
+(d), radius was reduced to a = 10µm, so that, ρa/D = 0.05. 25
+
+--- PAGE 26 ---
+for the detection of very small signals, as exempliﬁed in Refs [14, 15].
+In the next Section, these simulations will be applied to a porous mediu m
+with two pores sizes. It will be shown that the sizes distribution can b e
+roughly recovered from measurements of T2.
+Simulation of spin-spin relaxation in a “porous
+rock”: separating pore sizes by T2 decay
+In this Section the simulations described before will be applied to an ar tiﬁcial
+porous rock containing one single pore with radius 20 µm surrounded by 800
+randomly distributed others with radius 2 µm, each. In order to be able to
+distinguish the NMR signals of the combined system, the respective v olumes
+of each subsystem must be comparable: 3 .4 × 104µm3 and 2 .7 × 104µm3,
+respectively. To build such a system in COMSOL, ﬁrst a smaller number of
+random coordinates were generated in MatLab and inserted in COMS OL.
+Then, using the symmetry operations of COMSOL, the porous syst em was
+constructed, as shown in Fig. 9. In this process, overlap between spheres
+were allowed, creating more complex geometry of interconnected p ores, as
+shown in the inset of Fig. 9. It also is possible to generate random sph eres
+automatically in COMSOL with diﬀerent sizes and avoiding overlap, by fo l-
+lowing an application to simulate...cheese! See Ref.[16] for details. It is
+important to emphasize that the domains of calculation are the inter ior of
+the spheres, only. Of course, it is possible to include the solid matrix, and
+26
+
+--- PAGE 27 ---
+Figure 7: In this simulation, the relaxation rate, 1 /T2out is obtained for Hahn
+sequences applied to spherical pores of three sizes, a = 2 µm, a = 4 µm and
+a = 20µm, as a function of relaxivity ρ. The idea is to verify the consistency
+of calculations in the fast diﬀusion regime, Eq.(4). The diﬀusion param eter
+was kept the same, D = 3 × 10− 9m2/s, and T2in calculated such as the
+condition √DT2in ≈ 2a was fulﬁlled in each case. The ﬁgure shows the input
+values of the radii and the recovered ones.
+27
+
+--- PAGE 28 ---
+Figure 8: A suggested method to measure the surface relaxivity in a rtiﬁcially
+built porous media, based on Eq.(4). For a given surface, spin-spin r elaxation
+time is measured as a function of the radius of the sphere. The horiz ontal
+axis is 3 /a. The input value for ρ was 17 .5µm/s and the value obtained
+from the ﬁt, 17 .3µm/s. Artiﬁcial porous media can be built using techniques
+of optical and electron beam lithography [10, 11] and NMR signals of tiny
+amounts of sample can be measured using microressonators [14, 15 ].
+28
+
+--- PAGE 29 ---
+its magnetic response. We will come back to this point in the ﬁnal rema rks.
+The purpose of this Section is to show how a distribution of pore volum es
+can be obtained from T2 decay experiments. Diﬀerent pore sizes imply in
+multiexponential decay in the T2 relaxation. Therefore, one should expect
+that two pore sizes will produce a two-exponential decay which sho uld be
+recovered from the measured curve. In some ideal situations the presence
+of more than one exponential decay can be observed with “naked e yes”.
+Figure 10 shows such a case. It is a combination of the decays obtain ed
+with COMSOL simulations of a 20 µm and 1 µm spheres. The decays were
+calculated for individual spheres and the relative weights normalized to 1.
+This would be the situation of one 20 µm sphere surrounded by 8000 × 1µm
+non-overlapping ones! To build such a system like that of Fig. 9 is not s imple,
+and the calculation becomes too time consuming in an usual workstat ion.
+Observe that the recovered values of the radii calculated from th e curves are
+in the correct order of magnitude of the input ones, but with a large error,
+even for an unusually large value for ρ.
+If we double the size of the smaller spheres and allow overlapping, we h ave
+the system depicted in Fig. 9. Here, no longer it is possible to distinguis h
+two decays by eyes. Fig.11 shows the result of the simulation in linear s cale,
+to emphasize what would be an experimental display. The red line is a
+two-exponential ﬁt made with MatLab and the black dashed line a one -
+exponential model. From the ﬁgure we can clearly see the two-curv es model
+ﬁts better but, again, although the recovered sizes are in the cor rect range,
+29
+
+--- PAGE 30 ---
+Figure 9: COMSOL construction of a porous rock containing one sing le
+spherical pore with radius 20 µm, surrounded by 800 identical ones, each with
+radius 2µm. The respective volumes are 3 .4 ×104µm3 and 2.7 ×104µm3. The
+inset shows details of the smaller spheres, which can overlap.
+30
+
+--- PAGE 31 ---
+Figure 10: COMSOL simulation of a T2 decay in a system containing one
+20 µm sphere surrounded by 8000 × 1µm isolated and non-overlapping ones.
+Two decay constants are clearly visible, but the recovered radii fr om the
+measured values show a large error, although they are in the corre ct order
+of magnitude. Ralaxivity value was set at ρ = 50 µm/s in order to keep
+relaxation rates well separated.
+31
+
+--- PAGE 32 ---
+Figure 11: COMSOL simulation of T2 decay in the system of Fig. 9. Squares
+are the simulated points, the red line a MatLab ﬁt for a two-exponen tial
+model and the dashed black line a one-exponential ﬁt. The two-exp model
+is obviously better, and the recovered sizes are in the correct ord er of mag-
+nitude, but with very large errors.
+the errors are large.
+This kind of simulation is close to what would be obtained in laboratory
+conditions in high-ﬁeld NMR experiments, in which the level of noise is us u-
+ally negligible. But in a real rock the situation is much more complicated
+because there is no control over pore sizes and shapes at all. Diﬀer ent models
+of ﬁtting are used, as in Ref.[8]. In that work it is shown that it is possib le to
+make some sense between sizes and models, at least in a minimally contr olled
+situation. However, if noise gets in, as in the case of current NMR log ging
+technology, then the whole thing may become very doubtful [17]! Fr om Fig
+11 it is clear that with a very low amount of noise the two curves becom e
+blurry and no longer can be distinguished, one from the other. In th e next
+section we extend this study to a two-size pore system containing t wo ﬂuids.
+32
+
+--- PAGE 33 ---
+Extension to a two-ﬂuid model
+The ultimate goal of a NMR experiment in porous rocks is to obtain the
+composition, amounts and mobility of ﬂuids in the porous space, gene rally
+composed by a mixture of oil and water. A simple but eﬀective NMR mod el
+for coupled ﬂuids with magnetizations ⃗ m1 and ⃗ m2 is given by the so-called
+McConnell equations [18]:
+∂ ⃗ m1
+∂t − γ1 ⃗ m1 × ⃗B + ˜R1( ⃗ m1 − ⃗ m10) − k1( ⃗ m2 − ⃗ m1) − D1∇2 ⃗ m1 = 0
+∂ ⃗ m2
+∂t − γ1 ⃗ m2 × ⃗B + ˜R1( ⃗ m2 − ⃗ m20) − k2( ⃗ m1 − ⃗ m2) − D2∇2 ⃗ m2 = 0 (12)
+In this model, the two ﬂuids can exchange magnetization through th e cou-
+pling parameters k1 and k2. Without these terms, the two equations are
+reduced to a couple of Bloch-Torrey independent equations. In th e present
+COMSOL simulations, we will consider k1 = k2 = 10 Hz and γ1 = γ2, since
+the nuclear species of interest is, in general, 1H in both ﬂuids.
+In order to insert these equations into COMSOL we follow the same
+procedure as before: ﬁrst deﬁne six dependent variables, the ma gnetization
+components of a 6-dimension vector:
+33
+
+--- PAGE 34 ---
+⃗ m=
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+m1x
+m1y
+m1z
+m2x
+m2y
+m2z
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+(13)
+By opening the terms in Eq.(12), after some re-arrangement we ob tain the
+matrix form:
+34
+
+--- PAGE 35 ---
+(14)∂
+∂t
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+m1x
+m1y
+m1z
+m2x
+m2y
+m2z
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1/T21 + k −∆ ω 0 −k 0 0
+∆ ω 1/T21 + k −ω1 0 −k 0
+0 ω1 1/T11 + k 0 0 −k
+−k 0 0 1 /T22 + k −5∆ ω 0
+0 −k 0 5∆ ω 1/T22 + k −ω1
+0 0 −k 0 ω1 1/T12 + k
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+m1x
+m1y
+m1z
+m2x
+m2y
+m2z
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+−
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+D1 0 0 0 0 0
+0 D1 0 0 0 0
+0 0 D1 0 0 0
+0 0 0 D2 0 0
+0 0 0 0 D2 0
+0 0 0 0 0 D2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
++ ∇2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+m1x
+m1y
+m1z
+m2x
+m2y
+m2z
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0
+0
+m01/T11
+0
+0
+m02/T12
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+where T2(1,2) = 250 ms(50ms) is the input value for the spin-spin relax-
+ation time of ﬂuid 1(2). The same notation applies for the spin-lattice
+T1(1,2) = 500 ms. D1 = 3 × 10− 9m2/s and D2 = D1/2 are the respective
+diﬀusion coeﬃcients and m01 = m02 = 10 12A/m4 the equilibrium magnetiza-
+35
+
+--- PAGE 36 ---
+tion. In order to simulate diﬀerent chemical shifts and distinguish th e NMR
+spectral lines, we set the frequency oﬀsets as ∆ ω and 5∆ ω for ﬂuids 1 and
+2, respectively.
+Let us ﬁrst investigate the NMR spectra generated by the model. F ig.
+12 shows the FIDs and respective FFTs, calculated using the param eters
+of Table I, for a spherical pore with radius 20 µm, for k = 10 Hz, k =
+100Hz and k = 1kHz. We see that, as the coupling strength increases, the
+initially separated lines become a single one. As far as the NMR spectru m
+is concerned, in this limit, the mixture behaves as a single ﬂuid, and the
+two components cannot be separated by looking at the spectrum. The same
+happens to relaxation.
+36
+
+--- PAGE 37 ---
+Figure 12: Solutions of McConnell equations for two ﬂuids with diﬀere nt
+coupling parameters for a single spherical pore with a = 20µm. On top, the
+FIDs and on the bottom, the calculated spectra. The general eﬀe ct of the
+coupling is to merge the two lines into a single broader one, and the rela tive
+amount of ﬂuids can no longer be obtained from the spectral areas .
+37
+
+--- PAGE 38 ---
+Figure 13 shows the calculated T2 decay for k = 0 , 100, 1000Hz, and
+the respective values of ﬁtted T2 parameters. Notice that for k = 0, the
+time between pulses was extended with respect to the others in ord er to
+emphasize the decays of the uncoupled ﬂuids. One observes that, as the
+coupling increases, the two decaying lines merge into a single one.
+Let us move now for the ﬁnal application considered in this report: t he
+calculation of T2 decay for the two-ﬂuid model in the geometry shown in Fig.
+9.
+Figure 14 shows the results of calculation of T2 decay for two coupled
+ﬂuids in the system of Fig. 9. For this it was considered k = 10 Hz , and,
+therefore, the two lines are resolved allowing to follow the individual d ecays.
+As before, the red line is a two-exponential model and the black das hed line a
+single-exponential ﬁt. We can clearly see that two lines can be disting uished
+in the slower decay (i.e., for ﬂuid 1), but they collapse in a single decay in
+the faster one (i.e., for ﬂuid 2). The values of decay constants and respective
+output radii are shown in the ﬁgures. Again, the correct order of magnitudes
+for the pores sizes are obtained from the two lines.
+Final remarks and conclusions
+COMSOL has proved to be a very useful tool to simulate NMR phenom ena in
+porous media with simple geometry. Measurement of relaxation times with
+Hahn sequences is only a very basic technique among a plethora of NM R
+38
+
+--- PAGE 39 ---
+experimental resources. The results reported here show that, even under
+absolute control of geometry and noiseless condition, T2 obtained from Hahn
+sequences can yield, at the best, a rough idea of pore size, and ope ns the way
+for further simulations:
+Variation of geometry - Geometry is a key element in petrophysical
+properties of natural rocks. The possibility to control the pore g eometry
+in COMSOL is truly an advantage of the method. The simulations
+presented in this report show that correct order of magnitudes o f pore
+sizes can be obtained from T2 decay experiments. One natural way
+would be to add spheres with other sizes to the problem. In the limit,
+it may be possible to load a real porous geometry, or even an entire
+porous rock image, obtained from X-ray microtomography, or oth er
+tomographic techniques. However, computational capabilities bec ome
+an important issue if geometry gets too complex. The simulations of T2
+decay in the two-ﬂuid model section took 80 minutes, on average, f or
+each point, in a HP Z840 workstation, even without mesh reﬁnement .
+Complex geometries may require ﬁner or extra-ﬁne mesh, and time o f
+calculation is bound to grow considerably;
+Adding throats - In real porous media, pores are not isolated, but
+connected by throats. The addition of throats connecting pores is
+straightforward in COMSOL. A study of diﬀusion of spins under ﬁeld
+gradients between pores, through throats can reveal interest ing aspects
+39
+
+--- PAGE 40 ---
+of fast and slow diﬀusion regimes;
+Diﬀerent pulse sequences - Only Hahn sequences were exploited in
+this report, for simplicity. But the most used sequence to measure T2
+in porous media is CPMG, which can also be simulated in COMSOL.
+For instance, apply a π/2 pulse along X (φ = 0) in Eq. (1), and a
+sequence of π pulses along Y (φ = π/2) with short intervals between
+them. One of the most powerful aspects of NMR is the possibility to
+engineer speciﬁc pulse sequences (and pulse shapes!) which correc ts
+dephasing caused by ﬁeld inhomogeneity of all kinds;
+Magnetic ﬁeld inhomogeneity - Internal magnetic ﬁeld distribu-
+tions strongly aﬀect the NMR observables. Diﬀerent models of mag-
+netic inhomogeneities can be simulated in COMSOL and their eﬀects
+on lineshapes and relaxation studied, keeping the control over all o ther
+parameters. Speciﬁc pulse sequences can be built to test correct ions
+of the NMR signal for diﬀerent models. Here, one important possibil-
+ity is to couple physics with COMSOL. The exact magnetic response
+of a material can be calculated in one section, and the results can be
+loaded in a T2 simulation section, allowing to introduce realist magnetic
+inhomogeneities in the simulations, as shown in Fig. 15;
+Time-dependent diﬀusion - NMR techniques based on time-dependent
+diﬀusion are powerful alternatives to simple T2 measurements tech-
+niques. Introducing a time dependent diﬀusion in the Bloch-Torrey-
+40
+
+--- PAGE 41 ---
+McConnell equations and solving them in COMSOL for diﬀerent ge-
+ometries and conditions, can possibly lead to important insights, as
+demonstrated in Ref. [19];
+Echo shapes - The approach used here considered only one isochro-
+mat, that is, a single pack of spins precessing with the same oﬀset
+frequency ∆ ω. A real echo signal is formed by the addition of vari-
+ous contributions with diﬀerent precessing frequencies. The ﬁnal echo
+shape brings information about ﬁeld inhomogeneity and eﬃciency of
+pulse sequences to correct dephasing. Studying echo shapes in CO M-
+SOL simulations as a function of magnetic ﬁeld inhomogeneity, porous
+geometry and pulse sequences can be very insightful;
+Fluid conformation - The two-ﬂuid model simulated here did not
+take into account an important aspect of ﬂuid mixtures in porous ro cks:
+conformation. One possible interesting study with COMSOL is to con-
+sider layers of oil and water in contact with a solid surface in diﬀerent
+conformations and geometries.
+Adding noise - Noise is intrinsic to any measured data. One of the ad-
+vantages of high-ﬁeld NMR in the study of porous media is the extrem e
+sensitivity and low-noise condition. On the other hand, in logging con-
+ditions, NMR signals are very noisy, what makes the analysis of signal
+much more diﬃcult. Noise can be introduced in COMSOL simulations
+using MatLab routines. This may allow simulating NMR experiments
+41
+
+--- PAGE 42 ---
+in logging conditions.
+The ultimate simulation of NMR phenomena in porous rocks using COM-
+SOL would be to solve the Bloch-Torrey-McConnell equations in a rea listic
+porous digital rock, under diﬀerent pulse sequences, parameter s and tech-
+niques, taking into account all the above aspects (and many other s!). That
+would require a considerable computational capability, but would ret urn a
+very powerful tool to exploit this important technique for the oil in dustry
+and other sectors of science and technology.
+42
+
+--- PAGE 43 ---
+Acknowledgments: The author wish to thank Prof. J.P. Sinnecker
+from CBPF and Dr. A.L. Roman from COMSOL LTd, for their assistanc e
+with COMSOL programming. My acknowledgment to Dr. B. Chencarek ,
+Dr. M. Nascimento, Dr. L. Cirto, Dr. A.M. Souza, Dr. M.S. Reis, Dr.
+V.L.B. de Jesus, Prof. J.L.G. Alfonso, and Prof. J.C.C. Freitas, for t heir
+comments, criticisms and suggestions to this manuscript and the Br azilian
+Oil Company, Petrobras, for the ﬁnancial support (Projects 20 19/00062-2,
+2017/00486-1 and 2019/00062-2), CNPq and Faperj (CNE E-09/ 2019).
+References
+[1] George R. Coates, Lizh Xiao and Manfred G. Prammer, NMR Logging.
+Principles and Applications , Halliburton Energy Services Publication
+H02308 (1999).
+[2] H.C. Torrey, Bloch equations with diﬀusion terms , Phys. Rev. 104 563
+(1956).
+[3] C.P. Slichter, Principles of magnetic resonance , Springer, 3rd Ed.
+(Berlin 1990).
+[4] K.R. Brownstein and C.E. Tarr, Importance of classical diﬀusion in
+NMR studies of water in biological cells , Phys. Rev. A 19 2446 (1979).
+[5] M. Nascimento, B. Chencarek, A.M. Souza, R.S. Sarthour, B.
+Coutinho, M.D. Correia and I.S. Oliveira, Enhanced NMR relaxation
+43
+
+--- PAGE 44 ---
+of ﬂuids conﬁned to porous media: a proposed theory and exper i-
+mental tests , Phys. Rev. E. 99, 042901 (2019). Doi 10.1103/Phys-
+RevE.99.042901. See also: Moacyr Silva do Nascimento, Studies in
+NMR relaxation and diﬀusion: high-ﬁeld applications to Pet rophysics,
+PhD Thesis, CBPF (Rio de janeiro, 2020).
+[6] E. Lucas-Oliveira, A.G. Ara´ ujo Ferreira, W.A. Trevisan, B.C.C. do s
+Santos and T.J. Bonagamba, Sandstone surface relaxivity determined
+by NMR T2 distribution and digital rock simulation for permeability
+evaluation, Journal of Petroleum Science and Engineering, 193 (2020).
+Doi: 10.1016/j.petrol.2020.107400
+[7] J.L. Gonzalez, E.L. de Faria, Marcelo P. Albuquerque, M´ arcio P. A l-
+buquerque, Cl´ ecio R. Bom, J.C.C. Freitas and Maury D. Correia, Sim-
+ulations of NMR relaxation in a real porous structure: pre-a symptotic
+behavior to the localization regime , App. Mag. Res. 51 581 (2020).
+[8] B. Chencarek, M. Nascimento, A.M. Souza, B.C.C. Santos, M.D. Co r-
+reia and I.S. Oliveira, Multi-exponential analysis of water NMR spin-
+spin relaxation in porosity-permeability-controlled sin tered glass, App.
+Mag. Res. 50 211 (2019). See also: Bruno Chencarek, High ﬁeld relax-
+ation and diﬀusion studies applied to the characterization of conﬁned
+ﬂuids, PhD Thesis, CBPF (Rio de Janeiro, 2021).
+44
+
+--- PAGE 45 ---
+[9] Yi-Qiao Song, Using internal magnetic ﬁelds to obtain pore size dis-
+tributions of porous media , Concepts in Magnetic Resonance, Part A,
+Vol. 18A(2) 97 (2003).
+[10] Y.H. Yin, Z.D. Liu, M.Y. Song, S. Ju, X.J. Wang, Z. Zhou, H.W.
+Mao, Y.M. Ding, J.Q. Liu and W. Huang, Direct photopolymeriza-
+tion and litography of multilayer conjugated polymer nanoﬁ lms for
+high performance memristors , J. Mat. Chem. C, 6 11162 (2018). Doi:
+10.1039/c8tc04333g.
+[11] S.H. Fan, M. Aghajani, M.Y. Wang, J. Martinez and Y.F. Ding, Pat-
+terning ﬂat-sheet poly(vinylidene ﬂuoride) membrane usin g template
+thermally induced phase separation , J. Memb. Sci., 616 118627 (2020).
+Doi: 101016/j.memsci.2020.118627.
+[12] O. Mohnke and N. Klitzsch, Microscale simulations of NMR relaxation
+in porous media considering internal ﬁeld gradients , Vadose Zone J. 9
+846 (2010). Doi:10.2136/vzj2009.0161.
+[13] Edmund J. Fordham and Jonathan Mitchel, Localization in a sin-
+gle pore , Microporous and Mesporous Materials 269 35 (2018). Doi:
+10.1016/j.micromeso.2017.05029
+[14] H.G. Krojanski, J. Lambert, Y. Gerikalan, D. Suter and R. Herg en-
+roeder, Microslot NMR probe for metabolomics studies , Anal. Chem.
+80 8668 (2008).
+45
+
+--- PAGE 46 ---
+[15] R. Narkovicz, D. Suter and I. Niemeyer, Scaling of sensitivity in planar
+microresonators for electron spin resonance , Rev. Sci. Instr. 79 084702
+(2008). Doi: 10.1063/1.2964926.
+[16] Walter Frei, How to create a randomized geometry using model methods,
+www.comsol.com/blogs/how-to-create-a-randomized-geometry-using-
+model-methods/
+[17] A.A. Istratov and O.F. Vyvenko, Exponential analysis in physical phe-
+nomena, Rev. Sci. Instr. 70 1233 (1999).
+[18] H.M. McConnell, Reaction rates by nuclear magnetic resonance , J.
+Chem. Phys. 28 430 (1958).
+[19] B. Chencarek, M. Nascimento, A.M. Souza, R.S. Sarthour, B.
+Coutinho, M.D. Correia and I.S. Oliveira, PFG NMR time-dependent
+diﬀusion coeﬃcient analysis of emulsion: post drainage pha se confor-
+mation, Journal of Petroleum Science and Engineering, 199 108287
+(2021). Doi: 10.1016/j.petrol.2020.108287
+[20] M.D. Correia, A.M. Souza, J.P. Sinnecker, R.S. Sarthour, B.C.C. S an-
+tos, W. Trevizan and I.S. Oliveira, Superstatistics model for T2 distribu-
+tion in NMR experiments on porous media , J. Mag. Res. 244 12 (2014).
+Doi: 10.1016/j.jmr.2014.04.013. See also: Maury D. Correia, NMR re-
+laxation on porous media: a superstatistical approach with application
+to petrophysics, PhD Thesis, CBPF (Rio de Janeiro, 2015).
+46
+
+--- PAGE 47 ---
+Figure 13: Spin-spin decays for two ﬂuids, as a function of the coup ling
+strength, calculated in a spherical pore with a = 20µm. The eﬀect of coupling
+is to merge the two lines into a single one, making them indistinguishable
+The calculation parameters are given in Table I.
+47
+
+--- PAGE 48 ---
+Figure 14: Spin-spin decays in the two ﬂuids model, for the system of Fig.
+9. On top: red line is a two-exp ﬁt and black dashed line a one-exp ﬁt.
+Relaxation times and derived pores radii correspond to the red line. On
+the bottom: relaxation decay for ﬂuid 2; one and two-exponential models
+collapse on the same curve and correspond with smaller pores contr ibution.
+Results are comparable to those of one ﬂuid case shown in Fig. 11. 48
+
+--- PAGE 49 ---
+Figure 15: Cross section showing the magnetic induction distribution inside
+a pore with radius 100 µm, containing two ﬂuids. The ﬁeld is applied along
+the vertical axis. On the right side the ﬁeld proﬁle along the horizont al axis.
+COMSOL allows to couple this study as input for solving the Bloch-Torr ey
+equations.
+49

@@ -16,6 +16,7 @@ from streamlit_app import (
     clear_query_param,
     enhance_report_with_conversation,
     exportable_assistant_analysis,
+    group_simulation_stage_artifacts,
     make_zip,
     query_param_enabled,
     resolve_artifact_image_reference,
@@ -28,6 +29,36 @@ from streamlit_app import (
 def test_default_chat_model_uses_deepseek_pro_thinking_mode():
     assert DEFAULT_MODEL == "deepseek-v4-pro"
     assert DEFAULT_THINKING_ENABLED is True
+
+
+def test_agent_tool_result_can_carry_simulation_stage_metadata():
+    result = AgentToolResult(
+        "success",
+        "mesh generated",
+        artifacts=["mesh.png"],
+        summary={"stage": "mesh", "simulation_stages": {"mesh": ["mesh.png"]}},
+    )
+
+    assert result.summary["stage"] == "mesh"
+    assert result.summary["simulation_stages"]["mesh"] == ["mesh.png"]
+
+
+def test_group_simulation_stage_artifacts_uses_summary_stage_map(tmp_path):
+    mesh = tmp_path / "mesh.png"
+    decay = tmp_path / "decay.png"
+    mesh.write_bytes(b"mesh")
+    decay.write_bytes(b"decay")
+    result = AgentToolResult(
+        "success",
+        "ok",
+        artifacts=[str(mesh), str(decay)],
+        summary={"simulation_stages": {"mesh": [str(mesh)], "decay": [str(decay)]}},
+    )
+
+    grouped = group_simulation_stage_artifacts(result)
+
+    assert grouped["mesh"] == [mesh]
+    assert grouped["decay"] == [decay]
 
 
 def test_resolve_artifact_image_reference_matches_stem_and_basename(tmp_path):

@@ -1,0 +1,370 @@
+--- PAGE 1 ---
+The Open-Access Journal for the Basic Principles of Diffusion Theory, Experiment and Application
+ 
+Rock-typing of Laminated Sandstones by Nuclear Magnetic 
+Reso
+nance in the Presence of Diffusion Coupling 
+N. H. Alhwety1, N. I. Sayedakram1, I. Shikhov1, C. H. Arns1 
+1 University of New South Wales, Petroleum Engineering School, Sydney, Australia 
+ 
+Cor
+responding author: Christoph Arns, E-Mail: c.arns@unsw.edu.au 
+ 
+Abstract 
+ In this work, the aim is to assess the relative import ance of the impact of diffusional 
+coupling on NMR measurements of saturated laminated sandstone numerically at the layer 
+scale to assess the feasibility of NMR rock-typing approaches. We use two 3D model 
+structures based on a Boolean particle process, providing a range of structural to diffusion 
+length ratios to explore the relationships between pore geometry, surface magnetic properties, 
+and NMR transverse relaxation time. The influence of surface relaxivity and bulk 
+susceptibility contrast on T2 relaxation responses is tested for layered structures to improve 
+the
+ rock-typing methodology. An escalation in pore coupling is observed with decreasing bed 
+thickness as well as decreasing bulk susceptibility contrast and surface relaxivity the latter 
+ones reducing the time available for pore coupling by reducing the effective relaxation rate. 
+When pore coupling is strong, the T2 distribution clearly misrepresents the underlying 
+bim
+odal distribution of the different morphologies. Consequently, the bimodal relaxation time 
+becomes merged and the relative amplitude of the peaks fails to reflect the true morphologies 
+of the models. Furthermore, we observed that in low noise conditions of numerical simulation 
+the effect of diffusional coupling on transverse relaxation may be misinterpreted for the 
+regularization effect on ILT solution. In such cases, careful selection of Laplace inversion 
+method is essential for effective rock-typing by NMR. 
+ 
+Keywords Diffusion coupling, NMR, rock-typing, surface relaxivity, bulk susceptibility 
+ 
+1. Introduction 
+ 
+Quantitative interpretation of NMR responses in the presence of diffusional coupling 
+bet
+ween existing pore scales is a long standing problem in formation evaluation. 
+Magnetization exchange may violate the main assumption necessary to relate a transverse 
+relaxation rate to pore size. For materials strongly affected by diffusion coupling, the acquired 
+relaxation time distribution reflects a complicated averaging of the pore structure which is 
+© 2014, N. H. Alhwety 
+diffusion-fundamentals.org 22 (2014) 1, pp 1-7
+1
+
+--- PAGE 2 ---
+ 
+difficult to interpret. Thus, understanding conditions and factors controlling coupling 
+processes and effects on relaxation is essential for successful interpretation of NMR data. 
+When standard assumptions hold, NMR provides valuable estimates of key reservoir 
+properties including permeability, irreducible and mobile fluid fractions. Classification of 
+relaxation regimes based on diffusional, dephasing and pore-scale ratios proposed by 
+Hürlimann et al . (1995) suggests three asymptotic regimes: motional averaging (restricted 
+diffusion), localization, and free diffusion [3]. Thus, understanding the conditions controlling 
+coupling processes and their effect on the NMR relaxation response is clearly necessary to the 
+successful utilization of NMR tool in petrophysical applications. 
+ In several studies, the researchers have probed this impact theoretically and experimentally 
+utilizing idealized pore networks models to understand how factors such as pore structure and 
+surface geochemical reaction may affect the level of pore coupling [1, 2, 5]. Toumelin et al. 
+(2002), Vincent et al. (2011) have shown that diffusion coupling may have a detrimental 
+effect on interpretation of NMR responses of carbonates [1, 4]. Theoretical and experimental 
+studies performed by Anand and Hirasaki (2007) consider the geometric controls on pore 
+coupling in sandstones and grainstones [5]. Experimental study on silica gels with various 
+Fe
+3+ content performed by Grunewald and Keating (2009) demonstrated that the influence of 
+surface geochemistry of dual-porosity, micro- and macroporosity, in well-connected system 
+can be a significant factor defining the strength of pore coupling [6]. 
+ In this work we aim to assess the impact and the relative strength of the diffusional 
+coupling effects caused by surface relaxivity and susceptibility induced internal gradients on 
+T
+2 relaxation responses of a saturated layered porous systems. We construct a number of 3D 
+numerical morphologies models based on Boolean particle processes to test the relationships 
+between pore geometry, surface magnetic properties and NMR T
+2 relaxation [7] and obtain 
+the T2 relaxation time distribution via lattice random walk simulations [8]. Furthermore, we 
+the sensitivity of the results to changes in the Laplace inversion parameters. 
+ 
+2. Methodology 
+ A set of 3D models of two morphological structures with different grain sizes were 
+deployed based on a Boolean particle process. The grain sizes are selected by taking into 
+account the diffusion length,  √, to allow magnetization exchange between pores, 
+where D is diffusion coefficient and T is the total time. The voxel in the numerical simulation 
+has an edge length of 50 nm. The morphological models 1 and 2 have a grain radius of 150 
+and 450 nm, respectively. The porosities of these models are 8.5 and 15 p.u, respectively. 
+Fig.1 displays a slice (cross-section) of the 2 layers model sample. The two morphological 
+model structures were then used to create four samples of laminated sandstone of 2, 4, 6, and 
+8 layers of 300, 150, 100, and 75 voxel of thickness, respectively as seen in Fig. 2. Table 1 
+shows the variables used in the simulation model. Constant bulk-relaxation time T
+2b of 3s was 
+used for all simulation runs. 
+ The simulation model uses a lattice random walk method to obtain T2 relaxation time with 
+CPMG sequence on a saturated porous system [8]. For better understanding the internal 
+gradient, surface relaxivity, and layer thickness impact on diffusion coupling, series of tests 
+has been conducted as follows: 
+ 
+ 
+© 2014, N. H. Alhwety 
+diffusion-fundamentals.org 22 (2014) 1, pp 1-7
+2
+
+--- PAGE 3 ---
+ 
+• Across all models at different surface relaxivities of 2, 4, and 10 µm/s of RT-1 and 
+constant 1 µm/s of RT-2. 
+• Across all models (4 different thicknesses) at grain susceptibilities of +5000 and -8 
+µSI of RT-1 and 2, respectively. 
+• Across 4-layers model at varied bulk susceptibility of -8, +1000, +2000 µSI for RT-1 
+and constant for RT-2 of -8 µSI. In this scenario, the T
+2 distribution obtained for each 
+morphological model structure along with the whole model. 
+ A verification of signal-to-noise ratio was conducted by increasing the number of walker 
+from 20,000 to 80,000 as seen in Fig. 3. This increase of S/N of a factor two results in a 
+lowering of the automatically derived regularisation parameter and gives more emphasis to 
+the physical relaxation time distribution. Seeing no change confirms that this distribution was 
+already captured using 20,000 random walks. 
+3. Results 
+3.1 Surface Relaxivity Contrast vs. Layer Thickness 
+Surface relaxivity ( ρ) effect has been tested across all model samples of the different layer 
+thicknesses. The aim of this sensitivity is to test how much uncoupled pores signal will hold 
+as bed thickness becomes smaller. Fig. 4 shows that at ∆ρ of 1 µm/s (left), a bimodal T
+2 
+distribution is formed with a minor degree of diffusion coupling. In addition, as the layer 
+thickness decreases, diffusion coupling increases. Also, as ∆ρ decreases, the tendency to 
+c
+ouple by diffusion increases. Thus, higher ρ leads to faster relaxing signal which will reduce 
+p
+ore coupling. 
+ 
+3.2 Susceptibility Contrast vs. Layer Thickness 
+Similar to the surface relaxivity sensitivity, bulk susceptibility ( χ) contrast has been 
+s
+imulated on all layered samples. The aim was to test the impact of internal gradient contrast 
+on diffusion coupling while varying the layer thickness. Internal gradients due to 
+susceptibility contrast are calculated in the NMR simulator in the dipolar approximation [8]. 
+RT-1 and RT-2 have χ of +5000 and -8 µSI, respectively. F
+ ig. 5 shows that as the layers 
+thickness decreases, the degree of pore coupling increases and T2 peaks of RT-2 (the larger 
+pores) shifted to shorter times. Moreover, as layers become thinner, the high susceptibility 
+minerals in one layer can greatly influence the NMR response of the offset layer. Fig. 6 show 
+a cross section of the internal gradient and magnetic field distribution of the 8 layer sample 
+simulated. 
+ 
+3.3 Magnetization Breakdown 
+The aim of this section is to investigate the magnitude of diffusion coupling by comparing 
+the NMR response of the laminated sample against the NMR responses of the individual rock 
+types RT-1 and RT-2. The 4-layered sample has been utilized for this study by varying χ of 
+R
+T-1 of [-8, +1000, +2000, +3000, +4000] µSI while keeping a constant χ of -8 µSI RT-2. 
+T
+he surface relaxivity was kept constant for both morphological models at 1 µm/s. The 
+simulated NMR distribution for each morphological model was normalized by the total 
+sample porosity. Fig. 7 shows the response of three sets of NMR simulation runs. 
+ 
+ 
+© 2014, N. H. Alhwety 
+diffusion-fundamentals.org 22 (2014) 1, pp 1-7
+3
+
+--- PAGE 4 ---
+ 
+4. Discussion and Conclusion 
+We observed the effect of diffusional coupling on transverse relaxation which may be 
+qualitatively described by a relaxation time shift of T2 distributions specific to morphological 
+types. The effect is clearly more prominent with an increase of interlayer surface area 
+enabling enhancing magnetisation exchange between distinctive environments at certain 
+conditions. These conditions may be qualified with the aid of characteristic scales: l
+d >> ls and 
+ld >> lg, which may be effectively described by a strong localization regime, following 
+notations of [3]. The observations above were made at fixed controlling parameters of NMR 
+acquisition and subsequent inversion of acquired magnetisation decays (i.e. echo-spacing, 
+number of echoes, SNR, inversion interval, number of eigenvalues and smoothing parameter). 
+However, ILT which is used to invert the attained magnetization into T
+2 distributions is 
+known to be an ill-posed problem. The inversion involves a solution of a 1-st kind Fredholm 
+integral with an exponential kernel [9]: 
+ 
+ 
+
+  exp 
+log 
+
+
+ 
+ 
+where M(t) is measured magnetisation, f (T) is eigenfunction of spin density probability with 
+eigenmodes f
+n on preselected discrete log-spaced time scale T. The common condition 
+imposed on a spectrum function is f (T) ≥ 0. Noting a discrete nature of a problem and impose 
+a smoothness as an additional constrain, the optimal solution may be expressed in the form of 
+second norm minimization problem: 
+ 
+ 
+ exp 
+!
+ 
+ !
+
+
+"#$   #
+
+
+ 
+%
+!&'
+ 
+ 
+where the solution is composed of non-negative functions F and S(α) i
+s the residual as a 
+function of the regularization parameter α. In this work the smoothing parameter is 
+d
+etermined using L-curve method, Hansen (1992) [10], Arns et al. (2006) [11]. It is generally 
+assumed that varying the smoothing parameter within an order of magnitude has no 
+significant impact on the final distribution, Song et al. (2012) [12]. While with the constant 
+(optimal) regularization parameter the merging of the originally well separated peaks is clear, 
+for the purpose of rock-typing it might be meaningful to select less smoothly regularized 
+solutions. We tested the approach by applying a 10 times smaller regularization parameter to 
+invert NMR signal which we interpreted as subjected to strong diffusional coupling. In one 
+instance the effect was achieved using surface relaxivity contrast between morphological 
+types and in another by difference in susceptibility induced field gradients as seen in Fig. 8 
+and Fig. 9. 
+ 
+ We observed and demonstrated on Fig. 8 and Fig. 9 the effect of sharpening ILT solutions 
+with regularization parameter which seemingly reverses back the original coupling effect. The 
+peak positions of the two populations are very similar for the layered system as seen in Fig. 8 
+and Fig. 9. However, the relative fractions of the two rock-types should be equal and are not 
+recovered, in particular for the 8-layered case. We conclude that diffusion coupling is visible 
+when using the optimal regularisation parameter. In terms of rock-typing finding the initial 
+rock-classes should be feasible, if they are independently measured beforehand and the effect 
+of diffusion coupling on the relative peak-weighting is understood. 
+ 
+© 2014, N. H. Alhwety 
+diffusion-fundamentals.org 22 (2014) 1, pp 1-7
+4
+
+--- PAGE 5 ---
+ 
+Fig. 1: 2D slices through the 2-layered model to represent the 
+laminated sandstone. Rock type 1 (RT-1) has grains of 
+diameter d=900 nm and a porosity of φ=8.5%, and RT-2 
+has d=300nm and φ=15%. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Table 1- NMR simulation model parameters. 
+Sample 
+size 
+[voxel3] 
+Static 
+Magnetic 
+Field 
+[Gauss] 
+No. of 
+Random 
+Walkers 
+(RW) 
+Echo 
+Spacing 
+(TE) 
+[µs] 
+Hydrogen 
+Index 
+Diffusion 
+Coefficient 
+(D) 
+[µm2/s] 
+Fluid Bulk 
+Susceptibility 
+[µSI] 
+6003 470 20,000 100 0.94 2,300 -10 
+ 
+ 
+ 
+ 
+ 
+Fig. 2: 3D images of the constructed 2-, 4-, 6-, and 8-layer laminated sandstone models. 
+Fig. 3: Sensitivity study comparing calculations using 20,000 random walks (RW) against 80,000 RW for a 4-
+layered model. From left to right bulk susceptibilities of RT-1 were [-8, +1000, +2000] µSI and constant 
+of [-8] µSI of RT-2. 
+Fig. 4: NMR relaxation time distribution for 4 different thicknesses at ∆ρ of [1, 3, 9] µm/s from left to right . 
+Constant susceptibility of -8 µSI for both rock-types was applied. 
+RT-2 
+RT-1 
+© 2014, N. H. Alhwety 
+diffusion-fundamentals.org 22 (2014) 1, pp 1-7
+5
+
+--- PAGE 6 ---
+ 
+Fig. 5: NMR relaxation time distribution for 4 
+different thicknesses of [+5000, -8] µSI grain 
+susceptibility of RT-1 and RT-2, respectively 
+and constant surface relaxivity. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Fig. 6: 2D slices through the internal gradient field (left) and the magnetic field distribution (right) for the 8
+layer sample at constant surface relaxivity. The units are in B0/cm for the gradient fields and in units of B0 for 
+the magnetic field. The range of the internal gradients was truncated at 2,000 to make the weak er longer range 
+gradients visible. 
+Fig. 7: NMR distribution of each morphological model structure within 4- layer sample along with whole sample 
+response. From left to right, χ [-8, +1000, +2000] µSI for RT -1 and constant χ [-8] µSI for RT-2 
+Fig. 8 T2 distributions of 2- (left) and 8- layers (right) model structures represented by equal fractions of two 
+morphological types with 1 µm/s relaxivity contrast between them and equal bulk susceptibility of -8 µSI. 
+© 2014, N. H. Alhwety 
+diffusion-fundamentals.org 22 (2014) 1, pp 1-7
+6
+
+--- PAGE 7 ---
+ 
+ 
+ 
+ 
+ 
+References 
+[1] Toumelin, E., Torres-Verdin, C., Chen, S. and Fisher, D.M., 2003, Reconciling NMR 
+Measurements and Numerical Simulations: Assessment of Temperature and Diffusive 
+Coupling Effects on two-phase Carbonate Samples, Petrophys. 44(2), 2003, 91-107. 
+[2] Ramakrishnan, T.S., Fordham, E.J., Kenyon, W.E., Wilkinson D.J. and Schwartz, L.M., 
+1999, Forward models for Nuclear Magnetic Resonance in Carbonate Rocks, Log 
+Analyst, 40(4), 260-270. 
+[3] Hürlimann, M.D., Helmer, K.G., de Swiet, T.M., Sen, P.T. and Sotak, C.H., 2005, Spin 
+Echoes in a Constant Gradient and in the Presence of Simple Restriction, J. Of Magn. 
+Reson. A, 113, 260-264. 
+[4] Vincent, B., M. Fleury, Y. Santerre and B. Brigaud, 2011, ‘NMR Relaxation of Necritic 
+Carbonates: An Integrated Petrophysical and Petrographical Approach’, J. of Appl. 
+Geophys., 74, 38-58. 
+[5] Anand V. and G. J. Hirasaki, G.J., 2007, Diffusional Coupling between Micro and 
+Macroporosity for NMR Relaxation in Sandstones and Grainstones , Petrophys, 48(4), 
+289-307. 
+[6] Grunewald, E. and Knight, R., 2009, B. Brigaud, 2011, A laboratory Study of NMR 
+Relaxation Times and Pore Coupling in Heterogeneous Media, Geophys., 74(6), E215-
+E221. 
+[7] Arns, C.H., 2002, the Influence of Morphology on Physical Properties of Reservoir Rocks, 
+PhD thesis, UNSW, Sydney, pp.277. 
+[8] Arns, C.H., Alghamdi, T. and Arns J.-Y., 2011, Numerical Analysis of NMR Relaxation-
+Diffusion Responses of Sedimentary Rock, New J. Phys., 13, 1-15. 
+[9] Parker, R.L. and Song, Y.-Q., 2005, Assigning Uncertainties in the Inversion of NMR 
+Relaxation Data, J. Magn. Reson., 174, 314-324. 
+[10] Hansen, P.C., 1992, Analysis of Discrete Ill-posed Problems by Means of the L-curve, 
+SIAM Rev., 34, 561–580. 
+[11] Arns, C.H., Sheppard, A.P., Saadatfar, M., and Knackstedt, M., Prediction of 
+Permeability from NMR Response: Surface Relaxivity Heterogeneity, SPWLA 47
+th Ann. 
+Log. Symp., held in Veracruz, Mexico, June 4-7, 2006, paper GG, 1-13. 
+[12] Song, K.-M., Mitchell, J., Jaffel, H. and Gladden, L.F., 2012, Numerical Analysis of 
+NMR Relaxation-diffusion Responses of Sedimentary Rock, J. Phys. D: Appl. Phys., 
+45, 1-8. 
+Fig. 9 T2 distributions of 2- (left) and 8- layers (right) model structures where two types of morphologies are 
+similar in surface relaxivity of 1 µm/s, but have assigned a high difference in fluid- solid susceptibility 
+contrast. 
+© 2014, N. H. Alhwety 
+diffusion-fundamentals.org 22 (2014) 1, pp 1-7
+7

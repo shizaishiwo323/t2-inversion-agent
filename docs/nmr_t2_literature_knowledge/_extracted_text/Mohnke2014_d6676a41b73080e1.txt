@@ -1,0 +1,982 @@
+--- PAGE 1 ---
+RESEARCH ARTICLE
+10.1002/2013WR014684
+Joint numerical microscale simulations of multiphase flow and
+NMR relaxation behavior in porous media using Lattice
+Boltzmann methods
+O. Mohnke1,2, M. Stiebler 3, and N. Klitzsch 1
+1Institute for Applied Geophysics and Geothermal Energy, E.ON Energy Research Center, RWTH Aachen University,
+Aachen, Germany, 2Now at Baker Hughes, Celle, Germany, 3Institute for Computational Modeling in Civil Engineering,
+Technische Universit€at Braunschweig, Braunschweig, Germany
+Abstract Nuclear magnetic resonance (NMR) relaxometry is a useful tool to estimate transport and stor-
+age properties of rocks and soils. However, as there is no unique relation between the NMR signal and these
+properties in rocks, a variety of empirical models on deriving hydraulic properties from NMR relaxometry
+data have been published. Complementary to laboratory measurements, this paper introduces a numerical
+framework to jointly simulate NMR relaxometry experiments and two-phase ﬂow on the micrometer scale.
+Herein, the NMR diffusion equations were tied to an established Lattice Boltzmann algorithm used in com-
+putational ﬂuid dynamics. The numerically simulated NMR data were validated for both surface-limited and
+diffusion-limited relaxation regimes using analytical solutions available for fully and partially water-
+saturated simple pore geometries. Subsequently, simulations were compiled using a complex pore space
+derived from three-dimensional computer tomography (CT) data of an unconsolidated sand and the results
+were compared to respective NMR T
+1 relaxometry data. The NMR transients simulated for different water
+saturations matched the measured data regarding initial amplitudes (i.e., porosity and saturation) and relax-
+ation behavior (i.e., distribution of water-saturated pores). Thus, we provide a simulation tool that enables
+study of the inﬂuences of structural and physicochemical properties, such as pore connectivity and pore
+coupling, surface relaxivity, or diffusivity, on partially saturated porous media, e.g, rocks or soils, with NMR
+T
+1 relaxometry data.
+1. Introduction
+The application of nuclear magnetic resonance (NMR) to petroleum and environmental research issues has
+become more important in recent years owing to the method’s direct sensitivity to the hydrogen content in
+pore ﬂuids such as oil, water, or methane gas. The NMR technique is a useful tool that allows inferences of
+transport and storage parameters such as pore-size distributions or the relative permeability in a porous sys-
+tem, such as rock formations or soils. Even though a considerable amount of data on deriving hydraulic
+properties of porous media by NMR relaxometry have been published [e.g., Kenyon et al ., 1988; Sen et al .,
+1990; review in Dunn et al ., 2002], the majority of these models only empirically address the fully water-
+saturated state.
+The aim of this study is therefore to further advance the fundamental understanding of the relationship
+between NMR parameters and transport and storage properties of fully and partially saturated pore systems
+in porous media. To achieve this goal, we numerically simulated NMR relaxometry data and two-phase ﬂow
+in rock models with complex pore systems derived from micro-CT images. Speciﬁcally, Navier-Stokes ﬂow in
+the partially water-saturated pore space and the evolution of magnetization of the NMR-labeled water mol-
+ecules governed by diffusion processes were jointly simulated using an adapted Lattice Boltzmann (LB)
+algorithm. The LB method is a well-established class of tools for computational ﬂuid dynamics (CFD) which
+can numerically simulate ﬂow in complex geometries. Various model extensions make it possible to also
+simulate multiphase ﬂow and advection/diffusion processes in porous media [e.g., Rothmann and Keller ,
+1988; Vogel et al ., 2005; T€olke et al ., 2006; Ahrenholz et al ., 2008]. As discussed in subsequent sections, we
+employed an extended Rothmann-Keller model coupled with an advection/diffusion model to jointly simu-
+late drainage and imbibition processes along with transient NMR T
+1 relaxometry data.
+Special Section:
+Patterns in Soil-Vegetation-
+Atmosphere Systems:
+Monitoring, Modelling and
+Data Assimilation
+Key Points:
+/C15Establishing a numerical
+experimental frame to simulate NMR
+and two-phase ﬂow
+/C15Implementing NMR diffusion
+equation in LBM
+/C15Simulate natural complex pore
+systems
+Correspondence to:
+O. Mohnke,
+oliver.mohnke@bakerhughes.com
+Citation:
+Mohnke, O., M. Stiebler, and N. Klitzsch
+(2014), Joint numerical microscale
+simulations of multiphase ﬂow and
+NMR relaxation behavior in porous
+media using Lattice Boltzmann
+methods, Water Resour. Res. , 50, 7378–
+7393, doi:10.1002/2013WR014684.
+Received 30 SEP 2013
+Accepted 24 AUG 2014
+Accepted article online 30 AUG 2014
+Published online 19 SEP 2014
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7378
+Water Resources Research
+PUBLICATIONS
+
+--- PAGE 2 ---
+Herein, we (a) simulated the multiphase ﬂow during desaturation and (b) solved the NMR diffusion equation
+at each saturation level of the system. Subsequently, to validate the model, results of numerical simulations
+were matched to experimental T1 NMR relaxometry data [ Stingaciu et al ., 2010] obtained from a well-sorted
+unconsolidated sand packing at fully and partially saturated states.
+2. NMR Magnetization Evolution in a Porous System
+The phenomenon of NMR occurs when the nuclei of certain atoms (e.g., hydrogen) immersed in a static
+magnetic ﬁeld B0 are exposed to a second oscillating magnetic ﬁeld in the radio frequency range.
+The relaxation of observable NMR signals in the pore ﬂuid of a porous system results from the interaction of
+nuclear spins of the hydrogen protons with their surrounding environment, i.e., with the bulk ﬂuid and
+interfaces such as pore walls or phase boundaries. This evolution of the magnetization l during the NMR
+experiment in a free ﬂuid can be described in terms of the Bloch-Torrey NMR diffusion equation [e.g., Bloch,
+1946; Torrey, 1956; Brownstein and Tarr , 1979; Mohnke and Klitzsch, 2010]:
+@l=@t5cðl3BexÞ2
+lx0 =T2B
+ly0 =T2B
+ðlz 2l0Þ=T1B
+0
+BB
+@
+1
+CC
+A2rDrl; (1)
+where c is the gyromagnetic ratio of the protons, Bex is the external magnetic ﬁeld, and T1B and T2B are the
+ﬂuid’s longitudinal and transverse bulk relaxation constants, respectively. The diffusion tensorD simpliﬁes to
+D5jjDjj for the case of isotropic diffusion assumed in this study. Here, we did not consider effects arising from
+internal magnetic ﬁeld gradients that may inﬂuence theT2 components of the above equation; thusT2 /C25T1,
+and we focused on the longitudinal NMR magnetization behavior characterized by theT1 relaxation constant.
+In the following considerations, the evolution of the longitudinal magnetization lz was assumed to
+commence on terminating the NMR p=2-excitation pulse Bex, i.e., lz ðt50Þ
+l0
+50 (and
+lxy ðt50Þ
+l0
+51):
+@lz =@t52 lz 2l0
+T1B
+2rDrlz ; (2)
+where l0 is the equilibrium magnetization of the system prior to excitation. When considering multiple
+NMR active ﬂuids (e.g., oil and water) in a porous system, both, the diffusion constant D5DðrÞ as well as the
+magnetization at equilibrium l05l0ðrÞ will become spatially dependent properties owing to the different
+types and densities of (immiscible) ﬂuids distributed in the pore space.
+Additionally, in a conﬁned system such as a (partially) saturated porous medium, the NMR relaxation rate of
+excited nuclei can be further accelerated because of surface interactions at the matrix-ﬂuid or ﬂuid-ﬂuid
+interfaces (e.g., Figure 1a).
+In a water-saturated porous medium, the resulting NMR relaxation time relates to the surface-to-volume
+ratio (s
+a=v) of a pore by the surface relaxivity qs (e.g., equation (3)). This surface interaction parameter
+mainly depends on the presence of ferromagnetic or paramagnetic impurities at the pore surface. Assuming
+a regime dominated by surface relaxation processes, i.e., the ﬂuid molecules move sufﬁciently fast and thus
+explore all parts of the active pore surface s
+a with respect to the time scale ( /C25T1) of the experiment, the
+relaxation is monoexponential and the pore size is directly proportional to T1, according to
+1
+T1
+5qs
+sa
+v 1 1
+T1B
+: (3)
+Upon consideration of a complex porous system, e.g. a porous rock or soil, a multitude of pores within a
+volume-weighted pore-size distribution (e.g., Figure 1b) will contribute to the resulting NMR T1 relaxation
+signal yielding a corresponding NMR relaxation time distribution. The NMR recovery transient is given by
+eðtÞ5
+X
+i
+vi
+V0
+ð12exp ð2t=T1;i Þ (4)
+with evolution time t, total pore volume V0 volumetric content vi, and characteristic relaxation time T1;i of
+the i-th contributing group of pore sizes in the porous medium [e.g., Kenyon et al ., 1989; Dunn et al ., 2002].
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7379
+
+--- PAGE 3 ---
+In a diffusion limited regime, e.g. high surface relaxivity, large pore sizes, or a small diffusion coefﬁcient D,
+the density of unrelaxed spins varies within the pore space. The spins near the surface cannot be replaced
+immediately after relaxation. Thus, there will be a surplus of unrelaxed spins in the center of a pore com-
+pared to the surface region resulting in a multiexponential relaxation characteristic of a single pore [e.g.,
+Brownstein and Tarr , 1979; Mohnke and Klitzsch , 2010].
+To account for the accelerated NMR relaxation at the pore walls, we applied Robin boundary conditions, i.e.,
+a linear relationship between the value of the magnetization and its normal derivative. Here, in analogy to a
+mass transfer coefﬁcient an interface sink term, the surface relaxivity q
+s, in units of (m/s) is introduced. qs
+reﬂects the loss of magnetization at the matrix-ﬂuid and ﬂuid-ﬂuid boundaries, whereby:
+DðrÞ^ni rlðr; tÞ1qi
+slðr; tÞjSa
+i
+50
+DðrÞ^ni rlðr; tÞjSp
+i
+50
+qs > 0; active; e:g:; pore wall
+qs50; passive; e:g:; air-water or oil-water
+8
+>>>>
+<
+>>
+>
+>
+:
+(5)
+with the surface outward normal ^ni at the i-th solid-water or air-water interface fraction and qi
+s is its surface
+relaxivity. The system’s total interface surface area S is given by summing up all active (a) and passive (p)
+surfaces fractions s of the pore space
+S5SðaÞ1SðpÞ5
+X
+i
+sðaÞ
+i 1
+X
+i
+sðpÞ
+i : (6)
+The total magnetization M(t) of the virtual pore system at a given time t is calculated by integrating
+MðtÞ5
+ð
+V
+lðr; tÞ@r: (7)
+Figure 1. Schematic of the longitudinal NMR exponential relaxation behavior in fully saturated pores related to pore sizes (a) and assum-
+ing a uniform surface relaxivity qs5const. at the pore walls. The relaxation rates (1 =T1 ) increase with decreasing pore sizes. (b) Different
+pore sizes (pore-size distribution) in a porous system yield a multiexponential NMR decay with a corresponding relaxation time spectrum.
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7380
+
+--- PAGE 4 ---
+Upon considering two immiscible ﬂuids of a partially saturated pore space (cf. Figure 2), e.g., ﬂuid A (wet-
+ting) and B (nonwetting), equations (1) and (5) are solved independently for each phase with model proper-
+ties l
+A;B
+0 , DA;B, sA;B
+ðaÞ , and sA
+ðpÞ5sB
+ðpÞ. Consequently, the total magnetization of a numerically simulated NMR
+relaxometry transient is expressed by
+MtotðtÞ5MAðtÞ1MBðtÞ: (8)
+Solving the introduced NMR diffusion equations (equation (1)) and boundary conditions (equation (5))
+enabled us to comprehensively describe the evolution of magnetization in an arbitrary porous medium,
+thereby allowing study of a wide variety of solid surface and pore ﬂuid properties that inﬂuence NMR relax-
+ometry signatures, e.g., partial saturation, surface relaxivity, bulk relaxation properties, diffusive pore cou-
+pling, or slow diffusion processes [e.g., Mohnke and Klitzsch , 2010].
+The following section will focus on setting up a numerical framework to jointly simulate two-phase ﬂow
+and NMR relaxometry experiments for T
+1 relaxation processes according to equations (1) and (5).
+3. Lattice Boltzmann Method for Modeling Joint Multiphase Flow and NMR
+Relaxation
+Computational ﬂuid dynamics (CFD) have proven to be a viable complementary tool for analyzing and pre-
+dicting complex transport systems. The LB method is a well-established class of CFD tools that can be used
+to numerically simulate ﬂow in complex geometries like porous media. Various model extensions allow the
+additional simulation of multiphase ﬂow and advection/diffusion processes. For this work, an extended
+Rothmann-Keller model [Rothmann and Keller , 1988] was coupled with an advection/diffusion model using
+an LB method [ Stiebler et al ., 2008] to jointly simulate drainage and imbibition processes along with NMR T
+1
+relaxation. Hereby, we (a) simulated the multiphase ﬂow during drainage or imbibition and (b) solved the
+NMR diffusion equation at each saturation level of the system.
+3.1. Lattice Boltzmann Method for Fluid Flow
+The LB method is a numerical method for solving the Navier Stokes equation for incompressible ﬂuids,
+which, despite the name, is typically used for modelling of low Mach number ﬂow of compressible ﬂuids as
+well; it is given by the momentum equation
+@ u!
+@t 1 u! /C1r
+/C0/C1
+u!52 1
+q rp1mD u! (9)
+Figure 2. Possible model scenarios for (a) active ( qðaÞ
+s ) and passive ( qðpÞ
+s ) NMR interfaces of two immiscible wetting and nonwetting ﬂuid
+phases in a rock’s pore space and (b) variations of (active) surface relaxivities attributed to different rock minerals A and B, e.g., qsB /C28qsA
+for quartz and magnetite grains, respectively.
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7381
+
+--- PAGE 5 ---
+and the continuity equation
+r/C1 u!50 (10)
+for the ﬂow velocity u!ðt; x!Þ and the pressure pðt; x!Þ at point x! and time t, respectively. The LBM is based
+on a discretization of the Boltzmann equation
+@f
+@t 1 n! /C1rf 5X; (11)
+where f ðt; x!; n!Þ signiﬁes a particle density distribution function over the space of microscopic particle
+velocities n!. X models the inﬂuence of particle collisions on f. In the limit of small Knudsen numbers and
+Mach numbers, the solutions of equation (11) can be shown to be solutions of equation (9) as well [ Chap-
+man and Cowling , 1970]. The connection between f and the macroscopic variables p and u! is given by p5
+c2
+s q0
+Ð
+fd n! and q0 u!5
+Ð
+f n!d n!, where q0 is a reference density, and cs is the speed of sound of the
+medium.
+For numerical treatment, equation (11) can be discretized in the velocity space by introducing a ﬁnite set of
+microscopic velocities that satisfy minimal symmetry requirements [ Benzi et al., 1992] and, for computa-
+tional convenience, are arranged to span a cubic lattice. The set used in this work consisted of 19 three-
+dimensional velocities (D3Q19 in standard terminology [ Qian et al ., 1992], cf. Figure 3a)
+n!
+q5c
+01 210 0 001 211 211 211 210 0 0 0
+00 0 1 21001 21 21100 0 01 211 21
+00 0 0 0 000 0 0 0 1 21 2111 21 211
+0
+BB@
+1
+CCA; (12)
+where c is a microscopic reference velocity connected to the speed of sound cs by 3c2
+s 5c2. It is noteworthy
+that the speed of sound is always ﬁnite in the LBM, although equation (9) describes ﬂuids in the limit of
+incompressiblility or, equivalently, in the limit of the Mach number Ma ! 0 or the limit of the inﬁnite speed
+of sound. By treating the ﬂuid as weakly compressible, the LBM introduces a modeling error on the order of
+Ma2, but it gets away without explicitly solving the pressure Poisson equation, which would require large
+systems of linear equations to be solved.
+After discretizing the velocity space, a ﬁnite difference discretization for space and time leads to the LB
+method
+fqð x!1 n!
+qDt; t1DtÞ5fqð x!; tÞ1 ^Xqðf0; f1; ... ; f18Þ; (13)
+which, as the nodes lie on a Cartesian grid with a grid spacing of Dx5cDt, can be interpreted as a local
+collision step f /C3
+q 5fq1 /C22Xqðf0; f1; ... ; f18Þ; q50; 1; ... ; 18 and propagation of the post collision distributions
+f /C3
+q to the neighboring nodes. This locality of the method, in combination with its explicitness, means that it
+lends itself well to efﬁcient parallelization.
+With an appropriate discrete collision operator ^X, solutions of equation (13) can still be shown to be solu-
+tions of equation (9) in the limit of small Knudsen numbers and Mach numbers, where now p5c2
+s q0
+P
+q fq
+and u!5P
+q fq n!
+qa. The collisions are typically modeled as a relaxation to a Maxwellian equilibrium distribu-
+tion [Bhatnagar et al ., 1954] /C22f
+eq
+depending only on the local state of the conserved quantities (here, only
+density and momentum and not energy were considered, as we were not interested in modeling thermal
+aspects of the ﬂow). Whereas early lattice Boltzmann models used a single-relaxation time for all distribu-
+tions, the collision operator used in this work is a multirelaxation time model [ Lallemand and Luo , 2000]
+^X5M21SM f 2meqðÞ ; (14)
+where the matrix M transforms the set of distributions into physically meaningful moments and meq5Mfeq
+is the discrete analogue of a Maxwellian equilibrium. S is a diagonal matrix containing speciﬁc relaxation
+rates for each of the moments, which can be tuned to optimize the stability and accuracy of the numerical
+method. The version used in this work was optimized for Stokes ﬂow and was ﬁrst presented in T€olke et al .
+[2006]. Details about the collision operator (A and B) and the extensions for multiphase ﬂow (C) can be
+found in the Appendices A, B, and C.
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7382
+
+--- PAGE 6 ---
+3.2. LB Model for NMR Diffusion
+By choosing a different collision operator, the LB formalism can also be applied for solving other types of
+conservation-based physical models, such as diffusion equations. Like the original LB method for ﬂuid ﬂow, these
+methods are well suited for parallelization and for simulating processes in complex geometries. Moreover, they
+are advantageous for coupled ﬂow problems where an LB solver has already been used for the ﬂow; this is
+because the numerical grid is usually the same as the one used for the ﬂow problem. Thus, coupling tends to be
+straightforward.
+The LB model we chose for solving the NMR diffusion equation (equation (2)) is a member of a family of
+advection/diffusion LB algorithms described in Ginzburg [2005a]. The particular member we chose is an
+equilibrium type model, i.e., the diffusivity of the ﬂuid is set via a parameter in the quasi-Maxwellian equilib-
+rium distribution rather than via the relaxation rate of the distributions, which is ﬁxed at a value that opti-
+mizes the numerical properties of the model. As diffusion is a structurally simpler problem than the Navier-
+Stokes equation, a smaller set of macroscopic velocities sufﬁces for its solution. In order to save memory
+and ﬂoating point operations, we chose a set of only seven microscopic velocities (D3Q7, Figure 3b),
+although the isotropy properties of such a method are compromised. Accordingly, we introduce a set of
+seven distributions as primary variables, which we call g
+q to distinguish them from the distributions for the
+Navier-Stokes equations. The distributions are connected to the longitudinal magnetization via
+lz 5
+Xq56
+q50
+gq5
+Xq56
+q50
+geq
+q : (15)
+The method is given by the following evolution equation:
+gq x!1Dt nq
+/C131!; t1Dt
+/C16/C17
+5gq x!; t
+/C0/C1
+1k gq x!; t
+/C0/C1
+2geq
+q x!; t
+/C0/C1hi
+2sqDt lz 2l0
+T1B
+(16)
+with the set of microscopic velocities given by
+n!
+q5c
+01 21 0000
+0 001 210 0
+0 00001 21
+0
+BB
+@
+1
+CC
+A: (17)
+Figure 3. In the D3Q19 model (a), each node on the three-dimensional Cartesian grid is connected to 19 (red) of its 27 neighbors (including the
+node itself). As the grid spacing isDx5cDt, density distribution functions are propagated exactly to one of those neighbors during one time step.
+The set of microscopic velocities contains members with absolute values of 0 (invisible, connecting to the node itself),c (dark blue), and
+ﬃﬃ ﬃ
+2
+p
+c (light
+blue). In the D3Q7 model (b), each node on the three-dimensional Cartesian grid is connected to 7 (red) of its 27 neighbors (including the node
+itself). The set of microscopic velocities contains members with absolute values of 0 (invisible, connecting to the node itself) andc (dark blue).
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7383
+
+--- PAGE 7 ---
+The equilibrium distributions are given by
+geq
+q 5lz tq1 1
+3 aðeÞtðeÞ
+q
+/C18/C19
+(18)
+with lz given by equation (15) and the
+relaxation rate k set to
+k5231
+ﬃﬃ ﬃ
+3
+p
+: (19)
+sq and tðeÞ
+q are vectors that ensure consistent
+discretization of the source term and the
+diffusive term in equation (2), respectively,
+and which can be obtained from second-
+order polynomials in n
+q
+/C131! as derived in
+[Ginzburg, 2005a]:
+s05t050; sq5tq5 1
+6 for q 6¼ 0 (20)
+and
+tðeÞ
+0 523; tðeÞ
+q 5 1
+2 for q 6¼ 0: (21)
+The diffusion coefﬁcient of the model is set via the parameter aðeÞ:
+aðeÞ5 6
+ﬃﬃ ﬃ
+3
+p
+D
+c2Dt 21: (22)
+Following Ginzburg [2005b], the Robin boundary conditions for the NMR diffusion equation (equation (5))
+are implemented as a modiﬁed bounce-back scheme
+g/C22q xB
+!; t1Dt
+/C0/C1
+5g/C3
+q xB
+!; t
+/C0/C1
+2 n! /C1ni
+/C0/C1
+qs; (23)
+where g/C3 is the prepropagation state of g as given by the right-hand side of equation (16),
+g/C3
+q x!; t
+/C0/C1
+5gq x!; t
+/C0/C1
+1k gq x!; t
+/C0/C1
+2geq
+q x!; t
+/C0/C1hi
+2sqDt lz 2l0
+T1B
+: (24)
+This scheme replaces the normal propagation at boundary nodes (ﬂuid nodes that have at least one solid
+neighbor located at x!
+B) for all q such that ð x!
+B1 nq
+/C131!DtÞ is the location of a solid node. /C22q is related to q via
+n!
+q52 n!/C22q.
+Consequently, for the boundary conditions on passive interfaces, i.e., surface relaxivity qs50, between dif-
+ferent ﬂuid phases, a simple halfway bounce back was used:
+g/C22q xB
+!; t1Dt
+/C0/C1
+5g/C3
+q xB
+!; t
+/C0/C1
+: (25)
+4. Model Validation With Analytical Solutions for Spheres
+In order to quantitatively characterize complex 3-D pore systems (e.g., Figure 4) with NMR relaxometry, one
+typically reverts to pore volume equivalent simple geometrical models, e.g., sphere ensembles or capillary
+bundles [e.g., Kenyon et al ., 1989].
+For such geometries, Brownstein and Tarr [1979] introduced analytical solutions of the Bloch-Torrey equa-
+tions—valid for fast and slow diffusion regimes—in terms of their respective eigenvalues for cylindrical,
+spherical, or planar pore shapes.
+To validate the introduced LB implementation of the NMR diffusion equations, three different principle
+model setups using spherical pore geometries were simulated and compared to the respective analytical
+Figure 4. Micro-CT scan of an unconsolidated medium sand sample (FH31)
+(voxel size 15 lm) with pore sizes of 40–300 lm.
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7384
+
+--- PAGE 8 ---
+solutions. The validation scenarios comprised fast and slow diffusion environments and partially saturated
+pores with NMR signals originating from a single (water) and both ﬂuid phases (water and oil).
+Shown in Figure 5a is the superposition of simulated T1 relaxation transients calculated for three fully sat-
+urated isolated spherical pore clusters (Figure 5b) with respective pore radii R of 10, 5, and 2 lm. The LB
+grid was chosen to satisfy a node distance of Dr /C20R=50. Simulations were calculated for a surface
+relaxation-dominated relaxation regime (fast diffusion), i.e., independently of its shape, a pore is charac-
+terized by a single-relaxation time. Here, the NMR parameters included a surface relaxivity of qs510 lm=s
+and a diffusion constant of D52:0 /C11029 m2s21,t h u sqs R
+D /C281. Bulk relaxation time of water was assumed
+as T1B52 s. Simulations of NMR relaxation signals (normalized amplitudes) arising in a diffusion-
+dominated relaxation regime (slow diffusion) within a spherical pore, i.e., qs R
+D /C211, are shown in Figure 6.
+Here, as a consequence of a diffusion-dominated regi me (slow diffusion), multiexponential relaxation
+occurred for a single (spherical) pore, both for a radius of 50 lma n dar a d i u so f1 0 0lm. The simulations
+were generally in good agreement with the respective a nalytical solutions both for fast and slow diffusion
+models. The observed amplitude misﬁt of <1% was attributed to discretization errors as a consequence
+of the chosen grid.
+For consideration of two-phase systems, isolated partially water-saturated pores containing a concentric
+spherical entrapment (cf. inset of schematic view in Figure 7a) of the nonwetting ﬂuid, e.g., air, were simu-
+lated and matched to transient data obtained from analytical solutions [ Brownstein and Tarr , 1979; Costabel,
+2011].
+Figure 5. (a) Cluster of isolated spherical pores ( R510, 5, and 2 lm). (b) Simulated T1 relaxation data ( q510 lms21 ; D52 /C11029 m2 s21 ),
+analytical solutions and ﬁt errors. The NMR amplitudes are given in arbitrary units (a.u.). The deviation (relative error) between numerical
+and analytical solutions is given in %.
+Figure 6. Lattice Boltzmann NMR simulations for two spherical pores ( R1 550 lm; R2 5100 lm) in slow diffusion environments with rele-
+vant NMR parameters of the ﬂuid D52 /C11029 m2 s21 , Tb 52 s, and the pore’s surface relaxivity qS 5100 lms21 . (left) NMR T1 signal. (right)
+Deviation of the simulated NMR response from the analytical solution. The NMR amplitudes and respective mismatches are given in arbi-
+trary units (a.u.).
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7385
+
+--- PAGE 9 ---
+Figure 7a shows the simulation results of NMR transients for an air bubble trapped in a partially water-
+saturated spherical pore. The air-water interface was considered to be a passive boundary ( qs50 lm=s) and
+the water-rock interface an active boundary ( qs510 lm=s). Simulation results for the converse case of an
+oil-wet scenario, i.e., water ( Dwater52 /C11029 m2s21) entrapment in an oil ( Doil55 /C110211 m2s21) ﬁlled spheri-
+cal pore, which are shown in Figure 7b, were matched with the respective analytical solutions. Here, the
+NMR signal arising from the trapped water (bulk relaxation time T
+1B;water52s) superimposes to the relaxation
+signals of the adsorbed oil phase ( Tb;oil50:03s), i.e., mðtÞ5mw ðtÞ1moðtÞ.
+The LB simulation results were in very good agreement with the analytical models showing deviations of
+< 0.1% which could be further reduced by increasing the number of nodes of the LB grid.
+In conclusion, the simulated NMR relaxation signals for a single ﬂuid and for two immiscible ﬂuid phases as
+obtained by the implementation of the NMR T1 diffusion equation in the adapted LB model framework
+were in excellent agreement with results calculated by the respective analytical NMR models, both for sur-
+face and diffusion limited relaxation environments. In the subsequent section, we compare experimental
+and modeled data on the basis of a computer tomography (CT) image of an unconsolidated packed sand
+sample (FH31) with the complex geometry encountered in a natural pore space as shown in Figure 4.
+Figure 7. Comparison of numerical and analytical NMR T1 relaxation signals of a partially saturated spherical pore with spherical entrap-
+ment of nonwetting ﬂuid (red) and wetting ﬂuid (blue) phases (inset ﬁgure in top left corner). The left ﬁgures show the numerical and ana-
+lytical NMR signals and the right ﬁgures the mismatch between both signals (a) for a spherical air entrapment (radii 10 lm and 20 lm) in a
+pore with a radius of 50 lm and (b) for a spherical water entrapment (radii 1, 2, and 3 lm) in an oil-wet pore with a radius of 5 lm. The
+NMR ﬂuid parameters used for calculation of analytical and simulated NMR relaxation ( T
+1) data of water and oil phases are given by Dwater
+52 /C11029 m2 s21 and Doil 55 /C110211 m2 s21 (diffusion constants) and Tb;water 52s and Tb;oil 50:03s (bulk relaxation time). NMR amplitudes
+and respective mismatches are given in arbitrary units (a.u.).
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7386
+
+--- PAGE 10 ---
+5. Results
+Joint numerical two-phase ﬂow (drain-
+age) and NMR saturation recovery
+experiments were simulated on the
+basis of a 3-D micro-CT image (voxel
+size 15 lm) of a packed medium sand
+sample (FH31) with grain sizes
+between 0.18 and 0.72 mm) which
+was experimentally investigated by
+Pohlmeier et al . [2009] and [ Stingaciu
+et al ., 2010] using multistep-outﬂow,
+mercury injection (HgPor), and T
+1
+NMR relaxometry experiments. Based
+on these experimental results, the
+(active) surface relaxivity of the LB
+model space and parameters were
+calibrated to q
+s512 lm=s, porosity
+(/50:36) and speciﬁc surface
+(Spor 52:43105 m21).
+The pore-size distribution presented
+in Figure 8 was deduced from the
+micro-CT image (cf. Figure 4) after tri-
+angulation with a marching cube algorithm [ Ahrenholz et al ., 2008] by means of 3-D image analysis, e.g.,
+Paraview.
+All LB simulations introduced in this section were performed on a numerical domain of 200 32003240 grid
+nodes, which, with a grid spacing of 15 lm correspond to a real domain size of 3 3333:6m m
+3. Only 32
+/C1106 of these nodes were active, whereas the rest of the nodes represented the solid matrix. The simulations
+were run on a computer cluster using 36 CPU nodes (288 cores) with 2.6 GHz Intel Quad X5550 processors.
+The simulation code was implemented in Fortran 90 and parallelized using Message Passing Interface (MPI).
+With that setup, /C241:4310
+8 node updates per second (wall time) could be achieved, or /C244.4 numerical time
+steps per second.
+We performed a numerical drainage experiment by gra dually increasing pressure at the lower boundary
+over the course of 1 :83106 numerical time steps (without includin g gravity) resulting in a correspond-
+ing pressure drop across the
+sample length with its ‘‘open’’
+boundary at z53:6m m .T h ee v o -
+lution of the saturation distribu-
+tion over the height of the
+sample is shown for three satura-
+tions in Figure 9. Whereas at 90%
+a strong saturation gradient for z
+< 0:5m m( i n ﬂ o wa tz50 mm)
+could be observed, the saturation
+proﬁle became more ﬂat at lower
+saturations, i.e., after break-
+through of air had occurred. This
+behavior is supported by obser-
+vations made by Green et al .
+[2007] who studied saturation
+proﬁles of centrifuge capillary
+pressure measurements using
+magnetic resonance imaging
+(MRI). Similar to the author’s
+Figure 8. Cumulative pore-size distributions for the FH31 sand sample as derived
+from the 3-D CT image (blue), simulatedT1 data using LB simulations (red), andT1
+measurements (black dots) on the fully saturated sample. Contributions of small
+pore sizes (/C2410230 lm) in measured data reﬂect the inverted shortT1 components.
+Figure 9. Saturation over sample height for different total saturation levels during the
+numerical drainage experiment.
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7387
+
+--- PAGE 11 ---
+laboratory observations the proﬁles shown in
+Figure 9 also reﬂect the capillary pressure gra-
+dient and corresponding water content varia-
+tions along the desaturated porous system.
+This qualitative similarity indicates the model
+approximates a representative elementary vol-
+ume (rev). Analogous to centrifuge measure-
+ments, a more constant saturation proﬁle
+along the sample may be achieved by switch-
+ing the inﬂow and outﬂow and compiling a
+second drainage run, i.e., inﬂow at z53:6 mm.
+As a consequence of this heterogeneous water
+distribution in the pore space also the peak
+position of the relaxation time distribution
+(T
+1 / R) remains at Tpeak 51:2su n t i las i g n i ﬁ -
+cant fraction of the water sitting in the larger
+pores is displaced throughout the sample.
+Figure 10 shows water retention curves result-
+ing from LB simulations and respective
+pressure-saturation data obtained from labora-
+tory measurements [ Stingaciu et al ., 2010]. The
+simulated data show a more gradual decrease
+Figure 10. Measured water retention curves [ Stingaciu et al ., 2010] and
+LB simulations based on a 3-D micro-CT image for the FH31 sand sam-
+ple. Circles mark saturation states used for LB simulation of NMR T1
+relaxation data.
+Figure 11. (a) Deduced 3-D pore space element with simulated desaturation (air phase: red isosurface) using the LB method. 2-D slices of
+wetting (blue) and nonwetting (red) phase distributions (b) at 50% saturation, and (c) at 23% saturation, respectively.
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7388
+
+--- PAGE 12 ---
+of saturation compared to the laboratory data. Even though, when considering the different scales of the
+experiment and the CT image, a qualitative correlation can be observed.
+Experimental NMR T1 data were available for saturation states S 5 1 and S50:5, respectively. At eight satura-
+tion levels ranging from S50:9t o S50:3, that were reached during the numerical drainage experiment (e.g.,
+phase distributions at S50:5 and S50:23 in Figure 11), the NMR T1 measurements were simulated and proc-
+essed as discussed in section 3.2 (Figure 12a). In the NMR simulations, a numerical time step corresponded
+to 9:3631026s of real time. As expected, the obtained NMR amplitudes correlated linearly with the degree
+of saturation. The simulated relaxation curves also correlated well with the experimental data available for
+full and 50% saturation.
+Corresponding relaxation time distributions (Figure 12b) of the simulated NMR transients, which were
+derived using a regularized multiexponential ﬁtting algorithm [ Mohnke, 2010], were in very good agree-
+ment with the inversion results obtained for the respective measured NMR data. A second peak at low relax-
+ation times that was prominent in the measured data was just slightly indicated in the simulated signals.
+This difference can probably be attributed to the limited resolution of the CT image (voxel size of 15 lm),
+which does not capture tiny pores as well as rough surfaces (i.e., high local surface-to-volume ratios). Thus,
+they did not contribute to the simulated NMR relaxation signals.
+Note that the relaxation time distribution at low saturation degrees (e.g., yellow line) was slightly shifted
+toward smaller times outside the initial distribution envelope (blue line) at full saturation, which reﬂects the
+pore size distribution of the sample. Such behavior that can be frequently observed in partially saturated
+rocks can possibly be attributed to residual water trapped in pore corners and ﬁlms during desaturation
+that can exhibit very short relaxation times (cf. Figure 11b) [e.g., ReservoirTechnology, 1996; Thern, 2014].
+6. Conclusions
+A numerical framework was developed that allows for the joint simulation of both the NMR relaxation and
+transport properties of partially saturated porous systems. Here, Lattice Boltzmann methods were used for
+jointly simulating two-phase ﬂow and NMR T1 relaxometry signatures in a steady state model environment.
+The models were validated by analytical solutions for simple spherical pore geometries. Moreover, numerical
+experiments were compiled using the complex 3-D pore space derived from micro-CT images. The presented
+numerical simulations agree well with laboratory observations regarding porosity, inner surface area, as well
+as NMR amplitudes, and decay times for varying water saturation degrees of a packed sand sample.
+In this context, the numerical LB experiments can be used to investigate the observed complex behavior of
+NMR signatures of partially saturated porous media, such as rocks and soils. In that way, the actual spatial
+distribution of the pore ﬂuids in a rock can be simulated and imaged jointly with the NMR relaxometry sig-
+natures. Consequently, such numerical experiments can be utilized to conduct numerical experiments
+Figure 12. (a) Simulated (lines) and measured (circles) saturation recovery data for the FH31 sand sample and (b) inverted T1 decay time
+distributions for the eight saturation degrees between 0.3 and 1.0.
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7389
+
+--- PAGE 13 ---
+related to multiphase ﬂow and NMR relaxometry signatures. For instance, the inﬂuence of hysteresis as well
+as of trapped water in desaturated pore corners on the corresponding NMR signals can be studied. More-
+over, numerical experiments can be used to develop and to assess inverse modeling and interpretation
+schemes for NMR measurements on partially saturated porous systems, e.g., aiming to predict the transport
+properties.
+Appendix A: Generalized Lattice Boltzmann Method
+The technical information in this and the two following appendices gives an overview of the numerical
+method used in this work, and it is given for the sake of completeness, mainly summarizing T€olke et al .
+[2006]. Appendices A and B specify the LB collision operator. Subsequently, the Rothmann-Keller model
+extension for multiphase ﬂow is described in Appendix C.
+The matrix M given in Appendix B transforms the distributions f into moment space. The resulting
+moments are m5Mf. They are then relaxed according to m
+p:c:
+q 5mq1sq mq2meq
+q
+/C16/C17
+,w h i c hr e s u l t si nt h e
+post collision state of the moments, mp:c:
+q . sq are the relaxation rates (not to be confused with NMR
+relaxation).
+The equilibrium moments meq depend on the local state of the conserved quantities q5m0, qu15m3,
+qu25m5, and qu35m7, and for the simulation of multiphase systems, additional terms were included for
+modeling the surface tension r across the diffuse interface based on the gradient C of the phase ﬁeld (the
+computation of C is described in Appendix C):
+meq
+0 5m0; (A1a)
+meq
+1 5 m2
+31m2
+51m2
+7
+/C0/C1
+2rjjCjj; (A1b)
+meq
+3 5m3; meq
+5 5m5; meq
+7 5m7; (A1c)
+meq
+9 5 2m2
+32m2
+52m2
+7
+/C0/C1
+1 1
+2 rjjCjjð2n2
+x 2n2
+y 2n2
+z Þ; (A1d)
+meq
+115 m2
+52m2
+7
+/C0/C1
+1 1
+2 rjjCjjðn2
+y 2n2
+z Þ; (A1e)
+meq
+135m3m51 1
+2 rjjCjjðnx ny Þ; (A1f)
+meq
+145m5m71 1
+2 rjjCjjðny nz Þ; (A1g)
+meq
+155m3m71 1
+2 rjjCjjðnx nz Þ; (A1h)
+meq
+2 5meq
+4 5meq
+6 5meq
+8 5meq
+105meq
+165meq
+175meq
+1850: (A1i)
+The moments mqc ; qc 2f 0; 3; 5; 7g represent mass and momentum and are conserved during the collision.
+nx;y;z are the normal vector components in x; y, and z direction, respectively (cf. Appendix C). The nonzero
+relaxation rates are
+s152se; (A2a)
+s252sn; (A2b)
+s45s65s852sq; (A2c)
+s105s1252sp; (A2d)
+s95s115s135s145s1552sm; (A2e)
+s165s175s1852sm: (A2f)
+The relaxation rate sm is related to the kinematic viscosity m by
+sm5 2c2Dt
+6m1c2Dt : (A3)
+The other relaxation rates se; sn; sq; sp, and sm can be freely chosen in the range [0,2] and may be tuned to
+improve accuracy and stability [ Lallemand and Luo, 2000]. We applied ‘‘magic’’ parameters recommended
+for Stokes ﬂow in [ Ginzburg, 2006]:
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7390
+
+--- PAGE 14 ---
+se5sn5sp5sm; sq5sm58 22sm
+82sm
+: (A4)
+Appendix B: Transformation Matrix of Moments M
+The transformation matrix M
+Mpq5Upq; p; q50; 1; ... ; 18 (B1)
+is constructed from the orthogonal basis vectors
+U0q51; U1q5 n!2
+q2c2; U2q53ð n!2
+qÞ226 n!2
+qc21c4; (B2a)
+U3q5nq1; U5q5nq2; U7q5nq3; (B2b)
+U4q5ð3 n!2
+q25c2Þnq1; U6q5ð3 n!2
+q25c2Þnq2; (B2c)
+U8q5ð3 n!2
+q25c2Þnq3; (B2d)
+U9q53n2
+q12 n!2
+q; U11q5n2
+q22n2
+q3; (B2e)
+U10q5ð2 n!2
+q23c2Þð3n2
+q12 n!2
+qÞ; (B2f)
+U12q5ð2 n!2
+q23c2Þðn2
+q22n2
+q3Þ; (B2g)
+U13q5nq1nq2; U14q5nq2nq3; U15q5nq1nq3; (B2h)
+U16q5ðn2
+q22n2
+q3Þnq1; U17q5ðn2
+q32n2
+q1Þnq2; (B2i)
+U18q5ðn2
+q12n2
+q2Þnq3; (B2j)
+and the resulting matrix for D3Q19 becomes
+1/C1ð 1111111111111111111 Þ
+c2/C1ð 21 000000111111111111 Þ
+c4/C1ð 1 22 22 22 22 22 22 111111111111 Þ
+c/C1ð 01 21 00001 211 211 211 21 0000 Þ
+c3/C1ð 0 22 200001 211 211 211 21 0000 Þ
+c/C1ð 0001 210 0 1 21 21 100001 211 21Þ
+c3/C1ð 000 222 0 0 1 21 21 100001 211 21Þ
+c/C1ð 000001 21 00001 21 211 1 21 211 Þ
+c3/C1ð 00000 22 200001 21 211 1 21 211 Þ
+c2/C1ð 022 21 21 21 21 11111111 22 22 22 22Þ
+c4/C1ð 0 22 22 111111111111 22 22 22 22Þ
+c2/C1ð 00011 21 21 1111 21 21 21 21 0000 Þ
+c4/C1ð 000 21 21 111111 21 21 21 21 0000 Þ
+c2/C1ð 000000011 21 21 00000000 Þ
+c2/C1ð 00000000000000011 21 21Þ
+c2/C1ð 0000000000011 21 21 0000 Þ
+c3/C1ð 00000001 211 21 211 21 10000 Þ
+c3/C1ð 0000000 211 1 21 00001 211 21Þ
+c3/C1ð 000000000001 21 211 211 1 21Þ
+2
+66
+66666
+66666
+666
+66666
+66666
+66666
+666
+66666
+66666
+66666
+664
+3
+77
+77777
+77777
+777
+77777
+77777
+77777
+777
+77777
+77777
+77777
+775
+:
+Appendix C: Rothmann-Keller Multiphase Model
+Two dimensionless density ﬁelds qA and qB representing the wetting and nonwetting phase, respectively,
+are introduced to deﬁne an order parameter /
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7391
+
+--- PAGE 15 ---
+/5 qA2qB
+qA1qB
+; (C1)
+such that /51 signiﬁes the wetting phase and /521 signiﬁes the nonwetting phase. The value of / is con-
+stant in both bulk phases and varies only in the diffuse phase interface.
+The density ﬁelds qA and qB are advected with the following LB models for p 2f A; Bg and q 2f 0; ... ; 18g:
+gp;qðt1Dt; x!1 n!
+qDtÞ5geq
+p;qðqpðt; x!Þ; u!ðt; x!ÞÞ; (C2)
+where qp5
+X18
+q50 gp;q and n!
+q are deﬁned as in equation (12) described in section 3. The equilibrium distri-
+bution function geq
+p;q is given according to [ Kehrwald, 2002]:
+geq
+p;qðqp; u!Þ5xqqp 11 3
+c2 n!
+q /C1u!
+/C18/C19
+; (C3)
+where the weights are x051=3, xq51=18 for q 2f 1; :::; 6g, and xq51=36 for q 2f 7; :::; 18g. Equations
+(C2) and (C3) result in an advection diffusion equation for qp with a constant diffusion of D5 1
+6 c2Dt, which
+means the phases are mixing into each other. To reverse that unwanted diffusion, a demixing algorithm
+can be applied; this is often referred to as ‘‘recoloring algorithm’’ [ Kehrwald, 2002]. We chose the recoloring
+algorithm given in T€olke [2002].
+To take the surface tension into account (cf. Appendix A), the gradient of / has to be computed. This is
+done by
+Cðt; x!Þ5 3
+c2Dt
+X19
+q50
+xq n!
+q/ðt; x1 n!
+qDtÞ: (C4)
+To compute the normal vector on the liquid-gas interface, C is normalized as follows:
+na5 Ca
+jjCjj ; a 2 x; y; zfg : (C5)
+References
+Ahrenholz, B., J. T €olke, P. Lehmann, A. Peters, A. Kaestner, M. Krafczyk, and W. Durner (2008), Prediction of capillary hysteresis in porous
+material using lattice Boltzmann methods and comparison to experimental data and a morphological pore network model, Adv. Water
+Resour., 31(9), 1151–1173.
+Benzi, R., S. Succi, and M. Vergassola (1992), The lattice Boltzmann equation: Theory and applications, Phys. Rep., 222(3), 145–197.
+Bhatnagar, P. L., E. P. Gross, and M. Krook (1954), A model for collision processes in gases. i. small amplitude processes in charged and neu-
+tral one-component systems, Phys. Rev., 94(3), 511–525.
+Bloch, F. (1946), Nuclear induction, Phys. Rev., 70, 460–474.
+Brownstein, K., and C. Tarr (1979), Importance of classical diffusion in NMR studies of water in biological cells, Phys. Rev. A Gen. Phys. , 19,
+2446–2453.
+Chapman, S., and T. G. Cowling (1970), The Mathematical Theory of Non-Uniform Gases: An Account of the Kinetic Theory of Viscosity, Thermal
+Conduction and Diffusion in Gases , Cambridge Univ. Press, Cambridge, U. K.
+Costabel, S. (2011), Nuclear magnetic resonance on laboratory and ﬁeld scale for estimating hydraulic parameters in the vadose zone, PhD
+thesis, Inst. for Appl. Geosci., Tech. Univ. Berlin, Germany.
+Dunn, K., D. Bergman, and G. Latorraca (2002), Nuclear Magnetic Resonance: Petrophysical and Logging Applications , vol. 32, Pergamon,
+Amsterdam.
+Ginzburg, I. (2005a), Equilibrium-type and link-type lattice Boltzmann models for generic advection and anisotropic-dispersion equation,
+Adv. Water Resour. , 28(11), 1171–1195.
+Ginzburg, I. (2005b), Generic boundary conditions for lattice Boltzmann models and their application to advection and anisotropic disper-
+sion equations, Adv. Water Resour. , 28(11), 1196–1216, doi:10.1016/j.advwatres.2005.03.009.
+Ginzburg, I. (2006), Variably saturated ﬂow described with the anisotropic lattice Boltzmann methods, Comput. Fluids, 35(8–9), 831–848,
+doi:10.1016/j.compﬂuid.2005.11.001.
+Green, D., J. Dick, J. Grander, B. Balcom, and B. Zhou (2007), Comparison study of capillary pressure curves obtained using traditional cen-
+trifuge and magnetic resonance imaging techniques, paper presented at International Symposium of the Society of Core Analysts,
+paper SCA2007-30, Calgary, Canada, 10-12 September.
+Kehrwald, D. (2002), Numerical analysis of immiscible lattice BGK, PhD thesis, Kaiserslautern Univ., Germany.
+Kenyon, W., P. Dahl, C. Straley, and J. Willemsen (1988), A three-part study of NMR longitudinal relaxation properties of water-saturated
+sandstones, SPE Form. Eval. , 3, 622–636, New Orleans, La.
+Kenyon, W., J. Howard, A. Sezginer, C. Straley, A. Matteson, K. Horkowitz, and R. Ehrlich (1989), Pore-size distribution and NMR in micropo-
+rous cherty sandstones, paper presented at Transactions SPWL 30th Annual Logging Symposium, paper LL, Denver, 11–14 June.
+Lallemand, P., and L.-S. Luo (2000), Theory of the lattice Boltzmann method: Dispersion, dissipation, isotropy, Galilean invariance, and sta-
+bility, Phys. Rev. E , 61(6), 6546–6562.
+Acknowledgment
+This study was supported by the
+German Research Foundation (DFG) in
+the framework of the Transregional
+Collaborative Research Centre 32 (SFB
+TR 32).
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7392
+
+--- PAGE 16 ---
+Mohnke, O. (2010), Improved forward and inverse modelling of surface NMR relaxation signals using multi-exponential decomposition,
+PhD thesis, Inst. of Appl. Geophys., Tech. Univ. Berlin, Germany.
+Mohnke, O., and N. Klitzsch (2010), Microscale simulations of NMR relaxation in porous media considering internal ﬁeld gradients, Vadose
+Zone J., 9, 846–857.
+Pohlmeier, A., S. Haber-Pohlmeier, and S. Stapf (2009), A fast ﬁeld cycling nuclear magnetic resonance relaxometry study of natural soils,
+Vadose Zone J. , 8(3), 735–742.
+Qian, Y. H., D. D’Humie` res, and P. Lallemand (1992), Lattice BGK models for Navier-stokes equation, Europhys. Lett., 17(6), 479–484.
+ReservoirTechnology (1996), The NMR Sandstone Rock Catalogue , Appl. Reservoir Technol. Ltd., Long Melford, Suffolk, U. K.
+Rothmann, D., and J. Keller (1988), Immiscible cellular automaton ﬂuids, J. Stat. Phys. , 52, 1119–1127.
+Sen, P., C. Straley, W. Kenyon, and M. Whittingham (1990), Surface-to-volume ratio, charge density, nuclear magnetic relaxation, and per-
+meability in clay-bearing sandstones, Geophysics, 55(1), 61–69.
+Stiebler, M., J. T €olke, and M. Krafczyk (2008), Advection–diffusion lattice Boltzmann scheme for hierarchical grids, Comput. Math. Appl. ,
+55(7), 1576–1584.
+Stingaciu, L., L. Weiherm €uller, S. Haber-Pohlmeier, S. Stapf, H. Vereecken, and A. Pohlmeier (2010), Determination of pore size distribution
+and hydraulic properties using nuclear magnetic resonance relaxometry: A comparative study of laboratory methods, Water Resour.
+Res., 46, W11510, doi:10.1029/2009WR008686.
+Thern, H. (2014), Examining the ﬂuid ﬁlm model in porous media by NMR rock catalog data, paper SCA2014-51 presented at International
+Symposium of the Society of Core Analysts, Avignon, France, 8–12 September.
+T€olke, J. (2002), Lattice Boltzmann simulations of binary ﬂuid ﬂow through porous media, P h i l o s .T r a n s .R .S o c .L o n d o nA, 360(1792),
+535–545, doi:10.1098/rsta.2001.0944.
+T€olke, J., S. Freudiger, and M. Krafczyk (2006), An adaptive scheme using hierarchical grids for lattice Boltzmann multi-phase ﬂow simula-
+tions, Comput. Fluids, 35, 820–830, doi:10.1016/j.compﬂuid.2005.08.010.
+Torrey, H. (1956), Bloch equations with diffusion terms, Phys. Rev., 104, 563–565.
+Vogel, H.-J., J. T €olke, V. Schulz, M. Krafczyk, and K. Roth (2005), Comparison of a lattice-Boltzmann model, a full-morphology model, and a
+pore network model for determining capillary pressure-saturation relationships, Vadose Zone J. , 4(2), 380–388.
+Water Resources Research 10.1002/2013WR014684
+MOHNKE ET AL. VC 2014. American Geophysical Union. All Rights Reserved. 7393

@@ -1,0 +1,1134 @@
+--- PAGE 1 ---
+Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015
+www.hydrol-earth-syst-sci.net/19/2763/2015/
+doi:10.5194/hess-19-2763-2015
+© Author(s) 2015. CC Attribution 3.0 License.
+Understanding NMR relaxometry of partially water-saturated rocks
+O. Mohnke, R. Jorand, C. Nordlund, and N. Klitzsch
+Institute for Applied Geophysics and Geothermal Energy (GGE), E.ON Energy Research Center (E.ON ERC),
+RWTH Aachen University, Mathieustrasse 10, 52074 Aachen, Germany
+Correspondence to: O. Mohnke (omohnke@eonerc.rwth-aachen.de)
+Received: 16 September 2014 – Published in Hydrol. Earth Syst. Sci. Discuss.: 17 November 2014
+Revised: 23 April 2015 – Accepted: 10 May 2015 – Published: 16 June 2015
+Abstract. Nuclear magnetic resonance (NMR) relaxometry
+measurements are commonly used to characterize the stor-
+age and transport properties of water-saturated rocks. Esti-
+mations of these properties are based on the direct link of the
+initial NMR signal amplitude to porosity (water content) and
+of the NMR relaxation time to pore size. Herein, pore shapes
+are usually assumed to be spherical or cylindrical. However,
+the NMR response at partial water saturation for natural sed-
+iments and rocks may differ strongly from the responses cal-
+culated for spherical or cylindrical pores, because these pore
+shapes do not account for water menisci remaining in the cor-
+ners of desaturated angular pores. Therefore, we consider a
+bundle of pores with triangular cross sections. We introduce
+analytical solutions of the NMR equations at partial satura-
+tion of these pores, which account for water menisci of de-
+saturated pores. After developing equations that describe the
+water distribution inside the pores, we calculate the NMR re-
+sponse at partial saturation for imbibition and drainage based
+on the deduced water distributions.
+For this pore model, the NMR amplitudes and NMR re-
+laxation times at partial water saturation strongly depend on
+pore shape, i.e., arising from the capillary pressure and pore
+shape-dependent water distribution in desaturated pores with
+triangular cross sections. Even so, the NMR relaxation time
+at full saturation only depends on the surface-to-volume ratio
+of the pore. Moreover, we show the qualitative agreement of
+the saturation-dependent relaxation-time distributions of our
+model with those observed for rocks and soils.
+1 Introduction
+Understanding multi-phase ﬂow processes in porous rocks
+and soils is vital for addressing a number of problems in
+geosciences such as oil and gas recovery or vadose zone pro-
+cesses, which inﬂuence groundwater recharge and evapora-
+tion. Effective permeability, which is deﬁned as the perme-
+ability of a ﬂuid in the presence of another ﬂuid, is the deci-
+sive parameter for ﬂuid transport, and depends on ﬂuid satu-
+ration, wetting condition, and pore structure. In addition, sat-
+uration history inﬂuences the ﬂuid content and the effective
+permeability (for a speciﬁc pressure), which are different for
+imbibition and drainage.
+A method considered suitable for determining water con-
+tent of rocks non-invasively is nuclear magnetic resonance
+(NMR), because the NMR initial signal amplitudes are di-
+rectly proportional to the hydrogen content in the pore space,
+and the NMR relaxation times are linked to the size of the
+water-containing pores in the rock. In a two-phase system of
+water and air, only the water contributes to the NMR sig-
+nal response. Therefore, NMR is widely used for estimat-
+ing transport and storage properties of rocks and sediments
+(Kenyon, 1997; Seevers, 1966; Fleury et al., 2001; Arnold et
+al., 2006).
+In recent years, several researchers have studied the re-
+lationship between NMR and multiphase ﬂow behavior on
+the pore scale to better understand and infer the storage and
+transport properties of partially saturated rocks or sediments
+(e.g., Chen et al., 1994; Liaw et al., 1996; Ioannidis et al.,
+2006; Jia et al., 2007; Al-Mahrooqi et al., 2006; Costabel
+and Yaramanci, 2011, 2013; Talabi et al., 2009). As an ex-
+tension of this research, we study the relationship between
+the water distribution inside the pores of a partially satu-
+Published by Copernicus Publications on behalf of the European Geosciences Union.
+
+--- PAGE 2 ---
+2764 O. Mohnke et al.: Understanding NMR relaxometry of partially water-saturated rocks
+a) b)
+0 10 20 30 400
+0.1
+0.2
+0.3
+0.4
+100
+86
+77
+63
+44
+Amplitude [a.u]
+Decay time [s] x 10
+-3
+Figure 1. (a) NMR decay time distributions at different water sat-
+uration levels for a classical cylindrical capillary pore distribution.
+(b) Concept sketch of saturated (gray) and desaturated capillaries,
+e.g., during drainage.
+rated rock and the system’s NMR response by using bundles
+of pores with triangular cross sections. While Al-Mahrooqi
+et al. (2006) used a similar modeling approach to infer the
+wettability properties in oil–water systems, this study in-
+vestigates the evolution of the NMR relaxation-time spectra
+during drainage and imbibition. For this purpose, we con-
+sider a capillary pore ensemble that is partially saturated with
+water and air. Traditionally, the pores within this ensemble
+are assumed to have a cylindrical geometry. Depending on
+pressure, cylindrical capillaries are either water- or air-ﬁlled,
+and thus they either contribute to an NMR response or not.
+Consequently, the NMR relaxation times of partially water-
+saturated capillary pore bundles always remain subsets of
+the fully saturated system’s relaxation-time distribution; i.e.,
+they are a function inside the envelope of the distribution
+curve at full saturation (see Fig. 1). However, in porous rocks,
+which are formed by the aggregation of grains, the pore ge-
+ometry is usually more complex (Lenormand et al., 1983;
+Ransohoff and Radke, 1987; Dong and Chatzis, 1995) and
+may exhibit angular and slit-shaped pore cross sections rather
+than cylindrical capillaries or spheres (Fig. 2a). For example,
+in tight gas reservoir rocks, Desbois et al. (2011) found three
+types of pore shapes that are controlled by the organization of
+clay sheet aggregates: (i) elongated or slit-shaped, (ii) trian-
+gular, and (iii) multi-angular cross sections. The relaxation-
+time distribution functions derived from NMR measurements
+for such partially saturated rocks are frequently found to be
+shifted towards shorter relaxation times outside the original
+envelope observed for a fully saturated sample (Fig. 2b) (e.g.,
+Applied Reservoir Technology Ltd., 1996; Bird et al., 2005;
+Jaeger et al., 2009; Stingaciu, 2010; Stingaciu et al., 2010;
+Costabel, 2011).
+In angular pores, water will remain trapped inside the pore
+corners even if the gas entry pressure is exceeded. Standard
+NMR pore models that assume cylindrical or spherical pore
+ensembles (e.g., Kenyon, 1997), however, do not account for
+such residual water (Blunt et al., 2002; Tuller et al., 1999;
+Or and Tuller, 2000; Tuller and Or, 2001; Thern, 2014). To
+overcome this limitation, we adopt a NMR modeling ap-
+proach initially proposed and discussed by Costabel (2011)
+and present numerical simulations and analytical solutions
+Figure 2. (a) Complex pore structure of a Rotliegend tight gas sand-
+stone. Pore spaces are ﬁlled with tangential and hairly illite and ex-
+hibit different pore types with elongated or slit-shaped, triangular,
+and multi-angular cross sections. (b) T1 decay time distributions
+calculated from inverse Laplace transform performed on Rotliegend
+sandstone (porosity 13 %, permeability 0.1 mD) at different water
+saturations (Sw= 21 %–100 %).
+of the NMR equations for partially saturated pores with tri-
+angular cross sections to quantify NMR signal amplitudes
+and relaxation times. The NMR response of a triangular cap-
+illary during drainage and imbibition depends on the wa-
+ter distribution inside the capillary, which is subject to pore
+shape and capillary pressure. Thus, in the next chapter, we
+present the relationship between capillary pressure and wa-
+ter distribution inside cylindrical and triangular pore geome-
+tries during drainage and imbibition. For this purpose, the
+reduced similar geometry concept introduced by Mason and
+Marrow (1991) is used. Subsequently, based on the spatial
+water distribution, an analytical solution of the NMR diffu-
+sion equation (Torrey, 1956; Brownstein and Tarr, 1979) for
+partially saturated triangular capillaries is derived and tested
+by numerical simulations (Mohnke and Klitzsch, 2010). The
+derived equations are used to study the inﬂuence of pore
+size distribution and pore shape of triangular capillaries on
+the NMR response, in particular considering the effects of
+trapped water. Finally, an approach for simulating NMR sig-
+nals during imbibition and drainage of triangular pore cap-
+illaries is introduced and demonstrated using synthetic pore
+size distributions.
+2 Results and discussion
+2.1 Water distribution during drainage and imbibition
+in a partially saturated triangular tube
+In a partially saturated pore space, a curved liquid–vapor in-
+terface called the arc meniscus (AM) arises due to the pore’s
+capillary forces. In addition, adsorptive forces between wa-
+ter and matrix lead to the formation of a thin water ﬁlm
+at the rock–air interface. Such water ﬁlms with a thickness
+typically below 20 nm (e.g., Toledo et al., 1990; Tokunaga
+and Wan, 1997) exhibit very short NMR relaxation times.
+Although water ﬁlms to some extent may inﬂuence trans-
+port properties and water distribution of a partially saturated
+Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015 www.hydrol-earth-syst-sci.net/19/2763/2015/
+
+--- PAGE 3 ---
+O. Mohnke et al.: Understanding NMR relaxometry of partially water-saturated rocks 2765
+Figure 3. Cross sections of a partially saturated triangular tube.
+The arc meniscus of radiusrAM separates the invading non-wetting
+phase (white) from the adsorbed wetting phase (gray). (a) Origi-
+nal triangle ABC with side lengthsLAB,LBC,LCA, and radiusR0
+of its inscribing circle. (b) Reduced triangle A′B′C′ of similar ge-
+ometry. The wetting phase resides in the three corners (gray) with
+r′=rAM being the radius of both the three interface arc menisci of
+ABC and of the inscribing circle of A′B′C′.
+porous system (Tuller and Or, 2001), the contribution of the
+ﬁlm volume to NMR amplitudes is very small with respect
+to the NMR signal amplitudes arising from the water trapped
+in the menisci; i.e.,Vﬁlm≪Vmeniscus. Therefore, for the sake
+of simplicity, we neglect water ﬁlms in this study.
+In the following discussion, we consider a triangular cap-
+illary, initially ﬁlled with a perfectly wetting liquid, i.e., con-
+tact angle θ= 0◦, which exhibits a constant interfacial ten-
+sionσ (σair−water= 73× 10−3 Nm−1 at 20◦C) and is under
+the assumption that gravity forces are weak and therefore can
+be neglected. The two-phase capillary entry pressure as de-
+rived by the MS-P method (Mayer and Stowe, 1965; Prin-
+cen, 1969a, b, 1970) can be expressed by the Young–Laplace
+equation:
+pc=σ cosθ
+rAM
+= σ
+rAM
+, (1)
+where rAM is the radius of the interface arc meniscus and
+pc is the minimum pressure difference necessary for a non-
+wetting phase, i.e., air, to invade a uniformly wetted (tri-
+)angular tube ﬁlled with a denser phase, i.e., water (see
+Fig. 3a). Upon consideration of a pressure differencep>p c,
+the non-wetting phase will begin to enter the pore and occupy
+the central portion of the triangle, whereas – separated by the
+three interface arc menisci of radius rAM – the wetting ﬂuid
+remains in the pore corners (Fig. 3a).
+From an original triangle ABC, a new smaller triangle
+A′B′C′ of similar geometry with an inscribed circle of radius
+r′=rAM<R 0 can be constructed by means of the reduced
+similar geometry concept as introduced by Mason and Mor-
+row (1991) (Fig. 3b). To account for different transport mech-
+anisms during imbibition and drainage of the denser wetting
+phase, Mason and Morrow (1991) introduced two different
+principal displacement curvatures with radii rI and rD, re-
+spectively.
+During imbibition of a (tri-)angular pore, the radius of cur-
+vaturerAM increases until the separate arc menisci of the cor-
+ners touch and the pore ﬁlls spontaneously (“snap off”). The
+critical radius of curvaturerI, which is equal to the radius of
+the pore’s inscribing circle, for the angular pore at “snap-off”
+pressurepI is then given by
+rI= 2A
+P . (2)
+According to Eq. (2), the snap-off pressure depends on the
+geometry of the triangle only, i.e., on its cross-sectional area
+A and perimeterP . In contrast, during drainage the threshold
+radius of curvaturerD=rAM, at which the center of the fully
+saturated angular capillary spontaneously empties as the non-
+wetting ﬂuid phase invades the pore, is given by
+rD=P
+[ 1
+2G+
+(π
+G
+)1/2]−1
+, (3)
+withrD<r I and drainage threshold pressure pD>p I. The
+dimensionless and size-independent factor G= A
+P 2
+(
+= A′
+P′2
+)
+reﬂects the shape of the triangle, depending on its cross-
+sectional area A and perimeter P (A′ and P′ refer to the
+reduced triangle), i.e., from near-slit shape (G= 0) to equi-
+lateral shape (G= 0.048). A detailed derivation of Eqs. (2)
+and (3) as a consequence of hysteresis between drainage and
+imbibition can be found in Mason and Morrow (1991).
+The permeability of a porous system of such triangular
+capillaries is strongly inﬂuenced by the shape factor G. For
+single-phase laminar ﬂow in a triangular tube, the hydraulic
+conductanceg is given by the Hagen–Poiseuille formula
+g=kA2G
+µ , (4)
+with the cross-sectional areaA, the shape factorG, the ﬂuid
+viscosityµ, and k being a constant accounting for the geo-
+metrical shape of the cross section; e.g., k= 0.5 for circular
+tubes andk= 0.6 for a tube with a cross section of an equi-
+lateral triangle (Patzek and Silin, 2001). The hydraulic con-
+ductance of an irregular triangle is closely approximated by
+Eq. (1) using the same constant k as for an equilateral trian-
+gle (Øren et al., 1998). Thus, for a constant cross-sectional
+area, the hydraulic conductanceg of the pore is proportional
+to its shape factorG.
+Combining Eqs. (1)–(3) with the concept of reduced simi-
+lar geometry discussed above, the degree of water saturation
+(Sw) inside a single triangular tube with cross-sectional area
+A0, perimeter P0, and radius R0 of its inscribing circle at a
+given capillary pressure pc during imbibition and drainage
+www.hydrol-earth-syst-sci.net/19/2763/2015/ Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015
+
+--- PAGE 4 ---
+2766 O. Mohnke et al.: Understanding NMR relaxometry of partially water-saturated rocks
+a) b)
+Figure 4. (a) Modeled distribution of water (gray) and gas (white)
+phases in an equilateral triangular tube with a side length of 1 µm
+during imbibition (top) and drainage (bottom). (b) Water saturation
+versus capillary pressure during imbibition (⃝) and drainage (▲).
+a) b)
+Figure 5. (a) Modeled distribution of water (gray) and gas (white)
+phases in a right-angled triangular capillary ( G= 0.39) with side
+lengths L= 1, 0.81, 0.58 µm, and perimeter P= 2.39 µm during
+imbibition (top) and drainage (bottom). (b) Water saturation versus
+capillary pressure during imbibition (⃝) and drainage (▲).
+can be calculated according to
+SI
+w(p,A 0,P 0)=
+{
+1, p c≤pI(R0≤rI)
+A1(pc)
+A0
+, p c>p I(R0>r I)(imbibition) (5)
+SD
+w(pc,A 0,P 0)=
+{
+1, p c<p D(R0<r D)
+A1(pc)
+A0
+, p c≥pD(R0≥rD)(drainage) (6)
+The total areaA1 of the triangular tube’s water retaining cor-
+ners,γ1,2,3 (i.e., the gray areas in Figs. 4 and 5), is expressed
+by
+A1(pc)=
+3∑
+i=1
+Aγi(pc), (7a)
+where
+Aγi(pc)=
+( 1
+tanγi
+2
+−(π−γi)
+2
+)
+r2
+AM(pc)
+and 0 <γi<π (7b)
+is the area of the triangle’s ith water-ﬁlled corner (Tuller
+and Or, 2001). Consequently, the total effective area A1
+that is still occupied by water is equal to the differ-
+ence between the (reduced) triangular pore area ˜A and
+the area πr 2
+AM of its respective inscribing circle (see
+Fig. 3). The above Eq. (7a)+ (b) can be simpliﬁed to A1=(
+3
+√
+3−π
+)
+rAM(pc) when considering equilateral triangles,
+i.e.,γ1,2,3= π
+3 . The radiusrAM(pc) of the reduced triangle’s
+arc meniscus can be directly calculated from Eq. (1). Calcu-
+lated pressure-dependent water and gas distributions during
+imbibition and drainage for an equilateral and arbitrary trian-
+gular capillary are shown in Figs. 4a and 5a. The correspond-
+ing water retention curves plotted in Figs. 4b and 5b illustrate
+the resulting hysteresis behavior of the partially saturated
+system and can be subdivided into three parts: at low cap-
+illary pressures, i.e.,pc<p I, where the pore always remains
+fully water-saturated. For the interval pI<p c≤pD where
+two separate behaviors are observed: during imbibition, the
+water content gradually increases with increasing capillary
+pressure, while during drainage the pore still remains fully
+saturated. For pressure levelspc≥pD, both drainage as well
+as imbibition exhibit the same gradual decrease in water sat-
+uration.
+In the following section, analytical solutions for respec-
+tive NMR responses that arise from partially saturated arbi-
+trary triangular tubes are derived and matched against nu-
+merical simulations by means of the generalized differen-
+tial NMR diffusion equations introduced by Brownstein and
+Tarr (1979).
+2.2 NMR response for triangular capillaries
+The measured NMR relaxation signalM(t) is constituted by
+superposition of all signal-contributing pores in a rock sam-
+ple (e.g., Coates et al., 1999; Dunn et al., 2002):
+M(t)
+M0
+= 1
+V0
+N∑
+i
+(
+vi×
+(
+1−et·T−1
+i,1
+))
+, (8)
+whereM0 andV0 are the equilibrium magnetization and total
+volume of the pore system, respectively. The saturated vol-
+ume of theith pore and its corresponding longitudinal relax-
+ation constant are given byvi andTi,1, respectively.
+Following derivations of Brownstein and Tarr (1979), the
+inverse of the longitudinal relaxation timeT1 is linearly pro-
+portional to the surface-to-volume ratio of a pore according
+to
+T−1
+1 =T−1
+1B+ρs
+Sa
+V , (9)
+whereT1B is the bulk relaxation time of the free ﬂuid andρs
+is the surface relaxivity, a measure of how quickly protons
+lose their magnetization due to magnetic interactions with
+paramagnetic impurities and reduced correlation times at the
+ﬂuid–solid interface, which can be attributed to paramagnetic
+ions at mineral grain surfaces.V andSa are the pore’s volume
+and active surface boundaries, respectively. In this context,
+Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015 www.hydrol-earth-syst-sci.net/19/2763/2015/
+
+--- PAGE 5 ---
+O. Mohnke et al.: Understanding NMR relaxometry of partially water-saturated rocks 2767
+Figure 6. Longitudinal relaxation timesT1 of fully saturated trian-
+gular pores with constant cross-sectional areaA= 4.33×10−13 m2
+versus shape factor G= A
+P 2 and perimeter P . NMR parameters:
+ρs= 10 µ m s−1,T1B= 3.
+an active boundary refers to an interfacial area, i.e., the pore
+wall, whereρs> 0 and, thus, enhanced NMR relaxation will
+occur as the molecules diffuse at the pore walls. This model,
+however, is based on the general assumption of a relaxation
+regime that is dominated by surface relaxation processes (fast
+diffusion); i.e., the ﬂuid molecules move sufﬁciently quickly
+and thus explore all parts of the pore volume several times
+with respect to the timescale (∼T1) of the experiment.
+Upon consideration of a long (triangular) capillary, its
+surface-to-volume ratio equals its perimeter-to-cross-section
+ratio, i.e.,S/V=P/A . Consequently, Eq. (9) can be written
+as
+T−1
+1 =T−1
+1B+ρs
+P0
+A0
+, (10)
+where P0 is the saturated tube’s (active) perimeter and A0
+its cross-sectional area for a circular cross section, P0
+A0
+= 2
+r0
+,
+withr0 being the capillary radius. Hence, the relaxation rate
+of a fully saturated arbitrary triangular pore ABC can be ex-
+pressed in terms of its shape factorG and perimeterP0:
+T−1
+1 =T−1
+1B+ ρs
+GP 0
+(
+=T−1
+1B+ρs
+LAB+LBC+LCA
+LABLCAsin?(γA)
+)
+, (11)
+whereLAB,LBC, andLAC are the lengths of a triangle’s sides
+andγA is the angle at cornerA (see Fig. 3). As illustrated in
+Fig. 6, the relaxation times of a fully saturated pore decrease
+with decreasing pore shape factor G – and thus, decreasing
+hydraulic conductance – and increasing pore perimeter P .
+By reducing one angle from 60 to 0◦ while ﬁxing another at
+60◦, we increase P/A for a constant cross-sectional area A.
+In the special case of an equilateral triangular capillary, i.e.,
+Figure 7. Saturated corner with active boundaries, i.e.,ρs=ρ1> 0
+at the corner’s perimeterPγ and a passive boundary at the air–water
+interface (meniscus), i.e.,ρs=ρ= 0.
+P0/A0= 12√
+3L0
+, Eq. (11) can be simpliﬁed to
+T−1
+1 =T−1
+1B+ρs
+12√
+3L0
+. (12)
+Now we consider the previously discussed water–air system
+of a partially saturated equilateral triangular capillary. Here,
+the NMR signal will originate from the water retained at the
+corners, replacingA0 in Eq. (10) with an effective areaAγ or
+A1 as derived by Eqs. (7a) and (b), respectively.A1 reﬂects
+the actual pore fraction that contributes to the NMR signal,
+i.e., the portion of the pore areaA0 that still remains occupied
+by water.
+Supposing the air–water interface to be a passive boundary
+with respect to NMR surface relaxivity, i.e., ρs= 0, the ef-
+fective active boundary is exclusively controlled by the pore
+wall segments (ρs> 0) in contact with water (wetting phase)
+(Fig. 7). Thus, the active perimeter of such a partially satu-
+rated triangular capillary is equal to its pressure-dependent
+reduced triangle’s perimeter,P′
+1
+(
+rI,D(pc)
+)
+, according to
+P1=
+N=3∑
+i=1
+Pγi, (13)
+with
+Pγi= 2rAM(pc)
+tanγi
+2
+0<γi<π (14)
+being the perimeter of the ith water-ﬁlled corner. Conse-
+quently, the NMR relaxation rates and NMR signal (ampli-
+tude) evolution during drainage and imbibition of a single
+equilateral triangular capillary can be expressed by
+T−1
+1,1=
+
+
+
+T−1
+1B+ρsP0
+A0
+, S I,D
+w = 1
+T−1
+1B+ρs
+P I,D
+1 (pc,A0,P0)
+AI,D
+1 (pc,A0,P0) , S I,D
+w < 1 (15)
+www.hydrol-earth-syst-sci.net/19/2763/2015/ Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015
+
+--- PAGE 6 ---
+2768 O. Mohnke et al.: Understanding NMR relaxometry of partially water-saturated rocks
+Figure 8. Water (black) and air (white) distributions within a tri-
+angular pore(A0= 4.33× 10−13 m2,ρs= 10 µm s−1) at different
+capillary pressures for imbibition (a) with corresponding evolu-
+tion of the (longitudinal) magnetization (b) and NMRT1 relaxation
+times (c).
+and
+m(t)
+m0
+=SI,D
+w (pc,A 0,P 0)
+(
+1−e
+−t
+T1,1
+)
+, (16)
+respectively. Figure 8 illustrates the pressure-dependent wa-
+ter distribution inside a single equilateral triangular capillary
+(with a side length of 1 µ m) during drainage (a) and evolution
+of longitudinal magnetization (b). As the water saturation is
+reduced with increasing pressure, both NMR amplitudes and
+relaxation times (c) decrease. Note that only a single charac-
+teristic relaxation time at each saturation degree is observed,
+since each corner has the samePγ/Aγ and consequently the
+sameT1 value.
+In contrast, each water-ﬁlled corner of a partially saturated
+non-equilateral triangle, i.e.,γ1̸=γ2̸=γ3, can have a differ-
+ent Pγ/Aγ ratio, and thus will show a different relaxation
+time and amplitude. As a result, depending on its individual
+shape, even a single partially saturated pore exhibits a multi-
+exponential NMR relaxation behavior based on Eq. (8) ac-
+cording to
+m(t)
+m0
+= 1
+A0
+N=3∑
+i=1
+AI,D
+γi
+(
+1−e
+−t
+Tγi,1
+)
+, (17)
+withTγi,1= 1
+T1B
++ρs
+Pγi
+Aγi
+and
+AI,D
+γi
+A0
+being the characteristic re-
+laxation time and amplitude contribution of theith corner of
+the triangle, respectively. Figure 9 exempliﬁes such differ-
+ent multi-exponential relaxation behavior for a pore with a
+right triangle geometry with angles of ( γ1= 30◦, γ2= 60◦,
+Figure 9. Water (black and grays) and air (white) distributions
+within a right-angled triangular pore (A0= 4.33× 10−13 m2,ρs=
+10 µm s−1) at different capillary pressures for imbibition (a) with
+corresponding evolution of the (longitudinal) magnetization(b) and
+NMRT1 relaxation times (c).
+γ3= 90◦) and the same cross-sectional area as the equilateral
+pores in Fig. 8 (i.e.,∼ NMR porosity).
+To test the analytical (fast diffusion) models for partially
+saturated triangular capillaries derived above, the calculated
+longitudinal NMR relaxation times and amplitudes are com-
+pared to solutions obtained from 2-D numerical simulations
+of the general NMR diffusion equation (Mohnke and Kl-
+itzsch, 2010):
+˙m=
+(
+D∇2− 1
+TB
+)
+m, (18)
+with normalized initial values m(r,t= 0)= M0=1
+A and
+boundary conditions
+Dn∇m|P=ρsm|P, (19)
+where m is the magnetization density, D the diffusion co-
+efﬁcient of water, TB the bulk relaxation time, ρs the inter-
+face’s surface relaxivity,n the outward normal, and A and
+P the pore’s cross-sectional area and perimeter, respectively.
+To demonstrate the consistency of the introduced model with
+numerical results obtained by Mohnke and Klitzsch (2010),
+the above equations were solved numerically using ﬁnite el-
+ements to simulate the respective NMR relaxation data of the
+studied triangular geometries.
+As shown in Fig. 10, analytically (+) calculated NMR re-
+laxation data for drainage and imbibition for an equilateral
+triangular pore are in a very good agreement (R2> 0.99)
+with data obtained from numerical simulations (o).
+The model was also matched against numerical simula-
+tions for pores with arbitrary angles. Figure 11 illustrates 2-D
+ﬁnite-element simulations using saturated pore corners with
+anglesγi ranging from 5 to 175◦ with equal active surface-
+to-volume ratiosPγi/Aγi= const and thus T1,i= const. The
+Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015 www.hydrol-earth-syst-sci.net/19/2763/2015/
+
+--- PAGE 7 ---
+O. Mohnke et al.: Understanding NMR relaxometry of partially water-saturated rocks 2769
+a) b)
+a) b)
+Decay time [s]
+0
+1
+2
+3
+4
+5
+x 10
+-13
+10
+-3
+10
+-2
+a) b)
+R =0.9997
+2
+10
+-3
+10
+-2
+10
+-1
+10
+-3
+10
+-2
+10
+-1
+10
+-4
+10
+-4
+1
+Figure 10. NMR response of an equilateral triangular capillary pore
+model (with a side length of 1 µm). (a) Magnetization versus T1
+decay time data of numerical (⃝) and analytical solutions (+) for
+all applied pressure levels. (b) Cross-plot of numerically simulated
+and analytically calculated longitudinal T1 decay times at partial
+(•) and full water saturation (■). A corresponding water saturation
+versus capillary pressure diagram is shown in Fig. 4.
+Figure 11. Comparison of analytical and calculated NMR relaxom-
+etry data originating from saturated pore corners (e.g., see Fig. 7)
+of varying apertures (5◦<γ <175◦) and an equal active surface-
+to-volume ratio Pγi
+Aγi
+= const (NMR model parameters: T1B= 3 s,
+D= 2.5× 10−9 m2 s−1,ρs= 10 µm s−1).
+simulations were compiled and compared to their respective
+analytical solutions. The ratios of the numerical to the an-
+alytical model results for NMR amplitudes, i.e., NMR sig-
+nal amplitudes,Aγ , and relaxation times,T1,γ , as a function
+of corner aperture γ are shown and conﬁrm a near-perfect
+correlation ofR2> 0.99, with deviations generally less than
+0.05 %. In this regard, the slight increase in the divergence of
+relaxation-time ratios at acute and obtuse angles can be at-
+tributed to numerical errors resulting from a decrease in the
+ﬁnite element’s grid quality due to extremely high or lowx-
+a) b)
+10 10 10 10 10 10
+-5 -4 -1 0 1 2
+10 10
+-3 -2
+0
+10
+20
+30
+40
+Amplitude [a.u]
+Decay time [s]
+10-5 10-4 10-3 10-2 10-1 100 101 102
+Figure 12. (a) NMR decay time distributions at different water satu-
+ration levels for a pore distribution of equilateral triangles.(b) Con-
+cept sketch of saturated (gray) and desaturated triangular capillaries
+for increasing pressure levels (1), (2) and (3), e.g., during drainage.
+to-y ratios at these apertures. The above model is applicable
+to any angular capillary geometry, such as square or octahe-
+dron.
+2.3 Simulated water retention curves and NMR
+relaxation data of partially saturated pore
+distributions
+The goal of this section is to evaluate how pore shape affects
+the forward-modeled NMR response of a partially saturated
+system of pores (a pore size distribution). As discussed ear-
+lier, the NMR relaxation time of a single water-ﬁlled capil-
+lary pore is inversely proportional to its surface-to-volume
+ratio. Thus, at full water saturation, the relaxation-time dis-
+tribution obtained from a multi-exponential NMR relaxation
+signal represents the pore size distribution of the rock. At
+partial water saturation it is often assumed that the NMR re-
+laxation signal still represents the pore size distribution of
+the water-saturated pores (e.g., Stingaciu et al., 2010). We
+are going to demonstrate that this is valid for cylindrical but
+not for (tri-)angular pores.
+In contrast to cylindrical pores, capillaries with (tri-
+)angular cross sections may be partially water-saturated dur-
+ing drainage or imbibition (cf. Figs. 8 and 9) because of
+the water remaining in the corners. Thus, they show a dif-
+ferent water retention behavior, and the “desaturated” pores,
+i.e., their arc menisci, contribute to the NMR signal. Conse-
+quently, with increasing pressure (i.e., decreasing water sat-
+uration), the NMR relaxation behavior of the partially water-
+saturated triangular capillary pore bundle successively shifts
+to signal contributions with shorter relaxation times, exceed-
+ing the original distribution at full saturation. This shift re-
+ﬂects the fast relaxation of residual water trapped in the pore
+corners (Fig. 12). This behavior in angular pore geometries
+is demonstrated in Fig. 13. Here, the NMR relaxation com-
+ponents for a fully (blue line) and partially saturated (red and
+green) distribution of triangular capillaries are plotted. The
+green and red peaks show the signals of the residual water
+in the pore corners. As a consequence of the reduced ge-
+ometry concept, the remaining water in the corners can be
+www.hydrol-earth-syst-sci.net/19/2763/2015/ Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015
+
+--- PAGE 8 ---
+2770 O. Mohnke et al.: Understanding NMR relaxometry of partially water-saturated rocks
+Figure 13. Relaxation components of fully (blue line) and partially
+desaturated triangular pore size distribution. At a speciﬁc satura-
+tion level, all pore corners with residual saturation exhibit the same
+NMR magnetization and relaxation behavior, thus superposing to a
+single fast relaxation component (e.g., red and green bars).
+considered similar in size and shape due to the same NMR
+relaxation time, and thus only depends on pressure and not
+on pore size. Therefore, with decreasing saturation, i.e., in-
+creasing pressure, the NMR signal of the arc menisci in-
+creases and shifts towards smaller relaxation times. If the
+non-wetting phase (air) has entered all capillaries, only one
+single relaxation time remains for the pore bundle of equilat-
+eral triangles. For arbitrarily shaped triangular pores, three
+relaxation times would remain for the desaturated pore sys-
+tem. Hence, the concept of a relaxation-time distribution as-
+sumed in conventional NMR inversion and interpretation ap-
+proaches would be no longer valid.
+We applied the concept of ﬁtting multi-exponential
+relaxation-time distributions to NMR transients calculated
+for pore bundles of circular and equilateral triangle cross sec-
+tions in order to study how pore shape affects the typically
+shown relaxation-time distributions.
+Water drainage and imbibition with water as the wetting
+and air as the non-wetting ﬂuid were investigated by simu-
+lating water retention curves and corresponding NMR relax-
+ation signals for a log-normal distributed pore size ensemble
+as shown in Fig. 14.
+Herein, to clarify the subsequent discussion, we focused
+only on the equilateral triangular capillary model. Other an-
+gular pore shapes (e.g., right angular triangles or squares)
+will exhibit a similar behavior. Capillary pressure curves pre-
+sented in Fig. 15a were calculated from Eqs. (1), (5), and
+(6) for pore bundles with circular and equilateral triangle
+cross sections. In contrast to water retention curves calcu-
+lated for the cylindrical capillary model, signiﬁcant hystere-
+sis between drainage and imbibition can be observed for
+the triangular capillary model, i.e., in terms of initial am-
+10
+-7
+10
+-6
+10
+-5
+10
+-40
+2
+4
+6
+8 x 10
+-3
+pore size / m
+probability / -
+Figure 14. Pore size distribution model (log-normal distribution:
+σ= 0.3 µ= 3× 10−6 m in analogy to that of the Rotliegend sand-
+stone shown in Fig. 2).
+plitudes (= saturation) and respective mean relaxation times
+(Fig. 15b). Corresponding NMRT1 relaxation (saturation re-
+covery) signals shown in Fig. 15c, d and e were calculated
+using a uniform surface relaxivity of ρs= 10 µm s−1 and a
+water bulk relaxation ofT1,bulk= 3 s.
+The NMRT1 relaxation signals were simulated for 20 sat-
+uration levels of the drainage and imbibition curves rang-
+ing from S= 100 % to S< 1 % water saturation. The cor-
+responding relaxation-time distributions (Fig. 15f–h) of the
+NMRT1 transients were determined by means of a regular-
+ized multi-exponential ﬁtting using a nonlinear least squares
+formulation solved by the Levenberg–Marquardt approach
+(e.g., Marquardt, 1963; Mohnke, 2010). Inverse modeling re-
+sults of NMR data calculated for the drainage branches using
+the cylindrical capillary bundle (Fig. 15f) exhibit a shift of
+the distribution’s maximum towards shorter relaxation times
+with decreasing saturation (i.e., increasing pressure). As an-
+ticipated, the derived distribution functions remain inside the
+envelope of the relaxation-time distribution curve at full sat-
+uration (see also Fig. 1a).
+In contrast, inversion results for equilateral triangular cap-
+illary ensembles (Fig. 15f–h) – both for imbibition and
+drainage – show a similar shift to shorter relaxation times
+with decreasing saturation but also shift towards the outside
+the initial distribution at full saturation due to NMR signals
+originating from trapped water in the pore corners of the de-
+saturated triangular capillaries. The effect of the pore corners
+on relaxation times at low saturations is also recognizable
+when comparing the (geometric) mean relaxation times, nor-
+malized on the values observed at full saturation (Fig. 15b):
+both, the drainage and the imbibition hysteresis branch of the
+triangular pore bundle, show smaller mean relaxation times
+than the cylindrical pore bundle.
+In conclusion, the calculated inverse models for the trian-
+gular capillary bundle qualitatively agree with the behavior
+of the inverted NMR relaxation-time distributions at partial
+saturation that are frequently observed in experimental data,
+e.g., of the Rotliegend sandstone shown in Fig. 2.
+Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015 www.hydrol-earth-syst-sci.net/19/2763/2015/
+
+--- PAGE 9 ---
+O. Mohnke et al.: Understanding NMR relaxometry of partially water-saturated rocks 2771
+a)
+b)
+c) f)
+d) g)
+e) h)
+10
+4
+10
+5
+10
+60
+0.2
+0.4
+0.6
+0.8
+1
+Saturation [-]
+pressure [Pa]
+cylinder (drain/imb)
+triangle (drain)
+triangle (imbib)
+10
+4
+10
+5
+10
+60
+0.2
+0.4
+0.6
+0.8
+1
+Tlgm /Tlgm(@S=1) [-]
+pressure [Pa]
+0 0.01 0.02 0.03 0.040
+0.2
+0.4
+0.6amplitude [a.u.]
+time [s] 10
+-3
+10
+-2
+10
+-1
+10
+00
+0.02
+0.04
+0.06probability [a.u.]
+relaxation time [s]
+0 0.01 0.02 0.03 0.040
+0.2
+0.4
+0.6amplitude [a.u.]
+time [s] 10
+-3
+10
+-2
+10
+-1
+10
+00
+0.02
+0.04
+0.06probability [a.u.]
+relaxation time [s]
+Figure 15. (a) Modeled drainage and imbibition curves for circular and equilateral triangular capillary ensemble (cf. Fig. 14) and (b) Cor-
+responding normalized mean NMRT1 relaxation times versus pressure curves. Modeled and ﬁtted (red lines) NMR transient signals (longi-
+tudinal magnetization evolution) and corresponding inverted NMRT1 relaxation-time distributions for 20 fully and partially saturated pore
+size distributions ranging from< 1 to 100 % saturation using circular (c, f) and equilateral triangular capillaries during imbibition (d, g) and
+drainage (e, h).
+3 Summary and conclusions
+Experimental NMR relaxometry data and corresponding
+relaxation-time distributions obtained at partial water/air sat-
+uration were explicated by a modiﬁcation of conventional
+NMR pore models using triangular cross sections. The de-
+rived analytical solutions for calculating surface-dominated
+(fast diffusion) NMR relaxation signals in fully and partially
+saturated arbitrary angular capillaries were consistent with
+respective results obtained from numerical simulations of the
+general NMR diffusion equations.
+Shape and size of triangular pores can strongly inﬂuence
+both NMR amplitudes and decay time distribution and the
+rock’s ﬂow properties, i.e., saturation and (relative) perme-
+ability. At full saturation the NMR relaxation time depends
+on the surface-to-volume ratio, which in turn depends on
+shape if considering angular pore capillaries. However, at
+partial saturation, the pore shape even more strongly inﬂu-
+ences the water distribution inside the pore system, and thus
+the NMR signal. In contrast to cylindrical capillaries, angular
+capillaries also contribute to the NMR signal even after de-
+saturation of the pore due to the water remaining in the pore
+corners.
+In this regard, non-equilateral triangular capillaries at par-
+tial saturation exhibit a three-exponential relaxation behavior
+due to different perimeter-to-surface (= surface-to-volume)
+ratios of the water in the pore corners, whereas the relaxation
+time of the trapped water in the corners depends on pressure
+and not on pore size. Therefore, it can be noted that the NMR
+signal at partial saturation is affected by both the surface-to-
+volume ratio of the water saturated and the pore shape of the
+desaturated pores.
+Moreover, we studied the NMR response of a triangular
+pore bundle model by jointly simulating the water reten-
+tion curves for drainage and imbibition and the correspond-
+ing NMR T1 relaxometry data. With decreasing water satu-
+ration, the simulated NMR relaxation distributions shift to-
+wards shorter relaxation times below the initial distribution
+enveloped at full saturation, which is principally in agree-
+ment with the relaxation behavior observed in experimental
+NMR data from rocks (e.g., Fig. 2b).
+Ongoing research will include further experimental vali-
+dation and implementation of the introduced approach in an
+inverse modeling algorithm for NMR data obtained from par-
+tially saturated rocks to predict absolute and relative perme-
+ability on laboratory and borehole scales. Without consider-
+ing angular pores, the NMR signal of trapped water cannot be
+explained; i.e., using the classical approach of circular cap-
+illaries, one cannot ﬁnd a pore size distribution that explains
+the relaxation-time distributions at all saturations sufﬁciently
+(e.g., Mohnke, 2014). On the other hand, angular pore mod-
+els can account for the trapped water and thus overcome the
+limitation of the classical approach. Moreover, following the
+approach of Mohnke (2014) but considering angular pores,
+we strive to estimate surface relaxivity, pore size distribu-
+tion, and pore shape by jointly inverting NMR data at differ-
+www.hydrol-earth-syst-sci.net/19/2763/2015/ Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015
+
+--- PAGE 10 ---
+2772 O. Mohnke et al.: Understanding NMR relaxometry of partially water-saturated rocks
+ent saturations. Based on the obtained pore size distribution
+and triangle shape, we expect to improve the prediction of
+the absolute and relative permeabilities considerably.
+Acknowledgements. The study was supported by the German
+Research Foundation (DFG) in the framework of the Transregional
+Collaborative Research Centre 32 (SFB TR 32) and Wintershall
+AG in the framework of the Wintershall Tight Gas Consortium at
+RWTH Aachen University.
+Edited by: M. Giudici
+References
+Al-Mahrooqi, S. H., Grattoni, C. A., Muggeridge A. H., Zimmer-
+mann, R. W., and Jing, X. D.: Pore-scale modelling of NMR
+relaxation for the characterization of wettability, J. Petrol. Sci.
+Eng., 52, 172–186, 2006.
+Applied Reservoir Technology Ltd.: The NMR Sandstone Rock
+Catalogue, Long Melford, Suffolk, UK, 1996.
+Arnold, J., Clauser, C., Pechnig, R., Anferova, S., Anferov, V ., and
+Blümich, B.: Porosity and Permeability from Mobile NMR Core-
+Scanning, Petrophysics, 47, 306–314, 2006.
+Bird, N. R. A., Preston, A. R., Randall, E. W., Whalley, W. R.,
+and Whitmore, A. P.: Measurement of the size-distribution of
+water-ﬁlled pores at different matric potentials by STRAFI-NMR
+relaxation-time measurements, Eur. J. Soil Sci., 56, 135–143,
+2005.
+Blunt, M. J., Jackson, M. D., Piri, M., and Valvatne, P. H.: Detailed
+physics, predictive capabilities and macroscopic consequences
+for pore-network models of multiphase ﬂow, Adv. Water Resour.,
+25, 1069–1089, 2002.
+Brownstein, K. and Tarr, C.: Importance of classical diffusion in
+NMR studies of water in biological cells, Phys. Rev. A, 19, 2446–
+2453, 1979.
+Chen, S., Liaw, H. K., and Watson, A. T.: Measurements and analy-
+sis of ﬂuid saturation-dependent NMR relaxation and linebroad-
+ening in porous media, Magn. Reson. Imaging, 12, 201–202,
+1994.
+Coates, G. R., Xiao, L., and, Prammer, M. G.: NMR Logging Prin-
+ciples and Applications, Halliburton Energy Services, Houston,
+TX, 234 pp., 1999.
+Costabel, S.: Nuclear magnetic resonance on laboratory and ﬁeld
+scale for estimating hydraulic parameters in the vadose zone,
+PhD thesis, Berlin University of Technology, available at: opus4.
+kobv.de/opus4-tuberlin/ﬁles/3173/costabel_stephan.pdf, 2011.
+Costabel, S. and Yaramanci, U.: Relative hydraulic conductivity in
+the vadose zone from magnetic resonance sounding – Brooks-
+Corey parameterization of the capillary fringe, Geophysics, 76,
+G61–G71, doi:10.1190/1.3552688, 2011.
+Costabel, S. and Yaramanci, U.: Estimation of water re-
+tention parameters from nuclear magnetic resonance relax-
+ation time distributions, Water Resour. Res., 49, 2068–2079,
+doi:10.1002/wrcr.20207, 2013.
+Desbois, G., Urai, J. L., Kukla, P. A., Konstanty, J., and Baerle,
+C.: High-resolution 3D fabric and porosity model in a tight gas
+sandstone reservoir: A new approach to investigate microstruc-
+tures from mm- to nm-scale combining argon beam cross-
+sectioning and SEM imaging, J. Petrol. Sci. Eng., 78, 243–257,
+doi:10.1016/j.petrol.2011.06.004, 2011.
+Dong, M. and Chatzis, I.:, The imbibition and ﬂow of a wetting
+liquid along the corners of a square capillary tube, J. Colloid In-
+terface Sci., 172, 278–288, 1995.
+Dunn K. J., Bergman D. J., and LaTorraca G. A.: Nuclear Magnetic
+Resonance: Petrophysical and Logging Applications, Pergamon:
+Elsevier Science, Amsterdam, 2002.
+Fleury, M., Deﬂandre F., and Godefroy, S.: Validity of permeability
+prediction from NMR measurements, CR. Acad. Sci. Series IIC
+– Chemistry, 4, 869–872, doi:10.1016/S1387-1609(01)01343-3,
+2001.
+Ioannidis, M., Chatzis, I., Lemaire, C., and Perunarkilli, R.:
+Unsaturated hydraulic conductivity from nuclear magnetic
+resonance measurements, Water Resour. Res., 42, W07201,
+doi:10.1029/2006WR004955, 2006.
+Jaeger, F., Bowe, S., van As, H., and Schaumann, G. E.: Evaluation
+of 1 H NMR relaxometry for the assessment of pore size distri-
+bution in soil samples, Eur. J. Soil Sci., 60„ 1052–1064, 2009.
+Jia, P., Dong, M., and Dai, L.: Threshold pressure in arbitrary tri-
+angular tubes using RSG concept for all wetting conditions, Col-
+loid. Surface A, 302, 88–95, 2007.
+Kenyon, W.: Petrophysical principles of applications of NMR log-
+ging, Log. Anal., 38, 21–43, 1997.
+Lenormand, R., Zarcone, C., and Sarr, A.: A Mechanisms of the
+displacement of one ﬂuid by another in a network of capillary
+ducts, J. Fluid Mech., 135, 337–353, 1983.
+Liaw, H.-K., Kulkarni, R., Chen, S., and Watson, A. T.: Characteri-
+zation of ﬂuid distributions in porous media by NMR techniques,
+AIChE J., 42, 538–546, doi:10.1002/aic.690420223, 1996.
+Marquardt, D. W.: An Algorithm for the Least-Squares Estima-
+tion of Nonlinear Parameters, Siam J. Appl. Math., 11, 431–441,
+1963.
+Mason, G. and Morrow, N. R.: Capillary behavior of a perfectly
+wetting liquid in irregular triangular tubes, J. Colloid. Interf. Sci.,
+141, 262–274, 1991.
+Mayer, R. P. and Stowe, R. A.: Mercury porosimetry-breakthrough
+pressure for penetration between packed spheres, J. Colloid. In-
+terf. Sci., 20, 893–911, 1965.
+Mohnke, O.: Improved forward and inverse modelling of Surface
+NMR relaxation signals using multi-exponential decomposition,
+PhD thesis, Technical University Berlin, Berlin, 2010.
+Mohnke, O.: Jointly deriving NMR surface relaxivity and pore size
+distributions by NMR relaxation experiments on partially desat-
+urated rocks, Water Resour. Res., 50, 5309–5321, 2014.
+Mohnke, O. and Klitzsch, N.: Microscale Simulations of NMR Re-
+laxation in Porous Media Considering Internal Field Gradients,
+Vadose Zone J., 9, 846–857, doi:10.2136/vzj2009.0161, 2010.
+Or, D. and Tuller, M.: Flow in unsaturated fractured porous media:
+Hydraulic conductivity of rough surfaces. Water Resour. Res.,
+36, 1165–1177, doi:10.1029/2000WR900020, 2000.
+Øren, P. E., Bakke, S., and Arntzen, O. J.: Extending predictive ca-
+pabilities to network models, SPE J., 3, 324–336, 1998.
+Patzek, T. W. and Silin, D. B.: Shape factor and hydraulic con-
+ductance in noncircular capillaries I. One-phase creeping ﬂow,
+J. Colloid Interf. Sci., 236, 295–304, 2001.
+Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015 www.hydrol-earth-syst-sci.net/19/2763/2015/
+
+--- PAGE 11 ---
+O. Mohnke et al.: Understanding NMR relaxometry of partially water-saturated rocks 2773
+Princen, H. M.: Capillary phenomena in assemblies of parallel
+cylinders I. Capillary rise between 2 cylinders, J. Colloid. Interf.
+Sci., 30, 69–75, 1969a.
+Princen, H. M.: Capillary phenomena in assemblies of parallel
+cylinders II. Capillary rise in systems with more than 2 cylinders,
+J. Colloid. Interf. Sci., 30, 359–371, 1969b.
+Princen, H. M.: Capillary phenomena in assemblies of parallel
+cylinders III. Liquid columns between horizontal parallel cylin-
+ders, J. Colloid. Interf. Sci., 34, 171–184, 1970.
+Ransohoff, T. C. and Radke, C. J.: Laminar ﬂow of a wetting liquid
+along the corners of a predominantly gas-occupied noncircular
+pore, J. Colloid Interf. Sci., 121, 392–401, 1987.
+Seevers, D. O.: A nuclear magnetic method for determining the per-
+meability of sandstones, Society of Professional Well Log Ana-
+lysts, V ol. 6, paper L, Housten, Texas, 1966.
+Stingaciu, L. R.: Characterization of natural porous media by
+NMR and MRI techniques: High and low magnetic ﬁeld stud-
+ies for estimation of hydraulic properties, PhD thesis, RWTH
+Aachen, available at: http://darwin.bth.rwth-aachen.de/opus3/
+volltexte/2010/3392/ (last access: 30 June 2014), 2010.
+Stingaciu, L. R., Weihermüller, L., Haber-Pohlmeier, S., Stapf, S.,
+Vereecken, H., and Pohlmeier, A.: Determination of pore size
+distribution and hydraulic properties using nuclear magnetic res-
+onance relaxometry: A comparative study of laboratory meth-
+ods, Water Resour. Res., 46, 1–11, doi:10.1029/2009WR008686,
+2010.
+Talabi, O., AlSayari, S., Iglauer, I., and Blunt, J.: Pore-scale simu-
+lation of NMR response, J. Petrol. Sci. Eng., 67, 168–178, 2009.
+Thern, H.: Examining the ﬂuid ﬁlm model in porous media by NMR
+rock catalogue data, Symposium of the Society of Core Analysts,
+Avignon, France, paper SCA2014-051.
+Tokunaga, T. K. and Wan, J.: Water ﬁlm ﬂow along fracture
+surfaces of porous rock, Water Resour. Res., 33, 1287–1295,
+doi:10.1029/97WR00473, 1997.
+Toledo, P. G., Novy, R. A., Davis, H. T., and Scriven, L.
+E.: Hydraulic Conductivity of Porous Media at Low
+Water Content, Soil Sci. Soc. Am. J., 54, 673–679,
+doi:10.2136/sssaj1990.03615995005400030007x, 1990.
+Torrey, H. C.: Bloch equations with diffusion terms, Phys. Rev.,
+104, 563–565, doi:10.1103/PhysRev.104.563, 1956.
+Tuller, M. and Or, D.: Hydraulic conductivity of variably saturated
+porous media: Film and corner ﬂow in angular pore space, Wa-
+ter Resour. Res., 37, 1257–1276, doi:10.1029/2000WR900328,
+2001.
+Tuller, M., Or, D., and Dudley, L. M.: Adsorption and capillary con-
+densation in porous media – liquid retention and interfacial con-
+ﬁgurations in angular pores, Water Resour. Res., 35, 1949–1964,
+doi:10.1029/1999WR900098, 1999.
+www.hydrol-earth-syst-sci.net/19/2763/2015/ Hydrol. Earth Syst. Sci., 19, 2763–2773, 2015

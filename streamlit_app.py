@@ -24,6 +24,7 @@ RUNS_ROOT = APP_ROOT / "runs"
 IMAGE_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp"}
 TABLE_SUFFIXES = {".xlsx", ".xls", ".csv"}
 REPORT_SUFFIXES = {".md", ".txt"}
+SIMULATION_STAGE_ORDER = ["geometry", "mesh", "decay", "inversion", "gaussian", "report"]
 MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 REPORT_ANALYSIS_START = "<!-- conversation-analysis:start -->"
 REPORT_ANALYSIS_END = "<!-- conversation-analysis:end -->"
@@ -43,12 +44,14 @@ WELCOME_MESSAGES = {
 - 做 T2 反演：默认用 L-curve 自动选择平滑因子，也支持你指定固定平滑因子
 - 生成衰减曲线、T2 谱图、L-curve 图
 - 对 T2 谱做 Gaussian 分峰，并解释峰位置和面积比例
+- 做二维 NMR 模拟：规则几何或红黄白 PNG 相图 -> pyGIMLi 网格 -> T2 衰减 -> T2 反演
+- 仍然支持只做 T2 反演，不需要先跑模拟
 - 读取已经生成的结果，解释这个结果说明什么，并给出下一步建议
 
 我现在的边界：
 
-- 专注 T2 decay / T2 spectrum 数据处理
-- 不做 CT 图像分割、网格生成、Bloch-Torrey 正演模拟
+- 专注 2D NMR 模拟、T2 decay / T2 spectrum 数据处理
+- 第一版模拟仅支持 2D；不做 CT 分割、3D、T2-T2 或 D-T2
 - 不替代专业判断，结果解释需要结合样品背景
 
 你可以先问我：
@@ -69,12 +72,14 @@ What I can do:
 - Run T2 inversion: L-curve by default, or fixed regularization when you provide a smoothing factor
 - Generate decay plots, T2 spectrum plots, and L-curve figures
 - Run Gaussian peak decomposition and explain peak positions and area fractions
+- Run first-version 2D NMR simulation: rule geometry or red/yellow/white PNG phase map -> pyGIMLi mesh -> T2 decay -> T2 inversion
+- Still support standalone T2 inversion without a simulation step
 - Read generated results and explain what they mean, with suggestions for next steps
 
 Current boundaries:
 
-- Focused on T2 decay / T2 spectrum processing
-- Does not perform CT segmentation, mesh generation, or Bloch-Torrey forward simulation
+- Focused on 2D NMR simulation, T2 decay, and T2 spectrum processing
+- First-version simulation supports 2D only; it does not perform CT segmentation, 3D simulation, T2-T2, or D-T2
 - Does not replace domain judgment; interpretation still depends on sample context
 
 You can ask first:
@@ -383,6 +388,22 @@ def resolve_artifact_image_reference(reference: str, artifacts: list[Path]) -> P
     return None
 
 
+def group_simulation_stage_artifacts(result: AgentToolResult) -> dict[str, list[Path]]:
+    stage_map = result.summary.get("simulation_stages") if result.summary else None
+    if not isinstance(stage_map, dict):
+        return {}
+
+    grouped: dict[str, list[Path]] = {}
+    for stage in SIMULATION_STAGE_ORDER:
+        paths = stage_map.get(stage)
+        if not isinstance(paths, list):
+            continue
+        existing = [Path(path) for path in paths if Path(path).exists()]
+        if existing:
+            grouped[stage] = existing
+    return grouped
+
+
 def render_chat_content(content: str, artifacts: list[Path] | None = None) -> None:
     """Render chat markdown and show referenced generated images inline."""
 
@@ -440,6 +461,18 @@ def render_result(result: AgentToolResult) -> None:
         language = st.session_state.get("language", "中文")
         with st.expander(t(language, "structured_summary"), expanded=False):
             st.json(result.summary)
+
+    grouped = group_simulation_stage_artifacts(result)
+    if grouped:
+        language = st.session_state.get("language", "中文")
+        for stage, paths in grouped.items():
+            with st.expander(t(language, f"simulation_stage_{stage}"), expanded=stage in {"geometry", "mesh", "decay"}):
+                for path in paths:
+                    if path.suffix.lower() in IMAGE_SUFFIXES:
+                        st.image(str(path), caption=path.name, width="stretch")
+                    else:
+                        st.caption(path.name)
+        return
 
     image_paths = [Path(path) for path in result.artifacts if Path(path).suffix.lower() in IMAGE_SUFFIXES]
     for image_path in image_paths[:6]:
@@ -663,6 +696,42 @@ def render_lcurve_parameter_picker(context: AgentRuntimeContext, result: AgentTo
                 st.rerun()
 
     picker_dialog()
+
+
+def render_context_outputs(context: AgentRuntimeContext | None, language: str) -> None:
+    if context and context.uploaded_path:
+        st.info(t(language, "current_file", filename=Path(context.uploaded_path).name))
+        active_suffix = Path(context.uploaded_path).suffix.lower()
+        st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
+
+    render_artifact_rail(context, language)
+    st.markdown("<div class='t2-section-divider'></div>", unsafe_allow_html=True)
+
+    if context and context.validation:
+        st.markdown(t(language, "diagnosis"))
+        render_result(context.validation)
+
+    if context and context.repaired_path:
+        st.markdown(t(language, "standardized_file"))
+        st.success(t(language, "standardized_file_name", filename=Path(context.repaired_path).name))
+
+    if context and context.results:
+        st.markdown(t(language, "tool_results"))
+        for idx, result in enumerate(context.results):
+            render_result(result)
+            render_lcurve_parameter_picker(context, result, idx, language)
+
+    if context and context.report:
+        st.markdown(t(language, "report"))
+        report = context.report
+        render_result(report)
+        if report.artifacts:
+            report_path = Path(report.artifacts[0])
+            if report_path.exists():
+                render_chat_content(report_path.read_text(encoding="utf-8"), collect_context_artifacts(context))
+
+    if st.session_state.zip_bytes:
+        st.caption(t(language, "download_caption"))
 
 
 def render_trace(trace: list[dict], expanded: bool = False) -> None:
@@ -1189,7 +1258,7 @@ def enhance_report_with_conversation(report: AgentToolResult | None, messages: l
     return True
 
 
-def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bool) -> None:
+def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bool, live_results_container=None) -> None:
     context = current_context()
     if context is None:
         workspace = ensure_workspace()
@@ -1211,6 +1280,14 @@ def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bo
         with live_trace_box.container():
             render_trace(live_trace, expanded=True)
 
+    def show_live_tool_result(_result: AgentToolResult) -> None:
+        refresh_zip_from_context(context)
+        save_current_file_state()
+        if live_results_container is not None:
+            with live_results_container.container():
+                st.subheader(t(language, "data_results"))
+                render_context_outputs(context, language)
+
     with st.status(t(language, "running_status"), expanded=True) as status:
         result = run_deepseek_agent_turn(
             api_key=api_key,
@@ -1220,6 +1297,7 @@ def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bo
             context=context,
             prior_messages=st.session_state.agent_messages,
             on_trace=show_live_trace,
+            on_tool_result=show_live_tool_result,
             response_language=language,
         )
         st.session_state.agent_messages = result.messages
@@ -1338,7 +1416,7 @@ def main() -> None:
         st.markdown(f"<div class='t2-panel-title'>{t(language, 'data_results')}</div>", unsafe_allow_html=True)
         uploaded_files = st.file_uploader(
             t(language, "uploader"),
-            type=["xlsx", "xls", "csv", "pea", "txt", "dat"],
+            type=["xlsx", "xls", "csv", "pea", "txt", "dat", "png"],
             accept_multiple_files=True,
         )
         register_uploaded_files(uploaded_files or [])
@@ -1359,7 +1437,8 @@ def main() -> None:
         context = current_context()
         if context and context.uploaded_path:
             st.info(t(language, "current_file", filename=Path(context.uploaded_path).name))
-            st.caption(t(language, "upload_hint"))
+            active_suffix = Path(context.uploaded_path).suffix.lower()
+            st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
 
         render_artifact_rail(context, language)
         st.markdown("<div class='t2-section-divider'></div>", unsafe_allow_html=True)

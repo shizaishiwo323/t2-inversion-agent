@@ -1,0 +1,503 @@
+--- PAGE 1 ---
+ 
+Thirteenth International Congress of the Brazilian Geophysical Society 
+Image Analysis and NMR modeling of Sedimentary Rocks 
+Giovanna da Fraga Carneiro, BRCG – Schlumberger; Andre Souza, BRCG – Schlumberger; Lawrence Schwartz, SDR – 
+Schlumberger; Austin Boyd, BRCG – Schlumberger; Bernardo Coutinho Camilo dos Santos, CENPES – Petrobras; Willian 
+Andrighetto Trevizan, CENPES – Petrobras; Edmilson Helton Rios, CENPES – Petrobras; Vinicius de França Machado, 
+CENPES – Petrobras. 
+ 
+Copyright 2013, SB Gf - S ociedade Brasileira de Geofísica 
+This paper was prepared f or presentation during the 13th International Congress of the 
+Brazilian G eophysical S ociet y held in Rio de Janeiro, Brazil, A ugust 26-29, 2013. 
+Contents of this paper were reviewed by the Tec hnical Committ ee of the 13 th 
+International Congress of the Brazilian Geophysical Soci et y and do not nec essarily 
+represent any position of the SBGf , its officers or members. Electronic reproduction or 
+storage of any part of t his paper for c ommercial purpos es wit hout t he written c ons ent 
+of t he Brazilian G eophysical Societ y is prohibit ed. 
+____________________________________________________________________________ 
+ 
+Abstract 
+In this paper, the Nuclear Magnetic Resonance 
+response of three sedimentary rocks (one sandstone 
+and two carbonates) is modeled through random walk 
+simulations. With this modeling , we aim t o improve 
+micro-porosity content and pore size estimation , by 
+taking into account both surface relaxation and 
+diffusive coupling. Experimental Magnetic Resonance 
+data and microscopic image analysis are used to 
+compare the results. We obtained a good match 
+between simulated and experimental T 2 distribution 
+curves. G eometrical parameters used as inputs in the 
+model provide macro - and micro-porosity content as 
+well as pore sizes. 
+ 
+Introduction 
+For the last twenty years Nuclear Magnetic Resonance 
+(NMR) has been successfully us ed as a well-logging 
+technology in the evaluation of hydrocarbon reservoirs. 
+NMR is employed in estimating porosity, permeability and 
+pore sizes. It can also provide information on fluid 
+viscosity and water saturation (Dunn, 2002). NMR logging 
+is today an important service and recent development s 
+allow the measurement to be made while drilling, which 
+result s in data taken before significant wellbore invasion. 
+The NMR measurement is sensitive to 1H present in the 
+fluids saturating the roc ks. The 1H spins are excited by a 
+radiofrequency (rf) pulse. Once the excitation is ceased, 
+the spins will return to the equilibrium state, this process 
+is known as relaxation and is described by the 
+longitudinal and transversal relaxation times – T
+1 and T2, 
+respectively. 
+Commonly, the Carr -Purcell-Meiboom-Gill (CPMG) pulse 
+sequence is applied to measure T 2 for a given sample 
+(Meiboom, 1958). The measured fluid relaxation rate can 
+be defined as 
+ 
+1
+𝑇2
+=
+1
+𝑇2,𝑏𝑢𝑙𝑘
++
+1
+𝑇2,𝑠
+, (Eq. 1) 
+where T2,bulk and T2,s are, respectively, the bulk and 
+surface contributions to the relaxation. For a given pore, 
+the surface relaxation will depend on the pore space and 
+on the surface relaxivity, ρ2, according to 
+ 
+1
+𝑇2,𝑠
+= 𝜌2
+𝑆
+𝑉, (Eq. 2) 
+ 
+where S/V is the surface to volume ratio. For fluids 
+contained in restricted geometries (e.g., the pores of 
+reservoir rocks) surface relaxation plays a dominant role 
+and the measured T 2 distribution can provide valuable 
+information about the pore space. 
+One could expect then that each pore would contribute 
+independently to a final magnetization and the T2 
+distribution curve would be directly related to pore sizes. 
+However, experimental result s show this is not tr ue as T2 
+distribution curves can be different than expected. This is 
+as result of fluid molecules diffusing between micro and 
+m acro-pores (Ramakrishnan, 1999). Therefore, in order 
+to estimate pore sizes from NMR responses, this 
+phenomenon must be taken into consideration. 
+Microscopic pictures of thin sections can also be used to 
+describe the size and shape of the pores and grains of 
+sedimentary rocks. However, when dealing with 
+carbonates, heterogeneity often plays an important role. 
+Because thin section s capture only a small part of the 
+rock, analysis based on a single thin section may not yield 
+representative result s. Nevertheless, thin section images 
+provide useful qualitative information on the macro-
+porosity and the size and aspect ratio of the macro-pores. 
+ 
+ 
+G eometrical model 
+The Micro -Grain Consolidation ( µ-GC) model (Zhang, 
+2011) is based on a three-dimensional packing of 
+overlapping spheres which are, in turn, comprised of 
+m icro-spheres (Fig. 1). This allows us to represent m ixed-
+porosity systems, such as rocks with bimodal pore size 
+distributions. 
+The grains are arranged on a cubic lattice and by 
+adjusting the radius of the macro and micro- s pheres (i.e., 
+the degree of overlap) one can control the macro- and 
+m icro-porosity of the system. The center to center 
+distance can also be changed and is related to the over-
+all pore size. A scale factor controls the mismatch 
+between the macro- and micro-grids . 
+ 
+
+--- PAGE 2 ---
+IMAGE ANALYSIS AND NMR MODELING OF SEDIMENTARY ROCKS 
+______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
+Thirteenth International Congress of the Brazilian Geophysical Society 
+2 
+ 
+Figure 1. Micro -Grain Consol idation model. On the left, 
+the three-dimensional packing of macro-spheres and, on 
+the right, the unit cell and the micro- s pheres contained 
+within the m acro-s pheres. 
+ 
+Random walks 
+The model’s NMR response can be simulated using 
+random walks to represent di ffusion together with 
+relaxation at the pore- grain interface. The bulk fluid 
+relaxation needs to be taken into account as well (for 
+larger pores or vugs). But, as this relaxation mechanism 
+is not dependent on time – only on the type of saturating 
+fluid – it can be included at the final step. 
+The method applied in this study makes use of variable 
+step size random walks. Because we are dealing with a 
+system with big discrepancies in pore sizes (micro- and 
+m acro-porosities), using a fixed step size algorithm would 
+be prohibitively inefficient because the step size would 
+have to small compared to size of the throats in the micro-
+pores. In our variable step size algorithm, the step size is 
+defined as the radius R of the largest sphere that can be 
+drawn around the walker without intersecting the pore 
+wall. The walker goes to a random point in the surface of 
+this sphere and the walker’s clock advances by R
+2/(6D0), 
+where D0 is the saturating fluid diffusion coefficient . Once 
+more, the radius of the largest sphere is determined and 
+the walker steps randomly. The procedure is repeated 
+until the walker reaches a distance δ R to the pore wall, 
+where the algorithm will change into a fixed step size 
+walk. Once inside this shel l of width δ R, the walker will 
+have two possibilities: stepping until it passes out of the 
+shell and then returns to the variable step algorithm, or 
+stepping until it hits the pore wall (inside the macro- or 
+m icro-pore space). When the walker hit s the wall it has a 
+probability, γ [0 < γ < 1 ], of dying (relaxing). γ is related to 
+the surface relaxivity, ρ, and the diffusion coefficient, D0, 
+according to 
+ 
+𝛾 =
+2𝜌𝜀
+3𝐷0
+, Eq. 1 
+ 
+where, ε is the step size when the walker is within the 
+layer of width δ R. The time at which the walker dies is 
+recorded and another walker is released at a random 
+location in the pore space. 
+Samples and NMR experiments 
+In this study, three sedimentary rock samples were 
+evaluated: one sandstone (Red Massilon) and two 
+carbonates (Indiana Limestone and Silurian Dolomite). 
+The samples consisted of cylinders 1.5 inches long and 
+1.5 inches in diameter. At first, Helium gas porosity ( φ) 
+was measured for all samples. Prior to NMR 
+measurement s, samples were saturated with a 50,000 
+ppm KCl brine. 
+In a Maran Ultra by Oxford Instrument s (UK), operating at 
+a Larmor frequency of 2 MHz for 
+1H, CPMG experiments 
+were carried out with an echo spacing time of 400 µs and 
+the acquisition of 32 scans. The resulting decay curves 
+were processed with a F ast Laplace Inversion algorithm 
+(Song, 2002) to produce the T2 distribution curves. 
+Two-dimensional experiment s were also performed for 
+each sample. Such experiment s consist of a set of Puls ed 
+Field Gradient Stimulated Echo (PFG -STE) experiments 
+(Tanner, 1970) followed by a CPMG measurement. This 
+allows us to cons truct a two-dim ensional plot correlating 
+diffusion coefficient ( D) and T2. In these experiment s the 
+diffusion time was set to 40 ms and the gradient strength 
+varied from 0 to 46 G/cm. The set of decay curves 
+obtained for each sample was also processed using the 
+Fast Laplace Inversion routine. 
+A recently developed application of D-T
+2 plots in the study 
+of reservoir rocks is the determi nation of the value of 
+surface relaxivity ρ, using a Padé fitting approximation 
+(Latour, 1993). The classical way of determining ρ
+2 
+correlates the T 2 distribution curve and the mercury 
+injection capillary pressure curve (Wong, 1999). This i s a 
+destructive method that can only be done in laboratory. 
+By contrast, estimating the ρ2 from D-T2 measurement s is 
+non-destructive and employs data that can be acquired in 
+down-hole measurementes. The ρ2 values calculated for 
+our samples are also presented in Table 1. 
+ 
+Table 1. Gas porosity, φ, and surface relaxivity, ρ2, values 
+for the studied samples. 
+Sample φ (p.u.) ρ2 ( µm/s ) 
+Red Massillon 22.8 26 
+Indiana Limestone 15.1 8 
+Silurian Dolomite 18.3 7 
+ 
+Image Analysis 
+Thin section pictures were analyzed in an optical 
+microscope and pictures of the most representative areas 
+in the thin sections were taken. These pictures were 
+evaluated according to the following procedure: 
+1) Point-count of visible m acro-porosity (blue area); 
+2) Creation of binary image for selected pores and 
+grains; 
+3) Measurement of grain and pore sizes and 
+calculation of aspect ratios. 
+Unit Cell
+Micro-porous 
+grains
+
+--- PAGE 3 ---
+CARNEIRO ET AL. 
+______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
+Thirteenth International Congress of the Brazilian Geophysical Society 
+3 
+The gas porosity values were compared to the visual 
+m acro-porosity value from image analysis and an 
+estimate on micro-porosity content was calculate d. Grain 
+and pore size and aspect ratio data were measured. In 
+Figure 2, the microscopic picture and the grain and pore 
+outlines are shown for the Silurian dolomite thin section. 
+ 
+Figure 2. On the left, microscopic picture of the Silurian 
+dolomite thin section. On the right, the grains (in black) 
+and pores (in white) extracted from the binary image. 
+ 
+Simulations 
+In the numerical simulations several different geometrical 
+input s were tested. The gas porosity and surface 
+relaxivity, ρ, values were kept fixed for each sample. The 
+other geometrical parameters (micro and macro-poros ity 
+content, center to center distance and scale factor) were 
+varied in an attempt to match the measured T
+2 
+distributions. 
+The simulated magnetization decay was also processed 
+with Fast Laplace Inversion algorithm (Song, 2002) , and 
+the T2 distributions obtained were compared to the 
+experimental ones (Figure 3). 
+For samples showing a too high ρ2, s uch as the Red 
+Massilon, finding the optimal parameters for the 
+simulation is very difficult. In this cases, small changes in 
+pore size leads to significant changes in the T 2 
+distribution. This explains why the overlap between the 
+experimental and simulated curve for the Red Mas s ilon is 
+not as good as the others. In general, carbonates have 
+much lower values of ρ and the algorithm is able to model 
+these rocks with a very good match, as can be seen for 
+the Indiana limestone and Silurian dolomite samples. 
+In Table 2, the parameter s used in the simulation are 
+compared to the pore diam eters m eas ured from thin 
+section images. Although there are big discrepancies in 
+the average macro-pore sizes, when we look at 
+histograms for the macro- pore sizes from image analysis 
+(Figure 4) we see that there are macro- pores as big as 
+300 µm in the Silurian Dolomite, 160 µm for the Red 
+Massilon and 200 µm for the Indiana Limestone, which 
+corresponds much better with the simulation input s. 
+ 
+ 
+Figure 3. Experimental (blue line) and simulated (black 
+dashed line) T2 distributions for the s tudied sam ples . 
+ 
+Table 2. Macro-porosity content and average macro-pore 
+diameter determined by image analysis . The values that 
+gave the best match for the T2 distribution curve for each 
+s ample are shown. 
+Sample 
+Mac r o-porosity (p.u.) Average macro-pores 
+diameter (µm) 
+Image 
+Analysis Simulation Image 
+Analysis Simulation 
+Red 
+M assilon 15.7 12.6 35.2 200 
+Silurian 8 8.1 28 300 
+Indiana 3.4 7.8 11.6 200 
+ 
+It is importa nt to notice that with the modeling, it is 
+possible to capture the macro and micro- porosity content 
+taking into account the diffusive coupling. Better 
+resolution images, such as confocal microscopic images, 
+would help corroborate the amount of micro-poros ity 
+estimated by the NMR modeling. 
+ 
+10
+-4
+10
+-3
+10
+-2
+10
+-1
+10
+0
+10
+10
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+ T2 (s)
+ Amplitude (a.u.)
+ 
+ 
+ 
+Experimental
+Simulation
+10
+-4
+10
+-3
+10
+-2
+10
+-1
+10
+0
+10
+10
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+ T2 (s)
+ Amplitude (a.u.)
+ 
+ 
+ 
+Experimental
+Simulation
+10
+-4
+10
+-3
+10
+-2
+10
+-1
+10
+0
+10
+10
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+ T2 (s)
+ Amplitude (a.u.)
+ 
+ 
+ 
+Experimental
+Simulation
+Red Massilon
+Silurian 
+Dolomite
+Indiana
+Limestone
+
+--- PAGE 4 ---
+IMAGE ANALYSIS AND NMR MODELING OF SEDIMENTARY ROCKS 
+______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________ 
+Thirteenth International Congress of the Brazilian Geophysical Society 
+4 
+ 
+Figure 4. Histograms for ma cro-pore sizes for Red 
+Massilon, Silurian Dolomite and Indiana Limestone from 
+image analysis. Although they show average macro-pore 
+size between 10 and 30 µm, they also show macro-pores 
+as big as 300 µm. 
+ 
+Conclusions 
+With the µ -GC model and random walk simulations it is 
+possible to model the NMR r es pons e of s edim entary 
+rocks with good agreement. As the process takes into 
+account diffusive coupling, the model gives a better 
+estimative of m acro- and micro-porosity content for the 
+porous media. Moreover, the numerical s im ulations 
+provide an estimate of the average pore- sizes for the 
+rocks based on the geometrical model. 
+ 
+References 
+ 
+Dunn, K.-J.; Bergaman, D.J.; LaTorraca, G.A. Nuclear 
+Magnetic Resonance: Petrophysical and Logging 
+Applications. England: Elsevier Science, 2002. 
+ 
+Latour, L. L.; Mitra, P. P.; Kleinberg, R. L.; Sotak, C . H. 
+Time-dependent diffusion coefficient of fluids in porous 
+media as a probe of surface-to-volume ratio. Journal of 
+Magnetic Resonance A, v. 101, p. 342-346, 1993 
+Meiboom, S.; Gil, D. Modified spin-echo method for 
+m eas uring nuclear relaxation times. Review of Scientific 
+Instruments, 29, 688-691, 1958. 
+Ramakrishnan, T. S.; Schwartz, L. M., Fordham, E. J.; 
+Kenyon, W. E.; Wilkinson, D. J. Forward Models for 
+Nuclear Magnetic Resonance in Carbonate Rocks. The 
+Log Analyst, 40, 260-270, 1999. 
+Song, Y.-Q.; Venkataramanan, L.; Hürilimann, M. D.; 
+Flaum, M.; Frulla, P.; Straley, C. T1-T2 Correlation 
+Spectra Obtained Using a Fast Two-Dimensional Laplace 
+Inversion. Journal of Magnetic Resonance, 154, 261-268, 
+2002. 
+Tanner, J.E. Use of the stimulated echo in NMR diffusion 
+studies. Journal of Chemical Physics, 52, 2523-2526, 
+1970. 
+Wong, P.-Z. Methods in the Physics of Porous Media. 
+USA: Academic Press, 1999. 
+Zhang, Z., Johnson, D. L., Schwartz, L. M., Simulating the 
+time-dependent diffusion coefficient in mixed-pore-size 
+materials. Physical Review E 84, 031129, 2011. 
+ 
+Acknowledgements 
+The authors would like to thank Federal Fluminense 
+University (UFF), namely professor Rodrigo Bagueira, for 
+helping with the NMR m easurem ents. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+0 50 100 150 200 250 3000
+20
+40
+60
+80
+100
+120
+140
+Macro-pore size (µm)
+Frequency
+Silurian Dolomite
+0 50 100 150 200 250 3000
+5
+10
+15
+20
+25
+Macro-pore size (µm)
+Frequency
+Red Massilon
+0 50 100 150 200 250 3000
+5
+10
+15
+20
+25
+30
+35
+Indiana Limestone
+Macro-pore size (µm)
+Frequency

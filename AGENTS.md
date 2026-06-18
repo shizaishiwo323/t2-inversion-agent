@@ -1,35 +1,57 @@
-# T2 Inversion Agent
+# NMR Simulation and T2 Inversion Agent
 
 ## Project Purpose
 
-This project builds a simplified AI agent for NMR T2 inversion workflows.
-The agent should help users move from uploaded decay data to T2 inversion,
-visualization, optional peak decomposition, and result interpretation.
+This project builds a guided AI agent for a complete NMR simulation and T2
+analysis workflow. The agent should help users move from geometry input to
+mesh generation, NMR/M2 simulation solving, simulated time-domain decay
+generation, T2 inversion, visualization, optional peak decomposition, and
+result interpretation.
+
+The agent must also support narrower workflows. A user may ask to run the full
+simulation pipeline for testing, or may only need T2 inversion, visualization,
+or Gaussian decomposition using existing decay or spectrum data.
 
 The intended experience is conversational and guided. The agent should not
 expect new users to already understand terms such as regularization factor,
-L-curve, T2 spectrum, or Gaussian peak decomposition. It should explain each
-choice in practical scientific language, ask only the questions needed to
-finish the task, and then call the local T2 processing code to produce files
-and figures.
+L-curve, T2 spectrum, Gaussian peak decomposition, mesh quality, binary image
+geometry, or pore/solid phase labels. It should explain each choice in
+practical scientific language, ask only the questions needed to finish the
+task, and call the local processing code to produce files and figures.
 
-This is a focused T2-processing agent, not a full geophysics simulation agent.
-Ideas from `AI_for_Geophysics智能体会议纪要_整理版.md` provide the broader
-agent-workflow philosophy, but the current project scope is limited to the
-existing T2 inversion and spectrum-processing capabilities in `T2process`.
+The project scope is focused on NMR simulation and T2 processing. Ideas from
+`AI_for_Geophysics智能体会议纪要_整理版.md` provide the broader agent-workflow
+philosophy, but new work should stay centered on the NMR geometry -> mesh ->
+simulation -> T2 inversion pipeline and the existing T2 capabilities in
+`T2process`.
 
 ## Core User Workflow
 
 The agent should guide the user through these stages:
 
 1. Understand the user's goal.
+   - Full NMR simulation workflow: geometry input, meshing, NMR/M2 solving,
+     decay generation, T2 inversion, visualization, and interpretation.
+   - Full simulation workflow as a test run with default settings.
    - T2 inversion only.
    - T2 inversion plus visualization.
    - T2 inversion plus Gaussian peak decomposition.
    - Visualization of existing inversion results.
    - Gaussian decomposition of an existing T2 spectrum.
 
-2. Inspect the uploaded data.
+2. Choose and validate the input route.
+   - Parametric geometry input: let the user configure regular geometry
+     rules, whether multiple geometry elements are coupled/combined, and their
+     dimensions.
+   - Image geometry input: accept a two-dimensional binary image, preferably a
+     PNG using the project's default color convention, such as red for liquid
+     pore phase and yellow for solid phase.
+   - Existing decay-data input: accept Excel workbooks for T2 inversion-only
+     workflows.
+   - Existing spectrum input: accept spectrum workbooks for visualization or
+     Gaussian decomposition-only workflows.
+
+3. Inspect uploaded decay data when T2 inversion is requested.
    - Accept Excel workbooks as the primary input format.
    - Expect the first column to contain time values.
    - Expect one or more following columns to contain decay signal amplitudes.
@@ -40,7 +62,16 @@ The agent should guide the user through these stages:
    - When safe and unambiguous, normalize the data format internally instead
      of forcing the user to edit the table manually.
 
-3. Ask for required scientific and processing choices.
+4. Ask for required scientific and processing choices.
+   - For geometry input: geometry type/rules, dimensions, coupling/combination
+     options, phase labels, and any known physical scale.
+   - For image input: confirm the binary color convention and whether white
+     borders or margins should be auto-cropped.
+   - For meshing: use the PyGIMLi-based meshing method by default. Do not add
+     alternative mesh engines unless the project explicitly adopts and tests
+     them.
+   - For NMR/M2 simulation: ask only for required solver parameters that are
+     not safely covered by defaults.
    - Whether the time column is already in milliseconds or needs conversion
      from seconds to milliseconds.
    - Whether the signal should be trimmed from the global peak before
@@ -50,19 +81,98 @@ The agent should guide the user through these stages:
    - Number of Gaussian peaks, if peak decomposition is requested.
    - Output location and preferred result artifacts.
 
-4. Run the local processing code.
+5. Run the local processing code.
+   - Use the standardized NMR simulation package or integration wrapper once
+     it is added to this project.
    - Use the standardized Python package under `T2process/nmr_t2`.
    - Do not reimplement inversion, L-curve, plotting, or Gaussian fitting
      logic in the web layer when the package already provides it.
+   - Do not reimplement geometry parsing, meshing, or simulation solver logic
+     in the web layer when an integrated local package already provides it.
 
-5. Explain results.
+6. Display process data progressively.
+   - Show geometry validation results as soon as they are available.
+   - Show cropped/normalized binary images before meshing.
+   - Show generated meshes immediately after meshing completes.
+   - Show simulation fields, intermediate solver outputs, and generated
+     time-domain curves as soon as each step completes.
+   - Show T2 spectra, fits, L-curve diagnostics, and Gaussian decomposition
+     outputs as soon as they are produced.
+   - Do not wait until the entire pipeline is finished before updating the
+     result panel.
+
+7. Explain results.
    - Summarize generated files.
+   - Explain geometry, mesh, simulation, and decay-generation outputs in
+     practical terms.
    - Explain selected regularization values and whether L-curve selection was
      used.
    - Explain T2 peak positions, areas, and area fractions when Gaussian
      decomposition is performed.
-   - Warn when data quality, point count, noise, or chosen peak count may make
-     the interpretation unreliable.
+   - Warn when image quality, mesh quality, solver convergence, data quality,
+     point count, noise, or chosen peak count may make the interpretation
+     unreliable.
+
+## Full NMR Simulation Workflow
+
+The full workflow should be treated as a staged scientific pipeline:
+
+1. Geometry input or upload.
+2. Geometry validation and normalization.
+3. Mesh generation using the PyGIMLi-based method.
+4. NMR/M2 simulation solving.
+5. Time-domain decay curve generation.
+6. T2 inversion using the mature local T2 pipeline.
+7. Visualization and optional Gaussian peak decomposition.
+8. Interpretation and artifact summary.
+
+Each stage should produce user-visible process data and downloadable artifacts
+where appropriate. If a later stage fails, the agent should still preserve and
+show the successful earlier-stage artifacts.
+
+The GitHub repository provided by the user for the simulation code should be
+treated as the intended integration source, but its exact callable interfaces
+must be inspected before implementation. Do not invent solver function names or
+file formats that have not been verified in the integrated code.
+
+## Geometry Input and Meshing
+
+The app should support two geometry input modes.
+
+### Rule-Based Geometry Input
+
+The user should be able to configure regular geometry shapes and dimensions in
+the web UI. The agent should guide the user through:
+
+- Geometry type or rule.
+- Whether geometry elements are independent or coupled/combined.
+- Dimensions and scale.
+- Phase assignment for pore/liquid and solid regions.
+- Mesh-generation defaults.
+
+The default meshing method is the PyGIMLi-based method used by the simulation
+workflow. The app should expose only the necessary mesh parameters at first and
+keep advanced settings hidden unless the user asks for them or a validation
+problem requires them.
+
+### Image-Based Geometry Input
+
+The user may upload a two-dimensional binary image, preferably PNG. The agent
+should tell users clearly that the image must contain only two material phases.
+The default project convention is:
+
+- Red: liquid or pore phase.
+- Yellow: solid phase.
+
+If the uploaded image has a white border or white margin, the app should detect
+and crop that border automatically when it is safe to do so. The cropped image
+should be shown to the user before meshing. If the image contains unexpected
+extra colors or ambiguous antialiasing, the agent should explain the problem
+and either offer a safe thresholding/repair step or ask the user for a cleaner
+binary image.
+
+The original uploaded image must be preserved. Cropped, thresholded, or
+normalized images must be written as derived artifacts with provenance.
 
 ## Local T2 Processing Capabilities
 
@@ -216,6 +326,11 @@ The agent should behave like a scientific workflow assistant.
 
 - First clarify the user's scientific goal, not just the button they want to
   press.
+- Detect whether the user wants a full simulation workflow or only an existing
+  T2 inversion/visualization/decomposition workflow.
+- For full simulation, guide the user step by step through geometry, meshing,
+  solving, decay generation, inversion, and interpretation instead of asking
+  for every parameter at once.
 - Use defaults when the user is unsure, but state what the default means.
 - Prefer L-curve regularization for beginner users unless they explicitly know
   the fixed regularization value they want.
@@ -225,7 +340,14 @@ The agent should behave like a scientific workflow assistant.
   meaning of T2.
 - Ask about trimming from the global peak, especially for simulated data with
   an initial rise before decay.
+- For image-based geometry, explain that the uploaded image must be binary and
+  phase-coded. Warn users when antialiasing, compression artifacts, or extra
+  colors make the geometry ambiguous.
+- For mesh and simulation stages, explain failures in practical terms: invalid
+  geometry, too-small features for the mesh, disconnected regions, poor mesh
+  quality, or solver convergence issues.
 - Do not overwhelm the user with all parameters at once.
+- Update the right-side result panel after each completed stage.
 - After each run, give a short interpretation and list generated files.
 - When results are uncertain, say why instead of presenting them as final
   scientific truth.
@@ -234,6 +356,13 @@ The agent should behave like a scientific workflow assistant.
 
 When the user is unsure:
 
+- For a complete pipeline test, use a simple rule-based geometry with default
+  dimensions, PyGIMLi meshing, default simulation settings, L-curve inversion,
+  and paired decay/T2 visualization.
+- For image geometry, assume red is liquid/pore phase and yellow is solid phase
+  unless the user says otherwise.
+- Auto-crop white image borders when the crop is unambiguous, but preserve the
+  original image.
 - Use L-curve inversion.
 - Use `time_to_ms_scale = 1.0` if time is already in ms.
 - Use `time_to_ms_scale = 1000.0` if time is in seconds.
@@ -249,15 +378,26 @@ When the user is unsure:
 
 The web app should provide:
 
-- File upload for Excel data.
-- Data preview and validation feedback.
+- File upload for Excel decay/spectrum data.
+- File upload for binary PNG geometry images.
+- Rule-based geometry controls for regular geometry, coupled/combined geometry
+  options, and geometry dimensions.
+- Data, image, and geometry preview with validation feedback.
 - Model selection UI for the language agent.
 - A guided parameter panel driven by the agent conversation.
+- Controls for geometry setup, PyGIMLi-based meshing, NMR/M2 simulation solving,
+  and simulated decay generation.
 - Controls for fixed NNLS, L-curve inversion, plotting, and Gaussian
   decomposition.
+- A right-side result panel that updates progressively as each stage completes.
+- Intermediate process previews, including normalized/cropped image, generated
+  mesh, simulation outputs, time-domain curve, T2 spectrum, fit diagnostics,
+  and Gaussian peak tables/figures.
 - Output file download links.
 - Figure previews.
 - Clear warnings when input format or parameters are unsuitable.
+- Clear status messages for queued, running, completed, warning, and failed
+  stages.
 
 DeepSeek API credentials must be read from environment variables, not hardcoded
 in source files or documentation.
@@ -288,8 +428,15 @@ them to explicit provider model IDs in one place.
 - Do not silently overwrite important user outputs unless the output directory
   is clearly run-specific or the user confirms replacement.
 - Preserve raw uploaded data.
+- Preserve raw uploaded geometry images.
 - Write normalized or repaired data as a new derived artifact.
+- Write cropped, thresholded, meshed, simulated, inverted, plotted, and
+  decomposed outputs as stage-specific artifacts.
 - Keep enough provenance in summaries to reproduce the run.
+- Use run-specific output directories for full simulation pipelines whenever
+  possible.
+- Do not treat intermediate process data as disposable. It is part of the
+  scientific audit trail and should remain available to the user.
 
 ## Repository Operating Rules
 

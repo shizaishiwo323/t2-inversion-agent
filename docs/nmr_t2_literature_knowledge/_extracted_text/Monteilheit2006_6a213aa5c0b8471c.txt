@@ -1,0 +1,1154 @@
+--- PAGE 1 ---
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/6524841
+Observation of exchange of micropore water in cement pastes by two-
+dimensional T 2 − T 2 nuclear magnetic resonance relaxometry
+Article  in  Physical Review E · January 2007
+DOI: 10.1103/PhysRevE.74.061404 · Source: PubMed
+CITATIONS
+148
+READS
+186
+4 authors, including:
+Some of the authors of this publication are also working on these related projects:
+Structural effects of comb-like superplasticizers View project
+Surface GARField View project
+jean-pierre Korb
+MINES ParisTech
+186 PUBLICATIONS   4,323 CITATIONS   
+SEE PROFILE
+Jonathan Mitchell
+Schlumberger Limited
+97 PUBLICATIONS   3,010 CITATIONS   
+SEE PROFILE
+All content following this page was uploaded by jean-pierre Korb on 12 December 2014.
+The user has requested enhancement of the downloaded file.
+
+--- PAGE 2 ---
+Observation of exchange of micropore water in cement pastes by two-dimensional T2-T2 nuclear
+magnetic resonance relaxometry
+L. Monteilhet, 1 J.-P . Korb,2 J. Mitchell, 1 and P . J. McDonald1,*
+1Department of Physics,University of Surrey, Guildford, Surrey, GU2 7XH, United Kingdom
+2Laboratoire de Physique de la Matière Condensée, UMR 7643 CNRS, Ecole Polytechnique, 91128 Palaiseau, France
+/H20849Received 31 July 2006; published 22 December 2006 /H20850
+The ﬁrst detailed analysis of the two-dimensional /H208492D/H20850NMR T2-T2 exchange experiment with a period of
+magnetization storage between the two T2 relaxation encoding periods /H20849T2-store-T2/H20850is presented. It is shown
+that this experiment has certain advantages over the T1-T2 variant for the quantization of chemical exchange.
+New T2-store-T2 2D 1H NMR spectra of the pore water within white cement paste are presented. Based on
+these spectra, the exchange rate of water between the two smallest porosity reservoirs is estimated for the ﬁrst
+time. It is found to be of the order of 5 ms
+−1. Further, a careful estimate of the pore sizes of these reservoirs
+is made. They are found to be of the order of 1.4 nm and 10– 30 nm, respectively. A discussion of the results
+is developed in terms of possible calcium silicate hydrate products. A water diffusion coefﬁcient inferred from
+the exchange rate and the cement particle size is found to compare favorably with the results of molecular-
+dynamics simulations to be found in the literature.
+DOI: 10.1103/PhysRevE.74.061404 PACS number/H20849s/H20850: 82.70. /H11002y, 81.05.Rm, 68.08./H11002p, 78.30.Ly
+I. INTRODUCTION
+Nuclear magnetic resonance /H20849NMR/H20850spin-lattice /H20849T1/H20850and
+spin-spin /H20849T2/H20850relaxation-time measurements have been
+shown to be a powerful tool for the characterization of liq-
+uids in porous media /H208511/H20852. The fast exchange model of relax-
+ation is often invoked and provides a powerful means of
+characterizing the pore surface-to-volume ratio. According to
+this theory, the observed relaxation rate is the weighted av-
+erage of that for fast relaxing nuclei in molecules associated
+with pore surfaces and that for more abundant, but more
+slowly relaxing nuclei associated with molecules in the bulk
+liquid ﬁlling the pore /H208512/H20852. In other work, NMR pulsed ﬁeld
+gradient measurements of self-diffusion /H20849D/H20850of liquids in po-
+rous media and, in particular, of restricted diffusion, have
+been shown to be equally important for the characterization
+of pore structures /H208513/H20852. More recently, two-dimensional relax-
+ation correlation experiments, ﬁrst suggested in the early
+1980’s/H208514/H20852, have come to the fore /H208515/H20852following the availabil-
+ity of robust methods of performing the requisite 2D inverse
+Laplace transform /H208516/H20852. In the usual form of these experi-
+ments, a measurement of T
+1 made in a ﬁrst measurement
+interval is correlated with a measurement of either T2 or D
+in an immediately following second interval. In particular,
+T
+1-D experiments have been shown to be well suited to the
+separation of signals from oil and water in reservoir rocks
+/H208517/H20852. Others have applied the methods to the characterization
+of emulsions and foods /H208518,9/H20852. The T
+2-T2 experiment is much
+less common and to date has not been part of this resurgence.
+However, it was ﬁrst proposed more than a decade ago by
+Lee et al. /H2085110/H20852. The experiment is made useful by the inclu-
+sion of a magnetization storage period between the T
+2 encod-
+ing periods, T2-store-T2, during which the magnetization is
+held along the longitudinal direction and during which ex-
+change can occur.
+Cement-based materials are a further signiﬁcant class of
+porous materials. Understanding nanoscale pore-water inter-
+actions is important for both new build with fresh materials
+and for the repair of existing structures. With new build, for
+instance, knowledge of the degree of cure of cement is criti-
+cal to the construction timeline. With regard to repair, it is
+accepted that nearly all forms of degradation of cement-
+based materials are ultimately linked to the availability of
+water and its transport through the porous structure.
+Previous NMR relaxometry studies of cements have
+largely focused on simple measurements of T
+1 and T2
+/H2085111–13/H20852and/or D /H2085114,15/H20852. These measurements have gener-
+ally shown three or more distinct relaxation reservoirs that
+are generally associated with chemically combined water
+/H20849the shortest T
+2/H20850through water in the cement gel structures
+/H20849CSH/H20850and onto water in capillary pores and microcracks
+/H20849the longest T2/H20850. While the broad picture remains constant
+across these several reports, numerous factors conspire to
+leave considerable uncertainty in the overall interpretation.
+Amongst these are the variety of materials and water-to-
+cement ratios used; the varying cure regimes adopted and
+hence the varying degree of cure and saturation of porosities
+encountered; the different NMR spectrometer frequencies
+available; and the acknowledged difﬁculty of inverting spin-
+relaxation data to yield relaxation rates.
+In an earlier paper /H2085116/H20852we showed that T
+1-T2 correlation
+experiments are valuable in helping to understand pore-water
+interactions in cement paste. Key ﬁndings included the fol-
+lowing:
+/H20849i/H20850conﬁrmation of a series of discrete-sized porosity res-
+ervoirs;
+/H20849ii/H20850the ﬁrst observation of an off-diagonal peak linking
+relaxation of
+1H in the two smallest porosity reservoirs. This
+was attributed to water exchange between the gel and capil-
+lary structures;
+/H20849iii/H20850the observation that T
+1 / T2 = /H9251is a constant greater
+than 1 across the full spectrum of relaxation times for water
+in different-sized pore structures;
+*Corresponding author.
+PHYSICAL REVIEW E 74, 061404 /H208492006/H20850
+1539-3755/2006/74/H208496/H20850/061404/H208499/H20850 ©2006 The American Physical Society061404-1
+
+--- PAGE 3 ---
+/H20849iv/H20850new analysis that extended a model of surface relax-
+ation by a two-dimensional random walk of nuclei across a
+pore surface passed paramagnetic relaxation sinks /H2085117/H20852. This
+analysis satisfactorily explained the constant
+/H9251, and, by mea-
+surement of its frequency dependence /H2085118/H20852, enabled an esti-
+mate of the pore surface residency time and the pore surface
+2D walk hopping time, both consistent with previous mea-
+surements inferred from methodologically more complex
+ﬁeld-cycling NMR experiments /H2085119,20/H20852.
+It is the purpose of this paper to carry this work forward,
+both in terms of the methodology and its analysis, and in
+terms of the interpretation of results in cements. For the ﬁrst
+part, this paper focuses on analysis of the T
+2-store-T2 ex-
+change experiment. Although in our previous paper we pre-
+sented the ﬁrst use of a T
+2-store-T2 exchange experiment for
+studying cement pastes, the application was not fully ex-
+plored and only very preliminary results were included. It is
+now shown that this experiment has considerable advantages
+compared to a T
+1-T2 experiment for studying materials such
+as cements. New calculations show that 2D spectra with
+strong off-diagonal peaks can be observed unambiguously
+with a T
+2-store-T2 experiment in cases where there is ongo-
+ing exchange. Measurement of the relative intensity of the
+off-diagonal features as a function of the storage interval
+length permits an estimate of the exchange rate to be made.
+In the case of cement pastes this goes on to allow an estimate
+of water diffusivity within pore structures that can be com-
+pared to theoretical modelling.
+II. MATERIALS AND METHODS
+Small samples of white Portland cement were carefully
+hand mixed in the water-to-cement ratio 0.4 by mass, cast
+into 10 mm NMR tubes, gently vibrated on a vibration table
+to remove entrapped air, and allowed to cure unsealed for the
+ﬁrst few hours. As soon as the samples solidiﬁed, a small
+quantity of saturated Ca /H20849OH/H20850
+2 aqueous solution /H20849simulated
+pore-water/H20850was poured onto the samples to allow continued
+cure underwater. This solution was temporarily removed dur-
+ing NMR measurements but replaced immediately thereafter.
+Notwithstanding this methodology, it is likely that a signiﬁ-
+cant fraction of the open capillary porosity remained devoid
+of water since it is known that it is extremely hard to manu-
+facture fully saturated samples. Samples were stored at
+20 ° C.
+Samples were investigated with the T
+2-store-T2 exchange
+experiment, deﬁned by the pulse sequence
+P90-/H20849/H9252i/H9270echo-P180-/H9252i/H9270echo-echo-/H20850m-P90-/H9270delay -
+P−90-/H20849/H9252j/H9270echo-P180-/H9252j/H92702-echo-/H20850n-/H9270RD .
+This experiment consists of three time intervals: t1, t2, and t3.
+During the ﬁrst interval a Carr-Purcell-Meiboom-Gill
+/H20849CPMG/H20850pulse train consisting of m inversion pulses and
+echoes is applied. In our implementation, the inversion pulse
+gap increases throughout the sequence according to a geo-
+metric sequence /H208492
+/H9252i/H9270echo , i =0,1,..., m − 1 and /H9252= constant/H20850
+in order to span efﬁciently the entire range of relaxation
+times from tens of microseconds to seconds. At the end of
+the sequence, at the time of the m
+th echo, a 90° pulse is
+applied so as to store the magnetization along the z axis.
+Phase cycling is used between averages so as to store along
+both + / −z /H20849see theory /H20850. The magnetization is stored for the
+period
+/H9270delay = t2. Thereafter, the magnetization is recovered
+with a further 90° pulse. During the third period t3, a second
+CPMG sequence of n inversion pulses similarly spaced in
+geometric progression is applied and the series of echo in-
+tensities is recorded. The experiment is repeated for m
+=1,2,..., n with repetition delay
+/H9270RD. In this manner, a
+square two-dimensional relaxation data set is acquired.
+Measurements were made at room temperature on a
+20 MHz 1H NMR frequency Maran benchtop spectrometer
+/H20849Oxford Instruments Molecular Biotools Ltd, Oxon, UK /H20850.
+The 90° pulse length was 2.5 /H9262s. In a typical experiment, the
+inversion pulse gap interval of the CPMG sequence in-
+creased from 60
+/H9262s to 0.2 s over n = 32 echoes so that the T2
+range up to circa 1 s was well explored. However, signal
+from the chemically combined water /H20849with a T2 of only a few
+microseconds/H20850was not seen. The storage interval t2 was kept
+constant in any one experiment and was of the order of
+0 – 30 ms. As many as 128 averages of each echo train were
+recorded with a repetition time of 1 s in an experiment last-
+ing circa 2.5 hours.
+The 2D data sets were carefully phased prior to analysis.
+None of the data sets showed a noticeable baseline offset.
+Relaxation time distributions were extracted from the data by
+2D Laplace inversion using the algorithm proposed by V en-
+kataramanan et al. /H2085121/H20852using software running on a desktop
+computer. All subsequent data plots are as output by this
+algorithm except that intensities have been normalized to the
+number of averages recorded.
+III. THEORY
+A. T2-store-T2 experiment
+We consider two reservoirs of magnetization, Ma and Mb,
+corresponding to 1H /H20849water/H20850in pores of different sizes. There
+is exchange between the reservoirs. The system of coupled
+differential equations governing the relaxation of the magne-
+tization in the reservoirs is well known /H2085122/H20852, viz.,
+dM
+a
+dt =− kaMa + kbMb + Ra/H20849Ma
+eq − Ma/H20850,
+dMb
+dt =− kbMb + kaMa + Rb/H20849Mb
+eq − Mb/H20850, /H208491/H20850
+where ka,b is the exchange rate, Ra,b is the nuclear spin-lattice
+or spin-spin relaxation rate as appropriate, Ma,b
+eq is the equi-
+librium magnetization for each reservoir for the relevant pro-
+cess, and t is time. For spin-lattice relaxation Ma,b
+eq = Ma,b
+0 , the
+overall equilibrium value, while for spin-spin relaxation
+Ma,b
+eq = 0. The condition of detailed balance requires that
+kaMa
+0 = kbMb
+0. Conveniently, under conditions of detailed bal-
+ance, the equations can be written in the form
+MONTEILHET et al. PHYSICAL REVIEW E 74, 061404 /H208492006/H20850
+061404-2
+
+--- PAGE 4 ---
+/H20875
+d/H20849Ma − Ma
+eq/H20850/dt
+d/H20849Mb − Mb
+eq/H20850/dt /H20876= /H20875
+− Ra − ka kb
+ka − Rb − kb
+/H20876/H20875
+Ma − Ma
+eq
+Mb − Mb
+eq /H20876.
+/H208492/H20850
+The solutions to Eq. /H208492/H20850are also well known /H2085122/H20852and have
+been presented previously in the notation of this work by us.
+/H2085116/H20852In order to treat the T
+2-store-T2 experiment, the time is
+divided into three periods, t1, t2, and t3, corresponding to the
+three sequential elements of the experiment. The starting
+conditions are Ma,b/H208490/H20850= Ma,b
+0 and the magnetization Ma,b/H20849t1/H20850
+is calculated using spin-spin relaxation parameters /H20851Eq. /H2084910/H20850
+of Ref. /H2085116/H20852/H20852. Ma,b/H20849t1/H20850becomes the starting conditions for the
+second period. Hence, using spin-lattice relaxation param-
+eters, the magnetization at the end of the second period,
+Ma,b/H20849t1 , t2/H20850is calculated. Likewise, Ma,b/H20849t1 , t2/H20850is the starting
+condition for period t3 so that, ﬁnally, reverting to spin-spin
+relaxation parameters, Ma,b/H20849t1 , t2 , t3/H20850is calculated. The ob-
+served magnetization M is the sum of Ma and Mb. The ﬁnal
+solution is given by
+M/H20849t1,t2,t3/H20850= C1/H20849t3/H20850/H20851C2/H20849t1,t2/H20850+ C3/H20849t1,t2/H20850/H20852+ C4/H20849t3/H20850/H20851C5/H20849t1,t2/H20850
++ C6/H20849t1,t2/H20850/H20852, /H208493/H20850
+where
+C1/H20849t3/H20850= /H20849A2
+− − F2/H20850exp/H20849s2
++t3/H20850+ /H20849A2
++ + F2/H20850exp/H20849s2
+−t3/H20850, /H208494/H20850
+C2/H20849t1,t2/H20850= Ma
+0 + /H20851A1
+− exp/H20849s1
++t2/H20850+ A1
++ exp/H20849s1
+−t2/H20850/H20852
+/H11003/H20851− Ma
+0 + /H20849A2
+−Ma
+0 − G2Mb
+0/H20850exp/H20849s2
++t1/H20850+ /H20849A2
++Ma
+0
++ G2Mb
+0/H20850exp/H20849s2
+−t1/H20850/H20852, /H208495/H20850
+C3/H20849t1,t2/H20850=− G1/H20851exp/H20849s1
++t2/H20850− exp/H20849s1
+−t2/H20850/H20852
+/H11003/H20851− Mb
+0 + /H20849B2
+−Mb
+0 − F2Ma
+0/H20850exp/H20849s2
++t1/H20850+ /H20849B2
++Mb
+0
++ F2Ma
+0/H20850exp/H20849s2
+−t1/H20850/H20852, /H208496/H20850
+and where
+s1,2
++/− =− Ra
+1,2 + ka + Rb
+1,2 + kb
+2 ± 1
+2
+/H20881/H20849Ra
+1,2 + ka + Rb
+1,2 + kb/H208502 −4 /H20851/H20849Ra
+1,2 + ka/H20850/H20849Rb
+1,2 + kb/H20850− kakb/H20852, /H208497/H20850
+A1,2
++/− = s1,2
++/− + Ra
+1,2 + ka
+s1,2
++/− − s1,2
+−/+ , /H208498/H20850
+B1,2
++/− = s1,2
++/− + Rb
+1,2 + kb
+s1,2
++/− − s1,2
+−/+ , /H208499/H20850
+F1,2 = ka
+s1,2
+− − s1,2
++ , /H2084910/H20850
+and
+G1,2 = kb
+s1,2
+− − s1,2
++ . /H2084911/H20850
+Expressions for C4, C5, and C6 are found by interchanging a
+and b throughout C1, C2, and C3, respectively. Finally, Ra
+1
+=1/ T1a, for example, is the spin-lattice relaxation rate for
+reservoir a.
+The solution can be rewritten as a sum of products includ-
+ing factors exp /H20849s2
++/− t1/H20850exp/H20849s2
++/− t3/H20850and other terms not includ-
+ing these factors. The amplitudes of terms involving factors
+of exp /H20849s2
++/− t1/H20850exp/H20849s2
++/− t3/H20850correspond to the intensities of the
+diagonal, P++ and P−− and off-diagonal, P+− and P−+ peaks
+in the 2D Laplace inversion of the magnetization. The other
+terms are an unwanted distraction and are conveniently re-
+moved by phase cycling. Experimentally, the magnetization
+is stored along the + z and − z axes during t
+2. Theoretically,
+the calculation is repeated using − Ma,b/H20849t1/H20850at the start of the
+second period. The results of the two variants are summed
+whereupon the unwanted terms cancel to zero leaving just
+those wanted. The resultant amplitudes are
+P
+++ = exp/H20849s1
++t2/H20850/H20853/H20849A2
+− − F2/H20850/H20851A1
+−/H20849A2
+−Ma
+0 − G2Mb
+0/H20850− G1/H20849B2
+−Mb
+0
+− F2Ma
+0/H20850/H20852+ /H20849B2
+− − G2/H20850/H20851B1
+−/H20849B2
+−Mb
+0 − F2Ma
+0/H20850− F1/H20849A2
+−Ma
+0
+− G2Mb
+0/H20850/H20852/H20854+ exp/H20849s1
+−t2/H20850/H20853/H20849A2
+− − F2/H20850/H20851A1
++/H20849A2
+−Ma
+0 − G2Mb
+0/H20850
++ G1/H20849B2
+−Mb
+0 − F2Ma
+0/H20850/H20852+ /H20849B2
+− − G2/H20850/H20851B1
++/H20849B2
+−Mb
+0 − F2Ma
+0/H20850
++ F1/H20849A2
+−Ma
+0 − G2Mb
+0/H20850/H20852/H20854, /H2084912/H20850
+P−− = exp/H20849s1
++t2/H20850/H20853/H20849A2
++ + F2/H20850/H20851A1
+−/H20849A2
++Ma
+0 + G2Mb
+0/H20850− G1/H20849B2
++Mb
+0
++ F2Ma
+0/H20850/H20852+ /H20849B2
++ + G2/H20850/H20851B1
+−/H20849B2
++Mb
+0 + F2Ma
+0/H20850− F1/H20849A2
++Ma
+0
++ G2Mb
+0/H20850/H20852/H20854+ exp/H20849s1
+−t2/H20850/H20853/H20849A2
++ + F2/H20850/H20851A1
++/H20849A2
++Ma
+0 + G2Mb
+0/H20850
++ G1/H20849B2
++Mb
+0 + F2Ma
+0/H20850/H20852+ /H20849B2
++ + G2/H20850/H20851B1
++/H20849B2
++Mb
+0 + F2Ma
+0/H20850
++ F1/H20849A2
++Ma
+0 + G2Mb
+0/H20850/H20852/H20854, /H2084913/H20850
+P−+ = P+− = exp/H20849s1
++t2/H20850/H20853/H20849A2
++ + F2/H20850/H20851A1
+−/H20849A2
+−Ma
+0 − G2Mb
+0/H20850
+− G1/H20849B2
+−Mb
+0 − F2Ma
+0/H20850/H20852+ /H20849B2
++ + G2/H20850/H20851B1
+−/H20849B2
+−Mb
+0 − F2Ma
+0/H20850
+− F1/H20849A2
+−Ma
+0 − G2Mb
+0/H20850/H20852/H20854+ exp/H20849s1
+−t2/H20850/H20853/H20849A2
++ + F2/H20850/H20851A1
++/H20849A2
+−Ma
+0
+− G2Mb
+0/H20850+ G1/H20849B2
+−Mb
+0 − F2Ma
+0/H20850/H20852+ /H20849B2
++ + G2/H20850/H20851B1
++/H20849B2
+−Mb
+0
+− F2Ma
+0/H20850+ F1/H20849A2
+−Ma
+0 − G2Mb
+0/H20850/H20852/H20854. /H2084914/H20850
+In the event that T1 = T2, then the off-diagonal peak intensi-
+ties evaluate to zero. However, experimental work suggests
+OBSERV A TION OF EXCHANGE OF MICROPORE W A TER… PHYSICAL REVIEW E 74, 061404 /H208492006/H20850
+061404-3
+
+--- PAGE 5 ---
+that, in cements as in some other porous media, T1 /HS11005T2.I n
+our previous work on cements at a Larmor frequency of
+20 MHz we observed two principal relaxation reservoirs of
+comparable volume differing in T
+1 by a factor of approxi-
+mately ten each with T2 a factor of 4 smaller. The common
+T1 / T2 ratio of 4 is discussed further in the next section. Here
+we focus on how the four peak intensities vary with the
+storage time t
+2 for different exchange rates.
+We have performed numerical calculations with Ma
+eq
+= Mb
+eq = 0.5 and T2a = T1a / 4 = 0.25 ms and T2b = T1b /4
+= 2.5 ms. For reservoirs of equal size, ka = kb = k. Figure 1
+shows simulated 2D correlation spectra for each of “slow,”
+“medium,” and “fast” exchange rate /H20849k = 0.2, 1.0, and
+5.0 ms
+−1, respectively /H20850with a “short,” “intermediate,” and
+“long” storage interval /H20849t2 = 0.2, 1, and 5 ms, respectively /H20850.
+The terms slow and long etc. are deﬁned relative to the dif-
+ference in the spin-lattice relaxation rates. The calculated
+spectral peaks are delta functions: they have been artiﬁcially
+broadened for the sake of pictorial clarity. The contour plots
+are all shown on the same vertical scale, relative to a zero
+baseline, and are directly comparable.
+With slow exchange and only a short storage interval /H20851Fig.
+1 /H20849bottom left/H20850/H20852, then the spectrum consists essentially of two
+strong diagonal peaks P
+++ and P−− , of comparable amplitude
+and located close to the intersections /H20849T2 , T2/H20850= /H208490.25, 0.25/H20850
+and /H208492.5,2.5/H20850where T2 is expressed in ms, as expected. In the
+limit k → 0 and t2 → 0 the peaks are of equal amplitude and
+centered exactly on these intersects. With increasing ex-
+change rate /H20849bottom center /H20850the two diagonal peaks start to
+drift and change in relative intensity such that one becomes
+dominant in the expected fashion. Additionally, two off-
+diagonal peaks P
++− and P−+ appear as the signature of the
+ongoing exchange. With fast exchange /H20849bottom right /H20850, only
+one diagonal peak is seen at a location /H208490.45,0.45/H20850, deter-
+mined by the average T2 relaxation rate. The off-diagonal
+peaks are no longer seen. As the storage time increases /H20849from
+the bottom to the top of Fig. 1/H20850, so the integrated intensity
+across the four peaks declines due to spin-lattice relaxation
+losses. This is particularly true for the lower diagonal peaks
+that have short T2 and hence correspondingly short T1.I ti s
+also true, however, that the fraction of the spectral intensity
+in the off-diagonal peaks increases.
+In order to assess how the Laplacian inversion affects
+data, we have simulated NMR signals and added noise and
+systematic errors and subjected these to the 2D inverse
+Laplace transform for comparison with Fig. 1. The simulated
+signals were generated with k =1 m s
+−1, t2 = 1 ms, T2
+a
+= 0.25 ms, T2
+b = 2.5 ms, and T1 / T2 = 4. In the absence of
+added noise, it can be seen, with reference to Fig. 2 /H20849top/H20850,
+that the positions of the peaks obtained by this method are
+almost identical to those obtained by direct numerical simu-
+lation /H20851Fig. 1 /H20849center/H20850/H20852. A comparison of the integrated peak
+intensities with the direct numerical simulations reveals an
+absolute error of 3% in the intensity of the off-diagonal
+peaks. This translates to a relative error of 15% in the frac-
+tion of the intensity appearing in the off-diagonal peaks. The
+inclusion of 2% white noise /H20851Fig. 2 /H20849middle/H20850/H20852, made a mar-
+ginal further difference to the inversion. However, the addi-
+tion of 1% baseline offset /H20851Fig. 2 /H20849bottom/H20850/H20852, distorted the
+plot, forcing the P
+−− peak to lower values of T2.
+Figure 3 shows the calculated intensity within the off-
+diagonal peaks IOD, relative to the total signal intensity ITOT,
+IOD
+ITOT
+= P+− + P+−
+P++ + P−+ + P+− + P−− , /H2084915/H20850
+plotted as a function of storage /H20849t2/H20850and exchange time /H20849/H9270
+=1/ k/H20850for T1a =4 T2a = 1 ms and T1b =4 T2b = 7.1 ms. It is clear
+FIG. 1. Calculated 2D T2-store-T2 spectra for /H20849left to right /H20850slow,
+medium, and fast exchange rates and /H20849bottom to top /H20850short, inter-
+mediate, and long storage times. Calculation parameters are given
+in the text. The plots are on a common scale with the contours
+spaced at 1.5% of the total magnetization intensity.
+FIG. 2. Laplace inversions of simulated NMR data sets with
+/H20849top/H20850no noise, /H20849middle/H208502% white noise, and /H20849bottom/H208502% white
+noise plus 1% baseline offset. These plots have the same initial
+parameters as the center plot of Fig. 1 /H20849k =1 m s
+−1, t2 =1 m s/H20850.
+MONTEILHET et al. PHYSICAL REVIEW E 74, 061404 /H208492006/H20850
+061404-4
+
+--- PAGE 6 ---
+that, under favorable conditions, as much as 30% of the mag-
+netization can appear in the off-diagonal peaks.
+B. Surface relaxation
+The observed spin-spin relaxation time T2
+OBS can be re-
+lated to a pore surface-to-volume ratio /H20849S / V; pore size /H20850
+through the well-known equation
+1
+T2
+OBS = /H9261S
+V
+1
+T2
+S , /H2084916/H20850
+where T2
+S is the relaxation time for 1H in molecules adsorbed
+on the pore surface and /H9261is the thickness of a surface layer.
+In Eq. /H2084916/H20850, the contribution of the bulk spin-spin relaxation
+rate has been eliminated due to its very small value. A key
+issue is to evaluate T2
+S. In our previous work /H2085116,17,19/H20852,a
+model for surface relaxation was proposed and shown to be
+applicable. The model supposes biphasic fast exchange be-
+tween liquid molecules that are transiently adsorbed on the
+pore surface and molecules in the bulk pore liquid phase.
+The adsorbed molecules relax as they undergo 2D transla-
+tional diffusion in the dipolar ﬁeld of the electronic spins
+ﬁxed at the pore surface. The frequency dependence of this
+relaxation has been carefully evaluated. It depends on two
+correlation times, namely, the correlation time
+/H9270m of surface
+diffusion events and a ﬁnite residence time /H9270s of the protons
+on the surface. In most cases /H9270m / /H9270s /H112701. In the case of T2, the
+model analysis yields the result
+1
+T2
+S = 4
+9 /H9253I
+2/H9253s
+2/H60362S/H20849S +1 /H20850/H20877JL
+0/H208490/H20850+ 1
+4 JL
+0/H20849/H9275I − /H9275S/H20850+ 3
+4 JL
+1/H20849/H9275I/H20850
++ 3
+2 JL
+1/H20849/H9275S/H20850+ 3
+2 JL
+2/H20849/H9275I + /H9275S/H20850/H20878, /H2084917/H20850
+where /H9253S and /H9253I are the gyromagnetic ratio of the electron
+and proton, respectively, S is the spin of the paramagnetic
+impurities /H20849Fe3+/H20850embedded in the pore surface, and /H9275S and
+/H9275I are the electron and proton resonant frequencies, and
+where
+JL
+0,1,2/H20849/H9275/H20850= 3
+40
+/H9266/H9268s
+/H92544 /H9270m ln
+/H20900
+1+ /H92752/H9270m
+2
+/H20873
+/H9270m
+2
+/H9270s
+2 /H20874+ /H92752/H9270m
+2 /H20901
+. /H2084918/H20850
+Here, /H9268S is the surface density of paramagnetic impurities
+and /H9254is the distance of minimum approach of the water 1H
+to the paramagnetic /H20849Fe3+/H20850ions. The result can be simpliﬁed
+using the inequality /H9275S /H11271/H9275I/H20849/H9275S = 658.21/H9275I/H20850. In the case of
+spherical pores, S / V =6/ d, where d is the pore diameter and
+/H9261= x/H9280where x is the number of adsorbed water molecules of
+diameter /H9280in the surface layer. For planar pores, such as
+might better characterize CSH gel structures, S / V =2/ d,
+where d is the pore width.
+A similar analysis has been performed for T1 from which
+the ratio T1 / T2 is calculated. For a ﬁxed Larmor frequency,
+the value achieved for T1 / T2 is not universal but depends
+critically on the ratio /H9270m / /H9270s. In particular, T2 / T1 reaches the
+value 4 when /H9270m / /H9270s =1 0−3. What is important in our 2D
+T1-T2 data used to underpin the modeling in the previous
+section, is the strong correlation of all the discrete pore size
+distribution features along the line T
+1 / T2 = 4. Given that
+paramagnetic impurities are expected to be distributed uni-
+formly throughout the solid matrix of the sample, this pro-
+vides strong supportive evidence for the surface diffusion
+model of proton nuclear spin relaxation in cements. Further
+support comes from the predicted frequency dependence of
+this ratio, which agrees well with experimental results /H2085118/H20852.
+IV . EXPERIMENTAL RESULTS
+A. 2D correlation experiments
+Figure 4 shows the results of an experiment to measure
+T2-store-T2 correlations in a white cement sample 4 days old.
+In this case, the storage interval was 10 ms. The spectrum
+shows a clear diagonal ridge with a primary peak P
+++ at circa
+/H20849T2 , T2/H20850= /H208491,1 /H20850and two strong off-diagonal peaks P+− and
+P−+ at circa /H208490.05,1/H20850and /H208491,0.05/H20850, respectively. There is no
+evidence for the second lower diagonal feature P−− and so,
+superﬁcially at least, the spectrum is comparable to that in
+the upper left of Fig. 1.
+Figure 5 shows a second example. In this case the storage
+time is reduced to 1 ms. Now, overall, there is considerably
+FIG. 3. A surface plot showing the fraction of the observed
+spectral intensity in the off-diagonal peaks as a function of ex-
+change time
+/H9270=1/ k, and storage time t2. The calculation parameters
+are given in the text.
+FIG. 4. Experimental T2-store-T2 2D correlation spectrum for a
+white cement paste with water-to-cement ratio 0.4 and three days
+old. The storage time is 10 ms. The spectrum, which shows a strong
+upper diagonal peak and two off-diagonal peaks, is qualitatively
+comparable to the central part of Fig. 1.
+OBSERV A TION OF EXCHANGE OF MICROPORE W A TER… PHYSICAL REVIEW E 74, 061404 /H208492006/H20850
+061404-5
+
+--- PAGE 7 ---
+more intensity in the spectrum /H20849notice the expansion of the
+contour interval/H20850. However, it is located predominantly along
+the diagonal. The off-diagonal features are not seen. The
+spectrum is more comparable to the lower left of Fig. 1. The
+slight asymmetry in this spectrum could be due to one of
+several causes including ongoing hydration of the sample
+during the measurement introducing systematic error or fail-
+ure of the Laplace inversion.
+To check the efﬁcacy of the pulse sequence, a T
+2-store-T2
+experiment with a store time t2 = 5 ms was performed on a
+four-day-old sample of white cement. The experiment was
+repeated with the ﬁrst 90° pulse of the sequence suppressed.
+In the latter case, the signal intensity echo showed no signal
+arising from unwanted coherences visible above the baseline
+noise. Equally, the inverse Laplace transform spectrum
+showed no clear structural features. The ratio of the inte-
+grated intensity of the spectra between the two experiments
+was /H110210.4%, well below the amplitude associated with the
+exchange peaks where they occur. We are therefore conﬁdent
+that the observed exchange peaks are not an artifact of the
+pulse sequence implementation.
+Figure 6 shows the fractional intensity in the off-diagonal
+peaks as a function of storage time for all the white cement
+samples of age four days and water-to-cement ratio 0.4 that
+have so far been surveyed in our laboratory. The circles are
+for data recorded in the experiments discussed here. The tri-
+angles are for earlier preliminary experiments where the
+signal-to-noise ratio was not as good. Also, the cement pow-
+der used was from a different /H20849older/H20850batch and the sample
+storage was not as carefully controlled as here. As expected,
+it is found that the fractional intensity in the off-diagonal
+features increases with storage time. However, since the
+overall signal intensity is declining, so the measurement er-
+ror also increases. The error bars have been obtained as fol-
+lows. The standard deviation of the baseline signal in the tail
+of the raw data was calculated. Gaussian white noise of the
+same standard deviation was generated artiﬁcially and added
+to the raw data. The modiﬁed data was inverted and the peak
+intensities and ratios recalculated. The process was repeated
+several times and the standard deviation of the resultant peak
+intensities and ratios was thus calculated and taken as an
+estimate of the experimental error. It is noted that even after
+consideration of the errors in this way, there remains consid-
+erable scatter in the data. There are at least two potential
+reasons for this. First, at four days, the cement is still hydrat-
+ing and the microstructure rapidly developing during the
+course of the measurement. This is in strong contrast to other
+porous media often studied by these methods, such as rock
+cores. This could lead to systematic error. Moreover, when
+two measurements at different storage times are made on the
+same sample, the measurements are necessarily for differ-
+ently aged samples. If two samples are used, then they may
+be signiﬁcantly different due to the mechanical mixing and
+natural sedimentation and bleeding of the cement. Second, as
+shown in Sec. III A, noise in the data and particularly a re-
+sidual baseline offset can systematically affect the Laplace
+inversion and hence the measured peak intensity ratio.
+The solid line in Fig. 6 is an attempt to ﬁt the theory of
+Sec. III A to the data. A least-squares analysis has not been
+possible due to the very large number of unknown param-
+eters and the fact that the sample almost certainly contains a
+distribution of pore sizes. The ﬁt shown is based upon two
+reservoirs of equal volume, as justiﬁed below, with T
+2 relax-
+ation times of 250 /H9262s and 1.8 ms, respectively and corre-
+sponding T1 relaxation times four times longer. The ex-
+change rate k is 0.2 ms −1. The analysis tends to overestimate
+the rate of increase in the off-diagonal magnetization with
+increased storage time. This is not readily overcome by vary-
+ing the parameters within acceptable limits: better ﬁts can
+only be achieved by using unrealistically long T
+1 and T2
+times. However, without improved data, which our experi-
+ence shows is very difﬁcult to obtain, this discrepancy is not
+readily resolved.
+Finally, Fig. 7 shows the total spectral intensity and the
+fraction of this intensity contained within the bottom left
+corner spectral features /H20849i.e., that corresponding to the small-
+est and next-smallest pore-size porosity reservoirs /H20850as a func-
+tion of the sample age for white cement pastes with a water-
+to-cement ratio of 0.4. These data are extracted from T
+1-T2
+correlation experiments of the sort previously described
+rather than T2-store-T2 experiments because the T1-T2 ex-
+FIG. 5. Experimental T2-store-T2 2D correlation spectrum for a
+white cement paste with water-to-cement ratio 0.4 and four days
+old. The storage time is 1 ms. Compared to Fig. 3, the contour
+spacing is 10 /H11003greater: the maximum intensity is almost 10 /H11003as
+great. The spectrum, which shows a strong diagonal ridge, is quali-
+tatively comparable to the lower left/central parts of Fig. 1.
+FIG. 6. The integrated intensity in the off-diagonal peaks of
+measured 2D spectra as a fraction of the total intensity as a function
+of storage time for white cement paste samples four days old with
+water-to-cement ratio 0.4. The solid line is a numerical calculation
+according to the theory developed in Sec. III A. The symbols are
+data for two series of experiments. The parameters are given in the
+text, Sec. IV A.
+MONTEILHET et al. PHYSICAL REVIEW E 74, 061404 /H208492006/H20850
+061404-6
+
+--- PAGE 8 ---
+periment is better for quantization of the intensity of the
+lower diagonal peak corresponding to the smallest pores. It is
+seen that the total magnetization remains constant within ex-
+perimental error throughout the curing period from 1 to 14
+days. This suggests that the total water-ﬁlled porosity is not
+varying greatly. Over 95% of the magnetization is found in
+the spectral features corresponding to reservoirs of the two
+smallest pores. Of this magnetization, the fraction occurring
+in the smallest gel pores increases from circa 45% to 62%
+over the same period. This is consistent with the growth of
+CSH gel phase. The two small pore reservoirs are of approxi-
+mately equal magnitude after three days, thereby justifying
+the use of reservoirs of equal volume in the previous analy-
+sis.
+B. Measurement of the pore size
+Table I gives estimates of the parameters required to cal-
+culate the principal characteristic pore sizes in the measured
+cements using Eq. /H2084916/H20850–/H2084918/H20850along with the origin of these
+estimates. The experimentally measured values of the two
+principal relaxation reservoirs T2
+OBS are circa 300 /H9262s and
+2.0 ms. If the smaller pores are planar as seems reasonable
+for CSH gel structures, then the water layer is calculated to
+be 1.0+ / − 0.3-nm-thick. The larger pore shape is less cer-
+tain. If it is planar, then the most likely size is 6 + / −2 nm; if
+spherical then the diameter is 19+ / −6 nm. The signiﬁcance
+of these sizes is discussed in Sec. V B. Here we focus on the
+measurement accuracy. The uncertainties in the above analy-
+sis are based on the uncertainties in the parameters given in
+Table I, including T
+2
+OBS, but excluding /H9254, the distance of clos-
+est approach of the water 1H to the ferric ions and x, the
+effective number of water molecules in the surface layer. The
+analysis is sensitive to both of these values. Careful inspec-
+tion of the intermediate, values leading to these results sug-
+gests two related difﬁculties. The ﬁrst is that 2 x
+/H9280, the com-
+bined thickness of the two surface layers on either side of a
+planar pore exceeds the pore thickness. The second is that
+the surface relaxation time T
+2
+S = 520 /H9262s exceeds the smallest
+value of T2
+OBS = 300 /H9262s. Both results are physically unrealis-
+tic. If the calculation is repeated for smaller values of /H9254
+= 0.20 nm and a monosurface layer x = 1, then the pore size is
+increased only slightly, as the two changes largely cancel.
+The small planar pore spacing evaluates to 1.6+ / −0.3 nm
+thick, for instance. However, a physically realistic value of
+T
+2
+S = 100 /H9262s is found and the surface layers ﬁt within the
+pore. A distance of minimum approach /H9254= 0.2 nm between
+the proton and the ferric ions on the surface is greater than
+half of the water molecule diameter. However, it is known
+that water has extensive hydrogen bonding capabilities and
+may exchange protons with other surface sites. It may be-
+FIG. 7. The signal intensity /H20849squares/H20850and intensity within the
+fraction representing the smallest /H20849circles/H20850and next-smallest /H20849tri-
+angles/H20850pore-size porosity reservoirs as a function of curing time for
+a white cement paste with a water-to-cement ratio of 0.4. The data
+are evaluated from T
+1-T2 correlation experiments of the sort previ-
+ously described, rather than T2-store-T2 correlations to minimize the
+complications of exchange averaging.
+TABLE I. Best estimates of the parameters required to calculate the pore size from the observed NMR
+relaxation times.
+Parameter Best estimate Uncertainty Source
+/H9268s 2.5/H110031011 Fe3+ cm−2 ±20%
+/H20849model dependent /H20850
+Calibrated ESR experiment
+on this cement following
+method of Ref. /H2085119/H20852
+/H9254 0.3 nm +20/ −100% See text, Sec. IV B;
+Ref. /H2085119/H20852
+/H9270m 1.3 ns ±0.3 ns Field cycling NMR, Ref.
+/H2085119/H20852
+/H9270s 13 /H9262s± 5 /H9262s T1-T2 NMR correlations,
+Refs. /H2085116,18/H20852
+x 1–3 see text, Sec.
+IV B
+Refs. /H2085123,24/H20852
+/H9280 0.28 nm ±5% Ref. /H2085125/H20852
+T2
+OBS
+Large 2000 /H9262s ±10% This work in the short t2
+limit and T1-T2
+correlations, Ref. /H2085116/H20852
+Small 300 /H9262s ±10%
+OBSERV A TION OF EXCHANGE OF MICROPORE W A TER… PHYSICAL REVIEW E 74, 061404 /H208492006/H20850
+061404-7
+
+--- PAGE 9 ---
+have as both a Lewis acid or base and generally coordinates
+to most metal ions. Hence it is very plausible that there are
+labile-OH proton species at such a small distance from the
+ferric ions. We have studied elsewhere /H2085126/H20852the anomalous
+surface dynamics of water in nanoporous silica glasses and
+have considered in detail the local geometry of minimal ap-
+proach of a proton species to a ferric ion.
+V . DISCUSSION
+A. 2D correlation experiments
+The T2-store-T2 experiment has been shown to give 2D
+relaxation spectra from white cement pastes with consider-
+able information content. The storage period is critical to the
+experiment. Without it /H20849t
+2 =0 /H20850the experiment collapses into
+no more than a conventional CPMG experiment, albeit with
+the data collected and presented in an unusual fashion. As
+such, the inverted 2D spectrum is expected to be entirely
+diagonal and to contain no additional information over its 1D
+counterpart. This has been conﬁrmed experimentally by the
+appropriate analysis of a 1D data set although the trivial
+result is not shown here. The t
+2 interval breaks the inherent
+symmetry of the experiment and yields off-diagonal peaks in
+the presence of exchange so long as T
+1 /HS11005T2. With small stor-
+age time, the fractional intensity in the off-diagonal elements
+is small. As t
+2 gets longer, so the relative intensity in these
+peaks increases. However, the overall integrated intensity in
+the spectrum decreases due to spin-lattice relaxation losses
+occurring during t
+2. The T2-store-T2 experiment has two sig-
+niﬁcant advantages over the T1-T2 experiment, which was
+the focus of our previous work. First, the new experiment
+more clearly identiﬁes and correlates measurements in two
+intervals t
+1 and t3 that are separated in time by a third inter-
+val, t2. It is therefore more straightforward to consider that
+there is an exchange period during which the 1H are moving
+between reservoirs. Second, the off-diagonal peaks can be
+assigned unambiguously to exchange. If there is no ex-
+change, then there are no off-diagonal peaks. In the case of
+the T
+1-T2 experiment, theory shows that the off-diagonal
+peaks are antisymmetric. However, the fast Laplace inver-
+sion algorithm does not detect the negative peak and leaves
+the ambiguity that the sole surviving positive off-diagonal
+peak may be due to a further
+1H reservoir with T1 /HS11005T2, per-
+haps a solid component. As an aside, we note that we previ-
+ously suggested on the basis of preliminary results /H2085116/H20852that
+the off-diagonal peaks in the T
+2-store-T2 experiment become
+asymmetric as t2 increases due to the T1 weighting. This is
+now seen as erroneous from both the theoretical and experi-
+mental points of view. Equation /H208493/H20850shows that the off-
+diagonal peaks should be symmetric; equally, the further and
+improved data such as is shown in Figs. 4 and 5 suggest that
+this is true. The T
+2-store-T2 experiment is not always to be
+preferred over T1-T2. Empirically, we ﬁnd that the T1-T2 ex-
+periment is better for the quantization of the intensity of the
+lower diagonal peak; hence this experiment was used to gen-
+erate the data needed for Fig. 7.
+B. Measurement of the pore size
+The calibration of the pore sizes suggests that the two
+primary relaxation reservoirs seen both comprise rather small
+pores. The smallest pore size is circa 1.0– 1.7 nm. This is
+consistent with estimates to be found in the literature of the
+CSH interplanar spacing, which range from 0.9 to 1.4 nm
+/H2085127/H20852. However, the second signiﬁcant reservoir suggests a
+size ranging from 7 to 30 nm, dependent on pore shape and
+details of the surface water layer. This is much smaller than
+the expected size of capillary pores. We therefore now sug-
+gest that the two observed reservoirs may be attributed to
+alternate gel structures. One possibility is that the smaller
+pore-size reservoir is associated with the inner product, the
+larger with the outer product, both created as the material
+hydrates. An alternate possibility is that the smaller-sized
+pores are associated with the intersheet spacing within CSH
+and the larger with the spaces between the packets of CSH
+sheets comprising the gel, but still much smaller than the
+normally accepted capillary porosity. This discussion will be
+expanded in a future discussion of results obtained from spe-
+ciﬁc and otherwise /H20849e.g., by electron microscopy, etc. /H20850well-
+characterized CSH phases such as alite. For the time being
+we make just the following observations. The lack of directly
+observed capillary water in larger pores is not inconsistent
+with the methodology of preparation of the samples. The
+samples are exposed to air for the ﬁrst 12 h of cure, and
+although they are subsequently stored underwater, any open
+capillary porosity is likely to remain unﬁlled except at the
+sample surface.
+Figure 7 suggests that the total volume of water-ﬁlled
+porosity within our samples is not changing with time. This
+is consistent with the known sample history where, although
+the samples are cured underwater from age /H1101512 h onward,
+the mobile water content is unlikely to be changing signiﬁ-
+cantly. However, Fig. 7 further shows that the distribution of
+water between the different internal reservoirs is changing.
+There is a clear increase in the fraction of water associated
+with the smallest calcium silicate hydrate /H20849CSH/H20850pores dur-
+ing the ﬁrst 14 days. This is consistent with a growth of
+CSH.
+C. Water diffusivity
+Finally, the data presented in Fig. 5 suggest an empirical
+exchange time of circa 5 ms between the two porosity reser-
+voirs. The particle-size distribution of the cements used in
+this study is strongly centered on a radius r = 7.5
+/H9262m. A typi-
+cal length scale between inner and outer product within a
+hydrating grain will therefore be r /2 /H110154
+/H9262m. A diffusion
+coefﬁcient can be calculated from this time /H20849t =5 m s/H20850and
+distance /H20849a = r /2=4 /H9262m/H20850using the Einstein equation
+D = /H20855a2/H20856
+6t . /H2084919/H20850
+The result is 5 /H1100310−10 m2 s−1. In this simple analysis, issues
+such as tortuosity have not been considered and will be sig-
+niﬁcant. Moreover, it is not clear exactly what the length
+scale corresponds to, since it is not yet clear exactly where
+the water is moving from and to. Nonetheless, the value of D
+obtained is remarkably similar to that calculated by Kalin-
+ichev et al. /H2085128/H20852using molecular dynamics simulations for
+water diffusing in the pore space above the internal pore
+MONTEILHET et al. PHYSICAL REVIEW E 74, 061404 /H208492006/H20850
+061404-8
+
+--- PAGE 10 ---
+surface of tobermorite, another mineral phase closely related
+to CSH. They obtain 6.0 /H1100310−10 m2 s−1.
+We have previously pointed out that a surface diffusion
+coefﬁcient based on a length derived from the size of a water
+molecule /H20849a =
+/H9280= 0.3 nm/H20850and our previous measurements of
+a surface hopping time /H20849t = /H9270m =1 n s/H20850yield a diffusivity 1 D
+= 2.3/H1100310−11 m2 s−1. This value is in good agreement with
+the value of 5.0 /H1100310−11 m2 s−1 obtained by Kalinichev et al.
+for water diffusing on the internal pore surfaces of tober-
+morite, again by molecular dynamics simulation. This double
+coincidence of agreement between diffusivities clearly war-
+rants further investigation.
+VI. CONCLUSION
+We have presented the ﬁrst detailed analysis of the NMR
+T2-store-T2 2D correlation-relaxation experiment and shown
+that it has certain advantages over the T1-T2 variant previ-
+ously studied. Experimental results for curing white cement
+pastes have revealed new information about the water dy-
+namics within the cement nanopores. The principal pore
+sizes of two porosity reservoirs have been carefully esti-
+mated and attributed to different structures with the CSH gel.
+For the ﬁrst time, the exchange rate between these structures
+has been estimated. It is circa 5 m s
+−1. From this, the water
+diffusivity within the CSH gel has been calculated and found
+to broadly correspond to the results of molecular-dynamic
+simulations in related systems to be found in the literature.
+ACKNOWLEDGMENTS
+The authors thank K. Scrivener of Ecole Polytechnique
+Federale de Lausanne for helpful discussions related to the
+interpretation of the relaxation reservoirs and for providing a
+particle-size distribution analysis of the cement powder used
+in this study, Y .-Q. Song of Schlumberger-Doll Research for
+the use of a copy of his 2D Fast Laplace Inversion software,
+and M. Mulheron of The University of Surrey for useful
+discussions and advice on making the samples. L.M. thanks
+the Nanocem Consortium for ﬁnancial support. J.M. thanks
+The Royal Society for ﬁnancial support.
+/H208511/H20852P . J. Barrie, Annu. Rep. NMR Spectrosc. 41, 265 /H208492000/H20850.
+/H208512/H20852K. R. Brownstein and C. E. Tarr, Phys. Rev. A 19, 2446
+/H208491979/H20850.
+/H208513/H20852P . T. Callaghan, Principles of Nuclear Magnetic Resonance
+Microscopy /H20849Oxford, Clarendon Press, 1991 /H20850.
+/H208514/H20852H. Peemoeller, R. K. Shenoy, and M. M. Pintar, J. Magn.
+Reson. 45, 193 /H208491981/H20850.
+/H208515/H20852Y . Q. Song, L. V enkataramanan, and M. D. Hurlimann, J.
+Magn. Reson. 154, 261 /H208492002/H20850.
+/H208516/H20852L. V enkataramanan, Y . Q. Song, and M. D. Hürlimann, IEEE
+Trans. Signal Process. 50, 1017 /H208492002/H20850.
+/H208517/H20852M. D. Hürlimann, M. Flaum, L. V enkataramanan, C. Flaum, R.
+Freedman, and G. J. Hirasaki, Magn. Reson. Imaging 21, 305
+/H208492003/H20850.
+/H208518/H20852S. Godefroy and P . T. Callaghan, Magn. Reson. Imaging 21,
+381 /H208492003/H20850.
+/H208519/H20852B. Hills, S. Benamira, N. Marigheto, and K. Wright, Appl.
+Magn. Reson. 26, 543 /H208492004/H20850.
+/H2085110/H20852J. H. Lee, C. Labadie, C. S. Springer, and G. S. Harbison, J.
+Am. Chem. Soc. 115, 7761 /H208491993/H20850.
+/H2085111/H20852L. J. Schreiner, J. C. MacTavish, L. Miljkovic, M. M. Pintar,
+R. Blinc, G. Lahajnar, D. D. Lasic, and L. W. Reeves, J. Am.
+Ceram. Soc. 68,1 0 /H208491985/H20850.
+/H2085112/H20852D. D. Lasic, J. M. Corbett, J. Jian, J. C. MacTavish, M. M.
+Pintar, R. Blinc, and G. Lahajnar, Cem. Concr. Res. 18, 649
+/H208491988/H20850.
+/H2085113/H20852J. Greener, H. Peemoeller, C. Choi, R. Holly, E. J. Reardon, C.
+M. Hansson, and M. M. Pintar, J. Am. Ceram. Soc. 83, 623
+/H208492000/H20850.
+/H2085114/H20852K. Friedemann, F. Stallmach, and J. Kärger, Cem. Concr. Res.
+36, 817 /H208492006/H20850.
+/H2085115/H20852E. W. Hansen, H. C. Gran, and E. Johannessen, Microporous
+Mesoporous Mater. 78,4 3 /H208492005/H20850.
+/H2085116/H20852P . J. McDonald, J.-P . Korb, J. Mitchell, and L. Monteilhet,
+Phys. Rev. E 72, 011409 /H208492005/H20850.
+/H2085117/H20852J.-P . Korb, M. Whaley-Hodges, and R. G. Bryant, Phys. Rev. E
+56, 1934 /H208491997/H20850.
+/H2085118/H20852P . J. McDonald, J. Mitchell, M. Mulheron, P . S. Aptaker, J.-P .
+Korb, and L. Monteilhet, Cem. Concr. Res. /H20849to be published /H20850.
+/H2085119/H20852F. Barberon, J.-P . Korb, D. Petit, V . Morin, and E. Bermejo,
+Phys. Rev. Lett. 90, 116103 /H208492003/H20850.
+/H2085120/H20852J.-P . Korb, L. Monteilhet, P . J. McDonald, and J. Mitchell,
+Cem. Concr. Res. /H20849to be published /H20850.
+/H2085121/H20852L. V enkataramanan, Y . Q. Song, and M. D. Hurlimann, IEEE
+Trans. Signal Process. 50, 1017 /H208492002/H20850.
+/H2085122/H20852H. McConnell, J. Chem. Phys. 28, 430 /H208491958/H20850.
+/H2085123/H20852J. J. Fripiat, M. Letellier, and P . Levitz, Philos. Trans. R. Soc.
+London, Ser. A 311 287 /H208491984/H20850.
+/H2085124/H20852W. P . Halperin, J. Y . Jehng, and Y . Q. Song, Magn. Reson.
+Imaging 12, 169 /H208491994/H20850.
+/H2085125/H20852J. Israelachvili, Intermolecular and Surface Forces , 2nd Ed.
+/H20849Academic Press, London, 1992 /H20850.
+/H2085126/H20852J.-P . Korb, M. Whaley-Hodges, Th. Gobron, and R. G. Bryant,
+Phys. Rev. E 60, 3097 /H208491999/H20850.
+/H2085127/H20852P . L. Pratt and H. M. Jennings, Annu. Rev. Mater. Sci. 11, 123
+/H208491981/H20850.
+/H2085128/H20852J.-P . Korb, P . J. McDonald, L. Monteilhet, A. G. Kalinichev,
+and R. J. Kirkpatrick, Cem. Concr. Res. /H20849to be published /H20850.
+1Note that the factor 6 needs to be replaced by a factor 4 in the
+Einstein equation for a 2D walk.
+OBSERV A TION OF EXCHANGE OF MICROPORE W A TER… PHYSICAL REVIEW E 74, 061404 /H208492006/H20850
+061404-9
+View publication statsView publication stats

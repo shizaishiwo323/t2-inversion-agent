@@ -1,0 +1,551 @@
+--- PAGE 1 ---
+Contents lists available at ScienceDirect
+Magnetic Resonance Imaging
+journal homepage: www.elsevier.com/locate/mri
+Original contribution
+Characterization of porous media by T2-T2 correlation beyond fast di ﬀusion
+limit
+Zhou Yu a, Yan Zhang a,⁎
+, Lizhi Xiao a,b, Guangzhi Liao a
+a State Key Laboratory of Petroleum Resources and Prospecting, China University of Petroleum, Beijing 102249, China
+b Harvard SEAS-CUPB Joint Laboratory on Petroleum Science, Cambridge, MA 02138, USA
+ARTICLE INFO
+Keywords:
+Pore size
+Surface relaxivity
+Porous media
+ABSTRACT
+Pore size distribution and surface relaxivity are two important properties of porous media such as rock samples
+and can be obtained by NMR methods. However, it is di ﬃcult to obtain these information beyond the fast
+diﬀusion limit. Here we present a new method to directly characterize the averaged pore size of a porous sample
+with a narrow pore size distribution. This method is based on the parallel plates pore model and the T2-T2
+correlation sequence. The pore size ( a) - surface relaxivity ( ρ) correlation maps were obtained using the non-
+negative least squares method. Three kinds of glass bead samples were measured and the averaged pore size and
+surface relaxivity were extracted.
+1. Introduction
+The nuclear magnetic resonance (NMR) method is a powerful tool
+for studying the structure of porous media and con ﬁned ﬂuid. This
+technique can obtain many important petrophysical parameters such as
+porosity and pore size distribution, permeability, water saturation, and
+wettability, etc. [ 1]. It can be used for core analysis at low ﬁeld, where
+there are two key parameters: One parameter is the pore size a, which
+characterizes the pore volume. Another parameter, the surface relax-
+ivity ρ,r e ﬂects the boundary properties of pores and is dependent on
+the interaction between polarized nuclear spins and paramagnetic im-
+purities at the ﬂuid-solid interface [ 2]. The fast, intermediate and slow
+diﬀusion regime can be de ﬁned by pore size, surface relaxivity and
+diﬀusion coe ﬃcient. Generally, the validity of fast di ﬀusion regime is
+assumed. Various 1D and 2D Laplace NMR methods were applied to
+extract pore information under this assumption. For instance, the pore
+length scale, surface-to-volume ratio ( S/V) of porous materials can be
+obtained by measuring the spin relaxation [ 3]. Pore connectivity can be
+acquired by using 2D NMR correlation experiments [ 4,5]. The ap-
+pearance of fast 2D inverse Laplace transformation algorithms has
+greatly accelerated the application of 2D Laplace NMR [ 6–8]. However,
+there are also conditions that the intermediate or slow di ﬀusions re-
+gimes are applied, such as large pores or strong surface relaxation
+[3,9,10]. Consequently, the equation based on the fast di ﬀusion as-
+sumption cannot be used to obtain pore structure and ﬂuid information
+in these cases [ 11]. For example, experimental results of water-
+saturated glass-bead packs indicated that the best ﬁt between relaxation
+time and pore size was di ﬀerent from traditional linear relationships
+[3]. In 2D method, the o ﬀ-diagonal peaks of the T
+1-T2 spectrum with
+negative amplitude can be used to explore pore coupling [ 12]. Then,
+the time-domain data of T1-T2 experiments were analyzed to identify
+the signature of di ﬀusive coupling between di ﬀerent pores [ 13]. A si-
+milar analysis of the time domain data of T2-T2 experiments were
+performed, which can unambiguously identify the presence of molecule
+exchange [ 14]. Furthermore, asymmetry cross peaks were also ob-
+served in T2-T2 correlation maps when there are three T2 peaks [ 15].
+In this paper, we used T2-T2 correlation sequence to study porous
+media beyond fast di ﬀusion limit. First, we applied eigenmodes form-
+alism to simulate the T2-T2 signals based on the parallel plates pore
+model and the non-negative least squares method to obtain a-ρ corre-
+lation maps. Subsequently, we performed experiments on the glass bead
+samples saturated with water and extracted the averaged pore size and
+surface relaxivity information.
+2. Method
+2.1. Eigenmodes formalism and di ﬀusion regimes
+The evolution of magnetization in the presence of di ﬀusion and
+relaxation phenomena is described by the Bloch-Torrey equation
+[16,17]. The solution to this equation without applied gradients was
+provided by Brownstein and Tarr using eigenmodes formalism in
+https://doi.org/10.1016/j.mri.2018.10.008
+Received 29 July 2018; Received in revised form 7 October 2018; Accepted 18 October 2018
+⁎ Corresponding author.
+E-mail address: zhangyannm@cup.edu.cn (Y. Zhang).
+Magnetic Resonance Imaging 56 (2019) 19–23
+0730-725X/ © 2018 Elsevier Inc. All rights reserved.
+T
+
+--- PAGE 2 ---
+planar, cylinder and sphere pores [ 18]. It was assumed that the ρ of the
+pores was uniform and satis ﬁed the boundary condition
+∙∇ + =nDm ρ m( )| 0S , where n is the normal unit vector, D is self-dif-
+fusion coe ﬃcient, and →mrt( , ) is the magnetization density in the pore
+volume V. Combined with the initial condition → =mr mV( ,0 ) /0 , the
+general solution of →mrt( , ) can be written as the sum of eigenmodes,
+∑ ⎜⎟
+→ =− ⎛
+⎝
+− ⎞
+⎠
+∞
+=
+mr μ t aφ t
+τ( ,t ) exp( ) exp ,
+n
+n n
+n0 (1)
+where μ is the bulk spin relaxation rate, φn and τn are the normalized
+eigenfunctions and eigenvalues. According to the orthogonality of the
+eigenmodes, the expression of the eigenmode coe ﬃcient an is
+∫= →→ ∗am r φ r d v( ,0 ) () .n n (2)
+The relaxation of magnetization can be derived by integration,
+∑ ⎜⎟= ⎛
+⎝
+− ⎞
+⎠
+∞
+=
+M tM A t
+τ() ( 0 ) e x p ,
+n
+n
+n0 (3)
+where An is the relative strength of the di ﬀerent modes. In order to
+distinguish the multi-exponential relaxation in di ﬀerent regimes, there
+is a critical parameter к = ρa/D, which is used to de ﬁne the three dif-
+fusion regimes: the fast di ﬀusion regime ( к ≪ 1), the intermediate dif-
+fusion regime (1 < к < 10), and the slow di ﬀusion regime ( к ≫ 10).
+When к > 1 is applied, the contribution to the signal from the
+higher modes increases. Especially in the slow di ﬀusion regime, the
+magnetization decay is dominated by the lowest mode eigenvalue that
+is about a2/D(π/2)2, so the signal M(t) is related to a, not to ρ.
+2.2. 2D NMR relaxation correlation
+Here, we used the T2-T2 correlation sequence proposed by Lee et al.
+[5] as shown in Fig. 1. This sequence consists of two CPMG sequences,
+where the ﬁrst encoding period t1 and the detection period t2, separated
+by a mixing time τmix.
+Neglecting the relaxation during rf pulses, the evolution of the
+magnetization is
+∑ ⎜⎟
+→ =− ⎛
+⎝
+− ⎞
+⎠
+∞
+=
+mrt μ t aφ t
+τ( , ) exp( ) exp .
+n
+n n
+n
+11
+0
+2,
+1
+2, (4)
+After the mixing time, τmix, where the magnetization relaxes ac-
+cording to the T1 process, the second train of CPMG pulses in the period
+of t2 is used for acquiring data. So the evolution of the CPMG echo
+signal is
+∑ ⎜⎟
+→ =− ⎛
+⎝
+− ⎞
+⎠
+∞
+=
+mrtt μ t bφ t
+τ( ,, ) exp( ) exp ,
+m
+m m
+m
+12 2
+0
+2,
+2
+2, (5)
+where ∫= →→ ∗b mrtτ φ rd v( ,, ) ()mm ix m1 2, . Using the bra-ket notation 〈∣〉 of
+quantum mechanics to deﬁ ne the scalar product as
+∫= →→∗ϕψ φrψrd v|( ) ( ) , (6)
+the signal ∫= →M tm r t d v() ( , ) can be written as M(t)= ⟨1| m(t)⟩,
+where | 1⟩ is the scalar ﬁeld equal to one everywhere within the pore.
+Note that when τmix = 0, the detected signal can be written as
+∑=− −M tt φ tτ tτ(, ) 1 | e x p ( / / ) .
+n
+n nn12 2,
+2 12 , 22 ,
+(7)
+To obtain the a-ρ correlation from measured T2-T2 data, the fol-
+lowing processing procedure was used. Given a pore size and a surface
+relaxivity, a 2D matrix A( t1,t2) (according to Eq. (7)) can be calculated
+with the parallel plates pore model. The matrix was spliced into a 1D
+column in units of each row matrix.
+⎡
+⎣
+⎢
+⎢
+⋯
+⋮⋱⋮
+⋯
+⎤
+⎦
+⎥
+⎥
+⟹
+⎡
+⎣
+⎢
+⎢
+⎢
+⎢
+⎢
+⋮
+⋮
+⎤
+⎦
+⎥
+⎥
+⎥
+⎥
+⎥
+AA
+AA
+A
+A
+A
+.
+11 1n
+m1 mn
+11
+1n
+mn (8)
+Then, changing the pore size and surface relaxivity, the A( t1,t2) were
+calculated in di ﬀerent di ﬀusion regimes with q values. A 2D inversion
+coeﬃcient matrix A was obtained by combining each column vector
+data.
+=
+⎡
+⎣
+⎢
+⎢
+⎢
+⎢
+⎢
+⋮
+⋮
+⋮
+⋮
+⋯
+⋱
+⋯
+⋱
+⋯
+⋮
+⋮
+⎤
+⎦
+⎥
+⎥
+⎥
+⎥
+⎥
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+.
+11,1
+1n,1
+mn,1
+11,2
+1n,2
+mn,2
+11,q
+1n,q
+mn,q
+(9)
+The measured data was converted into a 1D column matrix b
+∈ℜ(m×n)×1. The least squares ﬁtting problem was thus established as
+follows.
+⎡
+⎣
+⎢
+⎢
+⎢
+⎢
+⎢
+⋮
+⋮
+⋮
+⋮
+⋯
+⋱
+⋯
+⋱
+⋯
+⋮
+⋮
+⎤
+⎦
+⎥
+⎥
+⎥
+⎥
+⎥
+⎡
+⎣
+⎢
+⎢
+⎢
+⎢
+⋮
+⎤
+⎦
+⎥
+⎥
+⎥
+⎥
+=
+⎡
+⎣
+⎢
+⎢
+⎢
+⎢
+⎢
+⋮
+⋮
+⎤
+⎦
+⎥
+⎥
+⎥
+⎥
+⎥
+A
+A
+A
+A
+A
+A
+A
+A
+A
+d
+d
+d
+b
+b
+b
+.
+11,1
+1n,1
+mn,1
+11,2
+1n,2
+mn,2
+11,q
+1n,q
+mn,q
+1
+2
+q
+11
+1n
+mn
+(10)
+Finally, the a-ρ correlation was obtained from the [d 1,d 2, … dq].
+3. Simulation and experiment
+Here parallel plates pore model was chosen to study how to use
+higher modes to characterize simple porous media beyond fast di ﬀusion
+limit. First, simulations were done according to Eq. (7). When the
+mixing time is zero, longitudinal surface relaxivity ρ1 has no in ﬂuence
+on the signals. Therefore the relaxation relaxivity ρ was used to re-
+present the transverse relaxation relaxivity ρ2. To investigate the dif-
+ferent di ﬀusion regimes, four pore models are given, where a were 50,
+100, 250 and 400 μm, and ρ were 50, 50, 100 and 100 μm/s. In the T2-
+T2 correlation sequence, the number of echoes in the ﬁrst encoding
+period was logarithmically changed in 30 steps, and the number of
+echoes in the detection period was 50. In order to evaluate the e ﬀect of
+Fig. 1. A schematic of the T2-T2 experiment
+pulse sequence. This sequence consists of two
+CPMG echo trains separated by a mixing time,
+τmix. The number of π pulses of the ﬁrst CPMG is
+varied logarithmically from 1 to m. The two
+durations of T2 interval are t1 =( m+ 1)te and
+t2 =( n+ 1/2)te. In this work, τmix is set to
+minimum value (100 μs).
+Z. Yu et al. Magnetic Resonance Imaging 56 (2019) 19–23
+20
+
+--- PAGE 3 ---
+noise, three di ﬀerent signal-to-noise ratios (S/Ns) were examined. In all
+four cases, the self-di ﬀusion coe ﬃcient ( D = 2.5e–9m 2/s) and bulk
+relaxation time (TB = 3 s) were the same. To inverse the simulated data,
+the range of the pore size is set from 10 μmt o1 0 4 μm and surface re-
+laxivity is set from 1 μm/s to 10 3 μm/s.
+In order to verify whether this method can be used in the actual
+samples, we performed experiments on water-saturated glass beads
+with a narrow pore size distribution, where the average diameter of the
+three samples were 100 μm, 200 μm and 500 μm, respectively. Before
+the three samples were measured, in order to obtain an appropriate
+inversion model, the T2 relaxation time and di ﬀusion coe ﬃcient of the
+water sample were measured. Then, the T2-T2 correlation experiments
+were performed using the pulse sequence shown in Fig. 1. The echo
+numbers in the ﬁrst encoding period varied logarithmically in 50 steps,
+and the signals were detected in the second CPMG part. The mixing
+time τmix was set to 100 us to minimize the T1 relaxation e ﬀect. The
+experiments were implemented on a 2 MHz Rock analyzer (Oxford In-
+strument, UK). The pore size-surface relaxivity correlation maps were
+obtained by the non-negative least square inversion method.
+Fig. 2. Two-dimensional a-ρ correlation maps for four models with di ﬀerent S/Ns, which are 1000 (a, d, g, j), 100 (b, e, h, k) and 50 (c, f, i, l), respectively. (a –c) Pore
+size-surface relaxivity correlation maps for parameter setting к =1 , ρ =5 0 μm/s and a =5 0 μm. (d –f) Pore size-surface relaxivity correlation maps for parameter
+setting к =2 , ρ =5 0 μm/s and a = 100 μm. (g–i) Pore size-surface relaxivity correlation maps for parameter setting к = 10, ρ = 100 μm/s and a = 250 μm. (j–l) Pore
+size-surface relaxivity correlation maps for parameter setting к = 16, ρ = 100 μm/s and a = 400 μm.
+Z. Yu et al. Magnetic Resonance Imaging 56 (2019) 19–23
+21
+
+--- PAGE 4 ---
+4. Results and discussion
+The simulated results were shown in Fig. 2, where three S/Ns were
+examined: 1000, 100 and 50. The in ﬂuence of к was also explored to
+examine the validity of this method at di ﬀerent di ﬀusion regime. The
+averaged pore size and surface relaxivity were obtained from these
+correlation maps. In Fig. 2a –c, the peaks inversion from the data of
+к = 1 were located at averaged pore size of 30 –70 μm and the surface
+relaxivity 40– 60 μm/s, which were consistent with the set value
+(ρ =5 0 μm/s, a =5 0 μm), and the results of di ﬀerent S/Ns were basi-
+cally the same. It was noted that the position of the correlation peaks
+were along a slope line. This is because when к small, the lowest mode
+dominated and only the value of a/ρ can be determined from the data.
+The correlation maps of the second model were shown in Fig. 2d–f. The
+parameters were set to a = 100 μm, ρ =5 0 μm/s and к = 2. The peaks
+were more concentrated and the feature of slope line is weakened. From
+the position of peaks, the averaged pore size of 90 –110 μm and surface
+relaxivity of 40– 80 μm/s were obtained. For the third model with
+parameter of к = 10, a = 250 μm, ρ = 100 μm/s, the slope character-
+istic disappeared and the areas of the peak increases ( Fig. 2g –i). Al-
+though the lowest mode still dominates, the relative intensities of the
+signals from the higher modes increases, resulting in a weaker corre-
+lation between the pore size and surface relaxivity. The peaks position
+were located at averaged pore size of 210– 260 μm and surface relax-
+ivity
+50–200 μm/s, which were consistent with the set value
+(ρ = 100 μm/s, a = 250 μm). For S/N of 50, it was di ﬃcult to get ac-
+curate information about the averaged pore size and surface relaxivity.
+For the fourth model, the parameters were set to: к = 16, a = 400 μm,
+ρ = 100 μm/s. The areas of the correlation maps became larger in
+Fig. 2j, k, where the peaks position were 350 –420 μm, and surface re-
+laxivity were 50– 150 μm/s. In Fig. 2l, the peak is distorted, where S/N
+was 50. The distribution was broad for ρ and narrow for a with к =1 0
+and к = 16.
+Based on the results of the simulation, we found that when к was in
+the range of 1 and 10, the information of the averaged pore size and
+surface relaxivity could be e ﬀectively obtained. However, when к was
+16, an approximate estimate of the averaged pore size could be ob-
+tained, but the distribution of surface relaxivity was abroad and par-
+tially at the margins. When the maximum value of the surface relaxivity
+was increased to 10
+4 μm/s, the signal amplitude at the margins still
+existed. Therefore, this method is applicable to porous media with к
+equal to 1 to 10 (intermediate di ﬀusion regime).
+Fig. 3 shows the experiment results, The self-di ﬀusion coe ﬃcient
+and bulk relaxation time were ﬁrst measured to inverse the data
+properly, where D = 2.1e–9m 2/s and TB = 2.5 s. The averaged pore
+size of the three samples were estimated from Fig. 3a –c, which are
+16–22 μm, 22– 27 μm, and 55 –65 μm, respectively. The obtained pore
+size distributions provide right information for the 100 μm, 200 μm and
+500 μm diameter glass bead sample according to [ 19]. The averaged
+surface relaxivity of the three samples were obtained for the correlation
+maps, which are 15– 30 μm/s, 20 –50 μm/s, and 100– 160 μm/s, respec-
+tively. The precise value of the surface relaxivity will be determined in
+the future to check the accuracy of this method of measuring surface
+relaxivity. Furthermore, the к values of the samples can also be esti-
+mated from the peak center of the correlation maps. For the ﬁrst two
+maps, к < 1, which means the fast di ﬀusion regime is applied, and for
+the third map, 1 < к < 10, which means the intermediate di ﬀusion
+regime is applied. This o ﬀers important information about the di ﬀusion
+status of molecules.
+5. Conclusion
+In this work we used two-dimensional T
+2-T2 correlation pulse se-
+quence to record the relaxation information of porous media beyond
+fast di ﬀusion limit. Based on the eigenmodes formalism, we simulated
+the signals of T2-T2 correlation sequence in the parallel plates pore
+model. Pore size-surface relaxivity correlation maps were then obtained
+by non-negative least squares inversion. This method is less sensitive to
+surface relaxivity than the pore size, where a broad distribution was
+observed in surface relaxivity direction in the correlation maps. We also
+measured the T2-T2 signals of water-saturated glass samples with a
+narrow pore size distribution and a uniform surface relaxivity, and di-
+rectly extract the estimate of the averaged pore size and surface re-
+laxivity. So this method is expected to extract internal pore information
+at intermediate di ﬀusion regime such as carbonate rock.
+Acknowledgement
+Financial Supported by Beijing Natural Science Foundation
+(8184084), the National Natural Science Foundation of China (Grant
+No. 21427812), the ‘111 Program’(B13010), and Science Foundation of
+China University of Petroleum, Beijing (Grant No. 2462015YJRC003) is
+gratefully acknowledged.
+References
+[1] Callaghan PT. Translational Dynamics and Magnetic Resonance: Principles of
+Pulsed Gradient Spin Echo NMR. Oxford University Press; 2011 .
+[2] Liu H, D'Eurydice MN, Obruchkov S, Galvosas P. Determining pore length scales and
+pore surface relaxivity of rock cores by internal magnetic ﬁelds modulation at
+2 MHz NMR. J. Magn. Reson. 2014;246:110 –8.
+[3] Keating K, Knight R. The e ﬀect of spatial variation in surface relaxivity on nuclear
+magnetic resonance relaxation rates. Geophysics 2012;77(5):E365 –77.
+[4] English AE, Joy ML, Henkelman RM. Pulsed NMR relaxometry of striated muscle
+ﬁbers. Magn. Reson. Med. 1991;21(2):264 –81.
+[5] Lee JH, Labadie C, Springer Jr. CS, Harbison GS. Two-dimensional inverse Laplace
+transform NMR: altered relaxation times allow detection of exchange correlation. J.
+Am. Chem. Soc. 1993;115(17):7761 –4.
+[6] Sun B, Dunn KJ. Probing the internal ﬁeld gradients of porous media. Phys. Rev. E
+2002;65(5):051309.
+[7] Hürlimann MD, Venkataramanan L, Flaum C. The di ﬀusion–spin relaxation time
+distribution function as an experimental probe to characterize ﬂuid mixtures in
+porous media. J. Chem. Phys. 2002;117(22):10223 –32.
+[8] Song YQ, Venkataramanan L, Hürlimann MD, Flaum M, Frulla P, Straley C. T1 –T2
+Fig. 3. Pore size-surface relaxivity correlation maps for three samples of glass beads with average diameter of (a) 100 μm, (b) 200 μm and (c) 500 μm.
+Z. Yu et al. Magnetic Resonance Imaging 56 (2019) 19–23
+22
+
+--- PAGE 5 ---
+correlation spectra obtained using a fast two-dimensional Laplace inversion. J.
+Magn. Reson. 2002;154(2):261 –8.
+[9] Godefroy S, Korb JP, Fleury M, Bryant RG. Surface nuclear magnetic relaxation and
+dynamics of water and oil in macroporous media. Phys. Rev. E 2001;64(1):021605 .
+[10] Valfouskaya A, Adler PM, Thovert JF, Fleury M. Nuclear magnetic resonance dif-
+fusion with surface relaxation in porous media. J. Colloid Interface Sci.
+2006;295(1):188–201.
+[11] Müller-Petke M, Dlugosch R, Lehmann-Horn J, Ronczka M. Nuclear magnetic re-
+sonance average pore-size estimations outside the fast-di ﬀusion regime NMR
+average pore-size estimations. Geophysics 2015;80(3):D195 –206.
+[12] Song YQ, Zielinski L, Ryu S. Two-dimensional NMR of di ﬀusion systems. Phys. Rev.
+Lett. 2008;100(24):248002 .
+[13] Song YQ, Carneiro G, Schwartz LM, Johnson DL. Experimental identi ﬁcation of
+diﬀusive coupling using 2D NMR. Phys. Rev. Lett. 2014;113(23):235503 .
+[14] Song R, Song YQ, Vembusubramanian M, Paulsen JL. The robust identi ﬁcation of
+exchange from T2 –T2 time-domain features. J. Magn. Reson. 2016;265:164 –71.
+[15] Landeghem MV, Haber A, D'espinose De Lacaillerie JB, Blümich B. Analysis of
+multisite 2D relaxation exchange NMR. Concept Magn. Reson. A
+2010;36(3):153–69.
+[16] Bloch Felix. Nuclear induction. Phys. Rev. 1946;70(7 –8):460.
+[17] Torrey Henry C. Bloch equations with di ﬀusion terms. Phys. Rev. 1956;104(3):563 .
+[18] Brownstein KR, Tarr CE. Importance of classical di ﬀusion in NMR studies of water
+in biological cells. Phys. Rev. A 1979;19(6):2446 .
+[19] Hills BP, Snaar JEM. Water proton relaxation studies of pore microstructure in
+monodisperse glass bead beds. Mol. Phys. 1995;84:141 –57.
+Z. Yu et al.
+Magnetic Resonance Imaging 56 (2019) 19–23
+23

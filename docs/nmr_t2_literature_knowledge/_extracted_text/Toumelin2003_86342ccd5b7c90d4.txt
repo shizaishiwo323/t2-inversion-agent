@@ -1,0 +1,1209 @@
+--- PAGE 1 ---
+Reconciling NMR Measurements and Numerical Simulations:
+Assessment of Temperature and Diffusive Coupling
+Effects on Two-Phase Carbonate Samples1
+E. Toumelin2, C. Torres-Verdín2, S. Chen3, and D. M. Fischer4
+INTRODUCTION
+Pore structures of carbonate rocks are known to be much
+more difficult to quantify than those of sandstones. The
+genesis of carbonate rocks is commonly associated with
+both chemical and biological processes that can cause large
+variations of pore size, shape, texture, and degree of disso-
+lution/cementation. Carbonate rocks also exhibit a large
+degree of heterogeneity in the form of (a) partially isolated
+pores and (b) presence of both intra- and inter-granular
+pores. Petrographic or standard core analysis techniques
+often face serious technical difficulties in determining
+whether or not an existing “vug” is hydraulically isolated
+from the rest of the pore structure. Similarly, it is difficult to
+identify in the laboratory whether secondary, inter-
+March-April 2003 PETROPHYSICS 91
+PETROPHYSICS, VOL. 44, NO. 2 (MARCH-APRIL 2003); P. 91–107; 17 FIGURES, 4 TABLES
+ABSTRACT
+Nuclear Magnetic Resonance (NMR) is the only log-
+ging technique sensitive to pore-size distribution and pore
+structure. However, quantitative interpretation of NMR
+data can become uncertain in carbonate rocks because of
+unaccounted diffusion coupling between existing pore
+scales. The objective of this study is to assess the relative
+importance of diffusion coupling and temperature on
+NMR measurements performed on a few carbonate sam-
+ples.
+The core of our work is based on the analysis of experi-
+mental NMR measurements and on the use of numerical
+simulations. The numerical simulation algorithm consists
+of Monte-Carlo random walks in three dimensions and
+accounts for two-phase fluid saturations in the presence of
+a bimodal pore-size distribution. NMR coupling effects
+are modeled by including simple cross-interactions
+between the fluids within the different types of pores. We
+present a method based on rock image analysis to calibrate
+the numerical model to NMR laboratory measurements
+acquired in complex carbonate rocks at two stages of fluid
+saturation. The derived simulation models are subse-
+quently used to generate equivalent decoupled responses
+of the samples. Comparison of these decoupled responses
+with experimental data allows one to assess the effect of
+diffusion coupling. The experimental data were also used
+to quantify the temperature dependence of NMR measure-
+ments and movable fluid volumes, normally determined
+assuming either a constant a priori formationT2cutoff, or
+else parameters derived at ambient temperature. Finally,
+an analysis is made of the sensitivity of conventional per-
+meability models to the combined effects of temperature
+and diffusion coupling, as evidenced by the core samples
+considered in this paper.
+Manuscript received by the Editor October 21, 2002; revised manuscript received January 27, 2003.1Originally presented at the SPWLA 43rd Annual Logging Symposium, June 2–5, 2002, Oiso, Japan, Paper JJJ.2The University of Texas at Austin, Austin, TX USA3Baker Atlas, Houston, TX USA4Baker Atlas Inteq, Celle, Germany
+©2003 Society of Professional Well Log Analysts. All rights reserved.
+
+--- PAGE 2 ---
+connected micropores provide significant diffusive connec-
+tivity to the overall pore network. The detection and quanti-
+fication of such structural properties and of their impact on
+pore connectivity and fluid transport is essential to the char-
+acterization of carbonate reservoir quality and producibil-
+ity.
+As the only logging technique currently available to
+characterize pore size distributions, Nuclear Magnetic
+Resonance (NMR) logging has been used to assess a hand-
+ful of key petrophysical parameters, such as irreducible
+bulk volume (BVI), clay-bound water volume (CBW),
+movable bulk volume (BVM), effective ( /c102e)a n dt o t a l
+porosity (/c102T), and permeability index (k). All of these
+parameters are related to the amount and the distribution of
+the fluids within the pore structure. Thus, an understanding
+of how NMR measurements respond to variations of pore
+structure is essential to quantify petrophysical formation
+properties.
+Most of the currently available NMR interpretation mod-
+els and parameters thereof, such asT2cutoff,s p e c t r a lB V I ,
+CBW, and Timur-Coates permeability index, are based on
+the concept of pore-size distributions. This concept is most
+suitable in cases where a deterministic relationship exists
+between pore size and throat size. Although these models
+have been applied successfully to the interpretation of sand-
+stones, and to some extent of carbonates, modifications are
+often required to accommodate local geological and petro-
+physical knowledge. Some modifications are empirical
+(Quintero et al., 1999; Allen et al., 2001), while others stem
+from more fundamental considerations (Ramakrishnan et
+al., 1999; Godefroy et al., 2001).
+METHODOLOGY
+Even though large variations are expected in the spatial
+distribution of pores in carbonates, it is important to quan-
+tify their effect on both petrophysical properties and log
+interpretation. The main thrust of this paper is to report a
+thorough analysis performed on a few carbonate samples of
+the dependence of NMR measurements on temperature and
+diffusion coupling. We carry out this analysis by using
+NMR measurements at different temperatures and numeri-
+cal simulations that take into account diffusion coupling
+and temperature effects. This paper is organized as follows.
+First, we briefly describe the three main core samples used
+in our study with emphasis on their pore structure and their
+propensity to exhibit diffusion coupling. Subsequently, we
+describe the NMR experimental protocol used to obtain
+core measurements at different temperatures and fluid satu-
+rations. We then summarize the numerical algorithm used to
+model the NMR response in the presence of bimodal,
+micro-porous carbonate rocks. We show how both the NMR
+measurements and the petrographic analysis can be synthe-
+sized into a parametric numerical model of bimodal poros-
+ity capable of describing the pore complexity exhibited by
+the core samples. The effect of temperature on NMR meas-
+urements is then investigated, and the comparison between
+numerical simulations and experimental measurements is
+extended to explore the role played by temperature in diffu-
+sive coupling. Lastly, cumulative porosity curves derived
+from both NMR experiments and numerical simulations are
+used to assess the BVI errors that come from usingT2cutoffs
+that are independent of temperature and diffusive coupling.
+We conclude by studying the stability of the conventional
+permeability models to the presence of temperature varia-
+tions in the measured rocks, and the need to correctT2cutoff
+values in log analysis when neither temperature nor diffu-
+sion coupling are negligible.
+PORE STRUCTURE OF THE SAMPLES
+The three samples considered in this paper are com-
+pacted, micritized limestones retrieved from the same well
+but exhibiting different facies. Back Scattered Electron
+(BSE) imaging was used to analyze the pore structure of
+these samples (Prior et al., 1999) and to measure pore-size
+distributions and porosities,/c102BSE,f o rp o r e sl a r g e rt h a n2
+microns. Scattering Electron Microscope (SEM) was also
+used to provide high-resolution spatial images of the pore-
+matrix structure (Anselmetti et al., 1998). A complementary
+laboratory core-plug measurement was performed to assess
+total porosity/c102T,w h i c hi nt u r na l l o w e dt h eq u a n t i f i c a t i o no f
+micro-porosity otherwise unaccounted by the BSE analysis,
+i.e.,/c102micro=/c102r–/c102BSE.
+Pore geometry analysis helped to identify several pore
+types, or pore modes, within the samples, namely:
+•Mode 1: Large primary inter-connected pores with aver-
+age diameters larger than 60/c109m. Pores exhibit variable
+cementation, thereby providing partial diffusion coupling
+with the surrounding micro-porosity region.
+•Mode 2: Large secondary dissolution pores, with aver-
+age diameters within the range of 20-60/c109m. These pores
+are largely hydraulically isolated and hence remain
+uncoupled to other pore modes.
+•Mode 3: These are pores developed between circum-
+granular cement crystals ranging in diameter from 5 to 15
+/c109m. Due to their proximity to smaller micro-porosity
+regions, they can be regarded as coupled with the latter.
+•Mode 4: These pores exhibit diameters of 0.5/c109m or less
+and therefore constitute the micro-porosity associated
+with/c102micro. They are developed within the matrix and
+contain irreducible water.
+Porosities and average radii of pore modes 1 through 3
+92 PETROPHYSICS March-April 2003
+Toumelin et al.
+
+--- PAGE 3 ---
+were quantified using the pore-size distribution estimated
+via BSE analysis. In terms of pore-size distributions, the
+main features of the samples are as follows:
+•Sample Amostly exhibits a combination of small-size
+(modes 3 and 4) diffusively coupled porosities amount-
+ing to 13.6% of the bulk volume, with 10% vuggy (mode
+2), isolated macro-porosity. An example of this pore
+structure is provided by the SEM images shown in Figure
+1, where one can easily recognize abundant micro-
+porosity as well as a few isolated vugs. The high degree
+of diffusion coupling is likely, since the thin sections
+(Figure 2) show that most of the calcite-free micro-pore
+space clearly imbibes epoxy. The measured permeability
+to water is low, equal to 4 mD.
+•Sample Bmainly consists of 8.1% primary macro-
+porosity (mode 1) partially coupled with 5.1% micro-
+porosity (mode 4), in addition to 5% isolated secondary
+macro-porosity (mode 2). As shown by the SEM images
+of Figure 3, this sample exhibits a dual porosity charac-
+terized by the remarkable structural organization of
+matrix grains into intrinsically micro-porous packs. The
+thin sections of Figure 4 show partial imbibition of epoxy
+into the intragranular micro-porosity. The measured per-
+meability of sample B to water is 70 mD.
+•Sample Cexhibits the highest macro-porosity among the
+three samples reported in this section. The major part of
+March-April 2003 PETROPHYSICS 93
+Reconciling NMR Measurements and Numerical Simulations:
+Assessment of Temperature and Diffusive Coupling Effects on Two-Phase Carbonate Samples
+FIG.1 SEM images of sample A at 140x (a) and 1400x (b)
+magnification. These pictures show the extensive micritization
+of the rock matrix and the isolation of scarce macro-pores.
+There is no appreciable amount of cement to prevent contact
+between intra- and intergranular pore spaces.
+FIG.2 Thin section images from sample A. Except for calcite-
+bearing areas (shown in white on the pictures), epoxy has been
+consistently imbibed by the micro-porous matrix.
+
+--- PAGE 4 ---
+the porosity is associated with primary macro-porosity
+regions of mode 1 (17% porosity), while the remaining
+4% porosity is evenly distributed among the remaining
+three pore modes. The SEM images of Figure 5 show the
+structure of the macro-porosity and suggest good cemen-
+tation along the macro-pore surfaces. This cementation
+explains the impermeability of the micro-porosity to
+epoxy (Figure 6). The highly connected macro-pore
+structure explains the relatively high value of the meas-
+ured water permeability, equal to 980 mD.
+As illustrated in Figure 7, the BSE-based pore-size distri-
+bution allowed us to identify pore modes 1 through 3. The
+SEM images were then used to estimate the micro-pore size
+(mode 4) in the range of 0.2 to 0.5/c109m.
+NMR EXPERIMENTS
+Nuclear magnetic resonance measurements of the three
+core samples were performed with a MARAN ULTRA sys-
+tem operating at a frequency of 2.3 MHz. The samples were
+first measured with 100% water saturation (Sw=1 )a td i f f e r-
+ent temperatures between 4 and 65ºC (4, 22, 45, and 65ºC
+for samples A and C; 10, 22, 45, and 60ºC for sample B).
+Subsequently, the same samples were desaturated to
+their irreducible water saturation (Swir)s t a t eb yc e n t r i f u g a-
+tion. The pressure applied to the samples during centrifuga-
+tion was equal to 60 psi (414 kPa) during 24 hours or more.
+94 PETROPHYSICS March-April 2003
+Toumelin et al.
+FIG.3 SEM images of sample B at 140x (a) and 1400x (b)
+magnification. Macro-porosity and general agglomeration of
+grains into packs are well defined in the images. The images
+also indicate the presence of cementation crystals at the limit of
+some micritized grain packs (macro-pore surface).
+FIG.4 Thin sections from sample B exhibiting partial epoxy
+imbibition by the micro-porous regions.
+
+--- PAGE 5 ---
+Moreover, it was assumed that all moveable water had been
+removed when the measured expelled water volume was
+observed to be stable for 8 hours. All NMR measurements
+for the irreducible water saturated samples were acquired at
+regulated room temperature (22ºC).
+AC P M Gs e q u e n c ew a su s e dt oo b t a i ne c h ot r a i n so fu p
+to 5000 echoes with even time spacing,TE,o f1m sa n di n
+the absence of a magnetic field gradient. Measurements
+were repeated and stacked to ensure signal-to-noise ratios
+greater than 100. We made use of a discrete, multi-
+exponential relaxation model with a sufficiently wideT2bin
+range to invert the echo trains into transverse relaxation (T2)
+distributions. The inversion technique employs a
+curvature-smoothing regularization (Chen et al., 1999) to
+stabilize the solutions in the presence of noise. Figure 8
+shows theT2distributions obtained from NMR measure-
+ments performed atSw=1a n dSwirfor each of the three core
+samples.
+NMR SIMULATION MODEL
+The algorithm used to simulate numerically the NMR
+response of fluid-filled carbonate rocks replicates a condi-
+tional Monte Carlo random-walk procedure. Conceptually,
+the diffusive coupling model and the dual random-walk
+algorithm are a generalization of the algorithm reported by
+March-April 2003 PETROPHYSICS 95
+Reconciling NMR Measurements and Numerical Simulations:
+Assessment of Temperature and Diffusive Coupling Effects on Two-Phase Carbonate Samples
+FIG.5 SEM images of sample C at 140x (a) and 1400x (b)
+magnification. The structure in panel (a) has the same appear-
+ance as that of sample B, although the BSE analysis shows that
+large pores are more numerous in sample C. The high density of
+calcite crystals provides strong cementation of the macro-
+pores.
+FIG.6 Thin sections from sample C showing no imbibition of
+epoxy outside the macro-porous regions.
+
+--- PAGE 6 ---
+Ramakrishnan et al. (1999). However, instead of modeling
+the NMR response as a histogram of walked times, our
+algorithm simulates the CPMG echo decay in the time
+domain. This approach requires tracking of the NMR signal
+phase evolution resulting from both the random walk and
+the assumed NMR pulse sequence.
+Model geometry
+The simulation model was constructed with a three-
+dimensional (3D) bimodal pack of spheres intended to rep-
+licate the pore-structure geometry of carbonate formations,
+in which micro-grains are arranged into packs. As in the
+example of Figure 3, the simulation model accounts for
+intra-granular porosity regions that constitute the grain
+packs, while different types of inter-granular porosity (char-
+acterized by different pore sizes and degrees of cementa-
+tion, depending on diagenesis) exist between the packs. The
+geometrical construction of the 3D model is based on the
+following assumptions:
+•Bimodal pore-size distribution,
+•Periodic geometry,
+•Isotropic pores,
+•Spherical, compacted micro-grains, and
+•Spherical, compacted grain packs.
+At the micro- (macro-) scale, each grain (grain pack) is
+constructed with a sphere inscribed into a concentric cubic
+cell. If the sphere does not completely fill its cubic unit, then
+the complementary volume is considered filled with fluids.
+Furthermore, fixed blobs of gas centered on the macro-pore
+space can be included in the model to represent partial satu-
+rations of an immiscible non-wetting gas phase, while the
+micro-porosity can only be filled with wetting fluid. Figure
+9s h o w sa3 Dp e r i o do ft h i sb i m o d a lp o r e - n e t w o r ks t r u c t u r e .
+Aw i d ev a r i e t yo fp o r es i z e sc a nb em o d e l e db ya d j u s t i n gt h e
+values of the grain (or grain pack) radii, and the sizes of the
+corresponding cubic cell.
+Random-walk algorithm
+At each iteration of the Monte Carlo simulation proce-
+dure, a fictitious proton is randomly chosen within the space
+formed by the available pore volume. This proton is then
+96 PETROPHYSICS March-April 2003
+Toumelin et al.
+FIG.8 T2distributions of NMR measurements performed at
+ambient temperature on samples A, B, and C. Dashed curves
+represent the measurements at irreducible water saturation.
+Solid curves represent measurements performed at 100%
+water saturation.
+FIG.7 Pore-size modes recognized in samples A, B and C.
+Plain stems correspond to coupled porosity modes, dash
+stems, to partially coupled primary porosity, and dot stems to
+a-priori uncoupled vuggy porosity.
+
+--- PAGE 7 ---
+displaced to a new location dictated by a random-walk algo-
+rithm that operates according to two possible strategies.
+Depending on the proximity of the proton to the surface of
+material discontinuity (pore wall or fluid phase interface),
+either a conventional random-walk strategy or a First-
+Passage-Time technique (Zheng and Chiew, 1989) is imple-
+mented to displace the proton to its new location.
+The First-Passage-Time strategy is based on the analyti-
+cal solution of the unbounded diffusivity equation. This
+yields a stochastic relationship between the mean square
+displacement,R2,d u r i n ge a c hs t e p ,a n di t sd u r a t i o n ,/c68t,
+with a maximum of probability close to the free space bulk
+diffusivity, i.e.,
+D R
+to/c61/c60/c622
+6/c68. (1)
+In the above relationship,Ris limited to the largest displace-
+ment allowed by the surrounding fluid boundaries, while/c68t
+is constrained by the time sampling periodTEcorrespond-
+ing to the echo time of the NMR tool. Since no magnetic
+field gradient is enforced in the simulations, the signal gen-
+erated by fluid protons is simply proportional to the popula-
+tion of magnetized protons sampled with periodTE. The
+First-Passage-Time method is particularly suited for the
+simulation of proton displacements in large pore spaces as it
+allows the simulation of large displacements in a few steps.
+However, close to surfaces of material discontinuity, the
+First-Passage-Time strategy does not converge and instead a
+conventional random walk of fixed step/c101is necessary.
+If contact is made with a surface of material discontinu-
+ity, then the proton magnetization decays with a probability
+equal to
+pDo
+/c61/c114/c101, (2)
+where/c114is the surface relaxivity of the interface (Bergman et
+al., 1995). If no magnetization decay occurs, then the proton
+rebounds randomly at the surface of the interface.
+Once a large-enough number of proton trajectories are
+simulated with the Monte Carlo algorithm, convergence to
+the average time solution is insured and the total magnetiza-
+tion signal can be inverted into aT2distribution (generally a
+few hundreds to a thousand proton trajectories are needed
+for statistical convergence, depending on the modeled
+pore-size distribution).
+The total relaxation of the pore fluid is generally consid-
+ered equal to
+TTT S V TSB B22 2
+1
+2
+111 1/c61/c43 /c61 /c43/c45/c45(/ / ) ( / / ) , /c114 (3)
+whereT2Sis the surface relaxation,T2Bis the bulk relaxation,
+/c114is the pore surface relaxivity, andS /Vis the pore surface-
+to-volume ratio. Considering equation (3), we remark that
+the dual random-walk algorithm introduced by
+Ramakrishnan et al. (1999) only models the effect ofT2S.
+BecauseT2Bis solely a function of fluid properties, we pro-
+pose to take into account bulk relaxation effects by multiply-
+ing the simulated magnetization decay by theTE-sampled
+temporal decayexp(–t/T2B) before performing theT2inver-
+sion. An in-depth description of this algorithm including
+benchmark examples and extensions to consider the effect
+of a constant external magnetic field gradient can be found
+in Toumelin (2002), and Toumelin et al. (2002).
+ADAPTATION OF THE SIMULATION MODEL TO
+REPLICATE THE NMR RESPONSE OF FLUIDS IN
+ROCK SAMPLES
+The purpose of the simulation work is to ascertain the
+influence of pore coupling on the NMR response of the
+available core samples. Once the proportion of actively
+coupled pores has been quantified for each sample, the main
+task is to determine the bimodal pore model that honors the
+NMR measurements.
+On the hydraulic isolation of vuggy porosity
+For every sample, the irreducible water saturationsSwir
+measured by NMR is larger than the fractional micro-
+March-April 2003 PETROPHYSICS 97
+Reconciling NMR Measurements and Numerical Simulations:
+Assessment of Temperature and Diffusive Coupling Effects on Two-Phase Carbonate Samples
+FIG.9 Three-dimensional representation of the distribution of
+fluids and rock matrix at the spatial resolution of both macro-
+and micro-cells. Gas blobs are centered on the intergranular
+macro-pores. Compaction is simulated by including sphere
+diameters larger than the concentric cube sizes.
+
+--- PAGE 8 ---
+porosity/c102micro//c102T.T h e r e f o r e ,w ec a na s s u m et h a tt h ee n t i r e
+water-wet micro-pore region is filled with connate water,
+and that the complementary amount of irreducible water
+(Swir/c102T–/c102micro)r e s i d e si no t h e rp o r o s i t yr e g i o n s .H o w e v e r ,
+the pore analysis defines the vuggy pores (pore mode 2) as
+isolated and sealed by cementation. In other words, under
+this assumption, no fluid can leave the vuggy macro-pores
+unless the rock is fractured.
+Analysis of the NMR experimental results in Figure 8
+shows that, for each sample, the long-T2peak, correspond-
+ing to the water-filled vugs atSw=1 ,d i s a p p e a r sa tSwir.T h i s
+implies that the water-filled vugs were effectively drained
+by centrifugation. Such an observation, in turn, contradicts
+the initial assumption that the long-T2peak is associated
+with hydraulically isolated vugs. Thus, NMR measure -
+ments on the three available cores strongly suggest that
+vugs observed at SEM resolution may not be totally isolated
+hydraulically from the rest of the porous network.
+Determination of the model parameters
+By describing “vugs” as part of a coupled pore system,
+their NMR response can be explained by the superposition
+of coupled modes. We assume that the total NMR response
+of the porous medium is dictated by the collective response
+of porosity modes that are, from a diffusive viewpoint, cou-
+pled by pairs of two modes. Such an assumption is of course
+amenable to our numerical simulation algorithm. For
+instance, the macro-porosity regions (modes 1 and 2) are
+expected to couple with the pores of mode 3 (peripheral
+porosity located between the cement crystals) more than
+with those of mode 4 (intrinsic micro-porosity). By con-
+trast, the two macro-porosity modes are expected to exhibit
+no mutual coupling.
+In order to be consistent with experimental results, we
+choose the average radii and porosities of the main pore
+modes as input parameters. The pore information for modes
+1t h r o u g h3i sa d a p t e df r o mt h ep o r e - s i z ed i s t r i b u t i o na n a l y-
+sis. However, the average radius of mode 4 micro-pores has
+to be determined for each sample so that it honors the spatial
+range observed on the corresponding SEM images, and at
+the same time remains consistent with the NMR measure-
+ment. Furthermore, as shown by Ramakrishnan et al.
+(1999), the influence of the rock surface relaxivity /c114
+(defined as the inverse of the product of T2Sand the
+surface-to-volume ratioS/ Vof the pore) is crucial to the
+NMR response of pores exhibiting diffusion coupling. In
+sandstones, an estimate for/c114can be obtained from the
+quasi-linear relationship betweenT2SandS/ V.B yc o n t r a s t ,
+the presence of diffusion coupling in carbonates prevents a
+simple determination of/c114.T h ec h o i c eo fN M Rp a r a m e t e r s
+in our simulation model therefore represents an iterative
+process with two degrees of freedom, namely, the average
+micro-porosity radiusr4,a n dt h es u r f a c er e l a x i v i t y/c114.A
+practical way to solve for the required parameters is to util-
+ize the NMR responses of the desaturated samples.
+Sample A
+The NMR measurements performed on Sample A yielded
+ah i g hi r r e d u c i b l ew a t e rs a t u r a t i o no f5 2 . 4 % .T h i sv a l u ei s
+larger than the fractional micro-porosity/c1024//c102T=4 2 . 4 % ,
+thereby implying that, atSwir,t h ed e t e c t e dN M Rs i g n a li s
+produced by water within both the micro-porosity (mode 4)
+and the next bigger pores of mode 3. Therefore, the selec-
+tion of the equivalent model consisted of finding a satisfac-
+tory combination of (r4,/c114)c o u p l e t ,s u c ht h a tt h eb i m o d a l
+porosity simulation constructed with the remaining parame-
+ters (/c1024=9 . 8 % ,/c1023=3 . 8 % ,r3=6/c109m) matched the NMR
+measurements shown in Figure 8 atSwir.S i m u l a t i o nm o d e l s
+were tested forr4=0 . 2 ,0 . 4a n d0 . 5/c109m, and for/c114=1 ,2 ,3 ,
+and 5/c109m/s, corresponding to usual values for carbonate
+rocks. The irreducible water saturation was matched by
+defining a gas blob radius within the intergranular porosity
+region of the model representing pore mode 3, where the sur-
+face relaxivity at the gas/water interface was taken equal to
+zero. Given the low gas hydrogen index, it was assumed that
+the pore volume associated with gas created no magnetiza-
+tion signal. A best fit was obtained forr4=0 . 5/c109ma n d/c114=2
+/c109m/s, and by assuming a gas blob of radius equal to 6/c109m.
+The model was then tested for the remaining porosity
+98 PETROPHYSICS March-April 2003
+Toumelin et al.
+FIG.1 0 Cross-coupled NMR responses of the main pore
+modes present in sample A, and comparison with the uncou-
+pled modes. Stems represent the individualT2Sresponse of
+each mode in the absence of coupling, that is, the ‘original’ loca-
+tion of theT2Speaks before diffusive pore coupling.
+
+--- PAGE 9 ---
+modes. Figure 10 shows the cross-coupled NMR responses
+corresponding to modes 2, 3 and 4, where each coupled
+mode pair is weighted by its total porosity. If the pore sys-
+tem were completely uncoupled, its NMR response would
+be obtained from the superposition of theT2Svalues of its
+main pore modes. In Figure 10, the individualT2Sresponse
+of each mode is described in a way that allows qualitative
+assessment of the coupling effect between each mode pair.
+It can be seen that mode 3 only slightly influences the
+remaining pore modes by causing no appreciableT2distri-
+bution shift. Consequently, the response of the whole pore
+system can be explained as controlled mainly by the cou-
+pling between the intra-granular micro-porosity (mode 4)
+and the vuggy porosity (mode 2). A reasonable approxima-
+tion of the sample NMR response can then be obtained by
+considering the coupled response of modes 2 and 4 atSw=1 ,
+weighted by the total porosity of the sample. TheT2distri-
+bution of the corresponding simulation model compares
+extremely well with the measurements (see Figure 11).
+Locations for the peaks on theT2spectra match quantita-
+tively. We remark that the width of the micro-porosity peak
+is narrower in the numerical simulation than in the real rock
+because the simulation includes a single micro-pore size
+whereas the real rock includes a distribution of sizes. This
+exercise validates the Swir-based parameters and the
+assumption of full diffusion coupling between existing
+pores.
+Sample B
+As i m i l a ra p p r o a c hw a su s e dt oc o n s t r u c tam o d e lt h a t
+could replicate the NMR response of the apparently par-
+tially coupled core sample B. However, the coupling
+process in this sample is markedly more complex than in
+the case of sample A. An iterative process is needed to
+accurately model the corresponding NMR response. Sam-
+ple B exhibits an irreducible water saturation, Swir=
+27.7%, which falls remarkably close to its fractional
+micro-porosity,/c1024//c102T=2 6 . 3 % .C o n s e q u e n t l y ,i tw a s
+assumed that the irreducible water saturation was located
+within the micro-porous region only, and that the corre-
+sponding NMR signal could be modeled with a unimodal
+pore system. The micro-pore sizer4of the model was cali-
+brated to 0.45/c109ms ot h a tt h ei n d i v i d u a lr e s p o n s eo fm o d e4
+matched the NMR measurement performed atSwirassuming
+as u r f a c er e l a x a t i o no f2/c109m/s. In this sample, however,
+three additional coupled pore modes contribute to the NMR
+response at higher water saturations, so that the pore cou-
+pling process requires some simplifications.
+The first stage of the iterative simulation procedure
+assumed that diffusion was controlled by direct diffusive
+coupling between all pore modes except modes 3 and 4.
+Figure 12 shows the simulation results obtained with these
+cross-coupled modes. The simulations were performed by
+taking into account the porosities associated with each pair
+of pore modes, along with their individual T2Sresponse
+when regarded as uncoupled. As can be seen in this figure,
+the overall magnetization associated with the micro-
+porosity (mode 4) consistently remains close to that
+obtained in the absence of diffusive coupling. However, the
+magnetizations borne by the macro-porosities (modes 1 and
+2) shift to lower relaxation times, spread over the wholeT2S
+range of the macro-porosities, and slightly fill the gap with
+mode 4. The coupling process occurring over the entire pore
+system of this sample is expected to enhance the two T2
+peaks centered at 70 and 2000 ms, before accounting for
+bulk relaxivity, with a valley ofT2relaxations between the
+two peaks. As an illustration, Figure 13 provides a compari-
+son of the experimental NMRT2distribution with theT2
+distribution inverted from the sum of the coupled simula-
+tion results used to construct Figure 12 (obtained by assum-
+ing a brine bulk relaxation of 2300 ms). Figure 13 shows
+clearly that the superposition of the coupled NMR
+responses is a good approximation to the NMR measure-
+ments.
+Further successive simulation steps would be required to
+bridge the gap between the two measuredT2peaks and to
+accurately reproduce the NMR measurements. These steps
+March-April 2003 PETROPHYSICS 99
+Reconciling NMR Measurements and Numerical Simulations:
+Assessment of Temperature and Diffusive Coupling Effects on Two-Phase Carbonate Samples
+FIG.1 1 Comparison of simulations and measurements of
+sample A at room temperature. Solid curves:Sw= 1. Dashed
+curve:Sw=Swir. Although sharper than the experimental peak at
+irreducible water saturation, the simulation result honors both
+theT2peak value and the porosity.
+
+--- PAGE 10 ---
+would need to consider equivalent bimodal models based
+on theT2distribution yielded by the previous simulation
+step. For example, because it originates from the coupling
+between both Modes 2 and 3 (Figure 12a) and Modes 4 and
+2( F i g u r e1 2 b ) ,as t r o n gT2decay mode appears after the
+first iteration around 1000 ms that does not correspond to
+the initial pore-size distribution. The next step of the
+process would include the simulation of the coupling rela-
+tionship between this 1000-msT2mode and the one at 50 ms
+that results from the coupling of Mode 4 to other modes in
+the first iteration. This simulation would create a strongT2
+mode at approximately 300 ms, similar to that observed
+after coupling between Modes 3 and 4. When applied to all
+the decay rates obtained from the previous simulation step,
+this process would yield theT2values required to bridge the
+T2gap between the two peaks exhibited by the measure-
+ments. Such an exercise, however, is beyond the scope of
+this paper.
+Sample C
+The third sample studied in this section is the one exhib-
+iting the most macro-porosity and peripheral cementation,
+and no apparent sign of diffusive coupling. We used this
+example of an uncoupled sample to contrast the simulation
+results with those of the coupled samples, A and B, and to
+determine the behaviors which more specifically character-
+ize coupled systems.
+In summary, the simulation models helped us to deter-
+mine coupled pore geometry for both samples A and B.
+These models validated the pore-size distributions deter-
+mined by core image analyses. By keeping the same pore-
+size distributions and by preventing the diffusion coupling
+between the pore modes, equivalent uncoupled models
+were constructed for samples A and B. Simulation through
+these uncoupled models yielded equivalent uncoupled
+responses that reproduced what the NMR response of sam-
+100 PETROPHYSICS March-April 2003
+Toumelin et al.
+FIG. 13 Comparison of simulations and measurements of
+sample B at room temperature. The closest representation of
+this sample’s structure after the first iteration of the numerical
+model exhibits negligible diffusive coupling.
+FIG. 12Cross-coupled NMR responses of the main modes
+present in sample B and comparison with the uncoupled modes.
+Stems represent the individualT2Sresponse of each mode in
+the absence of diffusive coupling.
+
+--- PAGE 11 ---
+ples A and Bwould have beenlike in the absence of diffu-
+sion coupling. These uncoupled responses are subsequently
+used to assess the impact of diffusion coupling on the esti-
+mation of BVI.
+ANALYSIS OF SENSITIVITY OF NMR
+MEASUREMENTS TO TEMPERATURE
+Equation (3) assumes that the behavior of the total trans-
+verse relaxation with respect to temperature can be attrib-
+uted to the following factors:
+a) The bulk relaxationT2B, roughly proportional to tem-
+perature and inversely proportional to fluid viscosity.
+b) The surface relaxivity/c114, whose dependence on tempera-
+ture is governed by the magnetic content of the rock’s
+mineralogy and fluid types (Godefroy et al., 2001).
+c) The effective surface-to-volume ratioS/Vsurrounding
+the protons of the fluid.
+Without alternative means to study the effect of tempera-
+ture on surface relaxivity, we discuss the relative impor-
+tance of the above factors (a) and (c), based on NMR meas-
+urements performed on eight carbonate samples gathered
+within the same well, and on numerical simulations.
+Role ofT2B
+Three of the eight samples are Samples A, B, and C
+described in the previous sections, along with five other
+samples that were selected at a later stage of the study,
+henceforth referred to as additional samples. As previously
+described, measurements on samples A, B and C were per-
+formed at the temperatures of 4–10°C, 22°C, 45°C, and
+60–65°C. Measurements on the additional samples were
+also performed at 1°C, 22°C, and 60°C.
+Figure 14 shows theT2distributions of samples A, B and
+Ca tt h em i n i m u ma n dm a x i m u mm e a s u r e dt e m p e r a t u r e s .
+We remark that the degree of temperature dependence var-
+ies from sample to sample despite the fact that the saturation
+fluid is the same (brine) for all the samples. Similar obser-
+vations were made on the additional samples, but no univer-
+sal temperature dependency was found. However, for the
+samples exhibiting temperature dependence, relaxation
+timesT2consistently increased with temperature.
+At each temperatureT,a n df o re a c hs a m p l e ,t h eg e o m e t-
+ric mean of the experimentalT2distribution was computed
+as the measuredT2value. Then, in order to assess the influ-
+ence of the aforementioned factors (b) and (c) (i.e., surface
+relaxivity and effective surface-to-volume ratio), we sub-
+tracted the effect of bulk relaxationT2Bfrom the measured
+T2value to obtain an equivalent surface relaxation, i.e.,
+TT T T TTSB22 2
+111() ( / () / () )/c61/c45 /c45 (4)
+For all the samples of this study, the values ofT2SandT2are
+plotted with respect to temperature in Figure 15. We observe
+that the role played byT2Bis rather significant for the sam-
+ples that exhibit moderate temperature sensitivity (namely,
+samples B and C). However, for the samples that exhibit the
+largest temperature dependence (such as the additional sam-
+ples), the role ofT2Bis negligible and does not explain the
+systematic increase ofT2withT. In the current absence of
+more detailed information on the structure of the additional
+samples, no systematic conclusion can be drawn to assess
+the relationship between coupling and dispersion ofT2with
+temperature.
+Role of effectiveS/V
+Next, we address the issue of the sensitivity of the effec-
+tive surface-to-volume ratio to temperature changes. In an
+isolated pore model, theS/Vof an individual pore does not
+March-April 2003 PETROPHYSICS 101
+Reconciling NMR Measurements and Numerical Simulations:
+Assessment of Temperature and Diffusive Coupling Effects on Two-Phase Carbonate Samples
+FIG. 14Examples ofT2distributions measured at 4 and 65°C
+for samples A, B and C. Solid curves: NMR response atSw=1
+and 4-10°C; dashed curves:Sw= 1 and 60-65°C; dotted curves:
+Sw=Swirand 22°C.
+
+--- PAGE 12 ---
+change with temperature. In a coupled pore model, how-
+ever, theS/Vof an individual pore is no longer independent
+of other pores. Therefore, an effectiveS/Vconcept is neces-
+sary to take into account the coupling effect. Ramakrishnan
+et al. (1999) showed how the presence of diffusive coupling
+could modify the effectiveS/Vfor given diffusion lengths of
+the medium. We recognize that temperature can also modify
+this effectiveS/Vwhen diffusive coupling is present.
+Indeed, when temperature, and hence bulk diffusivity,
+increases, the probability of proton exchange between the
+different pore modes increases as well. In turn, the effective
+surface-to-volume ratio of the pore volume departs from its
+geometrical value. For instance, protons within the micro-
+porous regions are prone to diffuse further within the
+macro-pore region when temperature increases, and there-
+fore the effectiveS/V“seen” by these protons decreases.
+Similarly, when temperature increases, the protons within
+the macro-pore regions are more likely to reach the micro-
+porous regions and therefore their effectiveS/Vincreases.
+However, both phenomena do not necessary cancel each
+other, since quantitatively theS/Vdecrease in larger pores
+cannot compensate theS/Vincrease in smaller pores. Con-
+sequently, the effectiveS/Vbehavior of such coupled sys-
+tems will be dominated by proton behavior within the
+micro-porous regions.
+We support this stateme n twith simulations made with
+the three cross-coupled pore models of sample A, for
+temperatures of 4 and 65°C, and a constant surface relax-
+ivity/c114=2/c109m/s estimated during the calibration process of
+the simulation model with the core data. The simulatedT2S
+results, independent of bulk effects, are plotted in Figure 16
+and are compared to the ones previously obtained at room
+temperature (Figure 10). In Figure 16, we observe that tem-
+perature does affect the coupled responses between the
+respective pores modes:T2Sdecreases slightly with tem-
+perature.
+Unresolved technical issues
+This coupling influence, however, cannot explain the
+temperature behavior observed in Figure 15. Indeed, this
+102 PETROPHYSICS March-April 2003
+Toumelin et al.
+FIG. 16Numerical evidence for the influence of temperature
+on the effective surface-to-volume ratio of diffusively coupled
+pore systems. These results of simulating bimodal models of
+sample A assume a constant, uniform surface relaxivity/c114=2
+/c109m/s, at temperatures of 4, 22, and 65°C. (Refer to Figure 10.)
+In all the cases, the surface relaxation times T2Sslightly
+decrease with temperature.
+FIG. 15Diagram showing the experimental influence of tem-
+perature on the NMR response in carbonate samples gathered
+from the same well. Black lines: measurements of samples A, B
+and C; colored lines: measurements of the five additional sam-
+ples from the same well. Lines without markers represent the
+total measured response, whereas those with circles corre -
+spond to equivalent surface relaxation.
+
+--- PAGE 13 ---
+phenomenon should justify the observation that, whenT
+decreases,T2Sincreases more conspicuously when coupling
+is present than when it is absent. Y et, we observe the oppo-
+site trend in Figure 15. This implies that the effect of cou-
+pling on the effectiveS/Vis of secondary order, and that an
+adverse phenomenon not accounted for takes place here. If
+we rely on the assumptions made by equation (3), then such
+at e m p e r a t u r ed e p e n d e n c ei sl i k e l yt ob ed o m i n a t e db yt h e
+behavior of/c114with temperature when surface relaxivity is
+heterogeneous within the formation. We realize that this
+proposition needs further experimental verification. How-
+ever, the experimental means necessary to undertake such a
+study are at this moment unavailable in our laboratory.
+INFLUENCE OF TEMPERATURE AND DIFFUSIVE
+COUPLING ON BOTH T2-CUTOFF, BVI, AND
+PERMEABILITY
+This section presents results based (a) on the comparison
+between measurements performed at different temperatures
+to quantify the impact of temperature, and (b) on the com-
+parison between measurements and simulations at ambient
+temperature to quantify the impact of coupling. In Figure
+17, we plot the cumulative porosity distributions for sam-
+ples A, B and C at 100% water saturation at room tempera-
+ture and the two extreme temperatures that were measured,
+as well as atSwirmeasured at room temperature. The current
+practice of core-NMR basedT2cutoffemploys measurements
+performed at ambient conditions. Neglecting the tempera-
+ture dependence of theT2distribution could introduce sub-
+stantial errors. In what follows, we provide a series of com-
+parisons aimed at illustrating possible biases on BVI and
+permeability estimates associated with high and low tem-
+perature data when assuming parameters derived from
+ambient conditions. Figure 17 also shows the response
+simulated at ambient temperature for equivalent uncoupled
+models of Samples A and B, determined from the rock
+structures inferred in the first parts of this paper.
+Tables 1 to 4 interpret the curves in Figure 17 to quantify
+the effect of temperature and diffusive coupling on BVI (or
+Swir)a n dp e r m e a b i l i t y ,b yc o m p a r i n gt h eT i m u r - C o a t e sa n d
+theT2logmeanpermeability models associated with the three
+samples. (See Kenyon, 1997, for a discussion of these mod-
+els.) In each table, the percentages shown in italic represent
+the relative errors of the estimated properties.
+March-April 2003 PETROPHYSICS 103
+Reconciling NMR Measurements and Numerical Simulations:
+Assessment of Temperature and Diffusive Coupling Effects on Two-Phase Carbonate Samples
+TABLE1BVI(=/c102Swir) errors due to diffusion coupling
+applying a conventional 90-msT2cutoffat ambient tempera-
+ture.
+Parameter Sam ple A Sample B Sample C
+CorrectSwir 52% 28% 24%
+Swirdetermined 27% 22% 18%
+from measurements
+Percent errorin Swir 48% 21% 24%
+Swirdetermined from
+decoupled simulations 52% 29% –
+Percent error in Swir 0% 3% –
+FIG. 17Cumulative porosity plots of theT2distributions of
+samples A, B and C at different temperatures. Blue curves:
+cumulative porosity curves obtained from the NMR response at
+Sw= 100% and 4°C; dashed magenta curves: at Sw= 100%
+and 22°C; red curves: at Sw= 100% and 65°C; black dotted
+curves: atSw=Swirand 22°C; green curves: simulated
+responses of the corresponding diffusively uncoupled models
+(samples A and B only) atSw= 100% and 22°C. Vertical lines at
+90 ms represent the BVI-T2cutoffconventionally used for carbon-
+ate rocks.
+
+--- PAGE 14 ---
+BVI errors
+The actual value ofSwir(or BVI percentile, since BVI =/c102
+Swir)o fe a c hs a m p l ei sd e f i n e db yt h em a x i m u mn o r m a l i z e d
+cumulative porosity read from measurements made on the
+centrifuged core sample,
+S P T dTwir
+T
+T
+/c61/c162/c242() ,
+22
+//c102 (6)
+where P/c162is theT2distribution of the centrifuged core sam-
+ple.
+For each sample and each experiment made at 100%
+water saturation, the value ofSwircan also be determined by
+S P T dT P T dTwir
+T
+T
+T
+T
+/c61/c242/c242() () ,
+22 22
+/ (5)
+wherePis theT2distribution of the fully saturated sample,
+and the denominator represents the porosity of the sample.
+Alternatively, by taking the value ofSwirfound on the centri-
+fuged samples, we can calculate the correctT2cutoffto be used
+for each sample at ambient temperature.
+Table 1 quantifies the error due to diffusion coupling
+when the nominal 90-ms cutoff expected for carbonate
+rocks is used to interpret the NMR data. We can observe a
+substantial 48% BVI error associated with such a generic
+cutoff for Sample A, and relatively high errors (larger than
+20%) for Samples B and C. However, if we assess the irre-
+ducible water saturation using the same cutoff for the
+uncoupled models of Samples A and B, then we obtain val-
+ues that are remarkably close to the actual irreducible satu-
+rations. This observation validates for these two samples
+the usage of the standard 90 ms cutoff in the absence of dif-
+fusion coupling. It also corroborates the pore-size models
+when the latter are uncoupled. The large errors calculated
+from the measurements on the real rocks (allowing diffu-
+sion coupling) clearly suggest the need to account for diffu-
+sive coupling in the interpretation of NMR data. Introduc-
+ing the notion of coupling/decoupling here dramatically
+reduced the discrepancies of BVI estimates for Samples A
+and B.
+Similar results are shown in Table 2, where we assessed
+how large a variation ofT2cutoffwas required to obtain cor-
+rect values of BVI (as well as permeability using the
+Timur-Coates model). This exercise focused on both the
+temperature differences of the measurement, and the decou-
+104 PETROPHYSICS March-April 2003
+Toumelin et al.
+TABLE2CorrectT2cutofffor BVI and Timur-Coates perme-
+ability model.
+Parameter Sample A Sample B Sample C
+Coupling effect (at ambient temperature):
+CorrectT2cutoff(ms)
+from measurements
+(allowing coupling) 143 139 –
+CorrectT2cutoff(ms)
+from decoupled
+simulations 92 83 –
+Temperature effect (from measurements):
+CorrectT2cutoff(ms)
+at low temperature
+(4–10°C) 126 138 120
+CorrectT2cutoff(ms)
+at high temperature
+(60–65°C) 145 129 151
+TABLE3BVI and permeability errors due to temperature,
+associated with Timur-Coates permeability model.
+kC B V M B V I C S SCoates c c wir wir/c61/c61 /c45/c102/c10242 4 2 1(/ ) ( [ ] / )
+Parameter Sample A Sample B Sample C
+CorrectSwir 52% 28% 25%
+Correct
+ATT2cutoff(ms)
+(ambient temp.) 143 139 137
+LTSwir
+(low temperature) 60% 27.5% 26.5%
+HTSwir
+(high temperature) 51% 28.5% 23.5%
+Swirrelative error
+due to temperature 15% 2% 6%
+/c102 23.6% 19% 21.2%
+CC(D) 1.51 8.12 53.91
+Correctk(mD) 4 70 980
+LTkCoates(mD)
+(low temperature) 2 74 838
+HTkCoates(mD)
+(high temperature) 4.3 67 1154
+kCoatesrelative error
+due to temperature 50% 5% 18%
+
+--- PAGE 15 ---
+pling allowed by the simulations. In Table 2, the correct cut-
+off values in case of decoupled pores in samples A and B
+(i.e., if no diffusion coupling was present) are very close to
+the 90-ms cutoff previously mentioned. However, the prox-
+imity of the correct cutoff values for samples A and C sug-
+gests thatT2cutoffdoes not necessarily depend on the degree
+of diffusion coupling exhibited by the pore structure of the
+samples.
+Similarly, Table 2 shows that temperature causes a
+remarkable shift of the correctT2cutoffby 10 to 30 ms. Table 3
+provides estimations of errors when the cutoff is individu-
+ally determined from the measurement of each sample A, B,
+and C, at ambient temperature (A T: 22ºC), and when these
+cutoffs are applied to the measurements performed at low
+temperature (LT: 4 to 10°C, depending on the sample A, B,
+or C) and high temperature (HT: 60 to 65ºC). One could
+expect such cutoff values to yield accurate estimates of BVI
+and BVI-based permeabilities. However, a maximal BVI
+relative error of 15%, accounting for as high as 8% of the
+pore volume, was obtained on the temperature range used in
+the measurements of sample A. Discrepancies even larger
+than the above could be expected for larger temperature
+intervals. This analysis proves the rather high inaccuracy of
+cutoffs derived at ambient-temperature.
+Permeability errors
+The Timur-Coates permeability model was first used to
+assess permeability from BVI estimates at the extreme
+measured temperatures. Results are shown in Table 3, along
+with those of BVI described in the previous section.
+Because all three samples A, B and C exhibit different pore
+structures, we allowed the constantCCin the Timur-Coates
+permeability model to vary from sample to sample. For
+each sample,CCwas calculated from the measured values
+of permeability (k)a n dp o r o s i t y(/c102), and from the values of
+Swirjust estimated from ambient-temperature (A T: 22ºC)
+T2cutoffs. Then, using these irreducible saturations and the
+true values of/c102,T a b l e3s h o w st h er e s u l t i n gv a l u e so fkfor
+low and high temperatures. The maximal error percentage
+caused by the use of room-temperature parameters reached
+50% for Sample A and 18% for Sample C. We observe that
+the high relative error obtained for sample A actually corre-
+sponds to a low absolute error of 2 mD.
+Table 4 shows the results obtained with theT2logmeanper-
+meability model. As in the case of Table 3, the permeability
+values described in Table 4 were calculated for the constant
+CSat ambient temperature, based on the measured logarith-
+mic means of theT2distributions. All the samples exhibit
+relative errors in permeability close to 15%. Therefore, this
+permeability model shows slightly less stability with tem-
+perature than the Timur-Coates model. Such behavior is
+consistent with the remark just made concerning Sample A.
+It is noticeable that most hydrocarbon reservoirs exhibit
+higher temperatures than those reported in this study, in
+which case permeability errors will be larger than those
+shown in Table 3 and 4.
+As u b s t a n t i a ld i f f e r e n c eo fT2logmeanbetween measure-
+ments and decoupled simulations is also noted in Table 4. It is
+remarkable that Sample A was the sample that exhibited the
+largest BVI error due to coupling (see Table 1), hence the
+largest discrepancy with a BVI-based permeability model,
+whereas it is Sample B that exhibits the largestT2logmeanerror,
+hence the largest discrepancy with aT2logmean-based perme-
+ability model. However, because in practice different con-
+stants would be required for each sample, we choose not to
+show calculations of such coupling-induced permeability
+errors in this paper.
+March-April 2003 PETROPHYSICS 105
+Reconciling NMR Measurements and Numerical Simulations:
+Assessment of Temperature and Diffusive Coupling Effects on Two-Phase Carbonate Samples
+TABLE4T2logmeanand permeability errors usingT2logmean
+modelkT2logmean=Cs/c1024(T2logmean)2.
+Parameter Sample A Sample B Sample C
+/c102 23.6% 19% 21.2%
+CS(D/s2) 67.71 414.46 1530.61
+Measured
+ATT2logmean(ms)
+(ambient temp.)
+(allowing coupling) 138 360 563
+Simulated
+ATT2logmean(ms)
+(ambient temp.)
+(preventing coupling) 88 821 –
+Measured
+LTT2logmean(ms)
+(low temperature) 127 332 517
+Measured
+HTT2logmean(ms)
+(high temperature) 142 353 531
+Correctk(mD) 4 70 980
+LTkT2logmean(mD)
+(low temperature) 3.4 60 826
+HTkT2logmean(mD)
+(high temperature) 4.2 67 872
+kT2logmeanrelative error
+due to temperature 15% 14% 16%
+
+--- PAGE 16 ---
+SUMMARY AND CONCLUSIONS
+As t u d yh a sb e e np r e s e n t e do fe x p e r i m e n t a lN M Rm e a s-
+urements based on three carbonate samples and comple-
+mented by numerical time-domain simulations. The study
+made use of SEM images to provide a priori models of pore
+structures for the simulations. Our simulation model incor-
+porates diffusion coupling between pores with different
+length scales. NMR core measurements were conducted on
+the same samples to validate the simulation models and to
+assess the diffusion processes taking place within the pore
+structure. The simulations were then used to predict the
+NMR response of the samples in the absence of diffusive
+coupling. These decoupled simulations provided a basis for
+comparison with the measurements, which naturally
+include coupling. It has been shown that the inclusion of
+diffusion coupling could improve (a) the interpretation of
+the carbonate pore structure, (b) the estimation of pore size
+andT2distribution, and (c) the understanding of discrepan-
+cies inT2cutoffand BVI estimates.
+Analysis of measurements performed at temperatures
+from 4 to 65ºC showed that the generally unaccounted tem-
+perature effects on bulk relaxationT2Bcould be a primary
+cause for NMR temperature dependence when diffusion
+coupling is weak. We also remarked that the strength of dif-
+fusion coupling is influenced by temperature. However,
+both bulk and diffusive coupling could not completely
+explain the temperature dependence of the NMR responses
+that was measured in the samples.
+Finally, a quantitative estimate has been made of the
+errors associated with the estimations of BVI and perme-
+ability when both diffusion coupling and temperature varia-
+tions are neglected. We showed that the 90-ms cutoff con-
+ventionally used for carbonate rocks remained accurate for
+the three samples, under the condition that no diffusive cou-
+pling was present. Hence, coupling effects must be included
+in an accurate interpretation of NMR measurements. It was
+also found that calibrating the permeability models with
+measurements performed at ambient temperature could
+lead to relative errors of at least 15% for the temperature
+interval considered in this study.
+NOMENCLATURE
+AT a m b i e n t t e m p e r a t u r e ( 2 2 º C )
+BVI immovable fluid volume in place (‘bound
+volume irreducible’)
+CC constant for the Timur-Coates permeability
+model (D), 1D = 0.987 10–12m2
+CS constant for theT2logmeanpermeability model
+(D/s2)
+Do bulk diffusivity (/c109m2/ms)
+HT high temperature of the measurements (60 to
+65ºC)
+k permeability (mD), 1mD = 0.987 10–15m2
+LT low temperature of the measurements on
+samples A, B and C (4 to 10ºC)
+p probability of proton demagnetization at a fluid
+interface
+P, P/c162T2distributions corresponding to fully saturated
+and irreducible saturation states, respectively
+R macroscopic displacement of a step of First-
+Passage-Time technique (nm)
+S/ V surface-to-volume ratio of pore (1//c109m)
+Sw water saturation in a core sample
+Swir irreducible water saturation
+T temperature (°C)
+t time (ms)
+T2 total NMR transversal relaxation time (ms)
+T2B bulk NMR transversal relaxation time (ms)
+T2cutoff relaxation value at which the cumulative NMR
+porosity equalsBVI(ms)
+T2logmeanlogarithmic mean of theT2distribution (ms)
+T2S surface NMR transversal relaxation time (ms)
+TE echo time of the NMR tool (ms)
+/c68t time duration associated with a First-Passage-
+Time technique step (ms)
+/c101unitary displacement of a step of conventional
+random-walk technique applied near the pore
+wall (nm)
+/c114surface relaxivity (/c109m/s)
+/c102 porosity
+ACKNOWLEDGMENTS
+We express our gratitude to Baker Atlas for permission to
+publish these results, and for partial funding through sum-
+mer internship positions offered to ET and DMF in 2001. A
+note of gratitude goes to Drs. Gigi Zhang and Carl Edwards
+for useful technical discussions. The help of Julian Singer
+and the anonymous reviewers of Petrophysicswas also
+greatly appreciated to finalize this paper. We acknowledge
+partial support from the Center of Excellence in Formation
+Evaluation of The University of Texas at Austin, and from
+the American Chemical Society under grant ACS
+PRF#37519-AC9. The Center of Excellence in Formation
+Evaluation is an industry research consortium jointly spon-
+sored by Baker Atlas, Halliburton, Schlumberger, and Ana-
+darko Petroleum Corporation.
+REFERENCES
+Allen, D. F., Boyd, A., Massey, J., Fordham, E. J., Amabeoku, M.
+O., Kenyon, and W. E., Ward, W. B., 2001, The practical appli-
+106 PETROPHYSICS March-April 2003
+Toumelin et al.
+
+--- PAGE 17 ---
+cation of NMR logging in carbonates: 3 case studies, paper K,
+in42nd Annual Logging Symposium Transactions: Society of
+Professional Well-Log Analysts.
+Anselmetti, F. S., Luthi, S., and Eberli, G . P ., 1998, Quantitative
+characterization of carbonate pore systems by digital image
+analysis : AAPG Bulletin, vol. 82, no. 10, p. 1815–1836.
+Bergman, D. J., Dunn, K.-J., Schwartz, L. M., and Mitra, P . P .,
+1995, Self-diffusion in a periodic porous medium: a compari-
+son of different approaches:Physical Review E, vol. 51, no. 4,
+p. 3393–3400.
+Chen, S., Fang, S., Georgi, D., Salyer, J., and Shorey, D., 1999,
+Optimization of NMR logging acquisition and processing,
+SPE-56766,inSPE Annual Technical Conference and Exhibi-
+tion Proceedings: Society of Petroleum Engineers.
+Godefroy, S., Fleury, M., Deflandre, F., and Korb, J.-P ., 2001,
+Temperature effect on NMR surface relaxation, SPE-71700,in
+Annual Technical Conference and Exhibition Proceedings:
+Society of Petroleum Engineers.
+Kenyon, W. E., 1997, Petrophysical principles and applications of
+NMR logging:The Log Analyst, vol. 38, no. 2, p. 21–43.
+Prior, D. J., Boyle, A. P ., Brenker, F., Cheadle, M. C., Day, A.,
+Lopez, G ., Peruzzo, L., Potts, G . J., Reddy, S., Spiess, R.,
+Timms, N. E., Trimby, P ., Wheeler, J., and Zetterström, L.,
+1999, The application of electron backscatter diffraction and
+orientation contrast imaging in the SEM to textural problems in
+rocks:American Mineralogist, vol. 84, p. 1741–1759.
+Quintero, L., Boyd, A. Gyllensten, A., and El Wazeer, F., 1999,
+Comparison of permeability from NMR and production analy-
+sis in carbonate reservoirs, SPE-56798,inAnnual Technical
+Conference and Exhibition Proceedings: Society of Petroleum
+Engineers.
+Ramakrisnan, T. S., Schwartz, L. M., Fordham, E. J., Kenyon, W.
+E., and Wilkinson, D. J., 1999, Forward models for nuclear
+magnetic resonance in carbonate rocks:The Log Analyst, vol.
+40, no. 4, p. 260–270.
+Toumelin, E., 2002, Monte Carlo simulations of NMR measure-
+ments in carbonate rocks under a constant magnetic field gradi-
+ent: Master’s thesis, The University of Texas at Austin.
+Toumelin, E., Torres-V erdín, C., and Chen, S., 2002, Quantifica-
+tion of multi-phase fluid saturations in complex pore geome-
+tries from simulations of NMR measurements, SPE-77399,in
+Annual Technical Conference and Exhibition Proceedings:
+Society of Petroleum Engineers.
+Zheng, L. H. and Chiew, Y . C., 1989, Computer simulation of
+diffusion-controlled reactions in dispersions of spherical sinks:
+Journal of Chemical Physics, vol. 90, no. 1, p. 32–327.
+ABOUT THE AUTHORS
+Emmanuel Toumelinholds an engineering degree from the
+Ecole Centrale de Lille, France, and an MS in Petroleum Engineer-
+ing from the University of Texas at Austin. He is now pursuing a
+PhD degree and is working on micro-scale petrophysics, NMR dif-
+fusion, and rock dielectric properties.
+Email: toumelin@mail.utexas.edu
+Carlos Torres-Verdínreceived a PhD in Engineering Geosci-
+ence from the University of California, Berkeley, in 1991. During
+1991-1997, he held the position of Research Scientist with
+Schlumberger-Doll Research. From 1997-1999, he was Reservoir
+Specialist and Technology Champion with YPF (Buenos Aires,
+Argentina). Since 1999, he is an Assistant Professor with the
+Department of Petroleum and Geosystems Engineering of The
+University of Texas at Austin, where he conducts research in for-
+mation evaluation and integrated reservoir characterization. He
+has served as Guest Editor for Radio Science, and is currently a
+member of the Editorial Board of the Journal of Electromagnetic
+Waves and Applications, and an associate editor for Petrophysics
+(SPWLA) and the SPE Journal.
+Songhua Chenis a staff scientist and project leader for NMR
+interpretation development at Baker Atlas Houston Technology
+Center. Prior to joining Baker Atlas, he was a Research Scientist
+for 5 years with Texas Engineering Experiment Station in College
+Station, Texas, where he worked in the area of NMR and MRI
+applications to flow in porous media. Songhua has a BS from Nan-
+jing Institute of Technology in China and a PhD from University of
+Utah, both in Physics.
+D. Marion Fischeris a scientist with Baker Hughes Inteq at
+Celle, Germany, since December 2001. Prior to joining Inteq, she
+spent one and half year at Leibniz Institute of Applied Geosciences
+in Germany as a postdoc doing NMR laboratory research, and a
+summer at Houston Technology Center of Baker Atlas, USA. Mar-
+ion received her Diploma (physics) in 1995 and PhD (NMR phys-
+ics) in 1999, both from the University of Hannover, Germany. Her
+PhD dissertation topic deals with NMR diffusion measurements in
+solid-state materials.
+March-April 2003 PETROPHYSICS 107
+Reconciling NMR Measurements and Numerical Simulations:
+Assessment of Temperature and Diffusive Coupling Effects on Two-Phase Carbonate Samples

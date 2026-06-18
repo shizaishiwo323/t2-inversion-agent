@@ -1,0 +1,869 @@
+--- PAGE 1 ---
+Vol.:(0123456789)
+Applied Magnetic Resonance (2020) 51:581–595
+https://doi.org/10.1007/s00723-020-01200-6
+1 3
+ORIGINAL PAPER
+Simulations of NMR Relaxation in a Real Porous Structure: 
+Pre‑asymptotic Behavior to the Localization Regime
+J. L. Gonzalez1  · E. L. de Faria2 · Marcelo P . Albuquerque2 · 
+Marcio P . Albuquerque2 · Clécio R. Bom3 · J. C. C. Freitas1 · Maury D. Correia4
+Received: 5 October 2019 / Revised: 13 April 2020 / Published online: 5 May 2020 
+© Springer-Verlag GmbH Austria, part of Springer Nature 2020
+Abstract
+The knowledge of the different physical mechanisms determining the relaxation of 
+the magnetization is crucial to obtain reliable petrophysical parameters from NMR 
+experiments. Some studies have focused on asymptotic mechanisms providing sim-
+ple expressions for the relaxation rate in terms of parameters of the system. The 
+main difficulties in solving this problem are related to the existence of intrinsic mag-
+netic inhomogeneities, in addition to the complex structure of the porous geometry 
+found in real systems. In this work, simulations of the relaxation of the transverse 
+magnetization were performed on a real pore structure obtained from X-ray microto-
+mography images. Also, a statistical method was used to introduce a local magnetic 
+non-homogeneity, resembling local field distributions discussed in several works 
+in the literature. The conditions of our simulations allowed the study of relaxation 
+processes mainly influenced by local magnetic gradients, while surface relaxation 
+became irrelevant. The dependence of the relaxation rate on the inter-echo spac-
+ing was studied, where for low spacings, the results reproduced those expected in 
+the free-diffusion limit. On the other hand, for high inter-echo spacings, the relaxa-
+tion rate deviates from the expected dependence, indicating the emergence of a 
+new relaxation mechanism. This high-spacing behavior was associated with a pre-
+asymptotic localization regime. Our data suggest a logarithmic dependence of the 
+relaxation rate with the inter-echo spacing in this transition regime.
+Applied
+Magnetic Resonance
+ * J. L. Gonzalez 
+ jlga.1966@gmail.com
+1 Universidade Federal do Espírito Santo, Vitória, ES, Brasil
+2 Centro Brasileiro de Pesquisas Físicas, Rio de Janeiro, RJ, Brasil
+3 Centro Federal de Educação Tecnológica Celso Suckow da Fonseca, Itaguaí, RJ, Brasil
+4 Centro de Pesquisa e Desenvolvimento Leopoldo Américo Migues de Mello (CENPES), 
+Rio de Janeiro, RJ, Brasil
+
+--- PAGE 2 ---
+582 J. L. Gonzalez et al.
+1 3
+1 Introduction
+Porous rocks are basically heterogeneous systems which are the basic components 
+of oil reservoirs, mineral deposits, soils, and so on [1]. Nuclear magnetic resonance 
+(NMR) is a powerful tool commonly used in the study of the geometry and physi-
+cal–chemical properties associated with the porous space within natural rocks. The 
+technique in essence explores the fact that the surface of the pores and the magnetic 
+properties of the system modify the relaxation rate and the diffusion properties of 
+the fluids within the pores. Studies with NMR provide information on the pore-size 
+distributions, surface to volume ratio of the pores, pore-throat distributions, fluid 
+typing, etc. [2, 3]. This information is often deduced from 
+T2 distributions (describ-
+ing the relaxation of the transverse magnetization), usually determined through 
+CPMG experiments [3, 4]. The characteristic time of the CPMG sequence is the 
+inter-echo spacing 
+tE between two adjacent echoes [3, 4].
+The interpretation of CPMG results depends on the comprehension of theoretical 
+models describing the physics behind T2 relaxation experiments. It is well estab-
+lished that for fluids within rock pores, there exist three independent physical mech-
+anisms involved in the 
+M xy relaxation. The bulk relaxation related to fluid interac-
+tions ( T2B ), a surface relaxation that takes into account the interactions of the fluid 
+with the pore surfaces ( T2S ), and a third one which considers the diffusion process in 
+the presence of magnetic field gradients ( T2diﬀ ). In principle, these three mecha-
+nisms act in parallel leading to the following expression for the relaxation rate 
+1
+T2
+= 1
+T2B
++ 1
+T2S
++ 1
+T2diﬀ
+ [3, 5]. Theoretical models have addressed the physics behind 
+the restricted diffusion in finite size pores, and the free-diffusion limit in the pres-
+ence of queryIs the word ’ihmomogenities’ spelled correctly throughout the article? 
+Please check and amend if necessary. magnetic ihmomogenities, yielding an expres-
+sion for the relaxation rate [3, 6–9], namely
+In Eq. 1, 
+/u1D70C is the surface relaxivity (in /u1D707m/s), S and V are the surface and volume of 
+the pores, respectively, /u1D6FE represents the gyromagnetic ratio, while G z is the magnetic 
+field gradient.
+According to the experimental conditions in CPMG experiments, three limit-
+ing regimes can be used to describe the M xy decay [8 –13]. The diffusion length 
+lD =
+/uni221A.s1
+D tE
+2 measures the typical length that a spin diffuses during an echo inter -
+val [9, 10]. The dephasing length lG =( D
+/u1D6FEG )1∕3 corresponds to an average distance 
+over which the spin accumulates a 2/u1D70B phase shift [9 –12], and finally a structural 
+length lP which can be associated with pore size lengths. Whenever lD is the low -
+est among these three characteristic lengths ( lD ≪ (lG , lP) ) then the spins can 
+move freely (free diffusion), leading to a magnetization relaxation related to the 
+third term in Eq.  1 [8]. If lP ≪ (lG , lD ) (small pores) the spins explore the whole 
+porous space many times during a time cycle, averaging out the magnetic field 
+variations, a regime usually identified as motional averaging regime (MAV ) [8 , 
+(1)
+1
+T2
+= 1
+T2B
++ /u1D70CS
+V + D (/u1D6FEG z tE )2
+12 .
+
+--- PAGE 3 ---
+583
+1 3
+Simulations of NMR Relaxation in a Real Porous Structure:…
+11, 14]. On the other hand, when lG ≪ (lP, lD ) (i.e., for large magnetic field varia-
+tions) the ensemble of spins loses the phase coherence during diffusion, and this 
+decoherence introduces a significant attenuation of the transverse magnetization. 
+For pores under this condition, the magnetization is not uniform in the whole 
+porous space. This asymptotic behavior is known as localization regime [8 –11].
+Often pore-size distributions are found through CPMG experiments by trans-
+forming relaxation time distributions into pore size distributions, assuming that 
+the dominant mechanism is the surface relaxation one. Depending on the experi-
+ment, this procedure can be questionable since sedimentary rocks show an intrin-
+sic distribution of internal magnetic fields within the porous space of rocks. This 
+local magnetic inhomogeneity is basically due to the contrast between the mag-
+netic susceptibilities of the fluid and the solid matrix [8 , 10], in addition to the 
+possible existence of magnetic impurities.
+In this sense, the interpretation of magnetic relaxation due to molecular diffu-
+sion in the presence of local non-uniform magnetic fields is a very complicated 
+problem. The principal difficulty in solving this issue is that a realistic descrip-
+tion of the variations of the magnetic field within natural rocks is not straight-
+forward as to be described by a simple phenomenological model. Note that two 
+samples can have similar average bulk susceptibilities (i.e., similar phases with 
+equal volume proportions), still showing different gradient distributions due to 
+different spatial distribution of the phases. In other words, local distributions of 
+solid phases within a rock can vary depending of their localization within the 
+rock; therefore, estimating these field distributions for the whole rock by simply 
+observing a local information seems to be a huge challenge. In principle, know -
+ing local fields implies to solve the Maxwell equations at the pore level within the 
+rock by considering spatial dependent susceptibilities [15]. Thus, any approach 
+to this problem can help understand the physics behind the 
+M xy relaxation in the 
+presence of internal magnetic gradients.
+Different studies in the last years have focused on the field distribution within 
+natural rocks and its influence on the transverse magnetization relaxation [8–11, 
+14–16]. In Ref. [15], internal field (and gradient) distributions were simulated based 
+on 2D-section of a sedimentary rock. The gradient distributions were single peak 
+with an average value around zero. These results evidenced the internal field is pro-
+portional to the applied external field and the susceptibility difference in the porous 
+media, being bounded inside a field interval. Also an embracing attempt to model 
+magnetic field heterogeneity at the pore space can be observed in [16]. The authors 
+solved Maxwell equations on meshes obtained directly from digital rocks using vol-
+ume averaged magnetic susceptibilities measured at magnetic fields usually explored 
+in NMR experiments. Their results captured some of the principal features observed 
+in magnetic gradient measurements, but the simulations did fail in observing large 
+gradients experimentally measured in rocks. All these results share common fea-
+tures, for example, the local fields are bounded by extreme values which are related 
+to the susceptibilities of the porous media, while at the same time evidence the dif-
+ficulty of the studied problem. So, as stated in [9], the absence of theoretical mod-
+els capable of reproducing intrinsic field variations at large scale can be eventually 
+avoided through the use of simulations or heuristic models.
+
+--- PAGE 4 ---
+584 J. L. Gonzalez et al.
+1 3
+Strong gradients (whatever be the cause) can lead to the emergence of the locali-
+zation regime (i.e., lG ≪ (lP, lD ) ), where the main mechanism governing the relaxa-
+tion of the magnetization is the strong dephasing between spins. The localization 
+regime occurs at magnetic gradients around tens of miliTesla per meter, which can 
+be easily obtained in scanners used in materials science and other areas [17]. Previ-
+ous studies suggest this regime is a generic feature of diffusive NMR [9, 17–19], 
+with evidences of a stretched-exponential decay of the overall magnetization for 
+well-defined pore geometries, such as slabs and cylindrical pores [19]. The analysis 
+of this asymptotic regime in natural porous rocks represents a huge challenge due 
+to the complex structure of the pore space in these systems. Thus, theoretical and 
+experimental studies of the localization regime are very important to interpret NMR 
+data in the presence of strong magnetic gradients.
+In this study, we have simulated the emergence of the localization regime on a 
+real pore structure obtained from X-ray microtomography images of a sedimentary 
+rock. In essence, CPMG experiments were simulated on a digital rock containing 
+a distribution of internal magnetic gradients. The novelty of our study lies in the 
+introduction of a real pore space as a suitable geometry to explore the localization 
+regime in CPMG experiments. We have also developed a new and simple method 
+that allows the introduction of a local field distribution inside the pore space. This 
+method is new and it incorporates some relevant physics associated with the pres-
+ence of internal fields inside porous geometries, as reported in the literature (see, 
+for example, reference [15]). Thus, in our simulations, local field distributions can 
+be used as control parameter to identify correlations between local magnetic field 
+gradients (microscopic approach) and macroscopic parameters that can be experi-
+mentally determined in NMR experiments.
+2 Results and Discussion
+The digital rock was obtained from /u1D707 CT images obtained on a sedimentary rock for-
+mation located in Brazil Northeast region, called Lagoa  Salgada. The used scanner 
+was a GE phoenix vjtomejx L 300 equipment, and the resolution of the images was 
+17.2 
+/u1D707m/pixels. The images were pre-processed with Matlab techniques and later 
+segmented through a k-means algorithm. This process provided a pore structure 
+(i.e., a digital rock) formed by a 3D matrix containing the solid and pore phases. It is 
+important to stress that the image processing workflow used in this work was aimed 
+to obtain a somewhat realistic pore representation of the rock to be used in our simu-
+lations. Thus, we were not concerned with small differences between the obtained 
+pore representation and the real porous geometry within the rock since the unique 
+goal was to afford a realistic pore representation resembling the actual porous struc-
+ture found within natural rocks. Details regarding the segmentation process used in 
+this work can be found in Ref. [20], while rigorous processing workflows of 
+/u1D707 CT 
+images are discussed in [21].
+Regarding the digital rock, the resolution of the /u1D707 CT images imposes limitations 
+to the size of the pores, i.e., the digital rock does not contain pores with sizes smaller 
+than the 
+/u1D707 CT resolution. Although this represents a limitation, the simulations 
+
+--- PAGE 5 ---
+585
+1 3
+Simulations of NMR Relaxation in a Real Porous Structure:…
+capture the magnetic relaxation occurring inside large-size pores that are crucial for 
+the flow of fluids since small pores can retain water and other fluids due to their 
+high capillary pressures. In this work, pores were identified with clusters of voxels 
+(i.e., interconnected voxels identified with empty space inside the images) with sizes 
+larger than a cutoff, which was taken as equal to five voxels. This cutoff was used 
+to disregard possible imperfections inside the digital rock arising during the image 
+processing (for example, the existence of isolated voxels identified as pores). It is 
+worth also mentioning that, in our simulations, we have slightly varied the value of 
+the cutoff and the results were not modified. Therefore, our digital rock was formed 
+by large-size pores (i.e., clusters of interconnected empty voxels) including a large 
+cluster that percolates through the whole sample.
+Our first objective was the development of a phenomenological method to intro-
+duce a realistic intrinsic magnetic field distribution in the context of a computational 
+simulation. Local magnetic field distributions within natural rocks show some gen-
+eral features commonly described in theoretical and experimental approaches to this 
+problem. In fact, we have followed the results reported in [15], where internal field 
+calculations were performed on a Berea sandstone sample by numerically solving 
+local Maxwell equations. In that work, the internal field distribution when scaled to 
+a parameter 
+/u1D6FC=
+B z−B 0
+/u1D6E5/u1D712B 0
+ showed a single peak at around /u1D6FC= 0 , being also bounded in 
+the interval /u1D6FC∈ (− 1, 1) [15]. In this expression, B0 is the external applied field, 
+while /u1D6E5/u1D712 represents the difference between the magnetic susceptibilities of the water 
+and the solid matrix. Put differently, this means that the local field is proportional to 
+the applied external field B0 and also to /u1D6E5/u1D712 , being bounded by maximum and mini-
+mum fields [15]. Note that the susceptibility of the solid matrix ( /u1D712ROCK ) should be 
+considered as an average value, possibly containing contributions from different 
+phases.
+Following these ideas, in this work the z-component of the internal magnetic 
+induction within the digital rock was randomly introduced (assuming a fully water-
+saturated rock) by considering a bounded statistical distribution for the dimension-
+less parameter 
+/u1D6FC=
+B z−B 0
+/u1D6E5/u1D712B 0
+ . Our ansatz was to simulate /u1D6FC through a beta distribution 
+peaked at /u1D6FC= 0 , which means /u1D6FC= 2/u1D6FC0 (Beta(/u1D6FD1 ,/u1D6FD2 )−1∕2) . The shape parameters 
+were chosen as /u1D6FD1 = /u1D6FD2 (skewness = 0) turning the distribution of the /u1D6FC parameter 
+almost symmetric around /u1D6FC= 0 . Note that, with this choice, the internal field 
+B z = B 0(1 + /u1D6FC/u1D6E5/u1D712) captures the principal features reported in reference [15], in par -
+ticular, the higher /u1D6E5/u1D712 the higher is B z . The parameter /u1D6FC0 determines the bounded 
+limits for B z , while the parameters /u1D6FD1 = /u1D6FD2 control the width of the distribution. It is 
+to be noted that a larger heterogeneity in the composition of a particular rock leads 
+to a wider distribution of internal fields, and this can be incorporated in our model 
+through an appropriated choice of 
+/u1D6FD1 and /u1D6FD2.
+To introduce an internal field (z-component) distribution following the method 
+previously described, a tetrahedral mesh was constructed inside the whole digi-
+tal rock, where a random 
+/u1D6FC value was assigned to each point. These /u1D6FC values were 
+randomly generated from a /u1D6FD distribution with specific parameters ( /u1D6FC0 = 1 and 
+/u1D6FD1 ). It is important to stress that the choice of /u1D6FC0 = 1 means that the maximum 
+field is bounded by the value /u1D6E5/u1D712B0 [8, 9]. In the simulations, we took B0 = 0.052 
+
+--- PAGE 6 ---
+586 J. L. Gonzalez et al.
+1 3
+T (currently explored in commercial logging tools) and the water susceptibility as 
+/u1D712WATER =− 9.05 10−6 (SI) [22]. The rock susceptibility ( /u1D712ROCK ) was considered as 
+a free parameter to be chosen according to the conditions of our simulations (for 
+example, rock composition). In essence, this method assigned a field B z to each point 
+of the mesh. This grid of fields allowed a direct interpolation (using the interp3 com-
+mand introduced in MatLab) of the local magnetic field at any position inside the 
+digital rock. Note that, since in this work NMR experiments were simulated using a 
+discrete random walk algorithm (of spins), this approach allowed to associate a local 
+field with all spins during their random displacements inside the whole pore space.
+In summary, local magnetic fields (quoted by a maximum value) were randomly 
+assigned to the points of a tetrahedral mesh (with resolution lower than the voxel 
+size) inserted in the whole digital rock. From these magnetic fields associated with 
+the mesh points, a local field was determined at any position inside the digital rock. 
+It is to be noted that a more realistic field distribution should consider different max-
+imum gradients for each pore, depending on the pore size. This point is very impor -
+tant and surely a future study in this line would provide important clues regarding 
+the effects of internal fields on NMR experiments. Another point that deserves fur -
+ther study concerns the possible existence of intra-pore correlations of the local 
+fields, which are not completely captured by the method used in this work, where 
+random local fields are associated with different mesh points within the voxels; the 
+effects of these correlations on the simulations of the relaxation behavior of the 
+spins within the porous space are to be addressed in future investigations.
+According to theoretical models, internal field-strength gradients ( 
+G z ) control the 
+diffusion-induced relaxation of the transverse magnetization during NMR experi-
+ments [3]. Thus, internal magnetic gradients inside the porous space were calculated 
+from the local 
+B z distributions previously simulated. To this end, random points were 
+positioned within the pore space, and the magnetic gradients (z-direction) were cal-
+culated using finite central differences, with spacing equal to the spin displacement 
+used during the random walk. Three examples of 
+G z distributions inside the porous 
+space can be observed in Fig.  1 (left part). These gradient distributions were com-
+puted from B z distributions that were obtained with the same /u1D712ROCK = 10−4 [10, 23], 
+but using different /u1D6FD1 = /u1D6FD2 parameters, as can be observed in the legend of the figure 
+(right part). It should be stressed that not only the simulated distributions of internal 
+magnetic gradients ( 
+G z ) qualitatively resemble other distributions which have been 
+experimentally and/or indirectly determined, as also the calculated gradients are of 
+the same order as those commonly reported in the literature [8, 15, 22, 24]. Thus, 
+in essence, our method allows to introduce a local 
+G z distribution using an averaged 
+magnetic susceptibility of the solid matrix. Note that in spite of the simplicity of the 
+method, it can be very useful to quantify how a magnetic field heterogeneity can 
+influence the relaxation of the transverse magnetization.
+The distributions of internal gradients shown in Fig.  1 can be compared with 
+gradient distributions measured at the same field ( 
+B0 = 0.05 T) in sedimentary 
+rocks [9 , 16]. The distributions in Fig.  1 are unimodal (reflecting gradients in 
+the bulk of the pores) in agreement with [9 ] (see Fig.  3a in this reference), while 
+those reported in [16] are multi-modal. It is important to note that, although 
+the model allows the introduction of maximum gradients of the same order of 
+
+--- PAGE 7 ---
+587
+1 3
+Simulations of NMR Relaxation in a Real Porous Structure:…
+magnitude (tens of Tesla per meter) as those reported in references [9 , 16], in 
+this work, we have assumed a maximum value of 1 T/m. However, a more real-
+istic gradient distribution (yielding larger maximum gradients) would require the 
+inclusion of heterogeneous magnetic susceptibilities, as pointed out in [16]. The 
+comparison indicates that the gradient distributions simulated in this study are in 
+reasonable concordance with experimental results obtained in natural rocks.
+The simulations were performed on a digital rock (pore representation) with a 
+volume of approximately 
+2.6 mm 3 (resolution of 17.2/u1D707m/voxel ). The simulations 
+of the transverse relaxation ( M xy ) were performed through a discrete random-
+walk algorithm of diffusive spins as reported in different studies [11, 22, 25–28]. 
+Initially, spins were randomly placed inside the whole pore space formed by vox-
+els forming clusters with sizes above five voxels. This situation simulates a sam-
+ple fully saturated with water, i.e., a uniform initial spin magnetization. At each 
+time step (taken as 
+/u1D6E5t= 10 /u1D707s), each spin was dislocated randomly a distance 
+l =
+√
+6 D 0 /u1D6E5t towards one of their first six neighbors (i.e., along the coordinate 
+axes). In the last expression, D0 = 2.5 10−9m 2∕s represented the diffusion coeffi-
+cient of bulk water. If the new position for a particular spin was inside the solid 
+matrix (i.e., if the spin found a pore-solid interface), then the walker (spin) was 
+killed with probability 
+P = /u1D70Cl
+AD 0
+ , where /u1D70C is the surface relaxivity (in /u1D707m/s) and 
+A ≈ 1 [ 29], otherwise the walker returned to its last position. At each time step 
+( /u1D6E5t ), each spin accumulated a phase difference /u1D6E5/u1D6F7= /u1D6FE/u1D6E5t(B z − B 0) , where /u1D6FE repre-
+sented the gyromagnetic ratio for protons and B z was the interpolated magnetic 
+field experimented by each spin at its local position. Periodic boundary condi-
+tions were used on the spin ensemble during the random walk to simulate bulk 
+-100 -500 50 100
+-500
+0
+500
+1000
+1500
+2000
+2500
+3000
+3500
+4000
+4500
+0.00 .5 1.01 .5 2.02 .5 3.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0β1 =2
+β1 =8
+β1 =1 4
+Counts
+G( G/cm)
+M(t)/M(0)
+t( s)
+Fig. 1 Left: internal magnetic gradient distributions simulated using the proposed model. Right side: 
+corresponding simulated NMR time-domain signals to each G z curve (same color) (color figure online)
+
+--- PAGE 8 ---
+588 J. L. Gonzalez et al.
+1 3
+conditions. Our simulation attempted to reproduce a CPMG experimental 
+sequence assuming a characteristic time between /u1D70B pulses tE = 2/u1D70F , or equivalently 
+a time 2/u1D70F between consecutive echoes. This experimental sequence was simulated 
+by inverting the phases of all spins during the simulation whenever the elapsed 
+time satisfied the condition 
+t = n/u1D70F with n odd, while for n even an echo signal was 
+recorded with intensity given by
+In the last equation, M(0) is the initial magnetization (initial number of walkers); 
+T2B (= 3.5 s) represents the spin-spin relaxation time of the pore fluid (bulk relaxa-
+tion); N (n/u1D70F) is the number of surviving walkers (spins) at time t = n/u1D70F and /u1D6E5/u1D6F7i(n/u1D70F) 
+describes the phase accumulated by the spin i at time t = n/u1D70F . Note that in essence, 
+our results basically depend on the surface relaxivity ( /u1D70C ) and the averaged magnetic 
+susceptibility ( /u1D712ROCK ), both being intrinsic properties of the rock. The results also 
+depend on the characteristic time of the experiment ( tE ).
+On the right side of Fig.  1 are shown some NMR simulations (obtained by the 
+method described above) using the corresponding gradient distributions appearing 
+on the left side of the figure. In these simulations, tE = 210−3 s, while the G z distri-
+butions were introduced by taking /u1D712ROCK = 10−4 and /u1D712WATER =− 9.05 10−6 [10, 22, 
+23]. Also, the relaxivity was taken as /u1D70C= 30 /u1D707m/s [30]. At first glance, it is clear 
+that a direct correlation exists between the relaxation rate and the heterogeneity of 
+the distributions, i.e., the broader is the 
+G z distribution (lower /u1D6FD1 ), the faster is the 
+M xy relaxation. This is an expected result since in theory the diffusion-induced relax-
+ation rate ( 1∕T2 diﬀ ) should be directly proportional to the square of the strength of 
+the magnetic field gradient, i.e., 1
+T2 diﬀ
+=
+D (/u1D6FEG z tE )2
+12 [3].
+Another interesting point regarding NMR experiments is that molecular diffusion 
+in a rock occurs inside pores and also between pores (interpore coupling). Usually, 
+theoretical considerations are developed by considering the weak coupling regime, 
+where the interpore diffusion is neglected while the overall decay in the transverse 
+magnetization is controlled by relaxation processes simultaneously occurring in iso-
+lated pores with different sizes. Even if this scenario might not be strictly applicable 
+to natural rocks, it has been often used to extract information in NMR experiments 
+[31]. In our study, the segmentation of the 
+/u1D707 CT images provided a digital rock con-
+taining an ensemble of isolated pores (weak coupling regime). Each isolated pore 
+was formed by a particular group of interconnected voxels, where each voxel shares 
+one face with at least another voxel of the same pore. Thus, our NMR simulations 
+reproduced the relaxation of the magnetization under the weak coupling regime.
+In this work, we also have performed NMR simulations considering different 
+inter-echo spacings (i.e., different 
+tE ). The simulations were done using a constant 
+relaxivity parameter /u1D70C= 30 /u1D707m/s and also /u1D712ROCK = 10−4 . The porous space was 
+considered as formed by clusters (i.e., pores) with sizes above a critical threshold 
+of five voxels. A field distribution was introduced within the digital rock by using 
+parameters 
+/u1D6FD1 = /u1D6FD2 = 8 and /u1D6FC0 = 1 . It should be noted that this microscopic field 
+(2)M (t= n/u1D70F)
+M (0) = exp
+− n/u1D70F
+T2B
+1
+N (n/u1D70F)
+N (n/u1D70F)/uni2211.s1
+i=1
+cos{/u1D6E5/u1D6F7i(n/u1D70F)}.
+
+--- PAGE 9 ---
+589
+1 3
+Simulations of NMR Relaxation in a Real Porous Structure:…
+distribution (and its corresponding G z distribution) was kept unaltered during all 
+simulations at the different tE values. This reproduces an experimental situation in 
+which a fully saturated rock sample is sequentially analyzed under similar condi-
+tions, but at different inter-echo spacings.
+In Fig. 2 are shown some of the the M xy(t) relaxation decay signals and their cor-
+responding T2 distributions calculated for each M xy(t) curve (same color). The inter-
+echo spacing was the unique modified parameter, with values ranging from hundreds 
+of 
+/u1D707s up to ms. The T2 distributions were calculated by implementing a Tikhonov 
+regularization algorithm as described in [32]. In this algorithm, a penalty function is 
+imposed on the recovered solution aiming to stabilize the numerical inversion prob-
+lem used to obtain the 
+T2 distribution. This penalty correction is controlled by a reg-
+ularization parameter /u1D706 . The optimal value of /u1D706 was automatically found using the 
+L-curve method. In this approach, the optimal /u1D706 is located close to the corner (i.e,. 
+maximum curvature) of the curve that is obtained from the parametric plot (log–log 
+plot) of the residual norm against the solution norm. Details on the method can be 
+found in reference [32] and references therein. It can be observed in the plots shown 
+in Fig.  2 that the 
+T2 distributions are shifted to lower values as tE is increased. In 
+principle, this indicates that longer echo spacings in the simulations allow a greater 
+influence on the spin ensemble of the magnetic inhomogeneities (diffusive attenua-
+tion) and/or pore surfaces, causing a faster relaxation of 
+M xy.
+To shed some light on how the local gradient distribution determines the dynam-
+ics of the spins ensemble we have characterized each T2 distribution by its logarith-
+mic mean, defined as T2LM = 10
+∑ A0 Log(T2)∑ A0 , where A0 represents the amplitudes 
+observed in Fig. 2 for each T2 value. The relaxation rate defined as 1
+T2LM
+ is plotted as a 
+0.00 .5 1.01 .5 2.02 .5 3.0
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0 tE =0 .2 ms
+tE =0 .8 ms
+tE =1 .6 ms
+tE =2 .0 ms
+tE =3 .2 ms
+tE =6 .0 ms
+M(t)/M(0)
+t( s)
+0.01 0.11
+0.00
+0.02
+0.04
+0.06
+0.08
+0.10
+Amplitude
+T2(s)
+Fig. 2 NMR simulations for different inter-echo spacings (left) and their correspondent T2 distributions 
+(right side)
+
+--- PAGE 10 ---
+590 J. L. Gonzalez et al.
+1 3
+function of tE
+2 in Fig. 3. The graph includes a linear fit ( R2 = 0.992 ) of the data for 
+low tE
+2 values, while the inset shows a semi log plot of the same data. Qualitatively, 
+these results evidence the existence of a linear behavior of T2LM up to a certain criti-
+cal value tEc
+2 from which the behavior changes to some type of logarithmic 
+dependence.
+To obtain information from Fig.  3, it is necessary to explore the different relaxa-
+tion regimes usually discussed in the literature. It is well established that for fluids 
+occupying the porous space of rocks there exist three independent physical mecha-
+nisms determining the relaxation of the transverse magnetization. The bulk relaxa-
+tion quantifies bulk fluid interactions ( 
+T2B ); a surface relaxation takes into account 
+the interactions of the fluid with the surface of the pores ( T2S ); and a third one that 
+considers the diffusion process in the presence of magnetic field gradients ( T2diﬀ ) 
+[3]. Theoretical models have addressed the physics behind the restricted diffusion in 
+finite-size pores, and the free-diffusion limit in the presence of magnetic ihmomog-
+enities, yielding Eq. 1 for the relaxation rate [3].
+The main mechanism that determines the 
+M xy relaxation depends on the shortest 
+characteristic length associated with the different processes in Eq.  1. Considering 
+spherical shape pores, and using those with smaller sizes (i.e., 5 voxels and a resolu-
+tion of 
+17.2 /u1D707m/pixel), we obtain lS ≈ 18.2 /u1D707 m. In turn, since lG ∼ 1
+G 1∕3
+z
+ then using 
+the largest gradient of the distribution used in our simulations G zmax ≃ 0.6 T/m (see 
+Fig. 1), we can estimate lGmin =( D 0
+/u1D6FEG zmax
+)1∕3 ≃ 2.4 /u1D707 m. On the other hand, the diffu-
+sion length lD =
+/uni221A.s1
+D tE
+2 depends on tE , and it quantifies an average distance that a 
+spin diffuses during the echo time. Thus, according to our conditions, whenever the 
+0.00000 .00010 .00020 .0003
+0
+10
+20
+30
+40
+50
+60
+1E-8 1E-7 1E-6 1E-5 1E-4
+0
+10
+20
+30
+40
+50
+1/T2LM (s
+-1
+)
+tE
+2
+(s
+2
+)
+1/T2LM (s
+-1
+)
+tE
+2
+(s
+2
+)
+Fig. 3 Main plot: relaxation rate ( 1∕T2LM ) as a function of tE
+2 . Inset: same data in semi-log plot. Straight 
+lines (red and blue lines) represent linear fits of the data in different regions (for low and high tE values, 
+respectively) (color figure online)
+
+--- PAGE 11 ---
+591
+1 3
+Simulations of NMR Relaxation in a Real Porous Structure:…
+condition lD < lG is met, then the NMR simulations reproduce well the relaxation 
+processes mainly occurring in the free-diffusion limit. In our simulations, as tE 
+increases lD also increases approaching lGmin . Thus, we can define a critical inter-
+echo spacing (identified as tEc ) at which the condition lD (tEc )=l Gmin is verified. This 
+condition allows finding the critical threshold tEc = 2 lGmin
+2
+D ≃ 5.0 10−3 s . Below tEc 
+the results of the simulations can be analyzed under the frame of the free-diffusion 
+model, while above it, localization effects should influence the results.
+In Fig.  3, the linear behavior of the data can be observed for tE ≤ 4.8 10−3 s 
+( tE
+2 ≤ 2.3 10−5 s 2 ), which is just around tEc . Thus, the linear behavior in this low-
+tE region can be analyzed considering the free-diffusion regime, i.e., the third 
+term in Eq.  1. The red line in Fig.  3 represents a linear fit of the data for tE ≤ tEc . 
+This fit provided the linear and angular coefficients a =( 1.6 ± 0.2) s−1 and 
+b =( 6.8± 0.2)105 s−3 , respectively.
+Taking into account the expression in Eq. 1 and the angular coefficient b = 6.8 105 
+s −3 , in addition to D0 = 2.2969 10−9 m 2/s, and the gyromagnetic ratio for protons 
+/u1D6FE= 2.67 108 rad T −1 s−1 (as used in our simulations), we have estimated an average 
+magnetic gradient ⟨G z⟩ = 0.22 T/m , which is a reasonable effective gradient accord-
+ing to the field distribution used in the simulation (see Fig. 1, with /u1D6FD= 8).
+On the other hand, by considering the linear coefficient a = 1.6 s−1 ; /u1D70C= 30 /u1D707m/s 
+and T2B = 3.5 s (as used in our simulations), we obtain (S∕V )P = 4.4 10−2/u1D707m −1 . The 
+parameter (S∕V )P represents the surface to volume ratio of the pores. To verify these 
+results, the two-point correlation function (or autocorrelation function) was calculated 
+from the digital rock model used in our simulations [33], as shown in Fig. 4. The two-
+point autocorrelation function for the phase pore, identified as 
+S2(r) , represents the 
+probability that two random points separate by a distance r be pores. If the porous 
+medium is statistically homogeneous and isotropic (like the rock explored here), S2(r) 
+does not depend on the relative orientation of the vector connecting both points, and it 
+is invariant under a translation operation [33]. One interesting property of this statisti-
+cal descriptor is given by 
+{ dS 2(r)
+dr }r=0 =− s
+4 , where s = SP
+VT
+ represents the surface to vol-
+ume of the pores. Thus, it is possible to use the S2(r) function to find (S∕V )P by 
+Fig. 4 Two-point autocorrela-
+tion function computed on the 
+digital rock. The red line marks 
+the squared of the porosity 
+(color figure online)
+0 200 4006 00 800
+0.00
+0.02
+0.04
+0.06
+0.08
+0.10
+0.12
+0.14
+0.16
+S2
+r( µm)
+[dS2/dr]r=0 =- 1.61 10
+-3
+µm
+-1
+
+--- PAGE 12 ---
+592 J. L. Gonzalez et al.
+1 3
+rewriting { dS 2(r)
+dr }r=0 =− 1
+4
+SP
+VP
+VP
+VT
+ , where /u1D719= VP
+VT
+ is the porosity of our digital rock. 
+Therefore, ten S2(r) curves were computed and an average for the first derivative in the 
+limit r → 0 (linear behavior) was calculated. This value was 
+{ dS 2(r)
+dr }r=0 =− 1.6 10−3/u1D707m −1 , from which it was obtained (S∕V )P = 5.05 10−2/u1D707m −1 , 
+a value similar to the one obtained from the analysis of Fig. 3.
+Regarding the high-tE regime shown in Fig. 3, it is to be stressed that as tE increases 
+lD turns to be larger than lG , but still significantly lower than lS . This condition indi-
+cates that a new regime is dominating the M xy decay, specifically the localization limit 
+(non-homogeneous magnetization in the pores). Nevertheless, in this asymptotic limit 
+theoretical models indicate T2 does not depend on the inter-echo spacing, which does 
+not agree with the results shown in Fig.  3. Thus, we suggest that the second linear 
+regime observed in Fig. 3 for higher tE values corresponds to a transition between two 
+asymptotic limits. This idea is not new; in fact, it has been previously suggested, where 
+the existence of a preasymptotic localization regime with irrelevant surface relaxation 
+could lead to some dependence of the relaxation rate on the inter-echo spacing [9]. As 
+stated in the same work [9], no theoretical model has been developed to describe this 
+physical situation.
+Thus, we assume that the non-linear behavior observed in Fig. 3 for 
+tE ≥ tEc can be 
+associated with the non-homogeneity of bounded magnetic fields within the sample. 
+This means that whichever the position within the porous space, there exists a different 
+local gradient affecting the spins that diffuse in this region. From a physical viewpoint, 
+this idea means that the temporal dependence of 
+M xy should be controlled by the local 
+details of the magnetic structure of the rock (i.e., averaged local gradients). Therefore, 
+at 
+tEc spins at local regions within the pores (away from the pore walls) that experi-
+ence the maximum effective gradient of the distribution completely dephase, while the 
+remaining spins proceed to relax under the free-diffusion limit. In other words, the sig-
+nal is formed by isolated pockets of surviving magnetization [18]. As 
+tE increases, a 
+higher proportion of spins diffuse in regions where they loss completely their coher-
+ence (i.e., lG < lD ), while other spins remain in pockets with small effective gradients. 
+These spin bundles contribute to the dependence between the relaxation rate and tE
+2 
+observed in Fig. 3.
+Any quantitative analysis for the high-tE data in Fig. 4 requires, in principle, an ana-
+lytical model for the M xy decay in the preasymptotic localization regime. In this sense, 
+the lack in the literature of theoretical models in this region turns difficult any quantita-
+tive conclusion concerning the observed behavior. Nevertheless, the data in the inset of 
+Fig. 3 suggest, at first sight, a logarithmic dependence between the relaxation rate and 
+the inter-echo spacing. Based on this we can propose an heuristic model for this transi-
+tion region according to
+In Eq. 3, the non-dimensional constants 
+𝛼1 =
+G z
+G zmax
+< 1 and /u1D6FC2 are free parameters of 
+the equation. Note that for tE ≪ tEc we have ln{1 + /u1D6FC2( tE
+tEc
+)2}≈ /u1D6FC2( tE
+tEc
+)2 , from which 
+the classic expression 1
+T2
+∝ D/u1D6FE2G z
+2tE
+2 , valid in the free-diffusion limit, is recovered.
+(3)1
+T 2
+= /u1D6FC1
+tEc
+ln{1 + /u1D6FC2
+/parenleft.s3tE
+tEc
+/parenright.s32
+}.
+
+--- PAGE 13 ---
+593
+1 3
+Simulations of NMR Relaxation in a Real Porous Structure:…
+In Fig 5, we show the same data previously shown in Fig.  3, but including also a 
+fit with the proposed model (Eq.  3). As it can be observed there exists a reasonable 
+match between the data and the model, at least for the explored details in our simu-
+lations. Still, we stress that this model in principle does not indicate or points to any 
+particular physical mechanism as the responsible for the transverse magnetization 
+relaxation, and further work (including both experiments and simulations) is neces-
+sary to clarify our findings in this transition region.
+It should be highlighted that the analysis of NMR data in the framework of the 
+localization regime can be crucial to determine accurate petrophysical properties of 
+reservoir rocks [18]. Our simulations clearly indicate that 
+T2 distributions can be sig-
+nificantly shifted towards lower values, depending on the existence of appreciable 
+magnetic field gradients inside the rocks. Thus, in the case of rocks with expressive 
+magnetic susceptibilities, parameters of the pore structure commonly determined 
+from 
+T2 distributions (such as pore-size distributions and surface to volume ratios, 
+for example) can be misinterpreted if these gradients are not properly considered. 
+This can induce to wrong results for the estimation of macroscopic parameters, for 
+example, porosity or permeability [18]. Concerning this point, an appropriate analy-
+sis of 
+T2 distributions, considering the physics behind the localization regime, can 
+shed some light on the magnetic structure of porous rocks. In this sense, the analysis 
+of statistical features of 
+T2 distributions (logarithmic mean, modal value, etc.), in 
+addition to other experimental parameters (for example, tEc in Fig.  5) can help to 
+quantify internal gradients and consequently magnetic susceptibilities. Ultimately, 
+this can be an indicative of the possible existence of magnetic phases inside the 
+rocks, which can be very useful to classify natural rocks.
+Finally, it would be interesting to investigate specific aspects related to the 
+transition between the pre-asymptotic and localization regimes. In this line, the 
+02 468 10 12
+0
+10
+20
+30
+40
+50
+1/T2LM (s
+-1
+)
+t
+2
+E /t
+2
+EC
+Fig. 5 Same data in Fig. 3 plotted as a function of tE
+2
+tEc 2 . The blue curve is a fit with Eq.  3 and parameters: 
+tEc = 4.8 10−3 s ; /u1D6FC1 = 0.08 ; /u1D6FC2 = 1.81 (color figure online)
+
+--- PAGE 14 ---
+594 J. L. Gonzalez et al.
+1 3
+simulations could be reproduced on simple porous geometries (spherical pores, for 
+example) to separate the influence of features associated with the reconstruction of 
+the digital rock.
+3 Conclusions
+In summary, we have simulated the transverse magnetization relaxation in a real 
+porous structure obtained from X-ray microtomography images of a sedimentary 
+rock. The simulations included a local distribution of magnetic fields within the 
+porous geometry. The field distribution was simulated through a statistical approach, 
+which introduced some properties commonly reported in other studies related to the 
+presence of magnetic non-homogeneities in natural rocks. Still, the simulations were 
+conducted under particular conditions assuming that the relaxation of the transverse 
+magnetization was mainly associated with diffusion processes occurring in the pres-
+ence of strong magnetic gradients. Our results show a striking influence of the mag-
+netic gradient distribution on the relaxation rate (characterized by the logarithmic 
+mean of the 
+T2 distribution). The relaxation rate depends linearly on the square of 
+the inter-echo spacing at low values (free-diffusion regime), while this dependence 
+turns to be somewhat logarithmic for high 
+tE values. This high-tE regime was associ-
+ated with a pre-asymptotic localization regime previously suggested in the literature. 
+Lastly, a phenomenological model was used to fit the data in all range of 
+tE values 
+simulated in this work. Our work points out to the importance of exploring this pre-
+asymptotic relaxation regime, which can be experimentally investigated in future 
+work.
+Acknowledgements This work was made possible by cooperation agreement between CENPES PETRO-
+BRAS and CBPF (cooperation agreement 5850.0106789.18.9).
+References
+ 1. M. Sahimi, Rev. Mod. Phys. 65, 1393 (1993)
+ 2. Y.Q. Song, N. J. Phys. 14, 055017 (2012)
+ 3. G.R. Coates, L. Xiao, M.G. Prammer, NMR Logging Principles and Applications (Halliburton 
+Energy Services, Gulf Publishing Company, Houston, 1999)
+ 4. H.Y. Carr, E.M. Purcell, Phys. Rev. 94, 630 (1954)
+ 5. W.E. Kenyon, Log Anal. 38, 21 (1997)
+ 6. K.R. Brownstein, C.E. Tarr, Phys. Rev. A 19, 2446 (1979)
+ 7. P. Bendel, J. Magn. Reson. 86, 509 (1990)
+ 8. M.D. Hurlimann, J. Magn. Reson. 131, 232 (1998)
+ 9. J. Mitchell, T.C. Chandrasekera, M.L. Johns, L.F. Gladden, E.J. Fordham, Phys. Rev. E 81, 026101 
+(2010)
+ 10. D. Grombacher, E. Fay, M. Nordin, R. Knight, Geophysics 81, EN43 (2016)
+ 11. R.M.E. Valckenborg, H.P. Huinink, J.J. van der Sande, K. Kopinga, Phys. Rev. E 65, 021306 (2002)
+ 12. M.D. Hurlimann, K.G. Helmer, T.M. de Swiet, P.N. Sen, C.H. Sotak, J. Magn. Reson. 113, 260 
+(1995)
+ 13. P.R. Connolly, S.J. Vogt, S. Iglauer, E.F. May, M.L. Johns, Water Resour. Res. 53, 7917 (2017)
+ 14. L.J. Zielinski, P.N. Sen, J. Magn. Reson. 147, 95 (2000)
+ 15. Q. Chen, A.E. Marble, B.G. Colpitts, B.J. Balcom, J. Magn. Reson. 175, 300 (2005)
+
+--- PAGE 15 ---
+595
+1 3
+Simulations of NMR Relaxation in a Real Porous Structure:…
+ 16. P.R.J. Connolly, W. Yan, D. Zhang, M. Mahmoud, M. lVerrall, M. Lebedev, S. Iglauer, P.J. Metaxas, 
+E.F. May, M.L. Johns, J. Petrol. Sci. Eng. 175, 985 (2019)
+ 17. R. Valiullin, ed., Diffusion NMR of Confined Systems. Fluid Transport in Porous Solids and Hetero-
+geneous Materials (RSC Publishing, Cambridge, 2016)
+ 18. E.J. Fordham, J. Mitchell, Microporous Mesoporous Mater. 269, 35 (2018)
+ 19. N. Moutal, K. Demberg, D. Grebenkov, T.A. Kuder, J. Magn. Reson. 305, 162–174 (2019)
+ 20. J.L. Gonzalez, E.L. de Faria, M.P. Albuquerque, M.P. Albuquerque, C.R. de Bom, J.C.C. Freitas, 
+C.W. Cremasco, M.D. Correia, J. Petrol. Sci. Eng. 166, 906 (2018)
+ 21. S. Schluter, A. Sheppard, K. Brown, D. Wildenschild, Water Resour. Res. 50, 3615 (2014)
+ 22. C.H. Arns, T. AlGhamdi, J.-Y. Arns, N. J. Phys. 13, 015004 (2011)
+ 23. D.A. Clark, D.W. Emerson, Explor. Geophys. 22, 547 (1991)
+ 24. B. Sun, K.J. Dunn, Phys. Rev. E 65, 051309 (2002)
+ 25. K.S. Mendelson, Phys. Rev. B 41, 562 (1990)
+ 26. M. Leibig, J. Phys. A 26, 3349 (1993)
+ 27. J. Finjord, A. Hiorth, H. Unn, S.M. Skjæveland, Transp. Porous Med. 69, 33 (2007)
+ 28. J. Guo, R. Xie, Y. Zou, Y. Ding, J. Geophys. Eng. 13, 285 (2016)
+ 29. D.J. Bergman, K.J. Dunn, L.M. Schwartz, P.P. Mitra, Phys. Rev. E 51, 3393 (1995)
+ 30. E. Lucas-Oliveira, A.G. Araujo-Ferreira, W.A. Trevizan, C.A. Fortulan, T.J. Bonagamba, J. Magn. 
+Reson. 292, 16 (2018)
+ 31. C.H. Arns, A.P. Sheppard, R.M. Sok, M.A. Knackstedt, Petrophysics 48, 202 (2007)
+ 32. I.J. Day, J. Magn. Reson. 211, 178 (2011)
+ 33. S. Torquato, Annu. Rev. Mater. Res. 32, 77 (2002)
+Publisher’s Note Springer Nature remains neutral with regard to jurisdictional claims in published 
+maps and institutional affiliations.

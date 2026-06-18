@@ -1,0 +1,410 @@
+[
+  {
+    "id": "short_t2_dominant",
+    "name": "短 T2 主峰或短 T2 面积占比高",
+    "triggers": [
+      "main_peak_ms < 10",
+      "short_fraction high",
+      "spectrum shifts to shorter T2",
+      "simulated decay becomes faster in small pores"
+    ],
+    "explanation": "优先解释为表面弛豫增强、小孔/高表面积体积比、或受限扩散导致的有效弛豫时间缩短。若样品存在磁化率差异或 echo spacing 较长，也要检查内部梯度造成的附加去相干。",
+    "citations": [
+      "BrownsteinTarr1979",
+      "MullerPetke2015DiffusionRegimes",
+      "Mohnke2015TriangularPores",
+      "Keating2012NMRAssumptions",
+      "Dunn2002PorousMediaNMR"
+    ],
+    "caution": "不能只凭短 T2 就断言孔径小；表面弛豫率、扩散区制、内部梯度和数据采样都会影响峰位。",
+    "report_sentence": "短 T2 增强通常支持小孔或高表面积/体积比导致表面弛豫增强的解释，但该判断应结合扩散区制和内部梯度影响共同评估 [@BrownsteinTarr1979; @MullerPetke2015DiffusionRegimes]."
+  },
+  {
+    "id": "long_t2_tail",
+    "name": "长 T2 尾部或长 T2 面积占比高",
+    "triggers": [
+      "long_fraction high",
+      "tail extends > 1000 ms",
+      "peak near upper T2 bound"
+    ],
+    "explanation": "长 T2 可指示更弱表面弛豫、更大孔隙或更自由流体；但如果峰贴近反演上限，可能是 T2 搜索范围、噪声或正则化造成的边界效应。",
+    "citations": [
+      "Whittall1991NNLS",
+      "Coates1999NMRLogging",
+      "Keating2012NMRAssumptions"
+    ],
+    "caution": "当峰位靠近 t2_max_ms 时，先把它标为边界/不稳定信号，不要直接解释为真实超长孔隙组分。",
+    "report_sentence": "长 T2 组分可与较弱表面弛豫或更自由流体有关，但若峰贴近反演搜索上限，应同时考虑逆问题边界效应和正则化敏感性 [@Whittall1991NNLS; @Coates1999NMRLogging]."
+  },
+  {
+    "id": "broad_or_merged_peaks",
+    "name": "多个预期孔群变成宽峰或合并峰",
+    "triggers": [
+      "broad peak",
+      "expected two pore sizes but one spectral peak",
+      "peaks merge when pores are connected",
+      "spectrum smoother than pore-size distribution"
+    ],
+    "explanation": "优先考虑扩散耦合/孔间交换：自旋在不同孔尺度之间扩散，多个局部弛豫环境被平均化。正则化过强也会把相邻峰合并，因此需要同时检查 L-curve 或固定 regularization 设置。",
+    "citations": [
+      "Chi2015DiffusionalCoupling",
+      "Toumelin2003TemperatureDiffusiveCoupling",
+      "Fraga2013CarbonatePoreCoupling",
+      "Song2014PoreCouplingReview",
+      "Ramakrishnan1999Carbonates",
+      "Fleury2009PoreCoupling",
+      "Carneiro2014DiffusiveCoupling",
+      "Alhwety2014RockTypingDiffusiveCoupling"
+    ],
+    "caution": "峰合并不是“只有一个孔群”的充分证据；也可能来自连通性、扩散耦合或反演平滑。",
+    "report_sentence": "宽峰或峰合并可以由孔间扩散耦合造成，即自旋在不同孔隙尺度间交换后使局部弛豫环境被平均化；这类现象不能简单等同于单一孔群 [@Chi2015DiffusionalCoupling; @Song2014PoreCouplingReview]."
+  },
+  {
+    "id": "multimodal_spectrum",
+    "name": "多峰 T2 谱",
+    "triggers": [
+      "two or more peaks",
+      "multimodal spectrum",
+      "gaussian peak table has multiple components"
+    ],
+    "explanation": "多峰可作为不同弛豫环境、孔尺度或流体状态的提示；但峰数受正则化、噪声、采样窗口和分峰模型影响。Gaussian 分峰应作为描述性解释工具，而不是唯一物理分类。",
+    "citations": [
+      "Whittall1991NNLS",
+      "Coates1999NMRLogging",
+      "Grunewald2009PoreCoupling",
+      "Song2016T2T2"
+    ],
+    "caution": "报告中用“component/组分”描述即可，不要宣称每个 Gaussian 峰必然对应一个真实孔群。",
+    "report_sentence": "多峰 T2 谱提示样品中可能存在多个弛豫环境，但反演与 Gaussian 分峰本身并不能唯一证明相同数量的物理孔群 [@Whittall1991NNLS; @Grunewald2009PoreCoupling]."
+  },
+  {
+    "id": "regularization_sensitive",
+    "name": "正则化因子改变后峰数、峰宽或峰位明显变化",
+    "triggers": [
+      "regularization sensitivity",
+      "alpha change changes peaks",
+      "lcurve selected alpha",
+      "roughness_norm high",
+      "fixed regularization uncertain"
+    ],
+    "explanation": "这是逆 Laplace/多指数反演病态性的典型表现。弱正则化更容易追随噪声并产生尖峰，强正则化更平滑但可能合并真实峰。",
+    "citations": [
+      "Whittall1991NNLS",
+      "Coates1999NMRLogging",
+      "Schwartz2013T2T2Simulation",
+      "Yu2019T2T2"
+    ],
+    "caution": "解释峰数前先报告正则化方法；推荐把 L-curve 选择、残差和粗糙度一起呈现。",
+    "report_sentence": "该谱对正则化敏感，说明峰形包含反问题稳定性因素；较小正则化可能放大噪声，较大正则化则可能平滑或合并相邻组分 [@Whittall1991NNLS; @Schwartz2013T2T2Simulation]."
+  },
+  {
+    "id": "noisy_oscillatory_or_false_peaks",
+    "name": "谱线振荡、噪声峰或负/异常拟合迹象",
+    "triggers": [
+      "oscillatory spectrum",
+      "many narrow peaks",
+      "large residual",
+      "poor fit",
+      "noise amplified"
+    ],
+    "explanation": "优先检查输入衰减信噪比、早期点质量、echo train 采样、T2 范围和正则化。NNLS 非负约束可以避免负谱值，但不能自动保证峰都具有物理意义。",
+    "citations": [
+      "Whittall1991NNLS",
+      "Coates1999NMRLogging",
+      "EchoTrainSimulation2021"
+    ],
+    "caution": "不要给每个窄噪声峰分配物理机制；先建议重跑 L-curve、增加平滑或限制 T2 范围。",
+    "report_sentence": "振荡谱或多个窄峰更可能反映噪声放大和反演不稳定性，解释前应检查 echo train 数据质量和正则化强度 [@Whittall1991NNLS; @EchoTrainSimulation2021]."
+  },
+  {
+    "id": "peak_at_t2_bounds",
+    "name": "峰贴近 T2 搜索边界",
+    "triggers": [
+      "peak near t2_min_ms",
+      "peak near t2_max_ms",
+      "boundary component",
+      "spectrum mass at limits"
+    ],
+    "explanation": "峰贴近边界通常表示搜索范围设置影响结果，或数据中没有足够信息约束该时间尺度。短边界峰可能来自早期采样不足；长边界峰可能来自尾部噪声或上限过宽。",
+    "citations": [
+      "Whittall1991NNLS",
+      "Coates1999NMRLogging"
+    ],
+    "caution": "报告为“边界敏感组分”，建议调整 T2 范围和采样窗口做敏感性分析。",
+    "report_sentence": "边界附近峰应视为搜索范围和数据约束共同作用下的敏感结果，需要通过调整 T2 范围或正则化进行复核 [@Whittall1991NNLS]."
+  },
+  {
+    "id": "simulation_geometry_effect",
+    "name": "改变孔隙几何后 T2 谱峰位或峰宽改变",
+    "triggers": [
+      "geometry changes spectrum",
+      "triangular/circular/irregular pore",
+      "surface-to-volume ratio changed",
+      "connectivity changed"
+    ],
+    "explanation": "孔形、表面积/体积比、连通性和边界条件会改变扩散-弛豫特征模态，因此 T2 谱变化可以从几何和边界弛豫共同解释。",
+    "citations": [
+      "BrownsteinTarr1979",
+      "Mohnke2015TriangularPores",
+      "Hagslatt2002RestrictiveGeometries",
+      "Mohnke2010PoreScaleSimulation"
+    ],
+    "caution": "不要把几何影响简化为“孔越大 T2 越长”；非球形孔、角点、部分饱和和连通性都会改变响应。",
+    "report_sentence": "几何改变影响 T2 谱，是因为受限扩散和表面弛豫边界共同改变扩散-弛豫模态，而非仅仅改变一个等效孔径 [@BrownsteinTarr1979; @Mohnke2015TriangularPores]."
+  },
+  {
+    "id": "random_walk_forward_model",
+    "name": "随机游走正演结果与反演 T2 谱对应",
+    "triggers": [
+      "random walk simulation",
+      "Monte Carlo decay",
+      "forward simulated echo decay",
+      "compare simulated pore geometry with inverted spectrum"
+    ],
+    "explanation": "随机游走可把孔隙几何、扩散系数、表面弛豫率和场不均匀转化为 echo decay；再用同一反演流程得到 T2 谱，适合验证从结构到谱的机制链。",
+    "citations": [
+      "Toumelin2007GeneralRandomWalk",
+      "Toumelin2003GeneralRandomWalk",
+      "Toumelin2002MonteCarloNMR",
+      "LucasOliveira2018RestrictedDiffusion",
+      "Liebig1993RandomWalk",
+      "Noetinger2016DiffusionRandomWalk",
+      "SCA2008PoreScaleNMRSimulation"
+    ],
+    "caution": "反演谱仍受反演参数影响；正演真实参数和反演恢复谱之间不应期待完全一一对应。",
+    "report_sentence": "随机游走正演为孔隙结构、扩散和表面弛豫到 echo decay/T2 谱之间建立了可检验的机制链 [@Toumelin2007GeneralRandomWalk; @Toumelin2002MonteCarloNMR]."
+  },
+  {
+    "id": "fem_fvm_mesh_model",
+    "name": "FEM/FVM/COMSOL 网格模型结果解释",
+    "triggers": [
+      "finite element simulation",
+      "finite volume simulation",
+      "COMSOL model",
+      "mesh boundary condition",
+      "PDE diffusion relaxation"
+    ],
+    "explanation": "网格法通过求解扩散-弛豫方程显式处理复杂几何、边界表面弛豫和内部梯度。结果解释应报告边界条件、网格分辨率、扩散系数和表面弛豫率。",
+    "citations": [
+      "Tandon2018FiniteVolumeInternalGradients",
+      "Mitchell2019FiniteElementNMR",
+      "Ghomeshi2018FEMNMR",
+      "Oliveira2021COMSOLNMRGuide",
+      "Mohnke2010PoreScaleSimulation"
+    ],
+    "caution": "数值解的可信度依赖网格和边界条件；若结果与随机游走不同，先检查离散化和边界实现。",
+    "report_sentence": "FEM/FVM 正演可把复杂孔隙几何、表面弛豫边界和内部梯度纳入同一扩散-弛豫方程框架，因此适合解释几何控制的 T2 响应 [@Tandon2018FiniteVolumeInternalGradients; @Mitchell2019FiniteElementNMR]."
+  },
+  {
+    "id": "internal_gradient_shortening",
+    "name": "内部梯度或场不均匀导致 T2 缩短",
+    "triggers": [
+      "internal gradients enabled",
+      "field inhomogeneity",
+      "echo spacing changes T2",
+      "susceptibility contrast",
+      "long T2 suppressed"
+    ],
+    "explanation": "内部磁场梯度与扩散共同造成附加去相干，可能使 T2 谱整体变短或压低长 T2 组分。echo spacing 越敏感，越应考虑梯度项。",
+    "citations": [
+      "Tandon2018FiniteVolumeInternalGradients",
+      "Gonzalez2020FieldInhomogeneities",
+      "Keating2012NMRAssumptions",
+      "Mohnke2010PoreScaleSimulation"
+    ],
+    "caution": "不要把所有 T2 缩短都归因于孔径变小；内部梯度是模拟和实验偏差的重要候选机制。",
+    "report_sentence": "若模型包含内部梯度或场不均匀，T2 缩短可能来自扩散诱导去相干，而不只是孔径变小或表面弛豫增强 [@Tandon2018FiniteVolumeInternalGradients; @Gonzalez2020FieldInhomogeneities]."
+  },
+  {
+    "id": "cpmg_sampling_trim",
+    "name": "CPMG 采样、早期点和 trim-from-peak 对反演的影响",
+    "triggers": [
+      "early rise before decay",
+      "trim_from_peak true/false",
+      "missing early echoes",
+      "echo spacing large",
+      "CPMG artifacts"
+    ],
+    "explanation": "反演只知道输入的 echo train；早期点决定短 T2 可恢复性，尾部噪声影响长 T2，trim-from-peak 会改变有效起点和幅值归一化。",
+    "citations": [
+      "Whittall1991NNLS",
+      "EchoTrainSimulation2021",
+      "Tan2012T2T1Simulation",
+      "Toumelin2007GeneralRandomWalk"
+    ],
+    "caution": "如果原始模拟数据先上升后衰减，trim 是合理前处理；但对真实实验中从最大值开始的干净衰减，过度 trim 可能丢失短 T2 信息。",
+    "report_sentence": "T2 反演首先受 echo train 采样窗口和早期点质量限制，因此 trim-from-peak、echo spacing 和尾部噪声都应作为解释谱形稳定性的因素 [@Whittall1991NNLS; @EchoTrainSimulation2021]."
+  },
+  {
+    "id": "need_multidimensional_validation",
+    "name": "一维 T2 谱无法唯一解释，需要多维 NMR 或额外证据",
+    "triggers": [
+      "ambiguous component assignment",
+      "pore coupling suspected",
+      "fluid type unclear",
+      "T2 peaks overlap",
+      "exchange suspected"
+    ],
+    "explanation": "一维 T2 是多个机制投影后的结果。T2-T2/T1-T2 可提供交换、耦合和不同流体/孔隙环境的相关信息，适合作为复杂解释的补充。",
+    "citations": [
+      "Song2012MRPM",
+      "Schwartz2013T2T2Simulation",
+      "Song2016T2T2",
+      "Song2008T2T2",
+      "Johnson2014T2T2",
+      "Monteilhet2006T2T2",
+      "Guo2016MultidimensionalNMRSimulation"
+    ],
+    "caution": "不要在一维 T2 结果上过度区分流体类型或孔群；用“提示”而非“证明”。",
+    "report_sentence": "对于耦合或交换明显的复杂样品，一维 T2 峰位和面积不足以唯一分配孔群或流体类型，多维 NMR 可提供更强的相关约束 [@Song2012MRPM; @Song2016T2T2]."
+  },
+  {
+    "id": "matrix_mode_interpretation",
+    "name": "多指数衰减的特征模态解释",
+    "triggers": [
+      "matrix diagonalization",
+      "eigenvalue modes",
+      "multiple exponential modes",
+      "semi-analytical forward model"
+    ],
+    "explanation": "多指数衰减可理解为扩散-弛豫算子的多个特征模态叠加。特征值受孔隙几何、边界弛豫、饱和历史和连通性影响。",
+    "citations": [
+      "Chang2000MatrixDiagonalization",
+      "Chang2001DrainageSaturationHistory",
+      "MatrixDiagonalization2002NMR",
+      "McCall1991RestrictedDiffusion"
+    ],
+    "caution": "模态不必等同于离散物理孔群；它是数学表示与物理结构共同决定的响应。",
+    "report_sentence": "多指数衰减也可从扩散-弛豫算子的特征模态角度理解，模态权重和衰减率受几何与边界条件共同控制 [@Chang2000MatrixDiagonalization; @McCall1991RestrictedDiffusion]."
+  },
+  {
+    "id": "lbm_modeling",
+    "name": "LBM 孔尺度模拟解释",
+    "triggers": [
+      "LBM simulation",
+      "lattice Boltzmann",
+      "voxel pore image",
+      "complex boundaries"
+    ],
+    "explanation": "LBM 适合在离散格点上模拟复杂边界中的扩散过程，可用于从数字孔隙结构正演 NMR 响应。",
+    "citations": [
+      "Mohnke2014LBMNMR",
+      "Guyer2000LBMDiffusion"
+    ],
+    "caution": "LBM 结果依赖格点分辨率、边界实现和表面弛豫参数；需要与 FEM/随机游走结果交叉检查。",
+    "report_sentence": "LBM 可作为数字孔隙结构到 NMR 衰减响应的孔尺度正演方法，尤其适合复杂边界扩散问题 [@Mohnke2014LBMNMR; @Guyer2000LBMDiffusion]."
+  },
+  {
+    "id": "lcurve_flat_or_unstable",
+    "name": "L-curve 不清晰或自动正则化选择不稳定",
+    "triggers": [
+      "lcurve corner unclear",
+      "flat lcurve",
+      "selected alpha at search bound",
+      "multiple comparable alpha values",
+      "regularization choice unstable"
+    ],
+    "explanation": "L-curve 自动选参是项目中的算法决策；若曲线没有明显折角或选中值贴近搜索边界，说明数据拟合与平滑之间的折中不够稳定，应把结果作为探索性解释，并尝试调整 alpha 范围、T2 范围或数据预处理。",
+    "citations": [
+      "Whittall1991NNLS",
+      "Coates1999NMRLogging"
+    ],
+    "caution": "本地知识库中没有专门证明当前 L-curve 规则的论文；这些引用支撑的是反演/正则化必要性，不应写成“某论文提出本项目 L-curve 选择准则”。",
+    "report_sentence": "当 L-curve 缺少清晰折角或选中正则化贴近搜索边界时，反演谱应被视为正则化敏感结果；这反映了多指数反演需要在拟合精度和平滑性之间做稳定性折中 [@Whittall1991NNLS; @Coates1999NMRLogging]."
+  },
+  {
+    "id": "gaussian_overfit_or_bad_residual",
+    "name": "Gaussian 分峰过拟合或残差仍较大",
+    "triggers": [
+      "gaussian residual high",
+      "too many gaussian peaks",
+      "components overlap strongly",
+      "peak count changes interpretation",
+      "fit improves but components become unphysical"
+    ],
+    "explanation": "Gaussian 分峰只是 log T2 谱形的经验近似。若增加峰数只改善数值残差但导致高度重叠、面积分数不稳定或峰位缺乏物理解释，应降低峰数或把该结果标为描述性拟合。",
+    "citations": [
+      "Whittall1991NNLS",
+      "Coates1999NMRLogging",
+      "Grunewald2009PoreCoupling"
+    ],
+    "caution": "Whittall/Coates 支撑的是反演谱与组分解释需要谨慎，不是 Gaussian decomposition 方法来源。",
+    "report_sentence": "Gaussian 分峰可帮助描述 T2 谱形，但峰数和面积分配会受反演谱稳定性、噪声和孔耦合影响；高度重叠或残差异常时不宜把每个峰直接解释为独立物理孔群 [@Whittall1991NNLS; @Grunewald2009PoreCoupling]."
+  },
+  {
+    "id": "surface_relaxivity_sensitivity",
+    "name": "表面弛豫率改变导致 T2 峰位系统移动",
+    "triggers": [
+      "surface relaxivity changes peak",
+      "rho_s sensitivity",
+      "same geometry different T2",
+      "surface relaxation parameter sweep"
+    ],
+    "explanation": "表面弛豫率控制边界处磁化衰减强度。在几何相同的模型中，提高表面弛豫率通常会使有效 T2 缩短并增强短 T2 组分。",
+    "citations": [
+      "BrownsteinTarr1979",
+      "Mohnke2010PoreScaleSimulation",
+      "MullerPetke2015DiffusionRegimes"
+    ],
+    "caution": "表面弛豫率变化与孔径变化可能产生相似谱形，需要通过参数扫掠或独立约束区分。",
+    "report_sentence": "在几何不变时，表面弛豫率升高会增强边界弛豫并使有效 T2 缩短，因此 T2 峰位移动不一定只代表孔径变化 [@BrownsteinTarr1979; @Mohnke2010PoreScaleSimulation]."
+  },
+  {
+    "id": "mesh_resolution_boundary_condition_sensitivity",
+    "name": "网格分辨率或边界条件改变影响模拟结果",
+    "triggers": [
+      "mesh sensitivity",
+      "boundary condition sensitivity",
+      "FEM result changes with mesh",
+      "finite volume discretization changes decay"
+    ],
+    "explanation": "FEM/FVM 模型显式求解扩散-弛豫方程，网格分辨率、边界表面弛豫实现和内部梯度项都会影响数值衰减。模拟解释应报告这些设置并做敏感性检查。",
+    "citations": [
+      "Tandon2018FiniteVolumeInternalGradients",
+      "Mitchell2019FiniteElementNMR",
+      "Oliveira2021COMSOLNMRGuide",
+      "Mohnke2010PoreScaleSimulation"
+    ],
+    "caution": "若网格或边界条件改变导致 T2 谱变化，先视为数值敏感性，不要直接解释为物理机制变化。",
+    "report_sentence": "网格型正演的 T2 响应不仅取决于物理参数，也受网格分辨率和边界条件实现影响，因此 FEM/FVM 结果应配合数值敏感性检查解释 [@Tandon2018FiniteVolumeInternalGradients; @Oliveira2021COMSOLNMRGuide]."
+  },
+  {
+    "id": "acquisition_window_too_short_for_long_t2",
+    "name": "采集窗口过短导致长 T2 不可靠",
+    "triggers": [
+      "decay does not reach baseline",
+      "short acquisition window",
+      "long T2 beyond max time",
+      "tail poorly sampled",
+      "few late echoes"
+    ],
+    "explanation": "长 T2 组分需要足够长的 echo train 才能被稳定约束。若采样窗口太短或尾部噪声大，反演可能把未被约束的长时间尺度表现为边界峰或长尾。",
+    "citations": [
+      "Whittall1991NNLS",
+      "Coates1999NMRLogging",
+      "EchoTrainSimulation2021"
+    ],
+    "caution": "长尾解释前先检查最大采样时间、尾部信噪比和 t2_max_ms；必要时重采样或缩窄 T2 上限。",
+    "report_sentence": "若 echo train 未覆盖足够长的衰减尾部，长 T2 组分会受到采样窗口和噪声的强约束，边界长尾应谨慎解释 [@Whittall1991NNLS; @Coates1999NMRLogging]."
+  },
+  {
+    "id": "fast_diffusion_assumption_breakdown",
+    "name": "快扩散假设失效或平均孔径估计不可靠",
+    "triggers": [
+      "outside fast diffusion regime",
+      "large pore with slow diffusion",
+      "surface relaxivity high",
+      "pore-size estimate inconsistent",
+      "T2-pore mapping breaks down"
+    ],
+    "explanation": "许多 T2-孔径换算依赖快扩散近似；当扩散长度、孔尺度、表面弛豫率或连通结构使该近似不成立时，平均孔径估计会偏离真实孔径结构。",
+    "citations": [
+      "MullerPetke2015DiffusionRegimes",
+      "Keating2012NMRAssumptions",
+      "Ramakrishnan1999Carbonates",
+      "BrownsteinTarr1979"
+    ],
+    "caution": "不要在快扩散假设未验证时把 T2 分布直接换算为孔径分布。",
+    "report_sentence": "T2 与孔径的直接对应通常依赖快扩散近似；当样品处于非快扩散区制或存在强耦合时，T2 推断的孔径分布可能偏离真实结构 [@MullerPetke2015DiffusionRegimes; @Keating2012NMRAssumptions]."
+  }
+]

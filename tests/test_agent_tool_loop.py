@@ -4,9 +4,11 @@ from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from t2_agent.agent import AgentRuntimeContext, build_tool_specs, execute_agent_tool, run_deepseek_agent_turn
 from t2_agent.models import AgentToolResult
+from tests.test_simulation_2d import pygimli_available
 
 
 def _message(content=None, tool_calls=None):
@@ -60,6 +62,138 @@ def test_run_lcurve_tool_schema_exposes_alpha_search_range():
     assert "alpha_max" in properties
     assert "smoothing factor" in properties["alpha_min"]["description"]
     assert "smoothing factor" in properties["alpha_max"]["description"]
+
+
+def test_agent_tool_schema_exposes_2d_simulation_tools():
+    specs = build_tool_specs()
+    names = {item["function"]["name"] for item in specs}
+
+    assert "inspect_2d_geometry_input" in names
+    assert "run_2d_mesh_and_decay" in names
+    assert "run_2d_simulation_full_workflow" in names
+
+
+def test_execute_2d_mesh_and_decay_updates_context(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake")
+    decay_path = tmp_path / "decay.xlsx"
+    decay_path.write_bytes(b"fake-xlsx")
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+
+    def fake_run_png_mesh_decay(input_path, output_dir, params):
+        return {
+            "status": "success",
+            "standard_decay_xlsx": str(decay_path),
+            "mesh_png": str(tmp_path / "mesh.png"),
+            "curve_png": str(tmp_path / "decay.png"),
+            "simulation_stages": {
+                "mesh": [str(tmp_path / "mesh.png")],
+                "decay": [str(tmp_path / "decay.png"), str(decay_path)],
+            },
+        }
+
+    monkeypatch.setattr("t2_agent.tools.run_png_mesh_decay", fake_run_png_mesh_decay)
+
+    result = execute_agent_tool("run_2d_mesh_and_decay", {"geometry_mode": "png"}, context)
+
+    assert result.status == "success"
+    assert context.repaired_path == decay_path
+    assert context.simulation_decay_path == decay_path
+    assert result.summary["simulation_stages"]["decay"][-1] == str(decay_path)
+
+
+def test_full_2d_simulation_workflow_reuses_existing_inversion_tools(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake")
+    decay_path = tmp_path / "simulation_decay.xlsx"
+    spectrum_path = tmp_path / "simulation_spectrum.xlsx"
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+    captured = {}
+
+    def fake_run_2d_mesh_and_decay(input_path, output_dir, params, language="中文"):
+        captured["simulation_input"] = input_path
+        captured["simulation_output"] = output_dir
+        return AgentToolResult(
+            "success",
+            "simulated",
+            artifacts=[str(tmp_path / "mesh.png"), str(decay_path)],
+            summary={
+                "standard_decay_xlsx": str(decay_path),
+                "simulation_stages": {
+                    "mesh": [str(tmp_path / "mesh.png")],
+                    "decay": [str(decay_path)],
+                },
+            },
+        )
+
+    def fake_run_lcurve(input_workbook, output_dir, params, language="中文"):
+        captured["inversion_input"] = input_workbook
+        captured["inversion_params"] = params
+        return AgentToolResult(
+            "success",
+            "inverted",
+            artifacts=[str(spectrum_path)],
+            summary={"spectrum_xlsx": str(spectrum_path)},
+        )
+
+    def fake_run_gaussian_peaks(input_workbook, output_dir, params, language="中文"):
+        captured["gaussian_input"] = input_workbook
+        captured["gaussian_params"] = params
+        return AgentToolResult("success", "peaks", artifacts=[str(tmp_path / "peaks.xlsx")])
+
+    monkeypatch.setattr("t2_agent.agent.run_2d_mesh_and_decay", fake_run_2d_mesh_and_decay)
+    monkeypatch.setattr("t2_agent.agent.run_lcurve", fake_run_lcurve)
+    monkeypatch.setattr("t2_agent.agent.run_gaussian_peaks", fake_run_gaussian_peaks)
+
+    result = execute_agent_tool(
+        "run_2d_simulation_full_workflow",
+        {"geometry_mode": "png", "alpha_count": 9, "run_gaussian": True, "peak_count": 2},
+        context,
+    )
+
+    assert result.status == "success"
+    assert captured["simulation_input"] == png_path
+    assert captured["inversion_input"] == decay_path
+    assert captured["inversion_params"]["alpha_count"] == 9
+    assert captured["gaussian_input"] == spectrum_path
+    assert captured["gaussian_params"]["peak_count"] == 2
+    assert context.simulation_decay_path == decay_path
+    assert context.repaired_path == decay_path
+    assert context.spectrum_path == spectrum_path
+    assert result.summary["simulation_decay_xlsx"] == str(decay_path)
+
+
+@pytest.mark.skipif(not pygimli_available(), reason="pyGIMLi is not installed")
+def test_full_2d_rule_simulation_workflow_runs_real_inversion(tmp_path):
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace")
+
+    result = execute_agent_tool(
+        "run_2d_simulation_full_workflow",
+        {
+            "geometry_mode": "rule",
+            "canvas_width_px": 60,
+            "canvas_height_px": 40,
+            "large_pore_radius_px": 10,
+            "small_pore_radius_px": 8,
+            "throat_width_px": 4,
+            "dt_ms": 5.0,
+            "t_max_ms": 60.0,
+            "mesh_bulk_size_um": 4.0,
+            "mesh_boundary_size_um": 2.0,
+            "mesh_max_points": 4000,
+            "num_bins": 30,
+            "alpha_count": 6,
+        },
+        context,
+    )
+
+    assert result.status == "success", result.error
+    assert context.simulation_decay_path is not None
+    assert context.simulation_decay_path.exists()
+    assert context.spectrum_path is not None
+    assert context.spectrum_path.exists()
+    assert any(item.summary.get("simulation_stages") for item in context.results)
+    assert any(item.summary.get("spectrum_xlsx") == str(context.spectrum_path) for item in context.results)
 
 
 def test_execute_run_lcurve_forwards_alpha_search_range(tmp_path, monkeypatch):
@@ -340,6 +474,88 @@ def test_agent_loop_interprets_existing_results_when_user_asks(tmp_path):
     assert "主峰" in result.assistant_message
     assert result.tool_results[0].status == "success"
     assert "main_peak_t2_ms" in result.tool_results[0].summary
+
+
+def test_agent_loop_can_call_full_2d_simulation_tool(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake-png")
+    decay_path = tmp_path / "decay.xlsx"
+    spectrum_path = tmp_path / "spectrum.xlsx"
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+
+    def fake_run_2d_mesh_and_decay(input_path, output_dir, params, language="中文"):
+        return AgentToolResult(
+            "success",
+            "mesh ok",
+            artifacts=[str(tmp_path / "mesh.png"), str(decay_path)],
+            summary={"standard_decay_xlsx": str(decay_path), "simulation_stages": {"decay": [str(decay_path)]}},
+        )
+
+    def fake_run_lcurve(input_workbook, output_dir, params, language="中文"):
+        return AgentToolResult("success", "lcurve ok", artifacts=[str(spectrum_path)], summary={"spectrum_xlsx": str(spectrum_path)})
+
+    monkeypatch.setattr("t2_agent.agent.run_2d_mesh_and_decay", fake_run_2d_mesh_and_decay)
+    monkeypatch.setattr("t2_agent.agent.run_lcurve", fake_run_lcurve)
+    fake_client = FakeClient(
+        [
+            _message(tool_calls=[_tool_call("run_2d_simulation_full_workflow", {"geometry_mode": "png", "num_bins": 30, "alpha_count": 6})]),
+            _message(content="二维 NMR 模拟和 T2 反演已经完成。"),
+        ]
+    )
+
+    result = run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="请用这个红黄PNG跑完整二维NMR模拟并做T2反演",
+        context=context,
+        prior_messages=[],
+        client=fake_client,
+    )
+
+    assert "二维 NMR 模拟" in result.assistant_message
+    assert result.trace[1]["tool_name"] == "run_2d_simulation_full_workflow"
+    assert result.tool_results[0].status == "success"
+    assert context.simulation_decay_path == decay_path
+    assert context.spectrum_path == spectrum_path
+
+
+def test_agent_loop_notifies_each_tool_result_for_live_rendering(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake-png")
+    decay_path = tmp_path / "decay.xlsx"
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+
+    def fake_run_png_mesh_decay(input_path, output_dir, params):
+        return {
+            "status": "success",
+            "standard_decay_xlsx": str(decay_path),
+            "simulation_stages": {"decay": [str(decay_path)]},
+        }
+
+    monkeypatch.setattr("t2_agent.tools.run_png_mesh_decay", fake_run_png_mesh_decay)
+    fake_client = FakeClient(
+        [
+            _message(tool_calls=[_tool_call("run_2d_mesh_and_decay", {"geometry_mode": "png"})]),
+            _message(content="阶段结果已更新。"),
+        ]
+    )
+    live_results = []
+
+    result = run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="先网格划分并求解衰减",
+        context=context,
+        prior_messages=[],
+        client=fake_client,
+        on_tool_result=live_results.append,
+    )
+
+    assert result.tool_results[0].status == "success"
+    assert len(live_results) == 1
+    assert live_results[0].summary["standard_decay_xlsx"] == str(decay_path)
 
 
 def test_agent_loop_can_batch_process_all_uploaded_files(tmp_path):

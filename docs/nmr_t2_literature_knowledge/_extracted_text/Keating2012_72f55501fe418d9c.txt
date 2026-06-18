@@ -1,0 +1,1673 @@
+--- PAGE 1 ---
+The effect of spatial variation in surface relaxivity on nuclear
+magnetic resonance relaxation rates
+Kristina Keating 1 and Rosemary Knight 2
+ABSTRACT
+Nuclear magnetic resonance (NMR) relaxation measure-
+ments are sensitive to the physiochemical environment of water
+in saturated porous media and can provide information about the
+properties of geologic material. Interpretation of NMR data ty-
+pically relies on three assumptions: that pores within the geo-
+logic material are effectively isolated such that the diffusion
+of a proton between pores is limited (i.e., there is weak cou-
+pling); that relaxation occurs in the fast-diffusion regime; and
+that surface relaxivity ρ
+2 is uniform throughout the measured
+volume. We investigated the effect of spatial variation in ρ2
+on the NMR relaxation measurement and evaluated two equa-
+tions relating ρ2 to the NMR relaxation rate for samples contain-
+ing two types of surfaces, each with a different surface
+relaxivity. One equation was valid when there is weak diffu-
+sional coupling between pores, the other is valid when there
+is strong diffusional coupling. We prepared a suite of samples
+composed of quartz sand and an iron-coated quartz sand. NMR
+relaxation occurred in two distinct regions: the weak- and
+strong-coupling regions. In the weak-coupling region, the equa-
+tion did not accurately represent the relationship between the
+two ρ
+2 values and the NMR relaxation rate, suggesting that
+further research is required to understand the effect of spatially
+variable ρ2 in this relaxation region. In the strong-coupling
+region, the equation accurately represented the relationship
+between the two values of ρ
+2 and the NMR relaxation rate.
+The results from these laboratory experiments represented a first
+step towards accounting for spatial variability in ρ2 in the inter-
+pretation of NMR data.
+INTRODUCTION
+The proton nuclear magnetic resonance (NMR) relaxation mea-
+surement is used in earth sciences in the exploration for, and eva-
+luation of, petroleum and groundwater resources. NMR borehole
+logging instruments have been used since the 1960s to detect water
+and hydrocarbons and estimate petroleum reservoir properties such
+as porosity, pore size, and permeability (e.g., Allen et al., 2000 ).
+Recently, a new borehole-logging tool has been developed that
+is designed for use in near-surface sediments to detect water and
+to estimate water-filled porosity, pore-size distributions, and
+hydraulic conductivity in groundwater aquifers ( Maliva et al.,
+2009; Walsh et al., 2010 ). A related field method, surface NMR
+(SNMR), is used for the same purposes to characterize groundwater
+aquifers in the top ∼150 m of the subsurface using a wire loop laid
+out on the surface (e.g., Legchenko et al., 2004 ; Dlugosch et al.,
+2011). Laboratory studies are used to improve our interpretation
+of NMR data and explore new uses for NMR. Recent studies fo-
+cused on near-surface applications, for example, have highlighted
+the impact that changing redox conditions in the near-surface en-
+vironment can have on measured NMR parameters ( Bryar and
+Knight, 2002 ; Keating and Knight, 2007 , 2008, 2010; Keating et
+al., 2008 ) and the importance of accounting for the higher degree
+of pore connectivity often found in unconsolidated near-surface ma-
+terials (Grunewald and Knight, 2009 ). Improving the interpretation
+of NMR measurements in water-saturated near-surface materials is
+the application of interest in our research.
+The NMR relaxation experiment, for a water-saturated porous
+material, consists of observing the response of hydrogen nuclei
+(protons) in pore water, placed in a static magnetic field, to a per-
+turbation by a secondary magnetic force and measuring a voltage
+induced by the precessional motion of the protons during their re-
+turn or relaxation to equilibrium. In the interpretation of NMR data
+in geophysics, the rate of this relaxation is typically assumed to be
+Manuscript received by the Editor 21 November 2011; revised manuscript received 21 March 2012; published online 22 August 2012.
+1Rutgers University, Department of Earth and Environmental Sciences, Newark, New Jersey, USA. E-mail: kmkeat@andromeda.rutgers.edu.
+2Stanford University, Geophysics Department, Stanford, California, USA. E-mail: rknight@stanford.edu.
+© 2012 Society of Exploration Geophysicists. All rights reserved.
+E365
+GEOPHYSICS, VOL. 77, NO. 5 (SEPTEMBER-OCTOBER 2012); P . E365 –E377, 6 FIGS., 3 TABLES.
+10.1190/GEO2011-0462.1
+
+--- PAGE 2 ---
+proportional to the surface-area-to-volume ratio of the pore space
+(e.g., Cohen and Mendelson, 1982). The constant of proportionality
+is the surface relaxivity, which quantifies the ability of the grain
+surface to enhance relaxation. This relationship between relaxation
+rate and surface-area-to-volume ratio is the basis for using NMR
+data to obtain information about the geometry of the pore space
+and estimate the permeability. The validity of this relationship, how-
+ever, relies on three critical assumptions. The first assumption is that
+pores are effectively isolated such that the diffusion of a proton be-
+tween pores in the time-scale of the NMR experiment is limited; this
+is referred to as weak diffusional coupling. The situation in which a
+proton can diffuse between many pores is referred to as strong dif-
+fusional coupling. The second assumption is that relaxation occurs
+in the fast-diffusion regime in which diffusion of protons to the pore
+surface, where relaxation occurs, is not the rate-limiting process.
+The third assumption is that the surface relaxivity can be treated
+as uniform across the entire surface of the pore space in the mea-
+sured sample. In this study, we focus on this third assumption and
+consider NMR relaxation for cases in which surface relaxivity is
+spatially variable. In geologic material, we would expect the surface
+relaxivity to be nonuniform when there is more than one mineral
+phase present within a single pore or on a the surface of a single
+grain. Multiple minerals on a single grain have been observed in
+samples where microbes mediate mineral transformations during
+the remediation of contaminants (e.g., Fredrickson et al., 2004 ;
+Williams et al., 2009 ).
+The theoretical model of relaxation at the surface of a pore relates
+the surface relaxivity to the spatial density of paramagnetic species,
+e.g., unpaired electrons in iron(III), on the solid surface, the time for
+a proton to move along the surface, and the residence time of a pro-
+ton at the solid surface ( Gillis and Koenig, 1987 ; Godefroy et al.,
+2001). Two recent studies by Ryu (2009) and Ryu and Johnson
+(2009) rigorously explore the effects of nonuniform surface relax-
+ivity on the NMR relaxation rate using perturbation theory, exact
+theoretical results and numerical simulations on random sphere
+packs. The results of these works show that the NMR response
+of a sample with spatially variable surface relaxivity will depend
+on the relative magnitude and spatial distribution of the surface re-
+laxivity. In particular, the results from the numerical simulations on
+random sphere packs show that when the surface of each sphere
+within the packing is randomly assigned one of two surface relax-
+ivity values, differing by a factor of 11.5, the overall NMR response
+of the system is very different from the case of uniform surface re-
+laxivity. Ryu and Johnson (2009) conclude that NMR measure-
+ments collected on such samples are likely to be misinterpreted.
+In this work, we extended upon these previous studies and con-
+ducted laboratory experiments that explore the NMR response of
+water-saturated granular materials containing two types of grains,
+each with a different surface relaxivity value. We define relaxivity
+as being uniform if there is one type of grain, so we assume that the
+surfaces of all the grains have the same mineral composition. We
+define relaxivity as being nonuniform or spatially varying if there
+are two types of grains, so we assume that the surfaces are com-
+posed of two different minerals. In this study, we created samples
+with nonuniform surface relaxivity by mixing quartz sand and
+quartz sand coated with an iron-mineral, referred to as iron-coated
+quartz sand. We first present two equations representing the rela-
+tionship between surface relativity and NMR relaxation rates for
+samples with spatially variable surface relaxivity. One represents
+the relationship when there is weak diffusional coupling between
+pores; the other represents the relationship when there is strong dif-
+fusional coupling. Using the results from the laboratory experi-
+ments, we evaluated the validity of the two equations presented.
+Additionally, as both equations assume fast diffusion, the assump-
+tion of fast diffusion was tested. The results presented in this study
+comprise the first data set to systematically evaluate equations link-
+ing surface relaxivity to NMR relaxation rates in samples with spa-
+tially variable surface relaxivity. Evaluating the effect of spatially
+variable surface relaxivity on the NMR response of water-saturated
+unconsolidated material is critical if NMR data are to be used to
+accurately determine pore-size distributions or permeability.
+BACKGROUND AND THEORY
+The NMR relaxation phenomenon is observed in nuclei with an
+odd number of protons because these nuclei possess a nuclear spin
+angular momentum. The hydrogen nucleus, with a single proton, is
+of particular interest because of its presence in water. In a static
+magnetic field, the nuclear spins of the protons will align with
+the field, resulting in a net magnetization proportional to the number
+of protons in the sample. In the NMR experiment, an oscillating
+magnetic field, tuned to detect hydrogen, is applied to the sample
+for a short time causing the nuclear spins to diverge from, and then
+relax back to, their equilibrium positions. This results in a measur-
+able change in the magnetization over time t.
+In this study, we focused on the time-dependent behavior of the
+transverse magnetization, M
+xyðtÞ. The behavior of MxyðtÞ in a sin-
+gle pore, Mxyðx;t Þ, where x is the location in the pore, is described
+by the modified Bloch equations ( Torrey, 1956),
+∂Mxyðx;t Þ
+∂t ¼ D∇2Mxyðx;t Þ − Mxyðx;t Þ
+T2B
+− iγΔBzMxyðx;t Þ;
+(1a)
+with the initial condition,
+Mxyðx; 0Þ¼ constant; (1b)
+and the boundary condition evaluated at the pore-grain interface,
+D∇ðMxy · ˆnÞ − ρ2 Mxy ¼ 0: (1c)
+In equation 1, D is the self-diffusion coefficient ( 2.5 × 105 cm2∕s
+for water at 30°C), T2B is the bulk fluid relaxation time, γ is the
+gyromagnetic ratio ( γ ¼ 0.267 rad ∕½nT · s/C138 for protons in water),
+ΔBz, which is typically assumed to equal zero, accounts for inho-
+mogeneities in the magnetic field and is the z component of the
+difference between the static field and the actual magnetic field,
+ˆn is the vector normal to the surface of the grain, and ρ2 is the sur-
+face relaxivity; the inverse of the bulk fluid relaxation time is the
+bulk fluid relaxation rate, T−1
+2B . The measured bulk NMR signal is a
+function of time, MxyðtÞ, and can be obtained from the volume in-
+tegral of Mxyðx;t Þ.
+Brownstein and Tarr (1979) show that the modified Bloch equa-
+tions are an eigenvalue problem and define three relaxation regimes
+for the solution for water relaxing in a single pore. The boundary of
+each relaxation regime is determined by the control parameter,
+κ ≡ ρ
+2a∕D, where a is the mean distance that a proton must travel
+to reach a paramagnetic site; for the commonly assumed case of a
+E366 Keating and Knight
+
+--- PAGE 3 ---
+spherical pore a is the pore radius divided by three, equivalent to
+Vpore∕Spore, where Vpore and Spore are the volume and surface area of
+the pore, respectively. The first regime, the slow-diffusion regime,
+occurs when a diffusing proton does not sample the entire pore
+space before relaxing at the pore surface, the boundary of the first
+regime is determined by κ ≫ 10. The second regime, the intermedi-
+ate-diffusion regime, occurs when 1 < κ < 10. The last regime, the
+fast-diffusion regime, occurs when a diffusing proton can travel to
+and relax at the pore surface within the time-scale of the NMR mea-
+surement; the boundary of the last regime is determined by κ ≪ 1.I t
+has been suggested that a sufficient condition for fast diffusion is
+κ < 0.1 (Ryu and Johnson, 2009 ).
+NMR relaxation in the slow and intermediate diffusion
+regimes
+In the slow- and intermediate-diffusion regimes, the solution for
+water in a single pore is a sum of exponential decays,
+MxyðtÞ¼ Mð0Þ
+X∞
+k¼0
+fk expð−t∕T2SkÞ; (2)
+where Mð0Þ is the initial magnetization and is proportional to the
+total number of protons in the pore, fk is the relative amplitude for
+each component of the measured signal decaying with time constant
+T2Sk. A factor of expð−t∕T2BÞ has been divided out of MxyðtÞ in
+equation 2, thus removing a term representing the relaxation of the
+bulk fluid. The sum is arranged such that T−1
+2S0 < T−1
+2S1 < T−1
+2S2 <···
+and the kth term in the summation is referred to as the kth relaxation
+mode. In the slow-diffusion regime, most of the magnetization is in
+the slowest mode (i.e., most of the magnetization relaxes with a rate
+as of T
+−1
+2S0) and between 10% and 40% of the relaxation occurs in
+higher modes, depending on the characteristic shape of the pore.
+In the intermediate diffusion regime, most of the magnetization
+is in the slowest mode with a few percent relaxing in higher modes.
+In the slow diffusion regime, T
+−1
+2S0 is constant with increasing κ
+and primarily depends on the self-diffusion coefficient,
+T−1
+2S0 ¼ 2αD
+a2 ; (3)
+where α is a factor accounting for the geometry of the pore space ( α
+is three for spherical pores) ( Godefroy et al., 2001 ). The fastest re-
+laxation mode (or initial surface relaxation rate) T−1
+2S∞ is given by
+T−1
+2S∞ ¼ ρ2
+Spore
+Vpore
+; (4)
+where ρ2 is the surface relaxivity. In the intermediate diffusion re-
+gime, the zeroth mode relaxation time is given by a combination of
+equations 3 and 4 (Godefroy et al., 2001 ). Figure 1 shows the be-
+havior of the zeroth mode relaxation rate T−1
+2S0 as a function of κ for
+water relaxing in a single spherical pore.
+NMR relaxation in the fast-diffusion regime
+For water in a single pore relaxing in the fast-diffusion regime the
+solution to the modified Bloch equation (equation 1) is a single ex-
+ponential decay (i.e., all relaxation occurs in the zeroth mode),
+MxyðtÞ¼ Mð0Þ expð−t∕T2SÞ; (5)
+where T2S is the surface relaxation time ( T−1
+2S is the surface relaxa-
+tion rate). As with equation 2, the term accounting for bulk relaxa-
+tion, expð−t∕T2BÞ, has been divided out of MxyðtÞ in equation 5.
+T−1
+2S is given by
+T−1
+2S ¼ ρ2
+Spore
+Vpore
+: (6)
+Comparing equation 6 to equation 4, we see that the surface relaxa-
+tion rate in the fast-diffusion regime corresponds to the initial
+surface relaxation rate in the slow-diffusion regime. Figure 1 de-
+monstrates the transition of the zeroth mode relaxation rate in
+the slow-diffusion regime to the surface relaxation rate in the
+fast-diffusion regime as a function of κ. The surface relaxivity term
+in equations 4 and 6 has been shown experimentally to be related to
+the surface concentration and mineralogy of paramagnetic species
+on the surface ( Foley et al., 1996 ; Bryar et al., 2000 ; Keating and
+Knight, 2007 , 2010).
+NMR relaxation in porous media with a single surface
+relaxivity
+The previous discussion focused on the NMR response of water
+in a single pore. Geologic material consists of multiple pores with
+multiple pore environments, where pore environment refers to the
+pore-scale conditions controlling NMR relaxation, i.e., the surface
+relaxivity and the surface-area-to-volume ratio. For a water-satu-
+rated geologic material, the measured NMR signal IðtÞ is a multiple
+exponential decay,
+IðtÞ¼ Ið0Þ
+X
+j
+hj expð−t∕T2jÞ; (7)
+where Ið0Þ is the total initial signal intensity and is proportional to the
+total water content detected by the NMR relaxation measurement,
+10–2
+10–1
+100
+10–2 10–1 100 101 102
+T2S0
+–1/T2S∞
+–1
+10–3
+101
+10–3 103
+κ
+T2S0
+–1/T2S∞
+–1 = (ρ
+2
+S/V)/T2S∞
+–1
+Fast
+diffusion
+regime 
+Slow
+diffusion
+ regime
+Intermediate
+diffusion
+regime
+T2S0
+–1/T2S∞
+–1 = 1
+Figure 1. Behavior of T2S0−1 versus κ for the fast-, intermediate-,
+and slow-diffusion regimes.
+Spatially variable surface relaxivity E367
+
+--- PAGE 4 ---
+hj is the normalized number of protons relaxing with a rate of
+T−1
+2j . We note that, unlike equations 2 and 5, the bulk fluid relaxation
+term is included in equation 7. In the fast-diffusion regime, neglect-
+ing the effect of magnetic field inhomogeneities and assuming that
+the protons in the measured sample either do not diffuse or only
+minimally diffuse from pore to pore (i.e., there is weak coupling),
+each pore environment is represented by a single exponential decay
+in equation 7 where the jth relaxation rate T
+−1
+2j is given by
+T−1
+2j ¼ T−1
+2B þð T2SÞ−1
+j ; (8)
+where ðT2SÞ−1
+j is the surface relaxation rate of the jth pore envir-
+onment and is given by equation 6. Additionally, hj is often plotted
+versus T2j, yielding a distribution of relaxation times. Under the
+assumption of fast diffusion, the relaxation time distribution repre-
+sents the distribution of pore environments in the measured volume.
+Furthermore, when the surface relaxivity is uniform across all
+pores in the pore space, the relaxation time distribution can be
+directly related, through a linear transform, to the distribution of
+V
+pore∕Spore and generally is assumed to represent the pore-size dis-
+tribution in the measured volume (e.g., Kleinberg et al., 1994 ;
+Arns, 2004 ).
+The arithmetic mean of log T2j, T2ML , is commonly taken to re-
+present the NMR behavior of the measured volume,
+log T2ML ¼
+X
+j
+hj log T2j: (9)
+T2ML is described by
+T−1
+2ML ¼ T−1
+2B þ T−1
+2S ; (10)
+where T−1
+2S in equation 10 can be related to the surface-area-to-vo-
+lume ratio of the total pore space S∕V, assuming uniform surface
+relaxivity:
+T−1
+2S ¼ ρ2
+S
+V ; (11)
+where ρ2 and S∕V in the remainder of this paper now denote
+averages taken over the entire measured volume. In geologic ma-
+terials, T−1
+2S is typically much greater than T−1
+2B, and therefore,
+T−1
+2ML ≈ T−1
+2S . It is this relationship between T−1
+2ML and S∕V that al-
+lows NMR measurements to be used to predict the hydraulic con-
+ductivity or permeability in water-saturated geologic material (e.g.,
+Seevers, 1966 ; Mohnke and Yaramanci, 2008 ).
+To test the assumption of fast diffusion, the control parameter
+needs to be calculated from D, ρ2, and a. Although D is known
+and ρ2 can be determined from equation 11, it is not possible to
+directly determine a. The value of a is the average distance a proton
+needs to travel to reach a paramagnetic site; we use the average pore
+radius to represent this distance. A common approach for calculat-
+ing a is to assume that a ¼ð S∕VÞ
+−1 for the measured volume (e.g.,
+Dunn et al., 2002 ). If the grains were perfectly smooth and sphe-
+rical, this approach would give a value that is close to the pore ra-
+dius and would serve as a good approximation for a; however, in
+realistic geologic material where grains are rough and not spherical,
+using this approach to calculate a underestimates the pore radius
+(Keating and Knight, 2010 ). Instead, we use the approach outlined
+by Keating and Knight (2010) and calculate an upper limit on the
+value of a using radius of the largest sphere that can be inscribed
+inside the pore space of a simple cubic packing of spherical
+grains, a ¼ 0.732r, where r is the average radius of the grains
+(Guillot, 1982 ).
+In the previous discussion, we have neglected a third term in
+equation 10, the diffusion relaxation rate, T
+−1
+2D ¼ DðγGtEÞ2∕12,
+where G is the average magnetic field gradient, and tE is the
+echo-time, an NMR measurement parameter ( Kleinberg and Hors-
+field, 1990) that accounts for inhomogeneities in the magnetic field
+represented by ΔBz in equation 1. The diffusion relaxation term is
+negligible when the static magnetic field is homogeneous, which is
+the case for laboratory measurements collected on material with low
+magnetic susceptibility (e.g., Keating and Knight, 2007 ). The va-
+lidity of this assumption can be tested by determining T−1
+2ML for
+NMR data collected with multiple tE.I f T−1
+2ML remains constant with
+tE, then magnetic field inhomogeneities are negligible.
+NMR relaxation in porous media with spatially
+variable surface relaxivity
+Our focus is the interpretation of NMR relaxation data, under
+conditions of fast diffusion, from samples containing surfaces with
+different surface relaxivities. Using equations 10 and 11 to represent
+the mean log relaxation rate assumes an average value of ρ2 for the
+entire sample. In this section, we propose two relationships between
+the mean log relaxation rate and the surface relaxivity in the fast-
+diffusion regime for materials containing two surface types, each
+with a different associated value of ρ
+2. In the first relationship, it
+is assumed that there is weak coupling between pores, indicating
+that pore throats are small enough or the distance between pores
+with different pore environments is large enough that a proton only
+diffuses through a single pore environment over the time scale of the
+experiment. In the second relationship, we assume that there is
+strong coupling between pores meaning that pore throats are suffi-
+ciently large such that a single proton can move through and sample
+several pore environments over the time scale of the NMR experi-
+ment. We refer to the surface with the larger surface relaxivity value
+(i.e., the iron-coated surface) as the paramagnetic surface and the
+surface with the smaller surface relaxivity value (i.e., the quartz sur-
+face) as the nonparamagnetic surface. The surface relaxivity of the
+paramagnetic surface is denoted with ρ
+2P and the surface relaxivity
+for the nonparamagnetic surface is denoted by ρ2N.
+The boundary between the region of weak coupling and region of
+strong coupling can be determined by comparing a (previously de-
+fined as the average distance between two paramagnetic sites) to the
+average distance a spin can diffuse through the pore space before
+relaxing, l D; l D is calculated from Einstein ’s equation for self-
+diffusion, l D ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃ ﬃ
+6DT
+p
+, where T is the relaxation time. As shown
+in a recent laboratory study, if l D < a, then there is weak coupling;
+if l D >a , then there is strong coupling ( Grunewald and
+Knight, 2011 ).
+Representing the response of a system with nonuniform surface
+relaxivity and weak coupling
+In the case of weak coupling, protons have limited movement
+from pore to pore over the time scale of the experiment, and so each
+pore environment independently contributes to the relaxation time
+distribution. We assume that protons in a single pore environment
+only sample one type of surface during the NMR experiment and
+E368 Keating and Knight
+
+--- PAGE 5 ---
+define two regions in the pore space: one region where the relaxa-
+tion rate is governed by the nonparamagnetic surface; the other
+where the relaxation rate is governed by the paramagnetic surface.
+In this case, we can equate the total measured signal to the sum of
+the signal due to relaxation governed by the nonparamagnetic sur-
+face, I
+N ðtÞ and the signal due to relaxation governed by the para-
+magnetic surface IPðtÞ:
+IðtÞ¼ IN ðtÞþ IPðtÞ: (12)
+Expanding each term on the right-hand side using equation 7 gives
+IðtÞ¼ IN ð0Þ
+X
+jN
+hjN expð−t∕T2jN Þ
+þ Ipð0Þ
+X
+jP
+hjP expð−t∕T2jPÞ; (13)
+where the subscript jN indicates the sum is taken over the pore en-
+vironments where relaxation is governed by the nonparamagnetic
+surface, and the subscript jP indicates the sum is taken over the
+pore environments where relaxation is governed by the paramag-
+netic surface. The variable h
+jN is the normalized number of protons
+relaxing at nonparamagnetic surfaces with relaxation time T2jN
+(i.e., 0 ≤ hjN ≤ 1). The variable hjP is the normalized number of
+protons relaxing at paramagnetic surfaces with relaxation time
+T
+2jP. Because IN ð0Þ is proportional to the volume of water in
+the sample affected by the paramagnetic surfaces, we can rewrite
+it as IN ð0Þ¼ CN Ið0Þ, where CN is the volume fraction of water
+in the sample in which relaxation is governed by the nonparamag-
+netic surface. Similarly, we can write IPð0Þ as IPð0Þ¼ CPIð0Þ,
+where CP is the fractional volume of water in the sample in which
+relaxation is governed by the paramagnetic surface. Substituting
+these equations for IN ð0Þ and IPð0Þ into equation 13 and using
+the definition of the mean log relaxation time from equation 9,
+we obtain
+log T2ML ¼
+/C16
+CN
+X
+jN
+hjN logðTjN Þþ CP
+X
+jP
+hjP logðTjPÞ
+/C17
+¼ CN logðT2ML−N Þþ CP logðT2ML−PÞ; (14)
+where T−1
+2ML−N and T−1
+2ML−P are the mean log relaxation times for the
+protons with relaxation governed by the nonparamagnetic and para-
+magnetic surfaces, respectively. In the interpretation of our data, we
+assume that we can use the volume fraction of the coated grains CP
+to represents the volume fraction of water in which relaxation is
+governed by the paramagnetic surfaces. Similarly, we also use
+the volume fraction of the uncoated grains CN to represent the vo-
+lume fraction of water in which relaxation is governed by nonpar-
+amagnetic surfaces.
+We now expand T
+−1
+2ML−N and T−1
+2ML−P to recover the link between
+T2ML , the single NMR parameter typically used to represent a
+measurement, and the surface relaxivity values ρ2P and ρ2N for
+the weakly coupled system. Because these expressions are derived
+assuming a weakly coupled ( WC) system, we refer to the surface
+relaxivity values as ρ
+2P−WC and ρ2N−WC :
+T−1
+2ML−P ¼ T−1
+2B þ ρ2P−WC
+SP
+VP
+; (15a)
+T−1
+2ML−N ¼ T−1
+2B þ ρ2N−WC
+SN
+VN
+; (15b)
+where SP is the total surface area of the paramagnetic surfaces, VP is
+the volume of water with relaxation governed by the paramagnetic
+surfaces, S
+N is the total surface area of the nonparamagnetic sur-
+faces, and VN is the volume of water with relaxation governed
+by the nonparamagnetic surfaces. Here, we have assumed that
+the volume of water with relaxation governed by paramagnetic sur-
+faces is independent of the volume of water with relaxation gov-
+erned by the nonparamagnetic surfaces, that is, V ¼ V
+N þ VP.
+Representing the response of a system with nonuniform surface
+relaxivity and strong coupling
+For the case of strong coupling, protons can diffuse through mul-
+tiple different pore environments over the time scale of the experi-
+ment and the relaxation rate is an average of all pore environments.
+Foley et al. (1996) define T
+−1
+2S for a single pore with magnetically
+active (i.e., high values of ρ2) surface sites interspersed with non-
+active (i.e., very low values of ρ2) surfaces sites. We use an equiva-
+lent expression to describe relaxation in a porous medium where
+there are paramagnetic surfaces interspersed with nonparamagnetic
+surfaces and the relaxation of diffusing protons is affected by both
+types of surfaces:
+T−1
+2ML ¼ T−1
+2B þ T−1
+2S ¼ T−1
+2B þ ρ2P−SC
+SP
+V þ ρ2N−SC
+SN
+V .
+(16)
+The subscript SC indicates that this is the surface relaxivity in a
+system with strong coupling.
+Equations 15 and 16 are the two equations we used in the assess-
+ment of NMR data from samples with spatially variable surface re-
+laxivity. The question we ask: Do these equations represent the
+relationship between the mean log relaxation time and the surface
+relaxivity in porous media with spatially variable surface relaxivity?
+Given that both equations have two surface relaxivity values, we
+used the known value of ρ
+2N , from measurements on a homoge-
+neous sample, for the values of ρ2N−WC and ρ2N−SC. This allowed
+us to then calculate the surface relaxivity of the paramagnetic sur-
+face, the surface that governs the NMR relaxation. Comparing the
+values of ρ
+2P−WC or ρ2P−SC determined in this manner with the
+value of the surface relaxivity calculated from a uniform sample
+allowed us to assess the validity of these equations.
+Testing the fast-diffusion assumption in porous media
+with spatial variable ρ2
+The relationships between surface relaxivity and surface relaxa-
+tion rate in any of equations 11, 15, and 16 are only valid in the fast-
+diffusion regime and require that the assumption of fast diffusion be
+verified. For samples with uniform surface relaxivity, ρ
+2 is first de-
+termined from T−1
+2S and S∕V using equation 11, and then the as-
+sumption of fast diffusion is tested by calculating κ from ρ2
+(κ ¼ ρ2a∕D). Because this approach assumes fast diffusion to cal-
+culate ρ2, if relaxation does not occur in the fast-diffusion regime,
+then the resulting value of ρ2, and consequently, κ, will be under-
+estimated. To avoid misinterpreting the boundary between the
+fast- and intermediate-diffusion regimes, we thus use κ < 0.1 as
+Spatially variable surface relaxivity
+E369
+
+--- PAGE 6 ---
+the condition for accepting the assumption of fast diffusion; this
+condition was shown to be sufficient by Ryu (2009) . However,
+for samples with spatially varying surface relaxivity as used in this
+study, there are multiple surfaces with multiple surface relaxivity
+values, so a different approach for calculating κ must be used.
+For the samples in this study, we use the surface that governs re-
+laxation, the paramagnetic surface, to calculate the control para-
+meter. By calculating the control parameter using the surface
+relaxivity for the paramagnetic surface and the value of a as the
+average distance between two paramagnetic surfaces we obtain
+an upper bound on the control parameter. The control parameter
+for the case of weak coupling is denoted as κ
+P−WC , where
+κP−WC ¼ ρ2P−WC a∕D; the control parameter for the case of strong
+coupling is denoted as κP−SC, where κP−SC ¼ ρ2P−SCa∕D.F o r
+equations 15 and 16, we accept the fast-diffusion assumption if
+κP−WC < 0.1 or κP−SC < 0.1, respectively.
+LABORATORY EXPERIMENTS
+We designed a set of experiments that would allow us (1) to eval-
+uate the equations linking surface relaxivity to NMR relaxation
+rates in samples with spatially variable surface relaxivity and
+(2) to assess the impact of assuming uniform ρ2 when samples have
+spatially varying ρ2. We worked with uniform samples of quartz and
+iron-coated quartz grains, and with spatially variable samples pre-
+pared by mixing the two types of grains. In our data analysis, we
+started by first calculating the average ρ2 for all samples using equa-
+tion 11 (ρ2 ¼ T−1
+2S ∕½S∕V/C138 ). We then compared the ρ2 values from the
+uniform samples (with single-valued ρ2) to those from the spatially
+variable samples. Next, we evaluated the validity of the two equa-
+tions that we have proposed for samples with spatially variable ρ
+2
+by using equations 15 and 16 to calculate the apparent surface re-
+laxivity of the paramagnetic surface assuming weak coupling,
+ρ
+2P−WC , and strong coupling, ρ2P−SC. The determined values for
+surface relaxivity were compared with the known values from
+the uniform samples. Finally, we tested the assumption of fast diffu-
+sion for each surface relaxivity by calculating the control parameter
+κ, κ
+P−WC ,o r κP−SC.
+Sample preparation
+To create samples with spatially varying ρ2, mixtures were pre-
+pared that contained two materials known to have different values of
+ρ2: quartz sand and quartz sand coated with an iron-mineral. The
+quartz sand Si(IV)O2; IOTA Standard, Unimin Corporation, used in
+this study was chosen for its low concentration of paramagnetics
+(<0.1 ppm Fe) and its uniform grain size (74 to 297 μm in dia-
+meter). Two iron-(hydr)oxide minerals were used to coat the quartz
+sand: ferrihydrite ( FeðOHÞ
+3 · nH2O) and hematite ( Fe2O3). To en-
+sure that the surface relaxivity of the sands coated with ferrihydrite
+was different from the surface relaxivity of the sands coated with
+hematite, a different concentration of iron was used in each coating.
+The quartz surface is the nonparamagnetic surface, whereas the
+iron-coated surface is the paramagnetic surface. Given what was
+found in our earlier work ( Keating and Knight, 2007 ), we expect
+that the methods used to coat the quartz sands with ferrihydrite
+or hematite will produce samples with surface distributions of iron
+minerals that are similar, independent of mineral type.
+To prepare the ferrihydrite-coated sands, ferrihydrite was first
+synthesized by the titration of FeðNO
+3Þ3 · H2O (0.4 M) with
+1 M NaOH to pH 7 ( Hansel et al., 2003 ; Keating and Knight,
+2007). Once synthesized, the resulting ferrihydrite slurry was
+washed by centrifuging to obtain a ferrihydrite pellet, decanting ex-
+cess water, then resuspending the ferrihydrite pellet in distilled,
+deionized water. This process was repeated three times to remove
+excess salts. The ferrihydrite slurry was then mixed with quartz sand
+to obtain a total iron concentration of less than 0.5% iron by weight
+(g-Fe∕g-sand) and left to dry. Once dry, the coated sand was rinsed
+with deionized water three times to remove any ferrihydrite not at-
+tached to the mineral surface.
+To prepare the hematite-coated sands, hematite was first synthe-
+sized by the forced hydrolysis of a Fe(III) salt solution (1 M
+FeðNO
+3Þ3)( Schwertmann and Cornell, 2000 ; Keating and Knight,
+2007). Once synthesized, the hematite slurry was filtered by dialysis
+to remove excess salts from the slurry. The hematite slurry was then
+mixed with quartz sand to obtain a total iron concentration greater
+than 1% iron by weight and left to dry. Once dry, the coated sand
+was rinsed with deionized water three times to remove any hematite
+not attached to the mineral surface.
+Samples with spatial variation in ρ2 were created by mixing each
+iron-coated sand with pure quartz sand to obtain concentrations by
+weight CP of 1%, 2%, 5%, 10%, 25%, 50%, and 75% in grams of
+iron-coated sand to total grams of sand. Additionally, samples with
+uniform ρ2 also were created; these samples contained pure quartz
+sand ( CP ¼ 0%) and pure iron-coated sand ( CP ¼ 100%).
+NMR measurements
+To create the NMR samples, each mixture was packed into a cy-
+lindrical Teflon sample holder (height 56.3 mm, inner diameter
+31.0 mm). The lid of each sample holder was perforated with holes
+less than 0.1 mm in diameter; a filter (25 μm) was placed at the top
+of the sample to prevent sand grains from escaping from the sample
+holder during the saturation process. Once packed, the NMR sam-
+ples were weighed, and the mass of each sample was determined.
+Each NMR sample was saturated by placing the sample, sub-
+merged in a beaker of distilled deionized water ( pH ∼ 7), in a
+vacuum chamber and reducing the pressure in the chamber to
+100 mmHg for 30 min. The volume of water saturating the sample
+was then determined gravimetrically. Once saturated, the sample
+holders were covered with Parafilm to prevent water in the
+sample from evaporating over the course of the NMR experiment.
+NMR relaxation data were collected with a 2.2 MHz Maran Ultra
+NMR Core Analyzer (Resonance Instruments) using a CPMG
+(Carr-Purcell-Meiboom-Gill) pulse sequence. One data point was
+obtained at each echo in the CPMG pulse sequence; 20,000 echoes
+were used for all samples. Data were collected at four echo times,
+t
+E ¼ 300, 400, 600, and 800 μs with an instrument dead time of
+60 μs and stacked 52 times. The measurements at each echo time
+were repeated three times. Measurements were consistently made at
+30°C, which is the standard operating temperature of the instrument.
+Following the NMR measurements, each sample was reweighed to
+determine if any water had evaporated from the sample over the
+course the NMR experiment.
+Once the NMR data had been collected, the pore water was re-
+moved from each sample by vacuum filtration. The bulk fluid re-
+laxation rate was measured using the extracted pore water at a single
+echo time of 300 μs; 32,000 echoes were used for the pore water
+measurements. All other measurement parameters were the same as
+for the NMR samples.
+E370 Keating and Knight
+
+--- PAGE 7 ---
+The relaxation time distribution for each NMR data set was de-
+termined using a nonnegative least-squares inversion with Tikhonov
+regularization as described by Whittall et al. (1991) . Prior to apply-
+ing the algorithm, each NMR data set was logarithmically sub-
+sampled to 5000 data points to improve the speed of the fitting
+algorithm. The subsampled data were then fit to a distribution of
+160 exponentially spaced T
+2-values ranging from 1 ms to 5 s.
+The regularization parameter was selected such that each datum
+was misfit by approximately one standard deviation.
+Sample characterization
+One subsample of approximately 10 g was taken from the 0% and
+100% iron-coated sand samples for surface-area analysis. The spe-
+cific surface area, defined as the surface area normalized by the
+mass of the sample, was measured for each of these samples using
+the Brunauer-Emmett-Teller (BET) adsorption method with N
+2ðgÞ
+as the adsorbate (measurements performed by Micromeritics Ana-
+lytical Services). The measurements were collected with the Micro-
+meritics Tristar II 3020 Surface Area Analyzer, which produces
+accurate results (within ∼1% of the measured surface area) for sam-
+ples with surface areas as low as 0.01 m
+2∕g.
+RESULTS AND DISCUSSION
+Physical properties
+The volume of the pore space V was taken to be the average vo-
+lume of water in the saturated sample determined gravimetrically
+before and after the NMR measurement; error in V was calculated
+from the standard deviation from two measured volumes. This re-
+sulted in V ranging from 18.26 /C6 0.01 mL for the quartz sample to
+19.36 /C6 0.01 mL for the sample containing 10% ferrihydrite-
+coated sand and did not show a trend with iron concentration or
+mineral type.
+For each sample, the porosity ϕ, given for the pure quartz sand
+and the 100% iron-coated sand samples in Table 1, was calculated
+from the volume of water in the sample divided by the volume of the
+sample holder. Errors on the porosity were calculated using error
+propagation. The porosity ranged from 0.432 /C6 0.001 for the pure
+quartz sand sample to 0.458 /C6 0.001 for the mixtures containing
+10% ferrihydrite-coated sand. The porosity did not show any trend
+with iron-coated sand concentration.
+The measured specific surface areas for the samples with uniform
+surface relaxivity are given in Table 1; the errors given are the
+errors associated with the multipoint BET measurement technique.
+The measured specific surface area for pure quartz sand S
+sN was
+0.1136 /C6 0.0005 μm∕g, which is close to the value found for a
+similar quartz sand in Keating and Knight (2007) . The measured
+specific surface area for the 100% iron-coated sands SsP was 1.1993
+/C6 0.003 μm∕g for ferrihydrite-coated sand and
+1.058 /C6 0.002 μm∕g for hematite coated-sand.
+A large increase in the surface area due to the
+addition of the iron coating is expected due to
+the high surface areas of the iron minerals. For
+pure ferrihydrite (i.e., ferrihydrite not coated to
+the surface of quartz), the expected surface area
+ranges from 200 to 400 m
+2∕g (e.g., Das et al.,
+2011); for the hematite synthesized in this study,
+the expected surface area is between 60 and
+85 m
+2∕g (Schwertmann and Cornell, 2000 ).
+The measured values of SsP for 100% iron-coated sands were not
+the same as the values determined in Keating and Knight (2007) ,
+as expected due to the different concentrations of iron used in each
+of the coatings.
+The measured values S
+sN and SsP also were used to calculate the
+ratio of the surface area of the quartz sand to the pore volume and
+the ratio of the surface area of the iron-coated sand to the pore vo-
+lume ratio, SN ∕V and SP∕V, respectively, for each sample from
+Si
+V ¼ mCi
+Ssi
+V ; (17)
+where i indicates either quartz sand (N) or iron-coated sand (P), and
+m is the mass of the solid phase within the sample. For the ferrihy-
+drite-coated sand mixtures and the hematite-coated sand mixtures,
+SN ∕V ranged from 0 μm−1 for the sample with CP ¼ 100% to
+0.393 /C6 0.002 μm−1 for the sample with CP ¼ 0%. For the ferrihy-
+drite-coated sand mixtures, SP∕V ranged from 0 μm−1 for the mix-
+ture with CP ¼ 0% to 3.93 /C6 0.02 μm−1 for the mixture with
+CP ¼ 100%; for the hematite-coated sand mixtures, SP∕V ranged
+from 0 μm−1 for the mixture with CP ¼ 0% to 3.657 /C6 0.009 μm−1
+for the mixture with CP ¼ 100%. For all iron-coated sand mixtures,
+SN ∕V decreased with iron-coated sand concentration and SP∕V in-
+creased with iron-coated sand concentration.
+The sum of SN ∕V and SP∕V was used to calculate the total sur-
+face-area-to-volume ratio S∕V for all samples. The values of S∕V
+for the 0% and 100% iron-coated sand samples are given in Table 1.
+(For the 0% iron-coated sand samples, the value of S∕V is equiva-
+lent to SN ∕V; and for the 100% iron-coated sand samples, the value
+of S∕V is equivalent to SP∕V.)
+For ferrihydrite-coated sand samples containing multiple surface
+types, S∕V ranged from 0.432 /C6 0.002 μm−1 for the mixture with
+CP ¼ 1% to 2.696 /C6 0.006 μm−1 for the mixture with CP ¼ 75%.
+For hematite-coated sand samples containing multiple surface
+types, S∕V ranged from 0.416 /C6 0.002 μm−1 for the mixture with
+CP ¼ 1% to 3.06 /C6 0.01 μm−1 for the mixture with CP ¼ 75%.
+Relaxation time distributions
+Figure 2 shows the T2-distributions at an echo time of 300 μs for
+the ferrihydrite-coated sand mixtures (Figure 2a) and the hematite-
+coated sand mixtures (Figure 2b) for CP equal to 0, 2, 10, 50,
+and 100%.
+The shape of the relaxation time distributions for the samples
+with uniform surface relaxivity compared well with the shape of
+the relaxation time distributions found for similar samples in Keat-
+ing and Knight (2007) . The T2-distribution for the pure quartz sand
+sample was a single peak centered at a long relaxation times. For
+both of the 100% iron-coated sand samples, the T2-distributions had
+Table 1. The physical properties of the measured samples.
+Sample type CP (%) Ss (m2∕g) ϕ S∕V (μm−1)
+Quartz sand 0 0.1136 /C6 0.0005 0.432 /C6 0.001 0.393 /C6 0.002
+Ferrihydrite-coated sand 100 1.199 /C6 0.003 0.448 /C6 0.002 3.93 /C6 0.02
+Hematite-coated sand 100 1.058 /C6 0.002 0.439 /C6 0.001 3.657 /C6 0.009
+Spatially variable surface relaxivity E371
+
+--- PAGE 8 ---
+two peaks: a large, broad peak centered at long relaxation times and
+a smaller, broad peak centered at short relaxation times.
+For all iron-coated sand mixtures, we found that the shape of the
+T2-distribution depended on CP. When CP was less than 10%, the
+distributions had a single narrow peak centered at long relaxation
+times close to, but less than, the central relaxation time for the pure
+quartz sand sample. When CP increased above 10%, the peak at
+long relaxation times broadened and shifted toward shorter relaxa-
+tion times. Additionally, a second peak developed at short relaxa-
+tion times that broadened as C
+P increased to 100%. Similar trends
+for T2-distributions were seen for mixtures con-
+taining different ratios of quartz and hematite
+grains ( Grunewald and Knight, 2011 ).
+Total signal intensity
+The total initial signal intensity Ið0Þ was cal-
+culated for each sample. We can use Ið0Þ to de-
+termine if the total water content is detected in
+the relaxation time distribution curves. Although
+Ið0Þ is proportional to the total water content, its
+magnitude is affected by the receiver gain RG
+and the number of scans per sample NS. Figure 3
+shows the plot of Ið0Þ at an echo time of 300 μs,
+scaled by RG × NS, versus the volume of water
+V for each sample. As expected, the scaled signal
+intensity increased with water volume and did
+not show any trend with iron-mineral type or
+iron-mineral concentration. Although the water
+volume was expected to be directly proportional
+to scaled signal intensity, some variation on the
+order of 2% from the expected value was ob-
+served in the data likely due to capillary- or sur-
+face-bound measurement.
+Mean log relaxation rate
+The T2-distributions were used to determine
+T−1
+2ML from equation 9 at each tE for the measured samples. The
+values of T−1
+2ML at an echo time of 300 μs are plotted versus CP
+in Figure 4. Figure 4a contains the results from the ferrihydrite-
+coated sands; Figure 4b contains the results from the hematite-
+coated sands. The values of T−1
+2ML plotted in Figure 4 are the average
+of the value determined from the three measurements collected on
+each sample. The error on T−1
+2ML is the standard deviation; error bars
+not shown on Figure 4 are smaller than the size of the data points.
+The average value of T−1
+2ML for the pure quartz sand sample at an
+echo time of 300 μs was 0.55 /C6 0.01 s −1. The average value of
+T−1
+2ML at an echo time of 300 μs for the 100% ferrihydrite-coated
+sand sample was 5.2 /C6 0.1 s −1 and for the 100% hematite coated
+sand sample was 10.8 /C6 0.2 s −1. For the ferrihydrite- and hematite-
+coated sand mixtures, the value of T−1
+2ML increased from pure
+quartz sand to that of the 100% iron-coated sands with increase
+in CP.
+For all samples, T−1
+2ML did not show a linear increase with t2
+E,
+which implies that T−1
+2D is negligible for the samples measured in
+this study. This same result was found in the previous study of Keat-
+ing and Knight (2007) where, in samples of ferrihydrite-coated sand
+and hematite-coated sand, T−1
+2D was found to be zero.
+Bulk fluid relaxation rate
+The bulk fluid relaxation rate was determined for each sample
+type using the NMR relaxation measurements of the extracted fluid.
+The calculated values of T−1
+2B versus CP are included in Figure 4.
+b)a)
+−3 −2 −1 0 1
+0
+0.05
+0.1
+0.15
+Log relaxation time (s)
+Normalized signal intensity
+−3 −2 −1 0 1
+0
+0.05
+0.1
+0.15
+Log relaxation time (s)
+Normalized signal intensity
+ ztrauQ ztrauQ
+0
+0.02
+0.04
+0.06 2% Ferrihydrite-coated sand
+0
+0.02
+0.04
+10% Ferrihydrite-coated sand
+50% Ferrihydrite-
+ coated sand
+0
+0.01
+0.02
+0.03
+0
+0.01
+0.02
+0.03
+100% Ferrihydrite-
+ coated sand
+0
+0.05
+2% Hematite-coated sand
+0
+0.02
+0.04
+10% Hematite-coated sand
+0
+0.01
+0.02
+50% Hematite-
+ coated sand
+0
+0.01
+0.02
+100% Hematite-
+ coated sand
+Figure 2. Relaxation time distributions, plotted as the log relaxation time versus the
+normalized signal intensity, for the 2%, 10%, 50%, and 100% ferrihydrite-coated sand
+samples (a) and the hematite-coated sand samples (b). Also shown for reference on each
+figure is the normalized relaxation time distribution for the pure quartz sand sample. All
+relaxation time distributions shown were obtained at an echo time of 300 μs.
+Hematite−coated sand mixtures
+18 18.2 18.4 18.6 18.8 19 19.2 19.4
+46
+47
+48
+49
+50
+51
+52
+Volume of water (cm3)
+I(0)/(RG*NS)
+Ferrihydrite−coated sand mixtures
+Quartz sand
+Figure 3. The sum of the total initial signal intensity Ið0Þ scaled by
+the receiver gain RG and the number of scans NS versus the volume
+of water for all mixture types for the data collected at an echo time
+of 300 μs. The dashed line represents a linear fit to the data. Error
+bars were determined from the standard deviation of repeated mea-
+surements; error bars not shown are smaller than the size of the data
+points.
+E372 Keating and Knight
+
+--- PAGE 9 ---
+The errors are the standard deviation calculated using the results
+from multiple measurements; error bars not shown are smaller than
+the size of the data points. The value of T−1
+2B for the pure quartz sand
+sample was 0.42 /C6 0.02 s −1. For the 100% ferrihydrite-coated sand
+sample, T−1
+2B was 0.60 /C6 0.02 s −1; for the 100% hematite-coated
+sand sample, T−1
+2B was 1.1 /C6 0.1 s −1. For the ferrihydrite-coated
+sand mixtures, T−1
+2B had a minimum value of 0.37 /C6 0.02 s −1 for
+CP ¼ 10% and a maximum value of 0.58 /C6 0.01 s −1 for CP ¼
+1%. For the hematite-coated sand mixtures, T−1
+2B had a minimum
+value of 0.40 /C6 0.02 s for CP ¼ 10% and a maximum value of
+0.91 /C6 0.06 s −1 for CP ¼ 75%. The fact that T−1
+2B for any sample
+containing iron-coated sand was greater than T−1
+2B for the pure quartz
+sand sample is most likely due to an increase in the concentration of
+hematite or ferrihydrite particles suspended in solution. This cannot
+be attributed to an increase in the concentration of dissolved Fe(III)
+in the measured fluids because ferrihydrite and hematite have low
+solubility in water at pH 7 ( Cornell and Schwertmann, 2003 ).
+Surface relaxation rate
+The value of T−1
+2S was determined from the cal-
+culated values of T−1
+2ML and T−1
+2B measured at an
+echo time of 300 μs using equation 10. The cal-
+culated values of T−1
+2S are plotted versus concen-
+tration in Figure 4. The errors are the standard
+deviation calculated using the results from multi-
+ple measurements; error bars not shown are smal-
+ler than the size of the data points. The value of
+T
+−1
+2S for the pure quartz sand sample was
+0.11 /C6 0.02 s −1. For the 100% ferrihydrite-
+coated sand sample, T−1
+2S was 5.1 /C6 0.5 s −1;
+for the 100% hematite-coated sand sample,
+T
+−1
+2S was 10.1 /C6 0.3 s −1. For the ferrihydrite-
+coated sand mixtures, T−1
+2S ranged from
+0.15 /C6 0.02 s −1 for CP ¼ 1% to 3.8 /C6 0.4 s −1
+for CP ¼ 75%. For the hematite-coated sand
+mixtures, T−1
+2S ranged from 0.22 /C6 0.02 s −1 for
+CP ¼ 1% to 8.4 /C6 0.4 s −1 for CP ¼ 75%.
+The relationship between the three calculated
+relaxation rates and iron-coated sand concentra-
+tion (Figure 4) showed the following: (1) T
+−1
+2ML
+and T−1
+2S increased with CP. However, (2) T−1
+2B
+had no clear trend with CP. (3) For the samples
+with CP > 5% iron-coated sand, T−1
+2S >T −1
+2B; for
+the samples with CP ≤ 5%, T−1
+2B >T −1
+2S .
+Calculation of surface relaxivity
+Assumption of uniform ρ2
+We first calculated ρ2 of all of our samples,
+assuming that the surface is uniform using equa-
+tion 11, ρ
+2 ¼ T−1
+2S ∕ðS∕VÞ. This equation returns
+a single value of relaxivity to represent the sam-
+ple. We use ρ2Q to refer to the surface relaxivity
+for the pure quartz sand sample, and found
+ρ
+2Q ¼ 0.28 /C6 0.06 μm∕s. The surface relaxivity
+for the 100% ferrihydrite-coated sand sample ρ2F
+was 1.3 /C6 0.1 μm∕s. The surface relaxivity for
+the 100% hematite-coated sand sample ρ2H
+was 2.8 /C6 0.1 μm∕s. The errors were calculated from error-
+propagation analysis.
+The single-surface relaxivity values determined for the samples
+with spatial variation in surface relaxivity are shown in Figure 5 as a
+function of CP. For the ferrihydrite-coated sand mixtures (Figure 5a)
+and the hematite-coated sand mixtures (Figure 5b), ρ2 increased
+steeply with iron-coated sand concentration up to CP ¼ 10%, then
+roughly plateaued with some variability at higher levels of CP.
+Accounting for spatially variable ρ2
+We next calculated the surface relaxivity of the paramagnetic sur-
+faces using the equations presented earlier for systems with spatially
+variable ρ
+2: (1) We calculated the surface relaxivity of the paramag-
+netic surfaces assuming weak coupling, ρ2P−WC , using equations 14
+and 15. (2) We calculated the surface relaxivity of the paramagnetic
+surfaces assuming strong coupling, ρ2P−SC, using equation 16.
+The plots of ρ2P−WC and ρ2P−SC versus CP are shown in Figure 6
+for the ferrihydrite-coated sand mixtures (Figure 6a) and for the
+0 20 40 60 80 100
+0
+1
+2
+3
+4
+5
+6
+7
+Iron-coated sand concentration (%)
+Relaxation rate (s–1)
+T2ML
+–1 T2B
+–1 T2S
+–1
+0 20 40 60 80 100
+0
+2
+4
+6
+8
+10
+12Relaxation rate (s–1)
+Iron-coated sand concentration (%)
+T2ML
+–1 T2B
+–1 T2S
+–1
+b)a)
+0
+0
+5
+5
+Figure 4. V alues of T−1
+2ML , T−1
+2B , and T−1
+2S versus the iron-coated sand concentration for
+the measurements collected at tE ¼ 300 μs. Results are shown for ferrihydrite-coated
+sand (a) and hematite-coated sand (b). Error bars were calculated from the standard
+deviations of three repeated measurements; error bars not shown are smaller than
+the size of the data point.
+0.5
+1
+1.5
+2
+2.5
+3
+Surface relaxivity (µm/s)
+Iron-coated sand concentration (%)
+Surface relaxivity (µm/s)
+Iron-coated sand concentration (%)
+b)a)
+0 20 40 60 80 100
+0
+0 2 04 06 08 0 1 0 0
+1
+2
+3
+4
+5
+6
+0
+Figure 5. The average surface relaxivity for each sample ρ2 versus iron-coated sand
+concentration CP. Results are shown for ferrihydrite-coated sand (a) and hematite-
+coated sand (b). Error bars were calculated from error propagation; error bars not shown
+were smaller than the size of the data point. Also shown for reference in each graph is a
+dashed line representing the value of ρ
+2P for the uniform iron-coated samples, ρ2F for the
+ferrihydrite-coated sand, and ρ2H for the hematite-coated sand; and a solid line repre-
+senting the value of ρ2N for the uncoated quartz sand surface.
+Spatially variable surface relaxivity E373
+
+--- PAGE 10 ---
+hematite-coated sand mixtures (Figure 6b). Also shown as dashed
+lines on Figure 6 are ρ2F for the 100% ferrihydrite-coated sand sam-
+ple and ρ2H for the 100% hematite coated-sand sample, both cal-
+culated using equation 11.
+To determine the boundary between the regions of weak and
+strong coupling, we compared l D to a. An upper limit on the value
+of l D was determined by using T ¼ T2ML for the pure quartz sand
+sample. This approach yielded a value for l D of 165 μm.
+Calculating the value of a is more challenging. An upper bound
+on the value of a, the average distance that a proton must travel to
+reach a paramagnetic site, was calculated using the average distance
+between the surfaces of two iron-coated grains assuming a simple
+cubic periodic packing structure. For mixtures with C
+P > 25%,a
+simple cubic packing structure results in at least one iron-coated
+grain in each pore. The value of a is then the radius of the largest
+sphere that can be inscribed inside the pore space of a simple
+cubic packing of spherical grains, which is a ¼ 0.732r, where
+r ¼ 112 μm, the radius of the quartz grains,
+which we assume to be very close to the radius
+of the coated grains. Using this approach, we
+found that for C
+P > 25%;a ¼ 82 μm.
+For the mixtures with CP ≤ 25%, then we es-
+timated a following the approach of Grunewald
+and Knight (2011) , where an expression was de-
+rived to calculate the distance between two he-
+matite grain surfaces in a mixture containing
+hematite and quartz sand grains. In this approach,
+the distance between the centers of two iron-
+coated grains d is given by
+d ¼
+/C18 4π
+2CM ð1 − ϕÞ
+/C19 1∕3
+r: (18)
+The average distance that a proton would need
+to travel to reach a paramagnetic surface is then
+given by
+a ¼ 1.28d
+2 − r: (19)
+The values of a estimated using these approaches are given
+in Table 2 for each iron-coated sand mixture and ranged from
+82 to 542 μm. Comparing the values of a to l D, we found that
+weak coupling (i.e., l D ≤ 25%) occurs for mixtures with
+CP ≤ 25% and strong coupling (i.e., l D > α) occurs for mixtures
+with CP > 25%. The shaded region in Figure 6 is the weak-
+coupling region.
+To evaluate the validity of the equations 15 and 16 to represent
+systems with spatially variable surface relaxivity, we compared each
+calculated value of ρ2P (ρ2P−WC in the weak-coupling region,
+ρ2P−SC in the strong-coupling region) with the value of ρ2P deter-
+mined from the samples containing 100% iron-coated sand. We
+found (Figure 6a) excellent agreement, within 7%, in the strong-
+coupling region, between ρ2P−SC and ρ2P for the ferrihydrite-coated
+sand. The agreement was not as good, but within ∼26%, between
+ρ2P−SC and ρ2P for the hematite-coated sand (Figure 6b). This sug-
+gests that the equations used to represent a system with spatially
+varying ρ2 and strong coupling are capturing the essential elements
+of the relaxation behavior.
+In contrast, we did a very poor job of obtaining ρ2P−WC for both
+systems in the region of weak coupling. The equation that we have
+used to represent the weak-coupling region assumes that the mea-
+sured NMR signal is a sum of the NMR signal associated with re-
+laxation at iron-coated surfaces and the signal associated with
+relaxation at quartz surfaces. That is, this equation assumes that
+a proton will only sample one type of surface during relaxation.
+In fact, this is unlikely to be the case even if the conditions for weak
+Surface relaxivity (µm/s)
+Iron-coated sand concentration (%)
+Surface relaxivity (µm/s)
+Iron-coated sand concentration (%)
+b)a)
+0 20 40 60 80 100
+0
+0.5
+1
+1.5
+2
+2.5
+3
+ρ2P-SC
+ρ2P-WC
+ρ2F
+0 20 40 60 80 100
+0
+1
+2
+3
+4
+5
+6
+ρ2P-SC
+ρ2P-WC
+ρ2H
+Figure 6. The values of ρ2P−SC, ρ2P−WC versus CP for the ferrihydrite-coated sand mix-
+tures (a) and the hematite-coated sand mixtures (b). Error bars were calculated from
+error propagation; error bars not shown were smaller than the size of the data point.
+Also shown for reference in each graph is a dashed line representing the value of
+ρ
+2P for the uniform iron-coated samples, ρ2F for the ferrihydrite-coated sand, and
+ρ2H for the hematite-coated sand; and a solid line representing the value of ρ2N for
+the uncoated quartz sand surface. The shaded area corresponds to the region of weak
+coupling.
+Table 2. The values of a, κ, κP−WC , and κP−SC for the pure
+quartz sand, the ferrihydrite-coated sand mixtures, and the
+hematite-coated sand mixtures.
+Mixture type C
+P (%) a (μm) κκ P−WC κP−SC
+Quartz 0 82 0.01 ––
+Ferrihydrite 1 542 0.08 0.03 –
+2 409 0.11 0.04 –
+5 270 0.08 0.03 –
+10 193 0.07 0.03 –
+25 112 0.05 – 0.06
+50 82 0.04 – 0.04
+75 82 0.04 – 0.04
+100 82 0.04 ––
+Hematite 1 542 0.11 0.05 –
+2 409 0.11 0.04 –
+5 270 0.19 0.07 –
+10 193 0.18 0.07 –
+25 112 0.11 – 0.15
+50 82 0.10 – 0.11
+75 82 0.10 – 0.11
+100 82 0.09 ––
+E374 Keating and Knight
+
+--- PAGE 11 ---
+coupling are satisfied. Weak coupling means that there is no diffu-
+sion between pores, but does not ensure that there is only a single
+type of surface within a pore and that diffusion does not occur be-
+tween these different surfaces within a pore. It is most likely that in
+the weak-coupling region, the relaxation rate should be described by
+a combination of equations 15 and 16.
+To determine the surface relaxivity values reported in this study,
+we have assumed that the surface area measured using nitrogen
+BET represents the surface area relevant for the NMR measure-
+ments. Although nitrogen BET measurements are commonly ac-
+cepted as a means of determining the surface area of geologic
+materials, the measurement represents the surface area measured
+through the adsorption of nitrogen molecules, whereas the area
+of relevance for NMR studies is that of the water-wetted surface.
+The use of water as the adsorbate for surface area measurements
+has never been adopted for standard practice due to the additional
+complications involved in data acquisition and analysis. For exam-
+ple, the hydrogen bonding between water molecules results in
+clustering of the water on the surface, thus violating some of the
+underlying assumptions in the derivation of the BET equation. It
+is possible that the nitrogen-BET measured surface area is a lower
+bound on the water-wetted surface area, water being a smaller mo-
+lecule and thus able to access more of a rough, natural surface. Con-
+versely, it is possible that the surface area that is relevant for NMR
+measurements is a smoother surface area that more closely repre-
+sents the average pore radius than the surface measurement by ni-
+trogen BET; in this circumstance, the nitrogen-BET measurement
+would overpredict the relevant surface area. Either underpredicting
+or overpredicting the total surface area using nitrogen BET would
+mean that the surface relaxivities reported in this study are either
+consistently overpredicted or consistently underpredicted; however,
+we expect that the relationships between the surface relaxivities and
+the concentration of iron-coated sand would remain the same.
+Assessing the validity of the fast diffusion assumption
+In all cases, our calculations of surface relaxivity have assumed
+that relaxation was occurring in the fast-diffusion regime. We tested
+the assumption of fast diffusion by calculating the control para-
+meter. We use κ to represent the control parameter calculated using
+the uniform or average surface relaxivity values, κ
+P−WC for the con-
+trol parameter calculated from ρ2P−WC , and κP−SC for the control
+parameter calculated from ρ2P−SC. The values of κ, κP−WC , and
+κP−SC are given in Table 2.
+For the samples with uniform surface relaxivity,κ was 0.01 for the
+pure quartz sand, 0.04 for the ferrihydrite sand, and 0.09 for the he-
+matite-coated sand. Using the guideline that κ must be < 0.1 to en-
+sure fast diffusion, we conclude that, for the samples with uniform
+surface relaxivity, relaxation occurs in the fast-diffusion regime.
+Next, we consider κ for the iron-coated sand mixtures in which ρ2
+was calculated using equation 11, i.e., assuming uniform ρ2. For the
+ferrihydrite-coated sand mixtures, κ was less than 0.1 (i.e., relaxa-
+tion is in the fast-diffusion regime) for all the samples except for the
+sample with C
+P ¼ 2%; for this sample, κ ¼ 0.11. For the hematite-
+coated sand mixtures, κ ≥ 0.1 for all concentrations and ranges
+from 0.10 to 0.19.
+Next, we consider κP−WC for the iron-coated sand mixtures cal-
+culated using ρ2P−WC ; because we calculated the control parameter
+assuming weak coupling, only samples that satisfy the weak
+coupling requirement, i.e., C
+P ≤ 25%, are considered. For the
+ferrihydrite-coated sand mixtures and the hematite-coated sand
+mixtures, we found that κP−WC < 0.1 for all samples with
+CP ≤ 25%. For all samples, κP−WC indicated that relaxation oc-
+curred in the fast-diffusion regime.
+From Figure 6, we see that ρ2P is poorly predicted by ρ2P−WC for
+the ferrihydrite- and hematite-coated sand mixtures in the region of
+weak coupling ( CP ≤ 25%). Because κP−WC was less than 0.1 in
+this region, this discrepancy does not at first appear to be due to
+a violation of the fast diffusion assumption; however, we note that
+because ρ
+2P−WC underpredicted ρ2P in this region, another approach
+would be to use κP ¼ ρ2P a∕D, where ρ2P is the surface relaxivity of
+the sample containing 100% iron-coated sand. In calculating κP
+for ferrihydrite- and hematite-coated sand mixtures, we found
+κP× ≥ 0.1 for all samples in the region of weak coupling indicating
+that the discrepancy betweenρ2P andρ2P−SC may arise because relaxa-
+tion did not occur in the fast-diffusion regime. We note that because
+κ
+P ≥ 0.1 for ferrihydrite- and hematite-coated sands, the results pre-
+sented here are not conclusive. An alternate explanation for the dis-
+crepancy between ρ2P and ρ2P−SC is that the volume of water used to
+represent each pore environment in equation 15 was not accurate.
+Next, we consider κP−SC for the iron-coated sand mixtures calcu-
+lated using ρ2P−SC, respectively; here, only samples that are in the
+strong-coupling region (CP > 25%) are considered. For the ferrihy-
+drite-coated sand mixtures, we found that κP−SC < 0.1; for the hema-
+tite-coated sand mixtures, we found that κP−SC was slightly greater
+than 0.1 for all mixtures and ranged from 0.11 to 0.15. As suggested
+by the good agreement betweenρ2P−SC and ρ2F , the values ofκP−SC <
+0.1 for the ferrihydrite-coated sand mixtures lends further evidence to
+support that equation 16 is correct in the strong-coupling region. The
+value of κP−SC was slightly greater than 0.1 (between 0.11 and 0.15)
+for the hematite-coated sand mixtures; the fact thatκP−SC is not strictly
+in the fast-diffusion regime might explain the discrepancy between
+ρ2P−SC and ρ2H for the hematite-coated sand mixtures.
+CONCLUSIONS
+It is generally assumed, in the analysis and interpretation of NMR
+data, that the surface relaxivity ρ2 can be represented by a single
+value. Given the geochemical controls on ρ2, it is highly unlikely
+that all surfaces in a geologic material will have the same value of
+ρ
+2, highlighting a need to better understand systems with spatial
+variation in ρ2. This laboratory study has allowed us to explore sim-
+ple systems created so as to have spatially varying ρ2. For samples
+with two types of grains, so assumed to have two different ρ2 va-
+lues, we found that we can use a relatively simple expression to
+describe relaxation in the strong-coupling region, where there is
+averaging over the different pore environments during the relaxa-
+tion process. When the relaxation occurred in the weak-coupling
+region, we used an equation to represent the relaxation that pre-
+sumes that the measured NMR signal is a sum of the signals asso-
+ciated with relaxation at the surfaces coming from regions with
+different values. This expression failed to capture what was ob-
+served in the data, which is likely because it is not possible to quan-
+tify the distinct volumes of water interacting with and relaxing at
+each surface-type.
+Continued research improving the relationship between the NMR
+relaxation rates and the surface relaxivity will ultimately help to
+improve the interpretation NMR measurements in complex, geolo-
+gic material with nonuniform surface relaxivity.
+Spatially variable surface relaxivity
+E375
+
+--- PAGE 12 ---
+ACKNOWLEDGMENTS
+We are grateful to Elliot Grunewald and two anonymous re-
+viewers whose insightful comments helped to improve the manu-
+script. Support for this research was obtained from funding to R.
+Knight from the Hydrology Program and the GOALI (Grant Oppor-
+tunities for Academic Liaison with Industry) Program of the U. S.
+National Science Foundation (NSF award number 0911234). Sup-
+port for writing this manuscript was provided to K. Keating from
+the National Science foundation (NSF PAID grants 0620087 and
+0620101).
+APPENDIX A
+REFERENCES
+Allen, D., C. Flaum, T. Ramakrishnan, J. Bedford, K. Castelijns, D. Fair-
+hurst, G. Gubelin, N. Heaton, C. C. Minh, M. A. Norville, M. R. Seim, T.
+Pritchard, and R. Ramamoorthy, 2000, Trends in NMR logging: Oilfield
+Review/Schlumberger, 12, no. 2, 2 –19.
+Arns, C. H., 2004, A comparison of pore size distributions derived by NMR
+and X-ray-CT techniques: Physica A, 339, 159–165, doi: 10.1016/j.physa
+.2004.03.033.
+Summary of mathematical symbols.
+Symbol Definition
+MxyðtÞ Transverse magnetization as a function of time t
+Mxyðx;t Þ V ector representation of transverse magnetization as a
+function of space x and time t.
+a Mean distance that a proton must travel to reach a
+paramagnetic site
+α Factor accounting for the geometry of the pore space
+fk Relative amplitude for each exponent relaxing in the kth
+relaxation mode
+G Average magnetic field gradient
+tE Echo-time
+l D Average distance a spin can diffuse through the pore space
+before relaxing
+IðtÞ Measured NMR signal
+hj Fraction of water relaxing in the jth pore environment
+hjp Fraction of water relaxing in the jPth pore environment
+associated with the paramagnetic surfaces
+hjN Fraction of water relaxing in the jNth pore environment
+associated with the nonparamagnetic surfaces
+CP Mass fraction of iron-coated sand
+CN Mass fraction of uncoated sand
+ϕ Porosity
+m Mass of the solid phase of the sample
+r Average radius of a sand grain
+Relaxation Rate
+T2B−1 Bulk fluid relaxation rate
+T2Sk−1 Surface relaxation rate for relaxation mode k
+T2S0−1 The zeroth or slowest relaxation mode
+T2S∞−1 The fastest relaxation mode
+T2j−1 Relaxation rate for pore environment j
+ðT2SÞj−1 Surface relaxation rate for pore environment j
+T2ML−1 Mean log relaxation rate
+T2S−1 Average surface relaxation rate
+T2jP−1 Relaxation rate for pore environment i for pores with
+paramagnetic content
+T2jN−1 Relaxation rate for pore environment i for pores with no
+paramagnetic content
+T2ML−P−1 Mean log relaxation rate for uniform geologic material
+composed of paramagnetic surfaces
+Summary of mathematical symbols. (continued)
+Symbol Definition
+T2ML−N−1 Mean log relaxation for uniform geologic material
+composed of nonparamagnetic surfaces
+T2D−1 Diffusion relaxation rate
+Surface Relaxivity
+ρ2 Average surface relaxivity
+ρ2P Surface relaxivity for the paramagnetic surface (i.e., iron-
+coated quartz sand surface)
+ρ2N Surface relaxivity for the nonparamagnetic surface (i.e.,
+quartz sand surface)
+ρ2P−WC Surface relaxivity of the paramagnetic surface calculated
+assuming weak coupling
+ρ2N−WC Surface relaxivity of the nonparamagnetic surface
+calculated assuming weak coupling
+ρ2P−SC Surface relaxivity of the paramagnetic surface calculated
+assuming strong coupling
+ρ2N−SC Surface relaxivity of the nonparamagnetic surface
+calculated assuming strong coupling.
+ρ2F Surface relaxivity of the ferrihydrite-coated sand
+ρ2H Surface relaxivity of the hematite-coated sand
+Surface Area, specific surface area, surface-area-to-volume ratio,
+and volume
+Spore Surface area of a pore
+SN Surface area of the nonparamagnetic surfaces
+SP Surface area of the paramagnetic surfaces
+SSN Specific surface area for the pure quartz sand
+SSP Specific surface area for the iron-coated sand
+S∕V Pore surface area to volume ratio for the measured sample
+SN ∕V Ratio of the surface area of the nonparamagnetic surface
+to pore volume
+SP∕V Ratio of the surface area of the paramagnetic surface to
+pore volume
+Vpore V olume of a pore
+V Total pore volume in the measured sample
+VN V olume of water within the pore space affected by the
+nonparamagnetic surfaces
+VP V olume of water within the pore space affected by the
+paramagnetic surfaces
+Control Parameter
+κ Control parameter used to determine diffusion limits from
+average surface relaxivity
+κP−WC Control parameter calculated with the surface relaxivity
+value of the paramagnetic surface assuming weak
+coupling.
+κ
+P−SC Control parameter calculated with the surface relaxivity
+value of the paramagnetic surface assuming strong
+coupling.
+E376 Keating and Knight
+
+--- PAGE 13 ---
+Brownstein, K. R., and C. E. Tarr, 1979, Importance of classical diffusion in
+NMR studies of water in biological cells: Physical Review Abstracts, 19,
+2446–2453.
+Bryar, T., C. Daughney, and R. Knight, 2000, Effects of paramagnetic iron
+(III) species on nuclear magnetic resonance relaxation of saturated sands:
+Journal of Magnetic Resonance, 142,7 4 –85.
+Bryar, T., and R. Knight, 2002, Sensitivity of nuclear magnetic relaxation
+measurements to changing soil redox conditions: Geophysical Research
+Letters, 29, 50-1 –50-4, doi: 10.1029/2002GL016043.
+Cohen, M. H., and K. S. Mendelson, 1982, Nuclear magnetic relaxation and
+the internal geometry of sedimentary rocks: Journal of Applied Physics,
+53, 1127 –1135, doi: 10.1063/1.330526.
+Cornell, R. M., and U. Schwertmann, 2003, The iron oxides: Structure,
+properties, reactions, occurrences and uses, 2nd ed.: Wiley-VCH.
+Das, S., M. J. Hendry, and J. Essilfie-Dughan, 2011, Transformation of two-
+line ferrihydrite to goethite and hematite as a function of pH and tempera-
+ture: Environmental Science and Technology, 45, 268–275, doi: 10.1021/
+es101903y.
+Dlugosch, R., M. Mueller-Petke, T. Gunther, S. Costabel, and U. Y aramanci,
+2011, Assessment of the potential of a new generation of surface nuclear
+magnetic resonance instruments: Near Surface Geophysics, 9,8 9 –102,
+doi:http://dx.doi.org/10.3997/1873-0604.2010063.
+Dunn, K.-J., D. J. Bergman, and G. A. Latorraca, 2002, Nuclear
+magnetic resonance: Petrophysical and logging applications: Pergamon
+Press, Inc.
+Foley, I., S. A. Farooqui, and R. L. Kleinberg, 1996, Effect of paramagnetic
+ions on NMR relaxation of fluids at solid surfaces: Journal of Magnetic
+Resonance, Series A, 123,9 5 –104, doi: 10.1006/jmra.1996.0218.
+Fredrickson, J. K., J. M. Zachara, D. W. Kennedy, R. K. Kukkadapu, J. P .
+McKinley, S. M. Heald, C. Liu, and A. E. Plymale, 2004, Reduction of
+TcO
+4 by sediment-associated biogenic Fe(II): Geochimica et Cosmochi-
+mica Acta, 68, 3171 –3187. doi: 10.1016/j.gca.2003.10.024.
+Gillis, P ., and S. H. Koenig, 1987, Transverse relaxation of solvent protons
+induced by magnetized spheres: Application to ferritin, erythrocytes, and
+magnetite: Magnetic Resonance in Medicine, 5, 323 –345.
+Godefroy, S., J. P . Korb, M. Fleury, and R. G. Bryant, 2001, Surface nuclear
+magnetic relaxation and dynamics of water and oil in macroporous media:
+Physical Review E, 64, 21605-1 –21605-13.
+Grunewald, E., and R. Knight, 2009, A laboratory study of NMR relaxation
+times and pore coupling in heterogeneous porous media: Geophysics, 74,
+no. 6, E215 –E221. doi: 10.1190/1.3223712.
+Grunewald, E., and R. Knight, 2011, A laboratory study of NMR relaxation
+times in unconsolidated heterogeneous sediments: Geophysics, 76, no. 4,
+G73–G83. doi: 10.1190/1.3581094.
+Guillot, D., 1982, Propriètés physiques et texturales d’un modèle artificiel de
+matèriau à porosité intergranulaire: Thesis, Mines de Paris.
+Hansel, C. M., S. G. Benner, J. Neiss, A. Dohnalkova, R. K. Kukadapu, and
+S. Fendorf, 2003, Secondary mineralization pathways induced by dissim-
+ilatory iron reduction of ferrihydrite under advective flow: Geochimica et
+Cosmochimica Acta, 67, 2977 –2992.
+Keating, K., and R. Knight, 2007, A laboratory study to determine the effect
+of iron oxides on proton NMR measurements: Geophysics, 72, no. 1,
+E27–E32, doi: 10.1190/1.2399445.
+Keating, K., and R. Knight, 2008, A laboratory study of the effect of mag-
+netite on NMR relaxation rate: Journal of Applied Geophysics, 66, 188–
+196, doi: 10.1016/j.jappgeo.2007.09.001.
+Keating, K., and R. Knight, 2010, A laboratory study of the effect of
+Fe (II)-bearing minerals on nuclear magnetic resonance (NMR) relaxation
+measurements: Geophysics, 74, no. 3, F71–F82, doi: 10.1190/1.3386573.
+Keating, K., K. J. Tufano, and R. Knight, 2008, Nuclear magnetic resonance
+relaxation measurements as a means of monitoring iron mineralization
+processes: Geophysical Research Letters, 35, L19405, doi: 10.1029/
+2008GL035225.
+Kleinberg, R., W. Kenyon, and P . Mitra, 1994, Mechanism of NMR relaxa-
+tion of fluids in rock: Journal of Magnetic Resonance, Series A, 108,
+no. 2, 206 –214.
+Kleinberg, R. L., and M. A. Horsfield, 1990, Transverse relaxation
+processes in porous sedimentary rock: Journal of Magnetic Resonance,
+88,9 –19.
+Legchenko, A., J.-M. Baltassat, A. Bobachev, C. Martin, H. Robain, and J.-
+M. V ouillamoz, 2004, Magnetic resonance sounding applied to aquifer
+characterization: Ground Water, 42, 363
+–373, doi: 10.1111/gwat.2004
+.42.issue-3.
+Maliva, R., E. Clayton, and T. Missimer, 2009, Application of advanced
+borehole geophysical logging to managed aquifer recharge investigations:
+Hydrogeology Journal, 6, 1547 –1556.
+Mohnke, O., and U. Y aramanci, 2008, Pore size distributions and hydraulic
+conductivities of rocks derived from magnetic resonance sounding relaxa-
+tion data using multi-exponential decay time inversion: Journal of
+Applied Geophysics, 66, no. 3 –4, 73 –81. doi: 10.1016/j.jappgeo.2008
+.05.002.
+Ryu, S., 2009, Effect of inhomogeneous surface relaxivity, pore geometry
+and internal field gradients on NMR logging: Exact and perturbative the-
+ories and numerical investigations: SPWLA 50th Annual Logging Sym-
+posium, 1 –16.
+Ryu, S., and D. L. Johnson, 2009, Aspects of diffusion-relaxation dynamics
+with a nonuniform, partially absorbing boundary in general porous media:
+Physical Review Letters, 103, 118701.
+Schwertmann, U., and R. M. Cornell, 2000, Iron oxides in the laboratory:
+Preparation and characterization: Wiley-VCH.
+Seevers, D. O., 1966, A nuclear magnetic method for determining the per-
+meability of sandstones: 33rd Annual Logging Symposium, Society of
+Professional Well Log Analysts, Transactions, Paper L.
+Torrey, H. C., 1956, Bloch equations with diffusion term: Physical Review,
+104, 563 –564.
+Walsh, D. O., E. Grunewald, P . Turner, and I. Frid, 2010, Javelin: A slimhole
+and microhole NMR logging tool: FastTimes, 15,3 ,6 7 –72.
+Whittall, K. P ., M. J. Bronskill, and R. M. Henkelman, 1991, Investigations
+of analysis techniques for complicated NMR relaxation data: Journal
+of Magnetic Resonance, 95, 221 –234, doi: 10.1016/0022-2364(91)
+90213-D.
+Williams, K. H., A. Kemna, M. J. Wilkins, J. Druhan, E. Arntzen, A. L.
+N’Guessan, P . E. Long, S. S. Hubbard, and J. F. Banfield, 2009, Geophy-
+sical monitoring of coupled microbial and geochemical processes during
+stimulated subsurface bioremediation: Environmental Science and Tech-
+nology, 43, 6717 –6723, doi: 10.1021/es900855j.
+Spatially variable surface relaxivity E377

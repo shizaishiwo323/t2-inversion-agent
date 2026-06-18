@@ -1,0 +1,744 @@
+--- PAGE 1 ---
+PHYSICAL REVIEW E 90, 032407 (2014)
+Analytic theory of two-dimensional NMR in systems with coupled macro- and micropores
+David Linton Johnson* and Lawrence M. Schwartz
+Schlumberger Doll Research, One Hampshire Street, Cambridge, Massachusetts 02139, USA
+(Received 17 December 2013; published 29 September 2014)
+Two-dimensional (2D) nuclear magnetic resonance (NMR) experiments involve a sequence of longitudinal
+(T1) and transverse ( T2) measurements. When such experiments are applied to porous media, they are believed
+to provide new and important information regarding diffusive coupling between distinct pore subpopulations.
+However, we show in this paper that, in many cases of interest, this is simply not true. One often encounters
+systems in which the one-dimensional (1D) T
+1 and T2 processes are each controlled by just two distinct decay
+modes. If these modes form a complete set, then one can derive analytic formulas that describe, exactly, the 2D
+NMR measurements. Therefore, for such systems, the 2D measurements bring no additional information over
+that which is already present in the 1D results. Our predictions agree quite well with numerical results based on
+the microporous grain-consolidation (μ − GC) model.
+DOI: 10.1103/PhysRevE.90.032407 PACS number(s): 81 .05.Rm, 76.60.−k, 66.10.−x, 05.40.Fb
+I. INTRODUCTION
+Two-dimensional (2D) nuclear magnetic resonance (NMR)
+experiments have recently been applied to a wide range of ﬂuid
+ﬁlled porous media including reservoir rocks [ 1–4], cements
+[5], catalysts [ 6], and surfactants [ 7]. These measurements
+provide a correlation between the initial (encoding) and ﬁnal
+(detection) part of the experiment. Of particular interest is the
+T
+2-T1-T2 (also known as T2-storage-T2) protocol in which the
+spins are ﬁrst rotated to be perpendicular to the static magnetic
+ﬁeld, B
+0, where they undergo transverse ( T2) relaxation for
+a variable amount of time, τ1. Next, they are rotated to be
+parallel to B0 where they undergo longitudinal (T1) relaxation
+for a ﬁxed amount of storage time, ts . Finally, the spins are
+rotated back to the transverse plane and undergo transverse
+relaxation for a second variable amount of time, τ
+2 [3,5,8].
+Typically for each value of the storage time, ts , the NMR data
+are processed to produce lifetime distributions P(ts ; T a
+2 ,T b
+2 )
+where T a(b)
+2 refers to a decay time relevant to the ﬁrst (second)
+T2 part of the experiment.
+A T2-storage-T2 example, based on microporous grain-
+consolidation ( μ − GC) simulations [ 8] described below, is
+shown in Fig. 1 together with the corresponding 1D T2
+distribution. In the 2D cross-plot off-diagonal peaks are clearly
+evident. These peaks have been interpreted as providing new
+information regarding diffusive coupling between distinct spin
+populations (e.g., micro- and macropores in the μ − GC
+model) [ 8]. Indeed, by monitoring the amplitude of these
+off-diagonal peaks as a function of the storage time, t
+s,
+several authors have estimated exchange rates or coupling
+parameters [3–5]. While this approach is intuitively appealing,
+we will show that the behavior of the off-diagonal peaks
+can sometimes be predicted from the one-dimensional (1D)
+lifetime distributions. In such cases no new information is
+contained in the T
+2-T2 cross-plot. Thus, we maintain, the very
+signiﬁcant complexity of doing the 2D experiments as opposed
+to the more conventional 1D experiments (CPMG for T
+2 plus
+inversion recovery for T1 [1–7]) is often unwarranted.
+*Corresponding author: johnson10@slb.com
+We consider here the simple but important examples of 2D
+NMR, namely those for which the relevant 1D relaxation can
+be described as the sum of two exponential functions. (This
+includes, as a subset, the two-site exchange model which has
+often been used to interpret 2D NMR data [ 5,8].) The analytic
+theory we develop allows us to predict, with no additional
+information, the integrated intensity of each of the peaks
+appearing in two-dimensional cross-plots of the kind shown in
+Fig. 1. Therefore, for such systems, the 2D measurement brings
+no additional information over that which is already present
+in the 1D results. Equally important, our analysis points the
+way forward if we are to understand the value of 2D NMR in
+more complicated systems. We present numerical results on a
+system in which three modes are needed to describe the 1D
+lifetime distributions. Our analysis can be extended to such
+systems and should allow us to identify which features of the
+2D distributions contain information that is not already present
+in the 1D spectra.
+II. BASIC CONSIDERA TIONS
+A. Analysis of 1D and 2D NMR measurements
+In both 1D and 2D NMR, the evolution of the magnetization
+(magnetic moment per unit volume), M(r,t), is described by
+the diffusion equation [ 9]
+D0∇2M(r,t) = ∂M (r,t)
+∂t (1)
+subject to a partially absorbing boundary condition at the
+interface between the pore ﬂuid and the solid grain
+[D0 ˆn · ∇M(r,t) + ρM (r,t)]interface = 0. (2)
+Here D0 is the diffusion coefﬁcient for the bulk ﬂuid and the
+parameter ρ describes interface absorption. (In Eq. ( 1)t h e
+effect of bulk relaxation has already been factored out [ 9].)
+This Brownstein-Tarr formalism ignores the effects of ﬁeld
+inhomogeneities due to magnetic susceptibility contrasts. In
+practical terms this means the theory may be limited to low
+ﬁeld NMR [ 9].
+The value of ρ is generally larger for transverse relaxation
+than for longitudinal relaxation but, in both cases, is assumed
+to be constant over the entire interface. Equations ( 1) and ( 2)
+1539-3755/2014/90(3)/032407(7) 032407-1 ©2014 American Physical Society
+
+--- PAGE 2 ---
+DA VID LINTON JOHNSON AND LAWRENCE M. SCHW ARTZ PHYSICAL REVIEW E 90, 032407 (2014)
+2 = 2.0 m/s 
+1 = 0.25 m/s 
+2 = 2.0 m/s 
+101 100 10-1 
+0.0 
+0.02 
+0.04 
+0.01 
+0.03 
+0.05 
+T2
+(1) (s) 
+101 100 10-1 
+10-1 
+100 
+101 
+T2
+(2) (s) 
+FIG. 1. (Color online) One- and two-dimensional lifetime distri-
+butions obtained from our numerical simulations. The storage time,
+ts = 3 s, and location of the peaks in the 2D distribution are seen to
+be directly related to locations of their 1D counterparts. The assumed
+surface relaxivity values are indicated.
+can be solved directly for very simple geometries or by random
+walk simulations for more complex pore models. In a recent
+paper, we applied variable step size random walk techniques
+to the μ − GC model to study the T
+2-storage-T2 process in a
+system with two quite different pore sizes [ 8]. Our purpose
+was to see if our results could be understood in terms of the
+empirical two-site exchange model, which is often employed to
+interpret 2D NMR data. The calculations presented there were
+limited to the case in which there was no relaxation during
+the storage period but were sufﬁcient to expose a number of
+signiﬁcant limitations of the two-site exchange model.
+Because the controlling equations ( 1) and ( 2) are derived
+from a self-adjoint operator, we know that the eigenmodes of
+the system form a complete and orthonormal set [ 10]. Several
+authors have extended the formalism originally developed by
+Brownstein and Tarr [9] to the analysis of 2D NMR [ 8,11,12].
+From the outset one must consider two sets of eigenfunctions
+and eigenvalues. We denote these as {q
+n(r)} and {λn} for
+transverse decay and {Qn(r)} and {μn} for longitudinal decay.
+The orthonormality condition is simply
+qi · qj = δij i, j = 1,2,...,
+(3)
+Qk · Ql = δkl k, l = 1,2,...,
+where the inner product of two functions is f · g =∫
+VP
+f (r)g(r) dr.
+In the 1D case the total magnetic moment can be represented
+as a series expansion. For T2 decay,
+M2(t) = M0VP
+∞∑
+n=1
+Ane−λnt, (4)
+where M0 is the initial magnetization and VP is the volume of
+the pore space. We have An = (m0 · qn)2/VP , where m0(r)i s
+a function equal to unity in the pore space and zero elsewhere.
+Similarly, the T
+1 decay function is
+M1(t) = M0VP
+∞∑
+n=1
+Bne−μnt, (5)
+where Bn = (m0 · Qn)2/VP . It is understood that T1 is con-
+ventionally monitored with an inversion-recovery procedure
+in which the quantity actually measured is M
+0VP − 2M1(t),
+but we will refer to M1(t)a st h eT1 decay function.
+The theoretical description of the T2-storage-T2 experiment
+begins, as in Eq. ( 4), with an expansion of M(r,t)i nt e r m s
+of {qn,λn} during the encoding period 0 ⩽ t ⩽ τ1. M(r,τ1)
+is then the initial condition for an expansion, covering the
+storage period, based on the longitudinal eigenfunctions and
+eigenvalues, {Q
+l} and {μn}. [Because M(r,τ1) will in general
+not be spatially uniform, its projection onto the longitudinal
+eigenfunctions is non-trivial.] Finally, M(r,τ
+1 + ts)i st h e
+initial state for the transverse basis function expansion between
+t = τ
+1 + ts and t = τ1 + ts + τ2, where τ2 is the length of the
+detection period. The result is [ 11,12]
+M(τ1,τ2 : ts) =
+∑
+m,n
+Mnm(ts)e−[λnτ1+λmτ2], (6)
+where
+Mnm(ts) = M0
+∑
+l
+(m0 · qn)(qn · Ql )(Ql · qm)(qm · m0)e−μlts .
+(7)
+From Eq. ( 7) we see, by inspection, that the matrix is sym-
+metric: Mnm(ts) = Mmn(ts). Furthermore, each coefﬁcient of
+e−μlts is positive for the diagonal elements, Mii . Finally, we
+note a useful sum rule which follows from the completeness
+of the set {q
+n}:
+∑
+n,m
+Mnm(ts) = M0
+∑
+l
+(m0 · Ql )2e−μlts ≡ M1(ts ). (8)
+Thus, if one sums over all elements of the storage matrix
+(integrates over all the decay times in the contour plot) the
+result must lie on the T
+1 decay curve. This result provides a
+powerful check on experimental data and, as we shall see, on
+the results of our own numerical simulations.
+It is worth pointing out that if ρ
+1 and ρ2 are small enough,
+no matter how complicated the geometry as long as the pore
+space is connected, then there is only one decay rate each for
+T
+1 and for T2 and there are no off-diagonal elements in the 2D
+experiment. (There is only the one diagonal peak.) Moreover,
+if ρ
+1 and ρ2 are large enough such that the slow diffusion
+limit applies for T1 and for T2 there will be multiple decay
+rates for each but there will be no off-diagonal elements in a
+T
+2-storage-T2 experiment simply because the normal modes
+for T1 and for T2 are identical. So this off-diagonal effect
+032407-2
+
+--- PAGE 3 ---
+ANAL YTIC THEORY OF TWO-DIMENSIONAL NMR IN . . . PHYSICAL REVIEW E 90, 032407 (2014)
+can happen only if at least one of T1 and T2 are intermediate
+between fast and slow diffusion, however that is deﬁned.
+The above equations are quite general. A tremendous
+simpliﬁcation of this formalism occurs if we can make two
+related assumptions, viz (1) that two modes are sufﬁcient to
+describe both the T
+1 and T2 decay spectra and (2) that any
+relevant function of position within the pore space can be
+expressed as a linear combination of these two orthonormal
+basis functions (e.g., q
+1 and q2 or, equivalently, Q1 and Q2).
+[In general, continuum models of porous media (like the GC or
+μ − GC models) have a countably inﬁnite number of normal
+modes [ 9]; in most cases only a few contribute to any NMR
+signal. However, it is possible to quantify these higher order
+modes by means of direct numerical computations on model
+porous media [ 13].] These assumptions allow us to derive an
+analytic expression for the matrix elements M
+nm(ts)a sw e
+now demonstrate.
+Because (f · g)2 ⩽ (f · f)(g · g) for any f, g pair and because
+|m0|= √m0 · m0 = √VP , we may deﬁne an angle ψ via
+m0 · q1 =
+√
+VP cos(ψ) =
+√
+VP A1 . (9)
+The orthonormality and completeness of q1 and q2 implies
+m0 = (m0 · q1)q1 + (m0 · q2)q2 which, in turn, implies ( m0 ·
+q1)2 + (m0 · q2)2 = m0 · m0 = VP . We then have |m0 · q2|=√VP sin(ψ) = √VpA2. Similarly, we may deﬁne the angle θ
+by writing Q1 in terms of q1 and q2:
+Q1 = cos(θ )q1 + sin(θ )q2. (10)
+Since Q1 · Q2 = 0, we have
+Q2 =± [sin(θ )q1 − cos(θ )q2]. (11)
+Substituting these results into Eq. (7), the matrix elementsMij
+can be written as
+M11/(M0VP ) = cos2(ψ)[cos2(θ )e−μ1ts + sin2(θ )e−μ2ts ],
+M22/(M0VP ) = sin2(ψ)[sin2(θ )e−μ1ts + cos2(θ )e−μ2ts ],
+M12/(M0VP ) = (1/4) sin(2ψ)s i n ( 2θ )[e−μ1ts − e−μ2ts ].
+(12)
+The six integrals implied by Eq. ( 7) have been reduced to two
+parameters, ψ and θ .
+Because the longitudinal decay can also be expressed in
+terms of just two distinct normal modes, we can deﬁne an angle
+χ in terms of the projection of the initial uniform magnetization
+onto the T
+1 basis functions:
+cos(χ ) ≡ m0 · Q1/
+√
+VP . (13)
+In view of Eq. ( 10), the angles ψ, θ and χ are related by
+cos(χ ) = cos(θ ) cos(ψ) + sin(θ )s i n (ψ) = cos(θ − ψ).
+(14)
+In a similar fashion we may write, utilizing Eq. ( 11),
+sin(χ ) =| m0 · Q2/
+√
+VP |=| sin(θ − ψ)|. (15)
+Either of Eq. ( 14)o r( 15) implies
+θ = ψ ± χ. (16)
+The foregoing analysis lends itself to a simple visual depiction,
+w h i c hw es h o wi nF i g . 2. Consider any one of the four
+q1
+q2
+Q1
+Q2 m0
+ψ
+χ
+θθ = ψ − χ < 0 q1
+q2
+Q1
+Q2 m0
+ψ
+χ
+θ
+θ = ψ − χ
+q1
+q2
+Q1Q2
+m0
+ψ
+χ
+θθ = ψ + χ q1
+q2
+Q1
+Q2
+m0
+ψ
+χ
+θ
+θ = ψ + χ
+FIG. 2. (Color online) Schematic plot of the possible relation-
+ships between the two orthogonal modes for T2 decay, q1,2,t h e
+two orthogonal modes for T1 decay, Q1,2, and the initial uniform
+magnetization, m0, within the context of the present theory. We
+imagine that the orientation of Q1,2 to q1,2 is continuously rotated
+counterclockwise in going from the upper-left picture to the lower-
+right.
+subplots. The T2 normal modes, q1 and q2, are orthonormal.
+Any point on the graph represents a function which is a
+linear combination of these two functions, the coefﬁcients
+of which are the coordinates on the graph. In particular,
+for porous media being considered in this article the initial
+uniform magnetization, m
+0, can be represented in terms of its
+coordinates along these two axes, thus deﬁning the angle ψ
+as shown. Similarly, each of the two functions Q1 and Q2,
+which are mutually orthonormal, may also be represented as
+points in the q
+1, q2 plane. This is the basic assumption of the
+article. Their coordinates deﬁne the angleθ , as shown. The four
+subplots indicate how the picture evolves from left to right, top
+to bottom, as θ is continuously increased. It also shows each
+possibility of Eq. ( 16). Depending upon which side of m
+0 the
+vector Q1 lies, either of the ± signs in Eq. ( 16) may hold, in
+principle. In most cases of interestρ1 ⩽ ρ2 and we believe that
+the minus sign in this equation is appropriate. When ρ1 = 0
+the mode Q1 corresponds to uniform magnetization, so χ = 0
+and θ = ψ. When ρ1 = ρ2 one has Qi ≡ qi ,s o θ = 0. For
+the most common situation encountered experimentally we
+have 0 <ρ
+1 <ρ 2, and therefore 0 <θ<ψ which implies
+θ = ψ − χ .
+Our algorithm, then, consists of the following steps: Fit
+the T2 decay to the sum of two simple exponentials, with
+amplitudes A1 = cos2(ψ) and A2 = 1 − A1, and decay rates
+λ1 and λ2. Solve for the angle ψ = cos−1(√A1). Likewise,
+ﬁt the T1 decay to the sum of two simple exponentials,
+with amplitudes B1 = cos2(χ ) and B2 = 1 − B1, and decay
+rates μ1 and μ2. Solve for the angle χ = cos−1(√B1); take
+θ = ψ − χ and compute the storage matrix elements using
+Eqs. (12).
+In the very special case that the two subsystems are
+unconnected, as happens for example if there is a barrier
+between them [ 8], then the amplitudes for both M
+1 and
+032407-3
+
+--- PAGE 4 ---
+DA VID LINTON JOHNSON AND LAWRENCE M. SCHW ARTZ PHYSICAL REVIEW E 90, 032407 (2014)
+M2 decay are simply the respective macro- and micropore
+volumes, i.e., Ai = Bi i = 1,2. In this very special case,
+then, ψ ≡ χ and θ ≡ 0. The result according to Eqs. ( 12)
+is that M12 ≡ 0 and the two diagonal elements are simply the
+respective single exponential 1D M1 decays, as one would
+intuitively expect.
+Even if the 1D NMR relaxation experiments can be
+represented accurately as a sum of two exponentials it is
+possible for our theory of 2D experiments to fail. Consider
+any subplot in Fig. 2. Let us imagine that there is a third mode
+each for T
+1 and T2 relaxation, Q3 and q3, respectively. In Fig.2
+each points in a direction perpendicular to the plane of the
+ﬁgure. In this situation neither of these modes contributes to
+their respective 1D decays nor does either contribute to the 2D
+results. If, however, we imagine that the triplet {Q
+1,Q2,Q3} is
+rotated rigidly around the vector m0 by an amount β, keeping
+the angle χ ﬁxed and maintaining their mutual orthonormality
+we see that the T1 decay is still represented as a sum of two
+exponentials because this third mode does not couple to the
+initial magnetization; the third mode is still orthogonal to
+the initial magnetization, m
+0 · Q3 ≡ 0, for any value of β.
+This, then, would be a situation in which each 1D relaxation
+can be represented as a sum of two exponential decays but
+the storage matrices, M
+ij , require three exponentials because
+Q3 · qj ̸= 0. The sum rule, Eq. ( 8), still holds, however, and
+it has only two terms, the coefﬁcients of the third exponential
+having canceled out.
+These ideas can also be applied to the T
+1-T2 protocol in
+which spins undergo longitudinal decay up to a switching
+time, T
+s , and are then tipped into the transverse plane for an
+additional time τ . One has
+M(Ts ; τ ) =
+∑
+n,m
+MT1,T2
+nm e−μnTs e−λmτ , (17)
+where MT1,T2
+nm = M0(m0 · Qn)(Qn · qm)(qm · m0). Although
+the results could be presented in terms of the angles ψ and
+χ , they can more simply and succinctly be written in terms of
+the T1 and T2 amplitudes directly as
+MT1,T2
+nm
+M0VP
+= BnAm + (2δnm − 1)
+√
+A1A2B1B2. (18)
+In Ref. [ 12] very general arguments were used to conclude
+that negative off-diagonal matrix elements are to be expected
+in the analysis of T
+1-T2 data. Equation (18) provides a speciﬁc
+example of this. Of the two off-diagonal elements, MT1,T2
+12
+and MT1,T2
+21 , one is negative and the other is positive. (A
+trivial exception occurs when A1 = B1, in which case both
+off-diagonal elements are zero.) The accuracy of the above
+equations is being pursued and the results will be presented
+elsewhere [15].
+B. Numerical calculations
+We conﬁrm the validity of the theory by means of a
+comparison against a series of numerical simulations based
+on the μ − GC model [ 8] a schematic of which is shown
+in Fig. 3. The model consists of a periodic arrangement of
+overlapping grains each of which is comprised of smaller
+grains. Our calculations are based on variable step size random
+walks as described in detail in [ 8]. We have employed the
+FIG. 3. (Color online) A microporous version of the grain con-
+solidation model in which the large grains are comprised of smaller
+grains whose centers lie on a lattice constructed by subdividing the
+original unit cell. The solid curves separate the macroporous and the
+microporous regions.
+same geometry as in [8] but with varying values of the surface
+relaxivities, ρ1 and ρ2. The probability that a walker will be
+removed from the count when it hits the pore-grain interface
+is simply related to the values of these physical parameters.
+For most of the calculations presented here the pore space
+is divided into two distinct, but coupled, populations whose
+dimensions differ by roughly a factor of 20 (see Table I
+of Ref. [ 8]). We see, however, that the two peaks in the
+T
+2 distribution shown in the upper panel of Fig. 1 are
+separated by less than a factor of 10. Before going further,
+let us explain why this is the case. It is straightforward to
+estimate the position of the short-time peak in the distribution
+since the micrograins are simply smooth overlapping spheres.
+The pore volume to surface area ratio for this part of the
+pore space is 0.839 μm and the corresponding lifetime can be
+estimated as T
+2 = Vp/(Sρ2) = 0.42 s. This is what we see in
+Fig. 1. If the macropores had smooth surfaces, theirVp/S ratio
+would be 15.2 μm and the corresponding lifetime would be
+7.6 s, which is well above the value seen in Fig.1. Of course, the
+macropores do not have smooth surfaces; the interface between
+the two pore populations is controlled by the large amount of
+surface area associated with the micrograins. This interface is
+where the diffusive coupling takes place; its presence is thus
+quite apparent in just the T
+2 distribution.
+TABLE I. Amplitudes and decay times deduced by ﬁtting two
+exponentials to numerical simulations of M(t). It is understood that
+when a speciﬁc value ofρ is used for the storage part of the simulation,
+the entries for λi now represent μi and that for A1 represents B1.
+ρ(μm/s) 0 0.25 0.5 1.0 2.0
+1/λ1(s) ∞ 8.2 5.05 3.3 2.25
+A1 1.0 0.924 0.825 0.735 0.620
+1/λ2(s) 3.5 1.7 1.2 0.61 0.42
+032407-4
+
+--- PAGE 5 ---
+ANAL YTIC THEORY OF TWO-DIMENSIONAL NMR IN . . . PHYSICAL REVIEW E 90, 032407 (2014)
+0 1 2 3 4 510
+−1
+10
+0
+ρ = 0.25
+ρ = 0.5
+ρ = 1
+ρ = 2
+t(s)
+M(t)
+simulation
+2 exponent fit
+FIG. 4. (Color online) Comparison of the results of numerical
+simulations of the 1D decays, Mi (t) i = 1,2, for different values of
+the surface relaxivity, ρ,i n μm/s.
+A necessary condition for the success of this theory is
+that each of the 1D measurements, M1(t) and M2(t), must be
+accurately represented as a sum of two exponential functions.
+To test this part we have performed a number of simulations,
+assuming different values of relaxivity, ρ, whose results are
+shown in Fig. 4. We see that each decay is well represented as
+a sum of two exponentials. The ﬁtting parameters are collated
+in Table I and are plotted in Fig. 5. The decay rate μ
+2 for
+the case where ρ = 0 was determined by means of a separate
+simulation, in which walkers were initially released only in
+the macropore and the number of walkers remaining in the
+macropore as a function of time was monitored [ 8].0 0.5 1 1.5 20
+0.5
+1
+1.5
+2
+2.5
+ρ (μm/s)
+μi or λi (s−1)
+FIG. 5. (Color online) The two decay rates deduced from our 1D
+simulations as a function of surface relaxivity. For the 2D simulations
+the decay rates for ρ = 2 μm/s are appropriate to the T2 decay
+parts; the others are appropriate to T1 decay, i.e., to the storage part
+of the simulations. The dashed line is Eq. ( 19) using the known
+surface-to-pore-volume ratio.
+On quite general grounds [ 9] the slowest relaxation rate in
+the limit of small ρ is
+lim
+ρ→0
+μ1(ρ) = ρ(S/VP ), (19)
+where (S/VP ) is the total surface area to pore volume ratio
+of the pore system. From the geometry of our model we
+have determined that (S/V
+P ) = 0.603 (μm)−1. Equation (19)
+is plotted as a dashed line in Fig.5 using this value. In this limit,
+the slowest mode, q1 or Q1 as the case may be, corresponds
+to uniform magnetization throughout the entire pore system.
+The normalization condition, Eq. ( 3), requires that this value
+is equal to
+1√VP
+throughout the entire pore system.
+We note that the second decay rate does not approach
+zero as ρ → 0 but it tends to a constant, which constant is
+directly proportional to the bare diffusion constant. That is
+because this mode corresponds to a distribution which has one
+sign in the middle of the macropore and the opposite sign
+in the micropores. This fact follows immediately from the
+orthogonality condition, Eq. ( 3), on Q
+2 which reads
+0 = Q1 · Q2 ≡ 1√VP
+∫
+VP
+Q2(r) dV. (20)
+Relaxation for this mode occurs strictly by the diffusion
+between the macro- and the micropores so as to even out
+the imbalance. Equation ( 20) is the reason why a separate
+simulation [8] was needed in order for us to deduce the decay
+rate of this Q
+2 mode; it does not couple to an initial condition
+of uniform magnetization. In general, then, except by accident
+the ratio of the decay rates of the two modes is essentially
+never equal to the ratio of the pore sizes (20 in this article)
+no matter the value of the surface relaxivity, ρ.D i f f u s i v e
+coupling is an integral part of each of the modes. The slowest
+mode does not correspond to magnetization exclusively in
+0 2
+10
+−2
+10
+0
+Mij(ts) / M0VP
+ρ1 = 0
+11 − analytic
+11 − simulation
+12 − analytic
+12 − simulation
+22 − analytic
+22 − simulation
+M1(ts) − analytic
+Total − simulation 0 2 4 6 810
+−2
+10
+−1
+10
+0
+ρ1 = 0.25
+0 2 4 6 8
+10
+−2
+10
+0
+ts (s)
+Mij(ts) / M0VP
+ρ1 = 0.5
+0 2 4 6 810
+−4
+10
+−2
+10
+0
+ts (s)
+ρ1 = 1
+FIG. 6. (Color) The results of numerical simulations of the 2D
+storage matrix, Mij (ts ), in the micro grain consolidation model are
+compared against the predictions of the analytic model, Eqs. ( 12).
+The values assumed for ρ1,i n μm/s, are indicated. In all cases we
+used ρ2 = 2 μm/s.
+032407-5
+
+--- PAGE 6 ---
+DA VID LINTON JOHNSON AND LAWRENCE M. SCHW ARTZ PHYSICAL REVIEW E 90, 032407 (2014)
+T2
+(1) (s)
+T2
+(2) (s)
+10-1 
+10-1 
+100 
+100 
+2 = 20 m/s 
+1 = 2.5 m/s 
+T2 (s) 
+10-1 100 
+0.0 
+0.02 
+0.04 
+0.01 
+0.03 
+FIG. 7. (Color online) Numerical results for the 2D storage ma-
+trix, Mij (ts ), in a micrograin consolidation model in which the sizes
+of the micro- and macrograins have been increased by a factor of 2
+relative to our previous calculations. The storage time is ts = 2st h e
+values of ρ1 and ρ2 are given in the ﬁgure.
+the macropores; the second mode does not correspond to
+magnetization exclusively in the micropores. Rather, each
+mode is a distribution throughout the entire pore space.
+Numerical simulations of T
+2-storage-T2 were carried out
+using the parameters ρ2 = 2 μm/s and ρ1 = 0, 0.25, 0.5, and
+1.0 μm/s. A large number of random walkers (typically 10 6)
+are launched randomly and uniformly within the pore space.
+For the initial part of the simulation, t ⩽ τ
+1, relaxation at the
+pore-grain interface is controlled by ρ2. At the ﬁrst switching
+time, τ1, the surviving walkers continue but with a surface
+relaxation rate, ρ1. Then at the second switching time, τ1 + ts ,
+the surface relaxivity reverts to ρ2. We processed the time
+domain data using an inverse 2D Fredholm integral equation
+solver to generate two dimensional T2-T2 contour plots, one of
+which is shown in Fig. 1. We integrated the volume under each
+peak in order to determine Mij for each value of the storage
+time, ts . The results are shown in Fig. 6 along with the analytic
+results of Eqs. ( 12) using as input data the parameters listed
+in Table I. We see that the theory works quite well for this
+geometry and for these choices of relaxivity values [ 14]. We
+also see that the simulation data obeys the sum rule Eq. ( 8).
+In principle, this comparison could have been made based
+on just the time domain data using the deﬁnition, Eq. ( 6) and
+the model, Eqs. (12). This would have involved the analysis of
+a large number of 1D data sets (one for each value of τ1 and
+ts ). We employed the 2D Fredholm equation solver as a matter
+of convenience; its use is not essential.
+Obviously, there are many conditions under which it will
+not be possible to express both of the 1D decays as the sum of
+two exponentials. In such cases we want to understand what
+features of the 2D NMR spectrum contain information that
+cannot be derived from the 1D distributions. An example can
+be seen in the μ − GC model if we enlarge the unit cell size
+by a factor of two and increase the values of ρ
+1 and ρ2 as
+shown in Fig. 7. In this case the 1D decays can be written as
+the sum of three exponentials and it is possible to extend the
+present theory [15]. In more complicated systems, our analysis
+will inevitably breakdown and we will be in a position to
+identify those features of the 2D spectra that truly contain new
+information about diffusive coupling.
+III. CONCLUSIONS
+In summary, if the 1D decay functions,M1(t) andM2(t), can
+be represented accurately as the sum of two exponentials, we
+have developed an analytic theory for the results of T
+1-T2 and
+T2-storage-T2 experiments. The only inputs to the theory are
+the decay rates and amplitudes of the two 1D measurements.
+The validity of the theory has been conﬁrmed by comparison
+against numerical modeling in a mixed pore size system. While
+the present analysis is based on the diffusion equation and ﬂuid
+ﬁlled porous media, our results apply equally to measurements
+on surfactants and catalysts where the evolution of the
+magnetization is governed by a different self-adjoint operator.
+The only other requirement is that the initial magnetization
+and the ﬁnal amplitude measurement are described by the
+same function, m
+0.
+ACKNOWLEDGMENTS
+We are grateful for extensive discussions with Y .-Q. Song,
+M. Hurlimann, and J. Mitchell.
+[ 1 ] M .D .H¨urlimann, L. V enkataramanan, and C. Flaum, J. Chem.
+Phys. 117, 10223 (2002).
+[2] P . T. Callaghan, S. Godefroy, and B. N. Ryland,J. Magn. Reson.
+162, 320 (2003).
+[3] K. E. Washburn and P . T. Callaghan,Phys. Rev. Lett.97, 175502
+(2006).
+[4] M. Fleury and J. Soualem, J. Colloid Interf. Sci. 336, 250
+(2009).
+[5] L. Monteilhet, J. P . Korb, J. Mitchell, and P . J. McDonald,Phys.
+Rev. E 74, 061404 (2006).
+[6] D. W. Weber, J. Mitchell, J. McGregor, and L. F. Gladden,
+J. Phys. Chem. C 113, 6610 (2009).
+032407-6
+
+--- PAGE 7 ---
+ANAL YTIC THEORY OF TWO-DIMENSIONAL NMR IN . . . PHYSICAL REVIEW E 90, 032407 (2014)
+[7] J. D. Grifﬁth, J. Mitchell, A. E. Bayly, and M. L. Johns, J. Phys.
+Chem. B 113, 7156 (2009).
+[8] L. M. Schwartz, D. L. Johnson, J. Mitchell, T. C. Chandrasekera,
+and E. J. Fordham, P h y s .R e v .E88, 032813 (2013).
+[9] K. R. Brownstein and C. E. Tarr, P h y s .R e v .A19, 2446 (1979).
+[10] R. Courant and D. Hilbert, Methods of Mathematical Physics
+(Wiley, New Y ork, 1953), V ol. I, p. 279 ff.
+[11] Y .-Q. Song, L. Zielinski, and S. Ryu, P h y s .R e v .L e t t .100,
+248002 (2008).
+[12] D. Bytchenkoff and S. Rodts, J. Magn. Reson. 208, 4 (2011).
+[13] D. J. Bergman and K.-J. Dunn, Phys. Rev. E 51, 3401 (1995).
+[14] For ρ1 = 1μm/s, the values of M12 calculated from the
+simulations do not agree with the analytic theory as well as
+in the other three cases. The larger the value of ρ
+1, the smaller
+are the off-diagonal peaks; they must vanish as ρ1 → ρ2.O u r
+guess is that this lack of agreement reﬂects limitations in the
+ability of the inverse Fredholm solver to accurately describe
+the very small off diagonal peaks rather than limitations in the
+accuracy of Eqs. ( 12).
+[15] L. M. Schwartz and D. L. Johnson (unpublished).
+032407-7
