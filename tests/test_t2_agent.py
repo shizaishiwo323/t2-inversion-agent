@@ -20,7 +20,15 @@ from t2_agent.tools import (
 
 from T2process.nmr_t2.io_utils import load_decay_table_multi_column
 from T2process.nmr_t2.models import LCurveInversionResult
+from T2process.nmr_t2.config import LCurveConfig
 from T2process.nmr_t2.plotting import plot_lcurve_result
+from t2_agent.interactive_lcurve import (
+    DEFAULT_EXPLORER_LCURVE_PARAMS,
+    alpha_path_figure,
+    lcurve_metric_figure,
+    selected_alpha_from_plotly_selection,
+)
+from lcurve_explorer_app import _page_css, _spectrum_figure, _visible_spectrum_source
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -139,6 +147,112 @@ def test_lcurve_plot_labels_best_regularization_at_selected_point(monkeypatch):
     assert all(item.arrow_patch is not None for item in annotations)
 
 
+def test_lcurve_default_alpha_search_uses_requested_range():
+    cfg = LCurveConfig()
+
+    assert cfg.alpha_min == 1e-3
+    assert cfg.alpha_max == 1e4
+    assert cfg.alpha_count == 300
+    assert DEFAULT_EXPLORER_LCURVE_PARAMS["alpha_min"] == 1e-3
+    assert DEFAULT_EXPLORER_LCURVE_PARAMS["alpha_max"] == 1e4
+    assert DEFAULT_EXPLORER_LCURVE_PARAMS["alpha_count"] == 300
+
+
+def test_interactive_lcurve_selection_helpers_do_not_require_precomputed_spectra():
+    metrics = pd.DataFrame(
+        {
+            "alpha_regularization": [1e-3, 1e-2, 1e-1],
+            "residual_norm": [20.0, 40.0, 120.0],
+            "roughness_norm": [300.0, 140.0, 20.0],
+            "slope_reciprocal": [0.4, 0.2156, 0.1],
+            "is_best": [False, True, False],
+        }
+    )
+
+    lcurve_fig = lcurve_metric_figure(metrics, selected_index=2)
+    alpha_fig = alpha_path_figure(metrics, selected_index=2)
+    selected = selected_alpha_from_plotly_selection({"selection": {"points": [{"point_index": 2}]}}, metrics)
+
+    assert selected == 1e-1
+    assert lcurve_fig.data[0].customdata[2][1] == "1.000000e-01"
+    assert alpha_fig.data[0].y[2] == 1e-1
+    assert all("spectrum" not in trace.name.lower() for trace in lcurve_fig.data)
+
+
+def test_lcurve_explorer_shows_lcurve_spectrum_before_confirmed_inversion(tmp_path):
+    lcurve_spectrum = tmp_path / "lcurve_spectrum.xlsx"
+    confirmed_spectrum = tmp_path / "confirmed_spectrum.xlsx"
+
+    source = _visible_spectrum_source(
+        {"spectrum_xlsx": str(lcurve_spectrum)},
+        confirmed=None,
+        selected_alpha=0.1,
+        confirmed_alpha=None,
+    )
+    confirmed_source = _visible_spectrum_source(
+        {"spectrum_xlsx": str(lcurve_spectrum)},
+        confirmed={"spectrum_xlsx": str(confirmed_spectrum)},
+        selected_alpha=0.1,
+        confirmed_alpha=0.2,
+    )
+
+    assert source == (lcurve_spectrum, 0.1, "L-curve selected")
+    assert confirmed_source == (confirmed_spectrum, 0.2, "Confirmed fixed-alpha")
+
+
+def test_lcurve_explorer_uses_compact_publication_plot_style():
+    metrics = pd.DataFrame(
+        {
+            "alpha_regularization": [1e-3, 1e-2, 1e-1],
+            "residual_norm": [20.0, 40.0, 120.0],
+            "roughness_norm": [300.0, 140.0, 20.0],
+            "slope_reciprocal": [0.4, 0.2156, 0.1],
+            "is_best": [False, True, False],
+        }
+    )
+    spectrum = pd.DataFrame({"t2_ms": [1.0, 10.0, 100.0], "amplitude": [0.2, 1.0, 0.1]})
+
+    lcurve_fig = lcurve_metric_figure(metrics, selected_index=1)
+    alpha_fig = alpha_path_figure(metrics, selected_index=1)
+    spectrum_fig = _spectrum_figure(spectrum, 0.01)
+    css = _page_css()
+
+    assert ".block-container" in css
+    assert "max-width: 1180px" in css
+    assert lcurve_fig.layout.height == 360
+    assert alpha_fig.layout.height == 300
+    assert spectrum_fig.layout.height == 360
+    assert lcurve_fig.layout.plot_bgcolor == "#f8fbff"
+    assert lcurve_fig.layout.xaxis.gridcolor == "#dbe7f6"
+    assert lcurve_fig.data[0].marker.opacity == 0.88
+    assert spectrum_fig.data[0].fill == "tozeroy"
+
+
+def test_lcurve_explorer_uses_high_contrast_colors():
+    metrics = pd.DataFrame(
+        {
+            "alpha_regularization": [1e-3, 1e-2, 1e-1],
+            "residual_norm": [20.0, 40.0, 120.0],
+            "roughness_norm": [300.0, 140.0, 20.0],
+            "slope_reciprocal": [0.4, 0.2156, 0.1],
+            "is_best": [False, True, False],
+        }
+    )
+    spectrum = pd.DataFrame({"t2_ms": [1.0, 10.0, 100.0], "amplitude": [0.2, 1.0, 0.1]})
+
+    lcurve_fig = lcurve_metric_figure(metrics, selected_index=1)
+    spectrum_fig = _spectrum_figure(spectrum, 0.01)
+    css = _page_css()
+
+    assert lcurve_fig.data[0].line.color == "#1d4ed8"
+    assert lcurve_fig.data[0].marker.color == ("#38bdf8", "#f97316", "#38bdf8")
+    assert lcurve_fig.layout.plot_bgcolor == "#f8fbff"
+    assert spectrum_fig.data[0].line.color == "#0f766e"
+    assert spectrum_fig.data[0].fillcolor == "rgba(15, 118, 110, 0.18)"
+    assert "background: #f7faff" in css
+    assert "border: 1px solid #c9d8ee" in css
+
+
 def test_validate_workbook_handles_multi_signal_layout_without_named_headers(tmp_path):
     path = tmp_path / "multi_signal.xlsx"
     pd.DataFrame(
@@ -254,6 +368,22 @@ def test_repeated_lcurve_runs_are_grouped_by_parameters(tmp_path):
     assert interpretation.status == "success", interpretation.error
     assert "不同反演参数结果对比" in interpretation.message
     assert len(interpretation.summary["inversion_runs"]) == 2
+
+
+def test_lcurve_outputs_use_short_figure_folder_on_long_windows_paths(tmp_path):
+    validation = validate_workbook(SIMULATION)
+    long_root = tmp_path / ("long_path_segment_" * 4)
+    repaired = repair_workbook(SIMULATION, long_root / "standardized", validation.summary["recommended_time_to_ms_scale"])
+    repaired_workbook = Path(repaired.artifacts[0])
+
+    result = run_lcurve(
+        repaired_workbook,
+        long_root / "lcurve",
+        {"num_bins": 40, "alpha_count": 8, "t2_min_ms": 0.01, "t2_max_ms": 100000.0},
+    )
+
+    assert result.status == "success", result.error
+    assert any(Path(path).parent.name == "lcurve_figures" and path.endswith("_lcurve.png") for path in result.artifacts)
 
 
 def test_repeated_fixed_nnls_runs_are_grouped_by_parameters(tmp_path):

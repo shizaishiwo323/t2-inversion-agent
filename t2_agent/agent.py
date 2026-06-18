@@ -107,9 +107,9 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "t2_min_ms": {"type": "number", "description": "Lower bound for the T2 search range. Default: 0.01 ms."},
                         "t2_max_ms": {"type": "number", "description": "Upper bound for the T2 search range. Default: 100000 ms."},
                         "num_bins": {"type": "integer", "description": "Number of T2 bins. Default: 200."},
-                        "alpha_min": {"type": "number", "description": "Minimum smoothing factor tested by L-curve. Default: 1e-6."},
-                        "alpha_max": {"type": "number", "description": "Maximum smoothing factor tested by L-curve. Default: 100."},
-                        "alpha_count": {"type": "integer", "description": "Number of smoothing factors tested by L-curve. Default: 60."},
+                        "alpha_min": {"type": "number", "description": "Minimum smoothing factor tested by L-curve. Default: 0.001."},
+                        "alpha_max": {"type": "number", "description": "Maximum smoothing factor tested by L-curve. Default: 10000."},
+                        "alpha_count": {"type": "integer", "description": "Number of smoothing factors tested by L-curve. Default: 300."},
                     },
                     "required": [],
                     "additionalProperties": False,
@@ -193,9 +193,9 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "t2_min_ms": {"type": "number", "description": "Lower bound for the T2 search range. Default: 0.01 ms for L-curve."},
                         "t2_max_ms": {"type": "number", "description": "Upper bound for the T2 search range. Default: 100000 ms for L-curve."},
                         "num_bins": {"type": "integer", "description": "Number of T2 bins. Default: 200."},
-                        "alpha_min": {"type": "number", "description": "Minimum L-curve smoothing factor. Default: 1e-6."},
-                        "alpha_max": {"type": "number", "description": "Maximum L-curve smoothing factor. Default: 100."},
-                        "alpha_count": {"type": "integer", "description": "Number of L-curve smoothing factors. Default: 60."},
+                        "alpha_min": {"type": "number", "description": "Minimum L-curve smoothing factor. Default: 0.001."},
+                        "alpha_max": {"type": "number", "description": "Maximum L-curve smoothing factor. Default: 10000."},
+                        "alpha_count": {"type": "integer", "description": "Number of L-curve smoothing factors. Default: 300."},
                     },
                     "required": [],
                     "additionalProperties": False,
@@ -328,9 +328,9 @@ def process_uploaded_files_batch(args: dict[str, Any], context: AgentRuntimeCont
                 "t2_min_ms": float(args.get("t2_min_ms", 1e-2)),
                 "t2_max_ms": float(args.get("t2_max_ms", 1e5)),
                 "num_bins": int(args.get("num_bins", 200)),
-                "alpha_min": float(args.get("alpha_min", 1e-6)),
-                "alpha_max": float(args.get("alpha_max", 1e2)),
-                "alpha_count": int(args.get("alpha_count", 60)),
+                "alpha_min": float(args.get("alpha_min", 1e-3)),
+                "alpha_max": float(args.get("alpha_max", 1e4)),
+                "alpha_count": int(args.get("alpha_count", 300)),
             }
             inversion = run_lcurve(Path(repaired.artifacts[0]), file_dir / "lcurve", inversion_params, language=response_language)
             step_name = "run_lcurve"
@@ -465,9 +465,9 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
             "t2_min_ms": float(args.get("t2_min_ms", 1e-2)),
             "t2_max_ms": float(args.get("t2_max_ms", 1e5)),
             "num_bins": int(args.get("num_bins", 200)),
-            "alpha_min": float(args.get("alpha_min", 1e-6)),
-            "alpha_max": float(args.get("alpha_max", 1e2)),
-            "alpha_count": int(args.get("alpha_count", 60)),
+            "alpha_min": float(args.get("alpha_min", 1e-3)),
+            "alpha_max": float(args.get("alpha_max", 1e4)),
+            "alpha_count": int(args.get("alpha_count", 300)),
         }
         result = run_lcurve(context.repaired_path, context.workspace / "lcurve", params, language=response_language)  # type: ignore[arg-type]
         context.results.append(result)

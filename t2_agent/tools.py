@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import sys
 from pathlib import Path
 from typing import Any
@@ -29,6 +30,14 @@ from nmr_t2.pipelines import (  # noqa: E402
 
 def _is_english(language: str) -> bool:
     return language.lower().startswith("english")
+
+
+def _trapezoid_area(y: np.ndarray, x: np.ndarray) -> float:
+    y_arr = np.asarray(y, dtype=float).ravel()
+    x_arr = np.asarray(x, dtype=float).ravel()
+    if y_arr.size < 2 or x_arr.size < 2:
+        return 0.0
+    return float(np.sum((y_arr[1:] + y_arr[:-1]) * 0.5 * np.diff(x_arr)))
 
 
 def _read_first_table(path: Path) -> pd.DataFrame | None:
@@ -90,13 +99,23 @@ def _param_token(value: Any) -> str:
 def _inversion_run_output_dir(output_dir: Path, method: str, params: dict[str, Any]) -> Path:
     output_path = Path(output_dir)
     if method == "lcurve":
+        digest_source = repr(
+            [
+                ("num_bins", params.get("num_bins", 200)),
+                ("t2_min_ms", params.get("t2_min_ms", 1e-2)),
+                ("t2_max_ms", params.get("t2_max_ms", 1e5)),
+                ("alpha_min", params.get("alpha_min", 1e-3)),
+                ("alpha_max", params.get("alpha_max", 1e4)),
+                ("alpha_count", params.get("alpha_count", 300)),
+                ("trim_from_peak", params.get("trim_from_peak", True)),
+            ]
+        ).encode("utf-8")
+        digest = hashlib.sha1(digest_source).hexdigest()[:8]
         run_folder = "__".join(
             [
                 f"bins_{_param_token(params.get('num_bins', 200))}",
-                f"t2_{_param_token(params.get('t2_min_ms', 1e-2))}_{_param_token(params.get('t2_max_ms', 1e5))}",
-                f"alpha_{_param_token(params.get('alpha_min', 1e-6))}_{_param_token(params.get('alpha_max', 1e2))}",
-                f"alpha_n_{_param_token(params.get('alpha_count', 60))}",
-                f"trim_{_param_token(params.get('trim_from_peak', True))}",
+                f"alpha_n_{_param_token(params.get('alpha_count', 300))}",
+                f"p_{digest}",
             ]
         )
     elif method == "nnls":
@@ -238,10 +257,10 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
             amp = amp[mask]
             if t2.size and amp.size:
                 max_idx = int(np.argmax(amp))
-                total_area = float(np.trapezoid(amp, np.log10(t2))) if t2.size > 1 else float(amp[max_idx])
-                short_fraction = float(np.trapezoid(amp[t2 < 10], np.log10(t2[t2 < 10])) / total_area) if np.sum(t2 < 10) > 1 and total_area > 0 else 0.0
+                total_area = _trapezoid_area(amp, np.log10(t2)) if t2.size > 1 else float(amp[max_idx])
+                short_fraction = float(_trapezoid_area(amp[t2 < 10], np.log10(t2[t2 < 10])) / total_area) if np.sum(t2 < 10) > 1 and total_area > 0 else 0.0
                 mid_mask = (t2 >= 10) & (t2 < 1000)
-                mid_fraction = float(np.trapezoid(amp[mid_mask], np.log10(t2[mid_mask])) / total_area) if np.sum(mid_mask) > 1 and total_area > 0 else 0.0
+                mid_fraction = float(_trapezoid_area(amp[mid_mask], np.log10(t2[mid_mask])) / total_area) if np.sum(mid_mask) > 1 and total_area > 0 else 0.0
                 long_fraction = max(0.0, 1.0 - short_fraction - mid_fraction) if total_area > 0 else 0.0
                 summary.update(
                     {
@@ -1022,9 +1041,9 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
             num_bins=int(params.get("num_bins", 200)),
             t2_min_ms=float(params.get("t2_min_ms", 1e-2)),
             t2_max_ms=float(params.get("t2_max_ms", 1e5)),
-            alpha_min=float(params.get("alpha_min", 1e-6)),
-            alpha_max=float(params.get("alpha_max", 1e2)),
-            alpha_count=int(params.get("alpha_count", 60)),
+            alpha_min=float(params.get("alpha_min", 1e-3)),
+            alpha_max=float(params.get("alpha_max", 1e4)),
+            alpha_count=int(params.get("alpha_count", 300)),
             min_points_after_trim=int(params.get("min_points_after_trim", 10)),
         )
         run_output_dir = _inversion_run_output_dir(Path(output_dir), "lcurve", params)
@@ -1038,6 +1057,17 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
         )
         artifacts = _as_artifacts(result)
         summary = {key: str(value) for key, value in result.items()}
+        summary["parameters"] = {
+            "num_bins": int(cfg.num_bins),
+            "t2_min_ms": float(cfg.t2_min_ms),
+            "t2_max_ms": float(cfg.t2_max_ms),
+            "alpha_min": float(cfg.alpha_min),
+            "alpha_max": float(cfg.alpha_max),
+            "alpha_count": int(cfg.alpha_count),
+            "min_points_after_trim": int(cfg.min_points_after_trim),
+            "time_to_ms_scale": float(params.get("time_to_ms_scale", 1.0)),
+            "trim_from_peak": bool(params.get("trim_from_peak", True)),
+        }
         spectrum_path = Path(result["spectrum_xlsx"]) if "spectrum_xlsx" in result else None
         _add_pair_plot_artifacts(
             raw_decay_workbook=Path(input_workbook),

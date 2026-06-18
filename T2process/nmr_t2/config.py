@@ -42,9 +42,9 @@ class LCurveConfig:
     num_bins: int = 200
     t2_min_ms: float = 1e-2
     t2_max_ms: float = 1e5
-    alpha_min: float = 1e-6
-    alpha_max: float = 1e2
-    alpha_count: int = 60
+    alpha_min: float = 1e-3
+    alpha_max: float = 1e4
+    alpha_count: int = 300
     slope_reciprocal_target: float = 0.25
     slope_reciprocal_valid_range: Tuple[float, float] = (0.1, 10.0)
     min_points_after_trim: int = 10

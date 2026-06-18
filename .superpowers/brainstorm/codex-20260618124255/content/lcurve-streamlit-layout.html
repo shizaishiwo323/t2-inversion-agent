@@ -1,0 +1,69 @@
+<h2>Interactive L-curve inside the current Streamlit results panel</h2>
+<p class="subtitle">A compact working layout: inspect the L-curve, watch smoothing-factor diagnostics, click one alpha, then show only the selected T2 spectrum.</p>
+
+<div class="mockup">
+  <div class="mockup-header">Preview: T2 results panel after an L-curve run</div>
+  <div class="mockup-body">
+    <div style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:16px;align-items:start">
+      <div style="border:1px solid #d6dbe6;border-radius:8px;padding:14px;background:#fff">
+        <div class="label">Interactive Plotly L-curve</div>
+        <div style="height:260px;margin-top:12px;border-left:2px solid #4b5563;border-bottom:2px solid #4b5563;position:relative;background:linear-gradient(180deg,#fbfcff,#f6f8fb)">
+          <div style="position:absolute;left:54px;bottom:36px;width:34px;height:34px;border-radius:999px;background:#9ca3af"></div>
+          <div style="position:absolute;left:120px;bottom:80px;width:34px;height:34px;border-radius:999px;background:#6b7280"></div>
+          <div style="position:absolute;left:190px;bottom:132px;width:40px;height:40px;border-radius:999px;background:#2563eb;box-shadow:0 0 0 5px rgba(37,99,235,.18)"></div>
+          <div style="position:absolute;left:270px;bottom:178px;width:34px;height:34px;border-radius:999px;background:#6b7280"></div>
+          <div style="position:absolute;right:42px;top:36px;width:34px;height:34px;border-radius:999px;background:#9ca3af"></div>
+          <div style="position:absolute;left:212px;bottom:182px;background:#111827;color:white;border-radius:6px;padding:8px 10px;font-size:12px;line-height:1.35">
+            alpha = 7.6e-2<br>residual = 40<br>roughness = 140
+          </div>
+          <div style="position:absolute;left:36%;bottom:46%;right:10%;height:2px;background:#2563eb;transform:rotate(31deg);transform-origin:left"></div>
+          <div style="position:absolute;left:14%;bottom:20%;width:26%;height:2px;background:#6b7280;transform:rotate(34deg);transform-origin:left"></div>
+        </div>
+        <p style="font-size:13px;color:#4b5563;margin:10px 0 0">Clicking a point sets the smoothing factor and triggers fixed NNLS inversion for that alpha.</p>
+      </div>
+
+      <div style="display:grid;gap:16px">
+        <div style="border:1px solid #d6dbe6;border-radius:8px;padding:14px;background:#fff">
+          <div class="label">Alpha path diagnostics</div>
+          <div style="height:120px;margin-top:12px;display:flex;align-items:end;gap:7px;border-bottom:2px solid #4b5563;border-left:2px solid #4b5563;padding:0 10px 8px">
+            <div style="height:28px;width:18px;background:#9ca3af;border-radius:3px"></div>
+            <div style="height:42px;width:18px;background:#9ca3af;border-radius:3px"></div>
+            <div style="height:68px;width:18px;background:#2563eb;border-radius:3px"></div>
+            <div style="height:86px;width:18px;background:#9ca3af;border-radius:3px"></div>
+            <div style="height:104px;width:18px;background:#9ca3af;border-radius:3px"></div>
+            <div style="height:52px;width:18px;background:#9ca3af;border-radius:3px"></div>
+          </div>
+          <p style="font-size:13px;color:#4b5563;margin:10px 0 0">Shows how alpha changes along the L-curve order, with selected point highlighted.</p>
+        </div>
+
+        <div style="border:1px solid #d6dbe6;border-radius:8px;padding:14px;background:#fff">
+          <div class="label">Selected T2 spectrum only</div>
+          <div style="height:150px;margin-top:12px;border-bottom:2px solid #4b5563;border-left:2px solid #4b5563;position:relative;background:#fbfcff">
+            <div style="position:absolute;left:12%;bottom:18%;width:18%;height:2px;background:#16a34a;transform:rotate(-12deg)"></div>
+            <div style="position:absolute;left:28%;bottom:25%;width:24%;height:2px;background:#16a34a;transform:rotate(48deg)"></div>
+            <div style="position:absolute;left:49%;bottom:58%;width:22%;height:2px;background:#16a34a;transform:rotate(-54deg)"></div>
+            <div style="position:absolute;left:68%;bottom:30%;width:16%;height:2px;background:#16a34a;transform:rotate(-18deg)"></div>
+          </div>
+          <p style="font-size:13px;color:#4b5563;margin:10px 0 0">No decay-fit panel here, matching your request.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="layout-accepted" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>This layout works</h3>
+      <p>Use this overall structure for the Streamlit implementation.</p>
+    </div>
+  </div>
+  <div class="option" data-choice="layout-needs-change" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Adjust the layout</h3>
+      <p>Keep the function, but change how these panels are arranged.</p>
+    </div>
+  </div>
+</div>

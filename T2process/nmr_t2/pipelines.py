@@ -27,7 +27,11 @@ from .io_utils import (
 from .lcurve import invert_single_signal_lcurve
 from .models import TrimmedSignal
 from .nnls import invert_single_signal_nnls
-from .plotting import plot_decay_and_spectrum_pair, plot_gaussian_decomposition, plot_lcurve_result
+from .plotting import (
+    plot_decay_and_spectrum_pair,
+    plot_gaussian_decomposition,
+    plot_lcurve_result,
+)
 
 
 def _build_output_path(output_dir: Path, dataset_name: str, artifact_name: str, suffix: str) -> Path:
@@ -193,7 +197,7 @@ def run_lcurve_workbook(
 
     dataset_name = input_workbook.stem
     output_dir.mkdir(parents=True, exist_ok=True)
-    figure_dir = output_dir / f"{safe_token(dataset_name)}__lcurve_figures"
+    figure_dir = output_dir / "lcurve_figures"
     figure_dir.mkdir(parents=True, exist_ok=True)
 
     time_ms, signal_matrix, signal_names, _ = load_decay_table_multi_column(

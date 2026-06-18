@@ -15,6 +15,16 @@ from .models import GaussianDecompositionResult
 GAUSSIAN_WIDTH_SCALE = 0.60056120439323
 
 
+def trapezoid_area(y: np.ndarray, x: np.ndarray) -> float:
+    """Integrate a one-dimensional curve without relying on NumPy 2 APIs."""
+
+    y_arr = np.asarray(y, dtype=float).ravel()
+    x_arr = np.asarray(x, dtype=float).ravel()
+    if y_arr.size < 2 or x_arr.size < 2:
+        return 0.0
+    return float(np.sum((y_arr[1:] + y_arr[:-1]) * 0.5 * np.diff(x_arr)))
+
+
 def gaussian_component(x: np.ndarray, center: float, width: float) -> np.ndarray:
     """Evaluate one Gaussian basis component in log10(T2) space."""
 
@@ -154,8 +164,8 @@ def decompose_spectrum_as_gaussians(
         component_matrix[idx, :] = component
         fitted += component
 
-    area_each = np.array([np.trapezoid(component_matrix[idx, :], t2_log) for idx in range(int(cfg.peak_count))], dtype=float)
-    total_area = float(np.trapezoid(fitted, t2_log))
+    area_each = np.array([trapezoid_area(component_matrix[idx, :], t2_log) for idx in range(int(cfg.peak_count))], dtype=float)
+    total_area = float(trapezoid_area(fitted, t2_log))
     area_fraction = np.zeros(int(cfg.peak_count), dtype=float) if total_area <= 0 else area_each / total_area
 
     peak_table = pd.DataFrame(
