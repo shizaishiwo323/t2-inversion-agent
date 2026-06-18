@@ -1,9 +1,10 @@
-# T2 Inversion Agent
+# NMR Simulation and T2 Inversion Agent
 
-A Streamlit-based AI workflow assistant for NMR T2 inversion. The app combines
-DeepSeek-guided conversation with a whitelisted local Python tool layer for
-data diagnosis, workbook repair, T2 inversion, visualization, Gaussian peak
-decomposition, result interpretation, and report generation.
+A Streamlit-based AI workflow assistant for NMR 2D simulation and T2 inversion.
+The app combines DeepSeek-guided conversation with a whitelisted local Python
+tool layer for PNG/rule-geometry simulation, pyGIMLi triangular meshing, T2
+decay solving, data diagnosis, workbook repair, T2 inversion, visualization,
+Gaussian peak decomposition, result interpretation, and report generation.
 
 ## What It Does
 
@@ -38,9 +39,15 @@ and does not perform CT segmentation, 3D simulation, T2-T2, or D-T2.
 ## Local Run
 
 ```bash
-pip install -r requirements.txt
+conda env create -f environment.yml
+conda activate t2agent
+python scripts/check_t2agent_env.py
 streamlit run streamlit_app.py
 ```
+
+The full 2D simulation workflow requires `pygimli` and uses the pyGIMLi
+triangular mesh path. Do not use `base` unless `python
+scripts/check_t2agent_env.py` confirms that all required packages are present.
 
 Set a local DeepSeek key in `.streamlit/secrets.toml` or enter it in the web
 page:
@@ -51,16 +58,20 @@ DEEPSEEK_API_KEY = "your-key"
 
 Do not commit `.streamlit/secrets.toml`.
 
-## Streamlit Community Cloud
+## Public Deployment
 
-Deploy with:
+The pyGIMLi mesh workflow is best deployed from GitHub to a container-capable
+public host such as Hugging Face Spaces Docker, Render, Railway, or another
+Docker platform. This repository includes:
 
-- Main file path: `streamlit_app.py`
-- Dependencies: `requirements.txt`
-- Config: `.streamlit/config.toml`
+- `environment.yml` for the `t2agent` conda environment.
+- `Dockerfile` for public deployment with the same conda environment.
+- `scripts/check_t2agent_env.py` for dependency verification.
 
-If no Cloud secret is configured, users can still provide their own DeepSeek
-API key in the page.
+Pure pip-only hosts may fail to install pyGIMLi. For full public operation,
+use the Dockerfile rather than a plain Streamlit Community Cloud build. If no
+Cloud secret is configured, users can still provide their own DeepSeek API key
+in the page.
 
 ## Safety Boundary
 

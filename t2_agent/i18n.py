@@ -5,8 +5,8 @@ from __future__ import annotations
 
 TRANSLATIONS = {
     "中文": {
-        "page_title": "T2 反演智能体",
-        "caption": "上传 NMR T2 衰减数据或 T2 谱，Agent 会通过 DeepSeek function calling 检查数据、解释参数、运行工具并生成结果。",
+        "page_title": "NMR 模拟与 T2 反演智能体",
+        "caption": "上传 Excel/文本衰减数据、T2 谱或红黄白 PNG 相图；Agent 可执行二维 NMR 模拟、pyGIMLi 网格、衰减求解、T2 反演、可视化和分峰解释。",
         "workspace_kicker": "NMR WORKBENCH",
         "session_warning": "任务记忆和结果只保存在当前会话里。结束任务、刷新环境或新开任务后，页面里的对话记忆和结果入口会消失；请先下载全部结果 zip。",
         "task_management": "任务管理",
@@ -25,24 +25,24 @@ TRANSLATIONS = {
         "api_key_missing": "请输入 DeepSeek API key，或在 Streamlit Secrets 配置 DEEPSEEK_API_KEY。",
         "api_settings": "API 设置",
         "chat_window": "#### 对话窗口",
-        "chat_placeholder": "例如：请先检查数据格式，我不懂参数，帮我自动做 T2 反演并分两个峰",
+        "chat_placeholder": "例如：用红黄 PNG 跑完整二维 NMR 模拟并做 T2 反演；或先检查数据格式，自动做 T2 反演并分两个峰",
         "missing_key_reply": "请先输入 DeepSeek API key。没有 key 时我不会假装调用 AI。",
         "running_status": "AI 正在思考并调用工具...",
         "done_status": "AI 本轮处理完成",
-        "data_results": "数据与结果",
+        "data_results": "数据、模拟与结果",
         "artifact_rail": "产物",
         "artifact_rail_caption": "这里汇总当前任务生成的图、表、报告和压缩包。最新图像会优先预览，所有文件都可单独下载。",
-        "no_artifacts": "还没有生成产物。上传文件后，在左侧对话中让 Agent 检查数据或运行 T2 反演。",
+        "no_artifacts": "还没有生成产物。可上传红黄白 PNG 相图后运行二维 NMR 模拟，也可上传 Excel/文本数据运行 T2 反演。",
         "latest_figures": "#### 最新图像",
         "artifact_files": "全部产物（{count}）",
         "download_artifact": "下载这个文件",
         "turn_artifacts": "本轮生成的产物（{count}）",
         "more_artifacts": "还有 {count} 个文件已同步到右侧产物栏。",
-        "uploader": "上传 Excel / PNG 文件（可多选）",
+        "uploader": "上传 Excel / 文本 / PNG 相图（可多选）",
         "active_file": "当前处理文件",
         "uploaded_count": "已上传 {count} 个文件。可在上方切换当前处理文件。",
         "current_file": "当前文件：{filename}",
-        "upload_hint": "文件上传后不会自动运行。请在左侧对话中让 AI 调用 validate_workbook 检查数据。",
+        "upload_hint": "文件上传后不会自动运行。Excel/文本数据可让 AI 检查并做 T2 反演；PNG 相图可运行二维 NMR 模拟。",
         "png_upload_hint": "PNG 相图需使用红色=液体/水相、黄色=固体、白色=外部背景；第一版只支持 2D 模拟。请在左侧对话中说明要检查几何、网格划分、求解衰减或完整模拟反演。",
         "diagnosis": "### AI 数据诊断结果",
         "standardized_file": "### AI 生成的标准化文件",
@@ -52,7 +52,7 @@ TRANSLATIONS = {
         "download_zip": "下载本任务全部结果 zip",
         "download_caption": "这个 zip 会打包本任务多轮对话中所有工具生成的文件，包括标准化数据、反演表格、图像、解释和报告。批量处理结果会按文件名分文件夹保存。",
         "structured_summary": "查看结构化摘要",
-        "upload_received": "我已经收到文件。请在下方对话里告诉我你的目标，例如：`请先检查数据格式，我不懂参数，帮我自动做 T2 反演`。我会通过工具调用完成检查和运行。",
+        "upload_received": "我已经收到文件。请在下方对话里告诉我你的目标，例如：`用这个红黄 PNG 跑完整二维 NMR 模拟并做 T2 反演`，或 `请先检查数据格式，我不懂参数，帮我自动做 T2 反演`。",
         "api_key_help": "优先使用这里输入的 key。也可以在 Streamlit Secrets 里配置 DEEPSEEK_API_KEY。",
         "trace_title": "AI 思考摘要与工具轨迹",
         "trace_caption": "这里展示的是可审计的摘要和工具调用记录，不是模型的隐藏原始推理链。",
@@ -62,11 +62,12 @@ TRANSLATIONS = {
         "trace_fields": "返回字段：",
         "trace_artifacts": "生成文件数：{count}",
         "intro_title": "开始前先了解这个 Agent",
-        "intro_body": """这个页面是一个 **NMR T2 反演工作台**：左侧负责对话和参数引导，右侧负责保存当前任务的产物。
+        "intro_body": """这个页面是一个 **NMR 模拟与 T2 反演工作台**：左侧负责对话和参数引导，右侧负责保存当前任务的产物。
 
-- 你可以上传 Excel、CSV 或支持的文本数据，Agent 会先检查时间列和信号列。
+- 你可以上传红黄白 PNG 相图，运行二维 NMR 模拟、pyGIMLi 网格、衰减求解和 T2 反演。
+- 你也可以上传 Excel、CSV 或支持的文本数据，Agent 会先检查时间列和信号列。
 - 如果你不懂平滑因子，默认建议用 L-curve 自动选择；如果你指定固定值，也可以复现实验设置。
-- 生成的 T2 谱、拟合表、分峰表、图像和报告会出现在右侧产物栏，并在对应聊天回复下面给出入口。
+- 生成的几何预览、网格、衰减曲线、T2 谱、拟合表、分峰表、图像和报告会出现在右侧产物栏。
 - DeepSeek API key 只从页面输入或环境/Secrets 读取，不会写入仓库。
 - 结果是数据处理和解释辅助，不替代你的样品背景和专业判断。""",
         "intro_dont_show": "以后不再自动弹出",
@@ -79,8 +80,8 @@ TRANSLATIONS = {
         "simulation_stage_report": "报告阶段",
     },
     "English": {
-        "page_title": "T2 Inversion Agent",
-        "caption": "Upload NMR T2 decay data or a T2 spectrum. The agent uses DeepSeek function calling to inspect data, explain parameters, run tools, and generate results.",
+        "page_title": "NMR Simulation and T2 Inversion Agent",
+        "caption": "Upload Excel/text decay data, a T2 spectrum, or a red/yellow/white PNG phase map. The agent can run 2D NMR simulation, pyGIMLi meshing, decay solving, T2 inversion, visualization, and peak interpretation.",
         "workspace_kicker": "NMR WORKBENCH",
         "session_warning": "Task memory and outputs only live in the current session. If you end the task, refresh the environment, or start a new task, the visible chat memory and result links will disappear. Download the full result zip first.",
         "task_management": "Task management",
@@ -99,24 +100,24 @@ TRANSLATIONS = {
         "api_key_missing": "Enter a DeepSeek API key, or configure DEEPSEEK_API_KEY in Streamlit Secrets.",
         "api_settings": "API settings",
         "chat_window": "#### Chat",
-        "chat_placeholder": "Example: inspect my data format first; I do not know the parameters, so help me run T2 inversion and split two peaks",
+        "chat_placeholder": "Example: run the full 2D NMR simulation and T2 inversion from this red/yellow PNG; or inspect my data and run T2 inversion with two peaks",
         "missing_key_reply": "Please enter a DeepSeek API key first. Without a key, I will not pretend to call AI.",
         "running_status": "AI is reasoning and calling tools...",
         "done_status": "AI turn completed",
-        "data_results": "Data and Results",
+        "data_results": "Data, Simulation, and Results",
         "artifact_rail": "Artifacts",
         "artifact_rail_caption": "Figures, tables, reports, and archives for the current task. Recent figures are previewed first; every file can be downloaded individually.",
-        "no_artifacts": "No artifacts yet. Upload data and ask the agent to inspect it or run T2 inversion.",
+        "no_artifacts": "No artifacts yet. Upload a red/yellow/white PNG to run 2D NMR simulation, or upload Excel/text data to run T2 inversion.",
         "latest_figures": "#### Latest figures",
         "artifact_files": "All artifacts ({count})",
         "download_artifact": "Download this file",
         "turn_artifacts": "Artifacts from this turn ({count})",
         "more_artifacts": "{count} more file(s) are available in the artifact rail.",
-        "uploader": "Upload Excel / PNG files",
+        "uploader": "Upload Excel / text / PNG phase maps",
         "active_file": "Active file",
         "uploaded_count": "{count} file(s) uploaded. Switch the active file above.",
         "current_file": "Current file: {filename}",
-        "upload_hint": "Uploading a file does not run anything automatically. Ask the AI on the left to call validate_workbook and inspect the data.",
+        "upload_hint": "Uploading a file does not run anything automatically. Excel/text data can be inspected and inverted; PNG phase maps can run the 2D NMR simulation workflow.",
         "png_upload_hint": "PNG phase maps must use red=liquid/water, yellow=solid, and white=outside background. The first simulation version supports 2D only. Ask the AI on the left to inspect geometry, mesh, solve decay, or run the full simulation-to-inversion workflow.",
         "diagnosis": "### AI Data Diagnosis",
         "standardized_file": "### Standardized File Generated by AI",
@@ -126,7 +127,7 @@ TRANSLATIONS = {
         "download_zip": "Download all results for this task",
         "download_caption": "This zip packages files generated across all conversation turns in this task, including standardized data, inversion tables, figures, interpretations, and reports. Batch results are grouped into folders by file name.",
         "structured_summary": "View structured summary",
-        "upload_received": "I have received the file. Tell me your goal in the chat below, for example: `Please inspect the data format first. I do not understand the parameters, so help me run T2 inversion automatically.` I will complete the inspection and processing through tool calls.",
+        "upload_received": "I have received the file. Tell me your goal in the chat below, for example: `Run the full 2D NMR simulation and T2 inversion from this red/yellow PNG`, or `Inspect the data format and run T2 inversion automatically.`",
         "api_key_help": "The key entered here takes priority. You can also configure DEEPSEEK_API_KEY in Streamlit Secrets.",
         "trace_title": "AI reasoning summary and tool trace",
         "trace_caption": "This shows auditable summaries and tool-call records, not the model's hidden raw chain of thought.",
@@ -136,11 +137,12 @@ TRANSLATIONS = {
         "trace_fields": "Returned fields: ",
         "trace_artifacts": "Generated files: {count}",
         "intro_title": "Before you start",
-        "intro_body": """This page is an **NMR T2 inversion workbench**: the left side guides the conversation and parameters, while the right side keeps task artifacts visible.
+        "intro_body": """This page is an **NMR simulation and T2 inversion workbench**: the left side guides the conversation and parameters, while the right side keeps task artifacts visible.
 
-- Upload Excel, CSV, or supported text data; the agent first checks the time and signal columns.
+- Upload red/yellow/white PNG phase maps to run 2D NMR simulation, pyGIMLi meshing, decay solving, and T2 inversion.
+- Or upload Excel, CSV, or supported text data; the agent first checks the time and signal columns.
 - If you do not know the smoothing factor, L-curve selection is the recommended default. Fixed regularization is available when you need reproducibility.
-- Generated T2 spectra, fit tables, peak tables, figures, and reports appear in the artifact rail and under the relevant chat reply.
+- Generated geometry previews, meshes, decay curves, T2 spectra, fit tables, peak tables, figures, and reports appear in the artifact rail.
 - The DeepSeek API key is read only from page input or environment/Secrets, and is not written into the repository.
 - The interpretation helps with processing, but does not replace sample context or professional judgment.""",
         "intro_dont_show": "Do not show automatically again",

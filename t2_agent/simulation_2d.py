@@ -862,6 +862,8 @@ def run_png_mesh_decay(png_path: Path, output_dir: Path, params: Simulation2DPar
         "downsample_scale": float(scale),
         "phase_counts": inspection.phase_counts,
         "params_used": asdict(effective),
+        "solver_used": "triangular",
+        "pygimli_available": True,
         "cropped_png": str(inspection.cropped_png),
         "preview_png": str(inspection.preview_png),
         "mesh_png": str(mesh_png.resolve()),
