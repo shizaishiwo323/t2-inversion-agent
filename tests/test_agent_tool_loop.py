@@ -100,6 +100,67 @@ def test_execute_2d_mesh_and_decay_updates_context(tmp_path, monkeypatch):
     assert result.summary["simulation_stages"]["decay"][-1] == str(decay_path)
 
 
+def test_full_2d_simulation_workflow_reuses_existing_inversion_tools(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake")
+    decay_path = tmp_path / "simulation_decay.xlsx"
+    spectrum_path = tmp_path / "simulation_spectrum.xlsx"
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+    captured = {}
+
+    def fake_run_2d_mesh_and_decay(input_path, output_dir, params, language="中文"):
+        captured["simulation_input"] = input_path
+        captured["simulation_output"] = output_dir
+        return AgentToolResult(
+            "success",
+            "simulated",
+            artifacts=[str(tmp_path / "mesh.png"), str(decay_path)],
+            summary={
+                "standard_decay_xlsx": str(decay_path),
+                "simulation_stages": {
+                    "mesh": [str(tmp_path / "mesh.png")],
+                    "decay": [str(decay_path)],
+                },
+            },
+        )
+
+    def fake_run_lcurve(input_workbook, output_dir, params, language="中文"):
+        captured["inversion_input"] = input_workbook
+        captured["inversion_params"] = params
+        return AgentToolResult(
+            "success",
+            "inverted",
+            artifacts=[str(spectrum_path)],
+            summary={"spectrum_xlsx": str(spectrum_path)},
+        )
+
+    def fake_run_gaussian_peaks(input_workbook, output_dir, params, language="中文"):
+        captured["gaussian_input"] = input_workbook
+        captured["gaussian_params"] = params
+        return AgentToolResult("success", "peaks", artifacts=[str(tmp_path / "peaks.xlsx")])
+
+    monkeypatch.setattr("t2_agent.agent.run_2d_mesh_and_decay", fake_run_2d_mesh_and_decay)
+    monkeypatch.setattr("t2_agent.agent.run_lcurve", fake_run_lcurve)
+    monkeypatch.setattr("t2_agent.agent.run_gaussian_peaks", fake_run_gaussian_peaks)
+
+    result = execute_agent_tool(
+        "run_2d_simulation_full_workflow",
+        {"geometry_mode": "png", "alpha_count": 9, "run_gaussian": True, "peak_count": 2},
+        context,
+    )
+
+    assert result.status == "success"
+    assert captured["simulation_input"] == png_path
+    assert captured["inversion_input"] == decay_path
+    assert captured["inversion_params"]["alpha_count"] == 9
+    assert captured["gaussian_input"] == spectrum_path
+    assert captured["gaussian_params"]["peak_count"] == 2
+    assert context.simulation_decay_path == decay_path
+    assert context.repaired_path == decay_path
+    assert context.spectrum_path == spectrum_path
+    assert result.summary["simulation_decay_xlsx"] == str(decay_path)
+
+
 def test_execute_run_lcurve_forwards_alpha_search_range(tmp_path, monkeypatch):
     captured = {}
 
