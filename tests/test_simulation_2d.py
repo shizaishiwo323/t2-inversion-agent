@@ -6,9 +6,11 @@ import pytest
 from PIL import Image
 
 from t2_agent.simulation_2d import (
+    RuleGeometry2D,
     SOLID,
     Simulation2DParams,
     WATER,
+    build_rule_geometry_labels,
     inspect_png_phase_map,
     run_png_mesh_decay,
     write_standard_decay_workbook,
@@ -99,3 +101,24 @@ def test_run_png_mesh_decay_writes_mesh_decay_and_workbook(tmp_path: Path):
     assert Path(result["curve_png"]).exists()
     assert Path(result["standard_decay_xlsx"]).exists()
     assert result["time_point_count"] == 3
+
+
+def test_build_rule_geometry_labels_can_make_uncoupled_two_pore_domain():
+    geometry = RuleGeometry2D(coupled=False, canvas_width_px=80, canvas_height_px=50)
+
+    labels = build_rule_geometry_labels(geometry)
+
+    assert labels.shape == (50, 80)
+    assert np.count_nonzero(labels == WATER) > 0
+    assert np.count_nonzero(labels == SOLID) > 0
+    mid_col = labels[:, labels.shape[1] // 2]
+    assert np.count_nonzero(mid_col == WATER) == 0
+
+
+def test_build_rule_geometry_labels_can_make_coupled_throat():
+    geometry = RuleGeometry2D(coupled=True, canvas_width_px=80, canvas_height_px=50, throat_width_px=6)
+
+    labels = build_rule_geometry_labels(geometry)
+
+    mid_col = labels[:, labels.shape[1] // 2]
+    assert np.count_nonzero(mid_col == WATER) > 0

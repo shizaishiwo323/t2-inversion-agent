@@ -79,6 +79,17 @@ class PngInspection:
         }
 
 
+@dataclass(frozen=True)
+class RuleGeometry2D:
+    coupled: bool = True
+    canvas_width_px: int = 160
+    canvas_height_px: int = 100
+    large_pore_radius_px: int = 24
+    small_pore_radius_px: int = 16
+    throat_length_px: int = 30
+    throat_width_px: int = 8
+
+
 def classify_png(rgb: np.ndarray) -> np.ndarray:
     colors = np.asarray(
         [
@@ -846,5 +857,53 @@ def run_png_mesh_decay(png_path: Path, output_dir: Path, params: Simulation2DPar
             "decay": [str(curve_csv), str(curve_png), str(decay_xlsx)],
         },
     }
+    result["summary_json"] = str(write_json_summary(output_dir / "simulation_2d_summary.json", result))
+    return result
+
+
+def build_rule_geometry_labels(geometry: RuleGeometry2D) -> np.ndarray:
+    height = int(geometry.canvas_height_px)
+    width = int(geometry.canvas_width_px)
+    if height < 20 or width < 40:
+        raise ValueError("Rule geometry canvas must be at least 40 x 20 pixels.")
+
+    labels = np.full((height, width), SOLID, dtype=np.uint8)
+    yy, xx = np.mgrid[0:height, 0:width]
+    center_y = height // 2
+    large_center_x = max(width // 3, int(geometry.large_pore_radius_px) + 2)
+    small_center_x = min(2 * width // 3, width - int(geometry.small_pore_radius_px) - 3)
+    large_mask = (xx - large_center_x) ** 2 + (yy - center_y) ** 2 <= int(geometry.large_pore_radius_px) ** 2
+    small_mask = (xx - small_center_x) ** 2 + (yy - center_y) ** 2 <= int(geometry.small_pore_radius_px) ** 2
+    labels[large_mask | small_mask] = WATER
+
+    if geometry.coupled:
+        throat_half = max(1, int(geometry.throat_width_px) // 2)
+        x0 = min(large_center_x + int(geometry.large_pore_radius_px), small_center_x)
+        x1 = max(small_center_x - int(geometry.small_pore_radius_px), large_center_x)
+        labels[center_y - throat_half : center_y + throat_half + 1, x0 : x1 + 1] = WATER
+    else:
+        labels[:, width // 2] = SOLID
+
+    return labels
+
+
+def save_rule_geometry_png(path: Path, geometry: RuleGeometry2D) -> Path:
+    labels = build_rule_geometry_labels(geometry)
+    save_phase_preview(labels, path)
+    return path
+
+
+def run_rule_geometry_mesh_decay(
+    geometry: RuleGeometry2D,
+    output_dir: Path,
+    params: Simulation2DParams | None = None,
+) -> dict[str, Any]:
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    phase_png = save_rule_geometry_png(output_dir / "input" / "rule_geometry_phase.png", geometry)
+    result = run_png_mesh_decay(phase_png, output_dir, params)
+    result["geometry_mode"] = "rule"
+    result["rule_geometry"] = asdict(geometry)
+    result["phase_png"] = str(phase_png)
     result["summary_json"] = str(write_json_summary(output_dir / "simulation_2d_summary.json", result))
     return result
