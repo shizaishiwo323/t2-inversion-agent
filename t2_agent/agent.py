@@ -14,10 +14,12 @@ from .models import AgentToolResult
 from .skills import render_skill_prompt
 from .tools import (
     generate_report,
+    inspect_2d_geometry_input,
     inspect_workbook_schema,
     interpret_results,
     plot_decay_spectrum,
     repair_workbook,
+    run_2d_mesh_and_decay,
     run_fixed_nnls,
     run_gaussian_peaks,
     run_lcurve,
@@ -34,6 +36,7 @@ class AgentRuntimeContext:
     uploaded_paths: list[Path] = field(default_factory=list)
     validation: AgentToolResult | None = None
     repaired_path: Path | None = None
+    simulation_decay_path: Path | None = None
     spectrum_path: Path | None = None
     results: list[AgentToolResult] = field(default_factory=list)
     tool_history: list[AgentToolResult] = field(default_factory=list)
@@ -90,6 +93,102 @@ def build_tool_specs() -> list[dict[str, Any]]:
                             "type": "number",
                             "description": "Multiplier that converts raw time to ms. Use 1000 for seconds and 1 when the data is already in ms.",
                         }
+                    },
+                    "required": [],
+                    "additionalProperties": False,
+                },
+            },
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "inspect_2d_geometry_input",
+                "description": "Inspect a 2D NMR simulation geometry input. Use this for red/yellow/white PNG phase maps or rule-based 2D geometry before meshing.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "geometry_mode": {"type": "string", "enum": ["png", "rule"], "description": "Use png for uploaded red/yellow/white phase maps, or rule for generated rule geometry."},
+                        "coupled": {"type": "boolean", "description": "For rule geometry, whether two pore bodies are connected by a throat."},
+                        "canvas_width_px": {"type": "integer", "description": "Rule geometry canvas width in pixels."},
+                        "canvas_height_px": {"type": "integer", "description": "Rule geometry canvas height in pixels."},
+                        "large_pore_radius_px": {"type": "integer", "description": "Rule geometry large pore radius in pixels."},
+                        "small_pore_radius_px": {"type": "integer", "description": "Rule geometry small pore radius in pixels."},
+                        "throat_width_px": {"type": "integer", "description": "Rule geometry throat width in pixels."},
+                    },
+                    "required": [],
+                    "additionalProperties": False,
+                },
+            },
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "run_2d_mesh_and_decay",
+                "description": "Run first-version 2D NMR simulation through pyGIMLi triangular meshing and T2 decay solving. Produces mesh, quality, decay, and standard decay workbook artifacts.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "geometry_mode": {"type": "string", "enum": ["png", "rule"], "description": "Use png for uploaded red/yellow/white phase maps, or rule for generated rule geometry."},
+                        "pixel_size_um": {"type": "number", "description": "Pixel size in micrometers when x and y pixel sizes are equal. Default: 1."},
+                        "pixel_size_x_um": {"type": "number", "description": "Horizontal pixel size in micrometers."},
+                        "pixel_size_y_um": {"type": "number", "description": "Vertical pixel size in micrometers."},
+                        "diffusion_um2_per_ms": {"type": "number", "description": "Diffusion coefficient in um^2/ms. Default: 2."},
+                        "bulk_t2_ms": {"type": "number", "description": "Bulk T2 in ms. Default: 3000."},
+                        "rho_solid_um_per_ms": {"type": "number", "description": "Solid-liquid surface relaxivity in um/ms. Default: 0.005."},
+                        "rho_gas_um_per_ms": {"type": "number", "description": "Gas-liquid/outside relaxivity in um/ms. Default: 0."},
+                        "dt_ms": {"type": "number", "description": "Simulation time step in ms. Default: 5."},
+                        "t_max_ms": {"type": "number", "description": "Maximum simulated time in ms. Default: 1500."},
+                        "mesh_bulk_size_um": {"type": "number", "description": "Target interior mesh spacing. Larger is coarser. Default: 8."},
+                        "mesh_boundary_size_um": {"type": "number", "description": "Target boundary mesh spacing. Default: 2."},
+                        "mesh_max_points": {"type": "integer", "description": "Safety limit for mesh node count. Default: 25000."},
+                        "coupled": {"type": "boolean", "description": "For rule geometry, whether two pore bodies are connected by a throat."},
+                        "canvas_width_px": {"type": "integer", "description": "Rule geometry canvas width in pixels."},
+                        "canvas_height_px": {"type": "integer", "description": "Rule geometry canvas height in pixels."},
+                        "large_pore_radius_px": {"type": "integer", "description": "Rule geometry large pore radius in pixels."},
+                        "small_pore_radius_px": {"type": "integer", "description": "Rule geometry small pore radius in pixels."},
+                        "throat_width_px": {"type": "integer", "description": "Rule geometry throat width in pixels."},
+                    },
+                    "required": [],
+                    "additionalProperties": False,
+                },
+            },
+        },
+        {
+            "type": "function",
+            "function": {
+                "name": "run_2d_simulation_full_workflow",
+                "description": "Run the complete first-version 2D NMR workflow: geometry input, pyGIMLi mesh, T2 decay solve, T2 inversion, optional Gaussian decomposition.",
+                "parameters": {
+                    "type": "object",
+                    "properties": {
+                        "geometry_mode": {"type": "string", "enum": ["png", "rule"]},
+                        "regularization": {"type": "number", "description": "Optional fixed regularization factor. Omit to use L-curve."},
+                        "t2_min_ms": {"type": "number"},
+                        "t2_max_ms": {"type": "number"},
+                        "num_bins": {"type": "integer"},
+                        "alpha_min": {"type": "number"},
+                        "alpha_max": {"type": "number"},
+                        "alpha_count": {"type": "integer"},
+                        "run_gaussian": {"type": "boolean"},
+                        "peak_count": {"type": "integer", "minimum": 1, "maximum": 8},
+                        "pixel_size_um": {"type": "number"},
+                        "pixel_size_x_um": {"type": "number"},
+                        "pixel_size_y_um": {"type": "number"},
+                        "diffusion_um2_per_ms": {"type": "number"},
+                        "bulk_t2_ms": {"type": "number"},
+                        "rho_solid_um_per_ms": {"type": "number"},
+                        "rho_gas_um_per_ms": {"type": "number"},
+                        "dt_ms": {"type": "number"},
+                        "t_max_ms": {"type": "number"},
+                        "mesh_bulk_size_um": {"type": "number"},
+                        "mesh_boundary_size_um": {"type": "number"},
+                        "mesh_max_points": {"type": "integer"},
+                        "coupled": {"type": "boolean"},
+                        "canvas_width_px": {"type": "integer"},
+                        "canvas_height_px": {"type": "integer"},
+                        "large_pore_radius_px": {"type": "integer"},
+                        "small_pore_radius_px": {"type": "integer"},
+                        "throat_width_px": {"type": "integer"},
                     },
                     "required": [],
                     "additionalProperties": False,
@@ -418,6 +517,105 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
         result = process_uploaded_files_batch(args, context, response_language=response_language)
         context.results.append(result)
         return result
+
+    if name == "inspect_2d_geometry_input":
+        result = inspect_2d_geometry_input(
+            context.uploaded_path,
+            context.workspace / "simulation_2d",
+            args,
+            language=response_language,
+        )
+        context.results.append(result)
+        return result
+
+    if name == "run_2d_mesh_and_decay":
+        result = run_2d_mesh_and_decay(
+            context.uploaded_path,
+            context.workspace / "simulation_2d",
+            args,
+            language=response_language,
+        )
+        context.results.append(result)
+        standard_decay = result.summary.get("standard_decay_xlsx")
+        if result.status == "success" and standard_decay:
+            context.simulation_decay_path = Path(standard_decay)
+            context.repaired_path = Path(standard_decay)
+        return result
+
+    if name == "run_2d_simulation_full_workflow":
+        mesh = run_2d_mesh_and_decay(
+            context.uploaded_path,
+            context.workspace / "simulation_2d",
+            args,
+            language=response_language,
+        )
+        context.results.append(mesh)
+        if mesh.status != "success":
+            return mesh
+        standard_decay = mesh.summary.get("standard_decay_xlsx")
+        if not standard_decay:
+            return AgentToolResult(
+                "failed",
+                "2D simulation did not produce a standard decay workbook.",
+                error="missing_simulation_decay",
+            )
+        context.simulation_decay_path = Path(standard_decay)
+        context.repaired_path = Path(standard_decay)
+
+        if args.get("regularization") is not None:
+            inversion = run_fixed_nnls(
+                context.repaired_path,
+                context.workspace / "simulation_2d" / "nnls",
+                {
+                    "time_to_ms_scale": 1.0,
+                    "regularization": float(args["regularization"]),
+                    "t2_min_ms": float(args.get("t2_min_ms", 1.0)),
+                    "t2_max_ms": float(args.get("t2_max_ms", 1e4)),
+                    "num_bins": int(args.get("num_bins", 200)),
+                },
+                language=response_language,
+            )
+        else:
+            inversion = run_lcurve(
+                context.repaired_path,
+                context.workspace / "simulation_2d" / "lcurve",
+                {
+                    "time_to_ms_scale": 1.0,
+                    "t2_min_ms": float(args.get("t2_min_ms", 1e-2)),
+                    "t2_max_ms": float(args.get("t2_max_ms", 1e5)),
+                    "num_bins": int(args.get("num_bins", 200)),
+                    "alpha_min": float(args.get("alpha_min", 1e-6)),
+                    "alpha_max": float(args.get("alpha_max", 1e2)),
+                    "alpha_count": int(args.get("alpha_count", 60)),
+                },
+                language=response_language,
+            )
+        context.results.append(inversion)
+        if inversion.status == "success" and "spectrum_xlsx" in inversion.summary:
+            context.spectrum_path = Path(inversion.summary["spectrum_xlsx"])
+
+        if bool(args.get("run_gaussian", False)) and context.spectrum_path is not None:
+            gaussian = run_gaussian_peaks(
+                context.spectrum_path,
+                context.workspace / "simulation_2d" / "gaussian",
+                {"peak_count": int(args.get("peak_count", 2))},
+                language=response_language,
+            )
+            context.results.append(gaussian)
+
+        return AgentToolResult(
+            "success" if inversion.status == "success" else "failed",
+            "2D NMR 模拟和 T2 反演流程完成。"
+            if not _is_english(response_language)
+            else "2D NMR simulation and T2 inversion workflow completed.",
+            artifacts=[artifact for result in context.results for artifact in result.artifacts],
+            summary={
+                "stage": "full_workflow",
+                "simulation_decay_xlsx": str(context.repaired_path),
+                "spectrum_xlsx": str(context.spectrum_path) if context.spectrum_path else None,
+            },
+            error=inversion.error,
+        )
 
     if name in {"inspect_workbook_schema", "validate_workbook", "repair_workbook"}:
         missing = _require_upload(context, response_language)

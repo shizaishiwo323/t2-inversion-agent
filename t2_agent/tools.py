@@ -10,6 +10,13 @@ import numpy as np
 import pandas as pd
 
 from .models import AgentToolResult
+from .simulation_2d import (
+    RuleGeometry2D,
+    Simulation2DParams,
+    inspect_png_phase_map,
+    run_png_mesh_decay,
+    run_rule_geometry_mesh_decay,
+)
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -132,6 +139,128 @@ def _plot_run_output_dir(output_dir: Path, spectrum_workbook: Path) -> Path:
     source_folder = safe_token(Path(spectrum_workbook).parent.name)
     output_path = Path(output_dir)
     return output_path if output_path.name == source_folder else output_path / source_folder
+
+
+def _simulation_params_from_args(args: dict[str, Any]) -> Simulation2DParams:
+    max_grid_size = args.get("max_grid_size", 500)
+    return Simulation2DParams(
+        pixel_size_x_um=float(args.get("pixel_size_x_um", args.get("pixel_size_um", 1.0))),
+        pixel_size_y_um=float(args.get("pixel_size_y_um", args.get("pixel_size_um", 1.0))),
+        diffusion_um2_per_ms=float(args.get("diffusion_um2_per_ms", 2.0)),
+        bulk_t2_ms=float(args.get("bulk_t2_ms", 3000.0)),
+        rho_solid_um_per_ms=float(args.get("rho_solid_um_per_ms", 0.005)),
+        rho_gas_um_per_ms=float(args.get("rho_gas_um_per_ms", 0.0)),
+        dt_ms=float(args.get("dt_ms", 5.0)),
+        t_max_ms=float(args.get("t_max_ms", 1500.0)),
+        max_grid_size=None if max_grid_size in {"none", "None", None} else int(max_grid_size),
+        solver="triangular",
+        mesh_bulk_size_um=float(args.get("mesh_bulk_size_um", 8.0)),
+        mesh_boundary_size_um=float(args.get("mesh_boundary_size_um", 2.0)),
+        mesh_max_points=int(args.get("mesh_max_points", 25000)),
+    )
+
+
+def _rule_geometry_from_args(args: dict[str, Any]) -> RuleGeometry2D:
+    return RuleGeometry2D(
+        coupled=bool(args.get("coupled", True)),
+        canvas_width_px=int(args.get("canvas_width_px", 160)),
+        canvas_height_px=int(args.get("canvas_height_px", 100)),
+        large_pore_radius_px=int(args.get("large_pore_radius_px", 24)),
+        small_pore_radius_px=int(args.get("small_pore_radius_px", 16)),
+        throat_length_px=int(args.get("throat_length_px", 30)),
+        throat_width_px=int(args.get("throat_width_px", 8)),
+    )
+
+
+def _simulation_artifacts_from_summary(summary: dict[str, Any]) -> list[str]:
+    artifacts: list[str] = []
+    for key, value in summary.items():
+        if key.endswith(("_png", "_csv", "_xlsx", "_bms", "_json")) and value:
+            artifacts.append(str(value))
+    return artifacts
+
+
+def inspect_2d_geometry_input(
+    input_path: Path | None,
+    output_dir: Path,
+    params: dict[str, Any] | None = None,
+    language: str = "中文",
+) -> AgentToolResult:
+    params = params or {}
+    mode = str(params.get("geometry_mode", "png")).lower()
+    try:
+        if mode == "rule":
+            geometry = _rule_geometry_from_args(params)
+            return AgentToolResult(
+                "success",
+                "规则二维几何参数已读取。" if not _is_english(language) else "Rule-based 2D geometry parameters were read.",
+                summary={"stage": "geometry", "geometry_mode": "rule", "rule_geometry": geometry.__dict__},
+            )
+        if input_path is None:
+            return AgentToolResult(
+                "failed",
+                "请先上传 PNG 相图。" if not _is_english(language) else "Please upload a PNG phase map first.",
+                error="missing_upload",
+            )
+        inspection = inspect_png_phase_map(Path(input_path), Path(output_dir) / "geometry")
+        artifacts = [str(path) for path in (inspection.cropped_png, inspection.preview_png) if path.exists()]
+        return AgentToolResult(
+            "success" if inspection.status == "success" else "failed",
+            inspection.message,
+            artifacts=artifacts,
+            summary=inspection.summary()
+            | {"stage": "geometry", "geometry_mode": "png", "simulation_stages": {"geometry": artifacts}},
+            error=inspection.error,
+        )
+    except Exception as exc:
+        return AgentToolResult(
+            "failed",
+            "二维几何输入检查失败。" if not _is_english(language) else "2D geometry inspection failed.",
+            error=str(exc),
+        )
+
+
+def run_2d_mesh_and_decay(
+    input_path: Path | None,
+    output_dir: Path,
+    params: dict[str, Any] | None = None,
+    language: str = "中文",
+) -> AgentToolResult:
+    params = params or {}
+    mode = str(params.get("geometry_mode", "png")).lower()
+    try:
+        sim_params = _simulation_params_from_args(params)
+        if mode == "rule":
+            result = run_rule_geometry_mesh_decay(_rule_geometry_from_args(params), Path(output_dir), sim_params)
+        else:
+            if input_path is None:
+                return AgentToolResult(
+                    "failed",
+                    "请先上传 PNG 相图。" if not _is_english(language) else "Please upload a PNG phase map first.",
+                    error="missing_upload",
+                )
+            result = run_png_mesh_decay(Path(input_path), Path(output_dir), sim_params)
+        artifacts = _simulation_artifacts_from_summary(result)
+        status = "success" if result.get("status") == "success" else "failed"
+        if status == "success":
+            message = (
+                "2D 网格划分和 NMR 衰减求解完成。"
+                if not _is_english(language)
+                else "2D mesh generation and NMR decay solve completed."
+            )
+        else:
+            message = (
+                "2D 网格划分或衰减求解失败。"
+                if not _is_english(language)
+                else "2D mesh generation or decay solve failed."
+            )
+        return AgentToolResult(status, message, artifacts=artifacts, summary=result, error=result.get("error"))
+    except Exception as exc:
+        return AgentToolResult(
+            "failed",
+            "2D 网格划分或衰减求解失败。" if not _is_english(language) else "2D mesh generation or decay solve failed.",
+            error=str(exc),
+        )
 
 
 def interpret_results(results: list[AgentToolResult], output_dir: Path, language: str = "中文") -> AgentToolResult:

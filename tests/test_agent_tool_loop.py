@@ -62,6 +62,44 @@ def test_run_lcurve_tool_schema_exposes_alpha_search_range():
     assert "smoothing factor" in properties["alpha_max"]["description"]
 
 
+def test_agent_tool_schema_exposes_2d_simulation_tools():
+    specs = build_tool_specs()
+    names = {item["function"]["name"] for item in specs}
+
+    assert "inspect_2d_geometry_input" in names
+    assert "run_2d_mesh_and_decay" in names
+    assert "run_2d_simulation_full_workflow" in names
+
+
+def test_execute_2d_mesh_and_decay_updates_context(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake")
+    decay_path = tmp_path / "decay.xlsx"
+    decay_path.write_bytes(b"fake-xlsx")
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+
+    def fake_run_png_mesh_decay(input_path, output_dir, params):
+        return {
+            "status": "success",
+            "standard_decay_xlsx": str(decay_path),
+            "mesh_png": str(tmp_path / "mesh.png"),
+            "curve_png": str(tmp_path / "decay.png"),
+            "simulation_stages": {
+                "mesh": [str(tmp_path / "mesh.png")],
+                "decay": [str(tmp_path / "decay.png"), str(decay_path)],
+            },
+        }
+
+    monkeypatch.setattr("t2_agent.tools.run_png_mesh_decay", fake_run_png_mesh_decay)
+
+    result = execute_agent_tool("run_2d_mesh_and_decay", {"geometry_mode": "png"}, context)
+
+    assert result.status == "success"
+    assert context.repaired_path == decay_path
+    assert context.simulation_decay_path == decay_path
+    assert result.summary["simulation_stages"]["decay"][-1] == str(decay_path)
+
+
 def test_execute_run_lcurve_forwards_alpha_search_range(tmp_path, monkeypatch):
     captured = {}
 
