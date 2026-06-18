@@ -18,6 +18,18 @@ def test_default_chat_model_uses_deepseek_pro_thinking_mode():
     assert DEFAULT_THINKING_ENABLED is True
 
 
+def test_agent_tool_result_can_carry_simulation_stage_metadata():
+    result = AgentToolResult(
+        "success",
+        "mesh generated",
+        artifacts=["mesh.png"],
+        summary={"stage": "mesh", "simulation_stages": {"mesh": ["mesh.png"]}},
+    )
+
+    assert result.summary["stage"] == "mesh"
+    assert result.summary["simulation_stages"]["mesh"] == ["mesh.png"]
+
+
 def test_resolve_artifact_image_reference_matches_stem_and_basename(tmp_path):
     image_path = tmp_path / "ExperimentalDecay__amplitude__decay_t2.png"
     image_path.write_bytes(b"fake-png")
