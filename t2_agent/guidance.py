@@ -80,6 +80,31 @@ def infer_requested_plan(user_text: str) -> UserWorkflowPlan:
     if any(token in text for token in ("l曲线", "L曲线", "l-curve", "L-curve", "自动平滑")):
         plan.workflow = "lcurve_inversion"
 
+    simulation_intent = any(
+        token in lowered
+        for token in (
+            "模拟",
+            "正演",
+            "网格",
+            "几何",
+            "pygimli",
+            "png",
+            "phase map",
+            "phase-map",
+            "nmr simulation",
+        )
+    )
+    png_intent = any(token in lowered for token in ("png", "图片", "图像", "相图", "phase map", "phase-map"))
+    rule_intent = any(token in lowered for token in ("规则", "几何", "耦合", "喉道", "尺寸", "rule", "geometry"))
+    if simulation_intent:
+        plan.workflow = "simulation_2d_full"
+        if png_intent:
+            plan.workflow = "simulation_2d_png"
+        elif rule_intent:
+            plan.workflow = "simulation_2d_rule"
+        if any(token in text for token in ("默认", "测试", "你来", "自动", "完整")):
+            plan.user_is_unsure = True
+
     return plan
 
 
@@ -87,6 +112,17 @@ def build_parameter_guidance(plan: UserWorkflowPlan, language: str = "中文") -
     """Return user-facing guidance for the inferred plan."""
 
     if language.lower().startswith("english"):
+        if plan.workflow.startswith("simulation_2d"):
+            return "\n".join(
+                [
+                    "For a 2D NMR simulation workflow, I will first check the geometry input, then generate a pyGIMLi triangular mesh, solve the time-domain NMR/T2 decay, and send that simulated decay into the existing T2 inversion pipeline.",
+                    "",
+                    "- PNG input must be a two-phase red/yellow map with optional white outside background: red means liquid/water pore space, yellow means solid, and white borders can be cropped automatically.",
+                    "- Rule geometry can be used for a quick controlled test with coupled or uncoupled pore bodies and user-set sizes.",
+                    "- For a first test run, defaults are acceptable, but diffusion, bulk T2, surface relaxivity, geometry scale, and mesh spacing should be confirmed before scientific interpretation.",
+                    "- If you only need T2 inversion, I will skip simulation and use the existing workbook inversion tools.",
+                ]
+            )
         lines = [
             "I will explain the key parameters first, then give a conservative recommendation:",
             "",
@@ -112,6 +148,18 @@ def build_parameter_guidance(plan: UserWorkflowPlan, language: str = "中文") -
             lines.append("Peak decomposition is not enabled by default. After the T2 spectrum is generated, start with 2 to 3 peaks if you want to interpret pore or fluid components.")
 
         return "\n".join(lines)
+
+    if plan.workflow.startswith("simulation_2d"):
+        return "\n".join(
+            [
+                "二维模拟会先检查几何/PNG，再用 pyGIMLi 三角网格生成网格，随后求解 NMR/T2 时域衰减曲线，并把得到的时域曲线送入现有 T2 反演流程。",
+                "",
+                "- PNG 输入必须是红/黄两相图，可带白色外部背景：红色表示液体/水相孔隙，黄色表示固体，白边会自动裁剪。",
+                "- 规则几何可用于快速测试，可设置孔体是否耦合以及主要尺寸。",
+                "- 测试运行可以先用默认物理参数，但正式解释前需要确认扩散系数、体相 T2、表面弛豫率、几何尺度和网格尺寸。",
+                "- 如果你只需要 T2 反演，我会跳过模拟，继续使用已有的 Excel 反演工具。",
+            ]
+        )
 
     lines = [
         "我会先解释关键参数，再给出推荐方案：",

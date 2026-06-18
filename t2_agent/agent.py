@@ -773,7 +773,12 @@ def run_deepseek_agent_turn(
         else "用户可见语言：中文。请用中文回复。所有面向用户的摘要、解释、工具结果解读和生成报告都必须使用中文，除非用户明确要求其他语言。"
     )
     system_content = (
-        "You are an NMR T2 inversion agent that can call real tools. "
+        "You are an NMR 2D simulation and T2 inversion agent that can call real tools. "
+        "For 2D simulation requests, use the simulation tools instead of spreadsheet validation tools. "
+        "If the user uploads a PNG or asks for red/yellow phase-map simulation, call inspect_2d_geometry_input and then run_2d_mesh_and_decay or run_2d_simulation_full_workflow. "
+        "For the first version, only 2D simulation is supported, and mesh generation must use pyGIMLi triangular meshing. "
+        "When the user asks for the whole simulation flow, call run_2d_simulation_full_workflow so mesh, decay, T2 inversion, and optional Gaussian decomposition are connected. "
+        "When the user only asks for T2 inversion, keep using the existing T2 workbook tools and do not force simulation. "
         "When the user has uploaded data and asks to inspect, run, or interpret it, first call inspect_workbook_schema, then call validate_workbook. "
         "If the user only asks about capabilities, parameter meanings, boundaries, expected data format, workflow, or usage advice, do not call tools; answer clearly. "
         "Do not assume the first column is time. Infer the time/T2 column from labels, monotonicity, numeric ranges, and preview rows. "
@@ -812,9 +817,9 @@ def run_deepseek_agent_turn(
     trace: list[dict[str, Any]] = [
         {
             "kind": "plan",
-            "message": "This turn first lets the model decide whether tools are needed; if tools are requested, only whitelisted T2 tools are executed."
+            "message": "This turn first lets the model decide whether tools are needed; if tools are requested, only whitelisted NMR simulation and T2 tools are executed."
             if _is_english(response_language)
-            else "本轮先让模型判断是否需要调用工具；若模型请求工具，只执行白名单 T2 tools。",
+            else "本轮先让模型判断是否需要调用工具；若模型请求工具，只执行白名单 NMR 模拟和 T2 tools。",
         }
     ]
     if on_trace:

@@ -35,12 +35,14 @@ WELCOME_MESSAGES = {
 - 做 T2 反演：默认用 L-curve 自动选择平滑因子，也支持你指定固定平滑因子
 - 生成衰减曲线、T2 谱图、L-curve 图
 - 对 T2 谱做 Gaussian 分峰，并解释峰位置和面积比例
+- 做二维 NMR 模拟：规则几何或红黄白 PNG 相图 -> pyGIMLi 网格 -> T2 衰减 -> T2 反演
+- 仍然支持只做 T2 反演，不需要先跑模拟
 - 读取已经生成的结果，解释这个结果说明什么，并给出下一步建议
 
 我现在的边界：
 
-- 专注 T2 decay / T2 spectrum 数据处理
-- 不做 CT 图像分割、网格生成、Bloch-Torrey 正演模拟
+- 专注 2D NMR 模拟、T2 decay / T2 spectrum 数据处理
+- 第一版模拟仅支持 2D；不做 CT 分割、3D、T2-T2 或 D-T2
 - 不替代专业判断，结果解释需要结合样品背景
 
 你可以先问我：
@@ -61,12 +63,14 @@ What I can do:
 - Run T2 inversion: L-curve by default, or fixed regularization when you provide a smoothing factor
 - Generate decay plots, T2 spectrum plots, and L-curve figures
 - Run Gaussian peak decomposition and explain peak positions and area fractions
+- Run first-version 2D NMR simulation: rule geometry or red/yellow/white PNG phase map -> pyGIMLi mesh -> T2 decay -> T2 inversion
+- Still support standalone T2 inversion without a simulation step
 - Read generated results and explain what they mean, with suggestions for next steps
 
 Current boundaries:
 
-- Focused on T2 decay / T2 spectrum processing
-- Does not perform CT segmentation, mesh generation, or Bloch-Torrey forward simulation
+- Focused on 2D NMR simulation, T2 decay, and T2 spectrum processing
+- First-version simulation supports 2D only; it does not perform CT segmentation, 3D simulation, T2-T2, or D-T2
 - Does not replace domain judgment; interpretation still depends on sample context
 
 You can ask first:
