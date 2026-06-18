@@ -33,6 +33,15 @@ except Exception:
 OUTSIDE = np.uint8(0)
 WATER = np.uint8(1)
 SOLID = np.uint8(2)
+PHASE_RGB_COLORS = np.asarray(
+    [
+        [255, 255, 255],
+        [255, 0, 0],
+        [255, 255, 0],
+    ],
+    dtype=np.int32,
+)
+PHASE_COLOR_TOLERANCE = 32.0
 
 
 @dataclass(frozen=True)
@@ -91,18 +100,17 @@ class RuleGeometry2D:
 
 
 def classify_png(rgb: np.ndarray) -> np.ndarray:
-    colors = np.asarray(
-        [
-            [255, 255, 255],
-            [255, 0, 0],
-            [255, 255, 0],
-        ],
-        dtype=np.int32,
-    )
     labels = np.asarray([OUTSIDE, WATER, SOLID], dtype=np.uint8)
     rgb32 = rgb.astype(np.int32)
-    dist2 = np.sum((rgb32[..., None, :] - colors[None, None, :, :]) ** 2, axis=-1)
+    dist2 = np.sum((rgb32[..., None, :] - PHASE_RGB_COLORS[None, None, :, :]) ** 2, axis=-1)
     return labels[np.argmin(dist2, axis=-1)]
+
+
+def unsupported_phase_color_count(rgb: np.ndarray, tolerance: float = PHASE_COLOR_TOLERANCE) -> int:
+    rgb32 = rgb.astype(np.int32)
+    dist2 = np.sum((rgb32[..., None, :] - PHASE_RGB_COLORS[None, None, :, :]) ** 2, axis=-1)
+    min_distance = np.sqrt(np.min(dist2, axis=-1))
+    return int(np.count_nonzero(min_distance > tolerance))
 
 
 def sample_bbox(labels: np.ndarray) -> tuple[int, int, int, int]:
@@ -129,6 +137,20 @@ def inspect_png_phase_map(png_path: Path, output_dir: Path) -> PngInspection:
     preview_png = output_dir / f"{input_path.stem}__classified_preview.png"
     try:
         rgb = np.asarray(Image.open(input_path).convert("RGB"))
+        unsupported_count = unsupported_phase_color_count(rgb)
+        if unsupported_count:
+            return PngInspection(
+                "failed",
+                f"PNG phase map contains {unsupported_count} pixel(s) outside the supported red/yellow/white phase colors.",
+                input_path,
+                [int(rgb.shape[0]), int(rgb.shape[1])],
+                [],
+                {},
+                np.zeros((0, 0), dtype=np.uint8),
+                cropped_png,
+                preview_png,
+                "unsupported_colors",
+            )
         labels_full = classify_png(rgb)
         raw_shape = [int(labels_full.shape[0]), int(labels_full.shape[1])]
         row_min, row_max, col_min, col_max = sample_bbox(labels_full)

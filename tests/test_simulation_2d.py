@@ -54,6 +54,19 @@ def test_inspect_png_phase_map_rejects_missing_water(tmp_path: Path):
     assert result.error == "no_liquid_pixels"
 
 
+def test_inspect_png_phase_map_rejects_unexpected_colors(tmp_path: Path):
+    png_path = tmp_path / "bad_colors.png"
+    rgb = np.full((6, 6, 3), [255, 255, 0], dtype=np.uint8)
+    rgb[2:4, 2:4] = [255, 0, 0]
+    rgb[0, 0] = [0, 0, 255]
+    Image.fromarray(rgb, mode="RGB").save(png_path)
+
+    result = inspect_png_phase_map(png_path, tmp_path / "inspect")
+
+    assert result.status == "failed"
+    assert result.error == "unsupported_colors"
+
+
 def test_write_standard_decay_workbook_uses_time_ms_signal_columns(tmp_path: Path):
     output = write_standard_decay_workbook(
         tmp_path / "decay.xlsx",
