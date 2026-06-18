@@ -160,6 +160,24 @@ def test_validate_workbook_handles_multi_signal_layout_without_named_headers(tmp
     assert list(frame.columns) == ["time_ms", "col_2", "col_3"]
 
 
+def test_validate_and_repair_three_column_csv_ignores_residual_noise_column(tmp_path):
+    path = tmp_path / "three_column_decay_with_residual.csv"
+    time_ms = np.arange(1, 121, dtype=float) * 0.6
+    decay = 1.7 * np.exp(-time_ms / 28.0) + 0.05
+    residual = np.where(np.arange(time_ms.size) % 2 == 0, 0.08, -0.07)
+    pd.DataFrame(np.column_stack([time_ms, decay, residual])).to_csv(path, index=False, header=False)
+
+    result = validate_workbook(path)
+    repaired = repair_workbook(path, tmp_path, result.summary["recommended_time_to_ms_scale"])
+    frame = pd.read_excel(repaired.artifacts[0])
+
+    assert result.status == "success", result.error
+    assert result.summary["time_column_excel_index"] == 1
+    assert result.summary["signal_excel_columns"] == [2]
+    assert result.summary["ignored_signal_like_excel_columns"] == [3]
+    assert list(frame.columns) == ["time_ms", "col_2"]
+
+
 def test_uploaded_t2_spectrum_is_not_repaired_or_inverted(tmp_path):
     path = tmp_path / "uploaded_t2_spectrum.xlsx"
     t2_ms = np.logspace(-1, 3, 80)

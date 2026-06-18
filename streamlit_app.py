@@ -21,7 +21,7 @@ MARKDOWN_IMAGE_RE = re.compile(r"!\[([^\]]*)\]\(([^)]+)\)")
 REPORT_ANALYSIS_START = "<!-- conversation-analysis:start -->"
 REPORT_ANALYSIS_END = "<!-- conversation-analysis:end -->"
 AVAILABLE_MODELS = ["deepseek-v4-flash", "deepseek-v4-pro"]
-DEFAULT_MODEL = "deepseek-v4-flash"
+DEFAULT_MODEL = "deepseek-v4-pro"
 DEFAULT_THINKING_ENABLED = True
 
 

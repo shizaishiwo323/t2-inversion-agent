@@ -493,6 +493,109 @@ def _monotonic_increasing_score(values: np.ndarray) -> float:
     return float(np.sum(diffs > 0) / diffs.size)
 
 
+def _signal_column_shape(
+    time_values: np.ndarray,
+    signal_values: np.ndarray,
+) -> dict[str, Any]:
+    """Score whether one numeric column behaves like a T2 signal amplitude."""
+
+    t = np.asarray(time_values, dtype=float)
+    y = np.asarray(signal_values, dtype=float)
+    mask = np.isfinite(t) & np.isfinite(y) & (t > 0)
+    t = t[mask]
+    y = y[mask]
+
+    if t.size < 3:
+        return {
+            "valid_pair_count": int(t.size),
+            "positive_fraction": 0.0,
+            "decay_like_score": 0.0,
+            "spectrum_like_score": 0.0,
+            "residual_like": False,
+            "keep": False,
+        }
+
+    order = np.argsort(t)
+    y = y[order]
+    diffs = np.diff(y)
+    positive_fraction = float(np.sum(y > 0) / y.size)
+    negative_fraction = float(np.sum(y < 0) / y.size)
+    decreasing_score = float(np.sum(diffs < 0) / diffs.size) if diffs.size else 0.0
+    sign_crossings = int(np.sum(np.signbit(y[1:]) != np.signbit(y[:-1]))) if y.size > 1 else 0
+
+    y_min = float(np.min(y))
+    y_max = float(np.max(y))
+    y_range = y_max - y_min
+    abs_peak = float(np.max(np.abs(y)))
+    median_abs = float(np.median(np.abs(y)))
+    median_y = float(np.median(y))
+    max_idx = int(np.argmax(y))
+    n = int(y.size)
+    edge_count = max(3, n // 10)
+    head = y[:edge_count]
+    tail = y[-edge_count:]
+    head_median = float(np.median(head))
+    tail_median = float(np.median(tail))
+    head_median_abs = float(np.median(np.abs(head)))
+    tail_median_abs = float(np.median(np.abs(tail)))
+    head_positive_fraction = float(np.sum(head > 0) / head.size) if head.size else 0.0
+    envelope_abs_ratio = head_median_abs / max(tail_median_abs, max(abs_peak, 1.0) * 1e-9)
+    decaying_positive_envelope = bool(
+        head_positive_fraction >= 0.80
+        and head_median > 0
+        and envelope_abs_ratio >= 3.0
+        and (head_median - tail_median) >= max(tail_median_abs * 3.0, max(abs_peak, 1.0) * 0.03)
+    )
+
+    if not np.isfinite(y_range) or y_range <= max(abs_peak, 1.0) * 1e-9:
+        y_range = 0.0
+
+    end_drop_fraction = ((float(y[max_idx]) - float(np.median(tail))) / y_range) if y_range > 0 else 0.0
+    near_start_peak = max_idx <= max(2, int(0.08 * n))
+    decay_like_score = 0.0
+    if near_start_peak:
+        decay_like_score += 0.45
+    decay_like_score += max(0.0, min(1.0, (decreasing_score - 0.45) / 0.35)) * 0.35
+    decay_like_score += max(0.0, min(1.0, end_drop_fraction / 0.25)) * 0.20
+
+    spectrum_like_score = 0.0
+    if max(2, int(0.05 * n)) <= max_idx <= min(n - 3, int(0.95 * n)):
+        before = np.diff(y[: max_idx + 1])
+        after = np.diff(y[max_idx:])
+        before_increasing = float(np.sum(before > 0) / before.size) if before.size else 0.0
+        after_decreasing = float(np.sum(after < 0) / after.size) if after.size else 0.0
+        edge_level = max(float(np.median(head)), float(np.median(tail)))
+        prominence_fraction = ((float(y[max_idx]) - edge_level) / y_range) if y_range > 0 else 0.0
+        spectrum_like_score = (
+            max(0.0, min(1.0, (before_increasing - 0.45) / 0.35)) * 0.35
+            + max(0.0, min(1.0, (after_decreasing - 0.45) / 0.35)) * 0.35
+            + max(0.0, min(1.0, prominence_fraction / 0.18)) * 0.30
+        )
+
+    balanced_signs = 0.25 <= positive_fraction <= 0.75 and negative_fraction >= 0.20
+    small_center = abs(median_y) <= max(abs_peak, 1.0) * 0.20
+    frequent_crossings = sign_crossings >= max(3, int(0.08 * n))
+    residual_like = bool(balanced_signs and small_center and frequent_crossings and not decaying_positive_envelope)
+
+    mostly_positive = positive_fraction >= 0.80 and median_y > 0
+    clearly_shaped = decay_like_score >= 0.55 or spectrum_like_score >= 0.55
+    keep = bool((decaying_positive_envelope or mostly_positive or clearly_shaped) and not residual_like)
+
+    return {
+        "valid_pair_count": int(t.size),
+        "positive_fraction": positive_fraction,
+        "decreasing_score": decreasing_score,
+        "decay_like_score": float(decay_like_score),
+        "spectrum_like_score": float(spectrum_like_score),
+        "sign_crossings": sign_crossings,
+        "median_abs": median_abs,
+        "decaying_positive_envelope": decaying_positive_envelope,
+        "envelope_abs_ratio": float(envelope_abs_ratio),
+        "residual_like": residual_like,
+        "keep": keep,
+    }
+
+
 def _infer_layout(table: pd.DataFrame) -> dict[str, Any]:
     """Infer time/T2 column and signal columns from headers plus numeric shape."""
 
@@ -538,12 +641,23 @@ def _infer_layout(table: pd.DataFrame) -> dict[str, Any]:
         for item in candidates
         if item["index"] != time_candidate["index"] and item["finite_count"] > 0
     ]
-    if not signal_candidates:
+    scored_signal_candidates: list[dict[str, Any]] = []
+    ignored_signal_candidates: list[dict[str, Any]] = []
+    for item in signal_candidates:
+        shape = _signal_column_shape(time_candidate["numeric"], item["numeric"])
+        enriched = item | {"signal_shape": shape}
+        if shape["keep"]:
+            scored_signal_candidates.append(enriched)
+        else:
+            ignored_signal_candidates.append(enriched)
+
+    if not scored_signal_candidates:
         raise ValueError("No valid signal columns were detected.")
 
     return {
         "time_column": time_candidate,
-        "signal_columns": signal_candidates,
+        "signal_columns": scored_signal_candidates,
+        "ignored_signal_columns": ignored_signal_candidates,
         "all_columns": candidates,
     }
 
@@ -766,6 +880,7 @@ def validate_workbook(input_workbook: Path, language: str = "中文") -> AgentTo
         valid_rows = int(np.sum(np.isfinite(time_values) & (time_values > 0)))
         time_column = layout["time_column"]
         signal_columns = layout["signal_columns"]
+        ignored_signal_columns = layout.get("ignored_signal_columns", [])
         column_order_issue = "time_not_first_column" if int(time_column["index"]) != 0 else "none"
 
         summary: dict[str, Any] = {
@@ -781,6 +896,8 @@ def validate_workbook(input_workbook: Path, language: str = "中文") -> AgentTo
             "time_column_label": str(time_column["label"]),
             "signal_excel_columns": [int(item["index"] + 1) for item in signal_columns],
             "signal_column_labels": [str(item["label"]) for item in signal_columns],
+            "ignored_signal_like_excel_columns": [int(item["index"] + 1) for item in ignored_signal_columns],
+            "ignored_signal_like_column_labels": [str(item["label"]) for item in ignored_signal_columns],
             "column_order_issue": column_order_issue,
             "valid_signal_excel_columns": [int(item["index"] + 1) for item in signal_columns],
             "column_profiles": _profile_columns(table),
@@ -883,6 +1000,9 @@ def repair_workbook(input_workbook: Path, output_dir: Path, time_to_ms_scale: fl
                 "signal_column_count": int(signal_matrix.shape[1]),
                 "source_time_column_excel_index": int(layout["time_column"]["index"] + 1),
                 "source_signal_excel_columns": [int(item["index"] + 1) for item in signal_columns],
+                "ignored_signal_like_excel_columns": [
+                    int(item["index"] + 1) for item in layout.get("ignored_signal_columns", [])
+                ],
             },
         )
     except Exception as exc:

@@ -5,7 +5,8 @@ from types import SimpleNamespace
 import numpy as np
 import pandas as pd
 
-from t2_agent.agent import AgentRuntimeContext, run_deepseek_agent_turn
+from t2_agent.agent import AgentRuntimeContext, build_tool_specs, execute_agent_tool, run_deepseek_agent_turn
+from t2_agent.models import AgentToolResult
 
 
 def _message(content=None, tool_calls=None):
@@ -48,6 +49,42 @@ class FakeCompletions:
 class FakeClient:
     def __init__(self, messages):
         self.chat = SimpleNamespace(completions=FakeCompletions(messages))
+
+
+def test_run_lcurve_tool_schema_exposes_alpha_search_range():
+    specs = build_tool_specs()
+    run_lcurve_spec = next(item for item in specs if item["function"]["name"] == "run_lcurve")
+    properties = run_lcurve_spec["function"]["parameters"]["properties"]
+
+    assert "alpha_min" in properties
+    assert "alpha_max" in properties
+    assert "smoothing factor" in properties["alpha_min"]["description"]
+    assert "smoothing factor" in properties["alpha_max"]["description"]
+
+
+def test_execute_run_lcurve_forwards_alpha_search_range(tmp_path, monkeypatch):
+    captured = {}
+
+    def fake_run_lcurve(input_workbook, output_dir, params, language="中文"):
+        captured["input_workbook"] = input_workbook
+        captured["output_dir"] = output_dir
+        captured["params"] = params
+        return AgentToolResult("success", "ok", summary={"spectrum_xlsx": str(tmp_path / "spectrum.xlsx")})
+
+    monkeypatch.setattr("t2_agent.agent.run_lcurve", fake_run_lcurve)
+    context = AgentRuntimeContext(workspace=tmp_path, repaired_path=tmp_path / "standardized.xlsx")
+
+    result = execute_agent_tool(
+        "run_lcurve",
+        {"alpha_min": 0.01, "alpha_max": 10000.0, "alpha_count": 80, "num_bins": 90},
+        context,
+    )
+
+    assert result.status == "success"
+    assert captured["params"]["alpha_min"] == 0.01
+    assert captured["params"]["alpha_max"] == 10000.0
+    assert captured["params"]["alpha_count"] == 80
+    assert captured["params"]["num_bins"] == 90
 
 
 def test_agent_loop_executes_ai_requested_validation_tool_for_bad_workbook(tmp_path):

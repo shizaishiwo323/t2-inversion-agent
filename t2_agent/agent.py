@@ -59,7 +59,7 @@ def build_tool_specs() -> list[dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "inspect_workbook_schema",
-                "description": "Read the uploaded Excel structure, preview rows, column labels, numeric ranges, and monotonicity so the agent can reason about nonstandard layouts.",
+                "description": "Read the uploaded spreadsheet/table structure (Excel, CSV, or text), preview rows, column labels, numeric ranges, and monotonicity so the agent can reason about nonstandard layouts.",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -74,7 +74,7 @@ def build_tool_specs() -> list[dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "validate_workbook",
-                "description": "Validate the uploaded Excel format and decide whether it can be used for T2 inversion or peak decomposition.",
+                "description": "Validate the uploaded spreadsheet/table format (Excel, CSV, or text) and decide whether it can be used for T2 inversion or peak decomposition.",
                 "parameters": {"type": "object", "properties": {}, "required": [], "additionalProperties": False},
             },
         },
@@ -82,7 +82,7 @@ def build_tool_specs() -> list[dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "repair_workbook",
-                "description": "Normalize the uploaded Excel workbook into the standard time_ms + signal columns format.",
+                "description": "Normalize the uploaded spreadsheet/table into the standard time_ms + signal columns Excel format.",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -107,6 +107,8 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "t2_min_ms": {"type": "number", "description": "Lower bound for the T2 search range. Default: 0.01 ms."},
                         "t2_max_ms": {"type": "number", "description": "Upper bound for the T2 search range. Default: 100000 ms."},
                         "num_bins": {"type": "integer", "description": "Number of T2 bins. Default: 200."},
+                        "alpha_min": {"type": "number", "description": "Minimum smoothing factor tested by L-curve. Default: 1e-6."},
+                        "alpha_max": {"type": "number", "description": "Maximum smoothing factor tested by L-curve. Default: 100."},
                         "alpha_count": {"type": "integer", "description": "Number of smoothing factors tested by L-curve. Default: 60."},
                     },
                     "required": [],
@@ -175,7 +177,7 @@ def build_tool_specs() -> list[dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "process_uploaded_files_batch",
-                "description": "Process every uploaded Excel file in one batch workflow. For each file, inspect/validate, standardize, run T2 inversion, optionally run Gaussian peaks, interpret results, and generate a report in a separate output folder.",
+                "description": "Process every uploaded data file in one batch workflow. For each file, inspect/validate, standardize, run T2 inversion, optionally run Gaussian peaks, interpret results, and generate a report in a separate output folder.",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -191,6 +193,8 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "t2_min_ms": {"type": "number", "description": "Lower bound for the T2 search range. Default: 0.01 ms for L-curve."},
                         "t2_max_ms": {"type": "number", "description": "Upper bound for the T2 search range. Default: 100000 ms for L-curve."},
                         "num_bins": {"type": "integer", "description": "Number of T2 bins. Default: 200."},
+                        "alpha_min": {"type": "number", "description": "Minimum L-curve smoothing factor. Default: 1e-6."},
+                        "alpha_max": {"type": "number", "description": "Maximum L-curve smoothing factor. Default: 100."},
                         "alpha_count": {"type": "integer", "description": "Number of L-curve smoothing factors. Default: 60."},
                     },
                     "required": [],
@@ -244,7 +248,7 @@ def _uploaded_paths(context: AgentRuntimeContext) -> list[Path]:
 
 def _require_upload(context: AgentRuntimeContext, response_language: str = "中文") -> AgentToolResult | None:
     if context.uploaded_path is None:
-        message = "No Excel file has been uploaded yet. Please upload data before asking me to inspect or run it." if _is_english(response_language) else "还没有上传 Excel 文件。请先上传数据，再让我检查或运行。"
+        message = "No data file has been uploaded yet. Please upload an Excel, CSV, or supported text table before asking me to inspect or run it." if _is_english(response_language) else "还没有上传数据文件。请先上传 Excel、CSV 或支持的文本表格，再让我检查或运行。"
         return AgentToolResult("failed", message, error="missing_upload")
     return None
 
@@ -267,7 +271,7 @@ def process_uploaded_files_batch(args: dict[str, Any], context: AgentRuntimeCont
 
     uploaded_paths = _uploaded_paths(context)
     if not uploaded_paths:
-        message = "No Excel files have been uploaded yet." if _is_english(response_language) else "还没有上传 Excel 文件。"
+        message = "No data files have been uploaded yet." if _is_english(response_language) else "还没有上传数据文件。"
         return AgentToolResult("failed", message, error="missing_upload")
 
     run_gaussian = bool(args.get("run_gaussian", False))
@@ -324,6 +328,8 @@ def process_uploaded_files_batch(args: dict[str, Any], context: AgentRuntimeCont
                 "t2_min_ms": float(args.get("t2_min_ms", 1e-2)),
                 "t2_max_ms": float(args.get("t2_max_ms", 1e5)),
                 "num_bins": int(args.get("num_bins", 200)),
+                "alpha_min": float(args.get("alpha_min", 1e-6)),
+                "alpha_max": float(args.get("alpha_max", 1e2)),
                 "alpha_count": int(args.get("alpha_count", 60)),
             }
             inversion = run_lcurve(Path(repaired.artifacts[0]), file_dir / "lcurve", inversion_params, language=response_language)
@@ -459,6 +465,8 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
             "t2_min_ms": float(args.get("t2_min_ms", 1e-2)),
             "t2_max_ms": float(args.get("t2_max_ms", 1e5)),
             "num_bins": int(args.get("num_bins", 200)),
+            "alpha_min": float(args.get("alpha_min", 1e-6)),
+            "alpha_max": float(args.get("alpha_max", 1e2)),
             "alpha_count": int(args.get("alpha_count", 60)),
         }
         result = run_lcurve(context.repaired_path, context.workspace / "lcurve", params, language=response_language)  # type: ignore[arg-type]
@@ -578,6 +586,7 @@ def run_deepseek_agent_turn(
         "Only say labels may be wrong when labels and numeric shapes contradict each other. "
         "If the column order, header position, multi-signal layout, or workbook layout is nonstandard, tell the user and call repair_workbook to standardize it. "
         "When the user does not understand parameters and the uploaded data is decay data, prefer repair_workbook + run_lcurve. "
+        "When the user asks to set the L-curve smoothing-factor/alpha search range, call run_lcurve with alpha_min and alpha_max. "
         "When multiple files are uploaded and the user asks to process all files, batch process files, analyze multiple files, or generate results for all uploads, call process_uploaded_files_batch instead of running single-file tools repeatedly. "
         "When the user explicitly specifies a smoothing/regularization factor, use run_fixed_nnls. "
         "When the user asks for peak decomposition, call run_gaussian_peaks after a spectrum exists. "

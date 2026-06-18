@@ -13,8 +13,8 @@ from streamlit_app import (
 )
 
 
-def test_default_chat_model_uses_deepseek_flash_thinking_mode():
-    assert DEFAULT_MODEL == "deepseek-v4-flash"
+def test_default_chat_model_uses_deepseek_pro_thinking_mode():
+    assert DEFAULT_MODEL == "deepseek-v4-pro"
     assert DEFAULT_THINKING_ENABLED is True
 
 
