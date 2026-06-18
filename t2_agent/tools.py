@@ -231,15 +231,39 @@ def run_local_nmr_triangle_t2_t2(output_dir: Path, params: dict[str, Any] | None
 
     params = params or {}
     script_path = LOCAL_NMR_ROOT / "advanced_tools" / "run_ideal_triangle_t2_t2.py"
+    output_path = Path(output_dir)
     if not script_path.exists():
+        builtin_output = output_path / "public_builtin_ideal_triangle"
+        builtin_summary = run_rule_geometry_mesh_decay(
+            _rule_geometry_from_args(params),
+            builtin_output,
+            _simulation_params_from_args(params),
+        )
+        artifacts = _simulation_artifacts_from_summary(builtin_summary)
+        stages = dict(builtin_summary.get("simulation_stages", {}))
         return {
-            "status": "failed",
-            "error": "missing_local_nmr_project",
-            "message": f"Local NMR simulator was not found at {LOCAL_NMR_ROOT}.",
+            **builtin_summary,
+            "status": builtin_summary.get("status", "success"),
+            "stage": "public_builtin_ideal_triangle_t2_fallback",
+            "geometry_source": "upstream_ideal_triangle",
+            "local_nmr_available": False,
+            "local_nmr_root": str(LOCAL_NMR_ROOT),
+            "fallback_reason": "missing_local_nmr_project",
+            "message": (
+                f"Local NMR simulator was not found at {LOCAL_NMR_ROOT}; "
+                "used the built-in public ideal-triangle 2D T2 workflow instead."
+            ),
+            "standard_decay_source_csv": builtin_summary.get("curve_csv"),
+            "manifest_json": builtin_summary.get("summary_json"),
+            "pygimli_mesh_bms": builtin_summary.get("pygimli_mesh_bms"),
+            "t2_t2_png": None,
+            "t2_t2_signal_csv": None,
+            "t2_t2_map_csv": None,
+            "simulation_stages": stages,
+            "artifacts": artifacts,
         }
 
     python_executable = _resolve_local_nmr_python(params)
-    output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
     env["PYTHONPATH"] = "."

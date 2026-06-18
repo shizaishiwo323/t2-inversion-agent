@@ -1655,10 +1655,14 @@ def main() -> None:
         prompt = st.chat_input(t(language, "chat_placeholder"))
         if prompt:
             if not api_key:
-                if should_run_local_demo_without_api(prompt):
-                    run_local_demo_prompt(prompt, live_chat_container=live_chat_container)
-                else:
-                    run_offline_debug_prompt(prompt, live_chat_container=live_chat_container)
+                st.session_state.display_messages.append(("user", prompt))
+                missing_key_message = (
+                    "请先输入 DeepSeek API key，公网版本的所有 Agent 运行都会通过 API key 调用模型。"
+                    if language != "English"
+                    else "Please enter a DeepSeek API key first. The public version runs all Agent turns through the configured API key."
+                )
+                st.session_state.display_messages.append(("assistant", missing_key_message))
+                st.warning(missing_key_message)
                 st.rerun()
             run_agent_prompt(prompt, api_key, model, thinking_enabled, live_chat_container=live_chat_container)
             st.rerun()

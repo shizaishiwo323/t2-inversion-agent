@@ -9,6 +9,7 @@ import pytest
 import t2_agent.agent as agent_module
 from t2_agent.agent import AgentRuntimeContext, build_tool_specs, execute_agent_tool, run_deepseek_agent_turn
 from t2_agent.models import AgentToolResult
+from t2_agent.tools import run_local_nmr_triangle_t2_t2
 from tests.test_simulation_2d import pygimli_available
 
 
@@ -230,6 +231,35 @@ def test_local_nmr_triangle_demo_uses_upstream_simulation_and_existing_fixed_inv
     assert context.spectrum_path == spectrum_path
     assert result.summary["t2_inversion_source"] == "existing_t2process_fixed_nnls"
     assert "t2_t2" in result.summary["simulation_stages"]
+
+
+def test_local_nmr_triangle_demo_falls_back_to_public_builtin_ideal_triangle(tmp_path, monkeypatch):
+    missing_root = tmp_path / "missing-local-nmr-project"
+    curve_csv = tmp_path / "out" / "public_builtin_ideal_triangle" / "decay" / "ideal_triangle_nmr_decay.csv"
+    summary_json = tmp_path / "out" / "public_builtin_ideal_triangle" / "simulation_2d_summary.json"
+
+    def fake_builtin_rule_workflow(geometry, output_dir, params):
+        assert output_dir == tmp_path / "out" / "public_builtin_ideal_triangle"
+        return {
+            "status": "success",
+            "geometry_source": "upstream_ideal_triangle",
+            "t2_t2_enabled": False,
+            "curve_csv": str(curve_csv),
+            "summary_json": str(summary_json),
+            "simulation_stages": {"decay": [str(curve_csv)], "t2": []},
+        }
+
+    monkeypatch.setattr("t2_agent.tools.LOCAL_NMR_ROOT", missing_root)
+    monkeypatch.setattr("t2_agent.tools.run_rule_geometry_mesh_decay", fake_builtin_rule_workflow)
+
+    result = run_local_nmr_triangle_t2_t2(tmp_path / "out", {})
+
+    assert result["status"] == "success"
+    assert result["stage"] == "public_builtin_ideal_triangle_t2_fallback"
+    assert result["fallback_reason"] == "missing_local_nmr_project"
+    assert result["local_nmr_available"] is False
+    assert result["standard_decay_source_csv"] == str(curve_csv)
+    assert result["t2_t2_enabled"] is False
 
 
 @pytest.mark.skipif(not pygimli_available(), reason="pyGIMLi is not installed")
