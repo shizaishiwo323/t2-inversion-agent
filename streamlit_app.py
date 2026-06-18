@@ -406,6 +406,45 @@ def render_result(result: AgentToolResult) -> None:
             st.image(str(image_path), caption=image_path.name, width="stretch")
 
 
+def render_context_outputs(context: AgentRuntimeContext | None, language: str) -> None:
+    if context and context.uploaded_path:
+        st.info(t(language, "current_file", filename=Path(context.uploaded_path).name))
+        active_suffix = Path(context.uploaded_path).suffix.lower()
+        st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
+
+    if context and context.validation:
+        st.markdown(t(language, "diagnosis"))
+        render_result(context.validation)
+
+    if context and context.repaired_path:
+        st.markdown(t(language, "standardized_file"))
+        st.success(t(language, "standardized_file_name", filename=Path(context.repaired_path).name))
+
+    if context and context.results:
+        st.markdown(t(language, "tool_results"))
+        for result in context.results:
+            render_result(result)
+
+    if context and context.report:
+        st.markdown(t(language, "report"))
+        report = context.report
+        render_result(report)
+        if report.artifacts:
+            report_path = Path(report.artifacts[0])
+            if report_path.exists():
+                render_chat_content(report_path.read_text(encoding="utf-8"), collect_context_artifacts(context))
+
+    if st.session_state.zip_bytes:
+        st.download_button(
+            t(language, "download_zip"),
+            data=st.session_state.zip_bytes,
+            file_name="t2_agent_results.zip",
+            mime="application/zip",
+            width="stretch",
+        )
+        st.caption(t(language, "download_caption"))
+
+
 def render_trace(trace: list[dict], expanded: bool = False) -> None:
     if not trace:
         return
@@ -581,7 +620,7 @@ def enhance_report_with_conversation(report: AgentToolResult | None, messages: l
     return True
 
 
-def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bool) -> None:
+def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bool, live_results_container=None) -> None:
     context = current_context()
     if context is None:
         workspace = ensure_workspace()
@@ -602,6 +641,14 @@ def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bo
         with live_trace_box.container():
             render_trace(live_trace, expanded=True)
 
+    def show_live_tool_result(_result: AgentToolResult) -> None:
+        refresh_zip_from_context(context)
+        save_current_file_state()
+        if live_results_container is not None:
+            with live_results_container.container():
+                st.subheader(t(language, "data_results"))
+                render_context_outputs(context, language)
+
     with st.status(t(language, "running_status"), expanded=True) as status:
         result = run_deepseek_agent_turn(
             api_key=api_key,
@@ -611,6 +658,7 @@ def run_agent_prompt(prompt: str, api_key: str, model: str, thinking_enabled: bo
             context=context,
             prior_messages=st.session_state.agent_messages,
             on_trace=show_live_trace,
+            on_tool_result=show_live_tool_result,
             response_language=language,
         )
         st.session_state.agent_messages = result.messages
@@ -640,6 +688,7 @@ def main() -> None:
             st.rerun()
 
     left, right = st.columns([0.42, 0.58], gap="large")
+    live_results_container = right.empty()
 
     with left:
         st.subheader(t(language, "agent_chat"))
@@ -684,7 +733,7 @@ def main() -> None:
                 st.session_state.display_traces.append([])
                 save_current_file_state()
                 st.rerun()
-            run_agent_prompt(prompt, api_key, model, thinking_enabled)
+            run_agent_prompt(prompt, api_key, model, thinking_enabled, live_results_container=live_results_container)
             st.rerun()
 
     with right:
@@ -710,42 +759,7 @@ def main() -> None:
             st.caption(t(language, "uploaded_count", count=len(uploaded_paths)))
 
         context = current_context()
-        if context and context.uploaded_path:
-            st.info(t(language, "current_file", filename=Path(context.uploaded_path).name))
-            active_suffix = Path(context.uploaded_path).suffix.lower()
-            st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
-
-        if context and context.validation:
-            st.markdown(t(language, "diagnosis"))
-            render_result(context.validation)
-
-        if context and context.repaired_path:
-            st.markdown(t(language, "standardized_file"))
-            st.success(t(language, "standardized_file_name", filename=Path(context.repaired_path).name))
-
-        if context and context.results:
-            st.markdown(t(language, "tool_results"))
-            for result in context.results:
-                render_result(result)
-
-        if context and context.report:
-            st.markdown(t(language, "report"))
-            report = context.report
-            render_result(report)
-            if report.artifacts:
-                report_path = Path(report.artifacts[0])
-                if report_path.exists():
-                    render_chat_content(report_path.read_text(encoding="utf-8"), collect_context_artifacts(context))
-
-        if st.session_state.zip_bytes:
-            st.download_button(
-                t(language, "download_zip"),
-                data=st.session_state.zip_bytes,
-                file_name="t2_agent_results.zip",
-                mime="application/zip",
-                width="stretch",
-            )
-            st.caption(t(language, "download_caption"))
+        render_context_outputs(context, language)
 
 
 if __name__ == "__main__":

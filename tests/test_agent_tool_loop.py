@@ -485,6 +485,44 @@ def test_agent_loop_can_call_full_2d_simulation_tool(tmp_path, monkeypatch):
     assert context.spectrum_path == spectrum_path
 
 
+def test_agent_loop_notifies_each_tool_result_for_live_rendering(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake-png")
+    decay_path = tmp_path / "decay.xlsx"
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+
+    def fake_run_png_mesh_decay(input_path, output_dir, params):
+        return {
+            "status": "success",
+            "standard_decay_xlsx": str(decay_path),
+            "simulation_stages": {"decay": [str(decay_path)]},
+        }
+
+    monkeypatch.setattr("t2_agent.tools.run_png_mesh_decay", fake_run_png_mesh_decay)
+    fake_client = FakeClient(
+        [
+            _message(tool_calls=[_tool_call("run_2d_mesh_and_decay", {"geometry_mode": "png"})]),
+            _message(content="阶段结果已更新。"),
+        ]
+    )
+    live_results = []
+
+    result = run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="先网格划分并求解衰减",
+        context=context,
+        prior_messages=[],
+        client=fake_client,
+        on_tool_result=live_results.append,
+    )
+
+    assert result.tool_results[0].status == "success"
+    assert len(live_results) == 1
+    assert live_results[0].summary["standard_decay_xlsx"] == str(decay_path)
+
+
 def test_agent_loop_can_batch_process_all_uploaded_files(tmp_path):
     time_ms = np.linspace(0.1, 80.0, 80)
     file_a = tmp_path / "sample_a.xlsx"

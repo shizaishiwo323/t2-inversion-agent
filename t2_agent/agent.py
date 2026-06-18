@@ -755,6 +755,7 @@ def run_deepseek_agent_turn(
     client: Any | None = None,
     max_tool_rounds: int = 6,
     on_trace: Callable[[dict[str, Any]], None] | None = None,
+    on_tool_result: Callable[[AgentToolResult], None] | None = None,
     response_language: str = "中文",
 ) -> AgentTurnResult:
     """Run one DeepSeek chat turn with real function calling."""
@@ -862,6 +863,8 @@ def run_deepseek_agent_turn(
             result = execute_agent_tool(name, args, context, response_language=response_language)
             tool_results.append(result)
             context.tool_history.append(result)
+            if on_tool_result:
+                on_tool_result(result)
             trace.append(
                 {
                     "kind": "tool_result",
