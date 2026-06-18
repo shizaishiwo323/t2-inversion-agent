@@ -1,0 +1,927 @@
+--- PAGE 1 ---
+
+--- PAGE 2 ---
+www.VadoseZoneJournal.org | 847
+Nguyen and Mardon (1995) initially proposed using a FEM to 
+simulate NMR processes at the pore scale and to eventually couple 
+these equations with transport equations (e.g., Navier–Stokes) in 
+a porous medium to investigate and quantify the links between 
+NMR and permeability. Due to the limited computing capaci-
+ties at that time, however, their investigations where restricted to 
+small, simple, two-dimensional pore geometries and respective 
+fi nite element meshes. In this study, we developed a multiphys-
+ics approach using a FEM to numerically simulate NMR T1 and 
+T2 relaxation data at the microscale to study how physical and 
+hydrologic parameters aff ect NMR relaxometry data. Th e studied 
+parameters that infl uence NMR signals are: internal fi eld gradients, 
+pore connectivities, and various diff usion regimes. Th e COMSOL 
+Multiphysics programming environment (COMSOL, Burlington, 
+MA) was applied to simulate the arbitrary model geometries, 
+thereby allowing a multiphysics three-dimensional modeling of 
+the NMR behavior of the porous medium model along with the 
+electromagnetic properties of the model. Nuclear magnetic reso-
+nance signatures can be simulated in both time and eigenvalue 
+domains, which allows NMR relaxation times and amplitudes to 
+be directly derived without the need for prior processing of the 
+time-domain data, e.g., by inverse Laplace transformation. Th is 
+approach thus reduces computational costs and avoids ambiguities 
+when estimating parameters by inverse modeling.
+ 6Theory of NMR RelaxaƟ on 
+in Porous Media
+Th e phenomenon of NMR occurs when the nuclei of certain atoms 
+immersed in a static magnetic fi eld B0 are then exposed to a second 
+oscillating magnetic fi eld. In hydrologic and petrophysical prac-
+tice, usually the nuclear magnetization of H1 in the pore fl uid (e.g., 
+water or oil) is relevant (Dunn, 2002; Kenyon, 1997). Th e relax-
+ation of observable NMR signals in pore fl uids results from the 
+interaction of nuclear spins with their surrounding environment, 
+i.e., the bulk fl uid and pore walls.
+Bloch–Torrey EquaƟ ons
+Th e evolution of magnetization during excitation and the subse-
+quent NMR relaxation of the energized nuclei in free fl uid is well 
+described with the phenomenological Bloch–T orrey equations 
+(Bloch, 1946; Torrey, 1956). Th ey describe the x′, y′, and z com-
+ponents of the magnetization vector m as a function of time in the 
+rotational frame of reference—precessing along the z axis with the 
+angular Larmor frequency ωL = 2πγB0—according to
+()
+()
+ 
+′
+′
+′
+⎛⎞ ⎟⎜ ⎟⎜ ⎟∂ ⎜ ⎟⎜= γ × −− ∇ ∇ ⎟⎜ ⎟⎜ ⎟∂ ⎟⎜ ⎟⎜ ⎟−⎜⎝⎠
+2
+ex
+2
+01
+x
+y
+z
+T
+Tt
+T
+m
+m mB m D m
+mm
+ [1]
+where m = m(r,t) denotes the magnetization density vector in the 
+rotational frame of reference and γ is the gyromagnetic ratio of the 
+protons. Th e diff usion tensor D simplifi es to D = ||D|| in the case 
+of isotropic diff usion being assumed in the presented simulations. 
+External magnetic fi elds in addition to B0 = (0,0,B0)T  = constant 
+are denoted by Bex = [Bx,By,G(r,t)r + Δω(r)/γ]T, where B1 = Bx + 
+jBy is the complex oscillating radio frequency (rf) fi eld of the NMR 
+excitation pulse and Δω denotes the frequency off set between B1 
+and ω0. Th e global external gradient fi eld vector of the static mag-
+netic fi eld is given by Gk(r,t) = [Bk(r,t) − B0k]/rk with k = x,y,z.
+Th ese relations represent the fundamental equations of motion of 
+the magnetic moment vector m by considering diff usion plus an 
+additional sink term governing the attenuation of the system to 
+equilibrium. Th e relaxation constants T2 and T1 refl ect the homo-
+geneous decay of the macroscopic nuclear magnetization (spin-spin 
+or transverse relaxation time constant, T2) and energy exchange 
+with the surrounding environment (spin-lattice or longitudinal 
+relaxation time constant, T1) returning the system to equilibrium 
+magnetization density m0(t = 0) = m0uz. Aft er termination of the 
+rf excitation fi eld, the external magnetic fi eld vector simplifi es to 
+Bex = [0,0,G(r,t)r]T and Eq. [1] can be written as
+2
+mm jm mtT
+⊥⊥
+⊥⊥
+∂ = −γ − + ∇∇∂ rG D [2a]
+0
+1
+zz
+z
+mm m mtT
+∂− =+ ∇∇∂ D [2b]
+where the complex transverse magnetization m⊥ ≡ mx + jmy 
+describes the free induction decay (FID) of the transverse magne-
+tization in the observational xy plane that, in practice, is mainly 
+dominated by signal dephasing of the total magnetization M⊥ due 
+to fi eld inhomogeneities (local gradients) in the static fi eld B0. To 
+eliminate the complex dephasing term of the transverse magne-
+tization in Eq. [2a], and thus refocusing M⊥, a second excitation 
+pulse shift ed by 180°, i.e., jγrGm⊥, can be applied aft er a time t = 
+τ stimulating a Hahn echo (Hahn, 1950). Th e repetition of such 
+a procedure results in the well-known CPMG echo train (Carr 
+and Purcell, 1954; Meiboom and Gill, 1958), which is commonly 
+used in T2 relaxation experiments. Th e total transverse magnetiza-
+tion experiences further irreversible degradation due to dephasing, 
+however, as the molecules diff use through the inhomogeneous 
+magnetic fi eld during the time interval τ. T o take into account 
+such diff usive motion of the excited spins in the presence of a 
+magnetic gradient fi eld during the time interval τ, an additional 
+time-dependent sink term (irreversible) has to be incorporated into 
+Eq. [2a], yielding
+() () D 
+2
+2reversible by irreversible 
+Hahn echo (diffusion gradient)
+CPMG
+FID
+m
+t
+mjm Dt m m T
+⊥
+⊥
+⊥⊥ ⊥
+∂ =∂
+⎡⎤−γ − γ − +∇∇⎣⎦rG r G r   
+   
+   
+  
+
+ [3]
+
+--- PAGE 3 ---
+www.VadoseZoneJournal.org | 848
+for transverse relaxation with a diff usion gradient and FID (e.g., 
+Dunn, 2002).
+MagneƟ zaƟ on EvoluƟ on 
+in a Restricted Pore Space
+Considering NMR relaxation in a confi ned system, e.g., a saturated 
+porous medium, the relaxation rate of excited nuclei is further 
+accelerated due to surface interactions at rock–fl uid interfaces. T o 
+explain the NMR relaxation behavior in an environment where 
+diff usion is restricted, e.g., a single isolated pore, Brownstein and 
+Tarr (1979) introduced Neumann boundary conditions to Eq. [1] 
+at the fl uid interfaces, e.g., pore walls.
+At the (active) pore surface—i.e., within a thin volume layer of 
+thickness d in the range of a few Angstroms near the pore surface 
+(Fig. 1)—the excited nuclei experience an accelerated surface relax-
+ation rate 1/τs. Th e specifi c mechanism for such relaxation depends 
+strongly on the magnetic dipolar interactions of the spins in the 
+fl uid with magnetic dipoles within this layer or at the surface of 
+the fl uid–rock interface (Torrey, 1956; Foley et al., 1996). Such 
+interactions are very short ranged and are commonly assumed to be 
+in the range of a few Angstroms. Th e strength of the NMR relax-
+ation at the surface is then characterized by the surface relaxivity 
+ρs defi ned as ρs ≡ d(1/τs − 1/Tb), where Tb is the relaxation time 
+of the bulk fl uid and τs is the surface relaxation time within the 
+surface fl uid layer of thickness d.
+The dominant mechanism governing the surface relaxation 
+processes in porous rocks can be attributed to the hyperfi ne inter-
+actions of the fl uid nuclei with paramagnetic centers at the rock 
+surfaces, e.g., most commonly Fe3+ and Mn2+. Th ereby, the trans-
+versal and longitudinal surface relaxation rates (1/τs1,2) related to 
+fl uid nuclei aligned with paramagnetic ions at the rock surface is 
+characterized by diff erent multipolar relaxation mechanisms such 
+that ρs2/ρs1 ≥ 1 with median experimental values of 1.59 (e.g., 
+Korringa et al., 1962; Kleinberg et al., 1993). In this study, how-
+ever, we have focused mainly on transverse relaxation processes 
+enhanced by diff usion in inhomogeneous magnetic fi elds that 
+arise from susceptibility contrasts between the pore fl uid and rock 
+matrix (internal gradients) and as such are not related to surface 
+relaxation. Th erefore, without loss of generality, we use ρs1 = ρs2 
+as a common intrinsic rock property input parameter on the ith 
+fraction of active NMR rock surface Si, e.g., ρSi = 10 μm/s:
+() () ()
+() ()
+ˆ,, 0 a c t i v e
+ˆ , 0 passive
+i
+i
+Si S
+i S
+mt D nmt
+Dn m t
+ρ + ∇ =
+∇ =
+rr
+r
+ [4]
+where ˆin is the surface outward normal at Si. Th e surface relaxivity 
+ρs is then a measure of the loss of magnetization and refl ects the 
+molecular interactions at the fl uid boundary S. In this respect, the 
+gas–fl uid interface in a partially saturated system would have to 
+be treated as a passive boundary. In hydrologic considerations, the 
+corresponding fl uid phase would be considered an active volume 
+(water), whereas the gas phase (air) would be a noncontributing 
+passive volume, i.e., m0(t = 0) = 0. Note, that in case of an NMR 
+active second gas or fl uid phase, magnetization (spin) density m0,2 
+≠ 0 and diff usion coeffi cient D2 would have to be set accordingly 
+for such phase.
+Summing up the introduced NMR diff usion Eq. [2b] and [3] 
+together with the boundary conditions as given in Eq. [4] allows 
+a comprehensive description of the evolution of magnetization in 
+a porous medium for time-domain modeling. Th e formulation is 
+valid for T
+1 relaxation processes and can also be used to calculate 
+the FID and transverse relaxation behavior in the presence of inter-
+nal and external magnetic gradients.
+Considering an experimentally observable scale, the spatially dis-
+tributed magnetization densities m integrate to a total eff ective 
+macroscopic magnetization:
+() ( ) ,d
+V
+Mt m t r= ∫ r [5]
+and
+()0 ,0 d
+V
+Mm t r==∫ r [6]
+where V is the total volume of the investigated pore space and M0 
+is the eff ective magnetization in equilibrium.
+In practice, e.g., to reduce computation time and to directly derive 
+relaxation constants, it can be convenient to solve the above dif-
+ferential equations not in the time domain but rather in terms of 
+their eigenvalues by separating variables according to
+() ( ) ()
+1
+,e x p nn
+n
+mt E t
+∞
+=
+= −λ∑rr [7]
+Substituting m with Eq. [7], the orthogonal eigenfunctions En(r) 
+and eigenvalues λn ≡ 1/Tn basically satisfy
+1
+b
+1 ()nn n nED E E TT− + ∇∇ = −λ [8a]
+Fig. 1. Conceptual representation of volumetric water fraction and 
+surface water fraction with thickness d of an isolated spherical pore 
+of radius R.
+
+--- PAGE 4 ---
+www.VadoseZoneJournal.org | 849
+() ()
+2
+2
+b
+1
+nnDt E D E TT
+⎧⎫⎪⎪⎪⎪ ⎡⎤−− γ + ∇∇⎨⎬ ⎣⎦⎪⎪⎪⎪⎩⎭
+Gr [8b]
+() ()
+()
+2
+b
+1
+FID
+nn
+nn
+jD t E D E T
+E
+⎧⎫⎪⎪⎪⎪ ⎡⎤−γ + γ ++ ∇∇ =⎨⎬ ⎣⎦⎪⎪⎪⎪⎩⎭
+−λ
+rG r G r [8c]
+for the longitudinal and transverse NMR relaxation behavior. Th e 
+boundary conditions for T1, T2, and FID are given by
+ˆ 0
+ˆ 0
+i
+i
+in sn S
+in S
+nE E
+Dn E
++ ρ =
+=
+D
+ [8d]
+for active and passive boundaries, respectively. For simple geom-
+etries, e.g., spherical (Fig. 1), cylindrical, or planar shapes, Eq. [8a] 
+can be solved analytically. From such considerations, the basic 
+relations between NMR T1 relaxation times and the geometrical 
+properties of isolated pores, e.g., the pore radius, were derived by 
+Brownstein and Tarr (1979) and are commonly used for the inter-
+pretation of NMR relaxometry measurements. Th ey described the 
+relaxation behavior of magnetization in surface- and diff usion-
+limited regimes. In the case of a surface-limited (fast) diff usion 
+regime and assuming ds/(v − ds) < < 1, a pore is characterized by a 
+single eigenvalue λ, i.e., the NMR-labeled molecules diff use much 
+faster to the pore wall than the time it takes for the excited spins 
+to decay to the equilibrium state; hence, 
+s
+1b
+11 s
+Tv T= ρ + [9a]
+for longitudinal relaxation and
+sapp
+2b 2
+11 1 DG s
+Tv T T
+= − = ρ + [9b]
+when considering transverse relaxation times T2
+app measured in 
+CPMG, where DG is the irreversible diff usion gradient relaxation 
+rate due to magnetic gradients, and s/v represents the surface /
+volume ratio of the pore. Furthermore, by assuming a constant 
+gradient fi eld G(r,t) = constant and linear time steps t = nΔt 
+with a constant echo interval (echo time) Δt = 2τ, Eq. [8b] can 
+analogously be solved analytically. Th us, the transverse relaxation 
+behavior in the presence of a linear (external) magnetic gradient 
+fi eld can be derived. Considering nonlinear (internal) magnetic 
+gradients, Eq. [8b] and [8c] can only be solved numerically.
+Th e analytical solutions of the above equations, however, are only 
+valid under the following conditions: (i) relaxation of the nuclei 
+begins and ends within the same pore, i.e., pores act independently; 
+(ii) surface relaxivity is constant; and (iii) pore geometry is known 
+and constant throughout the investigated sample. Therefore, 
+to assess the limitations of such approximated solutions and to 
+improve the quantitative understanding of T1 and T2 NMR relax-
+ation signatures of complex porous systems (e.g., connected pores, 
+variations of surface properties due to diff erent rock minerals, the 
+impact of internal gradients on derived T2–based pore size distri-
+butions and permeability, partial saturation, etc.) the above NMR 
+diff usion equations have to be solved numerically.
+CalculaƟ on of the Primary MagneƟ c Fields 
+(Internal Gradients)
+It is well known that internal magnetic fi eld gradients in saturated 
+rocks originate from susceptibility contrasts between the pore 
+fl uid and the minerals in the rock matrix (e.g., Kleinberg et al., 
+1994; Coates et al., 1999; Godefroy et al., 2001). To model the 
+increased decay rate observed in the transverse NMR relaxometry, 
+i.e., CPMG echo trains and FID, due to the diff usive motion of 
+the NMR-labeled molecules in a nonlinear magnetic gradient fi eld 
+(internal gradient), the spatial distribution of fi eld gradients within 
+the simulated fl uid–matrix system can be calculated according to 
+Ampere’s law (Nabighian, 1987):
+()0r
+1⎡⎤⎢⎥∇× ∇×=⎢⎥μμ⎢⎥⎣⎦
+AJr
+ 
+[10]
+with
+0rand= ∇×= μμBAB H
+and outer boundary conditions
+0∇×= ∇×HH [11]
+at the model limits and with inner continuity requirements
+() 12SS
+1,2
+0
+S
+∇× − =HH [12]
+at interfaces S1,2 between inner model domains such as the 
+pore–matrix boundary. Th e global Larmor frequency f0 = γB0 = 
+γμ 0μrH0 is defi ned by the static external primary magnetic fi eld 
+H0. Th e gradient in the direction of the equilibrium magnetiza-
+tion B0 = Bz at the point r is given by G(r) = ∂/∂zB(r). Th e terms 
+A, H, and B denote the local magnetic potentials, fi elds, and fl ux 
+densities, respectively; μr(r) = 1 + κ(r) is the spatial distribution 
+of the magnetic permeability (susceptibility κ) in the system. In 
+this study, we set μr
+fl uid = 1 and assumed mean values for μr
+rock 
+throughout the rock matrix and thus μr
+rock > μr
+fl uid/gas . Dissolved 
+ferro- or paramagnetic ions such as Fe 3+ or Mn2+, however, can 
+signifi cantly increase the magnetic permeability of the pore fl uid. 
+Actually, μr can also exhibit signifi cant variations within a rock 
+sample, e.g., due to individual grains or rock fractions with a high 
+Fe content. Typically, susceptibility values for sediments and rocks 
+range from κ ≤ 10−4 SI (e.g., clean sandstone or silica) up to κ ≥ 
+10−2 SI (e.g., volcanic rocks).
+Numerical RealizaƟ on
+As the description of the evolution of magnetization in the pore 
+fl uid is very similar to classical diff erential equations for diff usion 
+processes, approaches frequently used in fl uid dynamic sciences can 
+be used to solve Eq. [1–3] with boundary conditions according to 
+
+--- PAGE 5 ---
+www.VadoseZoneJournal.org | 850
+Eq. [4] in the time domain, e.g., random walk strategies, lattice 
+Boltzmann methods (LBMs), or FEMs.
+We used COMSOL Multiphysics, a commercial program based 
+on fi nite elements that includes simulation toolboxes for general 
+convection and diff usion processes in arbitrary three-dimensional 
+geometries. Optionally, these models can be linked to other physi-
+cal simulations, such as corresponding magnetic fi eld calculations 
+(internal gradients), fl uid fl ow, or heat transfer. In the FEM, the 
+geometric model is divided into mesh elements (Fig. 2) and the 
+above diff erential equations are solved for magnetization densities 
+mi(t) at each mesh element i of the model (Zienkiewicz, 2005).
+In contrast to random walk methods or LBMs, the FEM approach 
+permits the NMR diff usion equations to be solved in their eigen-
+value domain, thus signifi cantly reducing the computational cost. 
+Consequently, arbitrary pore geometries can be simulated and a 
+direct derivation of NMR relaxation times (eigenvalues) can be 
+derived directly without the need for consecutive inverse modeling 
+in the time domain, e.g., by inverse Laplace transformation.
+In this study, we considered only the evolution of magnetization 
+densities of the NMR-labeled H2O molecules in the saturated pores, 
+i.e., initially m(x,y,z,t = 0) = M0/V. Th e simulations were compiled 
+using a medium performance dual core personal computer with 2Gb 
+of RAM. Depending on the model design, the computational time 
+was generally in the range of several seconds up to a few minutes.
+ 6Results and Discussion
+Model ValidaƟ on Using AnalyƟ cal SoluƟ ons
+To validate the simulations, we compared the numerical com-
+pilations with analytical solutions that are available for isolated 
+pores with simple geometries. Simulation results for an isolated 
+spherical pore in surface-dominated (one dominant decay time 
+per eigenvalue) and diff usion-dominated (multiple decay times per 
+eigenvalue) regimes using 4166 mesh elements are in a very good 
+agreement with the analytical results with deviations of <0.1% (Fig. 
+3). In comparison, Nguyen and Mardon (1995) used an axial sym-
+metry with eight nodes in their initial models.
+To validate our simulations with respect to transverse NMR relax-
+ation in a gradient fi eld as stated in Eq. [3] and [8b], we simulated 
+Fig. 3. Model validation of numerical simulations (fi nite element method [FEM]) of NMR relaxation in (A) time and (B) eigenvalue domains with ana-
+lytical solutions (crosses) for a single saturated spherical pore of radius R = 40 μm (diff usion coeffi cient of water D = 2.5 × 10−9 m2/s) in fast (surface 
+relaxivity ρs  = 1 μm/s), intermediate (ρs = 15 μm/s), and diff usion-limited regimes (ρs = 75 μm/s).
+Fig. 2. Schematic cross-section of a porous medium with fi nite ele-
+ment mesh of the pore space and approximated pore radius R of a 
+single pore body.
+
+--- PAGE 6 ---
+www.VadoseZoneJournal.org | 851
+an unrestricted relaxation environment in free water with an 
+intrinsic bulk relaxation time Tb = 3 s. Th e simulations used con-
+stant gradients G(r,t) = G = constant throughout the model, with 
+a zero surface sink term at the model boundaries, i.e., ρs = 0. In Fig. 
+4, the square of the magnetic fi eld gradient is plotted vs. eff ective 
+transverse relaxation times at diff erent CPMG echo spacings for 
+analytical (lines) and numerical (symbols) calculations. Th e results 
+are in good agreement. As DG relaxation becomes the dominant 
+term in Eq. [3] for increasing echo times 2 τ and fi eld gradients 
+G, the slope of each curve becomes proportional to the diff usion 
+constant of the fl uid.
+Frequency Dependence of Transverse 
+RelaxaƟ on Time Due to Internal Gradients
+In NMR applications, the primary static magnetic fi eld B0—usu-
+ally generated by strong permanent or electro-magnets—defi nes 
+the resonance frequency (Larmor frequency fl) of the investigated 
+nuclei, e.g., 1H isotopes. Typically, Larmor frequencies used in 
+petrophysical NMR relaxometry range from kilohertz (e.g., the 
+Earth’s magnetic fi eld: B0 ? 30−50 μT) up to a few 10s of mega-
+hertz (e.g., MRI: B0  ≥ 0.25 T). Th e resulting internal magnetic 
+fi eld gradients in rocks stem from susceptibility contrasts between 
+the pore fl uids and rock matrix or are due to minerals with dif-
+ferent susceptibilities. Such internal gradients naturally increase 
+as the fi eld strength of the magnetic fi eld increases, and thus an 
+enhanced observed CPMG relaxation rate 1/ T2 will be observed 
+at higher Larmor frequencies. Th e dependence of the transverse 
+NMR relaxation time on the Larmor frequency as a function of 
+susceptibility contrast between pore water and rock matrix in a 
+saturated porous rock were simulated for the model of a single 
+capillary pore (radius R = 1 μm, ρs  = 10 μm/s) for a frequency 
+range of fl = 103 to 107 Hz (Fig. 5).
+Th e simulations were compiled for a susceptibility range of κ = 
+10−4 SI (e.g., clean sandstone) up to κ = 0.1 SI (e.g., volcanic rocks). 
+Th e simulated NMR relaxation times show the strong increase 
+in relaxation rates with increasing fi eld strength of B0 and thus 
+refl ect the impact of internal gradients on the resulting CPMG 
+relaxation measurements in petrophysical NMR. Note that at 
+very low B0 fi elds, e.g., with Larmor frequencies in the kilohertz 
+range or less, the infl uence of the gradient fi elds becomes less domi-
+nant and eventually T2 draws near to the respective T1 relaxation 
+times, even for the high κ contrasts utilized in this model. (In 
+low magnetic fi elds and negligible internal gradients, T2 ? T1). 
+Th erefore, NMR relaxometry experiments at lower magnetic fi elds, 
+i.e., low-fi eld NMR, yield a more accurate estimate of petrophysi-
+cal properties from T2 relaxation times, with a tradeoff , however, 
+toward lower signal amplitudes as the spin magnetization scales 
+with magnetic fi eld intensity. On the basis of such numerical case 
+studies, the dependency of T2 on both rock susceptibility and 
+Larmor frequency can be used to quantify and compensate for 
+such interfering infl uences of high susceptibility contrasts when 
+deriving pore size distributions from NMR relaxometry.
+Enhanced Transverse RelaxaƟ on Time as 
+a FuncƟ on of Pore Size in the Presence of 
+Internal Gradients
+For Larmor frequencies fl  ≤ 4 MHz—which is generally con-
+sidered low-field NMR—the diffusion effects for T2 can be 
+minimized by using a suffi ciently small echo spacing τ in a CPMG 
+experiment. Th en T2 can be used as a T1 proxy to derive pore size 
+distributions. In this respect, a constant T2/T1 ratio for all pore 
+sizes is assumed (e.g., Kleinberg et al., 1993).
+Fig. 4. Finite element method modeling (symbols) and analytical 
+solution (lines) for increased NMR relaxation rates due to molecular 
+diff usion in a constant magnetic gradient fi eld for bulk water (water 
+diff usion coeffi cient D = 2.5 × 10
+−9 m2/s) at diff erent echo times τ. 
+Th e slope at high gradients is directly proportional to D (γ is the gyro-
+magnetic ratio of the protons).
+Fig. 5. Nuclear magnetic resonance transverse relaxation times of an 
+isolated capillary pore (radius R = 1 μm, surface relaxivity ρ
+s = 10 
+μm/s) as a function of matrix susceptibility in the presence of internal 
+gradients. Simulations were compiled for Larmor frequencies in the 
+range 1 kHz (black) up to 10 MHz (light gray).
+
+--- PAGE 7 ---
+www.VadoseZoneJournal.org | 852
+In the pore space, however, internal magnetic fi eld gradients, and 
+thus the DG, are at a maximum near the pore–rock interfaces, i.e., 
+where a high contrast in κ occurs. In Fig. 6, the spatial distribution 
+of DG within a saturated capillary pore for a matrix susceptibility 
+κmatrix = 10−2 SI, echo spacing τ = 0.5 ms, and Larmor frequency 
+fl  = 2 MHz is plotted. Th e relaxation times generally decrease 
+toward the pore walls (dark blue), which signifi cantly aff ects the 
+resulting eff ective transverse relaxation time of this pore, i.e., T2 = 
+0.5 s (no gradient) and T2 = 5.5 × 10−2 s (with internal gradients). 
+Following the above considerations in a small pore, a larger fraction 
+of its total NMR-labeled volume is aff ected by the gradient fi eld, 
+and thus one can assume a higher impact of the diff usion gradi-
+ent on T2 NMR signatures that originate from the smaller pores.
+To study such a dependence, we simulated longitudinal (T1) and 
+transverse ( T2) NMR relaxation signatures of saturated capil-
+lary pores in the presence of internal gradients. Th e simulations 
+presented in Fig. 7 were calculated for capillary pore geometries 
+using a global Larmor frequency of 2 MHz and (frequently used) 
+CPMG echo times τ = 0.5 ms. Th e T2/T1 ratios generally show a 
+strong dependence on the pore radius that becomes more distinct 
+at low surface relaxivities ρs at the walls. Th e T2/T1 ratios are more 
+strongly aff ected at low ρs because of the long relaxation times for 
+low ρs. In contrast, the short relaxation times at high ρs cannot be 
+reduced much further by the diff usion gradient. Actually, as surface 
+relaxivity usually refl ects paramagnetic substances at the pore wall, 
+e.g., hematite, an additional increase in ρs would be expected with 
+increasing internal gradients in a rock sample due to an increased 
+surface relaxation rate 1/τs. Even so, the results plotted in Fig. 7 sup-
+port a strong relation between pore size and the T2/T1 ratio.
+As a consequence of an increase in the rock’s susceptibility, the 
+resulting eff ective transverse relaxation times decline. As depicted 
+in Fig. 8, such a decrease in T2 strongly depends on the respective 
+pore size. Th e simulations show a signifi cant impact on the result-
+ing relaxation rates at κ ? 10−2 SI for the large pores ( R = 100 
+μm). A signifi cant decrease in eff ective transverse relaxation for 
+the small pore sizes ( R = 1 μm) occurs already at κ ? 10−3 SI. In 
+practice, it is commonly assumed that ρs does not vary signifi cantly 
+throughout the medium, i.e., ρs = constant for all signal-contrib-
+uting pores, although there is no direct experimental justifi cation. 
+From Eq. [9a] and [9b] it follows that the surface relaxivity for a 
+single pore is given by
+b
+b
+with 1 ,2 
+k
+k
+s
+k
+TT v kTT s
+−ρ == [13]
+where v/s is the (active) volume to surface ratio of the pore. For a 
+pore space consisting of several pore sizes, i.e., integrating over the 
+entire pore space, Eq. [13] extends to
+b
+11b
+ˆ ˆwith and 1ˆk
+NN
+ki
+sk i
+iiik
+TT IV TIST TT ==
+−ρ == = ∑∑ [14]
+where ˆ
+kT is a weighted relaxation time, Ii and Ti are the relative 
+signal contribution and respective relaxation time of the ith pore of 
+the system (note that this relation is strictly only valid in a surface-
+limited diff usion regime), and V = Σvi and S = Σsi are the total 
+volume and surface of the system, respectively.
+Fig. 7. Ratios of transverse to longitudinal NMR relaxation times 
+T2/T1 of saturated isolated capillary pores in the presence of internal 
+gradients as a function of the pore radius (model parameters: surface 
+relaxivity ρ
+s = 1, 10, and 100 μm/s, Larmor frequency fl = 2 MHz, 
+matrix susceptibility κ = 0.1 SI).
+Fig. 6. Example of the spatial distribution of the diff usion gradient 
+term DG in a capillary pore. Model parameters: Larmor frequency fl = 
+2 MHz, matrix susceptibility κ = 10−2 SI. Arrows show the direction 
+of the static magnetic fi eld B0.
+
+--- PAGE 8 ---
+www.VadoseZoneJournal.org | 853
+For the simulations shown in Fig. 8 to 10, a simple capillary 
+pore with radius R was used, thus v/s = R/2. Following from 
+Eq. [14] with a known volume/surface ratio of the pore model, 
+we can derive a pore-size-specific enhanced transverse surface 
+relaxivity parameter ρ2s that increases with increasing matrix 
+susceptibility (Fig. 9). The parameter ρ2s(κ, R, fl) is then also 
+a function of the matrix susceptibility and Larmor frequency 
+as well as the pore size and reflects the enhanced transverse 
+relaxation rate of the pores due to the internal magnetic field 
+gradients in the porous medium.
+As illustrated in Fig. 10, on using a constant surface relaxivity value 
+(diamonds), i.e., ρ2s = 10 μm/s, to estimate the respective pore 
+sizes, the pore radii will be signifi cantly underestimated when the 
+susceptibility of the matrix increases beyond a pore-size specifi c 
+threshold. Th is susceptibility threshold decreases with decreasing 
+pore radii, and thus the size of small pores will be more strongly 
+underestimated than large pores. In contrast, when using an 
+enhanced surface relaxivity model that takes into account the 
+rock susceptibility, the pore radii are estimated correctly (dots). 
+Th e slight increase at high susceptibilities is due to the beginning of 
+the transition from a surface-limited to a diff usion-limited regime 
+of the relaxation processes, i.e., ρ2sR/D > 1. Generally, this suscep-
+tibility threshold will shift to smaller values for NMR experiments 
+at higher Larmor frequencies and vice versa. Th ese considerations 
+concur with observations from laboratory studies on low-porosity 
+reservoir rocks (Pape et al., 2009). In practice, to estimate the pore-
+size-dependent eff ective surface relaxivity by inverse modeling, the 
+susceptibility and porosity (e.g., NMR porosity) of the rock sample 
+need to be independently measured. In this context, developing an 
+enhanced inverse modeling based on the above simulations is still 
+an objective of ongoing research.
+Pore Coupling
+Common quantitative interpretation of NMR relaxometry 
+data in porous media uses the classical relation of NMR relax-
+ation times and pore sizes for single isolated pores as derived by 
+Brownstein and Tarr (1979). Because the pores are usually con-
+nected in porous rocks, the concept of separated individual pores 
+is limited for the investigation of coupling between pores, i.e., 
+the diff usive motion of NMR-labeled molecules between pores. 
+Due to the diff usion constant of water, i.e., the diff usion length, 
+however, pore coupling eff ects become more signifi cant in NMR 
+relaxometry in rocks with small pore sizes, e.g., in low-porosity 
+reservoir rocks, shales, or clay.
+Fig. 10. Estimated pore radii from T2 relaxation times using constant 
+(diamonds) and eff ective, rock-susceptibility-dependent (dots) surface 
+relaxivity estimates (model parameters: surface relaxivity ρs = 10 μm/s, 
+Larmor frequency fl = 2 MHz, pore radii R = 1, 10, and 100 μm).
+Fig. 8. Eff ective transverse relaxation times in the presence of internal 
+gradients for diff erent pore radii R as a function of rock susceptibility 
+(model parameters: surface relaxivity ρs = 10 μm/s, Larmor frequency 
+fl = 2 MHz, echo time τ = 0.5 ms).
+Fig. 9. Derived eff ective transverse surface relaxivities ρ2s for diff erent 
+pore radii R as a function of rock susceptibility (model parameters: 
+surface relaxivity ρs = 10 μm/s, Larmor frequency fl = 2 MHz).
+
+--- PAGE 9 ---
+www.VadoseZoneJournal.org | 854
+A 
+simple model of a capillary pore (R = 10 μm) that is connected to four 
+smaller pores (R = 5 μm) by thin channels (pore throats) with widths 
+10−2 μm is shown in Fig. 11A. Th e total volume of the four small 
+pores is equal to the volume of the large pore; thus we obtain equal 
+amplitude fractions for each pore size. Simulations of longitudinal 
+relaxation (T1) in terms of eigenvalues were performed for diff erent 
+throat lengths and widths of this coupled system. Figure 11B shows 
+the respective T1 relaxation times and normalized amplitudes for 
+throat lengths ranging from 0.1 to 80 μm. Th e arrows indicate the 
+corresponding direction of change with decreasing throat length.
+Th e coupled system is characterized by two relaxation times that 
+each decrease as coupling increases (red arrows). For high throat 
+lengths (weak coupling), no signifi cant diff usive exchange between 
+pores takes place and the pores can be considered to be isolated, 
+with relaxation times of 0.25 and 0.5 s. Th e same relative ampli-
+tudes of 0.5 for each pore size refl ect the equal pore volumes of 
+large and small pores. When decreasing the throat length and thus 
+increasing the coupling strength, however, the fully coupled system 
+will eventually be characterized by a single eff ective relaxation con-
+stant and a respective normalized signal amplitude of 1. Because 
+molecular exchange by diff usion takes place between the pores, 
+the pore sizes estimated by the classical approach fail to describe 
+this coupled system. Note that as the dominant relaxation time 
+of the system converges to an eff ective value, the lower part of the 
+spectrum decreases along with its loss in signal strength. Th ese 
+implications, relevant for the NMR relaxation behavior of coupled 
+pore systems at the pore scale, agree with the results for porous 
+medium models obtained by McCall et al. (1991).
+Heterogeneity of Surface RelaxiviƟ es
+Porous rocks and sediments usually are composed of fractions of dif-
+ferent mineral grains such as quartz, clay, or hematite. Naturally such 
+minerals can have diff erent properties with respect to their paramag-
+netic ion content at the inner surfaces and thus show highly diff erent 
+mineral-specifi c surface relaxivities, i.e., ρs
+quartz << ρs
+hematite.
+In practice, to estimate pore sizes from NMR relaxometry 
+relaxation data, eff ective mean values of ρs are derived with uncer-
+tainties due to measurement errors. Additionally, there will also 
+be deviations caused by the mineral grain distributions within the 
+rock matrix. Such natural noise usually cannot be accounted for, 
+and information with respect to its infl uence and signifi cance on 
+the derivation of pore parameters is not well known.
+T o assess such infl uences for fast- and slow-diff usion NMR relax-
+ation regimes, we set up a simple model box (Fig. 12) of 144 
+Fig. 11. (A) Model of a coupled pore system of a large pore (radius R 
+= 10 μm) and four small pores (R = 5 μm), where the colors illustrate 
+an example eigenfunctions log[ En(r)] of the simulated data; and (B) 
+simulation of longitudinal relaxation time T1 distributions for throat 
+lengths ranging from 0.1 to 80 μm (model parameters: surface relax-
+ivity ρs  = 10 μm/s, throat width 0.1 μm). Th e arrows indicate the 
+corresponding direction of change with decreasing throat length.
+Fig. 12. Sections of a model box with 144 grains with randomly 
+assigned low (1 μm/s) and high (50 μm/s) surface relaxivities for 
+model realizations with (A) 0%, (B) 25%, (C) 75%, and (D) 100% 
+high-relaxivity grain surfaces . Th e color code refl ects the spatial dis-
+tribution of the pore fl uid’s transverse magnetization density aft er the 
+fi rst Carr –Purcell–Meiboom–Gill (CPMG) echo (τ = 0.5 ms).
+
+--- PAGE 10 ---
+www.VadoseZoneJournal.org | 855
+spherical mineral grains (grain radii R = 1 and 10 μm for fast 
+and slow diff usion, respectively), which were assigned low ( ρs
+a 
+= 1 μm/s) and high (fast diff usion models: ρs
+b = 50 μm/s; slow 
+diff usion models: ρs
+b = 100 μm/s) surface relaxivities, represent-
+ing clean (e.g., quartz) and impure (e.g., hematite) mineral grains. 
+Th ese two surface properties were assigned randomly to the grains 
+in the models. Figures 12A to 12D illustrate examples of random 
+realizations (fast-diff usion model) of transverse magnetization 
+density at the fi rst CPMG echo ( τ = 0.5 ms) for diff erent frac-
+tions (0, 25, 75, and 100%) of high-relaxivity grains. Simulated 
+data (fast-diff usion regime) of 50 random realizations for diff er-
+ent fractions (0–100%) of high-relaxivity grains in the model are 
+plotted in Fig. 13A (time domain) and 13B (eigenvalue domain). 
+Dashed lines represent the limits for 0 and 100% high-relaxivity 
+grain contents. Figures 14A to 14C illustrate three excerpts for 
+high-relaxivity grain contents of 6, 20, and 60%. Here, a bimodal 
+eigenvalue distribution at low ρs
+b grain contents, i.e., isolated 
+occurrences of ρs
+b grains, converges to a weighted mean mono-
+modal relaxation behavior with increasing high-relaxivity grain 
+contents. Similar simulations compiled for diffusion-limited 
+relaxation, i.e., grain sizes are upscaled by a factor of 10 and ρs
+b = 
+100 μm/s, are plotted in Fig. 15. Here, at 0% high-relaxivity grain 
+content, the relaxation is purely surface limited. Upon introducing 
+high-relaxivity grain fractions to the model, the relaxation behav-
+ior becomes increasingly diff usion limited, and thus the system 
+becomes characterized by an ensemble of relaxation times (e.g., Fig. 
+16, bottom). Upon increasing the fraction of high-relaxivity grains, 
+the characteristic eigenvalues λ of the system increase along with 
+an increased scattering of mean relaxation times and subsequently 
+derived surface relaxivities for the 50 model realizations (indices 
+1–50). As expected, the scattering appears generally stronger in the 
+surface-limited diff usion environment. If the model’s total volume 
+and surface area are known, Eq. [14] can be used to estimate the 
+surface relaxivities and thus derive pore sizes from the simulated 
+relaxation data (Fig. 17 and 18). Th e eff ective surface relaxivity of 
+the system increases exponentially with increasing content of ρs
+b 
+grain surfaces.
+Th e derived eff ective pore sizes for the fast-diff usion model, i.e., 
+volume/surface ratios, were generally found to be in very good 
+agreement of <1% with the model. In the case of intermediate 
+to slow diff usion, however, the derived mean surface relaxivities 
+were typically underestimated due to the resulting faster eff ective 
+relaxation rates. Consequently, the deduced pore sizes were under-
+estimated, exhibiting a maximum deviation ( ?15%) from the 
+model at 20% high-susceptibility grain fraction. Th is maximum 
+deviation can be attributed to a stronger impact from clustering 
+Fig. 13. Simulations with randomly distributed low (1 μm/s) and high 
+(50 μm/s) grain surface relaxivities with 10 to 90% high-relaxivity 
+(ρs
+b) grain content, each with 50 random model realizations: (A) 
+transverse relaxation curves; (B) eigenvalues (= decay times). Dashed 
+lines show lower and upper boundaries for homogeneous low and 
+high surface relaxivities.
+Fig. 14. Fast diff usion: NMR transverse relaxation simulations in the 
+time domain (top) and eigenvalue (relaxation constant) domain (bot-
+tom) for 6, 20, and 60% high surface relaxivity ( ρ
+s
+b) grain content 
+(excerpts from Fig. 13).
+Fig. 15. Slow diff usion: simulations with randomly distributed low (1 
+μm/s) and high (50 μm/s) grain surface relaxivities with 10 to 90% 
+high-relaxivity (ρs
+b) grain content, each with 50 random model real-
+izations: (A) transverse relaxation curves; (B) eigenvalues (= decay 
+times). Dashed lines show lower and upper boundaries for homoge-
+neous low and high surface relaxivities. 
+
+--- PAGE 11 ---
+www.VadoseZoneJournal.org | 856
+(e.g., compare Fig. 12B and 12C), which then promotes the devel-
+opment of two distinct slow and fast relaxation regimes within the 
+model. Furthermore, coupling between pore fractions of the model 
+will also contribute, however, being of only minor signifi cance in 
+the presented models.
+ 6Conclusion and Outlook
+Pore-scale simulations of longitudinal and transverse NMR relax-
+ation signatures, taking into account the enhanced T2 relaxation 
+rates that arise in the presence of internal magnetic gradients in 
+porous rocks and sediments, were implemented in a multiphys-
+ics fi nite elements program. Th e simulations can be compiled for 
+arbitrary pore geometries with spatial distributions of surface 
+and magnetic properties of the fl uid and rock, and thus allow the 
+fundamental NMR relaxation behavior to be studied in complex 
+pore systems, e.g., derived from computed tomography. Th e fi nite 
+element approach permits the NMR diff usion equations to be 
+solved in their eigenvalue domain and thus the NMR relaxation 
+times (eigenvalues) to be directly derived. Th e computational 
+cost can thereby be signifi cantly reduced and simulations can be 
+compiled in two and also in three dimensions using a standard 
+personal computer.
+Simulations of transverse NMR relaxometry data support previous 
+observations (e.g., Pape et al., 2009) indicating that the use of T2 
+distributions as a permeability estimator tends to overestimate the 
+contribution of smaller pores and thus to underestimate the rock 
+permeability. To compensate for this drawback, the concept of an 
+enhanced transverse surface relaxivity parameter that depends on 
+pore size and rock susceptibility was introduced.
+Modeling of the transverse relaxation behavior refl ects the fre-
+quency dependence of internal gradients in the rocks, which, in 
+principle, could be used to derive eff ective surface relaxivities by 
+inverse modeling or enhancing existing (semi)empirical models. 
+Th erefore, it seems promising to apply such an approach to data 
+obtained from frequency-dependent NMR relaxometry data, e.g., 
+utilizing transverse NMR data recorded at two diff erent Larmor 
+frequencies, to better estimate pore-size distributions and perme-
+ability. In this context, from the observed shift s of the transverse 
+relaxation times at diff erent frequencies, it seems promising to 
+quantify frequency- and pore-size-related eff ective surface relax-
+ivities and thus derive more reliable permeability estimates, in 
+particular, for low-porosity reservoir rocks, shales, or clay. Direct 
+simulations of connected pores at the pore scale confi rm an aver-
+aging of decay times along with an overall shift to higher decay 
+rates related to the coupling strengths within the pore system. 
+Simulated NMR signatures of random grain mixtures indicated 
+that, depending on the dominant diff usion regime, the commonly 
+heterogeneous distribution of surface relaxivities in rocks and 
+sediments, i.e., geological noise, can lead to a signifi cant underes-
+timation of derived pore sizes and thus of permeability.
+Fig. 18. Slow diff usion: derived surface relaxivities and pore size for 50 
+realizations of random distributions of low (1 μm/s) and high (100 
+μm/s) surface relaxivity pairs ( ρs
+a,b) in the model box (Fig. 12): (A) 
+eff ective relaxivities (dots) derived according to Eq. [14] (lines); (B) 
+high surface relaxivity grain fraction vs. mean surface relaxivity (dots) 
+and consecutively derived pore sizes volume/surface area (v/s, squares).
+Fig. 16. Slow diff usion: NMR transverse relaxation simulations in 
+the time domain (top) and eigenvalue (relaxation constant) domain 
+(bottom) for 6, 20, and 60% high surface relaxivity (ρ
+s
+b) grain content 
+(excerpts from Fig. 15).
+Fig. 17. Fast diff usion: derived surface relaxivities and inner surfaces 
+for 50 realizations of random distributions of low (1 μm/s) and high 
+(50 μm/s) surface relaxivity pairs (ρs
+a,b) in the model box (Fig. 12): (A) 
+eff ective relaxivities (dots) derived according to Eq. [14] (lines); (B) 
+high surface relaxivity grain fraction vs. mean surface relaxivity (dots) 
+and consecutively derived pore sizes volume/surface area (v/s, squares).
+
+--- PAGE 12 ---
+www.VadoseZoneJournal.org | 857
+On the basis of such pore-scale simulations, we aim to implement 
+an NMR interpretation scheme for T2 relaxometry data that will 
+take into account pore-size-dependent transverse relaxation rates 
+due to susceptibility contrasts between the rock and pore fl uid. 
+Using the presented fi nite element approach, simulations can be 
+readily compiled for multiphase systems and thus will also be used 
+in further studies to correlate the NMR properties and hydrologic 
+parameters of partially saturated rocks, e.g., to derive the relative 
+permeability and to study the transport properties of fi lm fl ow. 
+In a next step to further investigate and quantify the relationship 
+between NMR and the transport properties of porous media, we 
+will jointly simulate NMR and fl uid fl ow (e.g., Navier–Stokes).
+Acknowledgments
+Th is study was conducted within the framework of the T ransregional Collabora-
+tive Research Centre 32 (SFB TR 32). W e thank the German Research Foundation 
+(DFG) for funding.
+References
+Bloch, F. 1946. Nuclear inducƟ on. Phys. Rev. 70:460–474.
+ Brownstein, K., and C. Tarr. 1979. Importance of classical di ﬀ usion in NMR 
+studies of water in biological cells. Phys. Rev. A 19:2446–2453. 
+Bryar, T., C.J. Daughney, and R. Knight. 2000. ParamagneƟ c eﬀ ects of iron(III) 
+species on nuclear magneƟ c relaxaƟ on of ﬂ uid protons in porous media. 
+J. Magn. Reson. 142:74–85. 
+Carman, P . 1956. Flow of gases through porous media. BuƩ erworths, London. 
+Carr, H., and E. Purcell. 1954. Eﬀ ects of diﬀ usion on free precession in nuclear 
+magneƟ c resonance experiments. Phys. Rev. 94:630–638. 
+Coates, G.R., L. Xiao, and M.G. Prammer. 1999. NMR logging: Principles and 
+applicaƟ ons. Halliburton Energy Serv., Houston, TX. 
+Dunn, K.-J. D.J. Bergman. and G.A. Latorraca. 2002. Nuclear magne Ɵ c reso-
+nance: Petrophysical and logging applicaƟ ons. Handbk. Geophys. Explor. 
+32. Elsevier Science, Kidlington, UK. 
+Foley, I., S. Farooqui, and R. Kleinberg. 1996. Effect of paramagnetic ions 
+on NMR relaxation of fluids at solid interfaces. J. Magn. Reson. A 
+123:95–104. 
+Godefroy, S., J. Korb, M. Fleury, and R. Bryant. 2001. Surface nuclear mag-
+neƟ c relaxa Ɵ on and dynamics of water and oil in macroporous media. 
+Phys. Rev. E 64:021605, doi:10.1103/PhysRevE.64.021605. 
+Hahn, E. 1950. Spin echoes. Phys. Rev. 80:580–594. 
+KeaƟ ng, K., and R. Knight. 2007. A laboratory study to determine the eﬀ ect of 
+iron oxides on proton NMR measurements. Geophysics 72:27–32. 
+Kenyon, W. 1997. Petrophysical principles of applica Ɵ ons of NMR logging. 
+Log Anal. 38(2):21–43. 
+Kenyon, W., P . Dahl, C. Straley, and J. Willemsen. 1988. A three-part study of 
+NMR longitudinal relaxa Ɵ on proper Ɵ es of water-saturated sandstones. 
+SPE Form. Eval. 3:622–636. 
+Kleinberg, R., S. Forooqui, and M. Horsﬁ eld. 1993. T
+1/T2 raƟ o and frequency 
+dependence of NMR relaxa Ɵ on in porous sedimentary rocks. J. Colloid 
+Interface Sci. 158:195–198. 
+Kleinberg, R., W. Kenyon, and P . Mitra. 1994. Mechanism of NMR relaxaƟ on 
+of ﬂ uids in rock. J. Magn. Reson. A 108:206–214. 
+Korringa, J., D. Seevers, and H. Torrey. 1962. Theory of spin pumping and re-
+laxaƟ on in systems with a low concentra Ɵ on of electron spin resonance 
+centers. Phys. Rev. 127:1143–1150. 
+McCall, K., D. Johnson, and R. Guyer. 1991. Magne Ɵ zaƟ on evoluƟ on in con-
+nected pore systems. Phys. Rev. B 44:7344–7355. 
+Meiboom, S., and D. Gill. 1958. Modi ﬁ ed spin-echo method for measuring 
+nuclear relaxaƟ on Ɵ mes. Rev. Sci. Instrum. 29:688–691. 
+Nabighian, M. 1987. ElectromagneƟ c methods in applied geophysics. Vol. 1. 
+Theory. Soc. Explor. Geophys., Tulsa, OK. 
+Nguyen, S., and D. Mardon. 1995. A p-version ﬁ nite element formula Ɵ on 
+for modeling magne Ɵ c resonance relaxa Ɵ on in porous media. Comput. 
+Geosci. 21:51–60. 
+Pape, H., J. Arnold, R. Pechnig, C. Clauser, E. Talnishnikh, S. Anferova, and B. 
+Blümich. 2009. Permeability predicƟ on for low porosity rocks by mobile 
+NMR. Pure Appl. Geophys. 166:1125–1163. 
+Sen, P ., C. Straley, W. Kenyon, and M. Whiƫ ngham. 1990. Surface-to-volume 
+raƟ o, charge density, nuclear magne Ɵ c relaxa Ɵ on, and permeability in 
+clay-bearing sandstones. Geophysics 55:61–69. 
+Torrey, H. 1956. Bloch equaƟ ons with diﬀ usion terms. Phys. Rev. 104:563–565. 
+Zienkiewicz, O. 2005. The ﬁ nite element method. 6th ed. BuƩ erworths, London.

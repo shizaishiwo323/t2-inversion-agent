@@ -1,0 +1,1072 @@
+--- PAGE 1 ---
+J. Chem. Phys. 150, 154708 (2019); https://doi.org/10.1063/1.5092159 150, 154708
+© 2019 Author(s).
+A finite element approach to forward
+modeling of nuclear magnetic resonance
+measurements in coupled pore systems
+Cite as: J. Chem. Phys. 150, 154708 (2019); https://doi.org/10.1063/1.5092159
+Submitted: 08 February 2019 . Accepted: 01 April 2019 . Published Online: 19 April 2019
+ Jonathan Mitchell, Andre Souza, Edmund Fordham, Austin Boyd, et al.
+ARTICLES YOU MAY BE INTERESTED IN
+NMR spin-rotation relaxation and diffusion of methane
+The Journal of Chemical Physics 148, 204504 (2018); https://doi.org/10.1063/1.5027097
+Ti-fraction-induced electronic and magnetic transformations in titanium oxide films
+The Journal of Chemical Physics 150, 154704 (2019); https://doi.org/10.1063/1.5089697
+Energetics of counterion adsorption in the electrical double layer
+The Journal of Chemical Physics 150, 154706 (2019); https://doi.org/10.1063/1.5087835
+
+--- PAGE 2 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+A ﬁnite element approach to forward modeling
+of nuclear magnetic resonance measurements
+in coupled pore systems
+Cite as: J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159
+Submitted: 8 February 2019 • Accepted: 1 April 2019 •
+Published Online: 19 April 2019
+Jonathan Mitchell,1,a)
+ Andre Souza,2 Edmund Fordham,1 and Austin Boyd 3
+AFFILIATIONS
+1 Schlumberger Cambridge Research, High Cross, Madingley Road, Cambridge CB3 0EL, United Kingdom
+2Schlumberger Brazil Technology Integration Center, Avenida Republica do Chile, 330, 20031-170 Rio de Janeiro, Brazil
+3Schlumberger-Doll Research, 1 Hampshire Street, Cambridge, Massachusetts 02139, USA
+a)Author to whom correspondence should be addressed: JMitchell16@slb.com
+ABSTRACT
+Porous media characterized by a hierarchy of length scales are ubiquitous in industry and nature, and include carbonate rocks, cements,
+heterogeneous catalysts, and biological cells. Nuclear magnetic resonance (NMR) is a popular tool for studying liquid-saturated porous mate-
+rials, where the spin relaxation rate is generally considered proportional to pore size. However, in porous granular media, the relaxation rate
+is modiﬁed by diffusion between the intraparticle and interparticle pores. The observed relaxation rates do not reﬂect the pore size under
+such conditions. Deconvolving the various contributions of surface relaxation, geometry, and diffusion is nontrivial, and forward models
+are a powerful technique for elucidating the underlying pore structure. Various forward models have been proposed previously, including
+analytic solutions and random walk simulations. Here, a ﬁnite element method is adopted to simulate the diffusion of nuclear magnetization
+in a coupled pore geometry. We validate our model against existing solutions and use the simulations to determine the surface relaxivity of
+powdered silica by matching experimental results. The ﬁnite element approach is more versatile than other modeling methods, allowing direct
+visualization of the diffusing magnetization and being trivially extensible to multidimensional NMR exchange experiments.
+Published under license by AIP Publishing. https://doi.org/10.1063/1.5092159
+I. INTRODUCTION
+Nuclear magnetic resonance (NMR) relaxation time measure-
+ments are commonly used to probe the structure of liquid-saturated
+porous media. Information on the conﬁning geometric length scales
+is recovered by assuming that the observed relaxation rate (inverse
+of time) is proportional to the surface-to-volume ratio S/V of
+the pores. In complex materials, characterized by a hierarchy of
+length scales, distributions of longitudinal T1 or transverse T2 relax-
+ation time are used as a proxy for pore size distributions. 1 This
+interpretation is based on the assumption that each pore is iso-
+lated from its neighbors. 2 However, if pores of substantially dif-
+ferent sizes are strongly coupled, this interpretation is no longer
+valid.3
+Materials characterized by coupled pore systems include lime-
+stone,3–5 heterogeneous catalysts, 6,7 and cements. 8–10 We refer
+to these materials as porous granular media as they comprise
+connected “micropores” inside grains separated by “macropores”
+(interparticle voids, vugs, fractures, or cracks). NMR has been
+applied ubiquitously to the study of these heterogeneous materials
+despite the persistent challenge of deconvolving the contributions
+of surface relaxation and diffusion between the micropores
+and macropores. Multidimensional NMR relaxation time corre-
+lations, such as T1-T2
+11 and T2-T2,12 are useful to elucidate the
+structure-transport relations in analogy to chemical exchange spec-
+troscopy.13 While these experiments highlight the presence of
+exchange14,15 and can provide estimates of diffusional coupling con-
+stants,5,9,16,17 the challenge of extracting geometric length scales
+persists.
+Forward modeling has been used to elucidate the underly-
+ing pore structure. A model based on prior knowledge of the
+sample (porosity, grain size, liquid diffusion coefﬁcient) is tested
+against experimental NMR data to estimate the unknown param-
+eters (pore size, surface relaxivity, diffusional coupling constant).
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-1
+Published under license by AIP Publishing
+
+--- PAGE 3 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+Several techniques have been applied to this problem. Analytic solu-
+tions range from simple two-site exchange models 9,17,18 to a one-
+dimensional (1D) porous grain. 3,4,19 Random walk simulations in
+a three-dimensional (3D) periodic lattice (microporous grain con-
+solidation model, µGC) have been used extensively to support the
+interpretation of NMR relaxation time measurements. 3,20–23 Both
+the analytic and random walk approaches have limitations. The ana-
+lytic two-site exchange model is used to describe multidimensional
+NMR experiments9,17,22,24 but assumes spatially uniform magnetiza-
+tion. The analytic 1D porous grain model has not been extended
+to represent multidimensional NMR experiments, and an approx-
+imate extension to three spatial dimensions (based on the µGC
+lattice) assumed uniform magnetization in the macropores. 3 The
+random walk simulations are computationally expensive, and even
+though each walker is independent giving rise to readily paral-
+lelable code, simulations of a T2-T2 correlation can run to days
+on a desktop personal computer (PC). 21 Furthermore, our avail-
+able random walk simulation code is based on a primitive cubic
+lattice of spherical solids and cannot readily accommodate arbi-
+trary grain or pore geometries. However, more sophisticated ran-
+dom walk methods have been presented in the literature based on
+X-ray microcomputed tomography ( µ-CT) images with embedded
+microporosity.25,26
+Here, we adopt a ﬁnite element method to model the diffu-
+sion of magnetization in a coupled pore system. For convenience,
+we employ the commercial COMSOL Multiphysics® package. We
+have previously used this software to explore T2 relaxation in the
+presence of pore-scale magnetic ﬁeld inhomogeneities 27 and simu-
+late two-site exchange.28 To simulate the diffusion of magnetization
+in a granular porous medium, the model geometry is divided into
+two continuum domains: the intergrain macropore and the micro-
+porous grain.19 Due to the orders of magnitude difference in length
+scale between the individual micropores and the macropore, it is not
+practical to generate and mesh the exact geometry. Therefore, the
+interior of the grain is represented as a spatially uniform domain
+with volume-averaged properties (grain porosity µ, apparent diffu-
+sion coefﬁcient Dapp, and relaxation time Tµ); these spatially aver-
+aged properties are calculated in a separate model representing a
+single micropore. Coupling between the microporous grain and the
+macropore is established by way of matched boundary conditions on
+either side of a smooth interface. All outer boundaries are reﬂecting
+to represent a periodic geometry.
+The general theory describing the diffusion of continuum
+nuclear magnetization in a porous granular medium is presented
+in Sec. II. An example periodic geometry is illustrated in Sec. III
+based on the µGC model of Schwartz, 29 and we introduce the var-
+ious simulations based on this geometry. The numerical methods
+used to estimate relaxation time distributions from the magneti-
+zation decay data are outlined in Sec. IV. The results obtained by
+ﬁnite element analysis of a 1D geometry and analytic solutions
+are compared in Sec. V A, and results from ﬁnite element anal-
+ysis of a 3D µGC geometry are compared to random walk simu-
+lations in Sec. V B. These comparisons serve to validate the use
+of COMSOL Multiphysics for simulations of magnetization diffus-
+ing in a coupled porous medium. We then extend the ﬁnite ele-
+ment method to multidimensional NMR experiments and generate
+T1-T2 correlations from the µGC geometry. Finally, we compare
+experimental T1-T2 correlations to the simulations performed under
+matching conditions in Sec. VII and show that the salient fea-
+tures of the experimental data are captured by the coupled pore
+model.
+II. THEORY
+A. Magnetization in a single pore
+We ﬁrst consider the case of an isolated pore. The spatial
+and temporal dependence of the nuclear magnetization m(r, t) is
+governed by the Bloch-Torrey equation30
+∂m(r, t)
+∂t = D0∇2m(r, t)−m(r, t)
+Tb
+, (1)
+where D0 is the bulk diffusion coefﬁcient and Tb is a bulk relaxation
+time. The partially absorbing boundary condition
+D0 ˆn⋅∇m(r, t) + ρm(r, t) = 0 (2)
+applies at the pore wall, where ˆn is the surface-normal vector
+and ρ is the surface relaxivity. Brownstein and Tarr provided
+a solution to these equations using an eigenfunction-eigenvalue
+expansion.2 For diffusion in a 1D slab of width 2 L under con-
+ditions of “fast diffusion,” such that the dimensionless parameter
+α = ρL/slash.leftD0 /uni226A1, a single eigenfunction-eigenvalue pair is sufﬁ-
+cient to describe the decay of nuclear magnetization, and the familiar
+relationship
+1
+T = ρ
+L ≡ρ S
+V (3)
+applies exactly. Equation (3) may be applied to transverse relax-
+ation with T2 and ρ2 or longitudinal relaxation with T1 and ρ1. If
+the surface relaxivity is known, the measured relaxation time can
+be rescaled to pore size. Equation (3) is approximate (within a fac-
+tor unity 2) for a 2D cylinder of radius r = 2 L or a 3D sphere of
+radius r = 3L. If a hierarchy of length scales exists within the porous
+medium, then it is reasonable to expect that multiple relaxation
+times will be observed. Assuming the pores are effectively isolated,
+such that individual spins explore only a single geometric length L
+(i.e., V/slash.leftS< √D0t, where t∼T1, T2 is the experimental time scale)31
+and α/uni226A1, then a distribution of relaxation times is equivalent to the
+pore size distribution.1 However, if the diffusing spins explore mul-
+tiple length scales during the experiment (or α /uni226B1), the measured
+relaxation times will not reﬂect the pore size.
+B. Magnetization in coupled pores
+Now consider the case of a porous granular material. The sys-
+tem is characterized by two length scales: an intragrain micropore
+size Lµ ∼1 µm and an intergrain macropore size Lm ∼100 µm. Note
+the ratio Lm/Lµ ∼100. The pore network is saturated with a single
+liquid of bulk diffusivity D0 ∼10−9 m2 s−1. For realistic values of
+ρ< 103 µm s−1, it is reasonable to assume α < 1 in the micropores, so
+the relaxation is characterized by a single time Tµ (local magnetiza-
+tion mµ is spatially uniform inside a pore) and included in the diffu-
+sion equation (1) as an additional constant rate term. Accordingly,
+the microporous grain may be represented as an effective medium
+with the diffusion of magnetization governed by
+∂mµ
+∂t = D0
+κ ∇2mµ−mµ/parenleft.alt41
+Tµ
++ 1
+Tb
+/parenright.alt4, (4)
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-2
+Published under license by AIP Publishing
+
+--- PAGE 4 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+where κ is the tortuosity of the pore network, deﬁned as
+lim
+t→∞
+/bracketleft.alt3Dapp
+D0
+/bracketright.alt3= 1
+κ (5)
+for local grain porosity µ and apparent diffusion coefﬁcient
+Dapp.32,33 For simplicity, we ignore the time-dependence of the dif-
+fusion coefﬁcient in the microporosity and take the long-time limit
+as an appropriate approximation. In petrophysics, the tortuosity
+of a porous rock is expressed in terms of the formation factor
+F = φ−ccem ≡κ/slash.leftφ,34 where the cementation exponent ccem is deter-
+mined empirically. For uniform microporous mudstones, ccem will
+typically take values close to 2. For synthetic porous media as stud-
+ied in Sec. VII, we take ccem = 1.5, so the tortuosity is 1/slash.leftκ= √φ after
+Davies et al.35
+The diffusion of magnetization mm in the macropores is
+unrestricted and is therefore governed by Eq. (1). At the inter-
+face between the microporous grains and the macropores, the
+magnetization must be continuous, giving the simple continuity
+condition
+mm = mµ. (6)
+The ﬂux of magnetization must also be matched across the interface
+according to3
+D0 ˆn⋅∇mm + ρmm(1−φµ) = φµD0
+κ ˆn⋅∇mµ. (7)
+The total porosity of the granular medium is
+φ= fmφm + fgφµ, (8)
+where f m is the fraction of the sample volume occupied by the
+macropore, the local porosity in the macropore m = 1 by deﬁ-
+nition, and f g is the fraction of the sample volume occupied by
+grain.
+III. GRAIN CONSOLIDATION MODEL
+The µGC model 29 is a simple periodic lattice of microporous
+spherical grains, as illustrated in Fig. 1. Each grain is formed of
+spherical nonporous particles uniformly distributed on a regular
+sublattice. At the lattice or sublattice length scale, spherical parti-
+cles of radius R are arranged on a simple grid [Fig. 1(a)] to deﬁne
+the cubic unit cell of side length A shown in Fig. 1(b). At the
+lattice scale, the porous grains have radius Rm and the unit cell
+has a side length Am; at the sublattice scale, the solid particles
+have radius Rµ and the unit cell has a side length Aµ. The ratio
+Am/Aµ ∼100.
+A. Random walk simulations
+Random walk simulations were performed directly in the µGC
+geometry using a variable time step (ﬁrst arrival) technique. 36,37
+Walkers (nuclear spins) were seeded over the entire unit cell, and
+those assigned to the solid volume were rejected. The ratio of
+accepted to rejected walkers provided an estimate of the porosity.
+Walkers diffused to a solid surface with an arrival time determined
+by an analytic probability function. Once a walker was within a dis-
+tance 3 of a solid surface, its motion was governed by ﬁxed jumps
+of length  = 0.01 µm. When in proximity to the surface, the walker
+had a probability γ of relaxing, determined by the surface relaxivity
+FIG. 1. Grain consolidation model after Ramakrishnan et al. 3 Spherical particles
+of radius R are arranged on a simple grid (a) to deﬁne a unit cell (b) of side length
+A. The illustrated spheres in (a) are oversized such that 2R/A = 1.23. The insets in
+(b) show cross sections of the unit cell corresponding to an enclosed pore and a
+connecting throat. The same geometric structure is used at the lattice (macropore)
+and sublattice (micropore) scales.
+such that γ = (2ρ)/slash.left(3D0).38 If a walker relaxed, it was deleted. At
+ﬁxed time intervals, the number of surviving walkers was counted to
+determine the fraction of observable magnetization. A total of 100
+000 walkers were run in each simulation (not including discarded
+walkers initially assigned to the solid volume), and this number
+of walkers was sufﬁcient to produce consistent T2 distributions on
+repeat simulations. Note that the random walk simulations captured
+the full detail of the structure at all length scales and there was no
+requirement to represent the microporous grains as a continuous
+medium.
+B. Analytic solution in 1D
+The µGC model is deﬁned explicitly in three dimensions but
+is approximated in 1D by the geometry in Fig. 2. 3 Each unit cell of
+the 1D model repeats periodically over a length 2 W, although it is
+only necessary to simulate the symmetric geometry over 0 < x< W.
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-3
+Published under license by AIP Publishing
+
+--- PAGE 5 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+FIG. 2 . One-dimensional porous grain geometry used for analytic calculations
+and ﬁnite element simulations of diffusing magnetization. The boundaries at
+x = 0 and W are reﬂecting. The mixed pore/grain boundary at x = Lm is absorbing
+and porous.
+The macropore domain has length Lm, and the grain domain (rep-
+resented by an effective continuous medium) has length Lµ so that
+W = Lm + Lµ with the pore/grain interface atx = Lm. The boundaries
+at x = 0 and W are reﬂecting.
+An analytic solution to Eqs. (1) and (4) given the interfacial
+boundary conditions (6) and (7) is presented elsewhere.3,4 The equa-
+tions were reduced to one spatial dimension and solved for m(x, t).
+A solution was obtained via the method of Laplace transforms
+as explained previously. 39 The time-dependent magnetization was
+transformed to
+¯m(s) ≡
+∞
+/integral.disp
+0
+m(t) exp{−st}dt, (9)
+where the residuals of the poles {sn} of ¯m(s) in the complex s-plane,
+calculated from
+m(t) =
+∞
+/summation.disp
+n=0
+lim
+s→sn
+(s−sn) ¯m(sn) exp{snt}, (10)
+are the discrete relaxation rates 1/Tn =−sn, each with a correspond-
+ing amplitude and mode shape.
+For magnetization in the microporous grain domain x > Lm,
+it was assumed α < 1, so the relaxation behavior was approxi-
+mated by Eq. (3) using a deﬁned value of ρ and the solid particle
+surface-to-volume ratio Sµ/V µ. For magnetization in the macropore
+domain x≤Lm, the partially absorbing grain surface had an apparent
+relaxivity3
+ρapp ≈ρ(1−φµ) +φµ
+/radical.alt4
+D0
+κTµ
+, (11)
+which led to an estimate of the dominant macropore relaxation
+rate
+1
+Tm
+/uni2243ρapp
+Lm
+. (12)
+For modest values of µ, κ, and D0, it is possible for ρapp /uni226Bρ. To
+represent the 3D interstices in the µGC model as 1D slabs, the geo-
+metric lengths were taken asLm≡Vm/Sm and U≡V µ/Sµ (where U is
+the effective size of an individual micropore such that the 1D grain
+domain represents an ensemble average over Lµ/U ∼200 microp-
+ores), and the diffusion coefﬁcient reduced by an appropriate fac-
+tor. The micropore relaxation time was calculated from Eq. (3) as
+Tµ = U/ρ. Estimating V/S for the interstice of oversized spheres is
+nontrivial, although approximate analytic integrals exist. Qualita-
+tively consistent results have been generated previously using the
+1D analytic solution and 3D random walk simulation with matched
+parameters.3
+The efﬁciency of the coupling between the microporous grain
+and the macropore is represented by a dimensionless parameterC,19
+deﬁned in our notation as
+C= φµ(1−φm)
+φ
+ρL2
+m
+D0U . (13)
+This coupling constant is equivalent to the Brownstein-Tarr param-
+eter insomuch as C /uni226B1 corresponds to strong surface relaxivity
+and a magnetization decay that is insensitive to diffusive exchange
+between the grain and macropore domains.
+C. Finite element simulations
+The µGC model was constructed using the COMSOL Multi-
+physics drawing tools in 3D (Fig. 1) or 1D (Fig. 2). The model
+was divided into two domains corresponding to the macropore and
+the microporous grains, and the grains were treated as an effec-
+tive continuous medium. A single unit cell was constructed for
+each simulation. The Bloch-Torrey equations governing the diffu-
+sion of magnetization in the macropore domain Eq. (1) and the
+grain domain Eq. (4) were established using general form partial
+differential equations. The boundary conditions were set at the
+interface between domains according to Eqs. (6) and (7). A time-
+dependent study was used to solve for m(r, t) across both domains
+simultaneously.
+It was necessary to determine the relaxation behavior in the
+microporous grains for both the 3D and 1D ﬁnite element simu-
+lations. To obtain the input parameters for the continuum porous
+grain domain, we performed a separate calculation in a single micro-
+pore, as illustrated in Fig. 3. Diffusion of magnetization inside the
+pore proceeded as bulk diffusion according to Eq. (1) with the
+absorbing boundary condition Eq. (2) at the solid walls. The other
+pore surfaces, corresponding to the throats indicated in Fig. 1(b)
+(inset), were reﬂecting only. The input parametersAµ, Rµ, and ρwere
+used to calculate µ, Tµ, and U; the relaxation time was determined
+by ﬁtting a single exponential function toMµ(t), as deﬁned in Sec. IV
+below. These derived quantities were used as inputs to the main
+FIG. 3. Geometry used to calculate µ and T µ in micropores with input parame-
+ters Aµ, Rµ, and ρ or f m and Tm in macropores with input parameters Am, Rm, and
+ρapp. This geometry corresponds to the interstice of Fig. 1(b). Diffusion of magne-
+tization occurs inside the pore with an absorbing boundary condition at the walls.
+The outermost (ﬂat) surfaces correspond to connecting throats and are reﬂecting
+only. The example micropore geometry shown was generated withAµ = 2 µm and
+2Rµ/Aµ = 1.23.
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-4
+Published under license by AIP Publishing
+
+--- PAGE 6 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+simulation. The tortuosity was taken as κ = 1/slash.left
+/radical.alt1
+φµ from Eq. (5).
+For the 1D simulation, it was also necessary to specifyLm. The single
+pore (interstice) geometry in Fig. 3, rescaled to Ag and Rg, was used
+to calculate Lm ≡Vg/Sg.
+IV. DATA PROCESSING
+All the simulation methods generate data that describe the
+exponential decay of magnetization in the time domain. The sig-
+nal is recorded as an average of the magnetization over the entire
+geometry
+M(τ) = ∫ m(r, τ)dV(r)
+∫ dV(r) (14)
+to give the normalized amplitude as a function of time τ according
+to the ﬁrst-kind Fredholm integral equation
+M(τ)
+M(0) =
+∞
+/integral.disp
+0
+f(T) exp/braceleft.alt3−τ
+T/braceright.alt3d(log10 T) + (τ), (15)
+where f (T) is the required distribution and (τ) represents noise.
+In most cases, m(r, 0) = 1 everywhere, so M(0) = 1 making the
+normalization redundant. The recorded data are essentially noise-
+free except in the case of the random walk simulations where the
+ﬁnite number of walkers introduces noise-like ﬂuctuations on the
+output. We make no distinction between longitudinal and trans-
+verse magnetization at this stage and keep the notation general. Both
+relaxation processes may be represented as exponential decays with-
+out consequence for the interpretation, and the only distinguishing
+parameter that needs to be considered in simulation is the choice of
+surface relaxivity.
+Distributions of relaxation time ˆf(T) are estimated on the
+log10 T scale by numerical inversion of the data described by
+Eq. (15). This inverse problem is ill-posed, so we use Tikhonov
+regularization to determine a stable solution over a limited range
+of T with a second-difference smoothing operator and smoothing
+scalar selected by generalized cross validation (GCV) as described
+by Wilson.40
+Experimentally, transverse magnetization is observed to decay
+in the time domain, so Eq. (15) is directly applicable to mea-
+surements of T2 by the conventional Carr-Purcell-Meiboom-Gill
+(CPMG) spin echo method,41,42 where the echo amplitudes (magne-
+tization) are recorded at constant time intervals te and the acquisi-
+tion time of thenth echo isτ2 = nte. Longitudinal relaxation may also
+be encoded in an exponential decay function 43 although it is more
+common to determine T1 by observing the recovery of magnetiza-
+tion to its equilibrium state.44 The NMR signal amplitude (magneti-
+zation) is recorded at time τ1 which may be chosen arbitrarily and is
+incremented in successive acquisitions to explore the time-domain
+behavior.
+Multidimensional NMR experiments are constructed by
+sequential application of methods, such as observing longitudinal
+magnetization recovery followed by transverse magnetization decay
+in a T1-T2 correlation experiment.11 Data are only recorded over the
+second experimental section, namely, the transverse magnetization
+decay encoded by CPMG. To generate equivalent data in simulation,
+two separate COMSOL Multiphysics simulations were performed.
+For simplicity, both longitudinal and transverse relaxation processes
+were encoded as exponential decays. In the ﬁrst simulation, the
+(longitudinal) magnetization was modeled in the porous system with
+surface relaxivity ρ1. A set of solutions m(r, τ1) was calculated over
+the required range ofτ1. Each solution was then used as the input for
+the second simulation of (transverse) magnetization and the signal
+(spatial average) stored at intervals of te to span the required range
+of τ2. These data are represented by the two-dimensional Fredholm
+integral equation
+M(τ1, τ2)
+M(0, 0) =
+∞
+/integral.disp
+0
+f(T1, T2)k1(τ1, T1)k2(τ2, T2)
+×d(log10 T1)d(log10 T2) + (τ1, τ2), (16)
+where the kernel functions have the form
+ki(τi, Ti) = exp/braceleft.alt3−τi
+Ti
+/braceright.alt3, i= 1, 2. (17)
+The initial magnetization is again deﬁned such that M(0, 0) = 1.
+When T1 ≠T2, the transfer of magnetization between the longi-
+tudinal and transverse eigenfunctions results in contributions to
+f (T1, T2) with negative amplitude and T2 > T1. The popular
+approach to inverting data described by Eq. (16) introduces a non-
+negativity constraint on the solution as part of the regularization
+step45,46 and distorts the resultant distribution when negative-
+amplitude components are present. Consequently, we use a primal-
+dual algorithm to solve the optimization problem without con-
+straining the output sign, following the method of Chandrasekera
+and Mitchell;28 all the T1-T2 correlation plots presented here were
+generated using this inversion method.
+Experimental T1-T2 correlations were measured on powdered
+microporous silica saturated with de-ionized water. The silica pow-
+ders were manufactured by Fisher Scientiﬁc with quoted particle
+size ranges of Rm = 3–17.5 µm, 20–31.5 µm, 30–100 µm, and
+100–250 µm. The small particle size (3–17.5 µm) had a quoted
+micropore size of 4 nm, and all the other silica powders had a quoted
+micropore size of 6 nm. The measurements were performed on an
+Oxford Instruments bench top magnet ( B0 = 0.3 T corresponding
+to f 0 = 12.9 MHz for 1H). The longitudinal relaxation was encoded
+using inversion recovery44 with the recovery delays incremented log-
+arithmically from τ1 = 1 ms to 10 s in 32 separate acquisitions.
+CPMG echo trains were recorded with te = 400 µs and 5000 echoes.
+The integral equation (16) describing the experimental data was
+solved using the kernel functions
+k1(τ1, T1) = 1−2 exp/braceleft.alt3−τ1
+T1
+/braceright.alt3, (18)
+k2(τ2, T2) = exp/braceleft.alt3−τ2
+T2
+/braceright.alt3. (19)
+As noted above, the estimated two-dimensional distribution
+ˆf(T1, T2) is independent of the encoding method.
+V. VALIDATION OF FINITE ELEMENT SIMULATIONS
+In this section, we compare simulated results obtained
+using the COMSOL Multiphysics package to outputs from the
+existing analytic solution (1D) and random walk simulations
+(3D).
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-5
+Published under license by AIP Publishing
+
+--- PAGE 7 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+A. Comparison of ﬁnite element simulations
+to analytic solutions in 1D
+The 1D geometry in Fig. 2 was constructed using param-
+eters selected to approximate the 3D µGC model presented by
+Ramakrishnan et al. 3 The input parameters were W = 38.34 µm,
+Lm = 6.49 µm, µ = 0.1694, U = 0.16 µm, κ = 2.43, Tb = ∞, and
+D0 = 1.0×10−9 m2 s−1. The magnetization decay was calculated by
+ﬁnite element simulation and analytic solution for surface relaxivi-
+ties ranging from ρ = 1.5 µm s−1 to 937.5 µm s−1 (multiples of 5),
+where the two lowest values of ρ were considered representative of
+real porous materials, 3 although experimentally determined ρ val-
+ues depend on the method used to measure S/V.47 The calculated
+micropore and dominant macropore relaxation times are listed in
+Table I. The relaxation time distributions are shown in Fig. 4 (left).
+The magnetization decays generated by simulation were converted
+to pseudocontinuous distributions by numerical inversion, whereas
+the analytic solution provided discrete relaxation times and ampli-
+tudes. A large number of poles (and hence relaxation rates) were
+calculated using the analytic solution, but most were associated with
+negligible amplitude. Only the components of signiﬁcant ampli-
+tude are shown in Fig. 4 for clarity. The distributions are bi-modal
+except for the highest surface relaxivity [Fig. 4(i)]. Excellent agree-
+ment is observed in the results from the two methods, as expected
+given that the underlying physics is identical. The peaks in the dis-
+tributions from simulation appear lower than the discrete analytic
+component amplitudes because of the smoothing imposed by the
+numerical inversion. However, it is clear from the cumulative inte-
+grals in Fig. 4 (right) that the two sets of distributions are consis-
+tent. These results validate the solutions provided by ﬁnite element
+simulation.
+Indicated in Fig. 4 (left) are the calculated micropore and dom-
+inant macropore relaxation times, scaled to effective pore size. In
+all cases, the fastest relaxation time in each distribution corresponds
+almost exactly to Tµ. When the surface relaxivity is weak, e.g.,
+ρ = 1.5 µm s−1 or 7.5 µm s−1, see Figs. 4(a) and 4(c), respec-
+tively, then the slowest relaxation time corresponds to Tm, albeit
+with the effective pore size much smaller than the true pore length
+ρTm /uni226ALm. However, as the surface relaxivity becomes stronger
+through Figs. 4(e), 4(g), and 4(i), the slowest relaxation time
+increases above Tm. It is interesting to note that only in Fig. 4(g)
+does the effective macropore size correspond to the true pore length
+ρTm ≈Lm. The observed shift in relaxation time corresponds to a
+TABLE I. Variation in the predicted micropore and macropore relaxation times as a
+function of surface relaxivity and the corresponding pore size based on Eq. (3). Also
+included are the Brownstein-Tarr parameter αm = ρLm/slash.leftD0 for the macropore only
+and the grain-macropore coupling parameter C as deﬁned in Eq. (13).
+ρ Tµ ρTµ Tm ρTm
+(µm s−1) (ms) ( µm) (ms) ( µm) αm C
+1.5 108.3 0.16 602.4 0.90 0.01 0.18
+7.5 21.7 0.16 226.5 1.70 0.05 0.90
+37.5 4.3 0.16 78.8 2.95 0.24 4.48
+187.5 0.9 0.16 23.9 4.48 1.23 22.41
+937.5 0.2 0.16 6.3 5.86 6.08 112.03
+FIG. 4. Simulated relaxation behavior in a 1D µGC analog geometry. The surface
+relaxivity varied as [(a) and (b)] ρ = 1.5 µm s−1, [(c) and (d)] 7.5 µm s−1, [(e)
+and (f)] 37.5 µm s−1, [(g) and (h)] 187.5 µm s−1, and [(i) and (j)] 937.5 µm s−1.
+See text for other simulation parameters. The left-hand column shows the relax-
+ation time distributions obtained by ﬁnite element simulation (solid blue lines) and
+analytic solution (red crosses). The pore lengths ρT µ ≡U and ρTm predicted by
+analytic calculation (see Table I) are indicated by solid black lines above each dis-
+tribution, and the constant macropore length Lm is indicated by a dotted black line
+above each distribution. The right-hand column shows the corresponding cumu-
+lative integrals from the ﬁnite element simulations (solid blue lines) and analytic
+solutions (dashed red lines), where ˆF(T) = /integral.smallT
+T′=0
+ˆf (T′)d(log10 T′). In each
+plot, the abscissa is scaled to effective pore size and the ordinate is scaled to total
+porosity.
+change in the relaxation behavior in the macropore as α increases
+above unity, and the magnetization decay is no longer governed by
+the “fast diffusion” regime. The “intermediate” ( α ∼1) and “slow”
+(α /uni226B1) diffusion regimes are characterized by spatially nonuniform
+magnetization. Both the analytic solution and simulations provide
+m(r, t) as a direct output, and the spatial variation of magnetiza-
+tion is visualized in Fig. 5. The spatial distribution of magnetization
+is shown across the 1D geometry with the macropore on the left
+(x < Lm) and the porous grain on the right ( x ≥Lm) at various
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-6
+Published under license by AIP Publishing
+
+--- PAGE 8 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+FIG. 5 . Spatial variation of magnetization in a 1D µGC analog geometry deter-
+mined by ﬁnite element simulation (solid blue lines) and analytic solution (dashed
+red lines) at various times. Cases are shown for (a)ρ= 1.5 µm s−1, (b) 7.5 µm s−1,
+(c) 37.5 µm s−1, (d) 187.5 µm s−1, and (e) 937.5 µm s−1. See text for other sim-
+ulation parameters. In each plot, the vertical dotted-dashed black line indicates
+the boundary at Lm. Results from the simulations and the analytic solutions are
+indistinguishable in most cases.
+multiples of Tµ and Tm; note that these times vary with surface
+relaxivity, as listed in Table I. At the center of the grain, x = W
+= 38.34 µm, the magnetization reaches a plateau in all cases that
+corresponds to exp {−t/slash.leftTµ}. When the surface relaxation is weak
+[Fig. 5(a)], the inﬂuence of magnetization diffusing into the grain
+extends to x ≈25 µm. However, at the other end of the scale
+when the surface relaxation is strong [Fig. 5(e)], magnetization dif-
+fusing into the grain relaxes immediately and the magnetization
+remains spatially uniform inside the grain. Conversely, when the
+surface relaxation is weak, then the magnetization in the macropore
+remains approximately uniform, corresponding to the “fast diffu-
+sion” regime ( α ≈0.01). However, when the surface relaxation is
+strong, we observe a dramatic spatial variation across the macro-
+pore, corresponding to relaxation in the “slow diffusion” regime
+(α ≈6). This visualization of the spatial variation in magnetiza-
+tion is extremely useful for interpreting the relaxation behavior
+observed in the distributions of Fig. 4. This spatial information is
+also available in 3D simulations, although it is less straightforward
+to inspect. A more general discussion of magnetization exchange
+FIG. 6. Simulated relaxation behavior in the 3D µGC geometry. The surface relax-
+ivity varied as [(a) and (b)] ρ = 1.5 µm s−1, [(c) and (d)] 7.5 µm s−1, [(e) and (f)]
+37.5 µm s−1, [(g) and (h)] 187.5µm s−1, and [(i) and (j)] 937.5µm s−1. See text for
+other simulation parameters. The left-hand column shows the relaxation time dis-
+tributions obtained by ﬁnite element simulation (solid blue lines) and random walk
+simulation (dashed red lines). The pore sizes ρT µ ≡V µ/Sµ and ρTm estimated by
+ﬁnite element simulation are indicated by solid black lines above each distribution,
+and the constant macropore size Lm ≡Vm/Sm, also determined by ﬁnite element
+simulation, is indicated by a dotted black line above each distribution. The right-
+hand column shows the corresponding cumulative integrals from the ﬁnite element
+simulations (solid blue lines) and random walk simulations (dashed red lines). In
+each plot, the abscissa is scaled to effective pore size and the ordinate is scaled
+to total porosity.
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-7
+Published under license by AIP Publishing
+
+--- PAGE 9 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+between domains has been presented previously by Arns and
+co-workers.48,49
+B. Comparison of ﬁnite element and random
+walk simulations in 3D
+The relaxation time distributions generated from the 3D µGC
+geometry by ﬁnite element and random walk simulations are com-
+pared in Fig. 6. The geometry was constructed with Am = 80 µm,
+2Rm/Am = 1.23 = 2 Rµ/Aµ, and Aµ = 2 µm. Tb = ∞ and
+D0 = 2.5×10−9 m2 s−1. For the ﬁnite element simulations, κ = 2.43
+and Tµ (with U = ρTµ = 0.16 µm) was calculated directly using the
+isolated pore geometry in Fig. 3 for each surface relaxivity value. The
+dominant macropore relaxation time was also estimated using the
+isolated pore geometry in Fig. 3 with an apparent surface relaxivity
+according to Eq. (11). The estimated relaxation times and corre-
+sponding pore sizes are listed in Table II. Note that the apparent
+surface relaxivity ρapp in the macropores is substantially larger than
+the true surface relaxivity, especially when ρ is small. When the sur-
+face relaxation was weak [Figs. 6(a) and 6(c)], a bi-modal distribu-
+tion was obtained from each simulation. Again, the effective macro-
+pore size ρTm is much smaller than the true pore length Lm due
+to coupling. As the surface relaxivity increased through Figs. 6(e),
+6(g), and 6(i), additional peaks were visible corresponding to mul-
+tiple relaxation eigenmodes in the macropore when α ≥1. As in
+the 1D simulation, the fastest relaxing component is comparable
+to Tµ and this component is identical in the two simulations. It is
+interesting to note that the shortest relaxation time is slightly less
+than Tµ when the surface relaxation is weak [Fig. 6(a)]. This same
+phenomenon was present in the 1D simulations, albeit less obvi-
+ous. The peaks at longer relaxation times in Fig. 6 differ slightly
+between the simulations. Consistently, the components attributed
+to relaxation in the macropore occur at shorter times in the ran-
+dom walk simulations than in the ﬁnite element simulations. The
+same temporal shift is visible in the cumulative distributions [Fig. 6
+(right)], where it is clear that the amplitudes of the components
+are comparable. This discrepancy was attributed to the difference in
+detail of the macropore and grain interface between the two models.
+In the random walk simulations, the interface between macropore
+and grain is not well deﬁned and can be considered a “rough” sur-
+face of ﬁnite depth with modiﬁed diffusion behavior. In the ﬁnite
+element model, this interface is well deﬁned, is smooth, and has
+zero depth. Therefore, the grain surface area appears larger in the
+TABLE II. Variation in estimated micropore and macropore relaxation times as a func-
+tion of surface relaxivity, and the corresponding pore size based on Eq. (3). Also
+included are the Brownstein-Tarr parameter αm = ρLm/slash.leftD0 for the macropore only
+and the grain-macropore coupling parameter C as deﬁned in Eq. (13).
+ρ ρ app Tµ ρTµ Tm ρTm
+(µm s−1) ( µm s−1) (ms) ( µm) (ms) ( µm) αm C
+1.5 17.8 107.6 0.16 384.7 0.58 0.01 0.09
+7.5 43.3 21.5 0.16 166.1 1.25 0.02 0.45
+37.5 113.9 4.3 0.16 69.6 2.61 0.10 2.26
+187.5 340.3 0.9 0.16 29.6 5.55 0.49 11.32
+937.5 1179.2 0.2 0.16 14.7 13.78 2.44 56.58
+random walk simulation than in the ﬁnite element simulation, lead-
+ing to shorter macropore relaxation times. The ﬁnite element simu-
+lation could be modiﬁed to include a boundary layer of ﬁnite depth,
+or the boundary conditions adjusted, to replicate this effect. How-
+ever, the discrepancy between the two sets of simulated data is con-
+sidered small and we regard the results from the two models as
+consistent.
+VI. VISUALIZING EXCHANGE
+When inspecting the relaxation time distributions in Figs. 4(a)
+and 6(a), for example, one can make the naïve assignment of peaks in
+the bi-modal distributions to nuclear spins in the micropores (short
+relaxation time) and macropores (long relaxation time). However,
+this is incorrect as the ratio of the peak areas does not match the
+porosity fractions of the micropores and macropores, as demon-
+strated previously. 3 Diffusion of magnetization between pores on
+the time scale of the measurement alters the position and ampli-
+tude of the observed components. To inspect the inﬂuence of this
+diffusive coupling, we can adjust the input parameters of our sim-
+ulation and initialize the model with magnetization conﬁned in the
+macropores or micropores. To visualize this exchange process, we
+use the 1D geometry of Fig. 2. The ﬁnite element simulation allows
+the initial spatial distribution of magnetization at t = 0 to be triv-
+ially modiﬁed. Such modiﬁcations could be achieved in the analytic
+solutions or random walk simulations but with signiﬁcantly more
+effort. An example result is presented in Fig. 7 using the same input
+parameters as the simulations in Fig. 4(a) but with m(x ≤Lm, 0)
+= 1 (macropore domain) and m(x > Lm, 0) = 0 (grain domain) in
+Fig. 7(a), and m(x≤Lm, 0) = 0 (macropore domain) andm(x> Lm, 0)
+= 1 (grain domain) in Fig. 7(c). When the magnetization is present
+initially in the macropore only [Fig. 7(a)], it diffuses a signiﬁcant
+distance into the grain before relaxing. Despite this exchange pro-
+cess, the relaxation time distribution in Fig. 7(b) contains a single
+peak located close to Tm, corresponding to relaxation in the macro-
+pore. Despite extensive diffusion of magnetization into the grain, the
+microporous region acts only as a relaxing surface under conditions
+of “fast diffusion,” so a single relaxation time is observed. When
+the magnetization is present initially in the microporous grain only
+[Fig. 7(c)], it diffuses out into the macropore. The magnetization in
+the macropore increases at short time ( t → Tµ), before decreasing
+again at long times (t → Tm). Now, the resulting relaxation time dis-
+tribution in Fig. 7(d) contains two peaks. The majority of the signal
+reﬂects the relaxation inside the grain, and the main peak is located
+near Tµ. However, magnetization that has diffused into the macrop-
+ore relaxes at the slower rate and a notable peak is present near Tm.
+To conﬁrm these observations, the sum of the data in Figs. 7(a) and
+7(c) is shown in Fig. 7(e), where the spatial variation in magnetiza-
+tion is indistinguishable from the result in Fig. 5(a). Similarly, the
+relaxation time distributions in Figs. 7(b) and 7(d) were summed to
+give the distribution in Fig. 7(f). Also shown in Fig. 7(f) is the distri-
+bution repeated from Fig. 7(a). The peak positions are identical, and
+although the amplitudes appear different due to smoothing in the
+regularization step, the integral areas match. This manipulation of
+the system is a powerful tool for exploring the inﬂuence of exchange
+on measured relaxation time distributions.
+Alternatively, the exchange of magnetization between environ-
+ments is observed in multidimensional relaxation time correlations.
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-8
+Published under license by AIP Publishing
+
+--- PAGE 10 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+FIG. 7 . Exploration of coupling in a 1D ﬁnite element simulation with
+ρ = 1.5 µm s−1. The left-hand column shows the spatial variation of magnetization
+at various times. In each plot, the vertical dotted-dashed black line indicates the
+boundary at Lm. The initial distribution of magnetization was (a) m(x< Lm, 0) = 1,
+m(x ≥Lm, 0) = 0, and (c) m(x < Lm, 0) = 0, m(x ≥Lm, 0) = 1. The result in
+(e) was obtained by summing the data in (a) and (c) at each time increment and
+corresponds exactly to the initial condition of m(x, t) = 1. The right-hand column
+shows the corresponding relaxation time distributions obtained from the simula-
+tions (solid blue lines) with the abscissa scaled to effective pore size and the
+ordinate scaled to total porosity. The distribution in (f, solid blue line) was obtained
+by summing the distributions in (b) and (d). For comparison, the distribution from
+Fig. 4(a) is repeated in [(f), dashed red line]. The integral areas under the solid and
+dashed lines in (f) are equal. The pore lengths ρT µ and ρTm predicted by analytic
+calculation are indicated above each distribution.
+T1-T2 data were generated by ﬁnite element simulation in the 3D
+µGC model using the same parameters as in Fig. 6 with ρ2 ≡ρ. To
+observe so-called exchange peaks positioned away from the T1 = T2
+diagonal,8 it is necessary for T1 ≠T2,50 so the simulations were per-
+formed with ρ1 = ρ2/2. The correlations plots are shown in Fig. 8
+with the surface relaxivity increasing from (a) ρ2 = 1.5 µm s−1 to (e)
+937.5 µm s−1. When the surface relaxation is weak [Fig. 8(a)], there
+is a signiﬁcant exchange between the pore environments, as noted in
+the discussion of Fig. 7 above. Two main peaks are observed along
+the diagonal. Interestingly, these peaks exhibit a ratio T1/T2 ≈1.5
+rather than T1/T2 = 2 expected from the ratio of surface relaxivi-
+ties. This result is attributed to spatial averaging of the magnetiza-
+tion reservoir over the macropore domain (given there is no bulk
+relaxation, T1b = T2b = ∞) that shifts the distribution toward the
+T1 = T2 diagonal. A signiﬁcant off-diagonal exchange peak with
+positive amplitude is observed at T1 ≈0.51 s and T2 ≈0.09 s. A
+much smaller exchange peak is also present with negative amplitude
+FIG. 8. T1-T2 correlations generated by ﬁnite element simulation in the 3D µGC
+geometry. The transverse surface relaxivities varied as (a) ρ2 = 1.5 µm s−1, (b)
+7.5 µm s−1, (c) 37.5 µm s−1, (d) 187.5 µm s−1, and (e) 937.5 µm s−1, and the
+ratio ρ2/ρ1 = 2. In each plot, the dashed diagonal line indicates T1 = T2 and the
+solid diagonal line indicates T1/T2 = 2. Peaks below the T1 = T2 diagonal have
+negative amplitude. Marginal T1 and T2 distributions (red lines) are included for
+clarity. See online version for references to color.
+(corresponding to approximately 2% of the total signal) at
+T1 ≈0.08 s and T2 ≈1.07 s (the position of the peak is sensitive to
+the details of the inversion method 28). In general, components with
+T2 > T1 do not correspond to physical environments and this nega-
+tive amplitude component is a consequence of magnetization trans-
+fer between the coupled longitudinal and transverse eigenmodes.
+Note that the marginal distributions are entirely positive. As the sur-
+face relaxivity increases through Figs. 8(b) and 8(c), the off-diagonal
+peaks become less pronounced and the negative amplitude compo-
+nent is no longer visible in the plots. When the surface relaxation is
+strong [Figs. 8(d) and 8(e)], the exchange peaks disappear entirely
+and multiple peaks are visible along the diagonal corresponding to
+“intermediate” and “slow” diffusion in the macropores. Figure 8(e)
+is a particularly interesting case. The peak at short relaxation times
+is associated with relaxation in the microporous grain and exhibits
+T1/T2 = 2 in agreement with the deﬁned ratio ρ2/ρ1 = 2. The other
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-9
+Published under license by AIP Publishing
+
+--- PAGE 11 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+three peaks, associated with “slow diffusion” in the macropores, shift
+closer to theT1 = T2 diagonal at longer relaxation times, again due to
+the equal bulk relaxation times. Exchange of magnetization is occur-
+ring between the micropores and macropores, but the relaxation
+in the microporous grain is so extreme that the two environments
+appear uncoupled in the T1-T2 correlation. Taken alone, the plot in
+Fig. 8(e) could be misinterpreted. The ability to examine the spa-
+tial magnetization proﬁles in simulation, as demonstrated in Figs. 5
+and 7, elucidates the relaxation behavior observed in the correla-
+tion plots. We will use our ﬁnite element simulations to explore
+additional details of the T1-T2 and T2-T2 correlations in future
+work.
+VII. SIMULATION AND EXPERIMENT
+Finally, we demonstrate the utility of ﬁnite element methods
+by comparing experimental and simulated T1-T2 correlations. The
+experimental results obtained on silica powders with a variety of
+grain sizes are shown in Fig. 9 (left). When the grains were rela-
+tively small, Rm = 3–17.5 µm in Fig. 9(a), rapid exchange between
+the grain and macropores occurred on the time scale of the exper-
+iments and a single dominant peak was observed. As the grain size
+increased, through Figs. 9(c), 9(e), and 9(g), off-diagonal exchange
+peaks were observed consistent with diffusive coupling between two
+environments. In Fig. 9(e), two peaks are observed at long times near
+the T1/T2 = 10 diagonal and these multiple components are associ-
+ated with the broad distribution of grain sizes ( Rm = 30–100 µm) in
+this sample. It is interesting to observe that in Figs. 9(a), 9(c), and
+9(e), multiple peaks are visible only in the T2 marginal distribution
+and the T1 marginal distribution is dominated by a single relaxation
+time component. This bias is attributed to details of the exchange
+process, where the off-diagonal peak at T1 /uni226BT2 is expected to have
+a larger amplitude than the off-diagonal peak at T2 /uni226AT1. The rel-
+atively low amplitude of the peaks at short relaxation times visible
+in Figs. 9(c) and 9(e) is attributed to weak surface relaxation in the
+microporous grain. The distribution in Fig. 9(g) is also interesting
+for its complexity. The off-diagonal exchange peaks are well deﬁned
+and have signiﬁcant and similar magnitude (albeit opposite sign).
+A broad, multimodal, and almost continuous distribution stretches
+diagonally across the plot, extending over two orders of magnitude
+in T2. This relaxation behavior is attributed to the range of grain
+sizes combined with “intermediate” diffusion in the macropores.
+The distribution shifts to a lowerT1/T2 ratio at the longest relaxation
+times due to the inﬂuence of the bulk liquid relaxation, estimated as
+T1b ≈T2b = 2 s for de-ionized water measured on a low-ﬁeld NMR
+instrument. Overall, the relatively long relaxation times combined
+with small micropore size suggest weak surface relaxation, and a
+ratio of ρ2/ρ1∼10. Such a high ratio of surface relaxivities is uncom-
+mon in coupled porous media such as reservoir rocks 51 where sur-
+face relaxation is dominated by paramagnetic moieties. 52 However,
+in the absence of strong relaxation sinks, the surface relaxation is
+controlled by modiﬁed molecular dynamics 53 and high ρ2/ρ1 ratios
+have been observed previously on clean oxide surfaces, such as
+catalyst supports.54
+Relaxation of water in the powdered silicas was simulated using
+the 3D ﬁnite element µGC model. The geometry of each unit cell
+was constructed using the manufacturer’s quoted micropore size
+of U = 4 nm or 6 nm as appropriate. The grain size was chosen
+FIG. 9 . Comparison of T1-T2 correlations measured experimentally on water-
+saturated porous silica powders [(a), (c), (e), and (g)] and ﬁnite element simulations
+with matched physical parameters [(b), (d), (f), (h)]. The macroscopic grain sizes
+were (b) Rg = 3 µm, (d) 20 µm, (f) 30 µm, and (h) 100µm. In each plot, the dashed
+diagonal line indicates T1 = T2 and the solid diagonal line indicates T1/T2 = 10.
+Peaks below the T1 = T2 diagonal have negative amplitude. Marginal T1 and T2
+distributions (red lines) are included for clarity. See online version for references to
+color.
+based on the lower limit of the quoted ranges, so Rm = 3, 20, 30,
+or 100 µm, with 2Rm/Am = 1. The bulk diffusion coefﬁcient was set
+at D0 = 2.3×10−9 m2 s−1 for water at 25 ○C, and the bulk relax-
+ation times were T1b = T2b = 2 s. The grain properties were set at
+µ = 0.4 (estimated from experimental data) and κ = 2.43. Based
+on the experimental results, the surface relaxivities were set at ρ1
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-10
+Published under license by AIP Publishing
+
+--- PAGE 12 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+= 0.04 µm s−1 and ρ2 = 0.4 µm s−1. The simulations reﬂect a sim-
+pliﬁed version of the real samples: the range of grain sizes was not
+considered, and the simple cubic grain packing was retained rather
+than a more realistic structure such as a body centered cubic pack-
+ing. Notwithstanding this simpliﬁcation, the salient features of the
+experimental T1-T2 correlations are captured in the corresponding
+simulated data in Fig. 9 (right). The exact position of the peaks is
+slightly different between the experiment and simulation, most likely
+due to subtle variations in surface relaxivity (surface chemistry)
+and porosity between samples. The same exchange phenomena are
+observed in the experiment and simulation, suggesting that the phys-
+ical parameters (grain and pore size, porosity, and surface relaxivity)
+selected for the simulations are a close reﬂection of the sample prop-
+erties. The distribution in Fig. 9(h) can be interpreted in terms of
+two exchange process: between the macropores and the grain, and
+within the macropores due to relaxation occurring outside the “fast
+diffusion” regime. In the latter case, the exchange process reﬂects
+the transfer of magnetization between longitudinal and transverse
+eigenmodes rather than diffusion of nuclear spins between different
+physical environments. This relaxation behavior accounts for some
+of the complexity in the experimental result in Fig. 9(g). Overall,
+the simulations provide a route to estimating the surface relaxiv-
+ity parameters that are challenging to determine in coupled pore
+systems.
+VIII. CONCLUSIONS
+In this paper, we introduced ﬁnite element models of NMR
+measurements in coupled pore systems. For simplicity, we utilized
+the COMSOL Multiphysics software to solve the Bloch-Torrey equa-
+tions for diffusing magnetization. The models were designed to
+reﬂect granular porous media consisting of spherical microporous
+grains separated by macroscopic interstices (macropores). Such
+materials include carbonate rocks, cements, catalyst supports, and
+biological cells. To validate these models, we based our simulations
+on an existing microporous grain consolidation ( µGC) geometry.29
+In order to successfully mesh the geometries, it was necessary to rep-
+resent the microporous grains as an effective medium with modiﬁed
+diffusion and relaxation properties. The ﬁnite element simulations
+in an analog 1D geometry were shown to be equivalent to analytic
+solutions, and the simulations in the 3D µGC model were compara-
+ble to random walk simulations. The ﬁnite element simulations did
+not capture the surface roughness of the grains present in the ran-
+dom walk simulations due to the use of a smooth interface between
+the macropore and microporous grain, but this detail could be rep-
+resented by adjusted interface boundary conditions. Nevertheless,
+the salient features of (a) diffusive coupling and (b) Brownstein-Tarr
+“slow diffusion” in the macropores when the surface relaxivity was
+strong were reproduced correctly in the ﬁnite element simulations.
+Finally, we used the 3D simulations to replicate experimental results
+of water-saturated silica powder and hence estimate the longitudinal
+and transverse surface relaxivity parameters that are otherwise chal-
+lenging to determine in the presence of diffusive coupling between
+relaxation environments.
+The ﬁnite element simulations offer several advantages over
+existing forward modeling techniques to improve the interpretation
+of NMR relaxation time measurements in coupled porous media.
+Arbitrary grain structures can be constructed, or formed from µ-CT
+images of real materials, whereas the existing analytic solutions are
+limited to simple geometric forms. The ﬁnite element simulations
+solve the spatial distribution of magnetization directly, allowing
+convenient visualization of the time-dependent diffusion processes,
+even in 3D geometries. Modiﬁcations of the input ﬁnite element
+simulation parameters are trivial, such as the initial distribution of
+magnetization, allowing exchange processes to be explored. These
+simulations are also readily extensible to multidimensional NMR
+experiments, such as T1-T2 or T2-T2 correlations.
+ACKNOWLEDGMENTS
+Lawrence Schwartz (formerly Schlumberger-Doll Research)
+is thanked for providing access to his random walk Fortran
+code, and Pedro Mesquita (formerly Schlumberger Brazil Research
+and Geoengineering Center) is thanked for providing a graphi-
+cal user interface to the code. Andrew Clarke and Franck Mon-
+mont (Schlumberger Cambridge Research) are thanked for helpful
+discussions. The authors thank Schlumberger for supporting this
+work.
+REFERENCES
+1S. Davies and K. J. Packer, J. Appl. Phys. 67, 3163 (1990).
+2K. Brownstein and C. Tarr, Phys. Rev. A 19, 2446 (1979).
+3T. Ramakrishnan, L. Schwartz, E. Fordham, W. Kenyon, and D. Wilkinson, Log
+Anal. 40, 260 (1999).
+4T. Ramakrishnan, E. Fordham, L. Venkataramanan, M. Flaum, and L. Schwartz,
+in paper 1999-MMM presented at the SPWLA 40th Annual Logging Symposium,
+May 30–June 3, 1999.
+5M. Fleury and J. Soualem, J. Colloid Interface Sci. 336, 250 (2009).
+6M. Hollewand and L. Gladden, Chem. Eng. Res. Des. 70, 183 (1992).
+7L. Baker, M. Renshaw, M. Mantle, A. Sederman, A. Wain, and L. Gladden, Appl.
+Catal., A 557, 125 (2018).
+8P. J. McDonald, J. P. Korb, J. Mitchell, and L. Monteilhet, Phys. Rev. E72, 011409
+(2005).
+9L. Monteilhet, J. P. Korb, J. Mitchell, and P. J. McDonald, Phys. Rev. E74, 061404
+(2006).
+10K. Song, J. Mitchell, H. Jaffel, and L. Gladden, J. Phys. D: Appl. Phys.45, 105302
+(2012).
+11Y. Q. Song, L. Venkataramanan, M. D. Hürlimann, M. Flaum, P. Frulla, and
+C. Straley, J. Magn. Reson. 154, 261 (2002).
+12A. E. English, K. P. Whittall, M. L. G. Joy, and R. M. Henkelman, Magn. Reson.
+Med. 22, 425 (1991).
+13H. McConnell, J. Chem. Phys. 28, 430 (1958).
+14J. H. Lee, C. Labadie, C. S. Springer, and G. S. Harbison, J. Am. Chem. Soc. 115,
+7761 (1993).
+15Y. Song, G. Carneiro, L. Schwartz, and D. Johnson, Phys. Rev. Lett. 113, 235503
+(2014).
+16K. Washburn and P. Callaghan, Phys. Rev. Lett. 97, 175502 (2006).
+17M. van Landeghem, A. Haber, J. B. d’Espinose de Lacaillerie, and B. Blümich,
+Concepts Magn. Reson., Part A 36A, 153 (2010).
+18D. Bytchenkoff and S. Rodts, J. Magn. Reson. 208, 4 (2011).
+19V. Anand and G. Hirasaki, Petrophysics 48, 289 (2007).
+20Z. Zhang, D. Johnson, and L. Schwartz, Phys. Rev. E 84, 031129 (2011).
+21L. Schwartz, D. Johnson, J. Mitchell, T. Chandrasekera, and E. Fordham, Phys.
+Rev. E 88, 032813 (2013).
+22D. Johnson and L. Schwartz, Phys. Rev. E 90, 032407 (2014).
+23G. Carneiro, A. Souza, A. Boyd, L. Schwartz, Y. Song, R. Azeredo, W. Trevizan,
+B. Santos, E. Rios, and V. Machado, in paper 2014-AA presented at the SPWLA
+55th Annual Logging Symposium, May 18–22, 2014.
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-11
+Published under license by AIP Publishing
+
+--- PAGE 13 ---
+The Journal
+of Chemical Physics ARTICLE scitation.org/journal/jcp
+24D. Johnson and L. Schwartz, Phys. Rev. E 91, 062406 (2015).
+25C. Arns, Y. Melean, L. Burcaw, P. Callaghan, and K. Washburn, in paper
+SCA2009-44 presented at the Society of Core Analysts Annual Symposium Held
+in Noordwijk, The Netherlands, September 27–30, 2009.
+26C. Arns, T. AlGhamdi, and J. Arns, New J. Phys. 13, 015004 (2010).
+27E. Fordham and J. Mitchell, Microporous Mesoporous Mater. 269, 35 (2018).
+28T. Chandrasekera and J. Mitchell, Phys. Rev. E 98, 043308 (2018).
+29L. Schwartz, in paper SPWLA-1990-Y presented at the SPWLA 31st Annual
+Logging Symposium, June 24–27, 1990.
+30H. Torrey, Phys. Rev. 104, 563 (1956).
+31P. P. Mitra, P. N. Sen, and L. M. Schwartz, Phys. Rev. B 47, 8565 (1993).
+32L. Latour, P. Mitra, R. Kleinberg, and C. Sotak, J. Magn. Reson., Ser. A 101, 342
+(1993).
+33P. Sen, L. Schwartz, P. Mitra, and B. Halperin, Phys. Rev. B 49, 215 (1994).
+34G. Archie, Trans. AIME 146, 54 (1942).
+35C. Davies, J. Grifﬁth, A. Sederman, L. Gladden, and M. Johns, J. Magn. Reson.
+187, 170 (2007).
+36S. Torquato and I. Kim, Appl. Phys. Lett. 55, 1847 (1989).
+37M. Leibig, J. Phys. A: Math. Gen. 26, 3349 (1993).
+38D. Bergman, K. Dunn, L. Schwartz, and P. Mitra, Phys. Rev. E 51, 3393 (1995).
+39E. Fordham, L. Venkataramanan, J. Mitchell, and A. Valori, Diff. Fund. 29,
+2 (2017); available at https://diffusion.uni-leipzig.de/pdf/volume29/diff_fund_29
+(2017)2.pdf
+40J. D. Wilson, J. Mater. Sci. 27, 3911 (1992).
+41H. Y. Carr and E. M. Purcell, Phys. Rev. 94, 630 (1954).
+42S. Meiboom and D. Gill, Rev. Sci. Instrum. 29, 688 (1958).
+43T. Chandrasekera, J. Mitchell, E. Fordham, L. Gladden, and M. Johns, J. Magn.
+Reson. 194, 156 (2008).
+44R. L. Vold, J. S. Waugh, M. P. Klein, and D. E. Phelps, J. Chem. Phys. 48, 3831
+(1968).
+45L. Venkataramanan, Y. Q. Song, and M. D. Hürlimann, IEEE Trans. Signal
+Process. 50, 1017 (2002).
+46J. Mitchell, T. Chandrasekera, and L. Gladden, Prog. Nucl. Magn. Reson.
+Spectrosc. 62, 34 (2012).
+47R. Kleinberg, Exp. Methods Phys. Sci. 35, 337 (1999).
+48N. Alhwerty, I. Shikhov, J. Arns, and C. Arns, in paper YYY presented at the
+SPWLA 57th Annual Logging Symposium Held in Reykjavik, Iceland, June 25–29,
+2016.
+49Y. Zheng, I. Shikhov, L. Gbayan, J. Arns, and C. Arns, J. Contam. Hydrol. 212,
+143 (2018).
+50Y. Song, L. Zielinski, and S. Ryu, Phys. Rev. Lett. 100, 248002 (2008).
+51R. Kleinberg, S. Farooqui, and M. Horsield, J. Colloid Interface Sci. 158, 195
+(1993).
+52S. Godefroy, J. Korb, M. Fleury, and R. Bryant, Phys. Rev. E 64, 021605
+(2001).
+53G. Liu, Y. Li, and J. Jonas, J. Chem. Phys. 95, 6892 (1991).
+54D. Weber, J. Mitchell, J. McGregor, and L. F. Gladden, J. Phys. Chem. C 113,
+6610 (2009).
+J. Chem. Phys. 150, 154708 (2019); doi: 10.1063/1.5092159 150, 154708-12
+Published under license by AIP Publishing

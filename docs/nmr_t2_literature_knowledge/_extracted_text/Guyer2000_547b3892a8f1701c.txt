@@ -1,0 +1,1174 @@
+--- PAGE 1 ---
+Lattice Boltzmann description of magnetization in porous media
+R. A. Guyer
+Department of Physics, University of Massachusetts, Amherst, Massachusetts 01003
+K. R. McCall
+Department of Physics, University of Nevada, Reno, Nevada 89557
+~Received 27 October 1999 !
+The magnetic moments of ﬂuid particles ﬁlling the pore space of a porous material ~1! reside in a complex
+space, ~2! are carried by the particles in diffusive exploration of the pore space, and ~3! relax when the particles
+approach relaxation sites on the walls of the pore space. Further, when the magnetic moments are the object of
+a nuclear magnetic resonance experiment, they are manipulated by rf magnetic ﬁelds, internal magnetic ﬁeld
+gradients, and applied magnetic ﬁeld gradient pulses. In this paper, a lattice Boltzmann computational proce-
+dure is described that accounts for all of the vagaries in the experience of a magnetic moment in a porous
+material. The time evolution of the longitudinal and transverse magnetization, in a variety of experimental
+situations, can be simulated with this computational procedure. The z component of the magnetization, the
+longitudinal magnetization, is described by a set of coarse grained distribution functions for a scalar ﬂuid. The
+time evolution of these distribution functions involves a scattering process ~to account for diffusion ! and a
+probability of transmission out of the pore space ~to account for surface relaxation !. A numerical example,
+involving a pore adjacent to a microporous region, is examined in detail. The transverse magnetization is a
+vector. Its x and y magnetization components are carried by separate scalar ﬂuids. There is a set of coarse
+grained distribution functions for each ﬂuid. Radio frequency magnetic ﬁelds, internal magnetic ﬁeld gradients,
+applied magnetic ﬁeld gradient pulses, etc., represent conversion processes in which the two ﬂuids transform
+into one another. Two examples, one involving a periodic ﬁeld gradient and a Hahn echo, and the other
+involving an isolated pore and a PFG sequence, are examined in detail.
+I. INTRODUCTION
+The time evolution of the magnetization of a ﬂuid M(t)i n
+a pore space is in many instances controlled by the geometry
+of the pore space. Thus nuclear magnetic resonance ~NMR!
+measurements are one of the principle ways to learn about
+pore space geometry.
+1,2 Sophisticated NMR tools, 1 and
+elaborate experimental protocols 3,4 are an essential part of
+current practice and development.
+The description of M(t) of a ﬂuid in a pore space has four
+main ingredients. ~1! The ﬂuid resides in a complicated pore
+space. ~2! The magnetic moments carried by the ﬂuid mol-
+ecules diffusively explore this pore space. ~3! The magnetic
+moments relax when they are carried close to relaxation sites
+on the walls of the pore space. ~4! The time evolution of the
+magnetization is measured using NMR ﬁelds that label, ma-
+nipulate, and interrogate the magnetic moments. NMR ﬁelds
+include radio frequency ~rf! pulses, gradients, and applied
+gradient pulses. In some instances these ﬁelds simply set the
+initial conditions, as in the case of a T
+1 measurement. In
+other instances these ﬁelds modify the magnetic system im-
+portantly as the time evolution is occuring.
+Given M(t), a magnetization relaxation curve, what is the
+pore space geometry? This inverse problem is solved by for-
+ward calculations using a sequence of models for the behav-
+ior of the magnetization in a pore space. The success of
+solution depends critically on the quality and practicality of
+the models. Perhaps the best known model of magnetization
+relaxation in a pore space is the isolated pore model of
+Brownstein and Tarr.
+5 This model is solved for simple ge-
+ometries in terms of the relaxation modes of the magnetiza-
+tion. The solution to this model in the fast diffusion limit is
+used to solve the inverse problem in which a spectrum of
+relaxation times is mapped onto a spectrum of pore radii.
+6
+The isolated pore model is often used to assess the impor-
+tance and interplay of physical variables. 7,8 Models of mag-
+netization relaxation in more complex geometries have been
+discussed in a number of approximations, e.g., taking the
+pore space to be periodic,
+9 or assuming the behavior of the
+magnetization in each pore is described by a single relax-
+ation mode in order to study pore-pore coupling. 8,10,11 These
+models provide an understanding of average properties and
+limiting behavior, but are relatively inﬂexible. Models of
+magnetization relaxation in complex geometries have been
+solved exactly using random walk methods.
+12,13 Random
+walk methods are used to conﬁrm approximate solutions and
+to provide insight in complicated situations. They are too
+computationally intensive to be used for data analysis.
+Lattice Boltzmann methods have been very useful in
+‘‘solving’’ a wide variety of difﬁcult transport problems.
+14,15
+This is because one is able to give up details about the short
+range behavior of a ﬂuid in return for having complex inter-
+actions in the ﬂuid or for having the ﬂuid in a complex space.
+The problem at hand is ideally suited to this trade off. The
+purpose of this paper is to describe in detail the use of lattice
+Boltzmann methods for solution to problems involving mag-
+netization motion in a pore space. One of the nice things
+about the lattice Boltzmann computational procedure in this
+context is that it lends itself naturally to description of the
+labeling, manipulation, and interrogation of the ﬂuid that are
+PHYSICAL REVIEW B 1 AUGUST 2000-IIVOLUME 62, NUMBER 6
+PRB 620163-1829/2000/62~6!/3674~15!/$15.00 3674 ©2000 The American Physical Society
+
+--- PAGE 2 ---
+the special province of NMR investigations.
+Section II contains a lattice Boltzmann description of the
+time evolution of the z component of the magnetization. The
+computational rules for specifying the pore space geometry,
+the particle diffusion, and the magnetization relaxation at the
+surface of the pore space are described. In Sec. III the result-
+ing lattice Boltzmann computational procedure is applied to
+the relaxation of the magnetization in a pore adjacent to a
+microporous region of space. In Sec. IV the procedure for
+handling the transverse magnetization is described. The
+transverse magnetization is described by two scalar ﬂuids
+and a conversion process between the two ﬂuids. One scalar
+ﬂuid carries the x component of the magnetization, and a
+second scalar ﬂuid carries the y component of the magneti-
+zation. Each of these ﬂuids obeys the rules developed in Sec.
+II. The conversion process between the two ﬂuids accounts
+for precession of the transverse magnetization in local mag-
+netic ﬁelds. The resulting lattice Boltzmann computational
+procedure for the motion of transverse magnetization is ap-
+plied to ~1! a Hahn echo for magnetization in a sinusoidal
+gradient and ~2! a pulsed ﬁeld gradient ~PFG! probe of the
+magnetization in a bounded pore space. Section V contains
+our conclusions and suggestions for future work. Certain
+useful details are found in two Appendixes.
+II. LONGITUDINAL MAGNETIZATION
+The time evolution of the z component of the magnetiza-
+tion in a porous material is governed by the equation of
+motion
+10,11
+]Mz
+]t 5D„ Ff„ S
+Mz
+f DG2(
+i51
+N
+rid~x2xi!~Mz2M‘ !2
+Mz
+T1B
+,
+~1!
+where f(x)51 in the pore space, f(x)50 in the matrix, ri
+is the strength of a relaxation process at site xi on the surface
+of the pore space, and D is the diffusion constant. Assuming
+the NMR experiment is tracking hydrogen magnetic mo-
+ments D5DH2O , the diffusion coefﬁcient of water, the re-
+laxation rate of the magnetization in bulk ﬂuid T1B is about 3
+sec. As T1B is long, the last term in Eq. ~1! will be neglected
+in the simulations. In an NMR experiment the magnetization
+is created by an external dc magnetic ﬁeld that polarizes the
+magnetic moments, thus M
+z(x,0)5Nm, where N is the num-
+ber of magnetic moments in the system, and m is the mag-
+nitude of the magnetic moment. The lattice Boltzmann simu-
+lation will track Mz(x,t), given an evolution governed by
+Eq. ~1!. We formulate the lattice Boltzmann description of
+magnetization evolution and show examples of its use in two
+dimensions. Transcription to three dimensions is
+straightforward.
+14
+The lattice Boltzmann distribution functions Fa(R,t)
+used to describe a scalar ﬂuid are discrete in time, space, and
+velocity. Time is discretized in steps of size t, thus tm11
+5tm1t. Space is discretized to a hexagonal lattice as illus-
+trated in Fig. 1. Average properties within each hexagon are
+assigned to its center point. Thus the simulation takes place
+on a triangular lattice with lattice sites, R
+kl 5(l21) a1(k
+21) b, where l51 ,..., L, k51 ,..., K, a5a(1,0), b5a
+(21/2,A3/2) in an x-y coordinate system, and a is the unit
+of length. Velocity is discretized to six vectors, va5cea ,
+where c is the unit of velocity, e is a unit vector, and a
+51 ,..., 6 , denoting the six directions from a site R to its
+six nearest neighbor sites ~see Fig. 2 !. Time, space, and the
+magnitude of the velocity are related by a5ct. In the nu-
+merical work, a5t5c51. The distribution functions
+Fa(R,t) specify the number of particles at site R, with ve-
+locity cea , at time t. There are six distribution functions at
+each site describing the behavior of the particles in the sys-
+tem.
+The magnetization in the system is carried by the proton
+moments of the hydrogen atoms. These moments do not in-
+ﬂuence the dynamics of the particles. If at time t50 the
+magnetic moments are polarized, then F
+a(R,0)5f(R). The
+FIG. 1. Discrete space. A two-dimensional porous material is
+tiled with hexagons. The tiles are located by their centers, creating
+a triangular lattice of sites at positions R. The heavy line represents
+the pore/matrix interface. If more than half the area of a hexagon is
+in the pore space,
+f(R)51, otherwise f(R)50.
+FIG. 2. Discrete velocity. The particle velocity at a site is speci-
+ﬁed in the 6 directions to nearest neighbor sites. The ﬁrst unit vector
+e
+1 is in the 1x direction. The unit vectors are periodic, thus ea61 is
+well deﬁned for a51 ,..., 6 .
+PRB 62 3675LATTICE BOLTZMANN DESCRIPTION O F...
+
+--- PAGE 3 ---
+initial value of each distribution function is the same for all
+R and a since the initial polarization of the magnetic mo-
+ments is uniform throughout the pore space. The magnitude
+of the initial value can be chosen for convenience since
+M
+z(t) is measured relative to Mz(0). As the magnetic mo-
+ment m is a multiplier of the particle density, we scale it out
+and study the particle density. Thus the magnetization at R is
+Mz~R,t!5(a
+Fa~R,t! ~2!
+and the total magnetization in the system is
+Mz~t!5(
+R
+(a
+Fa~R,t!. ~3!
+The relaxation processes that degrade the magnetization by
+depolarizing magnetic moments are equivalent to processes
+that remove particles carrying magnetic moments from the
+system of particles. Thus by following the time evolution of
+a system of particles that can appear and disappear under
+suitable conditions, we follow the time evolution of the mag-
+netization.
+A. Computational rules
+The geometry of the pore space and the two dynamical
+processes in Eq. ~1!, diffusion and relaxation, are incorpo-
+rated into the rules for the time evolution of Fa(R,t)a s
+follows.
+~1! Geometry: G. The geometry of the pore space is de-
+ﬁned by the state of a site. If site R is in the pore space it is
+in state f(R)51. If site R is a matrix site it is in state
+f(R)50. Distribution functions Fa(R,t)50 at sites with
+f(R)50.
+~2! Translation: T. In the absence of diffusion and relax-
+ation processes, the distribution functions simply translate in
+one time step
+F
+a~R,tm11!5Fa~R1aea13 ,tm!f~R!. ~4!
+~3! Scattering: S. A scattering process is deﬁned to ac-
+count for diffusion. A fraction r of the particles going in
+direction ea are scattered to directions ea61, where a61i s
+the velocity direction adjacent to direction a in the ( 1)
+clockwise, ( 2) counter clockwise direction @see Fig. 3 ~a!#.
+The scattering process occurs after translation, thus
+Fa~R,tm11!5@~ 122r!Fa~R1aea13 ,tm!
+1rF a11~R1aea22 ,tm!
+1rF a21~R1aea12 ,tm!#f~R!. ~5!
+~4! Relaxation: R. Magnetic relaxation at the boundaries
+of the pore space is deﬁned using a transmission coefﬁcient
+x. Particles headed toward a site where f(R)50 are trans-
+mitted and disappear ~relax! with probability x. They are
+reﬂected with probability 1 2x. The velocity of the reﬂected
+particles changes direction from ea to ea13 @see Fig. 3 ~b!#.
+The reﬂection process occurs after translation and scattering,
+thus
+F
+a~R,tm11!5$~122r!Fa~R1aea13 ,tm!
+1rF a11~R1aea22 ,tm!
+1rF a21~R1aea12 ,tm!
+1~12x!Fa13~R,tm!
+3@12f~R1aea13!#%f~R!. ~6!
+B. The hydrodynamic limit and calibration of r and x
+Our computational rules for the motion of magnetization,
+including scattering and relaxation, result in Eq. ~6!. To dem-
+onstrate that Eq. ~6! describes diffusion and relaxation, we
+look at it in the hydrodynamic limit. Comparison of this limit
+to Eq. ~1! establishes the relationships between the macro-
+scopic parameters D and
+r, and the parameters r and x em-
+ployed in numerical work. To establish the proportionality
+constants for a particular computational realization of the
+time evolution, we perform computational experiments. A
+sketch of the steps in the derivation of the diffusion equation
+from the computational rule Eq. ~5! is given in Appendix A.
+We ﬁnd
+D5
+a
+2
+2tr ~7!
+FIG. 3. Diffusive scattering and surface relaxation. ~a! A scat-
+tering process that conserves energy but scatters momentum oper-
+ates at each site. At each time step, fractions r of the particles
+moving in direction e
+a are scattered to directions ea11 and ea21 ;
+r<0.5. The scattering process occurs after translation. The diffu-
+sion constant is related to the scattering rate, D}1/r. ~b! The relax-
+ation of magnetization at the pore space-matrix interface is related
+to the transmission coefﬁcient
+x. In one time step, a fraction 1
+2x of the particles return to the pore space site going in the oppo-
+site direction. For x51 all of the particles leave the pore space; for
+x50 none of the particles leave the pore space.
+3676 PRB 62R. A. GUYER AND K. R. MCCALL
+
+--- PAGE 4 ---
+and
+r5
+xa
+t , ~8!
+where r is the surface relaxivity, a velocity. 5 These results
+are achieved employing approximations that extend beyond
+taking things to be slowly varying in space and time. Thus
+we use numerical experiments to establish the constants of
+proportionality in Eqs. ~7! and ~8!.
+To establish the relationship between the scattering rate r,
+and the diffusion constant D, we set up a steady particle ﬂow
+and use the deﬁnition
+j52 D„ n, ~9!
+where j is the particle ﬂux, and n is the areal number density
+of particles. The system studied is K3L in size ( L sites in
+the e
+1 direction, and K sites in the e5 direction!, uniform
+@f(R)51 for all sites#, and periodic. A source of particles is
+placed at L151 @Fa(Rk,L1 ,t)51.1#, and a sink of the same
+strength is placed at L2511L/2 @Fa(Rk,L2 ,t)50.9#. The
+initial condition is Fa(R,0)51. The source and sink are
+turned on at t50 and the time evolution of the distribution
+functions is followed until steady state is reached. Current
+ﬂows in both directions from the source to the sink because
+the system is periodic. Thus there are two measureable
+steady currents in the e
+1 direction. The diffusion coefﬁcient
+is calculated from the steady current conﬁguration
+FIG. 4. Relaxation sites. Longitudinal magne-
+tization is simulated for a periodic pore space
+having 2036551300 sites. The 231 ﬁlled circles
+are the matrix relaxation sites ~except the iso-
+lated, ﬁlled circle at the upper left that locates
+R
+11). The region with no relaxation sites is taken
+to be a pore, the region with relaxation sites is
+called the microporous region. The relaxation
+sites in the microporous region are chosen from a
+random distribution with parabolic shape in the
+range 10<l<55.
+FIG. 5. Local porosity. The porosity of Fig. 4
+averaged along lines of constant l. The magneti-
+zation, averaged along lines of constant l, looks
+similar to the porosity at early times. ~See Fig. 8.!
+PRB 62 3677LATTICE BOLTZMANN DESCRIPTION O F...
+
+--- PAGE 5 ---
+D5
+A3ac (a
+Fa~R,t!eae1
+2(a
+@Fa~R1aea13 ,t!2Fa~R1aea ,t!#
+, ~10!
+where a factor A3/2 comes from the cell area. The results of
+this numerical experiment show that D indeed scales with 1/r
+as in Eq. ~7! with a numerical coefﬁcient slightly less than
+1/2.
+To establish the relationship between the transmission co-
+efﬁcient x and the wall relaxation rate r, we use the bound-
+ary condition for surface relaxation 5
+~De’ „ n1rn!us50, ~11!
+where e’ is the unit vector normal to the surface s. Using Eq.
+~9!, we write
+~2e’ j1rn!us50. ~12!
+To use this relationship we employ a periodic system the
+same size as above. A source of particles is placed at L1
+@Fa(Rk,L1 ,t)51.1#, and a line of matrix sites crosses the
+system at L2 @f(Rk,L2)50#. The initial condition is
+Fa(R,0)5f(R). The source is turned on at t50 and the
+time evolution of the distribution functions is followed until
+steady state is reached. The wall relaxation rate is calculated
+in the steady state conﬁguration
+r5
+A3c(a
+Fa~Rs ,t!eae’
+2(a
+Fa~Rs ,t!
+, ~13!
+where Rs are sites adjacent to the relaxation surface and a
+factor A3/2 comes from the cell area. The numerical rela-
+FIG. 6. ~Color! Magnetization. The three panels show the magnetization of the system pictured in Fig. 4 at times t53t,3 0 t, and 300t
+@panels ~a!, ~b!, and ~c!#. Dark red corresponds to a magnetization per site approximately 1 at t53t and 30t, and approximately 0.55 at
+t5300t. White corresponds to a magnetization per site less than 0.05.
+3678 PRB 62R. A. GUYER AND K. R. MCCALL
+
+--- PAGE 6 ---
+tionship between x and r is found to scale with x, r
+’ x/3, 0.01 <x<1.0. The factor 1/3 comes from the precise
+geometry used in this test; each Rs site sees two matrix sites
+and delivers 2/6 of its magnetization to the matrix. Thus, the
+numerical relationship between r and x reminds us that the
+precise relationship depends on the details of the geometry of
+the matrix system, and should be numerically calibrated
+when careful numbers are at issue.
+III. T1 AND SCALAR MAGNETIZATION
+A T1 measurement involves ~1! bringing the z magnetiza-
+tion into thermal equilibrium in an applied ﬁeld @Mz(t,0)
+5M‘ #, ~2! applying a p/2 pulse at t50 to set the z magne-
+tization to zero @Mz(0) 50#, and ~3! measuring the recovery
+of the z magnetization to M‘ . Numerically, we study M(t)
+5M‘ 2Mz(t). This magnetization difference obeys Eq. ~1!,
+is M‘ at t50, and decays to zero as t advances. Thus our
+initial condition is Fa(R,0)5f(R).
+We study a simple model pore space, a pore adjacent to a
+microporous region, such as would be found in a carbonate
+rock.
+13,16 Matrix sites are randomly distributed in the middle
+of the K3L520365 periodic space, as shown in Fig. 4.
+There are 231 matrix relaxation sites distributed between l
+511 and l555. The transmission and scattering parameters
+are x50.02 and r50.5 ( D’ a2/t). Figure 4 also illustrates
+the geometry of the computational space that we use
+throughout this paper. The computational space is chosen to
+be a segment of space whose site variables are conveniently
+represented with the coordinates of a matrix. Recall, the no-
+tation is R
+kl 5(l21) a1(k21) b, where l51 ,..., L, k
+51 ,..., K, a5a(1,0), b5a(21/2,A3/2) in an x-y coordi-
+nate system, and a is the unit of length. The isolated point in
+the upper left is R11 .
+The time evolution of the magnetization was followed for
+900 time steps (900 t), at which point the magnetization was
+FIG. 7. Magnetization current. The three panels show the magnetization current at t53t,3 0 t, and 300 t @panels ~a!, ~b!, and ~c!#. The
+magnitude of the current vectors is scaled so that the largest current ﬂowing at each time corresponds to an arrow of unit length. By choosing
+the computational space as described in Fig. 4, the current ﬂows on average perpendicular to lines of constant k, and appears in the ﬁgure
+to ﬂow more in the y direction than in the x direction. Part of this appearance is due to the distortion of the x and y coordinates. Part of it
+is due to the choice of the computational space. The choice of the computational space was made in part so that the current vectors would
+not overlay one another.
+PRB 62
+3679LATTICE BOLTZMANN DESCRIPTION O F...
+
+--- PAGE 7 ---
+below 3% of its initial value. In the following series of ﬁg-
+ures, we describe various measures of the behavior of the
+magnetization as the lattice Boltzmann calculation proceeds.
+The reported magnetization, either total or for a single site, is
+normed such that its equilibrium value is unity.
+The local porosity of the system in Fig. 4 is deﬁned by
+F
+~l!5
+1
+K (
+k
+f~Rkl !, ~14!
+and shown in Fig. 5 as a function of X5l. The average
+porosity in the microporous region 11 ,l,55 is 0.74, how-
+ever, the local porosity ﬂuctuates substantially, to values as
+low as 0.42. Outside the microporous region, the local and
+average porosity is unity.
+In Figs. 6 ~a!–6~c! the magnetization M(R,t)a t t
+53
+t,3 0 t, and 300 t is plotted as a contour plot with red
+~white! corresponding to the largest ~smallest! magnetization
+values at each time. At the ﬁrst two moments of time, t
+53t,30t, the magnetization in the microporous region is
+decaying and coming into equilibrium with the ﬂow of mag-
+netization from the F51 regions of the pore space. The
+magnetization conﬁguration in Fig. 6 ~c! is the asymptotic
+conﬁguration; by t5300t there is no magnetization in the
+heart of the microporous region, and the magnetization cur-
+rents in the F51 regions of the pore space are toward the
+edges of the microporous region.
+In Figs. 7 ~a!–7~c! the magnetization current J(R,t)a t t
+53t,3 0 t, and 300 t is plotted using arrows to indicate di-
+rection and magnitude. The magnetization current at the ear-
+liest moments of time is small and chaotic. By t530t the
+pattern of currents is becoming organized; there is much less
+current in the interior of the microporous region. As time
+advances to beyond t5100
+t an organized current pattern
+that represents the long time steady ﬂow of magnetization
+toward the microporous region is established.
+The local magnetization and the local x component of the
+magnetization current are shown for t53
+t,3 0 t, and 300 t
+in Figs. 8 ~a!–8~c!. These local properties are averages over
+k,
+FIG. 8. Local magnetization and current. The three panels show the local magnetization and local magnetization current at
+t53t,3 0 t, and 300 t @panels ~a!, ~b!, and ~c!# as a function of x5l.A t t53t the magnetization is essentially the same as the porosity
+shown in Fig. 5, and the current is random, and thus very small. As time progresses a current builds up that feeds magnetization into the
+microporous region which starts at l’ 10 and extends to l’ 55. A penetration depth approximately 15 sites wide can be seen in both the
+current pattern and in the behavior of the magnetization.
+3680 PRB 62
+R. A. GUYER AND K. R. MCCALL
+
+--- PAGE 8 ---
+M~l,t!5
+1
+6K (
+k
+(a
+Fa~Rkl ,t!,
+Jx~l,t!5
+1
+6K (
+k
+(a
+Fa~Rkl ,t!eae1 , ~15!
+and are plotted as a function of l; the factor of 6 norms the
+equilibrium values to unity. At the earliest time, t53t, the
+magnetization reﬂects the local porosity and the magnetiza-
+tion currents are small and random. At t530t the magneti-
+zation in the interior of the microporous region has decayed
+substantially while the magnetization at the edges of the pore
+space is still unaffected. There are magnetization currents
+toward the microporous region and within the microporous
+region. At t5300
+t the magnetization in the heart of the mi-
+croporous region is gone and the magnetization in the F
+51 region of the pore space has decayed to about 0.6.
+Steady currents toward the microporous region and complex
+currents in a penetration depth within the microporous region
+are well established. The current patterns seen in Fig. 8 ~c!
+change in amplitude but not in structure as time evolves
+beyond t5300
+t.
+In Fig. 9 we show the time evolution of the total magne-
+tization,
+M~t!5
+(
+k
+(
+l
+(a
+Fa~Rkl ,t!
+(
+k
+(
+l
+(a
+Fa~Rkl ,0!
+, ~16!
+and the total x current. Figure 9 ~a! is a linear plot showing
+that the total x current is small, changes sign, and is asymp-
+totically negative. Figure 9~b! is a semilog plot revealing that
+there are two characteristic times in the decay of the magne-
+FIG. 9. Magnetization relaxation. ~a! M(t),
+the total magnetization in the system is plotted as
+a function of time, solid curve with open circles.
+The net current per site as a function of time is
+shown by the solid curve with stars. The net cur-
+rent is small and of varying sign as time evolves.
+~b! The magnetization as a function of time on a
+semilog scale. It is apparent that there are two
+relaxation times. The shorter is of order 100
+t and
+the longer is of order 300 t. These relaxation
+times correspond to rapid relaxation of the mag-
+netization in the microporous space and relatively
+slow relaxation of the magnetization initially out-
+side of this space that must ﬂow to it in order to
+relax.
+PRB 62
+3681LATTICE BOLTZMANN DESCRIPTION O F...
+
+--- PAGE 9 ---
+tization. At early times, t,150t, the magnetization decays
+on time scale t1’ 120t; at late time, t.150t, the magneti-
+zation decays on time scale t2’ 270t. The short time scale is
+associated with relaxation in the microporous space. A
+simple estimate of the relaxation rate expected in this region
+yields
+1
+t1
+’ r
+S
+V ’
+x
+t
+231
+449 ’
+1
+100t , ~17!
+where S is the matrix surface area, and V is the pore volume
+in the microporous region. The long time scale is an effective
+relaxation time associated with relaxation at rate 1/ t1 within
+a ‘‘volume’’ of the microporous region that is the product of
+the pore-micropore interface area and a penetration depth.
+The penetration depth L
+P is controlled by D and t1 , LP
+5ADt1. We have studied the dependence of t2 on r and x
+and conﬁrmed
+1
+t2
+}
+LP
+t1
+}A
+x
+r . ~18!
+To study the decay of the magnetization we might write
+M~t!5A1e2t/t11A2e2t/t2, ~19!
+However, it is clear from looking at the details of the behav-
+ior of M(x,t) that the long time decay rate is associated with
+a conﬁguration of the magnetization that is constructed as
+time evolves @it is not present at all times as Eq. ~19! would
+imply#. A simple and perhaps adequate generalization of Eq.
+~19! makes A
+2 a function of time
+M~t!5A1e2t/t11A2~t!e2t/t2. ~20!
+The physical picture implied by Eq. ~20! and our discussion
+is due to Ramakrishnan et al.13
+IV. T2 AND VECTOR MAGNETIZATION
+The transverse magnetization in the pore ﬂuid has two
+components, Mx and My , that obey a coupled set of diffu-
+sion equations17
+]Mx
+]t 5D„f„ S
+Mx
+f D1v~x!My ,
+]My
+]t 5D„f„ S
+My
+f D2v~x!Mx , ~21!
+where precession at x, at frequency v(x), is due to the
+z-magnetic ﬁeld at x. The precession at the Larmor frequency
+of the external ﬁeld has been removed, and the bulk decay
+time T2B is assumed long compared to other timescales in
+the problem and is neglected. The x and y components of the
+magnetization diffuse with the same diffusion constant
+through the same pore space. The local z-magnetic ﬁeld con-
+verts x magnetization to y magnetization and y magnetization
+to x magnetization pointwise in space. The z ﬁeld has three
+sources: relaxation sites on the pore walls; internal gradients;
+and applied gradients, where ‘‘gradient’’ is used to describe
+all local z-magnetic ﬁelds that depart from the average ﬁeld
+determining the Larmor frequency.
+~1! Relaxation sites. The transverse magnetization relax-
+ation sites are local sources of substantial phase evolution on
+the pore space-matrix interface. They can be modeled in
+much the same way as longitudinal relaxation sites
+vR~x!5(
+i
+ai
+3vid~x2xi!, ~22!
+where vi is the strength of the precession induced at the
+relaxation site i. The resulting incoherent phase evolution
+degrades the transverse magnetization extremely rapidly lo-
+cally. It is conventional to replace this process by a wall
+relaxation time
+5 1/T2
+w .
+FIG. 10. Hahn echo magnetization. The six
+solid curves with open and closed circles are
+Mx(t) for six choices of tH ; tH is marked by the
+open circle, and 2 tH by the ﬁlled circle on each
+curve. The solid curve with crosses is the analytic
+and numerical solution for the magnetization in
+the limit of stationary particles ( D50). At t
+523, M
+x(t)5J0(v0tL /2p) is a minimum. In
+this amount of time a particle has diffused a dis-
+tance of order A2Dt ’ 12a.
+3682 PRB 62R. A. GUYER AND K. R. MCCALL
+
+--- PAGE 10 ---
+~2! Internal gradients. Internal gradients are due to the
+applied magnetic ﬁeld’s interaction with magnetic suscepti-
+bility contrasts within the matrix.
+18
+~3! Applied gradients. Applied gradients are deliberately
+applied ﬁelds in the z direction.19 In the following, we con-
+sider only applied gradients.
+To numerically model the transverse magnetization we
+adopt a two ﬂuid model and most of the conventions estab-
+lished for studying longitudinal magnetization. One ﬂuid car-
+ries the x component of the magnetization, and a second ﬂuid
+carries the y component of the magnetization. The distribu-
+tion functions F
+1 ,..., F6 describe the ﬂuid carrying the x
+magnetization, and the distribution functions G1 ,..., G6
+describe the ﬂuid carrying the y magnetization. A local pre-
+cession frequency v(R,t) is deﬁned on each site R for which
+f(R)51. Where v(R,t)50, the two ﬂuids are uncoupled;
+they evolve in time according to the translation and scatter-
+ing rules developed for longitudinal magnetization, and there
+is no net change in either ﬂuid. Where
+v(R,t)Þ0, there is a
+conversion ~C! of one ﬂuid into the other,
+Fa~R,tm11!5cos u~R,tm!Fa~R,tm!
+1sin u~R,tm!Ga~R,tm!,
+Ga~R,tm11!5cos u~R,tm!Ga~R,tm!
+2sin u~R,tm!Fa~R,tm!, ~23!
+where u(R,t)5tv(R,t). The time evolution of the distribu-
+tion functions has the basic time step of translation, scatter-
+ing, and conversion. A sequence of these steps produces the
+complete time evolution. Manipulations of NMR ﬁelds are
+manipulations of the conversion process. Below we describe
+the application of the lattice Boltzmann computational rules
+for transverse magnetization to two examples: ~A! a Hahn
+echo scenario and ~B! a pulsed ﬁeld gradient scenario.
+19
+A. Simulation of a Hahn echo experiment
+To study the time evolution of the transverse magnetiza-
+tion we consider a K3L space ~where L is odd! in a periodic
+magnetic ﬁeld,
+v~Rkl !5
+v0L
+2p sin
+2p~l2Lmid!
+L , ~24!
+where Lmid5(L11)/2. For ul2Lmidu!L, v5v0(l2Lmid),
+i.e., there is a linear gradient near the center of the system.
+The pore space is uniform, f(R)51, and periodic.
+In the Hahn echo simulation, the transverse magnetization
+is in equilibrium with Mx50 and My50 for t,0. A p/2
+pulse at t50 creates x magnetization, i.e., Mx5M‘ and
+My50. Thus, in terms of the distribution functions, the ini-
+tial conditions are Ga(R,0)50 and Fa(R,0)51. As time
+evolves the distribution functions evolve by translation, scat-
+tering, and conversion, and the x magnetization Mx initially
+decays. The operator CST will be used to describe this evo-
+lution. At t5tH the magnetization is subjected to a p pulse;
+this is accomplished numerically by ﬂipping v(R)t o
+2v(R)a t t5tH . Thus for t.tH , the basic time step is
+C21ST , where C21 denotes conversion according to Eq.
+~23! with u(R,t.tH)52 tv(R). At t52tH , Mx reaches a
+local maximum called the Hahn echo. A schematic equation
+for the Hahn echo amplitude is
+Mx~2tH!5@C21ST #NH@CST #NHMx~0!, ~25!
+where NH5tH /t.
+The evolution of x magnetization is shown for six values
+of tH in Fig. 10. The numerical parameters are K521, L
+551, r50.15, x50, and v0t50.02. Also shown are the
+analytic and numerical solutions for Mx(t) for stationary
+particles ( D50). The derivation of the analytic solution
+Mx(t)5J0(v0tL /2p) is sketched in Appendix B. The nu-
+merical solution is found by eliminating translation and scat-
+tering from the timesteps and allowing only conversion. In
+Fig. 10, the DÞ0 results show modest decay away from the
+D50 curve.
+A measurement of the time evolution of the transverse
+magnetization consists of recording the amplitude of the
+Hahn echo, M
+x(t52tH), for a sequence of values of tH .I n
+FIG. 11. Hahn echo amplitude versus time and system size. The
+echo amplitude ln $2ln@Mx(2tH)#% as a function of ln( tH) for nine
+system sizes ( L511,15,19,23,27,47,57,67,81). The lowest curve
+corresponds to the smallest system size. The ﬁve independent
+curves are for the ﬁve smallest system sizes, L,40. The four
+curves that overlay one another at intermediate and long time are
+for the largest system sizes, L.40. The universal behavior for large
+system size corresponds to the localization limit. The solid line
+corresponds to the expected unrestricted diffusion limit, M
+}exp(at
+3). The solid circles at ln( tH)50 are the stationary particle
+results for short time ~Appendix B!. The inset shows tD from a ﬁt
+to the asymptotic behavior of the magnetization, M5exp(t/tD). The
+solid line in the inset is L24
+PRB 62 3683LATTICE BOLTZMANN DESCRIPTION O F...
+
+--- PAGE 11 ---
+Fig. 11 we show ln $2ln@Mx(2tH)#% versus ln(tH) for nine val-
+ues of L between 11 and 81. The other numerical parameters
+are K521, r50.25, x50, and v0t50.01. The results are
+reported as log-log versus log so that the time dependence of
+the decay of the echo amplitude is emphasized. Figure 11
+shows evidence for a crossover, as a function of system size,
+from a time scale that is system size dependent to a time
+scale that is universal.
+7,20
+~1! At very short times, i.e., tH5t, the magnetization evo-
+lution will be dominated by the conversion process rather
+than diffusion. Thus we expect the stationary particle result
+of Appendix B to be a good estimate of the early time be-
+havior in Fig. 11. For ln t
+H5ln t50, the stationary particle
+result is ln@2ln(M)#!2l nL214.27. The ﬁlled circles on Fig.
+11 show this result for the system sizes in question.
+~2! For long times, the echo height decay is exponential
+with time, M(2 tH)5exp(2tH /tD). The inset in Fig. 11
+shows the decay time tD as a function of system size L. The
+ﬁve smallest systems relax as tD}1/L4, a characteristic de-
+pendence associated with diffusion in a bounded medium. 21
+For the four largest systems, tD is independent of system
+size. In these cases the system is said to be in the localization
+regime
+7,20 in which the dephasing length is shorter than the
+diffusion length and the system size.
+~3! At intermediate times, the magnetization decays as tH
+3 ,
+the unrestricted diffusion result for a Hahn echo. 17 The re-
+gion where ln @2ln M(2tH)#;3 ln(tH) is longest for the large
+system sizes.
+~4! The crossover from intermediate time dependence to
+asymptotic time dependence should be system size depen-
+dent for the small systems, with crossover time tc}L2/D.
+This is qualitatively true, but not quantitatively testable given
+the short time over which unrestricted diffusion occurs in
+these systems. The crossover time for the large systems oc-
+curs at a universal time t
+c’ e21. Studies of the dependence
+of the crossover time on r and v0 conﬁrm the theoretical
+description of de Swiet and Sen 7 ~see Appendix B !.
+B. Simulation of a pulsed ﬁeld gradient experiment
+An alternative manipulation of the NMR ﬁelds for study
+of the time evolution of the transverse magnetization is the
+pulsed ﬁeld gradient ~PFG! pulse sequence. A schematic
+equation for the PFG echo amplitude is
+M
+x~tE!5C21@ST #NECM x~0!. ~26!
+An applied ﬁeld is turned on for one time step at t50, al-
+lowing conversion ~C!. The ﬁeld is turned off for NE time
+steps, during which diffusion takes place ~ST!. Finally, the
+ﬁeld is turned on again in the opposite direction for one time
+step (C 21). The x magnetization is measured at t5(NE
+12) t5tE12t.
+To numerically simulate the PFG pulse sequence, we use
+a periodic system with a matrix boundary at l51@f(Rk,1)
+51#. The system can be thought of as a one-dimensional
+slab of bounded ﬂuid. We set x50, thus there is perfect
+reﬂection of the particles approaching the matrix from both
+directions at l51. A linear gradient
+v~Rkl!5v0~l2Lmid!, ~27!
+is applied. In Fig. 12 we show Mx(tE) for several system
+sizes. The top curve is for the smallest system. In very little
+time the magnetization ceases to decay for this system. This
+behavior is charateristic of bounded diffusion.
+21 For larger
+system sizes, the behavior is essentially the same. However,
+there is no apparent systematic behavior to the asymptotic
+value of ln M
+x(tE).
+To understand the asymptotic behavior, consider the
+Brownstein-Tarr description of magnetization evolution in
+an isolated pore ~Appendix B!. This description yields
+M
+x~tE!}S
+sin~tv0L/2!
+~tv0L/2! D
+2
+~28!
+for long times. In Fig. 13 we show the asymptotic value of
+Mx(tE) as a function of L from the numerical study and the
+FIG. 12. Pulsed ﬁeld gradient amplitude. The
+value of ln@Mx(tE)# as a function of tE for various
+system sizes between L511 and L5131. The
+curve showing the least decay at long times cor-
+reponds to L511. The magnetization curves de-
+part from an inverted parabola systematically at
+larger time with increasing system size. However,
+the large time behavior is not superﬁcially sys-
+tematic due to diffraction ~see Fig. 13 !.
+3684 PRB 62
+R. A. GUYER AND K. R. MCCALL
+
+--- PAGE 12 ---
+analytic result in Eq. ~28!. The agreement is excellent. The
+sort of chaotic behavior seen in Fig. 12 is a consequence of
+the relationship between the wave vector of the PFG explo-
+ration and the geometry of the pore. Figure 13 in conjunction
+with Eq. ~28! illustrates how this kind of measurement can
+lead to information about the pores space geometry.
+V. CONCLUSION
+We have developed a lattice Boltzmann procedure to nu-
+merically simulate the time evolution of magnetization in a
+porous medium. The essential ingredients of the simulations
+are ~1! a complex pore space in which the magnetization
+resides, ~2! diffusive exploration of the pore space by the
+particles carrying the magnetization, ~3! relaxation of the
+magnetization at the pore space-matrix interface, and ~4! ma-
+nipulation of the magnetization by various NMR ﬁelds.
+Our computational procedure employs a set of rules for
+evolving the distribution functions appropriate to a coarse
+grained picture of the particle system. Time is coarse grained
+on scale
+t, the pore space-matrix system ~porous medium! is
+coarse grained on scale a, and velocity space is coarse
+grained by contraction to six velocity vectors of equal mag-
+nitude ~in two dimensions !.
+The rules for the evolution of the distribution functions in
+one time step involve translation in discrete steps of ampli-
+tude a, a scattering process of strength r to account for par-
+ticle diffusion, and a transmission coefﬁcient
+x, operating at
+the pore space-matrix interface, to account for surface relax-
+ation. These computational rules can be reduced to hydrody-
+namic equations in the k!0 and
+v!0 limits, e.g., a con-
+tinuum diffusion equation results from the Boltzmann limit.
+The relationship between parameters in the computational
+scheme, and parameters in the hydrodynamic equations is
+established by conducting computational experiments.
+The lattice Boltzmann procedure can be used to study the
+time evolution of longitudinal magnetization in an arbitrarily
+complex porous material. In this case, a single ﬂuid diffuses
+in the pore space and relaxes ~disappears! due to interactions
+at the pore walls. When the particles in the system carry an
+internal degree of freedom, as they do in the case of trans-
+verse magnetization, a two ﬂuid model is employed. Each
+ﬂuid carries one of the components of the internal degree of
+freedom. In the case of transverse magnetization one ﬂuid
+carries the x magnetization ( x ﬂuid! and a second ﬂuid ( y
+ﬂuid! carries the y magnetization. Field gradients and rf
+ﬁelds are coupled conveniently to the internal degree of free-
+dom in a lattice Boltzmann calculation. The precession of
+transverse magnetization maps onto a conversion process be-
+tween the x ﬂuid and the y ﬂuid that occurs pointwise
+throughout the pore space. Consequently the inﬂuence of
+complicated internal and external precession ﬁelds on the
+time evolution of the transverse magnetization can be de-
+scribed. Lattice Boltzmann methods are also well suited to
+problems in which a ﬂow ﬁeld is present.
+22
+A real experiment on the time evolution of magnetization
+is a very powerful tool. However, the results are necessarily
+an average over mesoscopic to macroscopic length scales.
+Much more detail can be probed in a computational experi-
+ment. The real experiment is telling you about the behavior
+of ﬂuid magnetization in a real material, e.g., a Berea sand-
+stone. The computational experiment is telling you about the
+behavior of ﬂuid magnetization in a model material. The
+point of studying the model material is to look in great detail
+at the magnetization evolution, and to glean an understand-
+ing from what you see. This understanding may lead to better
+models of the real experiments, suggest useful manipulations
+of the NMR ﬁelds, suggest methods of data analysis, etc.
+Thus, numerical studies of model materials complement ex-
+perimental studies of real materials. The lattice Boltzmann
+computational procedure is well suited to this task.
+ACKNOWLEDGMENTS
+This work was started in 1993 at Los Alamos National
+Laboratory. One of us ~R.A.G.! is pleased to thank David
+Johnson, Larry Schwartz, and John Ullo for extending the
+hospitality of the Schlumberger-Doll Research Laboratory,
+FIG. 13. Asymptotic behavior of PFG ampli-
+tude. The stars are the magnetization amplitude
+Mx at tE5500 as a function of system size L. The
+curve is the Brownstein-Tarr result of Eq. ~28!.
+PRB 62 3685LATTICE BOLTZMANN DESCRIPTION O F...
+
+--- PAGE 13 ---
+Ridgeﬁeld, Connecticut. It was at SDR that the earlier work
+was extended to transverse magnetization. Helpful conversa-
+tions with Edmund Fordham, Robert Kleinberg, T. S. Ra-
+makrishnan, Seungho Ryu, Larry Schwartz, Y.-Q. Song, and
+Lalitha Venkataraman are gratefully acknowledged.
+APPENDIX A: THE HYDRODYNAMIC LIMIT
+An example of the basic equation for the motion of the
+distribution function is
+Fa~R,tm11!5@~ 122r!Fa~R2aea ,tm!
+1rF a11~R2aea11 ,tm!
+1rF a21~R2aea21 ,tm!#, ~A1!
+where the distribution functions translate and then scatter.
+We write this in the form
+etLFa~R2aea ,tm!5(
+Sb
+T~RS!ab Fb~S,tm!, ~A2!
+where
+tL5t
+]
+]t 1aea„~ A3!
+is the Boltzmann translation operator and
+T~RS!ab 5~122r!db,adS,R2aea1r@db,a21dS,R2aea21
+1db,a11dS,R2aea11# ~A4!
+is the collision operator.
+The hydrodynamic limit means slowly varying in space
+and time. Thus t and a are small; we use exp( tL)511tL on
+the left-hand side of Eq. ~A2! and S5R in the collision op-
+erator to write
+t
+]Fa~R,t!
+]t 1aea„ Fa~R,t!5(b
+Tab Fb~R,t!, ~A5!
+where
+Tab 52 2rdb,a1rdb,a211rdb,a11 . ~A6!
+Equation ~A5! is solved using the eigenstates of the collision
+operator. These are the six component vectors cn(a)( a
+51 ,..., 6 ) that solve
+(b
+Tab cn~b!52 lncn~a!; ~A7!
+i.e., the six vectors that can be constructed from exp( ina)
+with n such that n(a16) 5na12pn. The vectors cn are
+the columns of the matrix
+Sn5
+S
+0.4082 0.5000 0.2887 0.5000 20.2887 0.4082
+0.4082 0.5000 20.2887 20.5000 20.2887 20.4082
+0.4082 0.0000 20.5774 0.0000 0.5774 0.4082
+0.4082 20.5000 20.2887 0.5000 20.2887 20.4082
+0.4082 20.5000 0.2887 20.5000 20.2887 0.4082
+0.4082 0.0000 0.5774 0.0000 0.5774 20.4082
+D
+, ~A8!
+have eigenvalues ln /r50,1,1,3,3,4 from left to right, and
+are denoted as c0 ,..., c5 from left to right. The ground
+state, c0(a) with l050, is the uniform state; it is not de-
+graded by the collision process.
+We develop Fa(R,t) in terms of the set of vectors that
+describe the collision process
+Fa~R,t!5(n
+cn~R,t!cn~a!. ~A9!
+In writing this equation we are describing the velocity struc-
+ture of the distribution function with the cn ; the space and
+time structure appears in the coefﬁcients cn(R,t). Using Eq.
+~A9! in Eq. ~A5! and the algebra appropriate to a complete
+set of orthonormal vectors leads to
+t
+]cn
+]t 1a(m (g
+Enm
+g ]cm
+]Rg
+52 lncn , ~A10!
+where
+Enm
+g 5(a
+cn~a!ea
+gcm~a!, ~A11!
+and n,m50 ,..., 5 . T h e most important of the equations in
+Eq. ~A10! is the equation for c0 which does not decay due to
+the collision process. We write the system of equations in the
+form
+t
+]c0
+]t 1a(m
+E0m
+x ]cm
+]Rx
+50 ~A12!
+and
+aE n0
+x ]c0
+]Rx
+52 lncn . ~A13!
+In writing these equations we have assumed the time depen-
+dence to be slow compared to the time scale for decay of the
+nonuniform modes (t]cn /]t!ln), taken the coupling to the
+ground state to be most important ~we have ignored Enm
+3686 PRB 62R. A. GUYER AND K. R. MCCALL
+
+--- PAGE 14 ---
+when neither n or m is the ground state !, and chosen to
+consider a single direction in space, x. Combining Eqs.
+~A12! and ~A13! we have
+]c0
+]t 2
+a2
+t S(n
+E0n
+x En0
+x
+ln
+D
+]2c0
+]Rx
+2
+50. ~A14!
+The matrix elements necessary to determine the diffusion
+constant can be calculated numerically or analytically with
+the result
+(n
+E0n
+x En0
+x
+ln
+5
+1
+2r ~A15!
+or
+D5
+a2
+2tr . ~A16!
+APPENDIX B: SPECIAL CASES OF MAGNETIZATION
+EVOLUTION
+1. Stationary particles in a periodic ﬁeld
+Consider the transverse magnetization evolution of sta-
+tionary particles in a z magnetic ﬁeld. The diffusion coefﬁ-
+cient D50, and Eq. ~21! reduces to coupled harmonic equa-
+tions. The x magnetization is given by
+]2Mx
+]t2 52 v2~x!Mx . ~B1!
+The periodic ﬁeld in the Hahn echo example can be written
+v~x!5
+v0L
+2p sin
+2p~x2La /2!
+La , ~B2!
+where La is the length of the system in the x direction. The
+phase evolution at x is cos(vt), and the total normed x mag-
+netization in the system at time t is
+Mx~t!5
+1
+La E
+0
+La
+dx cos~vt!5
+1
+p E
+0
+p
+du cos~z sin u!5J0~z!,
+~B3!
+where z5v0tL /2p. In the limit z!0, Mx(t)!12z2/4, and
+ln$2ln@Mx(t)#%!2 ln(z/2).
+2. Crossover to asymptotic time dependence
+The Hahn echo magnetization evolution of large systems
+in a linear gradient has a crossover time from behavior char-
+acteristic of unrestricted diffusion, to localization behavior.
+This crossover time is dependent on the diffusion coefﬁcient
+of the particles, and the magnetization gradient strength
+20
+tc}
+1
+D1/3~gG!2/3 . ~B4!
+The correspondence between our numerical parameters and
+the analytic parameters is D}1/r, and gG}v0. Thus, we
+expect
+tc}
+r1/3
+h2/3 . ~B5!
+The results of numerical calculations, such as that shown in
+Fig. 11, conﬁrm the dependence in Eq. ~B5!.
+3. PFG in an isolated pore
+A pulsed ﬁeld gradient pulse sequence using a linear gra-
+dient results in transverse magnetization Mx(tE)}G(k,tE)
+where G is the intermediate scattering function, 10
+G~k,t!5^eika (t)e2ika (0) &, ~B6!
+a(t) is a particle position, and the wavevector k is related to
+the conversion process described by Eq. ~23! through u(R)
+5tv[k(x2L/2).
+In the Brownstein-Tarr formalism5,10 for magnetization in
+an isolated one-dimensional pore with no decay at the pore
+boundaries, the equation for the intermediate scattering func-
+tion is
+G
+~k,t!5(n
+u^0ueikxucn&u2e2rnt, ~B7!
+where u0& is the initial state of uniform magnetization and
+the states ucn& are the solutions to
+D
+]2cn
+]x2 52 rncn , ~B8!
+with no-ﬂow boundary conditions ]cn]xu6L/250. Thus,
+cn(x)}cos@np(x1L/2)/ L#, and the decay rate for each state
+is rn5D(np /L)2. Asymptotically in time, only the ground
+state n50 contributes to the intermediate scattering function.
+Thus for long times
+G~k,t!5^0ueikxuc0&^ c0ue2ikxu0&5S
+sin~kL/2!
+kL/2 D
+2
+.
+~B9!
+This description employs the normal modes of the magneti-
+zation. One can view the PFG experimental procedure as a
+probe of matrix elements of these normal modes.
+10,11
+1 R.L. Kleinberg, in Encyclopedia of Nuclear Magnetic Resonance,
+edited by D.M. Grant and R.K. Harris ~Wiley, New York, 1996!,
+p. 4960.
+2 A.T. Watson and C.T.P. Chang, Prog. Nucl. Magn. Reson. Spec-
+trosc. 31, 343 ~1997!.
+3 R.L. Kleinberg and M.A. Horsﬁeld, J. Magn. Reson. 88,9 ~1990!.
+4 A. Ding and D. Candela, Phys. Rev. E 54, 656 ~1996!.
+5 K.R. Brownstein and C.E. Tarr, Phys. Rev. A 19, 2446 ~1979!.
+6 P.N. Sen, C. Straley, W.E. Kenyon, and M.S. Whittingham, Geo-
+physics 55,6 1 ~1990!.
+7 T.M. de Swiet and P.N. Sen, J. Chem. Phys. 100, 5597 ~1994!.
+8 K.R. McCall, D.L. Johnson, and R.A. Guyer, Phys. Rev. B 44,
+7344 ~1991!.
+9 D.J. Bergman and K.-J. Dunn, Phys. Rev. B 50, 9153 ~1994!.
+PRB 62 3687LATTICE BOLTZMANN DESCRIPTION O F...
+
+--- PAGE 15 ---
+10 K.R. McCall, R.A. Guyer, and D.L. Johnson, Phys. Rev. B 48,
+5997 ~1993!.
+11 R.A. Guyer, Phys. Rev. B 48, 6007 ~1993!.
+12 D.J. Bergman, K.-J. Dunn, L.M. Schwartz, and P.P. Mitra, Phys.
+Rev. E 51, 3393 ~1995!.
+13 T. S. Ramakrishnan, L.M. Schwartz, E.J. Fordham, W.E. Kenyon,
+and D.J. Wilkinson ~unpublished!.
+14 Lattice Gas Methods: Theory, Applications, and Hardware , ed-
+ited by G.D. Doolen ~MIT press, Cambridge, MA, 1991 !.
+15 L.-S. Luo, Phys. Rev. Lett. 81, 1618 ~1998!.
+16 S.O. Moshier, Sed. Geol. 63, 191 ~1989!.
+17 A.A. Abragam, Principles Of Nuclear Resonance ~Clarendon
+Press, Oxford, 1961 !.
+18 M.D. Hurlimann, J. Magn. Reson. 131, 232 ~1998!.
+19 E. Fukushima and S.B.W. Roeder, Experimental Pulse NMR—A
+Nuts and Bolts Approach ~Addison-Wesley, Reading, MA,
+1981!.
+20 M.D. Hurlimann, K.G. Helmer, T.M. de Swiet, P.N. Sen, and
+C.H. Sotak, J. Magn. Reson., Ser. A 113, 260 ~1995!.
+21 R.C. Wayne and R.M. Cotts, Phys. Rev. 151, 264 ~1966!;B .
+Robertson, ibid. 151, 273 ~1966!.
+22 R.A. Guyer, Phys. Rev. E 50, 4596 ~1994!.
+3688 PRB 62R. A. GUYER AND K. R. MCCALL

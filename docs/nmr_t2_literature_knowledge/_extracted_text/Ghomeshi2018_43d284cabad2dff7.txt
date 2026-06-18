@@ -1,0 +1,1054 @@
+--- PAGE 1 ---
+An investigation into the effects of pore connectivity on T2 NMR
+relaxation
+Shahin Ghomeshi a,b,⇑, Sergey Kryuchkov b, Apostolos Kantzas c
+a University of Calgary, 2500 University Drive NW, Calgary, AB T2N 1N4, Canada
+b Perm Inc., VP Technology, 3956 29 Street NE., Calgary, AB T1Y 6B6, Canada
+c Room ES 902A, Chemical and Petroleum Engineering Department, University of Calgary, 2500 University Drive NW, Calgary, AB T2N 1N4, Canada
+article info
+Article history:
+Received 22 August 2017
+Revised 9 February 2018
+Accepted 10 February 2018
+Available online 14 February 2018
+Keywords:
+Pore connectivity
+T
+2 relaxation
+Porous media
+Numerical simulation
+Amplitude of NMR signal
+Permeability
+abstract
+Nuclear Magnetic Resonance (NMR) is a powerful technique used to characterize ﬂuids and ﬂow in por-
+ous media. The NMR relaxation curves are closely related to pore geometry, and the inversion of the NMR
+relaxometry data is known to give useful information with regards to pore size distribution (PSD) through
+the relative amplitudes of the ﬂuids stored in the small and large pores. While this information is crucial,
+the main challenge for the successful use of the NMR measurements is the proper interpretation of the
+measured signals. Natural porous media patterns consist of complex pore structures with many intercon-
+nected or ‘‘coupled” regions, as well as isolated pores. This connectivity along the throats changes the
+relaxation distribution and in order to properly interpret this data, a thorough understanding of the
+effects of pore connectivity on the NMR relaxation distribution is warranted. In this paper we address
+two main points. The ﬁrst pertains to the fact that there is a discrepancy between the relaxation distri-
+bution obtained from experiments, and the ones obtained from solving the mathematical models of dif-
+fusion process in the digitized images of the pore space. There are several reasons that may attribute to
+this such as the lack of a proper incorporation of surface roughness into the model. However, here we are
+more interested in the effects of pore connectivity and to understand why the typical NMR relaxation dis-
+tribution obtained from experiments are wider, while the numerical simulations predict that a wider
+NMR relaxation distribution may indicate poor connectivity. Secondly, by not taking into account the
+pore coupling effects, from our experience in interpreting the data, we tend to underestimate the pore
+volume of small pores and overestimate the amplitudes in the large pores. The role of pore coupling
+becomes even more prominent in rocks with small pore sizes such as for example in shales, clay in sand-
+stones, and in the microstructures of carbonates.
+/C2112018 Elsevier Inc. All rights reserved.
+1. Introduction
+Nuclear Magnetic Resonance (NMR) relaxation measurements
+play a unique role amongst other logging techniques in that they
+provide information about the geometry of the porous media, as
+well as the ﬂuids within the pores. This information is essential
+to estimate important ﬂow parameters for a reservoirs such as pro-
+ducibility and permeability. Due to the magnetic moments present
+in hydrogen, the NMR relaxation signals are extremely sensitive to
+ﬂuid ﬁlled pores containing water and hydrocarbons. Hence, the
+amplitude of the NMR signal is proportional to the ﬂuid content
+in the rock. The relaxation rate depends primarily on the pore size
+and the petrochemical properties of the rock-ﬂuid interface and on
+the paramagnetic ions present in the ﬂuid phases.
+According to the pioneering work of Brownstein and Tarr [2] for
+uncoupled pore systems, the multi-exponential decay nature of the
+proton magnetic relaxation is strongly connected to the geometry
+of the pores. From this work, many authors have invoked the sim-
+ple convention of assuming a model of isolated pores where each
+diffusing proton samples only a single pore, in order to interpret
+the NMR measurement data. The main problem with this assump-
+tion is that only totally disconnected pores reﬂect correctly the
+amount of ﬂuid in them via the NMR relaxation distributions.
+However, real porous media consist of multiple connected pores.
+As a result, this conventional approach for interpreting the NMR
+data gives misleading information about the quantity of ﬂuid in
+the pores as the connectivity along the throats changes the spectra.
+Typically, wider relaxation distributions indicate that pores are not
+connected well.
+https://doi.org/10.1016/j.jmr.2018.02.007
+1090-7807//C2112018 Elsevier Inc. All rights reserved.
+⇑ Corresponding author.
+E-mail addresses: sghomeshi@perminc.com (S. Ghomeshi), skryuchkov@
+perminc.com (S. Kryuchkov), akantzas@ucalgary.ca (A. Kantzas).
+Journal of Magnetic Resonance 289 (2018) 79–91
+Contents lists available at ScienceDirect
+Journal of Magnetic Resonance
+journal homepage: www.else vier.com/locate/jmr
+
+--- PAGE 2 ---
+In this work we interpret the NMR T2 relaxation curves for por-
+ous media with multiple interconnected pores. Although NMR sig-
+nals give unique information about the properties of both the
+formation and the ﬂuid in the pore space, there are still some mis-
+conceptions regarding the distinction between the NMR T2 relax-
+ation curves for an interconnected pore system and that of
+individual pores. An important question to ask is how much of
+the information obtained from NMR data for connected pores
+reﬂect on the quantity of ﬂuid in the individual pores and its size
+and shape. Understanding how this pore coupling effect inﬂuences
+the NMR measurement data is fundamental in geophysical applica-
+tions. For sufﬁciently weak connectivity, the corresponding NMR T2
+relaxation amplitudes resemble the T2 relaxation curves for the
+isolated pores. This is an important point because a key feature
+in tight formations such as in shale matrix or clay bound sandstone
+is the low pore connectivity, where a proper interpretation of the
+NMR signals can give more accurate information about the forma-
+tion. Moreover, another important potential application is in the
+NMR estimates of permeability where again conventional thinking
+bases these estimates on theoretical models that show an increase
+in permeability is due to an increase in pore size and porosity only.
+However, we point out that the NMR signals rely on more than just
+pore body size distribution as they include also the effect of the
+pore connectors or throats that can help improve permeability
+estimates.
+Theoretical studies have been done to understand the charac-
+teristics of a coupled pore systems by studying the eigenvalues
+and eigenfunctions that characterize the shape of the pore space.
+In one particular study Kac [8], looked at the normal modes of
+vibration of the membrane of a drum and posed the question of
+whether it is possible to deduce the shape of an individual drum
+from a multiply connected set of drums. McCall et al. [11] studied
+the behavior of magnetization in a pore space where an entire
+range of coupling strengths is considered. Their approach relied
+on developing perturbation theory solutions to the equations of
+motion in both the weak and strong coupling limits. Ramakrishan
+[14] suggested that a consequence of the diffusion coupling
+between pores, the assumption that directly connects the T
+2 distri-
+bution with pore size distribution breaks down in many pore sys-
+tems, thus limiting our ability to make predictions on permeability
+and movable ﬂuid fractions. Zelinski [20] studied the effects of dif-
+fusion coupling on the higher eigenmodes in a connected pore
+system.
+Experimental and numerical studies have also been performed
+in order to better understand how NMR measurements are affected
+by the interconnectedness of pores. Toumelin et al. [18] through
+laboratory studies and numerical models showed that inter-pore
+diffusion can strongly inﬂuence NMR measurements in carbonates,
+and that there is a tendency for the amount of pore coupling to
+increase with temperature as pore-ﬂuid diffusivity increases.
+Annand and Hirasaki [1] investigated geometric controls on pore
+coupling in microporous grain packs. They concluded that the cou-
+pling between micropores and large intergranular pores become
+more signiﬁcant with increasing grain diameter. Laboratory inves-
+tigation to improve the understanding of geochemical controls on
+pore coupling, and to better interpret the NMR relaxation measure-
+ments in the presence of pore coupling have been performed by
+Grunewald et al. [6]. Fleury [3] studied pore to pore diffusive
+exchange using the NMR T
+2 – store - T2 2D experimental tech-
+nique. Mohnke et al. [12] used microscale simulations of NMR
+relaxation in porous media to demonstrate the effect of pore cou-
+pling on the T2 distribution for 2D numerical models. More
+recently, [10] studied the impact of micro-fractures and fracture-
+pore coupling on NMR based permeability estimates, by syntheti-
+cally generating two pore-scale images of a fractured carbonate
+rocks and performing some numerical simulations. Fleury et al.
+[4] have done NMR cryoporometry experiments for characterizing
+shales in their natural hydrate state and did a comparison of their
+results with the NMR T2 distribution. They found that their results
+differ signiﬁcantly as the T2 relaxation is inﬂuence by the pore
+coupling.
+In order to better understand the impact of the pore connectiv-
+ity on the NMR spectra and the correlations between the complex
+porous media and the NMR parameters we rely on both theoretical
+calculations and on numerical simulations. We present some ana-
+lytical models of a simple two pore system for different parameters
+and present theoretical ﬁndings in the presence of pore exchange.
+We then look at some 3-D models where we change the radius of
+the connectors to explore the effect of throat size on the NMR T2
+relaxation curves. For these models we also do NMR permeability
+estimates and compare with absolute permeability from ﬂow cal-
+culations. Lastly, we discuss these ideas further, and demonstrate
+the numerical performance in comparison with experiment for
+two types of porous media. The ﬁrst porous media is constructed
+virtually based on a given particle size distribution of the Mountain
+Silica sand pack, and the second porous media, is a sandstone core
+plug which is then digitally constructed through
+l-CT scans.
+2. Theory
+NMR spectroscopy is applied to saturated porous media where
+the nuclei of certain atoms that are already immersed in a static
+magnetic ﬁeld Bo, are then exposed to a second oscillating mag-
+netic ﬁeld. For petro-physical applications, the pore space is con-
+centrated with water or oil in which in the presence of the
+magnetic ﬁeld produces excitation of the protons. NMR relaxation
+occurs when there is an interaction of the nuclear spins with the
+bulk ﬂuid and the pore walls. The mathematical model that rep-
+resents the evolution of the magnetization during the excitation
+and the resulting NMR relaxation of the protons in the ﬂuid is
+described by the Bloch-Torrey equations which model diffusion
+plus a reaction term. For simplicity of presentation we consider
+here a scalar diffusion equation with a reactive term along with
+boundary conditions modeling passive and active relaxation at
+the pore walls.
+3. Two pore systems
+We consider a two-pore system where Pore 1 and Pore 2 are
+separated by an interface located at distance a as depicted in
+Fig. 1. For this simple geometry, the ﬂow is governed by the molec-
+ular diffusion where the concentration of energized nuclei is given
+by c. Moreover, there is a surface like sink strength density rs over
+the active surface s. This results in a decay in the total nuclear mag-
+netization which is given by:
+SðtÞ¼
+Z
+cðx; tÞdV:
+Representing the actual signal from the full sample volume V. In the
+analysis below we consider only the contribution of those modes
+having no y or z-dependence.
+The diffusion-reaction equation is then given by:
+@c
+@t /C0 D @2c
+@x2 þ c
+T2B
+¼ 0 ð1Þ
+where the solution is decomposed into two parts as:
+cðx; tÞ¼ c1ðx; tÞþ c2ðx; tÞ. Here c1; c2 are concentrations in Pore 1
+and Pore 2 respectively. D is the scalar diffusion coefﬁcient where
+we assume to be constant, and T2B is the bulk relaxation time.
+The boundary conditions are given by:
+80 S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91
+
+--- PAGE 3 ---
+D @c1
+@x /C0 rsc1 ¼ 0; on CR1
+D @c1
+@x /C0 D @c2
+@x ¼ 0; on CI
+D @c1
+@x /C0 jðc2 /C0 c1Þ¼ 0; on CI
+D @c2
+@x þ rsc2 ¼ 0o n CR2 ;
+8
+>>>>
+>
+><
+>>>
+>>>
+:
+ð2Þ
+where CR1 and CR2 are Robin boundary conditions corresponding to
+the relaxation at the surface, where rs is the surface relaxivity and
+reﬂects the molecular interactions at the ﬂuid boundaries leading to
+a loss of magnetization. Here we take rs ¼ 5:0 lm/s. CI represents
+the interface boundary conditions located at x ¼ a
+L. The ﬁrst inter-
+face boundary condition enforces continuity of the diffusion ﬂux
+of ﬁrst region (Pore 1) across the interface. The second interface
+describes the jump across the interface through j which is a non-
+dimensional number accounting for the size of the connector from
+Pore 1 to Pore 2. For the initial concentration, we assume that
+cðx;0Þ¼ Sð0Þ=V is constant throughout and is set equal to 1. Now,
+the complete solution is expressed as:
+cð x!; tÞ¼
+X1
+n¼0
+AnFnð x!Þe
+/C0 1
+Tn þ 1
+T2B
+/C16/C17
+t
+ð3Þ
+where T n ¼ L2
+Dn2
+n
+, for each eigenvalue nn. Fnð x!Þ¼ f 1 þð f 2 /C0 f 1ÞUa,
+where the unitary operator,
+Ua ¼ 0i f x 6 a
+1i f x > a
+/C26
+The coefﬁcients are normalized and are given through orthogonality
+of the eigenfunctions as:
+An ¼
+R L
+0 Fnð x!Þdx
+R L
+0 F2
+nð x!Þdx
+: ð4Þ
+The amplitude of the total signal will then be given by fAn and is
+calculated from the total signal as
+Sð0Þ¼
+Z L
+0
+cðx; 0Þdx ¼
+Z L
+0
+X1
+n¼0
+AnFndx ¼
+X1
+n¼0
+An
+Z L
+0
+FnðxÞdx ¼
+X1
+n¼0
+A2
+n /C17fAn :
+This is a consequence of using the fact that R L
+0 F2
+n (x) dx = 1.
+Now the general solution for the eigenvalues nn are given by F 1
+(n) = 0, and F 2 (n) = 0 for Pore 1 and Pore 2 respectively when they
+are totally independent, corresponding to when j =0, and are given
+explicitly as:
+F 1ðnÞ¼ n tan na
+L /C0 rsL
+D ; ð5Þ
+F 2ðnÞ¼ /C0 n þ rsL
+D tan na
+L
+/C18/C19
+tan n þ n tan na
+L þ rsL
+D : ð6Þ
+The corresponding eigenfunctions are given by
+f 1n ¼/C0 nn cos nnx
+L þ rsL
+Dnn
+sin nnx
+L
+/C18/C19
+; and
+f 2n ¼ cos nnx
+L þ tan nna
+L sin nnx
+L
+/C18/C19
+: ð7Þ
+When j–0 the eigenvalues are solved through the transcendental
+equation, F jðnÞ¼ 0 where
+F jðnÞ¼ n cos na
+L F 1ðnÞF 2ðnÞ/C0 j 2n rsL
+D þ tan n rsL
+D
+/C18/C19 2
+/C0 n2
+"# !
+;
+ð8Þ
+and where the corresponding eigenfunctions for this case are given
+by
+f 1n ¼ Bn nn cos nnx
+L þ rsL
+D sin nnx
+L
+/C18/C19
+; f 2n ¼ Kn cos nnx
+L þ sin nnx
+L ;
+ð9Þ
+where Kn and B n are deﬁned as
+Kn /C17nn cos nn þ rsL
+D sin nn
+nn sin nn /C0 rsL
+D cos nn
+; and B n /C17 /C0 Kn sin nn a
+L þ cos nn a
+L
+/C0 nn sin nn a
+L þ rs L
+D cos nn a
+L
+"#
+:
+ð10Þ
+Fig. 1. Two pore system used in the analytical model. Two pores separated by a connector where the interface between the pores is at x = a.
+Fig. 2. Eigenvalues for the coupled system. For higher eigenvalues, the dashed lines
+are multiples of pi. The two lowest eigenvalues are in the green and the blue. The
+lowest eigenvalues for different Kappa (in green) are magniﬁed and depicted above
+it. (For interpretation of the references to color in this ﬁgure legend, the reader is
+referred to the web version of this article.)
+S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91 81
+
+--- PAGE 4 ---
+We illustrate the effects of coupling between a small pore and a
+large pore where we take the interface location a
+L = 0.2. The rele-
+vance of this stems from porous media patterns where there are
+interconnected pores of varying throat sizes which in this case is
+designated by j. The eigenvalues corresponding to F jðnÞ¼ 0 for
+different j is shown in Fig. 2 . NMR relaxation gives multi-
+exponential decay for multiple pore system and therefore we are
+only interested in the two smallest eigenvalues. These lowest
+two eigenvalues are the dominant components in the fast diffusion
+regime, namely, rs L
+D /C28 1 where one eigenvalue describes the change
+in the larger pore and the other describes the change in the
+smallest pore. We are interested in those values of j that vary from
+a very weak connection ( j very small) to where the system starts
+to become well connected. This can be observed from Fig. 2 where
+for low values of j there is a substantial change in the eigenvalues.
+The coupled system is characterized by the relaxation times Tn
+that are determined from the dimensionless eigenvalues (where
+we take for the ﬁrst two eigenvalues), and decrease as j increases.
+This is depicted in Fig. 3 where the relaxation times and the nor-
+malized amplitudes are changing with the throat size. For weak
+connection, for example when j = 0.0001, there is not much diffu-
+sion between the pores and it closely resembles the j = 0 case for
+isolated pores. However, when the interconnection between pores
+increases, then the coupled system can be characterized as a single
+effective relaxation constant with a normalized amplitude of 1.
+This suggests that after some time the concentration in the
+pores begin to relax together. In Fig. 4 (a), we consider the case
+when j = 0.0005 and look at the concentration proﬁle of excited
+protons. It is observed that as they begin to relax, there is a larger
+jump in concentration of the small pore then the larger pore. How-
+ever after some time, both pores begin to relax together as the
+amount of jump in concentration of both pores begins to equalize.
+From Fig. 4(b) we plot the change in concentration where it is seen
+that after t = 0 the ﬂow begins to become negative which indicates
+that there is ﬂow from the big pore to the small pore. This ﬂow is
+being supplied continuously until there is no more change in the
+concentration (near horizontal line).
+Analytically, one can show that by assuming j is large enough
+for the system to be considered well connected, then using the fast
+diffusion approximation, the transcendental equation for the
+eigenvalues F jðnÞ¼ 0 can be approximated to give:
+1
+Tn
+¼ rs
+2
+L ; ð11Þ
+which is the one dimensional version of the surface relaxation
+1
+T2
+¼ rs S
+V where S and V are the surface and volume of the pore. How-
+ever, it is important to point out here that our relation is for the
+entire system not for a single pore. That is that once good connec-
+tion between pores is established and they begin to relax together,
+Fig. 3. Normalized amplitude fAn for different Tn by changing j, which can be
+considered as the throat diameter. For two disconnected pores ( j = 0), and weak
+connections, two distinct peaks can be observed. It is observed that there is a
+corresponding direction of change with increasing
+j. Eventually, when the
+connection between pores is good then we have a single peak. Here we use rs =
+10 lm/s, and D = 2.07 /C2 10/C0 9 m2 =s.
+Fig. 4. (a) Depicts the concentration of excited protons for different times where the y axis is in logarithmic scale. This graph shows that when there is weak c onnection (at
+earlier times), the jump in the smaller pore is relaxing faster, but when there is better connection between the larger and the smaller pores we see that the two pores start to
+relax together. (b) Depicts the derivatives of the concentration and how at t = 0 it is positive and at t = 0.02 s it starts to be negative indicating that th e larger pore is supplying
+ﬂow to the smaller pore.
+82 S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91
+
+--- PAGE 5 ---
+then the surface to volume ratio obtained must be the average over
+all the pores.
+4. Numerical models
+In this section we would like to investigate further using
+numerical simulations, the effect of pore connectivity on the
+NMR signals. Therefore, we numerically solve the diffusion-
+reaction equation with the corresponding boundary conditions
+for a system representing pores and grains which are depicted as
+set of concentric spheres. We ﬁrst construct a system without con-
+nectors such that the exact solution will be known and we can ver-
+ify our numerical results. Fig. 5(a) is an illustration of the 2D cross
+section of this system where the blue represents ﬂuid in pores and
+the grey represents solid regions. The central pore has radius of
+R ¼ 5 lm, while all the other spheres in increasing order are calcu-
+lated to have radii in microns of: R1 ¼ 6, R2 ﬃ 6 1
+6, R3 ¼ 7, R4 ﬃ 7 1
+6,
+R5 ¼ 8, R6 ﬃ 8 1
+6, R7 ¼ 9, R8 ﬃ 9 1
+6, R9 ¼ 10, R10 ﬃ 10 1
+6, R11 ¼ 11,
+R12 ﬃ 11 1
+6. The concentric spheres are constructed by imposing
+two constraints. The ﬁrst is by ensuring that the T2 relaxation time
+for the narrow layers between spheres will be 1 =20 of T2 for the
+central sphere of radius R,o r
+1
+T2:ð5 lmÞ ¼ 1
+20
+1
+T2ðlayersÞ
+/C18/C19
+: ð12Þ
+The explicit relation for the decay rate, T2 is given by
+1
+T2
+¼ rs
+S
+V þ 1
+T2B
+;
+where for small pores or large surface relaxivity, the second term on
+the right which is involves the bulk relaxation time can be
+neglected and thus for the ﬁrst layer we have:
+3ðR2
+1 þ R2
+2Þ
+R3
+2 /C0 R3
+1
+¼ 20 3
+R ) ðR2
+1 þ R2
+2Þ
+R3
+2 /C0 R3
+1
+¼ 4: ð13Þ
+This relation also holds for other layers because the second con-
+straint enforces that the surface to volume ratio of these narrow
+pore regions are the same. Explicitly written, this leads to the
+relations:
+R2
+2 þ R2
+1
+R3
+2 /C0 R3
+1
+¼ R2
+4 þ R2
+3
+R3
+4 /C0 R3
+3
+¼ R2
+6 þ R2
+5
+R3
+6 /C0 R3
+5
+¼/C1 /C1 /C1 ð 14Þ
+By further imposing that R1 ¼ R þ 1; R3 ¼ R þ 2; R5 ¼ R þ 3, /C1/C1/C1,w e
+calculate the radii of all the spheres to be that given above. In our
+numerical simulations we again take T
+2B ¼ 3:0 s and rs ¼ 5:0 lm/s.
+By construction, this system will lead to the NMR relaxation corre-
+sponding to the normalized amplitude vs. T2 distribution shown in
+Fig. 5 (b). Here T2 of the larger pores is 0.3 s (as expected) corre-
+sponding to a normalized amplitude of 0.3543 and for the smaller
+pores (layers) is approximately 0.015 s corresponding to a normal-
+ized amplitude of 0.6494. Moreover, as the ratio of the amplitudes
+is proportional to the ratio of the volumes, we take the sum of the
+volume of all layers and divide by the volume of the central pores.
+This gives approximately 1.84, which veriﬁes our numerical simula-
+tion for the case of this system.
+Now we discuss the ideas from the previous section by consid-
+ering connectors that are modeled as cylinders between the differ-
+ent layers and the central pore. There are seven different radii of
+connectors that range from 0.05 lm to 0.6 lm. We provide con-
+nection between the pores as shown in Fig. 6 and we increase
+the ﬂow between the pores either by increasing the number of con-
+nectors or by increasing the radius of the connectors. Under the
+fast diffusion regime, when there is sufﬁcient ﬂow being supplied
+from the big pore to the small pores we see from Fig. 7 that T2
+shifts to the left as its amplitude is increasing. This is evident from
+the fact that as the number of connectors or the connector radii are
+increased, then more surface is accessible through fast diffusion
+and the relaxation will become faster. Although, in this case, the
+amplitude of the smaller pores (or the sum of the volumes of the
+layers), is initially 1.84 times more than the amplitude in the big
+pore, and would require substantial amount of ﬂow to be able to
+shift its T2 more to the right. This is because the relaxation in the
+narrow layers happens so quickly that by the time it starts
+exchanging ﬂow, its concentration has already disappeared. There-
+fore, as seen in Fig. 7, there is not sufﬁcient amount of ﬂow to cause
+the left peak to shift to the right. More ﬂow is required to cause the
+left peak to increase from 16 ms, while the amplitudes are decreas-
+ing. In fact when there is sufﬁcient ﬂow, we will obtain one inter-
+connected system where the inversion of the NMR relaxation in
+Fig. 5. (a) Represents the 2D cross section of the constructed system of pores and grains (concentric spheres) where there is no connectors between the differ ent layers. (b)
+Depicts the normalized amplitudes vs. T2 for this system. The numerical inversion of the NMR relaxation is veriﬁed by exact solution.
+S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91 83
+
+--- PAGE 6 ---
+this system is represented by a single amplitude. It is easily veriﬁed
+that for this system, the single peak will occur at the T2 given by
+1
+T2
+¼ rs
+S1 þ S2
+V1 þ V2
+ð15Þ
+where S1 and V1 are the surface and volume of the big pore respec-
+tively, and S2 and V2 represent the sum of the surfaces and sum of
+the volumes of the layers respectively. This is calculated to give
+T2 ¼ 25 ms.
+Furthermore, in order for a connected system to have the same
+amplitude vs T2 distribution as a totally disconnected system, the
+constructed geometry will be different. If we take the case where
+the throat radius is0 :6 lm, as shown in Fig. 8 (a) and its NMR
+amplitude shown in Fig. 8 (b), then we can use the fact that the
+large pore relaxes at T2L = 67 ms (0.067 s), to obtain
+1
+T2L
+¼ 1
+0:067 ¼ rs
+S
+V þ 1
+T2B
+¼ 5 3
+R þ 1
+3
+which gives R ¼ 1:028 lm. In order to construct a disconnected sys-
+tem with the same T2 of 15.8 ms for the layers obtained from the
+connector with radius of 0 :6 lm, then we have:
+1
+0:0158 ¼ rs
+3ðR2
+2 þ R2
+1Þ
+R3
+2 /C0 R3
+1
+þ 1
+3 ;
+also in addition to this, the ratio of the amplitudes in this case is
+0:864 leading to the system of equations:
+R2
+2 þ R2
+1
+R3
+2
+/C0 R3
+1
+¼ 4:21 and R3
+2 /C0 R3
+1
+R3 ¼ 0:864
+which inevitably leads to the system shown in Fig. 8 , where now
+R1 ¼ 1:32 lm and R2 ¼ 1:48 lm.
+5. Some permeability calculations
+In this section we calculate the permeability for the system
+presented in the last section where we change the connector
+radii. In order to avoid a simple ﬂow from one end to the other,
+we force the ﬂow to travel throughout the different layers until
+reaching outlet, by introducing an extra inclined disc in the
+center. This will not change the NMR but will make for more
+realistic ﬂow paths as we changed the throat sizes. In Fig. 9 a
+we show the cross section in the Y-Z plane for this system where
+the tilted disc is included.
+For the ﬂow permeability we solve the Navier-Stokes equations
+where the ﬂow happens inside the central pore of radius R and the
+concentric layers. Dirichlet boundary conditions are imposed
+where we set the pressure at the inlet to be 0.1 Pa, and 0 Pa at
+the outlet. The connector throats are then varied from 0.05 mmt o
+0.6 mm. The numerical simulated ﬂow permeability curve is
+shown in Fig. 9 b. Also in Fig. 9 b we use the permeability estimate
+given in [7]
+Fig. 6. Contour lines showing the path of diffusion for the connected system. The ﬁgure on the right is the 2D view.
+Fig. 7. Here the red peaks correspond to the disconnected system shown in Fig. 5
+(b). However, as the connector radii increase we see that the big pore (at 300 ms) is
+supplying more ﬂow and shifting to the left ( T2 is decreasing) and amplitudes
+increasing. The small pores (layers) relax very quickly and do not provide supply of
+ﬂow. The peak amplitudes for the small pores begin to decrease however as the ﬂow
+from the big pore is the dominating feature the second peaks to not show much
+shift in T
+2 .
+84 S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91
+
+--- PAGE 7 ---
+kNMR ¼ Cr2
+s /4ðT2lmÞ2 ð16Þ
+where C is a constant, and the relaxivity strength rs is in lms /C0 1,
+and the permeability estimate kNMR is measured in mD. In addition,
+the porosity / for different connector radii does not vary signiﬁ-
+cantly and is approximately 0.26. It is important to also point out
+that the porosity of the system for different radii of the connectors
+varies slightly (in the second decimal place). The system is large
+enough that changing the connector radii does not sufﬁciently
+change the porosity. Therefore the porosity is practically constant
+and thus does not change the concentration (in moles) and NMR
+amplitude. T
+2lm represents the logarithmic mean of T2 distribution
+as described in [16], and is in milliseconds (ms). The logarithmic
+mean is deﬁned as
+T2lm ¼ exp
+P
+iAi ln T2iP
+iAi
+/C18/C19
+: ð17Þ
+Here C is a ﬁtting parameter that is used to bring the permeability
+estimate for NMR to scale with the actual permeability results. An
+arbitrary value 0.0003 was selected so that correlation and compu-
+tational permeability values ﬁt in the same graph. In this scale it can
+be readily observed that the permeability estimate is decreasing
+rather than increasing when the connector radii are increased,
+which is an incorrect trend. For the permeability calculation
+Eq. (16), we see that the decreasing T2 of the big pore causes the
+permeability estimate to have a decreasing trend. In this model,
+the surface areas of the layers are very large and the relaxation in
+the layers occurs very fast. Therefore, from the above analysis, the
+dominating feature is the relaxation in the big pore and its contin-
+uous supply of excited protons. This causes T2 of the big pore to be
+decreasing as the connector radii are increasing. As a result, this
+estimate predicts a decrease in permeability. However, we know
+that this is not the case, and this estimate does not give the correct
+predictions.
+Fig. 8. (a) shows the original 3D geometry used with connectors of 0.6 mm, where the legends depicts the level of concentration of excited protons. (b) Depicts its NMR
+signature. (c) Demonstrates the disconnected geometry that will give the same NMR signal shown in (d).
+S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91 85
+
+--- PAGE 8 ---
+From the previous theoretical discussion of the two pore system
+and Fig. 4 , we know that at the beginning, the small pores start to
+relax fast reducing in the number of excited protons (concentra-
+tion) while the big pore is relaxing slow. Although this discussion
+was in a 1-D context, in the 3-D scenario there are a lot more path-
+ways that affect the trend in the T2 distribution curve.
+In the current model, this trend occurs ﬁrst as if no connection
+exists between the pores. Once there is a substantial difference in
+the concentration of the small and big pores, then upon the pres-
+ence of connectors, there is a supply of ﬂow from the big pore,
+which does not allow any further drop in amplitude within the
+small pores until a balance is reached. Part of the particles in the
+small pores relaxes fast under the conditions that the supply from
+the big pore is unimportant. After this, the remaining excited pro-
+tons will begin to relax together with those in the big pore. There-
+fore, not much shift in T2 of the small pores is observed. However,
+as there is supply from the big pore, there is more pores accessed
+and the relaxation time of the big pore begins to decrease substan-
+tially. It is shown that for good enough connectors we arrive at a
+single peak amplitude at T2 = 25 ms. This rapid decrease in T2 in
+the big pore causes the permeability estimate to give a decrease
+in permeability for better connectors.
+In real rocks, this type of scenario can occur in multiscale
+regions for example when you have a large pore surrounded by
+many smaller sized pores. This could be the case in carbonates or
+in shales. In shales pores can be surrounded by organic matter with
+ultra-small pores that can lead to this behavior in the T2 distribu-
+tion. Also in shales, a lot of times there are either no connections
+between pores or there are weak connections. In these cases the
+NMR distribution curves show small pores relaxing fast and big
+pores relaxing slow with multiple peaks. However, when there is
+supply from the big pore to the small pores, then we would
+observe a similar trend as just described where there is a big shift
+in T2 of the large pores. Therefore, the above NMR estimate for per-
+meability can result in a decreasing trend as in Fig. 9 . Different
+types of rock patterns which do not contain such multi-scales of
+grain sizes will satisfy a consistent trend with the NMR permeabil-
+ity estimate.
+In the section below a virtual porous medium is constructed
+from the given grain size distribution as input; and the NMR T2 dis-
+tribution curve is compared to the experimental results. First we
+demonstrate that indeed the NMR T2 geometric mean T2gm, has a
+decreasing trend as we reduce the permeability by dilating the
+grains. This is consistent with the NMR permeability estimate
+given above. The entire point of the dilation of the grains though
+is to try to mimic a real rock formation. As will be seen, the numer-
+ical simulations of NMR performed on virtual porous media pat-
+terns do not lead to a wide distribution typical of experiments of
+NMR. However, through dilating and rescaling the size of the
+grains a wider distribution matching the experimental results are
+obtained.
+6. NMR predictions for natural porous media patterns
+The above numerical models were used to understand the effect
+of connectors on the NMR measurements. In this section we incor-
+porate a computational physics approach in order to obtain the
+NMR relaxation and T
+2 distribution for natural porous media pat-
+terns. The porous media used in the sample is a Lane Mountain Sil-
+ica sand pack with a sieve size of 50 (LM50), where experimental
+results giving the NMR T2 distribution is performed and compared
+and used as a comparison to the numerical simulation.
+In the numerical approaches the accuracy of the numerical
+method depends on factors such as the mesh and the type of dis-
+cretization scheme used. However, scanned cross-sectional images
+from rocks are pixelated and the geometry of the pore structure is
+limited in detail and accuracy through the resolution. In computa-
+tional rock physics or sometimes referred to as digital core analysis
+(DCA) it has become a trend to treat each voxel as a mesh element
+because these structured meshes are simpler to implement and
+they lead to high quality meshes. Unfortunately, these elements
+do not conform to the geometry and result in an increase in the
+surface area. While many physical properties of ﬂow within pore
+structures are predicted using voxel based meshing, for the numer-
+ical prediction of NMR signatures the extra surface area will mimic
+Fig. 9. In (a) the geometry is shown where we solve for the Navier-Stokes equation with the pressure inlet and outlet shown. A tilted disc is included at the cent er. (b) shows
+the permeability calculated from the ﬂow with different connectors, and this is compared with the permeability estimates with NMR.
+86 S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91
+
+--- PAGE 9 ---
+the effect of roughness and will affect the T2 distribution. More dis-
+cussion on the effect of voxelized representation on NMR simula-
+tions is given elsewhere [5].
+Constructing a natural porous medium pattern for numerical
+studies requires actual scanned images of rock. This could be CT
+or micro-CT scans, or high resolution FIB-SEM scans depending
+on the type of modeling we are interested in. Obtaining the images
+with the required resolution is ideal in order to determine the
+physical properties of the porous media and for DCA. However, if
+scanned images of a sample are unavailable, one can use the large
+inventory of particle (grain) size distribution (PSD) data to mathe-
+matically construct the porous media that will represent the sand
+pack. In this work, such a physics based modeling approach is used
+to generate a virtual porous media pattern based on the PSD data
+[17]. This constructed virtual porous media that is based on a cubic
+packing of spheres, is generated from the input given by the PSD
+data of the LM50. This is depicted in Fig. 10 , where sides of the
+box are 1.63 mm. Our mathematical model is the Bloch-Torrey
+equation where it is imposed that the relaxivity at the walls of
+the pores to be rs ¼ 25 lm=s for sand, and the bulk relaxation time
+to be 2.0 s. Furthermore we take the diffusion constant to be
+D ¼ 2:07 /C2 10/C0 9 m2=s as we did in the previous models. The gov-
+erning equation is solved numerically using COMSOL Multiphysics
+which incorporates the Finite Element discretization scheme. From
+the previous discussion, we use an unstructured tetrahedral mesh
+that conforms to the geometry as seen in Fig. 10 (b).
+The spheres are representations of actual grains, although,
+actual grains are not spherical and their points of contact are not
+points but are prolonged areas that overlap. In order to account
+for this we dilate the spheres in Fig. 10 in order to represent pack-
+ings that are somewhat non-spherical. This procedure makes the
+T2 distribution wider because it cuts the connectivity. We point
+out that in real sands rather than the artiﬁcial ones used in the lab-
+oratory, there is also the process of cementation that would widen
+the NMR spectrum even further and thus the practitioner should
+perform the simulations using more realistic models that account
+for this effect. Fig. 11 demonstrates the dilation procedure for a
+single cross-section of the X-Y plane. In Table 1 we make a
+Fig. 10. (a) Depicts the 3D reconstructed packing from grain size distribution data. In (b) we demonstrate the unstructured tetrahedral mesh used. In (b) we ha ve omitted the
+grains in the computational domain because we are only interested in simulating the diffusion process in the pores and by doing this we save on computat ionally expense.
+The porosity here of the packing is 0.464.
+Fig. 11. In (a) we show a single cross section in the X-Y plane of the original packing, and (b) depicts the case where we incorporate dilation of the grains on the s ame slice.
+Table 1
+Gives tabulated values for the experimental, and the numerical simulation of the NMR
+distribution curve of the original packing, and the dilated packing. The normalized
+amplitude is given as the amplitude divided by the total amplitude multiplied by the
+porosity, so that the sum of the amplitudes give porosity. The effect of dilation
+decreases T
+2gm which results in a decreasing trend for the NMR estimate for
+permeability. In this case, the estimate is consistent with actual permeability
+calculations.
+Porosity (%) Absolute
+permeability (D)
+T2gm (ms)
+Experimental 35.75 2.4 444.7
+Virtual PM (without dilation) 46.40 19 666.4
+Virtual PM (with dilation) 30.0 4.6 521
+S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91 87
+
+--- PAGE 10 ---
+comparison of the geometric mean of T2 (T2gm) between the case
+without dilation and the dilated grains. This is then compared with
+the experiment. It is shown that the effect of dilation leads to a
+decreasing trend for NMR estimate of permeability that is consis-
+tent with actual ﬂow permeability calculations. We compare the
+NMR T2 distribution of the experimental result in Fig. 12 (a) with
+the numerical result for the case where we dilated the spherical
+grains as shown in Fig. 12 (b). Fig. 13 shows the comparison
+between the experimental, the numerical with dilation, and the
+original packing. It is seen here that as the original packing has
+more inter-connected pore space, the numerical results will be
+mainly concentrated in a single peak. However the dilation of the
+grains is incorporated in order to mimic the true sand packs and
+as is observed, a wider spectrum is obtained which better matches
+the experimental results. The amplitudes are normalized by divid-
+ing by the total amplitude and multiplying by the porosity.
+7. NMR predictions for scanned images
+In this section we do a comparison of the NMR T2 distribution
+obtained for a sandstone core plug, with the NMR T2 distribution
+obtained from numerical simulations. The computational method
+uses as input a digitized 3D reconstructed image of a piece of the
+sandstone that is obtained from a set of l-CT scanned cross-
+sectional images. Fig. 14 depicts different cross-sections of the
+3D sample. We have obtained 635 cross-sectional images of the
+sandstone where its dimensions are given by 512 /C2 512 /C2 635
+voxels (3.18 /C2 3.18 /C2 3.94 mm) as shown in Fig. 15 .
+There are several issues that need to be considered when
+numerically simulating NMR diffusion process from real images
+of rocks. NMR T2 response depends strongly on the pore structure
+which includes the number of pores (and grains and other miner-
+als) of the sample, the size of pores, and the surface roughness of
+the grains. Typically, the sample should be large enough to cover
+a wider range of pore sizes so that under the fast diffusion regime
+some of the excited protons will relax independently within pores.
+Otherwise, as discussed in the previous sections we would obtain a
+single peak due to the interconnectivity between the pores.
+Identifying and highlighting (or masking) the different grey
+scale of the image (which correspond to pores and other grains
+and minerals) is the thresholding process. There is a wide range
+of grey scale in the image, however after identifying the pore space,
+the thresholding is adjusted to cover those spaces stopping prior to
+generating any noise content in the image. An example of thresh-
+olding the pore spaces as viewed in a 2D cross-section of the image
+is shown in Fig. 14 (d). Thus, the size and number of the pores is
+greatly inﬂuenced by the level of sophistication in the thresholding
+process. This is in contrast to the virtual porous media patterns
+generated in the last section where the thresholding is very
+straightforward as the pores and grains are constructed and iden-
+tiﬁed through the physics based modeling.
+Fig. 12. The laboratory experimental result for the T2 distribution is shown in (a). In (b) we show the numerical simulation results for the packing of spheres where we have
+incorporated slight dilation of the grains. Here relatively good agreement is shown where the relaxation times for the different peaks show close pro ximity.
+Fig. 13. This ﬁgure compares the experimental with the numerical results with and
+without the dilation. Without dilation, more ﬂow occurs and most of the
+concentration is represented by one big peak. However, dilation attempts to mimic
+the more realistic non-spherical features of the artiﬁcial sand packs. Its effect is that
+it cuts the connection and produces extra peaks and comparing well with the
+experimental results.
+88 S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91
+
+--- PAGE 11 ---
+In order to account for surface roughness, in the real rock
+images, high resolution (typically at the Nano-scale) scanned
+images are required. Even if these high resolution images are
+obtained, from for example FIB-SEM scans, then the problem of
+meshing the geometry and the computational expense associated
+with it can be a formidable task. The l-CT scans that are obtained
+here have a lower resolution ( /C24 10 mm) which effectively smooths
+the surface and hides the roughness. Therefore, in order to repre-
+sent the rough surface with a smooth surface we must consider
+an effective surface relaxivity. Several authors have used the fractal
+approach to model and characterize surface roughness (see for
+example [19,13]). We will not cover this modeling approach here
+as it is beyond the subject of this paper. However, we emphasize
+that it is crucial to incorporate surface roughness into the model
+as it is the roughness that inﬂuences the effective surface relaxivity
+thus affecting the NMR T2 distribution. The typical surface relaxiv-
+ity of sandstone is about 20 mm/s as referenced in [9], and in [15].
+Here to account for the rough surface, for this case, we take an
+effective surface relaxivity of 100 mm/s. We point out also that with
+a resolution of 10 mm and a surface relaxivity of 20 mm/s for sand-
+stone, we have:
+1
+T2
+¼ rs
+S
+V ¼ 20 lm
+s /C2 3
+10 lm ¼ 6 1
+s :
+Thus the T2 corresponding to this resolution will be approximately
+167 ms. In Fig. 16 we compare the NMR T2 distribution for both the
+experiment and numerical results and we obtain a very good match
+except at lower values of T2 (lower than 167 ms), where the results
+will not match due to the resolution of the m-CT scans. We further
+normalized the amplitudes with respect to the total amplitude of
+the two largest peaks where the numerical results are deemed to
+be reliable.
+From the computational point of view we make the ﬁnal remark
+that in meshing the geometry, voxel based meshes are fast and give
+good quality meshes, but they generate a jagged step like surface
+which can give the effect of roughness, and can be misleading as
+it is a consequence of the numerics. In our meshing procedure
+Fig. 14. m-CT scans of sandstone. (a) is the YZ plane, (b) is the XZ plane, and (c) is in the XY plane. (d) Represents the cross-section of (c) where the pores are mask ed using a
+thresholding technique.
+S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91 89
+
+--- PAGE 12 ---
+we incorporate a tetrahedral mesh algorithm that conforms to the
+geometry using Simpleware’s ScanIp. This is shown in Fig. 15 (b).
+8. Conclusions
+In this paper we attempt to explain the effect of pore connectiv-
+ity on the NMR T2 distribution through theoretical examples,
+numerical models, and more realistic porous media patterns. The
+results are consistent and demonstrate that although NMR is
+known to give information on the pore body size distribution,
+the effect of pore throats inﬂuences the NMR measurement data
+dramatically and must be taken into consideration. Moreover,
+understanding how the pores and connectors contribute to the
+T2 distribution will allow for better estimates of permeability.
+For tight formations, one can argue that the connectors are
+small and thus the NMR T2 measurement is close to the case where
+there are no pore connectivity. However, in many numerical simu-
+lations one must understand that the inter-connectivity through
+pores, will lead to a mono-exponential decay that will in turn pro-
+duce single peak. If the practitioner is using a virtual porous media
+pattern as a computational models for study, it is apparent that the
+geometric structure created through modeling should incorporate
+all the physical features such as cementation and grain shape into
+account. On the other hand, if the practitioner has available
+scanned images of the actual rock, then the computational model
+used will be the reconstructed binarized image. In this case other
+factors such as voxel based meshing can lead to misleading results
+as they mimic roughness and thus in turn affect the T2 and proper
+interpretations. Although resolution is always a limiting factor, for
+NMR smooth based meshes conforming to the shape of the geom-
+etry should be used, and proper modeling of roughness should be
+incorporated.
+Acknowledgments
+The authors gratefully acknowledge the ﬁnancial support of the
+FUR program from National Science and Engineering Research
+Council of Canada (NSERC), Alberta Innovates Technology Futures
+(AITF), and the sponsoring companies: Athabasca Oil Corporation,
+Devon Canada, Foundation CMG, Husky Energy, Brion Energy,
+Canadian Natural, Maersk Oil, Suncor Energy, and Schulich School
+of Engineering (University of Calgary).
+References
+[1] V. Anand, G.J. Hirasaki, Diffusional coupling between micro and macroporosity
+for NMR relaxation in sandstones and grainstones, Petrophysics 48 (4) (2007)
+289–307.
+[2] K.R. Brownstein, C.E. Tarr, Importance of classical diffusion in NMR studies of
+water in biological cells, Phys. Rev. A 19 (1979) 2446–2453 .
+[3] Fleury, M. 2009, Characterization of pore to pore diffusive exchange using NMR
+T2-Store- T2 2D experiments, in: Presented at Proceedings SCA Annual
+Conference, Noordwijk, The Netherlands.
+[4] M. Fleury, R. Fabre, J.B.W. Webber, Comparison of pore size distribution by
+NMR relaxation and NMR cryoporometry in shales, in: Presented at
+Proceedings SCA Annual Conference, St. John’s Newfoundland and Labrador,
+Canada, 2015.
+Fig. 16. T2 distribution comparing both the experimental results (in red) with the
+numerical simulation (in blue). The S/N ratio in the experiment is 280. The dashed
+lines represent areas where the numerical simulation may fail to predict the correct
+T
+2 due to low resolution of the m-CT. Here the amplitudes are normalized with
+respect to the total amplitude of the two largest peaks (>100 ms). The surface
+relaxivity in the numerical simulation is taken to be 100 lm/s and the bulk
+relaxation is taken to be 2.5 s with diffusion coefﬁcient of 2.07 /C2 10/C0 9 m2 =s. (For
+interpretation of the references to color in this ﬁgure legend, the reader is referred
+to the web version of this article.)
+Fig. 15. (a) reconstructed piece from sandstone consisting of 635 cross-sectional images of l-CT scans. (b) Represents the computational mesh that is invoked, consisting of
+nearly 49 million tetrahedral cells. Tetrahedrons conform to the shape of the geometry and provides a smooth surface, not the jagged step like surface s that are due to a voxel
+based mesh.
+90 S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91
+
+--- PAGE 13 ---
+[5] J.C. Guodong, E. Torres-Verdin, Toumelin, Comparison of NMR simulations of
+porous media derived from analytical and voxelized representations, J. Mag.
+Resonance 200 (2009) 313–320 .
+[6] E. Grunewald, R. Knight, A laboratory study of NMR relaxation times and pore
+coupling in heterogeneous media, Geophysics 74 (6) (2009) E215–E221 .
+[7] I. Hidajat, M. Singh, J. Cooper, K.K. Mohanty, Permeability of porous media
+from simulated NMR response, Transp. Porous Media 48 (2002) 225–247
+.
+[8] M. Kac, Can one hear the shape of a drum?, Am Math. Monthly 73 (4) (1966)
+1–23.
+[9] H. Liu, Marcel N. d’Eurydice, Sergei Obruchkov, Petrik Galvosas, Pore length
+scales and pore surface relaxivity by internal magnetic ﬁelds modulation at 2
+MHz NMR, diffusion-fundamentals.org, 22(7) (2014) 1–5.
+[10]
+C. Lu, Z. Heidari, Diffusional coupling between microfractures and pore
+structure and its impact on nuclear magnetic resonance measurements in
+multiple-porosity systems, Geophysics 80 (1) (2015) D31–D42 .
+[11] K.R. McCall, D.L. Johnson, R.A. Guyer, Magnetization evolution in connected
+pore systems, Phys. Rev. B 44 (1991) 7344–7355 .
+[12] O. Mohnke, N. Klitzsch, Microscale simulations of NMR relaxation in porous
+media considering internal ﬁeld gradients, Soil Soc. Am. 9 (2010) 846–857
+.
+[13] M. Papanikolaou, M. Frank, D. Drikakis, Nanoﬂow over a fractal surface, Phys.
+Fluids 28 (2016) 082001 .
+[14] T.S. Ramakrishnan, L.M. Schwartz, E.J. Fordham, W.E. Kenyon, D.J. Wilkinson,
+Forward models for nuclear magnetic resonance in carbonate rocks, Log Anal.
+40 (4) (1999) 260–270 .
+[15] M. Saidian, M. Prasad, Surface Relaxivity Calculations using Nuclear Magnetic
+Resonance (NMR) Measurement, Three Dimensional (3D) Rock Model and
+NMR Response Simulation: US patent number 20160139291, 2016.
+[16] C. Straley, D. Rossini, H. Vinegar, P.N. Tutunjian, C. Morris, Core analysis by low
+Field NMR, Soc. Core Anal. SCA-9494 (, 1995).
+[17] S. Taheri, S. Ghomeshi, A. Kantzas, Permeability calculations in unconsolidated
+homogeneous sands, Powder Technol. (2017) (in-press) .
+[18] E. Toumelin, C. Torres-Verdin, S. Chen, D.M. Fischer, Reconciling NMR
+measurements and numerical simulations: assessment of temperature on
+diffusive coupling effects on two-phase carbonate, Samples: Petrophys. 44 (2)
+(2003) 91–107
+.
+[19] H. Yang, B.A. Baudet, T. Yao, Characterization of the surface roughness of sand
+particles using an advanced fractal approach, Proc. Math Phys Eng. Sci. 472
+(2194) (2016) .
+[20] L.J. Zielinski, Y.-Q. Song, S. Ryu, P.N. Sen, Characterization of coupled pore
+systems from the diffusion eigenspectrum, J. Chem. Phys. 117 (2002) 5361–
+5365
+.
+S. Ghomeshi et al. / Journal of Magnetic Resonance 289 (2018) 79–91 91

@@ -1,0 +1,662 @@
+--- PAGE 1 ---
+SCA 2001-18
+1
+PORE NETWORK SIMULATION OF LOW-FIELD NMR
+RELAXOMETRY UNDER CONDITIONS OF DRAINAGE
+AND IMBIBITION: EFFECTS OF PORE STRUCTURE AND
+SATURATION HISTORY
+D. Chang and M.A. Ioannidis
+Porous Media Research Institute
+Department of Chemical Engineering
+ University of Waterloo, CANADA
+ABSTRACT
+Nuclear magnetic resonance (NMR) relaxometry tests, carried out on partially saturated
+porous media, convey information on the distribution of fluids within the pore space.
+Proper interpretation of this information requires a means to isolate the effects of pore
+structure (pore and throat shape and size distributions, spatial correlations, etc.) wettability
+and saturation history. A pore network simulator of NMR relaxation that can clarify the
+effect of these factors on observed T2 distributions is developed in this work. The pore
+network model can be calibrated with pore structure parameters (pore volume and throat
+size distributions, pore connectivity) determined from analysis of stochastic 3D replicas of
+the pore space generated from thin-section image information. The presence of irregular
+and, possibly, fractal pore surfaces is accounted for through a "late pore filling" model
+calibrated to match mercury porosimetry data. The network model is then used to simulate
+the water distribution and proton magnetization decay under conditions of drainage and
+imbibition. The results obtained reveal: (a) conditions under which diffusive coupling
+between pores has a significant effect on the decay spectra, (b) contributions to the
+magnetization decay spectra from water trapped at the irregular pore surfaces, and (c)
+contributions to the magnetization decay spectra from ( i) water in large pores which are
+inaccessible by the non-wetting phase during drainage and (ii) water in pores containing oil
+trapped during imbibition.
+INTRODUCTION
+With the increasing use of NMR techniques in the field and laboratory, there is a need to
+clarify how the NMR response of partially saturated reservoir rock depends on pore
+structure parameters, wettability and displacement history. Pore network simulation has
+been used extensively in the past to study the relationship of the aforementioned factors on
+capillary pressure, electrical resistivity and relative permeability. In recent years, pore
+network simulation has been endowed with predictive power, as a result of advances in (a)
+3D stochastic reconstruction from thin-section image statistical information (Ioannidis et
+al., 1999; Liang et al. , 2000; Bekri et al. , 2000) and (b) grain deposition/ diagenesis
+modeling (Bakke and Øren, 1997). If pore network models are to be further developed as
+tools for petrophysical evaluation, then their extension to include predictions of the NMR
+response of reservoir rock should be considered. This task was recently undertaken by
+Chang et al. (2000) and is further pursued in the present contribution.
+
+--- PAGE 2 ---
+SCA 2001-18
+2
+In a NMR measurement, hydrogen atoms on water molecules probe the pore space by
+diffusive motion. The magnetic moment carried by these atoms relaxes due to dipolar
+interactions with other molecules and with the fluid-solid interface. For a single pore in the
+fast diffusion limit, the surface relaxation rate is slow compared to the rate of
+magnetization equilibration by diffusive motion (Brownstein and Tarr, 1979).
+Consequently, magnetization is approximately uniform across the pore and decays with a
+characteristic time T2 that is inversely proportional to the pore’s surface area-to-volume
+ratio:
+V
+A
+T ρ=
+2
+1 (1)
+The proportionality constant ρ i s k n o w n a s t h e s u r f a c e relaxivity and knowledge of its
+value allows one to convert a rate of surface relaxation to a characteristic pore size RP (e.g.,
+A/V = 3 / RP f o r s p h e r i c a l p o r e s ) . T h e t i m e e v o l u t i o n o f p r o t o n m a g n e t i z a t i o n i n
+sedimentary rocks is usually characterized by a spectrum of decay rates ( Kenyon, 1997), a
+fact used to estimate the distribution of pore volume by pore size. Such estimates are
+invariably made under the assumption that, although in the fast diffusion limit, individual
+pores are uncoupled from their neighbors. The effect of this assumption has been
+theoretically investigated by McCall et al. (1991). These authors studied network models
+in which the sizes of pores were broadly distributed, but the pore throat cross-sectional
+areas and inter-pore diffusion lengths were assumed constant. Such models are not
+representative of the pore structure of reservoir rocks, in which pore throat sizes and inter-
+pore lengths are also broadly distributed. McCall et al. (1991) suggested that in a system
+with a broad distribution of pore sizes, in the range typically found in sandstones, pore
+coupling should be marginally significant. This implies that the spectrum of decay rates
+obtained by multi-exponential decomposition of total magnetization measurements should
+reflect the volume density of pore sizes reasonably well. This is conclusion is not
+generally true, especially at conditions of partial saturation (Chang et al., 2000).
+A primary drainage capillary pressure curve provides the distribution of pore volume
+accessible to a non-wetting phase by capillary pressure. The latter is related to the size of
+pore throats that are accessible by a non-wetting phase during drainage through the
+Laplace equation:
+t
+c
+R
+fsP )(θ= (2)
+where Rt is a characteristic pore throat size and f(θ) is a function of the receding contact
+angle that depends on the geometry of the pore throat cross-section ( e.g., f(θ) = 2cosθ for
+cylindrical pore throats). Under imbibition conditions Eq. (2) also governs the piston-type
+retraction of non-wetting phase from pore bodies and pore throats. Under such conditions,
+the angle θ is the advancing contact angle. The difference between receding and
+advancing contact angles (contact angle hysteresis) is a cause of hysteresis between the
+drainage and imbibition capillary pressure curves. Quasistatic imbibition is controlled by
+the interplay between two main types of capillary instability: piston-type retraction of fluid
+interfaces from pore bodies and pore throats and snap-off of non-wetting phase threads in
+pore throats (Ioannidis and Chatzis, 1993a). The collective outcome of these pore-level
+phenomena is the establishment of a residual non-wetting phase saturation, the magnitude
+of which is determined by the geometry and connectivity of the pore space and by
+wettability.
+
+--- PAGE 3 ---
+SCA 2001-18
+3
+The mercury-air drainage and imbibition curves are a strong signature of the geometry,
+connectivity and spatial arrangement of pore bodies and pore throats within a rock sample.
+Their prediction is, therefore, a rigorous test on a network model's ability to represent the
+porous microstructure of real rock. The task of developing pore network models which
+honor experimental mercury porosimetry data is, however, highly nontrivial ( Tsakiroglou
+and Payatakes, 2000). A main difficulty arises from the fact that real pores have an
+irregular, rough and often fractal geometry. When a non-wetting fluid first invades a pore
+in real rock, the amount of wetting phase that remains within this pore is considerably
+larger than would be predicted by assuming that the pore has a regular, albeit angular,
+cross-section (Ioannidis and Chatzis, 1993b). Neglect of this fact imparts considerable
+uncertainty on network model calculations, certainly regarding volumetric calculations and
+possibly regarding calculations of electrical resistivity and relative permeability.
+In this work we propose a simple "late pore filling" model to account for the rough or
+fractal pore geometry. Use of this model permits a description of proton magnetization
+evolution at conditions of partial saturation in a manner that is consistent with image
+analysis and mercury porosimetry data. This model is the new feature in a mixed-
+percolation algorithm that is employed to simulate primary drainage and imbibition in
+model pore networks. At each level of wetting phase saturation along the drainage and
+imbibition path, the associated NMR problem is solved using a matrix diagonalization
+method (Chang et al., 2000; McCall et al., 1991). Results are presented which illustrate the
+effects of pore structure and saturation history on magnetization evolution.
+METHODOLOGY
+Construction of model pore networks
+The pore structure model used is similar to the one used by Ioannidis and Chatzis (1993b)
+to simulate the permeability, formation factor and drainage capillary pressure curves of
+several sandstones. It is a simple cubic network of pores and throats of square cross-
+section (Fig. 1). Pore body sizes are randomly assigned to the sites of the network,
+whereas pore throat sizes are correlated to the size of the smaller of the two pores each
+throat connects. Pore body and pore throat sizes are assumed to follow respective Weibull
+distribution functions (Shapiro and Gross, 1981):
+
+
+
+
+
+
+
+
+
+
+
+
+ −−⋅
+
+
+
+ −⋅
+
+
+
+=
+− ß
+min
+1ß
+min
+i
+a
+RRexpa
+RR
+a
+ß(R)f
+throatst
+poresp
+bpi
+=
+=
+=,
+ (3)
+where α, β are parameters of the distributions and Rmin is a minimum pore body or pore
+throat size. The inter-pore lengths are also distributed in the network according to a
+Weibull distribution and are positively correlated to the size of adjoining pores. These
+lengths are only used to estimate the resistance to diffusion and fluid flow between
+adjacent pores; all pore volume is assigned to the pore bodies. The network model thus
+constructed is a realistic approximation of pore networks in 3D stochastically reconstructed
+porous media (Liang et al ., 2000; Ioannidis and Chatzis, 2000). Network models
+containing 153 pore bodies are used throughout this work. All results reported are averages
+over 10 realizations.
+
+--- PAGE 4 ---
+SCA 2001-18
+4
+Figure 1: Schematic representation of the geometry of the pore network model.
+Simulation of magnetization evolution in model pore networks
+A balance of magnetization Mi may be written for each pore i in the network. The net rate
+of magnetization decay in each pore is determined by magnetization relaxation in the
+vicinity of the fluid-matrix interface and by diffusion to and from neighboring pores:
+∑ 
+
+
+
+
+
+−⋅⋅+⋅⋅−=
+NN
+j i
+i
+j
+j
+ij
+ij
+i
+i
+i
+i
+V
+M
+V
+M
+L
+S
+DV
+MA?dt
+dM (4)
+where Ai, Vi a r e t h e s u r f a c e a r e a a n d v o l u m e o f p o r e i, respectively, D i s t h e d i f f u s i o n
+coefficient of water and Sij, Lij are the cross-sectional area and length of connecting pore
+throats. In dimensionless form, Eq. (4) may be written as follows:
+∑ 
+
+
+
+
+
+−⋅⋅+⋅⋅−=
+NN
+j i
+i
+j
+j
+ij
+ij
+cii?
+i
+v
+M
+v
+M
+l
+s?Mr?dt
+dM
+ (5)
+In writing Eq. (5) the following definitions are used:
+(6)
+In the equations above, overbars indicate average quantities. The parameters ωρ and ωc
+represent a characteristic rate of relaxation at the fluid-solid interface and a characteristic
+rate of molecular diffusion between pores, respectively. Application of Eq. (5) to each
+pore yields an initial-value, linear ordinary differential equation problem, which is most
+efficiently solved by matrix diagonalization. The solution provides the volume-weighted
+distribution n(λ) of decay rates λ, hereafter referred to as the spectrum of decay rates,
+where each λ is an eigenvalue of the problem. In the absence of coupling between pores,
+oτρω ρ
+1=⋅= V
+A
+LV
+SD=cω
+S
+Ss
+ij
+ij =
+V
+Vv
+ij
+ij =
+L
+Ll
+ij
+ij =
+A
+V
+V
+Ar
+i
+i
+i ⋅=
+
+--- PAGE 5 ---
+SCA 2001-18
+5
+λi = ρAi /Vi and the spectrum n(λ) exactly corresponds to the distribution of pore volume
+by inverse pore size.
+Simulation of primary drainage and primary imbibition
+Simulation of primary drainage is carried out using a bond-correlated site percolation
+algorithm described in detail by Ioannidis and Chatzis (1993b). The capillary pressure for
+piston-type non-wetting phase invasion into a pore throat is calculated from Eq. (2). For
+pore throats of rectangular cross-section the function f(θ) is (Legait, 1983):
+θθ+θ−π−θ
+θθ−π−θ+θ
+=θ
+cossincos
+cossincos
+4
+4
+2
+)f( (7)
+where θ is the receding contact angle. ( i.e., f(θ) = 1.5274 when θ = 40 o). The capillary
+pressure for piston-type retraction of non-wetting phase from a pore body is also calculated
+by equation (2), where the advancing contact angle is used to calculate f(θ). The critical
+pressure ratio (CPR) is defined as the ratio of capillary pressure for piston-type retraction
+from a pore throat to the critical capillary pressure for snap-off ( Li and Wardlaw, 1986)
+and is a function of pore throat geometry and contact angle. Knowledge of this parameter
+enables the calculation of the capillary pressure for snap-off as:
+(8)
+A mixed percolation algorithm is used to simulate quasistatic imbibition. This algorithm
+has been detailed elsewhere (Ioannidis and Chatzis, 1993a).
+Late pore filling model
+We propose that upon invasion of the non-wetting fluid into each individual pore at
+capillary pressure Pc
+*, a fraction Sw
+* of the volume of the pore is occupied by the wetting
+fluid. The fraction of the volume of the pore that contains wetting fluid at capillary
+pressure Pc > Pc
+*, is assumed to vary according to the following expression (Brooks and
+Corey, 1964):
+η
+
+
+
+
+
+
+
+
+=
+c
+*
+c
+*
+w
+w
+P
+P
+S
+S (9)
+The fraction Sw
+* and late pore filling exponent η are model parameters. For 0 < η < 1 late
+pore filling corresponds to filling of a surface fractal with dimension 2 < Ds < 3, whereas
+for η > 1 the pore behaves as a rough, but not fractal, object. The parameter Sw
+* may be
+identified with the fraction of total pore volume contributed by length scales not explicitly
+represented in network models. The value of Pc
+* is different for each pore and depends on
+the pore throat size and pore accessibility. During primary imbibition, and for as long as
+piston-type retraction or disconnection of the non-wetting fluid in a pore has not taken
+place, the wetting fluid content of a pore increases according to Eq. (9).
+CPR
+)(
+t
+a
+offsnap,c
+R
+fs
+P
+θ
+=−
+
+--- PAGE 6 ---
+SCA 2001-18
+6
+RESULTS AND DISCUSSION
+Simulation parameters
+Pore structure parameters used in the simulations are typical of sandstone. Simulation
+parameters are listed in Table 1, whereas the pore size, throat size, and inter-pore length
+size distributions are depicted in Figure 2. Surface relaxivity values ranging from 5 µm/s
+to greater than 100 µm/s have been reported for sandstones (Howard et al. , 1993;
+Slijkerman and Hofman, 1998; Roberts et al., 1995; Kleinberg, 1996). A surface relaxivity
+value of 100 µm/s is used in all computations reported here. A critical pressure ratio
+(CPR) equal to 6 was used in all simulations. Although the value of CPR can be estimated
+from knowledge of contact angle and pore throat geometry (Ioannidis and Chatzis, 1993),
+CPR is treated as an adjustable parameter in our simulations.
+Capillary pressure curves including late pore filling
+Figure 3 illustrates the effect of parameter Sw
+* on the simulated drainage and imbibition
+capillary pressure curves for a value of η = 1.5 (rough, but not fractal pores). Results from
+10 different realizations are plotted to illustrate the magnitude of variability. As the amount
+of wetting fluid remaining in pores upon penetration by the non-wetting fluid (Sw
+*)
+increases, the increase of Snw with increasing capillary pressure becomes much more
+Table 1 : Simulation parameters.
+Parameter value
+Mean of PSD (µm) 15.6
+Standard deviation of PSD (µm) 5.6
+Minimum pore size (µm) 1
+Mean of TSD (µm) 5.6
+Standard deviation of TSD (µm) 2.8
+Minimum throat size (µm) 0.1
+Mean of LSD (µm) 9.45
+Standard deviation of LSD (µm) 5.67
+Minimum diffusion length (µm) 1
+Water diffusivity (µm2/s) 2500
+Surface relaxivity, ρ (µm/s) 100
+Critical pressure ratio 6
+Receding contact angle 40o
+Advancing contact angle 60o
+Sw
+* 0.06 & 0.24
+η 1.5 & 0.5
+
+--- PAGE 7 ---
+SCA 2001-18
+7
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+0.16
+05 1 0 1 5 2 0 2 5 3 0 3 5 4 0
+Size (µµµµm)
+Probability
+PSD
+TSD
+LSD
+Figure 2: Pore size, throat size and inter-pore length distributions used in simulations.
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0.01 0.1 1 10
+Pc/σσσσ ====(µµµµm
+-1
+)
+Snw
+Sw* = 0.06
+Sw* = 0.24
+MIP Berea (Chatzis, 1980)
+Figure 3: Effect of parameter Sw
+* on simulated capillary pressure curves (ηηηη = 1.5).
+
+--- PAGE 8 ---
+SCA 2001-18
+8
+0
+0.2
+0.4
+0.6
+0.8
+1
+0.01 0.1 1 10 100
+Pc/σσσσ (µµµµm-1)
+Snw
+n = 1.5
+n = 0.5
+MIP Berea (Chatzis, 1980)
+Figure 4: Effect of parameter ηηηη on simulated capillary pressure curves (Sw
+* = 0.24).
+gradual. During imbibition, a greater amount of non-wetting fluid is displaced before a
+large number of piston-type retraction events take place. The main leg of the imbibition
+curve is not affected, but the residual non-wetting phase saturation is considerably reduced.
+The effect of parameter η is illustrated in Figure 4. As can be seen, changing η from 1.5
+(non-fractal pore geometry) to 0.5 (fractal pore geometry) results in even more gradual
+drainage and imbibition curves. Changing η h a s n o e f f e c t o n t h e r e s i d u a l n o n - w e t t i n g
+phase saturation. The results, which are clearly representative of experimental mercury
+porosimetry curves of sandstones, demonstrate the flexibility of the late pore filling model.
+This model provides a means of capturing pore structure effects from unresolved length
+scales (e.g., microporosity). Its application in the network modeling of electrical resistivity
+of partially saturated porous media will be addressed in a forthcoming communication.
+Effect of saturation history on the NMR response
+The spectra of magnetization decay rates for given water content during drainage and
+imbibition are compared in Figure 5. These results were obtained using Sw
+*= 0.24 and η==
+1.5 and may be explained as follows. During drainage, the larger pores are preferentially
+filled with nonwetting fluid. Note that we do not consider bulk relaxation effects and
+therefore no oil signal is reported in the simulations. The wetting fluid in the invaded
+pores continues to be in contact with the entire surface of the pore, but its volumetric
+content decreases. This results in the gradual disappearance of the slower decay rates
+(long T2 v a l u e s ) a s t h e e f f e c t i v e s u r f a c e t o v o l u m e r a t i o o f t h e i n v a d e d p o r e s i n c r e a s e s
+(Fig. 5(a)). The remaining slow decay rates present in the spectrum belong to larger pores
+that are inaccessible by the non-wetting fluid.
+
+--- PAGE 9 ---
+SCA 2001-18
+9
+Figure 5: Spectra of proton magnetization decay rates during (a) drainage and (b) imbibition.
+During imbibition, the smaller pores are preferentially invaded by the wetting fluid,
+resulting in gradual disappearance of the faster decay rates (short T2 values), as shown in
+Figure 5(b). The spectrum gradually shifts to slower rates as an increasingly greater
+amount of water exists in larger pores. As the nonwetting phase saturation decreases, the
+spectrum of decay rates shown in Figure 5(a) for Snw = 0% is only partly recovered due to
+the presence of residual nonwetting phase saturation. This is more clearly shown in Figure
+6 (b). Note the presence of a second peak in the spectrum at conditions of residual
+nonwetting phase saturation. Pores containing trapped non-wetting phase also contain a
+significant amount of water whose characteristic relaxation rate is faster (short T2 values)
+than any of the rates appearing in the spectrum from the water-saturated medium. This is
+because the water in pores containing trapped oil is in contact with the entire pore surface.
+Figure 6(a) compares NMR relaxation rate spectra at the same saturation (S nw = 0.7) for
+drainage and imbibition. These spectra reflect the markedly different distribution of water
+in each case. Clearly, interpretation of these spectra in terms of pore structure parameters
+cannot be made in the absence of knowledge regarding the saturation history. During
+drainage, pores not accessible to non-wetting phase contribute to the slow-rate end of the
+spectrum. During imbibition, many of these pores contain trapped oil resulting in the
+appearance of a second peak corresponding to fast relaxation rates in the spectrum.
+Figure 6: Effects of saturation history on the NMR spectra.
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.4
+0.001 0.01 0.1 1
+T 2 ====(s)
+Amplitude
+Snw = 0%
+Snw = 70%
+Snw = 80%
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.001 0.01 0.1 1
+T 2 ====(s)
+Amplitude
+Snw = 80%
+Snw = 70%
+Snw = 47.5%
+(resid al)
+a) b)
+a) b)
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.001 0.01 0.1 1
+T 2 ====(s)
+Amplitude
+Drainage
+Snw=0.7
+Imbibition
+Snw=0.7
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+0.3
+0.35
+0.4
+0.001 0.01 0.1 1 T 2 ====(s)
+Amplitude
+Drai nage
+Snw=0%
+Imbibition
+Snw=47.5%
+
+--- PAGE 10 ---
+SCA 2001-18
+10
+CONCLUSIONS
+A pore network model capable of simulating the NMR response of porous rock under
+conditions of drainage and imbibition was developed. This model takes into account, in a
+physically based manner, drainage and imbibition associated with pore space features not
+explicitly accounted for in the pore and throat size distributions. As a result the model is
+capable of simulating experimentally measured drainage and imbibition capillary pressure
+curves. Simulations of NMR relaxation reveal rich behavior that is explained in terms of
+the pore scale mechanisms of drainage and imbibition. The model has all the features
+necessary for establishing quantitative relationships between the NMR response of
+partially saturated rock and petrophysical properties of paramount importance such as
+resistivity index and relative permeability.
+NOMENCLATURE
+T2 – NMR relaxation time (s)
+Ai – Surface area of pore i (µm2)
+Vi – Volume of pore i (µm3)
+Sij – Cross sectional area of throat connecting pores i and j (µm2)
+Lij – Diffusion length between pores i and j (µm)
+Rp – Charateristic pore size (µm)
+Rt – Characteristic throat size (µm)
+Rmin – Minimum pore or throat size (µm)
+D – Diffusion coefficient (µm2/s)
+Mi – Normalized magnetization of pore i
+Sw – Wetting phase saturation
+Sw
+* – Wetting phase saturation in a single pore at non-wetting phase invasion
+Pc – Capillary pressure (Pa)
+Pc
+* – Capillary pressure for non-wetting phase invasion (Pa)
+CPR – Critical Pressure Ratio (scaling factor between piston type withdrawal and snap-off
+pressures for pore throats)
+Ds – Fractal dimensionality of pore space
+α – Weibull location/spread parameter
+β – Weibull kurtosis/skewness parameter
+ρ – Surface relaxivity (µm/s)
+σ – Surface tension (N/m)
+ωρ – Characteristic rate of relaxation at the fluid-solid interface (1/s)
+ωc – Characteristic rate of molecular diffusion between pores (1/s)
+λ – Relaxation rate (1/s)
+η – Late pore filling exponent
+
+--- PAGE 11 ---
+SCA 2001-18
+11
+REFERENCES
+Bakke, S. and Øren, P.E., “3D Pore-scale modeling of sandstones and flow simulations in the
+pore networks", SPE Journal, (1997) 2, 136-149.
+Bekri, S., Xu, K., Yousefian, F., Adler, P.M., Thovert, J.-F., Muller, J., Iden, K., Psyllos, A.,
+Stubos, A.K. and Ioannidis, M.A., “Pore geometry and transport properties in North Sea
+chalk”, Journal of Petroleum Science & Engineering, (2000) 25, 107-134.
+Brooks, R.H. and Corey, A.T., “Hydraulic properties of porous media”, Colorado State
+University Hydrology Paper 3, (1964), 27.
+Brownstein, K.R. and Tarr, C.E., “Importance of classical diffusion in NMR studies of water in
+biological cells”, Physical Review A, (1979) 19, 2446-2453.
+Chang, D., Ioannidis, M.A. and Chatzis, I., “Relationships between non-wetting phase invasion
+and magnetization evolution in connected pore systems as revealed by network simulation”,
+Oct 8-22, 2000, Abu Dhabi, United Arab Emirates, Annual Symposium of the Society of
+Core Analysts.
+Chatzis, I. A Network Approach to Analyze and Model Capillary and Transport Phenomena in
+Porous Media, Ph.D Thesis, University of Waterloo, 1980.
+Howard, J.J., Kenyon, W.E. and Straley, C., “Proton magnetic resonance and pore size variations
+in reservoir sandstones”, SPE Formation Evaluation, (1993) September, 194-200.
+Ioannidis, M.A. and Chatzis, I., “A mixed-percolation model of capillary hysteresis and
+entrapment in mercury porosimetry”, Journal of Colloid and Interface Science, (1993a) 161,
+278-291.
+Ioannidis, M.A. and Chatzis, I., “Network modeling of pore structure and transport properties of
+porous media”, Chemical Engineering Science, (1993b) 48, no. 5, 951-972.
+Ioannidis, M.A., Chatzis, I. and Kwiecien, M.J., “Computer enhanced core analysis for
+petrophysical properties”, Journal of Canadian Petroleum Technology, (1999) 38, 18-25.
+Ioannidis, M.A. and Chatzis, I., “On the geometry and topology of 3D stochastic porous media”,
+Journal of Colloid and Interface Science, (2000) 229, 323-334.
+Kenyon, W.E., “Petrophysical principles of applications of NMR logging”, The Log Analyst,
+(1997) 38, no. 2, 21-43.
+Kleinberg, R.L., “Utility of NMR T2 distributions, connection with capillary pressure, clay effect,
+and determination of the surface relaxivity parameter ρ2”, Magnetic Resonance Imaging,
+(1996) 14(7/8), 761-767.
+Legait, B., “Laminar flow of two phases through a capillary tube with variable square cross-
+section”, Journal of Colloid and Interface Science, (1983) 96, no. 1, 28.
+Li, Y. and Wardlaw, N.C., “The influence of wettability and critical pore-throat aspect ratio on
+snap-off", Journal of Colloid and Interface Science, (1986) 109, 461.
+Liang, Z., Ioannidis, M.A. and Chatzis, I., “Permeability and electrical conductivity from 3D
+stochastic replicas of the microstructure”, Chemical Engineering Science, (2000) 55, 5247-
+5262.
+McCall, K.R., Johnson, D.L. and Guyer, R.A., “Magnetization evolution in connected pore
+systems”, Physical Review B, (1991) 44, no. 14, 7344-7355.
+Roberts, S.P., McDonald, P.J., and Pritchard, T., “A bulk and spatially resolved NMR relaxation
+study of sandstone rock plugs”, Journal of Magnetic Resonance, (1995) Series A 116, 189-
+195.
+Shapiro, S.S. and Gross, A.J., “Statistical Modeling Techniques”, Marcel Dekker, New York,
+1981.
+Slijkerman, W.F.J., and Hofman, J.P., “Determination of surface relaxivity from NMR
+diffusion measurements”, Magnetic Resonance Imaging, (1998) 16, no. 5/6, 541-544.
+Tsakiroglou, C.D. and Payatakes, A.C., “Characterization of the pore structure of reservoir rocks
+with the aid of serial sectioning analysis, mercury porosimetry and network simulation”,
+Advances in Water Resources, (2000) 23, 773-789.

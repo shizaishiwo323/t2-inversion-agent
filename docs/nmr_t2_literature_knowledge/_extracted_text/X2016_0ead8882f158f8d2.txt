@@ -1,0 +1,700 @@
+--- PAGE 1 ---
+The robust identiﬁcation of exchange from T2–T2 time-domain features
+Ruobing Song 1, Yi-Qiao Song, Muthusamy Vembusubramanian, Jeffrey L. Paulsen ⇑
+Schlumberger Doll, 1 Hampshire St., Cambridge, MA 02139, United States
+article info
+Article history:
+Received 16 December 2015
+Revised 30 January 2016
+Available online 10 February 2016
+Keywords:
+T2–T2 exchange
+TD-NMR
+Multi-dimensional relaxometry
+CPMG
+Porous media
+Time-domain analysis
+Inverse laplace
+abstract
+Two-dimensional spin–spin relaxation ( T2–T2) techniques have been developed to probe coupling
+between different environments such as diffusive coupling between small and large pores or chemical
+exchange with clays. In these studies, Numerical Laplace Inversion (NLI) is used to obtain two-
+dimensional T
+2–T2 relaxation distribution spectrum from the T2–T2 signal decays, and the off-diagonal
+peaks characterize coupling. Often, these coupling peaks are both weak and close to the diagonal and
+combined with the inherently ill-conditioned nature of the inversion, their presence is difﬁcult to differ-
+entiate from inversion related artifacts and blurring. This manuscript presents a time domain based anal-
+ysis to identify the presence of coupling that avoids the ambiguities present in T
+2–T2 spectra. The
+approach utilizes the symmetric nature of the two-dimensional time domain data, where the presence
+of curvature along one of these symmetries gives an unambiguous indicator of coupling.
+Measurements on porous glass beads are used to verify the technique.
+/C2112016 Elsevier Inc. All rights reserved.
+1. Introduction
+NMR relaxometry yields information about diffusion and
+molecular dynamics [1–3], and requires minimal ﬁeld homogene-
+ity unlike conventional NMR spectroscopy and imaging techniques
+[4]. Relaxometry thus enables a wide range of applications for NMR
+in small and portable devices. Characterization of NMR T2 relax-
+ation is a common core component in many applications due to
+both its natural measurement in any refocusing pulse sequence
+and broad utility in porous media analysis [5–13]. T2 measure-
+ments are often used to analyze a wide variety of biological [14],
+geological [15] and synthetic materials [16–18] to estimate quan-
+tities such as the pore size distribution and ﬂuid composition
+(e.g. oil and water content) [3,8,9,19,20]. T2 relaxation measure-
+ments furthermore obtain these quantities in a safe and non-
+intrusive way [4] both in and outside of the laboratory. For
+example, a major commercial application of NMR relaxation
+measurements is to assess the pore size distributions and ﬂuid
+content of subsurface rock formation in oil well logging [21,22].
+Although one-dimensional T1 and T2 relaxation distributions
+can provide the physical properties of porous media, just as in
+one-dimensional NMR spectroscopy, they provide limited informa-
+tion to resolve multiple components and correlations between
+different NMR properties. Multidimensional relaxometry tech-
+niques have often proven to be able to address these limitations.
+Techniques like diffusion– T2 (D–T2) [23–25], diffusion–diffusion
+(D–D) [26,27] and T1–T2 [28,29] correlation techniques have been
+developed to better analyze pore geometry [27,30,31], identify
+exchange [1,12,32], and improve ﬂuid identiﬁcation [20,33,34].
+Similar to these multi-dimensional low-ﬁeld NMR techniques, T2
+can also be correlated to itself. The ( T2–T2) relaxation exchange
+measurement not only includes the information that 1D T2 mea-
+surement offers, but also gives addition information on molecular
+dynamics, connectivity, as well as T1 information [21,35]. It has
+been used to measure the convective ﬂow in partially saturated
+soil samples [4], violations of the fast diffusion limit [37] and to
+study diffusional coupling between different pores or in chemical
+exchange [12,15,35].
+For porous media, 2 the exchange peaks in the T2–T2 spectra can
+be roughly thought of as the spins that diffuse between different
+pores. Technically, these peaks correspond to exchange between T2
+relaxation eigenmodes (which are not necessarily exactly the same
+as pores) and their mutual overlap with the T1 relaxation eigen-
+modes [35,36]. This places further requirements on the relaxation
+properties to observe exchange, such as differing T1 and T2 surface
+relativities and the requirement that one of the pores is not in the
+fast diffusion limit [35]. Nonetheless, the exchange information
+T2–T2 contains is not easily available from other multidimensional
+NMR relaxometry techniques. For instance, while T1–T2 experiments
+http://dx.doi.org/10.1016/j.jmr.2016.02.001
+1090-7807//C2112016 Elsevier Inc. All rights reserved.
+⇑ Corresponding author.
+E-mail addresses: rsong722@gmail.com (R. Song), ysong@slb.com (Y.-Q. Song),
+subramanian1@slb.com(M. Vembusubramanian),jlpaulsen@gmail.com(J.L. Paulsen).
+1 Present address: 415W 118 St, Apt 21B, New York, NY 10027, United States. 2 And assuming the absence of coherent motion (e.g. ﬂow, convection, etc.).
+Journal of Magnetic Resonance 265 (2016) 164–171
+Contents lists available at ScienceDirect
+Journal of Magnetic Resonance
+journal homepage: www.else vier.com/locate/jmr
+
+--- PAGE 2 ---
+contain the same information as T2–T2 experiments [35], exchange
+information is far more simply shown by and analyzed from cross
+peaks in the T2–T2 spectra.
+T2–T2 measurements of porous media will often detect signals
+consisting of multiple T2 decays that correspond to different sam-
+ple components. Numeric Laplace Inversion (NLI) is necessary to
+convert this multi-exponential two-dimensional decay data into
+a T2–T2 spectrum. Then, a sample with a single T2 relaxation com-
+ponent such as pure water would yield the same exponential decay
+along each of the two measurement dimensions and would corre-
+spond to a single peak along the diagonal of the T2–T2 spectrum.
+Similarly, a sample with two distinct T2 relaxation components
+should result in a T2–T2 spectrum with two separate peaks on
+the main diagonal line and a pair of off-diagonal peaks arising from
+exchange between these two components as illustrated in Fig. 1 .
+Saturated porous media typically have even more complex spectra.
+In natural samples, for instance, soil [21] or rocks, the distributions
+of pore sizes is rarely mono-disperse and instead form an essen-
+tially continuous distribution of pore sizes. Then, the correspond-
+ing diagonal T2–T2 peaks will often overlap with each other and
+form a long continuous peak that reﬂects the pore size distribution.
+Furthermore, even in two component systems, the corresponding
+two diagonal peaks can easily blur together due to inherently lim-
+ited resolution of NLI. All NLI algorithms must solve an ill-
+conditioned inversion, which means that a wide range of solutions
+exist that will ﬁt the data within the noise. While there are a num-
+ber of regularization techniques [38–41] that can give stable and
+reasonable spectra, the ill-posed nature of the inversion intrinsi-
+cally limits the resolution of different T2 values and large differ-
+ences in signal strength, and makes the inversion’s performance
+signal to noise ratio (SNR) dependent.
+T2–T2 applications in particular frequently push the resolution
+limits of NLI, where exchange peaks are often weak and adjacent
+to intense diagonal peaks. Then the optimization of the reconstruc-
+tion faces the compromise where use of a conservative regulariza-
+tion parameter (allowing for a larger misﬁt of the spectra to the
+acquired data) broadens the diagonal-peak to the point of obscur-
+ing the presence of cross-peaks, while weakening regularization
+risks the introduction of artifact peaks that may be mistaken for
+legitimate cross peaks as the inversion is forced to ﬁt noise in
+the spectrum [42]. This compromise often makes it difﬁcult to
+resolve the presence of coupling in T2–T2 correlation maps without
+unambiguity and worsens with low SNR data [43]. This limitation
+is intrinsic to T2–T2 correlation maps, limiting the ability of the
+technique to characterize exchange in cases of strong coupling
+between distinct T2 components. In this paper, we introduce a
+T2–T2 analysis that can unambiguously identify the presence of
+exchange by directly analyzing the time domain data. In this
+way, the limitations of NLI that obscure the presence of cross-
+peaks are avoided to enable the robust identiﬁcation of exchange.
+2. Theory
+The Carr–Purcell–Meiboom–Gill (CPMG) is a common pulse
+sequence [44–46] to measure T
+2 relaxation (see Fig. 2a), and forms
+the building block for the T2–T2 experiment. The CPMG sequence
+includes a series of refocusing pulse to minimize the additional sig-
+nal decay due magnetic ﬁeld inhomogeneity. It starts with a nom-
+inal 90/C176pulse to excite the magnetization into the transverse plane
+and is followed by a train of 180 /C176pulses to repeatedly re-focus the
+signal. The spacing time between adjacent 180 /C176pulse is called echo
+time, te, and corresponds to the spacing between the refocused sig-
+nal. The timing between the initial 90 /C176and 180 /C176pulses is half the
+echo time and can be improved by shortening the delay to com-
+pensate for spin precession during the excitation pulse [47].
+The T2–T2 pulse sequence consists of three parts shown in
+Fig. 2 b and essentially consists of two CPMG sequences joined by
+a mixing period. During the ﬁrst encoding period s1, any given spin
+population in a particular chemical environment will have its sig-
+nal decay as in a 1D CPMG experiment, and its T2 labels the initial
+spin population. Typically, no signal is acquired during this period.
+The second section is the mixing period, and consists of two 90 /C176
+pulses to form a stimulated echo over the mixing time ( sm). During
+the mixing period, the spin populations undergo T1 relaxation in
+order to preserve the magnetization and to allow for mixing
+between different environments ( T2 components). For example,
+the spins that belong to a spin population A with a relaxation time
+T2a during s1 can diffuse into spin population B where its trans-
+verse relaxation time would be T2b. The ﬁnal spin populations are
+measured during the third section of the sequence, the detection
+period (
+s2), as in a standard CPMG acquisition. To form a two-
+dimensional experiment, for each measurement the mixing time
+and acquisition times s2 are ﬁxed, while only the value of s1 is
+increased by varying the number of echoes during the ﬁrst period.
+This time domain data is collected in a two-dimensional matrix
+and an example of simulated T2–T2 data is shown in Fig. 2 d.
+Assuming a static sample at equilibrium, the signal with respect
+to these T2 periods can be shown to be symmetric. Following, the
+derivation of the T2–T2 signal in [48] based on the Torrey–Bloch
+equation, the dynamics of the magnetization during each of the
+periods of the experiment when undergoing either T1 and T2 relax-
+ation can be broken up into the sum of orthogonal relaxation
+modes /n(r) of magnetization, each with some characteristic decay
+time Tn.
+mðr; tÞ¼
+X1
+n¼0
+an/nðrÞe/C0 t
+Tn ð1Þ
+These are the eigenfunctions and eigenvalues of the Helmholtz
+equation.
+/nðrÞ
+Tn
+þ Dr2/nðrÞ¼ 0 ð2Þ
+with relaxing boundary conditions Dn /C1r/n + q/n = 0, where the
+magnetization loss is proportional to the surface relaxivity q.3 In
+this framework, these relaxation modes are a function of pore geom-
+etry and surface relaxivity as these alter the boundary conditions.
+The relaxation modes for T1 and T2 differ when the pores exhibit dif-
+ferent q where higher relaxivities force faster magnetization loss
+near the walls and cause greater curvature in the eigenmodes along
+with shifting the corresponding relaxation values to shorter Tn.
+Because the modes describing spin relaxation /n are orthogonal,
+these transitions can be computed by projecting the different eigen-
+modes basis onto each other. Thus, the initial state of the system is
+the projection of the initial magnetization (e.g. uniform after the
+excitation pulse) projected onto the basis of T2 relaxation modes:
+e.g. an ¼
+R
+//C3
+nðrÞmi ðr; tiÞdv where the modes /n(r) have been normal-
+ized. Using bra-ket notation to denote these overlap integrals, the
+magnetization at the start of each section of the T2–T2 experiment is
+mðr; tÞ¼
+X1
+n¼0
+/nðrÞe/C0
+t/C0 ti
+Tn h/njmiið 3Þ
+where mi is the initial magnetization and ti is the initial time. For
+the T2–T2 experiment, the initial excitation creates uniform magne-
+tization in the pores (| ii) which ﬁrst undergoes T2 relaxation
+(T2,| /2,ai) during the preparation period labeled s1. It is then trans-
+ferred over to longitudinal magnetization during the mixing period
+where it undergoes T1 relaxation ( T1,| /1,ai), labeled sm. Finally,
+3 The term for bulk relaxation has been omitted, and can be reincorporated by
+multiplying by the corresponding exponential decay.
+R. Song et al. / Journal of Magnetic Resonance 265 (2016) 164–171 165
+
+--- PAGE 3 ---
+during the detection period it again undergoes T2 relaxation
+(T2,| /2,ai) where the bulk magnetization (| fi) is detected, labeled
+s2. By repeatedly applying Eq. (3) for each period [43], the detected
+signal is
+Mðsa
+1; D; sb
+2
+Þ¼
+X
+p;q;r
+e
+/C0
+sb
+2
+T2;p e
+/C0 D
+T1;r e
+/C0
+sa
+2
+T2;p hf j/2;pih/2;p j/1;r ih/1;r j/2;qih/2;qjiið 4Þ
+where the magnetization is the sum over all relaxation modes for
+each period. As the T2 modes are identical between the two T2 peri-
+ods, Mðsb
+1; D; sa
+2
+Þ¼ Mðsa
+1; D; sb
+2
+Þ, the signal thus must be symmetric
+in the time domain data and in the T2–T2 spectra.
+The T2–T2 time domain data is simulated/measured in a format
+of two-dimensional matrix with each dimension corresponding to
+the CPMG times in the ﬁrst and second T2 encoding periods. This
+data stored in a two-dimensional matrix M(s1, s2), and is then
+related to the T2–T2 spectra, according to the exponential kernel
+applied along the s1 and s2 directions as shown in Fig. 2 d.
+S1 ¼ exp /C0 s1
+T2a
+/C18/C19
+ð5Þ
+S2 ¼ exp /C0 s2
+T2b
+/C18/C19
+ð6Þ
+The typical T2–T2 inversion (NLI) of the signal using this kernel
+does not place the diagonal symmetry constraint on the data, and
+allows for an asymmetrical T2–T2 spectrum. One way in which this
+symmetry can be incorporated is by modifying the signal equation
+to implicitly contain it. The advantage of this approach, over using
+Fig. 1. Simulated T2–T2 time domain data and its relaxation spectrum for two coupled T2 populations with T2a = 0.1 s and T2h =1s . te = 0.167 ms.
+Fig. 2. (a) The CPMG pulse sequence and (b) the T2–T2 pulse sequence. (c) The simulated signal attenuation acquired when collecting the signal for one s1 value. The blue line
+represents the signal undergoes T2 relaxation in s1 period; the green line represents the signal undergoes T1 relaxation during mixing time period, sm; the red line represents
+the signal undergoes T2 relaxation again during s2 period where it is detected and aggregated to form a two-dimensional measurement (d) where each line along the s2
+direction is a single CPMG decay. (For interpretation of the references to color in this ﬁgure legend, the reader is referred to the web version of this a rticle.)
+166 R. Song et al. / Journal of Magnetic Resonance 265 (2016) 164–171
+
+--- PAGE 4 ---
+a constraint in the inversion, is that this modiﬁed signal equation
+will also reﬂect these symmetries. The diagonal mirror symmetry
+of the T2–T2 spectra implies that any peak in spectra ( T2a, T2b) must
+be paired with the same intensity peak mirrored about the diago-
+nal ( T2b, T2a). Thus, the signal equation for the T2–T2 spectrum can
+be written as the contribution from each pair of cross peaks,
+instead of as coming from individual values of ( T2a, T2b) as shown
+in Fig. 1 . The function for the pair of peaks is:
+sðs1; s2Þ¼ 0:5e/C0 s1 R2a /C0 s2 R2b þ 0:5e/C0 s1 R2b /C0 s2 R2a ð7Þ
+where the relaxation times are represented as rates, R2a =1 /T2a,
+R2b =1 /T2b. Note that the on-diagonal peaks are still represented
+by this model when R2a and R2b are equal. As the principle axes cor-
+responding to the symmetry of the T2–T2 spectrum are along the
+diagonal Rs ¼ 1
+2 ðR2a þ R2bÞ and Rd ¼ 1
+2 ðR2b /C0 R2aÞ, it would also sug-
+gest that the symmetry axes of the time domain signal would also
+correspond to the diagonals ss = s1 + s2 and sd = s2 /C0 s1, as shown
+in Fig. 3(a) and (b). Eq. (7) can then be rewritten in these alternative
+coordinates, for a simpliﬁed expression
+sðss; sdÞ¼ e/C0 Rs ss /C2 cos hðsdRdÞð 8Þ
+This new kernel function is separable into two terms, one is an
+exponential decay in terms of ss and Rs, and the other one is a
+hyperbolic cosine function in terms of sd and Rd. Note that this sim-
+ple decomposition is in terms of rates and that the corresponding
+decay time 1
+Ts;d
+/C17Rs;d
+/C16/C17
+are not the simple sums and differences
+of the original T2 times, but of their reciprocals 1
+Ts;d
+¼ 1
+T2b
+/C6 1
+T2a
+/C16/C17
+.
+Because of this separability, the decay along ss gives indepen-
+dent information on the mean relaxation rate Rs ¼ 1
+2 ðR2a þ R2bÞ of
+the exchange peaks, while variations along sd gives information
+about their off-diagonal separation Rd ¼ 1
+2 ðR2b /C0 R2aÞ. The func-
+tional form of the cosh function along sd gives an unambiguous
+indicator of exchange (cross-peaks) in the time domain data. Inde-
+pendent of Rd and sd, the cosh function (and any sum of them given
+only positive peaks), must increase with positive curvature as sd
+increases. The only exception is in the case that there is no
+exchange ( R
+d = 0) when the signal contribution is constant with
+respect to sd. Thus, if the acquired signal has curvature along sd,
+there must be legitimate off-diagonal components in the T2–T2
+spectrum. To illustrate, simulated data is plotted onto ss and sd
+direction (shown in Fig. 3 (c) and (d)). In the ss slice at sd =0 , Rs
+reﬂects the total magnetization decay, whereas the curvature along
+the sd cross-section reﬂects how far the cross peaks are away from
+each other. In the cross-sections in Fig. 3 (c), the deeper curvature
+of the cosh function represents for larger Rd value and ﬂatter curva-
+ture corresponding to a small Rd values. If Rd equals to zero, these
+two cross peaks in spectrum will be on top of each other and con-
+sists of a ﬂat line in sd cross-sections.
+3. Methods
+Both simulation data and experimental data are used to verify
+the signal symmetry and time domain analysis. All the simulation
+data are calculated using Matlab /C211with two-site exchange kinetic
+model [43]. The two site kinetic model, instead of the full model
+[48], is selected for the simpliﬁed calculation of idealized T2–T2
+data. Our use of the kinetic model is limited to two sites because
+its implementation in [43] allows for asymmetry given greater
+than two sites. This asymmetry is possible in their model for three
+or more sites because it only assumes detailed mass balance. This
+looser prior allows for non-equilibria phenomena such as convec-
+tion and ﬂow that is not typical when analyzing most static porous
+media samples.
+Fig. 3. (a) Schematic T2–T2 spectrum of two coupled spin populations plotted according to the relaxation rates where R2,1 =1 /T2a and R2,2 =1 /T2b. (b) Traditional T2–T2 spectra.
+(c) Two site exchange simulation data, for the ss cross section at sd = 0 ms. (d) sd cross section at ss = 1.2698 ms. Note, the signal axis in (d) has been zoomed in for
+visualization of the curvature.
+R. Song et al. / Journal of Magnetic Resonance 265 (2016) 164–171 167
+
+--- PAGE 5 ---
+For the two site kinetic model, the initial magnetization can be
+represented as:
+M ¼ Ma
+Mb
+/C20/C21
+ð9Þ
+where Ma and Mb represent magnetization of the two T2 popula-
+tions. The relaxation matrix is:
+R1 ¼ 1=T1a 0
+01 =T1b
+/C20/C21
+ð10Þ
+R2 ¼ 1=T2a 0
+01 =T2b
+/C20/C21
+ð11Þ
+And the kinetic matrix represents the exchange rate between
+spin pool A and spin pool B.
+K ¼ ka /C0 kba
+/C0 kab kb
+/C20/C21
+ð12Þ
+where ka is the rate of spins leave and re-enter spin pool T2a and kab
+is the exchange rate of spins go from pool A to pool B. The NMR sig-
+nal is the superposition of all the magnetization components:
+sðtÞ¼
+X
+i
+MiðtÞ/C0 Meq
+i
+/C2/C3
+ð13Þ
+where Meq is the initial equilibrium magnetization and Mi(t) is the
+magnetization at time t. The magnetization follows the differential
+equation:
+d
+dt MðtÞ/C0 Meq/C2/C3
+¼/C0 ð R þ KÞ½MðtÞ/C0 Meq/C138ð 14Þ
+where R is the relaxation matrix and K is the kinetic matrix describe
+the exchange frequencies between different spin pools. The signal
+adopts T2 relaxation process, therefore Ri =1 /T2i. The simulated time
+domain data, shown in Figs. 1 and 5 , is calculated using Eq. (14)
+[43].
+NMR measurements are performed on a 2 MHz NMR Rock Core
+Analyzer from Magritek /C210. For the T2–T2 measurements, s2 and s1
+have the same maximum value, 684.032 ms, with signal being
+recorded with linear spacing along the s2 direction with 4096
+echoes and echo time equals to 0.167 ms and signal being recorded
+with logarithmic spacing along the s1 direction for 29 measure-
+ments. For each sample, three T2–T2 experiments are done with
+the mixing times sm = 0, 5, 50, 100 ms. For the exchange sample,
+150 lm diameter porous glass beads were obtained from Mili-
+pore/C210with 3 lm diameter pores. The pore size and grain size were
+selected so to produce cross peaks in the T2–T2 map. Two control
+samples were also used: (1) 150 lm diameter non-porous glass
+beads and (2) two simultaneously measured glass vials of deion-
+ized water with different concentrations of NiCl doping for T2
+relaxation times of 118 ms and 450 ms respectively. All glass beads
+samples are loose packed, settled by tapping the vial, and vacuum
+saturated with deionized water.
+4. Results and discussion
+A set of T2–T2 measurements are performed on porous glass
+beads, where we expect to observe exchange between the inter-
+and intra-bead pores. In Fig. 4, the time domain data, T2–T2 spectra
+and their sd slices are compared as the mixing time is changed over
+0, 5, 50, and 100 ms. In the T2–T2 spectrum (Fig. 4a), a narrow diag-
+onal line indicates that there is no exchange and is consistent with
+the fact that a zero mixing time will not have time for exchange to
+occur. As the mixing time is increased the diagonal peak broadens,
+this is consistent with increasing exchange but it is also consistent
+with resolution loss due to the lower SNR at longer mixing times
+due to T1 relaxation and the SNR resolution dependence of NLI.
+In the two-dimensional time domain data ( Fig. 4b), the red contour
+lines also evolve with mixing time, starting with no variation along
+sd, then increasing in curvature with longer mixing times. The evo-
+lution of the curvature in time domain data is clearly observed for
+the sd slice at ss = 85.04 ms as shown in Fig. 4 c. At zero mixing
+time, where exchange is impossible, the sd line is essentially ﬂat,
+and at the 100 ms mixing time, the sd line curves indicating the
+presence of exchange.
+The advantage of the time domain analysis ( Fig. 4b and c) is that
+the indicator for exchange, curvature, cannot arise from noise. In
+contrast, the indication of exchange from broadening in the T2–T2
+spectra ( Fig. 4 a) can also occur due to greater regularization in
+the inversion to compensate for worsening SNR at longer mixing
+times.
+A second feature of the T2–T2 signal decay (Eq. (8)) is that, in the
+absence of exchange, the decay signal should purely be a function
+of ss, independent of sd, and should match the ordinary CPMG
+decay. A comparison between the ﬁrst CPMG curve in T2–T2 time
+domain data ( s2 curve with s1 = 0.167 ms) and the decay along ss
+diagonal ( sd = 0) are plotted in Fig. 5 b. In Fig. 5 a, the blue and the
+red lines, respectively illustrate the locations of these decay curves
+along s2 and ss. Along the s2 curve ss /C25 s2 since s1 is small
+(0.167 ms or one echo). As predicted from the model (Eq. (8)),
+the decay curves show a very good agreement between CPMG
+decay and s2 slice plots (differing by less than the single echo noise
+amplitude) in the absence of exchange at zero mixing time.
+Finally, to conﬁrm that the curvature is indeed due to mixing
+between T2 modes and not due to sequence artifacts at non-zero
+mixing times, the measurements are repeated for two control sam-
+ples where mixing is impossible. In one control experiment, the
+sample consists of two separate bottles of NiCl doped water and
+so exchange between them is impossible. In the second, the sample
+consists of a non-porous mono-disperse glass-bead pack. Because
+it has only a single pore size, due to random packing of mono-
+disperse glass-beads, there are no other T2 components to
+exchange with. In Fig. 6 , the sd cross-sections of the time domain
+data are plotted and compared to the porous glass beads sample.
+Consistent with the absence of exchange, there is no signiﬁcant
+curvature observed for either sample.
+In all of these experiments, the ss–sd time domain analysis pro-
+vides a clear, distinct indicator to the presence of exchange peaks
+in T2–T2 data, and so provides a valuable complement to the anal-
+ysis of the T2–T2 relaxation spectra. This indicator appears regard-
+less of the number of exchange peaks, but is only sensitive to their
+presence. By directly analyzing the time domain data, one avoids
+issues such as peak broadening and artifact peaks from NLI that
+can easily interfere with the identiﬁcation of exchange peaks.
+Thus, the time domain analysis can act as a valuable tool to iden-
+tify the presence of exchange and guide the subsequent interpre-
+tation of the T
+2–T2 spectra. Application of the time-domain
+analysis however must also consider that, although the experi-
+mental data here agree with the modiﬁed kernel function (Eq.
+(8)), the method relies on the T2–T2 signal having diagonal mirror
+symmetry and this property presumes a system in equilibrium.
+Otherwise, signal asymmetry may be possible as shown in recent
+work that assumes a weaker prior, mass-balance [43]. For charac-
+terizing most static samples, equilibrium is nonetheless a fair
+assumption and can be ensured by appropriate experimental
+design. The time-domain analysis may only not be potentially
+applicable in measurements dynamic phenomena such as ﬂow
+and monitoring chemical reactions, and deviations in T2–T2 signal
+symmetry can then be used as an indicator for non-equilibrium
+conditions.
+Finally, as presented we only use a simple visual analysis to
+determine the presence of curvature and identity exchange. Quan-
+168 R. Song et al. / Journal of Magnetic Resonance 265 (2016) 164–171
+
+--- PAGE 6 ---
+tiﬁcation of the curvature should lead to further improvements.
+Applying a statistical test for curvature should greatly increase
+the analysis’ sensitivity to identifying the presence exchange over
+a visual analysis, while ﬁtting for the curvature may enable the
+estimation of cross peak position and area. Signiﬁcant deviations
+from a cosh functional form could also potentially ﬂag the presence
+of multiple cross-peaks. Furthermore, our symmetric decomposi-
+tion and alternative description of the T2 decays as Ts–Td or Rs–Rd
+may have additional applications when generating T2–T2 spectra.
+The spectra from the Ts–Td or Rs–Rd perspective may have
+Mixing time = 5 ms Mixing time = 0 ms Mixing time = 50 ms Mixing time = 100 ms 
+Fig. 4. (a) Numerical Laplace Inversion of T2–T2 time domain data of a porous glass bead pack. All the experimental data presented in the ﬁgures above is logarithmic sampled
+in s1. (b) T2–T2 time domain data of porous glass beads, contour lines are marked red. Note the time domain data is zoomed for early experimental time for better signal
+intensity. (c) sd projection of T2–T2 time domain data with ss = 85.04 ms. The signal axes in (c) are zoomed to the signal in order to illustrate the curvature. (For interpretation
+of the references to color in this ﬁgure legend, the reader is referred to the web version of this article.)
+Fig. 5. (a) T2–T2 time domain data of porous glass beads at zero mixing time. The blue arrow indicates the ﬁrst CPMG curve in the data matrix ( s1 = 0.167 ms) and red arrow
+indicates the location of the ss signal decay at sd =0 . Note: The ﬁgure is zoomed in for better signal intensity at early s1/s2 time. The corresponding signals are plotted in (b).
+The blue and red curves correspond to the blue and red arrows and the overlap is consistent with the absence of exchange at zero mixing time. (For interpr etation of the
+references to color in this ﬁgure legend, the reader is referred to the web version of this article.)
+R. Song et al. / Journal of Magnetic Resonance 265 (2016) 164–171 169
+
+--- PAGE 7 ---
+advantages for interpretation, and its implementation would
+improve the resolution of the NLI by inherently constraining solu-
+tions to incorporate the T2–T2 symmetry.
+5. Conclusion
+T2–T2 experiments have the valuable capacity to infer exchange,
+providing information on molecular dynamics, connectivity and
+diffusional coupling between different pores. However, its tradi-
+tional analysis requires that the T2–T2 signal decay to ﬁrst be con-
+verted into a two-dimensional T2–T2 relaxation spectrum, an
+inherently ill-conditioned operation that can frequently hinder
+the unambiguous identiﬁcation of exchange peaks. Instead, a direct
+analysis of the time domain signal can avoid inversion so to
+directly identify the presence of exchange. Curvature in the signal,
+when plotted as a function of the difference of the observation and
+encoding CPMG times ( sd = s2 /C0 s1), provides an unambiguous
+indicator of exchange independent of the number of exchanging
+T2 populations. This analysis also has the potential to the improve
+quantiﬁcation of exchange by directly ﬁtting for off-diagonal peak
+area and position. The method, when applied to porous glass-bead
+samples, yields a clear indicator of the presence exchange even
+when the corresponding T2–T2 spectral interpretations are ambigu-
+ous and yield only a moderate widening of the on-diagonal non-
+exchange peak that could also be due variations in the reconstruc-
+tion parameters. Thus, we expect this time domain analysis to a
+valuable tool to inform the T2–T2 spectral analysis, and improve
+the T2–T2 measurement’s sensitivity to exchange.
+References
+[1] M. Fleury, J. Soualem, Quantitative analysis of diffusional pore coupling from
+T2-store-T2 NMR experiments, J. Colloid Interface Sci. 336 (2009) 250 .
+[2] K.R. Brownstein, C. Tarr, Importance of classical diffusion in NMR studies of
+water in biological cells, Phys. Rev. A 19 (1979) 2446 .
+[3] R. Kleinberg, W. Kenyon, P. Mitra, Mechanism of NMR relaxation of ﬂuids in
+rock, J. Magn. Reson. Ser. A 108 (1994) 206–214 .
+[4] B. Blümich, F. Casanova, M. Dabrowski, E. Danieli, L. Evertz, A. Haber, M. Van
+Landeghem, S. Haber-Pohlmeier, A. Olaru, H. Perlo, O. Sucre, Small-scale
+instrumentation for nuclear magnetic resonance of porous media, New J. Phys.
+13 (2010) 15
+.
+[5] R.L. Kleinberg, NMR well logging at Schlumberger, Concepts Magn. Reson. 13
+(2001) 396–403 .
+[6] B. Hills, Applications of low-ﬁeld NMR to food science, Annu. Rep. NMR
+Spectrosc. 58 (2006) 177–230
+.
+[7] B. Blümich, F. Casanova, J. Perlo, F. Presciutti, C. Anselmi, B. Doherty,
+Noninvasive testing of art and cultural heritage by mobile NMR, Acc. Chem.
+Res. 43 (2010) 761–770 .
+[8] J. Mitchell, E.J. Fordham, Nuclear magnetic resonance core analysis at 0.3 T,
+Rev. Sci. Instrum. 85 (2014) 111502 .
+[9] H.K. Liaw, R. Kulkarni, S. Chen, A.T. Watson, Characterization of ﬂuid
+distributions in porous media by NMR techniques, AIChE J. 42 (1996) 538–546
+.
+[10] J.H. Strange, M. Rahman, E. Smith, Characterization of porous solids by NMR,
+Phys. Rev. Lett. 71 (1993) 3589 .
+[11] M. Hertrich, Imaging of groundwater with nuclear magnetic resonance, Prog.
+Nucl. Magn. Reson. Spectrosc. 53 (2008) 227–248 .
+[12] P. McDonald, J.-P. Korb, J. Mitchell, L. Monteilhet, Surface relaxation and
+chemical exchange in hydrating cement pastes: a two-dimensional NMR
+relaxation study, Phys. Rev. E 72 (2005) 011409 .
+[13] B. Blümich, J. Perlo, F. Casanova, Mobile single-sided NMR, Prog. Nucl. Magn.
+Reson. Spectrosc. 52 (2008) 197–269 .
+[14] Y.-Q. Song, Magnetic resonance of porous media (MRPM): a perspective, J.
+Magn. Reson. 229 (2013) 12 .
+[15] K.E. Washburn, P.T. Callaghan, Tracking pore to pore exchange using relaxation
+exchange spectroscopy, Phys. Rev. Lett. 97 (2006) 175502 .
+[16] W.P. Halperin, F. D’Orazio, S. Bhattacharja, J.C. Tarczon, in: J. Klafter, J. Drake
+(Eds.), Molecular Dynamics in Restricted Geometries, John Wiley & Sons, New
+York, 1989 .
+[17] S.C. Chinna, A. Cook-Tendulkara, Robert Maxwella, Hilary Wheelerb, Mark
+Wilsonb, Z. Harry Xie, Qualiﬁcation of automated low-ﬁeld NMR relaxometry
+for quality control of polymers in a production setting, Polym. Test. 26 (2007)
+1015–1024.
+[18] G. Zimmer, A. Guthausen, B. Blümich, Characterization of cross-link density in
+technical elastomers by the NMR-MOUSE, Solid State Nucl. Magn. Reson. 12
+(1998) 183–190
+.
+[19] D.E. Woessner, NMR spin-echo self-diffusion measurements on ﬂuids
+undergoing restricted diffusion, J. Phys. Chem. 67 (1963) 1365–1367 .
+[20] R. Freedman, N. Heaton, Fluid characterization using nuclear magnetic
+resonance logging, Petrophys. – Houston 45 (2004) 241–250 .
+[21] A. Haber, S. Haber-Pohlmeier, F. Casanova, B. Blümich, Relaxation-relaxation
+experiments in natural porous media with portable Halbach magnets, Vadose
+Zone J. 9 (2009) 893
+.
+[22] B. Blünuch, A. Harber, F. Casanova, E. Del Federuco, V. Boardman, G. Wahl, A.
+Stilliano, L. Isolani, Noninvasive depth proﬁling of walls by portable nuclear
+magnetic resonance, Anal. Bioanal. Chem. 397 (2010) 3317–3325 .
+[23] L. Zielinski, R. Ramamoorthy, C.C. Minh, K.A. Al Daghar, R.H. Sayed, A.F.
+Abdelaal, A. Dhabi, Restricted diffusion effects in saturation estimates from 2D
+diffusion-relaxation NMR maps. In: SPE International Conference, 2010.
+Fig. 6. sd projection of time domain data at ss = 42.75. Note, all of the signal presented are normalized to the average of ﬁrst 5 echoes at s1 = 0. The signal axes have been
+zoomed into visualize the curvature.
+170 R. Song et al. / Journal of Magnetic Resonance 265 (2016) 164–171
+
+--- PAGE 8 ---
+[24] Y. Zhang, B. Blümich, Spatially resolved D-T2 correlation NMR of porous
+media, J. Magn. Reson. 242 (2014) 41–48 .
+[25] M.D. Hurlimann, K.G. Helmer, L. Latour, C.H. Sotak, Restricted diffusion in
+sedimentary rocks. Determination of surface-area-to-volume ratio and surface
+relaxivity, J. Magn. Reson. Ser. A 111 (1994) 169–178 .
+[26] P.T. Callaghan, I. Furó, Diffusion–diffusion correlation and exchange as a
+signature for local order and dynamics, J. Chem. Phys. 120 (2003) 4032
+.
+[27] J.L. Paulsen, Y.-Q. Song, Two-dimensional diffusion time correlation
+experiment using a single direction gradient, J. Magn. Reson. 244 (2014) 6–11 .
+[28] M.D. Hürlimann, L. Venkataramanan, Quantitative measurement of two-
+dimensional distribution functions of diffusion and relaxation in grossly
+inhomogeneous ﬁelds, J. Magn. Reson. 157 (2002) 31–42
+.
+[29] M.D. Hürlimann, B. Lauren, Y.-Q. Song, Quantitative characterization of food
+products by two-dimensional D-T 2 and T1–T2 distribution functions in a static
+gradient, J. Colloid Interface Sci. 297 (1) (2006) 303–311 .
+[30] M.I. Menzel, S.-I. Han, S. Stapf, B. Blümich, NMR characterization of the pore
+structure and anisotropic self-diffusion in salt water ice, J. Magn. Res. 143
+(2000) 376 .
+[31] P.P. Mitra, P.N. Sen, L.M. Schwartz, Short-time behavior of the diffusion
+coefﬁcient as a geometrical probe of porous media, Phys. Rev. B: Condens.
+Matter Mater. Phys. 47 (1993) 8565–8574 .
+[32] P. Galvosas, Y. Qiao, M. Schönhoff, P.T. Callaghan, On the use of 2D correlation
+and exchange NMR spectroscopy in organic porous materials, Magn. Reson.
+Imag. 25 (2007) 497
+.
+[33] M.D. Hürlimann, L. Venkataramanan, C. Flaum, The diffusion-spin relaxation
+time distribution function as an experimental probe to characterize ﬂuid
+mixtures in porous media, J. Chem. Phys. 117 (2002) 10223 .
+[34] P.S. Denkova, S. Tcholakova, N.D. Denkov, K.D. Danov, B. Campbell, C. Shawl, D.
+Kim, Evaluation of the precision of drop-size determination in oil/water
+emulsions by low-resolution NMR spectroscopy, Langmuir 26 (2004) 11402–
+11413
+.
+[35] D.L. Johnson, L.M. Schwartz, Analytic theory of two-dimensional NMR in
+systems with coupled macro- and micropores, Phys. Rev. E 90 (2014) .
+[36] Y-.Q. Song, G. Carneiro, L.M. Schwartz, D.L. Johnson, Experimental
+identiﬁcation of diffusive coupling using 2D NMR, Phys. Rev. Lett. 113
+(2014) 233503 .
+[37] M. Flaum, G.J. Hirasaki, C. Flaum, C. Straley, Measuring pore connectivity by
+pulse ﬁeld gradient diffusion editing with hydrocarbon gases, Magn. Reson.
+Imag. 23 (2005) 337 .
+[38] L. Venkataramanan, Y.-Q. Song, M.D. Hürlimann, Solving Fredholm integrals of
+the ﬁrst kind with tensor product structure in 2 and 2.5 dimensions, IEEE
+Trans. Signal Process. 50 (5) (2002) 1017–1026 .
+[39] P.C. Hansen, Analysis of discrete ill-posed problems by means of the L-curve,
+SIAM Rev. 34 (1992) 561–580 .
+[40] J.P. Butler, J.A. Reeds, S.V. Dawson, SIAM J. Numer. Anal. 18 (1981) 381 .
+[41] R. Bai, A. Cloninger, W. Czaja, P.J. Basser, Efﬁcient 2D MRI relaxometry using
+compressed sensing, J. Magn. Reson. 255 (2015) 88–99 .
+[42] J. Mitchell, T.C. Chandrasekera, M.L. Johns, L.F. Gladden, Nuclear magnetic
+resonance relaxation and diffusion in the presence of internal gradients: the
+effect of magnetic ﬁeld strength, Phys. Rev. E 81 (2010) 026101 .
+[43] M. Van Landeghem, A. Haber, J.D. De Lacaillerie, B. Blümich, Analysis of
+multisite 2D relaxation exchange NMR, Concepts Magn. Reson. A 36 (2010)
+153
+.
+[44] H.Y. Carr, E.M. Purcell, Effects of diffusion on free precession in nuclear
+magnetic resonance experiments, Phys. Rev. 94 (1954) 630–638 .
+[45] S. Meiboom, D. Gill, Modiﬁed spin-echo method for measuring nuclear
+relaxation times, Rev. Sci. Instrum. 29 (1958) 688–691
+.
+[46] M.D. Hürlimann, D.D. Grifﬁn, Spin dynamics of Carr–Purcell–Meiboom–Gill-
+like sequences in grossly inhomogeneous B 0 and B 1 ﬁelds and application to
+NMR well logging, J. Magn. Reson. 143 (2000) 120–135 .
+[47] M.D. Hürlimann, Optimization of timing in the Carr–Purcell–Meiboom–Gill
+sequence, Magn. Reson. Imag. 19 (2001) 375–378
+.
+[48] Y-Q. Song, L. Zielinski, S. Ryu, Two-dimensional NMR of diffusion system, Phys.
+Rev. Lett. 100 (2008) 248002 .
+R. Song et al. / Journal of Magnetic Resonance 265 (2016) 164–171 171

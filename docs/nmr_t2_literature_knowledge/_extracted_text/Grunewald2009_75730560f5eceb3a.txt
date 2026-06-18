@@ -1,0 +1,866 @@
+--- PAGE 1 ---
+A laboratory study of NMR relaxation times and
+pore coupling in heterogeneous media
+Elliot Grunewald 1 and Rosemary Knight 1
+ABSTRACT
+Nuclear magnetic resonance /H20849NMR/H20850relaxation times of
+geologic materials are closely related to pore geometry. In
+heterogeneous media, however, the details of this relation-
+ship are poorly understood because of a phenomenon known
+as pore coupling, which arises when diffusing protons sample
+multiple pores before relaxing. Laboratory experiments al-
+low us to explore whether surface geochemistry can inﬂu-
+ence pore coupling and how this process affects the observed
+relaxation-time distribution. Measurements of the NMR re-
+sponse for microporous silica gel packs, treated with varying
+amounts of surface-coating iron, demonstrate that samples
+with less iron exhibit stronger pore coupling than those with
+abundant iron. When pore coupling is strong, the relaxation-
+time distribution grossly misrepresents the underlying bimo-
+dal pore-size distribution of micropores and macropores.
+Speciﬁcally, the bimodal relaxation-time distribution be-
+comes merged and the relative amplitude of the peaks fails to
+reﬂect the true macropore and micropore volume. A reduc-
+tion in pore coupling, observed with increasing iron content,
+is attributed to a decrease in the distance protons are able to
+diffuse before relaxing. Basic parameters describing the
+shape of the relaxation-time distributions for this range of
+samples are well-predicted by a 1D analytical model. Experi-
+mental results conclusively demonstrate that surface geo-
+chemistry is an important factor determining the degree to
+which pore coupling occurs and illustrate how this phenome-
+non can affect the interpretation of NMR relaxation measure-
+ments in heterogeneous porous media.
+INTRODUCTION
+Nuclear magnetic resonance /H20849NMR/H20850relaxation measurements
+provide an unparalleled view into the pore space of geologic materi-
+als. The proton NMR method probes the time required for hydrogen
+nuclei in the pore water to relax to equilibrium through diffusion and
+interaction with the pore-scale physicochemical environment. NMR
+relaxation-time measurements have been used for decades in geo-
+physical well logging to estimate hydrocarbon-reservoir properties
+such as porosity, pore-size distribution, and permeability /H20849Seevers,
+1966; Kenyon et al., 1988/H20850. Recent research has extended NMR geo-
+physical techniques to near-surface environmental applications and
+has led to the development of a surface-based NMR method — mag-
+netic resonance sounding /H20849MRS/H20850— to measure the NMR response
+of groundwater aquifers /H20849Legchenko and V alla, 2002 ; Hertrich,
+2008; Walsh, 2008/H20850. Our current study seeks to improve the interpre-
+tation of near-surface NMR measurements by exploring the link be-
+tween NMR relaxation times and pore-scale properties in heteroge-
+neous porous media.
+The analysis of NMR relaxation measurements in geologic mate-
+rials requires an accurate model of the physical processes governing
+relaxation. Conventional interpretation of these data assumes a mod-
+el of isolated pores in which each diffusing proton samples only one
+pore. Thus, it is assumed that each pore contributes independently to
+the NMR signal, with a characteristic relaxation time. In many near-
+surface materials, however, pores are sufﬁciently connected that dif-
+fusing protons can readily sample multiple pores during NMR mea-
+surement. For materials in which pores are strongly coupled by dif-
+fusion, the resulting relaxation-time distribution reﬂects a complex
+averaging of the pore network that can be difﬁcult to interpret.
+Understanding the conditions in which pore coupling occurs and
+how this process can inﬂuence NMR relaxation measurement is fun-
+damental to the successful use of NMR data in geophysical applica-
+tions. Several studies have explored this issue theoretically, using
+models of idealized pore networks to determine how factors such as
+pore geometry /H20849Cohen and Mendelson, 1982 ; McCall et al., 1991 ;
+Zielinski et al., 2002 /H20850and surface geochemistry /H20849Ramakrishnan et
+al., 1999; Ramakrishnan et al., 2001/H20850might control the extent of pore
+coupling. Despite the clear need to account for pore-coupling ef-
+fects, relatively few laboratory studies have explored this phenome-
+non. Toumelin et al./H208492002/H20850show that interpore diffusion can strong-
+Manuscript received by the Editor 16 January 2009; revised manuscript received 24 April 2009; published online 29 October 2009; pubcorrected 2 November
+2009.1Stanford University, Department of Geophysics, Stanford, California, U.S.A. E-mail: elliotg@stanford.edu; rknight@stanford.edu.
+© 2009 Society of Exploration Geophysicists. All rights reserved.
+GEOPHYSICS, V OL. 74, NO. 6/H20849NOVEMBER-DECEMBER 2009/H20850; P . E215–E221, 3 FIGS., 1 TABLE.
+10.1190/1.3223712
+E215
+Downloaded 09/01/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/1.3223712
+
+--- PAGE 2 ---
+ly inﬂuence NMR measurements in carbonates and note that the de-
+gree of coupling generally increases with temperature as pore-ﬂuid
+diffusivity increases. Anand and Hirasaki /H208492007/H20850investigate geo-
+metric controls on pore coupling in microporous grain packs; they
+ﬁnd that coupling between micropores and larger intergranular pores
+becomes more signiﬁcant as grain diameter decreases. However, no
+laboratory study has explored the geochemical controls on pore cou-
+pling suggested byRamakrishan /H208491999/H20850.
+The aim of our study is twofold: /H208491/H20850to improve understanding of
+geochemical controls on pore coupling and/H208492/H20850to determine how the
+coupling process affects the interpretation of NMR relaxation mea-
+surements. We ﬁrst establish that surface geochemistry can, in fact,
+control the strength of pore coupling. In our laboratory approach, we
+study a well-characterized porous media, silica gel, and measure the
+NMR response of samples with varied geochemistry. Utilizing a
+demonstrated link between surface iron concentration and pore cou-
+pling strength, we are then able to identify speciﬁc effects of pore
+coupling on the relaxation-time distribution. Finally, we compare
+our experimental results with theoretical predictions from Ra-
+makrishnan et al. /H208491999/H20850. Our study of NMR relaxation measure-
+ment in a controlled system contributes to our ultimate goal of im-
+proving the interpretation of NMR measurements in heterogeneous
+near-surface sediments.
+BACKGROUND
+In the standard NMR relaxation experiment, a static magnetic
+ﬁeld is applied to a water-saturated sample, causing an equilibrium
+alignment of the magnetic moments associated with protons in the
+pore water. The system is then perturbed by a secondary radio-fre-
+quency pulse that excites the protons to a higher energy state, and we
+monitor the magnetizationM over time as the system relaxes to equi-
+librium.
+Two time constants describe NMR relaxation:T
+1 and T2. The lon-
+gitudinal relaxation rate T1
+/H115021 is the rate at which the protons return to
+their equilibrium state. In the commonly assumed case of fast diffu-
+sion /H20849Senturia and Robinson, 1970/H20850, the net observed relaxation rate
+T
+1
+/H115021 for a single pore is given by
+T1
+/H115021 /H11505T1B
+/H115021 /H11501/H92671/H20873
+S
+V /H20874, /H208491/H20850
+where T1B
+/H115021 is the relaxation rate of the bulk water,S / V is the surface-
+area-to-volume ratio of the pore /H20849inversely proportional to the pore
+radius rpore/H20850, and /H92671 is the longitudinal surface relaxivity/H20849Brownstein
+and Tarr, 1979 /H20850. Surface relaxivity is a geochemical property de-
+scribing the capacity of the grain surface to enhance relaxation; it
+generally increases with the concentration of paramagnetic impuri-
+ties on a surface /H20849e.g., manganese /H20849II/H20850/H20851Mn
+2/H11501/H20852or iron /H20849III/H20850/H20851Fe3/H11501/H20852/H20850
+/H20849Foley et al., 1996; Bryar et al., 2000/H20850. Together, the product/H9267/H20849S / V/H20850
+is called the surface relaxation rate; it reﬂects the combined effect of
+geometry and geochemistry.
+For practical reasons, T
+1 measurements are difﬁcult to make with
+borehole or surface NMR instruments, so ﬁeld applications of NMR
+typically involve measurements ofT
+2. The transverse relaxation rate
+T2
+/H115021 is the rate at which protons dephase as they return to equilibrium.
+The expression for T2
+/H115021 thus includes an additional term to account
+for internal magnetic ﬁeld gradientsG experienced by diffusing pro-
+tons:
+T2
+/H115021 /H11505T2B
+/H115021 /H11501/H92672/H20873
+S
+V /H20874/H11501D
+12/H20849/H9253GtE/H208502 . /H208492/H20850
+Here, /H92672 is the transverse surface relaxivity,T2B
+/H115021 is the relaxation rate
+of the bulk water,D is the self-diffusion coefﬁcient of the water,/H9253is
+the gyromagnetic ratio of the hydrogen nucleus, and tE is the echo
+time, a timing parameter of the measurement. Relaxation in geologic
+materials with negligible magnetic susceptibility is dominated by
+surface relaxation, in which case the expression forT
+2
+/H115021 is reduced to
+T2
+/H115021 /H11505/H92672/H20873
+S
+V /H20874. /H208493/H20850
+If we consider the NMR relaxation response of a single water-
+ﬁlled pore, the transverse magnetization signal is described by an ex-
+ponential decay:
+M/H20849t/H20850/H11505Ae/H11502t/T2, /H208494/H20850
+where the initial signal amplitude A is proportional to the number of
+hydrogen nuclei /H20849directly related to the pore volume /H20850. In a rock or
+sediment with a distribution of pore types, it conventionally is as-
+sumed that each pore contributes to the NMR signal in isolation and
+the net observed signal is modeled as multiexponential decay:
+M/H20849t/H20850/H11505/H20858
+i
+Ai exp/H20873
+/H11502t
+T2i
+/H20874, /H208495/H20850
+where the amplitude Ai is proportional to the volume of water-ﬁlled
+porosity associated with a corresponding relaxation time T2i. Using
+this model of isolated pores, the M/H20849t/H20850data are inverted to obtain a T2
+distribution, which is scaled according to equation 3 to estimate a
+pore-size distribution assuming uniform surface relaxivity and a
+simple pore shape/H20849e.g., S / V /H115053 / r
+pore for spherical pores/H20850.
+The simplest conceptualization of the isolated pore assumption is
+that each proton samples only one pore during the NMR measure-
+ment. D’Orazio et al./H208491989/H20850explain more completely that the isolat-
+ed pore model is valid as long as the distance over which a proton
+will diffuse is smaller than the scale over which dissimilar pores
+/H20849with differentT
+2/H20850may be encountered. Although this condition gen-
+erally is satisﬁed for NMR measurements in consolidated sand-
+stones with tight pore throats and relatively uniform pore bodies
+/H20849Davies, 1990; Borgia et al., 1996/H20850, the model often breaks down for
+materials with well-connected heterogeneous pores. Hinedi et al.
+/H208491993/H20850and Hinedi et al. /H208491997/H20850study the NMR response of mi-
+croporous near-surface materials, including soil aggregates and
+analogous synthetic silica gels, and note that the size of larger inter-
+granular pores is grossly underestimated. Although not recognized
+by researchers, this error is most likely a consequence of pore cou-
+pling.
+During a given time period T, a proton will sample the pore net-
+work over an average diffusion length/H5129, approximated as
+/H5129/H11505/H208816DT, /H208496/H20850
+where D is the self-diffusion coefﬁcient of water /H20849at 30° C, D
+/H115052.46/H1100310/H115029 m2 / s; Simpson and Carr, 1958/H20850. Considering the du-
+ration of NMR decay as represented byT2 /H20849typically 10–1000 ms /H20850,a
+proton may diffuse more than 100 /H9262m during NMR measurement.
+As the diffusion length approaches the scale at which dissimilar
+pores are encountered, pore coupling will begin to complicate the
+NMR response. In the limiting case of inﬁnite coupling when the dif-
+E216 Grunewald and Knight
+Downloaded 09/01/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/1.3223712
+
+--- PAGE 3 ---
+fusion length is unbounded, the resulting T2 distribution will exhibit
+a single peak representing /H9267S / V of the entire pore network /H20849McCall
+et al., 1991 /H20850; however, the effect of pore coupling at intermediate
+strengths is poorly understood.
+Ramakrishnan et al. /H208491999/H20850model diffusional coupling in mi-
+croporous grains and argue that the degree to which pores are cou-
+pled may be highly dependent on surface relaxivity. When
+/H92672 is high,
+the diffusion length is reduced because enhanced relaxation limits
+the time and distance over which protons can travel before relaxing.
+Bryar et al./H208492000/H20850and Daughney et al./H208492000/H20850note consistent results
+for laboratory measurements of T
+1 in iron-coated silica gels. Surface
+coatings of paramagnetic iron /H20849III/H20850/H20849Fe3/H11501/H20850increase /H92671 of the gels by
+more than two orders of magnitude and signiﬁcantly alter the shape
+of the relaxation-time distributions. Our experiments here use a sim-
+ilar system of iron-coated silica gels to develop a range of samples
+between which the degree of pore coupling is expected to vary with
+iron concentration. The NMR T
+2 relaxation measurements on these
+samples should thus allow us to directly investigate the effects of
+pore coupling and explore the link between T
+2 and pore geometry in
+heterogeneous materials.
+METHODS AND MATERIALS
+Sample characterization and preparation
+The four samples used in this study are derived from a high-purity
+silica gel /H20849Davisil® 150 Å 60–200 mesh, manufactured by Grace
+Davison/H20850that has a bimodal pore-size distribution comprised of in-
+tragranular micropores /H20849within the grains /H20850, reported to be approxi-
+mately 15 nm in diameter, and larger intergranular macropores /H20849be-
+tween the grains/H20850. We ﬁrst sieved the pure gel to achieve a narrower
+grain-size distribution of 53– 105 /H9262m. The diameter of intragranu-
+lar pores in a random packing is estimated to be about 20 /H9262m, as-
+suming a ratio of average pore size to grain size of 0.225/H20849Barker and
+Mehta, 1992/H20850. The micropore volume, expressed as milliliters/gram
+gel, was provided from manufacturer speciﬁcations as 1.2 ml/ g. W e
+measured the surface area of the gels /H20849315.1/H115062.5 m 2 / g/H20850by the
+Brunauer-Emmett-Teller/H20849BET/H20850nitrogen adsorption method using a
+Micromeritics ASAP 2020 accelerated surface area and porosimetry
+system.
+Our experimental approach was based on the assumption that in-
+creasing the amount of paramagnetic Fe
+3/H11501on the gel surface would
+reduce pore coupling by increasing the surface relaxation rate; there-
+fore, we closely controlled surface geochemistry. We rinsed the gel
+repeatedly with 10% hydrogen chloride /H20849HCl/H20850and distilled, deion-
+ized /H20849DDI/H20850water /H2084918 M /H9024cm/H20850to remove paramagnetic impurities,
+and we retained a portion of the cleaned gel to be used as the highest
+purity sample for NMR analysis. We then synthesized three addi-
+tional gels with varied amounts of paramagnetic Fe
+3/H11501oxyhydroxide
+surface coating from the cleaned gel using methods of Grantham et
+al. /H208491997/H20850. Samples were placed under vacuum and saturated with
+aqueous solutions of ferrous sulfate /H20849FeSO4/H20850. The mixtures were
+then oxidized by adding excess 30% hydrogen peroxide /H20849H2O2/H20850and
+were placed on an orbital shaker to equilibrate overnight. Following
+the iron coating treatment, the gels were rinsed with DDI water and
+oven dried overnight at 45° C.
+We determined the amount of paramagnetic Fe
+3/H11501sorbed to each
+gel from subsamples by atomic adsorption spectroscopy; concentra-
+tions of Fe
+3/H11501by mass in the four samples ranged from 0.00% in the
+pure sample to 0.10% in the most heavily coated sample. Qualitative
+analysis by scanning electron microscopy/H20849SEM/H20850and energy disper-
+sion spectrometry /H20849EDS/H20850conﬁrmed that iron was effectively sorbed
+to the interior and exterior surfaces of the gels. Neither the porosity
+nor the surface area of the gels was changed, within experimental er-
+ror, by the iron coating process.
+NMR measurements
+For NMR measurements, we packed dry samples of each gel in
+consistent weights and volumes into cylindrical Teﬂon™ sample
+holders with an interior diameter of 2.1 cm and height of 6 cm. In the
+ﬁrst series of measurements, samples were completely saturated
+with DDI water. To ensure maximum saturation, we ﬁrst evacuated
+each packed sample in a dry vacuum /H2084975 mm mercury /H20850for 30 min
+and then submerged the sample in a water bath before atmospheric
+pressure was restored. Samples were allowed to saturate for 2 hr
+while submerged. The volume of water held in micropores for each
+sample was calculated from the mass of dry sample/H20849using manufac-
+turer-speciﬁed 1.2 ml / g gel /H20850; the volume of water in macropores
+was determined gravimetrically as the difference between total wa-
+ter volume and micropore volume. We determined that of the total
+water volume, 58% was held in micropores and 42% was held in
+macropores.
+We acquired a ﬁrst series of NMR measurements directly after
+saturation. Following measurement at saturated conditions, we cen-
+trifuged the packed samples to drain water from the large intergranu-
+lar pores. Centrifuging removed approximately 98% of the inter-
+granular pore water /H20849estimated gravimetrically /H20850; the intragranular
+porosity was left undrained by this process as a result of the extreme-
+ly high capillary potential of the micropores. We then acquired a sec-
+ond series of NMR measurements, immediately after centrifuging,
+at which point the NMR signal was presumed to be primarily sensi-
+tive to water in the undrained intragranular micropores.
+All NMR relaxation data were collected using a 2.2-MHz Maran
+Ultra NMR core analyzer /H20849Resonance Instruments /H20850with a CPMG
+pulse sequence. This instrument has a dead time of approximately
+60 /H9262s. Data were acquired consistently at 30° C and were stacked
+100 times to improve the signal-to-noise ratio /H20849S/N/H20850. Measurements
+at varied echo-time t
+E spacing indicated that magnetic gradient ef-
+fects were negligible; therefore, the shortest available spacing, tE
+/H11505150 /H9262s, was used to maximize data sampling at short times. Inde-
+pendent measurements on each sample were repeated three times to
+determine experimental variance.
+We inverted each measured magnetization decay signal for a T
+2
+relaxation-time distribution using a regularized nonnegative least-
+squares algorithm developed after Whittall et al. /H208491991/H20850. In this ap-
+proach, the data are ﬁt to 200 logarithmically spacedT2 values, from
+1 ms to 10 s, and the inverted model is regularized for smoothness.
+Regularization parameters were selected such that the data were ﬁt
+to a tolerance equal to the measured noise level. This statistically ro-
+bust approach limits inversion artifacts and is required in order to as-
+cribe physical signiﬁcance to observed differences in the smooth-
+ness of theT
+2 distribution.
+RESULTS AND DISCUSSION
+Laboratory NMR results
+The four gels provide a group of samples with identical geometry
+and varied geochemistry, with/H92672 expected to increase as iron content
+increases. An increase in /H92672 is predicted to lead to a decrease in pore
+coupling as faster surface relaxation reduces the distance protons
+NMR relaxation times and pore coupling E217
+Downloaded 09/01/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/1.3223712
+
+--- PAGE 4 ---
+may diffuse before relaxing. Thus, analyzing these samples should
+allow us to assess /H208491/H20850the extent to which pore coupling may be con-
+trolled by surface geochemistry and/H208492/H20850how the coupling process af-
+fects NMR data interpretation.
+The resulting T2 distributions for each of the gel samples are
+shown in Figure 1, with iron concentrations increasing from top
+/H208490.000% Fe3/H11501/H20850to bottom /H208490.010% Fe3/H11501/H20850. Solid curves show distribu-
+tions for NMR measurements at fully saturated conditions; dashed
+curves are for measurements collected after centrifuging. Distribu-
+tions for each sample are normalized by the total signal amplitude at
+full saturation, which is consistent between all samples to within ex-
+perimental error.
+We ﬁrst consider theT
+2 distributions for all four samples obtained
+after centrifuging, when the NMR measurement is sensitive exclu-
+sively to the saturated micropores. The integrated amplitude of each
+distribution reﬂects 58% of the normalized signal; thus, the total vol-
+ume of microporosity is captured accurately. Despite the reported
+uniform intragranular pore size, we observe slightly broad peaks.
+Regularization of the inverted distributions may result in some peak
+broadening; however, we have consistently found that inversions of
+data with high S/N /H20849e.g., /H11011130 here /H20850can produce narrow peaks
+when warranted by the data. We therefore interpret the breadth of the
+peaks as indicating that the size and surface-iron concentration of the
+micropores are not entirely uniform. For samples with increasing
+iron concentrations, we observe a shift of the centrifuged T
+2 peak to
+shorter times, reﬂecting an expected increase in /H92672. We calculate /H92672
+for each sample /H20849Table 1/H20850from equation 3, using the logarithmic
+mean relaxation time for each centrifuged distribution and indepen-
+dent measurements ofS / V.
+Analyzing the T
+2 distributions for measurements at full saturation
+allows us to investigate the extent to which coupling occurs between
+the macropores and micropores. We begin with the results for the
+low-
+/H92672 pure gel, which we expect to exhibit the strongest degree of
+pore coupling. Given that the macropores and micropores differ in
+size by approximately three orders of magnitude, the isolated pore
+model should predict two distinct peaks in the relaxation-time distri-
+bution. Instead, we observe one broad peak with two marginally dis-
+cernible modes separated by less than two orders of magnitude. This
+apparent averaging of the underlying pore-size distribution indicates
+that the two pore types are strongly coupled by diffusion. In the other
+three samples, as the concentration of iron coating the gel surface is
+increased, we observe a separation of the distribution into two clear-
+ly discernible modes or peaks, reﬂecting the anticipated decrease in
+pore coupling. However, even for the most heavily iron-treated gel,
+the distance separating these peaks is less than would be predicted by
+a purely isolated pore model.
+Let us now explore the meaning of the relaxation-time distribu-
+tions for these samples, spanning a range of coupling strengths. We
+refer to the two modes in each distribution as the fast relaxing signal
+/H20849at lower T
+2 values/H20850and the slow relaxing signal /H20849at higher T2 val-
+ues/H20850. For all samples, the fast relaxing signal corresponds directly to
+the signal from the microporosity, represented in the centrifuged
+measurements. Thus, the relaxation time of the micropores is reﬂect-
+ed accurately despite the presence of pore coupling and could be
+used to estimate a pore size, assuming a given
+/H92672 value. On the other
+hand, the location of the slow relaxing signal, which should reﬂect
+the relative size of the macropores in the absence of pore coupling,
+overlaps the fast-relaxing micropore signal when pore coupling is
+strong and successively separates as the degree of pore coupling is
+reduced. Thus, when pore coupling is dominant, the relative size of
+the macropores would likely be dramatically underestimated.
+In addition to this apparent shift in the position of the T
+2 distribu-
+tions, we observe that pore coupling affects the relative amplitudes
+of the fast and slow relaxing signals. We estimate the relative volume
+of water relaxing at fast T
+2 /H20849/H9258w-fast/H20850versus slow T2 /H20849/H9258w-slow/H20850for each
+saturated sample by ﬁrst splitting the distribution at the point of min-
+imum slope and then integrating the distribution to the left and right,
+respectively. V alues for the ratio
+/H9258w-fast //H9258w-slow, estimated in this man-
+ner for each sample, are listed in Table1. In the absence of pore cou-
+pling, we would expect /H9258w-fast //H9258w-slow to reﬂect the true ratio of mi-
+Table 1. Tabulated estimates of geochemical properties for
+each sample and the estimated /H9258w-fast Õ/H9258w-slow for laboratory
+measurements and model data.
+%F e 3/H11501
+by mass
+/H92672
+/H20849/H9262m / s/H20850
+/H9258w-fast / /H9258w-slow
+laboratory
+/H9258w-fast / /H9258w-slow
+modeled
+0.000 0.201/H115060.007 0.61 /H115060.04 0.64
+0.002 0.345/H115060.004 0.93 /H115060.05 1.00
+0.004 0.592/H115060.010 1.12 /H115060.06 1.21
+0.010 0.953/H115060.004 1.26 /H115060.06 1.34
+SaturatedCentrifuged
+10
+−4
+10
+−3
+10
+−2
+10
+−1
+10
+0
+10
+1
+−4 −3 −2 −1 0 1
+10 10 10 10 10 10
+10
+−4
+10
+−3
+10
+−2
+10
+−1
+10
+0
+10
+1
+10
+−4
+10
+−3
+10
+−2
+10
+−1
+10
+0
+10
+1
+Relaxationt ime T2
+litude
+mped azalimr
+No
+0.5
+0.5
+0.5
+0.5
+(s)
+a)
+b)
+c)
+d)
+Figure 1. NMR relaxation-time distributions for the four silica gel
+samples: /H20849a/H20850pure gel, /H20849b/H208500.002% Fe 3/H11501, /H20849c/H208500.004% Fe 3/H11501, and /H20849d/H20850
+0.010% Fe3/H11501. Iron concentrations increase from top to bottom. Solid
+curves are for measurements at full saturation; dashed curves are for
+measurements after centrifuging /H20849signal exclusively from micro-
+pores/H20850. Curves for each sample are normalized by the initial signal
+amplitude for the fully saturated measurements.
+E218 Grunewald and Knight
+Downloaded 09/01/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/1.3223712
+
+--- PAGE 5 ---
+cropore volume to macropore volume /H208491.37/H115060.04/H20850. For the pure
+gel, which exhibits the greatest degree of pore coupling, /H9258w-fast /
+/H9258w-slow underpredicts the true ratio by 55%, grossly misrepresenting
+the true pore geometry. As pore coupling weakens with increasing
+iron content, we see that the accuracy of this estimated ratio im-
+proves, eventually reaching 94% of the true value.
+These laboratory observations are compatible with a conceptual
+model of pore coupling proposed by Ramakrishnan et al. /H208491999/H20850,i n
+which protons move freely between intragranular micropores and
+intergranular macropores before relaxing. The leftward merging of
+the slow relaxing peak for samples with low iron concentrations oc-
+curs because most protons that originate in macropores can diffuse
+freely into the microporous grains before relaxing. These protons
+thus relax at a much faster rate than would be predicted for isolated
+macropores and exhibit an averaging of rates for the two pore types.
+When surface relaxivity is high, fewer protons that originate in the
+macropores can efﬁciently sample the microporous region before re-
+laxing, lessening the degree to which the slow relaxing peak is
+skewed leftward.
+The relative amplitude of the two peaks is likewise affected by the
+relative number of protons that sample both pore types. When relax-
+ation occurs slowly, many protons are able to diffuse out of the
+smaller intragranular pores before relaxing and so decay at an aver-
+aged rate. For samples with substantial iron surface coatings, relax-
+ation occurs rapidly, so more protons originating in micropores relax
+before diffusing out of the grain. Thus, the amplitude of the fast re-
+laxing T
+2 peak more accurately represents the true micropore vol-
+ume in these samples. We anticipate that the presence of other para-
+magnetic ions such as Mn
+2/H11501on the grain surface would produce sim-
+ilar effects.
+Comparison to analytical models
+We can further compare our results quantitatively with the 1D
+model of pore coupling, presented and described by Ramakrishnan
+et al. /H208491999/H20850. This model applies the NMR diffusion-reaction equa-
+tion in two separate domains, one representing a microporous grain
+and one representing a macropore. The microporous grain, with ra-
+dius R
+g and porosity /H9272/H9262, is treated as a continuum in which surface
+relaxation occurs at a speciﬁed rate T2S/H9262. To account for restricted
+diffusion occurring within the micropores, the self-diffusion coefﬁ-
+cient of water D is scaled by the formation factor of the microporous
+grain F
+/H9262. The total porosity of the system /H9272t determines the dimen-
+sions of the two domains. The magnetization in the macropore do-
+main M
+m is governed by the standard NMR diffusion equation:
+D d2Mm
+dx2 /H11502MmT2B
+/H115021 /H11505dMm
+dt , /H208497/H20850
+where T2B is the bulk water relaxation rate.
+Equation 8 describes M/H9262, the magnetization in the domain of the
+microporous grain:
+D
+F/H9262
+d2M/H9262
+dx2 /H11502/H9278/H9262M/H9262/H20849T2S/H9262
+/H115021 /H11501T2B
+/H115021/H20850/H11505/H9278/H9262
+dM/H9262
+dt . /H208498/H20850
+A boundary condition between domains,
+D d2Mm
+dx2 /H11505D
+F/H9262
+d2M/H9262
+dx2 /H11501/H92672Mm/H208491 /H11502/H9272/H9262/H20850, /H208499/H20850
+matches ﬂux into and out of the microporous grain and allows for re-
+laxation at the grain wall with a surface relaxivity of/H92672.
+We fully parameterized four models to be representative of our
+measured samples. A value of T2B /H115053.05 s, consistently measured
+for all centrifuged ﬂuids, was used across all models. V alues for
+/H20849T
+2S/H9262
+/H115021 /H11501T2B
+/H115021/H20850in equation 8 are derived from the mean log relaxation
+time for the micropores in each sample, measured after centrifuging.
+Representative values of
+/H92672, obtained as described previously, are
+listed in Table1. Geometric parameters Rg /H1150530 /H9262m, /H9272t /H115050.83, and
+/H9272/H9262/H115050.725 reﬂect manufacturer speciﬁcations conﬁrmed by inde-
+pendent measurements. It was not possible to measure F/H9262directly, so
+we selected a value of 1.4 /H208491 //H9272/H9262/H20850, consistent with an open, weblike
+network of pores typical of silica gels. We used a standard value of
+D /H115052.46/H1100310
+/H115029 m2 / s for water at 30° C /H20849Simpson and Carr, 1958/H20850.
+Ramakrishnan /H208491999/H20850explains that exact analytic solutions to the
+parameterized equations can be obtained using Laplace transforms;
+the solutions yield two principal exponential-decay modes/H20849smooth-
+ing effects are not modeled/H20850. However, obtaining analytic solutions
+is very challenging, so we used Comsol Multiphysics® to obtain ac-
+curate numerical solutions. In Figure 2, we plot the position and
+magnitude of the resulting principal decay modes, superimposed
+LaboratoryModeled
+10
+−4
+10
+−3
+10
+−2
+10
+−1
+10
+0
+10
+1
+10
+−4
+10
+−3
+10
+−2
+10
+−1
+10
+0
+10
+1
+10
+−4
+10
+−3
+10
+−2
+10
+−1
+10
+0
+10
+1
+−4 −3 −2 −1 0 1
+10 10 10 10 10 10
+Relaxation time T2
+tudelipmed a
+izal
+morN
+0.5
+0.5
+0.5
+0.5 MMM de dede oobbbaL to yry
+(s)
+a)
+b)
+c)
+d)
+Figure 2. Comparison between laboratory measurements and the
+simulated relaxation response based on the Ramakrishnan et al.
+/H208491999/H208501D model: /H20849a/H20850pure gel, /H20849b/H208500.002% Fe3/H11501, /H20849c/H208500.004% Fe3/H11501,
+and /H20849d/H208500.010% Fe3/H11501. Solid curves are for laboratory measurements
+on gels at saturated conditions. Dashed bars show the position and
+amplitude of the primary exponential relaxation modes derived from
+the model. Mode amplitudes are all normalized such that, for the
+pure gel, the long-time peak is exactly matched by the long-time
+mode.
+NMR relaxation times and pore coupling E219
+Downloaded 09/01/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/1.3223712
+
+--- PAGE 6 ---
+over the experimental T2 distributions for each sample. In general,
+modeled relaxation times closely predict the location of theT2 peaks
+for laboratory measurements. However, the relaxation time for the
+slow relaxing peak is slightly overestimated in models representing
+the 0.004% and 0.010% Fe
+3/H11501gels.
+Plotted in Figure 3 and listed in Table 1 is a comparison of
+/H9258w/H11502fast / /H9258w/H11502slow, determined for each of the laboratory and modeled
+distributions /H20849direct comparison is not possible in Figure 2 because
+the width of the experimentalT2 peaks is not constant/H20850. We plot mod-
+eled and experimental values along a 1:1 line in Figure3 as ﬁlled cir-
+cles with experimental error bars; the hollow diamond /H20849top right /H20850
+represents the true ratio value /H208491.37/H20850, which would be observed for
+zero pore coupling. The modeled and experimental data agree quite
+well; however, as iron concentrations increase, the modeled
+/H9258w/H11502fast //H9258w/H11502slow increasingly exceeds the experimental result. These
+minor disparities between modeled and laboratory results at higher
+iron concentrations suggest that the model may slightly overpredict
+the extent to which increased surface relaxivity can reduce pore-cou-
+pling effects. Nonetheless, general agreement with our experimental
+results indicates that this relatively simple 1D model provides an ac-
+curate and extremely useful tool for predicting NMR relaxation be-
+havior in this class of heterogeneous media.
+CONCLUSIONS
+The NMR relaxation times of porous geologic materials are close-
+ly linked to the volume and geometry of the water-saturated pore
+space. Thus, there is tremendous potential for using NMR relaxation
+measurements, acquired with borehole or surface-based instru-
+ments, in near-surface applications to estimate subsurface proper-
+ties. It is clear, however, that substantial research is needed to fully
+understand the processes governing NMR relaxation in near-surface
+materials. This study has focused on the impact of pore coupling, a
+process that can signiﬁcantly affect NMR relaxation measurements
+in systems with well-connected pores.
+Our experimental results demonstrate conclusively that surface
+geochemistry can be a signiﬁcant factor determining the strength of
+pore coupling and thus the relationship between pore geometry and
+NMR relaxation times. By controlling for surface geochemistry in
+well-characterized samples, we directly assessed the impact of pore
+coupling on the observed T
+2 distribution in samples representing a
+range of coupling strengths. For materials with intragranular mi-
+croporosity and intergranular macroporosity, pore coupling reduces
+the slowest relaxation time associated with macropores and decreas-
+es the amplitude of the fast relaxing signal associated with the mi-
+cropores. If unaccounted for in the interpretation of the NMR relax-
+ation data, the presence of pore coupling would lead to an underesti-
+mation of the total micropore volume and the size of the largest
+pores. Good agreement between our laboratory results and an ana-
+lytical model suggests that a theoretical approach may help predict
+the extent to which pore coupling will affect NMR measurements in
+other porous media.
+Our study has only considered the behavior of silica gels, which
+have smaller pores and a lower
+/H92672 value than is typical for most geo-
+logic materials. The small pores tend to limit the extent of the diffu-
+sion, whereas the low
+/H92672 value tends to enhance the extent of diffu-
+sion. Although these properties of silica gel are different from those
+of a typical geologic material, the well-characterized geometry of
+the gel allows us to investigate the physics linking surface chemistry
+and pore coupling. Our ﬁndings lead us to anticipate that for a wide
+class of unconsolidated materials with well-connected pores, the
+NMR relaxation-time distribution will not accurately convey the un-
+derlying pore structure because of pore coupling effects. Additional
+research is required to explore the impact of pore coupling in a
+broader range of materials to improve the interpretation of NMR
+data and to advance the use of NMR methods in near-surface appli-
+cations.
+ACKNOWLEDGMENTS
+We would like to thank the Stanford Surface and Aqueous
+Geochemistry Group for use of their surface area analyzer and Kris-
+tina Keating for assistance with the synthesis and analysis of iron
+coatings. We also greatly appreciate many helpful comments con-
+tributed by the associate editor and anonymous reviewers. This work
+was initiated with funding to R. Knight under grant DE-FG02-
+03ER15382-A0003 from the U. S. Department of Energy. Further
+funding was provided by Schlumberger Water Services. E.
+Grunewald was supported during this project by a scholarship from
+the ARCS foundation.
+REFERENCES
+Anand, Vivek, and G. J. Hirasaki, 2007, Diffusional coupling between micro
+and macroporosity for NMR relaxation in sandstones and grainstones:
+Petrophysics, 48, no. 4, 289–307.
+Barker, G. C., and A. Mehta, 1992, Vibrated powders: Structures, correla-
+tions, and dynamics: Physical Review A,45, 3435–3446.
+Borgia, G. C., V . Bortolotti, A. F. Brancolini, R. J. S. Brown, and P . Fan-
+tazzini, 1996, Developments in core analysis by NMR measurements:
+Magnetic Resonance Imaging,14, 751–760.
+Brownstein, K. R., and C. E. Tarr, 1979, Importance of classical diffusion in
+NMR studies of water in biological cells: Physical Review A, 19,
+2446–2453.
+Bryar, T. R., C. J. Daughney, and R. J. Knight, 2000, Paramagnetic effects of
+iron/H20849III/H20850species on nuclear magnetic relaxation of ﬂuid protons in porous
+media: Journal of Magnetic Resonance,142, 74–85.
+Cohen, M. H., and K. S. Mendelson, 1981, Nuclear magnetic relaxation and
+0.4 0.6 0.8 1.0 1.2 1.4
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+Laboratory
+Modeled
+0.010%
+0.004%
+0.002%
+Pure
+1:1
+Figure 3. Comparison of /H9258w-fast //H9258w-slow derived from laboratory- and
+model-generated results. Estimates from laboratory measurements
+represent the ratio of integrated amplitude for the short-time peak to
+that of the long-time peak. Error bars show the standard deviation for
+this estimate from repeated measurements. Estimates from modeled
+data represent the ratio of the short-time mode amplitude to that of
+the long-time mode. The hollow black diamond /H20849top right /H20850repre-
+sents the actual value of the micropore-to-macropore volume, which
+would be reﬂected by
+/H9258w-fast //H9258w-slow in the absence of pore-coupling
+effects.
+E220 Grunewald and Knight
+Downloaded 09/01/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/1.3223712
+
+--- PAGE 7 ---
+the internal geometry of sedimentary rocks: Journal of Applied Physics,
+53, 1127–1135.
+Daughney, C. J., T. R. Bryar, and R. J. Knight, 2000, Detecting sorbed hydro-
+carbons in a porous medium using proton nuclear magnetic resonance: En-
+vironmental Science and Technology,34, no. 1, 332–337.
+Davies, S., M. Z. Kalam, K. J. Packer, and F. O. Zelaya, 1990, Pore-size dis-
+tributions from nuclear magnetic resonance spin-lattice relaxation mea-
+surements of ﬂuid-saturated porous solids, II: Application to reservoir core
+samples: Journal of Applied Physics,67, 3171–3176.
+D’Orazio, F., J. C. Tarczon, W. P . Halperin, K. Eguchi, and T. Mizusaki,
+1989, Application of nuclear magnetic resonance pore structure analysis
+to porous silica glass: Journal of Applied Physics,65, 742–751.
+Foley, I., S. A. Farooqui, and R. L. Kleinberg, 1996, Effect of paramagnetic
+ions on NMR relaxation of ﬂuids at solid surfaces: Journal of Magnetic
+Resonance A,123, 95–104.
+Grantham, M. C., P . M. Dove, and T. J. DiChristina, 1997, Microbially cata-
+lyzed dissolution of iron and aluminum oxyhydroxide mineral surface
+coatings: Geochimica et Cosmochimica Acta,61, 4467–4477.
+Hertrich, M., 2008, Imaging of groundwater with nuclear magnetic reso-
+nance: Progress in Nuclear Magnetic Resonance Spectroscopy, 53, 227–
+248.
+Hinedi, Z. R., A. C. Chang, M. A. Anderson, and D. B. Borchardt, 1997,
+Quantiﬁcation of microporosity by nuclear magnetic resonance relaxation
+of water imbibed in porous media: Water Resources Research, 33, 2697–
+2704.
+Hinedi, Z. R., Z. J. Kabala, T. H. Skaggs, D. B. Borchardt, R. W. K. Lee, and
+A. C. Chang, 1993, Probing soil and aquifer material porosity with nuclear
+magnetic resonance: Water Resources Research,29, 3861–3866.
+Kenyon, W. E., P . I. Day, C. Straley, and J. F. Willemsen, 1988, A three-part
+study of NMR longitudinal relaxation properties of water-saturated sand-
+stones: SPE Formation Evaluation,3, no. 3, 622–636.
+Legchenko, A., and P . V alla, 2002, A review of the basic principles for proton
+magnetic resonance sounding measurements: Journal of Applied Geo-
+physics, 50, 3–19.
+McCall, K. R., D. L. Johnson, and R. A. Guyer, 1991, Magnetization evolu-
+tion in connected pore systems: Physical Review B,44, 7344–7355.
+Ramakrishnan, T. S., R. Ramamoorthy, E. Fordham, L. Schwartz, M. Her-
+ron, N. Saito, and A. Rabaute, 2001, A model-based interpretation meth-
+odology for evaluating carbonate reservoirs: Annual Technical Confer-
+ence and Exhibition, Society of Petroleum Engineers, SPE71704.
+Ramakrishnan, T. S., L. M. Schwartz, E. J. Fordham, W. E. Kenyon, and D. J.
+Wilkinson, 1999, Forward models for nuclear magnetic resonance in car-
+bonate rocks: The Log Analyst,40, no. 4, 260–270.
+Seevers, D. O., 1966, A nuclear magnetic method for determining the perme-
+ability of sandstones: 33rd Annual Logging Symposium, Society of Pro-
+fessional Well Log Analysts, Transactions, Paper L.
+Senturia, S. D., and J. D. Robinson, 1970, Nuclear spin-lattice relaxation of
+liquids conﬁned in porous solids: SPE Journal,10, 237–244.
+Simpson, J. H., and H. Y . Carr, 1958, Diffusion and nuclear spin relaxation in
+water: The Physical Review,111, 1201–1202.
+Toumelin, E., C. Torres-V erdin, S. Chen, and D. M. Fischer, 2002, Analysis
+of NMR diffusion coupling effects in two-phase carbonate rocks: Compar-
+ison of measurements with Monte Carlo simulations: 43rd Annual Log-
+ging Symposium, Society of Professional Well Log Analysts, Transac-
+tions, Paper JJJ.
+Walsh, D. O., 2008, Multi-channel surface NMR instrumentation and soft-
+ware for 1D/2D groundwater investigations: Journal of Applied Geophys-
+ics, 66, 140–150.
+Whittall, K. P ., M. J. Bronskill, and R. M. Henkelman, 1991, Investigations
+of analysis techniques for complicated NMR relaxation data: Journal of
+Magnetic Resonance, 95, 221–234.
+Zielinksi, L. J., Y .-Q. Song, S. Ryu, and P . N. Sen, 2002, Characterization of
+coupled pore systems from the diffusion eigenspectrum: Journal of Chem-
+ical Physics, 117, 5361–5365.
+NMR relaxation times and pore coupling E221
+Downloaded 09/01/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/1.3223712

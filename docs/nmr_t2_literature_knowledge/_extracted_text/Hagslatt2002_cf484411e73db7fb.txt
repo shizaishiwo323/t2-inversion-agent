@@ -1,0 +1,900 @@
+--- PAGE 1 ---
+Predictions of pulsed ﬁeld gradient NMR echo-decays for
+molecules diﬀusing in various restrictive geometries. Simulations
+of diﬀusion propagators based on a ﬁnite element method
+H/C23aakan Hagsl€aatt,a,* Bengt J€oonsson,b Magnus Nyd/C19een,a and Olle S €oodermanc
+a Department of Applied Surface Chemistry, Chalmers University of Technology, SE-412 96 G€ooteborg, Sweden
+b Biophysical Chemistry, Center for Chemistry and Chemical Engineering, P.O. Box 124, SE-221 00 Lund, Sweden
+c Physical Chemistry 1, Center for Chemistry and Chemical Engineering, P.O. Box 124, SE-221 00 Lund, Sweden
+Received 27 June 2002; revised 11 October 2002
+Abstract
+Pulsed ﬁeld gradient NMR diﬀusometry is a promising tool for investigating structures of porous material through determi-
+nations of dynamic displacements of molecules in porous systems. A problem with this approach is the lack of closed analytical
+expressions for echo-decays in anything but idealized pore geometries. We present here an approach based on calculating the
+appropriate diﬀusion propagator by means of ﬁnite element calculations. The suggested method is quite general,and can be applied
+to arbitrary porous systems. The protocol for the calculations is outlined and we show results from some diﬀerent cases: diﬀusion in
+conﬁned geometries and in systems that are spatially inhomogeneous with respect to concentration.
+/C2112003 Elsevier Science (USA). All rights reserved.
+Keywords: Propagator; Diﬀusion; Finite element method; Simulation; Pulsed ﬁeld gradient NMR
+1. Introduction
+The application of pulsed ﬁeld gradient (PFG) NMR
+for monitoring molecular displacements in inhomoge-
+neous systems is an increasingly used experiment in
+chemistry,physics and medicine. Results from a PFG
+experiment performed on an inhomogeneous system
+may diﬀer substantially from those from the same ex-
+periment performed on a homogenous system [1–3]. The
+presence of local heterogeneities leads to spatial varia-
+tions in the equilibrium concentration and the values of
+the diﬀusion constants,and this is reﬂected in the ap-
+pearance of the echo-decays. This is particularly evident
+in the ‘‘ q-space’’ formalism,in which the echo-decays
+are presented as a function of the variable q ¼ cgd=2p
+[4,5]. q has units of inverse length and the presence of
+characteristic lengths in the investigated system may give
+rise to both minima and maxima in the echo-decays
+[4,6–9]. Thus the experiment conveys structural infor-
+mation by providing values of the mean square dis-
+placements of the molecules comprising the system.
+The length-scale to which the experiment is sensitive,
+is related to the maximum gradient strength that a
+particular experimental set-up may generate. For a
+representative case,the experiment is tuned to length-
+scales in the lm regime,and thus is of particular interest
+to scientists working in colloidal systems [10]. In bio-
+logical and physiological studies,such as for instance
+studies of erythrocytes,the spinal cord and the human
+brain,relevant structural length scales are well tuned to
+the application of PFG based NMR methods [6,11,12].
+For systems that are homogeneous on this length-scale,
+the NMR experiment may generate the eﬀective diﬀu-
+sion coeﬃcient,the value of which is dependent on all
+local heterogeneities of the system (e.g.,on the nm-
+scale).
+One of the problems of the PFG approach is to de-
+velop a theoretical framework with which the experi-
+mental results may be interpreted,so as to extract the
+relevant information. It turns out that for anything but
+Journal of Magnetic Resonance 161 (2003) 138–147
+www.elsevier.com/locate/jmr
+* Corresponding author. Fax: +46-31-160062.
+E-mail address: hakan.hagslatt@surfchem.chalmers.se (H. Hags-
+l€aatt).
+1090-7807/03/$ - see front matter /C2112003 Elsevier Science (USA). All rights reserved.
+doi:10.1016/S1090-7807(02)00039-3
+
+--- PAGE 2 ---
+very simple geometries of barriers (such as rectangular
+and cylindrical barriers) no exact solutions exist and one
+has to resort to numerical methods in order to interpret
+the data [1]. Such approaches rely on either Brownian
+dynamic simulations or numerical solutions of the rele-
+vant diﬀerential equations [13–16]. The necessary cal-
+culations are time-consuming and diﬃcult if possible at
+all to apply to complex geometries. One promising ap-
+proach to treat complex geometries relies on the use of
+artiﬁcial neural networks [17,18].
+In this work,which is the ﬁrst in a series of papers,we
+present an approach that is based on the use of ﬁnite
+element calculations in order to generate the appropriate
+propagator Pz
+0jz; DðÞ [9],which is then used to calculate
+the echo-decay from the master equation
+ED qðÞ ¼
+Z
+q z0ðÞ
+Z
+Pz 0jz; DðÞ ei2pq/C1ðz/C0z0 Þ dzdz0; ð1Þ
+where qðz0Þ is the initial density of the spin bearing
+molecules and the propagator Pz 0jz; DðÞ is the proba-
+bility density that a molecule originally at z0 has moved
+to z after a time D. It should be remarked that the use of
+Eq. (1) assumes that the gradient pulses are inﬁnitely
+narrow (the short-gradient pulse (SGP) approximation).
+A discussion of the validity of Eq. (1) can be found in
+[15,19,20].
+The approach can be applied to an arbitrary geom-
+etry. In fact,one application of the method is to calcu-
+late the echo-attenuation from a ‘‘real-space’’ image,
+obtained for instance by means of the confocal laser
+microscopy technique.
+In this paper we outline the method,and apply it to
+some geometries that are chosen in order to demonstrate
+the validity of the method and its applicability to systems
+of any level of complexity. Hence,we calculate echo-de-
+cays on basis of simulated propagators for three systems
+for which exact solutions: free diﬀusion,spins conﬁned
+between parallel reﬂective barriers and spins enclosed in a
+circular region. The simulated results and analytical so-
+lutions are then compared. Subsequently,we present
+calculations for systems for which exact solutions are not
+available. In one,we treat a lamellar system composed of
+alternating regions of equal length but diﬀerent concen-
+trations of the diﬀusing molecule. Similar problems have
+been treated in references [18,21,22]. Another system is a
+hexagonal lattice of circular regions in which the con-
+centration is diﬀerent from that in the surrounding con-
+tinuous medium. Finally,a model of a cellular system of
+still higher complexity is studied.
+2. Simulation of diﬀusion propagators by means of a ﬁnite
+element method
+In this work,we present a methodology to numeri-
+cally simulate the propagator in highly complex systems
+by means of a ﬁnite element method. Brieﬂy,the nu-
+merical protocol involves to deﬁne the unit cell and the
+dimensions of the space for which simulations should be
+performed,chose an equation that appropriately de-
+scribes the composition and driving forces for molecular
+displacement and deﬁne relevant coeﬃcients and
+boundary conditions,and subsequently to perform the
+simulation of the propagator as a function ofz
+0; z and D.
+In the examples given in the following section,the
+studied systems are assumed to be in chemical equilib-
+rium,and the local equilibrium concentrations and local
+diﬀusion coeﬃcients are assumed to be time indepen-
+dent. It is assumed that the PFG experiment itself does
+not aﬀect the sample in any respect except for magnet-
+ically labeling the positions of the studied molecules at
+certain times. A detailed description of the numerical
+procedure is given in the following 8 subsections.
+2.1. The dimension of the simulation box is speciﬁed
+The smallest representative part of the studied system
+is chosen as a unit cell in the numerical simulation. The
+starting position of the studied molecules, z
+0,is always
+inside this cell. Copies of the unit cell are placed in the z-
+direction on both sides of the original unit cell,as out-
+lined for a 2-D box in Fig. 1. The central unit cell and
+the surrounding copies form a simulation box in which
+the diﬀusion of the labeled molecules is determined.
+The number of cells that are needed on both sides of
+the original unit cell,depends on the maximum time,
+Dt
+max,the system will be followed in the simulation. The
+total length on each side of the original unit cell,Dzmax,is
+chosen to be large enough to prevent unphysical eﬀects
+from the outer boundary of the simulated system. The
+minimum value of Dzmax can be estimated from the con-
+centration proﬁle of a plane source,as given by Eq. (2),
+cðzÞ¼ Aﬃﬃtp /C1exp
+/C18
+/C0 z2
+4Deff /C1t
+/C19
+ð2Þ
+where Deff is the eﬀective diﬀusion coeﬃcient in the z-
+direction over a unit cell and A is a constant. The value
+Fig. 1. A schematic representation of a simulation box. The area be-
+tween the dashed lines constitutes the unit cell,i.e.,the smallest rep-
+resentative part of the system in terms of diﬀusion in the z-direction.
+The central unit cell is surrounded on both sides in thez-direction by a
+number of copies of the unit cell,until the desired value of Dzmax is
+reached. Note that every second cell is a mirror image of the central
+unit cell in this case.
+H. Hagsl€aatt et al. / Journal of Magnetic Resonance 161 (2003) 138–147 139
+
+--- PAGE 3 ---
+of Dzmax can be estimated from Eq. (2) if the maximum
+allowed concentration ratio c DzmaxðÞ =c 0ðÞ at the time
+Dtmax is speciﬁed. For example,if the ratio is 0.001,the
+equation for Dzmax becomes
+Dzmax ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ln 10ðÞ /C13 /C14 /C1Deff /C1Dtmax
+p
+6 4 /C1
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ ﬃ
+2 /C1Deff /C1Dtmax
+p
+: ð3Þ
+2.2. The boundary conditions of the simulation box are
+speciﬁed
+All external boundaries of the simulation box are
+treated as perfectly reﬂecting. For the boundaries in the
+x- and y-directions this is due to the symmetry of the
+simulation box. In the z-direction,only a negligible
+amount of the diﬀusing compound reaches the external
+boundaries,as described above,and the choice of
+boundary conditions is therefore of minor importance.
+Since the choice of reﬂecting boundary conditions is a
+convenient choice,we have used it throughout.
+2.3. Chose an equation to describe the molecular transport
+in the studied system
+To appropriately model the transport of molecules in
+a system where the local thermodynamic properties as
+well as the transport properties of the studied molecules
+diﬀers between diﬀerent regions of the system is a diﬃ-
+cult task,since this requires a detailed knowledge of the
+chemical potential of the studied molecule in all parts of
+the system. On the other hand,to model the transport of
+NMR-labeled molecules in a system that is in equilib-
+rium (except for the fact that some molecules have been
+labeled),is easier since the concentration of labeled plus
+unlabeled molecules ( c
+eq) is known in all parts of the
+system in this case.
+For such a case,it is more convenient to use the
+molar ratio of labeled molecules, X ðx; y; z; tÞ,than the
+concentration of labeled molecules, clabeledðx; y; z; tÞ.
+clabeledðx; y; z; tÞ¼ ceqðx; y; zÞ/C1X ðx; y; z; tÞ: ð4Þ
+The ﬂux of labeled molecules, Jlabeled,can be obtained
+from the general form of Fick /C213s ﬁrst law [23] as given in
+Eq. (5).
+Jlabeledðx; y; z; tÞ¼/C0Dðx; y; zÞ
+RT /C1clabeledðx; y; z; tÞ
+/C1rllabeledðx; y; z; tÞ; ð5Þ
+where rllabeledðx; y; z; tÞ is the gradient in the chemical
+potential of the labeled molecules, Dðx; y; zÞ the local
+diﬀusion constant, R the gas constant and T the tem-
+perature. Since the system is in equilibrium,except for
+the fact that some molecules are labeled,the gradient of
+the chemical potential of the labeled molecules can be
+written as
+rl
+labeled ¼r ðleq þ RT /C1ln X Þ¼ RT
+X /C1rX : ð6Þ
+If Eq. (6) is used in Eq. (5),the ﬂux equation becomes
+Jlabeledðx; y; z; tÞ¼/C0Dðx; y; zÞ/C1ceqðx; y; zÞ
+/C1rX ðx; y; z; tÞ: ð7Þ
+Finally,a general form of the diﬀusion equation can be
+obtained by combining Eqs. (4) and (5),and the relation
+between the ﬂux and the change of concentration with
+respect to time.
+c
+eqðx; y; zÞ/C1o X ðx; y; z; tÞðÞ
+ot
+¼r/C1Dðx; y; zÞ/C1ceqðx; y; zÞ/C1rX ðx; y; z; tÞ
+/C0/C1
+: ð8Þ
+This equation was used to describe the molecular
+transport in the simulations.
+The two main reasons for introducing the mole
+fraction, X ,together with Eq. (8) instead of using the
+normal diﬀusion equation are:
+(a) X is a continuous function in all parts of the simula-
+tion box and when Eq. (8) is solved by a ﬁnite ele-
+ment method,no internal boundary conditions
+between diﬀerent regions have to be speciﬁed. All in-
+formation about the transport properties of the
+studied system is given in the equilibrium concentra-
+tion, c
+eqðx; y; zÞ,and the local diﬀusion coeﬃcient,
+Dðx; y; zÞ.
+(b) Eq. (8) can be used for systems with all types of in-
+trinsic concentration and diﬀusion constant proﬁles.
+Finally,we note that no permeabilities across internal
+boundaries need to be introduced. The diﬀusion equation
+is deﬁned solely by local concentrations and diﬀusivities.
+2.4. Reject regions where the equilibrium concentration is
+zero
+Regions where the equilibrium concentration is zero
+are excluded from the simulation box and reﬂecting
+boundary conditions are used to delimit these regions.
+2.5. Select a numerical program to solve the generalized
+diﬀusion equation
+Diﬀerent numerical programs can be used to solve
+Eq. (8). We have used FEMLAB [24],which is a pro-
+gram based on the ﬁnite element method and that op-
+erates together with MATLAB [25]. The simulation box
+is divided into a mesh in this program,see Fig. 2,and
+the mole ratio of marked molecules, X,is calculated at
+each mesh point by a ﬁnite element method.
+In the work presented here,we have,for reasons of
+simplicity,performed calculations in 2-dimensions.
+However,the strategy to follow is analogous for simu-
+lations in 3-dimensions,although these are of course
+computationally more demanding.
+140 H. Hagsl€aatt et al. / Journal of Magnetic Resonance 161 (2003) 138–147
+
+--- PAGE 4 ---
+2.6. A number of diﬀerent starting positions,z0-values, are
+speciﬁed
+To be able to determine the mean propagator for the
+system of interest,the propagators for a number, n,of
+representative starting positions inside the central unit
+cell,must be calculated. Two diﬀerent patterns of
+starting positions have been used:
+(a) Equally spaced starting positions
+z
+0;i ¼ z0;min þð i /C00:5Þ/C1z0;max /C0z0;min
+n for 1 6 i 6 n:
+ð9Þ
+Starting positions chosen according to Eq. (9) have
+been used in most of the presented simulations.
+(b) Concentration weighted starting positions.
+The z0;i values are obtained from the following
+equation.
+Z z0;i
+z0;min
+ZZ
+all x;y
+ceqðx; y; zÞdxdy dz ¼ ði /C00:5Þ
+n
+/C1
+ZZZ
+unit cell
+ceqðx; y; zÞdxdy dz for 1 6 i 6 n: ð10Þ
+This choice of starting positions is in most cases optimal,
+especially in systems where the number of molecules is
+much higher in one part of the unit cell than in the rest. As
+an example,we show in Fig. 2 an arrow-shaped geometry,
+which serves the purpose of illustrating the principle. Ten
+starting positions with equal number of molecules be-
+tween two adjacent positions are shown in Fig. 2.
+2.7. Determine, at selected time intervals, the diﬀusion
+propagator for each of the selected starting positions
+In an ideal simulation of the propagator P ðz
+0jz; DÞ,
+the time evolution of a very narrow concentration pro-
+ﬁle,centered at z
+0,is followed. However,since it is very
+time consuming to numerically determine the initial time
+evolution of a very narrow concentration proﬁle,we
+have omitted a detailed description of the initial diﬀu-
+sion process. Instead,we start the simulation at a time
+Dt
+min and follow the evolution of the mole fraction, X ,
+from that time. The X-proﬁle in a bulk solution at time
+Dtmin,is a Gaussian error curve with a standard devia-
+tion
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+2 /C1Deff ðz0Þ/C1Dtmin
+p
+,see Eq. (11)
+X ðz; DtminÞ¼ 1ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+4p /C1Deff ðz0Þ/C1Dtmin
+p
+/C1exp
+ 
+/C0 z /C0z0ðÞ 2
+4Deff ðz0Þ/C1Dtmin
+!
+: ð11Þ
+In or near a region where the equilibrium concentration
+is changing as a function of z,the proﬁle will be more
+complicated and can in general not be written as an
+analytic function. However,since no simple general
+description of the X ðz; Dt
+minÞ proﬁle can be obtained for
+most systems,we have used a discontinuous mole frac-
+tion proﬁle according to Eqs. (12a) and (12b)
+X ðz; DtminÞ¼ 1
+2Dzmin
+if jz /C0z0j 6 Dzmin ð12aÞ
+else
+X ðz; DtminÞ¼ 0; ð12bÞ
+where Dzmin is chosen to give the same mean square
+displacement,
+hz2i¼
+R
+X ðzÞ/C1z2 dzR
+X ðzÞdz ð13Þ
+in the discontinuous proﬁle as in the Gaussian proﬁle,
+i.e.,2 /C1Deff ðz0Þ/C1Dtmin. This gives
+Dzmin ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+6 /C1Deff ðz0Þ/C1Dtmin
+p
+ð14Þ
+The neglect of a detailed description of the mole ratio
+proﬁle at Dtmin introduces an error in the simulations.
+However,this error is only important at times near Dtmin
+and can in most cases be neglected at longer time in-
+tervals. It is diﬃcult to give a general estimation of the
+Dzmin value needed to obtain a speciﬁc time resolution in
+a simulation. A successive reduction of Dzmin,until the
+eﬀect of the simpliﬁed starting conﬁguration is accept-
+able,is in most cases the only way to specify a necessary
+Dz
+min value. Eq. (14) predicts that if water is studied,for
+which D ¼ 2 /C210/C09 m2 s/C01 at 25 /C176C,and if the time
+Dtmin is 1 ms (this time resolution is in most cases accu-
+rate enough to simulate a PFG echo-decay experiment),
+the distance Dzmin is 3:5lm.
+The propagator for molecules starting at position z0
+can for a selected time, D,be calculated from Eq. (15)
+Pz 0 z;DjðÞ ¼
+RR
+all x;y
+ceqðx; y;zÞ/C1X ðx; y;z;DÞdxdy
+R z0 þDzmin
+z0/C0Dzmin
+RR
+all x;y
+ceqðx;y; zÞ/C1X ðx;y; z;DtminÞdxdydz
+;
+ð15Þ
+Fig. 2. The simulation box in the FEMLAB program is automatically
+divided into a mesh. The number of mesh points can be increased in
+the simulation until no eﬀects of the mesh size is observed. Displayed
+are also 10 concentration weighted starting positions in a unit cell
+(dashed lines).
+H. Hagsl€aatt et al. / Journal of Magnetic Resonance 161 (2003) 138–147 141
+
+--- PAGE 5 ---
+where the X-proﬁle started as the proﬁle given by Eqs.
+(12a) and (12b) at Dtmin. Since X ðx; y; z; DÞ is always
+proportional to the X ðx; y; z; DtminÞ-value it is clear from
+Eq. (15) that the starting value of X at Dtmin,
+X ðx; y; z; DtminÞ,will not inﬂuence the form of the prop-
+agator. This means that an arbitrary,but constant,
+X ðx; y; z; Dt
+minÞ-value for jz /C0z0j 6 Dzmin can be used in-
+stead of the value proposed by Eq. (12a).
+2.8. The eﬀective diﬀusion propagator for the studied
+system is determined at the selected time intervals
+Instead of saving,for further evaluation,the propa-
+gators for each of the starting positions the eﬀective
+propagator,averaged over all relevant starting positions
+and weighted by the initial probability density of the
+studied compound,is evaluated
+hP ðz /C0z0jDÞi ¼
+RRR
+unit cell
+ceq /C1Pz 0 ðz0 þð z /C0z0ÞÞ;DjðÞ dx0 dy0 dz0
+RRR
+unit cell
+ceq dV :
+ð16Þ
+The propagator for each starting position, z0,is weigh-
+ted by the number of molecules in the starting band
+ðz
+0 /C0DzminÞ < z < ðz0 þ DzminÞ and then written as a
+function of ðz /C0z0Þ. The eﬀective propagator for the
+studied system is subsequently obtained from the sum of
+all weighted propagators divided by the total number of
+molecules in all starting bands.
+hP ðz /C0z
+0jDÞi /C25
+Pn
+i¼1 ni /C1Pi z0 ðz0 þð z /C0z0ÞÞ; DjðÞPn
+i¼1 ni
+ð17Þ
+The results contain errors that are associated with the
+ﬁnite number of starting positions. However,this error
+is reduced when the number of starting positions in-
+creases and a Richardsson extrapolation scheme can be
+used to further decrease the errors introduced by the
+ﬁnite number of starting positions [26].
+3. Results and discussion
+In this section we present the results of some simu-
+lations performed using the approach described above.
+We start by presenting results for three cases were an-
+alytical solutions exist,in order to establish that the
+exact results are correctly reproduced if the simulations
+are performed according to the above described meth-
+odology,and to discuss the errors that may be intro-
+duced. We then perform simulations for a few systems
+that are inhomogeneous with respect to molecular
+compositions,and where no analytical solutions are
+available. In all cases,it is assumed that the PFG ex-
+periment itself does not aﬀect the sample in any respect
+except for magnetically labeling of the positions of the
+studied molecules at certain times. Moreover,the echo
+attenuations are evaluated according to Eq. (18) on the
+assumption that inﬁnitely narrow gradient pulses are
+applied.
+E
+DðqÞ¼
+Z
+< P ðz /C0z0jDÞ > /C1ei2pq/C1ðz/C0z0 Þdðz /C0z0Þ: ð18Þ
+3.1. Free diﬀusion
+For a homogenous system without boundaries for
+diﬀusion,the propagator Pz 0jz; DðÞ is a Gaussian [1] and
+Eq. (1) then predicts the following echo-decay
+EDðqÞ¼ e/C04p2 q2DD ð19Þ
+The echo-decays resulting from the simulation of the
+diﬀusion of molecules starting in the center of an 800lm
+wide simulation box are presented in Fig. 3 at three
+diﬀerent q-values. For each q-value, D has been varied.
+The agreement between the numerically generated data
+and the exact solution,given by Eq. (19),is quantitative
+in a D-range of about 0.001–3 s. A small diﬀerence can
+be observed at the shortest times in the q ¼ 3 /C210
+5 m/C01
+graph,and this is due to the simpliﬁed start concentra-
+tion proﬁle at Dtmin ¼ 1 /C210/C04 s (corresponding to
+Dzmin ¼ 1lm). The diﬀerence at the longest times is
+due to reﬂections in the z-boundaries of the simulation
+box. As shown in the ﬁgure for q ¼ 103 m/C01,the time
+when this eﬀect starts to be important is at t /C25
+6 /C2106=q2 ¼ 6 s. This time can be compared with the
+Dtmax value from Eq. (3), Dtmax ¼ 2:5s .
+Fig. 3. The simulated (symbols) and exact (solid line) echo-decays for a
+homogeneous system as a function of q2D for three diﬀerent q values
+(with the maximum D-value given in parenthesis), /C3,1 /C2103 m/C01 (100
+s); d,9 :4 /C2103 m/C01 (1.13 s); s,3 /C2105 m/C01 (1.11 ms). The diﬀusion
+coeﬃcient of the simulated molecules is D ¼ 2 /C210/C09 m2 s/C01,
+Dzmax ¼ 0:4mm,and Dtmin ¼ 10/C04 s.
+142 H. Hagsl€aatt et al. / Journal of Magnetic Resonance 161 (2003) 138–147
+
+--- PAGE 6 ---
+3.2. Diﬀusion in inhomogeneous systems
+In the following sections,we turn our attention to
+systems where the propagation of the simulated mole-
+cules is followed from several starting positions. The
+numerical errors of the simulated echo attenuations
+can be made very small,by using an appropriate number
+of starting positions,mesh points,etc. In the data pre-
+sented below,the absolute errors are of the order of
+5 /C210
+/C04 or less in each point,while the relative er-
+rors are smaller than about 0.5% in each point. In or-
+der to reach these error levels,between 30 and 100
+starting positions and Dt
+min /C2410/C05 s have typically been
+used.
+3.3. Restricted diﬀusion between reﬂecting planes
+We have studied an inhomogeneous system in which
+the spins are conﬁned to the region between two parallel
+reﬂecting planes,with the gradient applied parallel to
+the plane normal. Exact solutions for the echo-decays
+from such systems exist within the short-gradient pulse
+limit [21]. We have simulated echo-decays for molecules
+with a diﬀusion coeﬃcient of D ¼ 2 /C210
+/C09 m2 s/C01 and a
+distance between the planes of a ¼ 20lm. Since the
+walls of the unit cell are impermeable,the simula-
+tion box is the same as the unit cell. The data are pre-
+sented in Fig. 4 together with data from the analytical
+solution.
+It should also be mentioned that the observed minima
+are due to phase cancellations that often occur when
+studying molecules that exhibit restricted diﬀusion in
+well-deﬁned pores. For a rectangular geometry,minima
+occur for q ¼ n=a,where n is a positive integer.
+3.4. Restricted diﬀusion in a cylinder
+We now turn to diﬀusion perpendicular to the sym-
+metry axis of molecules conﬁned to a cylinder with im-
+permeable walls,which is another case where the
+simulation box is the same as the unit cell. As before we
+have chosen to investigate molecules with D ¼ 2 /C2
+10
+/C09 m2 s/C01,and the radius R of the cylinder was set equal
+to 10lm. The numerically evaluated echo attenuation and
+the analytical solution are presented in Fig. 5.
+3.5. Diﬀusion in a lamellar system
+As is evident from the examples presented above we
+are able to correctly predict echo-decays for both free
+diﬀusion and for diﬀusion restricted by the presence of
+impermeable barriers. We now turn to systems in which
+the concentration of molecules shows a spatial variation
+in the sample. This is a common situation,for instance
+in many biological systems,where the structure on a
+cellular level constitutes one example [6,18]. We consider
+a system,outlined in the insert in Fig. 6,of alternating
+slabs,each with the same thickness of 20 lm and each
+with the same diﬀusion coeﬃcient ðD ¼ 2 /C210
+/C09 m2 s/C01)
+but with a factor of 10 diﬀerence in equilibrium con-
+centrations between two adjacent slabs.
+In the long-time limit,the eﬀective diﬀusion coeﬃ-
+cient for such a system is given by
+Deff ¼ 1
+C1U1 þ C2U2
+/C18/C19
+/C1U1
+C1D1
+/C18
+þ U2
+C2D2
+/C19/C01
+; ð20Þ
+where Ci, Di,and Ui ði ¼ 1; 2Þ are the equilibrium con-
+centrations,diﬀusion coeﬃcients and volume fractions
+of the two regions,respectively. Using the values given
+Fig. 4. The simulated (symbols) and exact (solid lines) echo-decays
+from the molecules between two reﬂecting walls as a function of q for
+four diﬀerent D-values, j,1 ms; },10 ms; s,32 ms; d,1 s. The dis-
+tance between the reﬂecting planes is 20lm and the diﬀusion coeﬃcient
+of the simulated molecules is D ¼ 2 /C210/C09 m2 s/C01.
+Fig. 5. The simulated (symbols) and exact (solid lines) echo-decays
+resulting from the radial diﬀusion of molecules conﬁned in a cylinder
+with reﬂecting walls after diﬀusion times of j,1 ms; },10 ms; s,
+32 ms; d,1 s. The radius of the cylinder is 10 lm and the diﬀusion
+coeﬃcient of the simulated molecules is D ¼ 2 /C210
+/C09 m2 s/C01.
+H. Hagsl€aatt et al. / Journal of Magnetic Resonance 161 (2003) 138–147 143
+
+--- PAGE 7 ---
+above,one obtains Deff ¼ 0:661 /C210/C09 m2 s/C01,and hence
+the size of the simulation box of Dzmax ¼ 0:51 /C210/C03 m
+used in the simulation,corresponds to Dtmax ¼ 12 s,ac-
+cording to Eq. (3). The subsequently calculated echo-
+decays for some diﬀerent diﬀusion times are displayed in
+Figs. 6 and 7.
+For this system,no exact time-resolved solution is
+available,but the eﬀective diﬀusion coeﬃcient is avail-
+able,as described above. An estimation of the long-time
+errors of the simulation can therefore be obtained,since
+the eﬀective diﬀusion coeﬃcient is related to the mean
+squared displacements of the molecules through
+D
+eff ¼
+z2hi long-time
+2D : ð21Þ
+The quantity hz2ilong-time as obtained from the echo-de-
+cays at long diﬀusion time (10 s ) and low q-values [4]
+results in Deff ¼ 0:661 /C210/C09 m2 s/C01,in good agreement
+with the analytical result.
+Furthermore,we can make use of the observed peaks
+and minima of Fig. 7 in order to investigate the reliability
+of the performed simulation. Peaks are found at values of
+q which are centered around q ¼ n
+c 2:5 /C2104 m/C01,where
+nc are positive integers. For even values of nc,the peaks
+are split and of considerably lower intensity. Supported
+by the data presented in Fig. 6,especially the graph rep-
+resenting a diﬀusion time of 1 s,this result indicates the
+presence of nodes located atq ¼ n
+n 5 /C2104 m/C01,where nn
+are positive integers.
+These observations can be rationalized by the physics
+of the lamellar system and its characteristic distances as
+follows. First,we have the thickness of each slab,which
+corresponds to the distances between the reﬂective
+boundaries as described above. We would hence expect
+to observe minima due to phase cancellation at values of
+q ¼ n 5 /C210
+4 m/C01,similarly to the results presented in
+Fig. 4. In addition,because of the regular underlying
+lattice,phase coherences may be observed (see the book
+by Callaghan [1] for a lucid account of these phenom-
+ena). In the present system we expect to observe such
+coherences at multiples of 40 lm (the nearest distance
+between the centers of two concentration rich slabs),i.e.
+at q-values of q ¼ n 2:5 /C210
+4 m/C01. By a comparison
+with the simulated results,it can be concluded that all
+these expected features are present.
+3.6. Echo-attenuation in an inhomogeneous system with
+hexagonal symmetry
+Echo attenuations were evaluated for diﬀusion along
+thez-axis of a hexagonal system as given in Fig. 8,which
+is a 2-D representation of cylinders,hexagonally ordered
+in a solvent,which we take to be water. The distribution
+of the diﬀusing compound is 1:0.1 between the water
+and the cylinders and D ¼ 2 /C210
+/C09 m2 s/C01 for both do-
+mains. Each phase constitutes half of the sample vol-
+ume,the cylinder radius is 10 lm and hence the distance
+between the centers of two adjacent cylinders is
+d /C2527lm.
+The probability density proﬁle for the diﬀusing
+compound of this system as a function of time and
+starting position have been evaluated numerically,with
+Dz
+max ¼ 0:41 /C210/C03 m used for the simulation box
+corresponding to Dtmax ¼ 4 s,according to Eq. (3). The
+subsequently evaluated spin echo attenuation is given in
+Fig. 9.
+Coherence peaks are noted for q ¼ n=ðd=2Þ,which
+corresponds to the distances between the centers of the
+Fig. 7. The simulated echo-decay for the same system as in Fig. 6,after
+a diﬀusion time of 10 s.
+Fig. 6. The simulated echo-decay from molecules in a lamellar system
+shown in the insert after diﬀusion times of j,1 ms; },10 ms; s,32 ms;
+d,1 s. The symbols represent a limited selection of the total set of 150
+data points per solid line. The thickness of each region is 20lm and the
+ratio between the equilibrium concentrations of two adjacent regions is
+10. The diﬀusion coeﬃcient of the simulated molecules is in both re-
+gions D ¼ 2 /C210
+/C09 m2 s/C01 and Dzmax ¼ 0:51 mm.
+144 H. Hagsl€aatt et al. / Journal of Magnetic Resonance 161 (2003) 138–147
+
+--- PAGE 8 ---
+inter-particle water domains in the z-direction,as shown
+in Fig. 8.
+3.7. Diﬀusion in more complex systems
+The systems discussed above have rather simple geo-
+metric structures,but the presented simulation technique
+is not limited to this type of systems,since the ﬁnite ele-
+ment method that we have used is well adapted also to
+treat complex structures. An example of a more complex
+structure is the system represented in Fig. 10. It is made up
+of a rectangular water domain,which contains an elliptic
+core. A wall surrounds each such domain. We have sim-
+ulated the diﬀusion in this system using molecules for
+which the diﬀusion constant is D ¼ 2 /C210
+/C09 m2 s/C01 in all
+three regions,and the relative equilibrium concentrations
+of the studied molecules in the core,the pure water do-
+main and the wall is 0.5:1:0.1. The probability density
+distribution in the z-direction along the center of the
+simulation box after propagation for 10
+/C03,10 /C02,and 0.3 s,
+for molecules that were located in a 0 :2lm thin band in
+the center of the central unit cell atDtmin is given in Figs.
+11a–c,together with the equilibrium state of the system in
+Fig. 11d. It should be noted that the concentration scales
+of the ﬁgure are arbitrary,and that the absolute concen-
+trations are simply related to the number of molecules
+that was introduced in the start pulse and the dimensions
+of the simulation box.
+When the molecules that initially are located in the
+rectangular start pulse are allowed to diﬀuse,they do so in
+such a way that equilibrium of the system is ﬁnally ob-
+tained. Therefore,the relative equilibrium concentrations
+of the system given in Fig. 11d also represent the propa-
+gator at D ¼1 ,with c
+wall ¼ 0:1 /C1cwaterdomain and
+ccell core ¼ 0:5 /C1cwaterdomain. Having established the initial
+and ﬁnal states,we turn our focus to the diﬀusion process.
+At short time scales,most molecules diﬀuse freely,and as
+a result,Gaussian propagators are obtained. This is ex-
+empliﬁed by the propagator of Fig. 11a,obtained after a
+diﬀusion time of 1 ms,where most molecules still reside
+inside the cell core. The molecules then reach the water
+domain where the concentration of labeled spins increases
+rapidly,as exempliﬁed in Fig. 11b after a diﬀusion time of
+10 ms. Essentially no molecules have entered the neigh-
+boring cells at this point,since the water diﬀusion out of
+each cell is restricted by the low water content in the cell
+walls. It is also evident that water diﬀuses out of the cell
+core against the water concentration gradient at this
+stage. The latter eﬀect is still more pronounced when the
+Fig. 10. Five-unit cells of a system where each unit cell is made up of a
+rectangular water domain of size 20 /C240lm2 (white),which is covered
+by a 5 lm thick wall (dark grey) where the equilibrium water concen-
+tration is reduced to 1/10,and contains an elliptic core (grid) with semi-
+axes 5 and 10 lm,respectively,in which the water equilibrium con-
+centration is half of that of the water domain. The central,thin black
+rectangle indicates the starting pulse,and simulated propagators along
+the dashed line are given in Fig. 11.
+Fig. 9. The simulated echo-decays from the molecules in the hexagonal
+system shown in Fig. 8 at D-values of j,1 ms; },10 ms; s,32 ms; d,
+1 s. The symbols represent a limited selection of the total set of 500
+data points per solid line. The equilibrium concentration of the studied
+molecules is 10 times lower inside a cylinder compared with the sur-
+rounding region. The diﬀusion coeﬃcient of the simulated molecules is
+in both regions D ¼ 2 /C210
+/C09 m2 s/C01.
+Fig. 8. A schematic representation of a system with cylindrical rods in a
+hexagonal lattice. The radius of a cylinder is 10lm and the center–center
+distance ( d between two adjacent cylinders is 27 lm. The distance in
+the z-direction between the centers of two neighboring ‘‘water-do-
+mains,’’ as indicated by the two hexagons in the ﬁgure, isd=2.
+H. Hagsl€aatt et al. / Journal of Magnetic Resonance 161 (2003) 138–147 145
+
+--- PAGE 9 ---
+molecules leaves the cell wall and enter the water domain
+of a more distant unit cell,as shown in Fig. 11c at 0.3 s. At
+this stage,the cell core has an essentially homogenous
+water distribution,with a concentration that is half of that
+of the pure water domain.
+The water molecules enter new cells,and in fact,the
+jagged propagators successively adopt an overall
+Gaussian shape,as is indicated already after diﬀusion
+for 0.3 s. For example,if only the concentration values
+obtained for the water domains are considered,a
+Gaussian curve may be reasonably well ﬁtted,and the
+same is true if the concentration values of the cell walls
+or of the cell nucleuses are considered. The longer the
+diﬀusion time,the better the obtained ﬁt.
+However,sooner or later there will also be eﬀects due
+to the ﬁnite size of the simulation box,and the propa-
+gators then exhibit increasing deviation from the
+Gaussian shape. Finally,as the time of propagation
+approaches inﬁnity,equilibrium is obtained. As dis-
+cussed above,Fig. 11d represent this state.
+4. Future perspectives
+The relationship between structure and dynamics of
+media that are porous on nano- and micro-scales is an
+area subject to intense research. In this context,NMR is
+a promising approach. It is our belief that the presented
+simulation methodology will be a useful tool in the
+analysis of experimental NMR data from porous sys-
+tems.
+We are presently extending the approach to the fol-
+lowing areas.
+(i) Simulations in 3-dimensions. This introduces no
+new concepts,but the calculations will be considerably
+more computer intensive.
+(ii) Diﬀusion in the presence of external driving for-
+ces,such as pressure gradients,temperature gradients
+and gradients in chemical potential.
+(iii) Generating echo-decay curves from an image of a
+porous system. This implies taking an image from a
+porous system,such as generated by e.g. confocal laser
+microscopy,and to simulate the propagator from the
+digitized image.
+In principle,porous systems of any complexity can
+thus be studied. To generate a unique structure from an
+NMR diﬀusometry experiment is very diﬃcult if addi-
+tional information is not available. The opposite pro-
+cedure is less demanding. We feel that the NMR
+diﬀusometry technique is perhaps best used to check
+structural data from other imaging techniques. Since the
+NMR approach is non-perturbing while many other
+imaging techniques are not,this is an important feature
+of the NMR diﬀusometry experiment.
+Fig. 11. The simulated propagators for the system described in Fig. 10 where the diﬀusion constant isD ¼ 2 /C210/C09 m2 s/C01 in all three regions,from a
+centered starting pulse with a width of Dzmin ¼ 0:1lm after (a) 1 ms,(b) 10 ms,and (c) 0.3 s. In (d) the corresponding equilibrium concentration
+proﬁle is given. The horizontal scales are in lm,and the concentrations on the vertical scales are given in relative units.
+146 H. Hagsl€aatt et al. / Journal of Magnetic Resonance 161 (2003) 138–147
+
+--- PAGE 10 ---
+Acknowledgments
+The Swedish Agency for Innovation Systems,Vin-
+nova,and the Swedish Research Council,VR,are
+gratefully acknowledged for ﬁnancial support.
+References
+[1] P.T. Callaghan,Principles of Nuclear Magnetic Resonance
+Microscopy,Clarendon Press,Oxford,1991.
+[2] W.S. Price,Pulsed ﬁeld gradient NMR as a tool for studying
+translational diﬀusion,Part 1. basic theory,Concepts Magn.
+Reson. 9 (1997) 299–336.
+[3] W.S. Price,Pulsed-ﬁeld gradient nuclear magnetic resonance as a
+tool for studying translational diﬀusion: Part II. experimental
+aspects,Concepts Magn. Reson. 10 (1998) 197–237.
+[4] P.T. Callaghan,A. Coy,PGSE NMR and molecular translational
+motion in porous media,in: P. Tycko (Ed.),NMR Probes and
+Molecular Dynamics,Kluwer,Dordrecht,1994,pp. 489–523.
+[5] P.T. Callaghan,A. Coy,D. MacGowan,K.J. Packer,F.O.
+Zelaya,Diﬀraction-like eﬀects in NMR diﬀusion of ﬂuids in
+porous solids,Nature 351 (1991) 467–469.
+[6] P.W. K €uuchel,A. Coy,P. Stilbs,NMR Diﬀusion-diﬀraction of
+water revealing alignment of erythrocytes in a magnetic ﬁeld and
+their dimensions and membrane transport characteristics,Magn.
+Reson. Med. 37 (1997) 637–643.
+[7] S.J. Gibbs,Observations of diﬀusive diﬀraction in a cylindrical
+pore by PFG NMR,J. Magn. Reson. 124 (1997) 223–226.
+[8] B. H/C23aakansson,O. S €ooderman,R. Pons,Structure determination of
+a highly concentrated W/O emulsion using PFG-SE NMR
+diﬀusion-diﬀractograms,Langmuir 15 (1998) 988–991.
+[9] J. K €aarger,W. Heink,The propagator representation of molecular
+transport in microporous crystallites,J. Magn. Reson. 51 (1983)
+1–7.
+[10] O. S €ooderman,P. Stilbs,NMR Studies of complex surfactant
+solutions,Prog. Nucl. Magn. Reson. Spectrosc. 26 (1994) 445–
+482.
+[11] V.J. Wedeen,T.G. Reese,D.S. Tuch,M.R. Weigel,J.-G. Dou,
+R.M. Weiskoﬀ,D. Chessler,Mapping ﬁber orientation in cerebral
+white matter with Fourier-transform diﬀusion MRI,Proc. Intl.
+Soc. Mag. Reson. Med. 8 (2000) 82.
+[12] Y. Assaf,A. Mayk,Y. Cohen,Displacement imaging of spinal
+cord using q-space diﬀusion-weighted MRI,Magn. Reson. Med.
+44 (2000) 713–722.
+[13] P.T. Callaghan,A. Coy,T.P.J. Halpin,D. MacGowan,K.J.
+Packer,F.O. Zelaya,Diﬀusion in porous systems and the inﬂuence
+of pore morphology in pulsed ﬁeld gradient spin-echo nuclear
+magnetic resonance studies,J. Chem. Phys. 97 (1992) 651–662.
+[14] M.H. Blees,The eﬀect of ﬁnite duration of gradient pulses on the
+pulsed-ﬁeld-gradient NMR method for studying restricted diﬀu-
+sion,J. Magn. Reson. Ser. A 109 (1994) 203–209.
+[15] P. Linse,O. S €ooderman,The validity of the short gradient pulse
+approximation in NMR studies of restricted diﬀusion. simulations
+of molecules diﬀusing between planes,in cylinders and spheres,J.
+Magn. Reson. Ser. A 116 (1995) 77–86.
+[16] D.G. Regan,P.W. K €uuchel,Mean residence time of molecules
+diﬀusing in a cell bounded by a semi-permeable membrane: Monte
+Carlo simulations and an expression relating membrane transition
+probability to permeability,Eur. Biophys. J. Biophys. Lett. 29
+(2000) 221–227.
+[17] A.J. Lennon,P.W. K €uuchel,Neural networks used to interpret
+pulsed-gradient restricted-diﬀusion data,J. Magn. Reson. A 107
+(1994) 229–235.
+[18] P.W. K €uuchel,C.J. Durrant,Permeability coeﬃcients from NMR
+q-space data: models with unevenly spaced semi-permeable
+parallel membranes,J. Magn. Reson. 139 (1999) 258–272.
+[19] P.T. Callaghan,A simple matrix formalism for spin echo analysis
+of restricted diﬀusion under generalized gradient waveforms,J.
+Magn. Reson. 129 (1997) 74–84.
+[20] A.V. Barzykin,Theory of spin echo in restricted geometries under
+a step-wise gradient pulse sequence,J. Magn. Reson. 139 (1999)
+342–353.
+[21] J.E. Tanner,E.O. Stejskal,Restricted self-diﬀusion of protons in
+colloidal systems by the pulsed-gradient,spin-echo method,J.
+Chem. Phys. 49 (1968) 1768–1777.
+[22] J.E.M. Snaar,H. van As,NMR self-diﬀusion measurements in a
+bounded system with loss of magnetization at the walls,J. Magn.
+Reson. Ser. A 102 (1993) 318–326.
+[23] B. J €oonsson,H. Wennerstr €oom,P.G. Nilsson,P. Linse,Self-
+diﬀusion of small molecules in colloidal systems,Colloid Polym.
+Sci. 264 (1986) 77–88.
+[24] http://www.comsol.com.
+[25] http://www.mathworks.com.
+[26] W.H. Press,Numerical Recipes,Cambridge University Press,
+Cambridge,MA,1990.
+H. Hagsl€aatt et al. / Journal of Magnetic Resonance 161 (2003) 138–147 147

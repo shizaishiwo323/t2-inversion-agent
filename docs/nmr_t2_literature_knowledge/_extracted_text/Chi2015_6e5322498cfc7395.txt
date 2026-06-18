@@ -1,0 +1,1280 @@
+--- PAGE 1 ---
+Diffusional coupling between microfractures and pore structure
+and its impact on nuclear magnetic resonance
+measurements in multiple-porosity systems
+Lu Chi 1 and Zoya Heidari 1
+ABSTRACT
+Nuclear magnetic resonance (NMR) relaxation time measure-
+ments, although among the most accurate methods to estimate
+formation porosity, have been considered conventionally as in-
+sensitive to the presence of microfractures. Hence, the NMR
+responses in multiple-porosity systems, which may contain
+intergranular pores, microfractures, or channel-like inclusions,
+have not yet been thoroughly investigated. NMR pore-scale
+simulations using a random-walk algorithm enabled us to
+quantify the impact of microfractures/channels on NMR mea-
+surements and to propose a new concept of fracture-pore diffu-
+sional coupling in such heterogeneous systems. We randomly
+distributed and oriented microfractures (or channels) in 3D
+pore-scale images of different rock matrices. We then quanti-
+fied the sensitivity of NMR T
+2 (spin-spin relaxation time) dis-
+tribution to the presence of microfractures (or channels) and
+compared the pore-scale simulation results against a previ-
+ously published experimental study. The pore-scale simulation
+results from synthetic rock samples revealed that NMR T2 dis-
+tribution can be influenced not only by the pore-size dis-
+tribution but also significantly by fracture-pore diffusional
+coupling. The intergranular pore size can be underestimated
+by up to 29%, and the volume fraction of intergranular pores
+can be underestimated by more than 10%, if the impact of
+diffusional coupling was not taken into account in interpreta-
+tion of NMR measurements. Furthermore, we developed a
+simplified 1D analytical model for fracture-pore diffusional
+coupling. The analytical solutions of the 1D model were in
+agreement with the simulation results in the synthetic rock
+samples, which further demonstrated the existence of frac-
+ture-pore coupling in multiple-porosity systems. The devel-
+oped 1D model enabled real-time evaluation of diffusional
+coupling effect in the presence of microfractures and complex
+pore-size distribution. The results were promising for future
+applications of NMR relaxometry for the assessment of micro-
+fracture content, when combined with other conventional well
+logs.
+INTRODUCTION
+Assessment of pore structure within double-porosity carbonate
+formations has been possible by joint inversion of conventional
+well logs ( Kazatchenko et al., 2007 ), but it remains challenging
+to evaluate the hierarchical structure of multiple-porosity systems.
+Borehole nuclear magnetic resonance (NMR) measurements have
+been among the most reliable techniques to evaluate porosity
+and pore-size distribution in various formations. There have been
+many petrophysical studies on NMR applications in porous media
+because the mechanism of proton relaxation in restricted space was
+explained decades ago (Brownstein and Tarr, 1979; Kleinberg et al.,
+1994). However, there have been very limited studies on quantify-
+ing the effect of fractures in porous media on NMR measurements.
+The few published NMR studies on fractures only consider wide
+planar fractures, in which the saturating fluids behave like bulk flu-
+ids without spatial restrictions (Nakashima and Kikuchi, 2007; Xiao
+and Li, 2011 ). In other words, the fractures under study are consid-
+ered as isolated from the porous structures of rock. In the first study,
+Nakashima and Kikuchi (2007) evaluate the NMR response to wide
+planar fractures and propose the use of borehole NMR measure-
+ments for assessment of fracture aperture. The following study by
+Manuscript received by the Editor 16 December 2013; revised manuscript received 19 August 2014; published online 10 December 2014.
+1Texas A&M University, Harold V ance Department of Petroleum Engineering, College Station, Texas, USA. E-mail: lu.chi@pe.tamu.edu; zoya.heidari@
+pe.tamu.edu.
+© 2014 Society of Exploration Geophysicists. All rights reserved.
+D31
+GEOPHYSICS, VOL. 80, NO. 1 (JANUARY -FEBRUARY 2015); P . D31 –D42, 9 FIGS., 6 TABLES.
+10.1190/GEO2013-0467.1
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 2 ---
+Xiao and Li (2011) systematically investigated the impact of frac-
+ture characteristics and tool parameters on NMR logs by theoretical
+analysis and numerical simulations. These studies assumed that free
+fluids exclusively occupy the fracture space and the fractures are
+parallel to each other and dominantly perpendicular to the wellbore.
+The findings from the aforementioned publications can only be ap-
+plied to wide planar fractures with apertures much greater than
+0.2 mm because a simple derivation shows that when the aperture
+is wider than 0.2 mm, the relaxation time associated to fractures
+approaches the bulk water relaxation time, i.e., 2 s, and becomes
+independent of aperture size ( Nakashima and Kikuchi, 2007 ; Xiao
+and Li, 2011 ).
+Furthermore, other publications studied the diffusional pore-to-
+pore exchange in nonfractured rock samples and their effect on
+NMR response. It has been demonstrated that intra- and intergra-
+nular pores in heterogeneous porous structures (e.g., carbonate
+rocks) can significantly influence the NMR T
+2 distribution from
+each other. Ramakrishnan et al. (1999) propose an analytical model
+of diffusional pore coupling to describe the diffusion of water
+molecules between micro (intragranular) and macro (intergranular)
+pores in carbonate rocks. They observed that diffusional pore cou-
+pling can significantly decrease the longer relaxation time of macro-
+pores and suppress the peak amplitude of micropores that have a
+shorter relaxation time. Toumelin et al. (2002) further investigate
+the coupling between micro- and macroporosities in carbonate
+rocks and reported the same decrease by Monte Carlo simulations
+and experimental measurements. Anand and Hirasaki (2005) study
+the diffusional pore coupling in sandstones and grainstones and
+verify the decrease in macropore relaxation times by mathematical
+modeling and experimental results. A recent laboratory study ( Gru-
+newald and Knight, 2009) also confirmed the decrease in macropore
+relaxation times due to pore coupling by changing the surface
+geochemistry of porous materials.
+None of these previous studies, however, take into account the
+microfractures in the rock. Thus, the diffusional coupling effect be-
+tween microfractures and original rock pores has never been inves-
+tigated. We hereby incorporate microfractures in porous media to
+study the diffusional coupling between microfractures and intergra-
+nular pores and show NMR sensitivity to the randomly distributed
+microfractures as well as the intra-/intergranular pores. Based on
+the results, we propose a new concept of fracture-pore diffusional
+coupling.
+To substantiate our hypothesis that microfractures can influence
+the rock NMR signals, we start with a simple theoretical derivation.
+It is well known that, in the fast diffusion limit, the NMR spin-spin
+relaxation time T
+2 of hydrogen nuclei in the fluids in porous media
+can be expressed as ( Coates et al., 1999 )
+1
+T2
+¼ 1
+T2B
+þ 1
+T2S
+þ 1
+T2D
+¼ 1
+T2B
+þ ρ2
+/C18 S
+V
+/C19
+pore
+þ Dðγ · G · TEÞ2
+12 ; (1)
+where T2B is the bulk relaxation time, T2S is the surface relaxation
+time, T2D is the diffusion-induced relaxation time, ρ2 is the surface
+relaxivity, S∕V is the surface-to-volume ratio of the pore space, D is
+the diffusion coefficient of pore fluids, γ is the gyromagnetic ratio
+of a proton, G is the internal magnetic field gradient, and TE is the
+interecho spacing time.
+It has been well accepted that the NMR T2 distribution represents
+the pore size distribution of the rock sample when (1) the pore space
+is fully saturated with fluids of high hydrogen index such as water
+or liquid hydrocarbon, (2) short TE in the Carr-Purcell-Meiboom-
+Gill (CPMG) pulse sequence is used, and (3) all the pore surface has
+a uniform surface relaxivity ρ
+2. Under these conditions the relaxa-
+tion process is dominated by the surface relaxation mechanism, and
+the surface relaxation time T2S can be considered as directly propor-
+tional to the pore size, given by
+1
+T2S
+∝
+/C18 S
+V
+/C19
+pore
+∝
+/C18 1
+d
+/C19
+pore
+; (2)
+where d is the diameter of the pores. However, to validate the sec-
+ond part of equation 2, another assumption must be made; all the
+pores are similar in geometry, thus they possess similar surface-to-
+volume ratios.
+For instance, let us consider the case when thin planar fractures
+exist in rock samples together with the spherical intergranular pores.
+The surface-to-volume ratios of spherical pores and planar fractures
+are given by
+/C18 S
+V
+/C19
+sphere
+¼
+/C18 6
+d
+/C19
+sphere
+(3)
+and
+/C18 S
+V
+/C19
+plane
+¼
+/C18 2
+w
+/C19
+plane
+; (4)
+where w is the thickness of planar fractures. We can expect that if
+the diameter of spherical pores is three times the thickness of planar
+fractures, they will overlap on T2 distribution. In this case, if we still
+assume that the rock contains merely spherical pores, we may find
+mismatch between NMR T
+2 distribution and pore size distribution
+of the rock.
+The inherent assumption of similar pore geometry in equation 2
+makes the impact of microfractures on NMR T2 distribution not
+discernible. The purpose of this paper is therefore to evaluate (1)
+NMR sensitivity to the randomly distributed microfractures inside
+rocks and (2) the diffusional coupling effect between microfractures
+and intergranular pores in various formations including sandstones
+and carbonates.
+The following sections describe the methods, the results of nu-
+merical simulations in sandstone and carbonate core samples as
+well as the theoretical analysis to confirm the simulation results.
+METHODS
+The numerical method starts with generation of digital pore-scale
+images of different rock samples, followed by simulations of NMR
+response in these 3D pore-scale images. Finally, we describe a 1D
+analytical model for NMR diffusional coupling.
+Pore-scale images of multiple-porosity structures
+The pore-scale images, as the input to the NMR simulator, can be
+obtained by micro-computed tomography (CT) or focused ion beam
+scanning electron microscope (FIB-SEM) depending on the rock
+D32 Chi and Heidari
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 3 ---
+type and pore size. We use Fiji, an open-source image processing
+software (Schindelin et al., 2012 ), to convert the original grayscale
+micro-CT images to binary (black-and-white) images by trainable
+segmentation. The main idea of trainable segmentation is to train
+the software to differentiate pores and grains by manually drawing
+lines on one of the micro-CT images, then the software apply this
+segmentation algorithm to all the other images. By this means, the
+noise pixels on images are eliminated. Next, we use ImageJ, a pub-
+lic-domain, Java-based image-processing program developed at the
+National Institute of Health to reconstruct a 3D rock matrix from the
+binary images. We then synthetically create randomly distributed
+and oriented microfractures with different size, concentration, and
+shape (e.g., planar fractures or channel-like inclusions). Finally, we
+incorporate the synthetic microfractures into the 3D matrices of car-
+bonate/sandstone rock samples. All the synthetic cases are matrices
+of 0 s and 1 s (0 represents pore pixel, and 1 represents grain pixel),
+with 300 × 300 × 300 pixels in volume.
+Nuclear magnetic resonance pore-scale
+simulations and T2 inversion
+The NMR magnetization decay is simulated using a random-
+walk algorithm ( Ramakrishnan et al., 1998 ; Øren and Bakke,
+2002) via a C++ program adapted from the work of Talabi et al.
+(2009). In all the simulations, we assume that the pore space is fully
+saturated with brine (i.e., T2B of the saturating fluid is assumed to be
+3.1 s), and there is no diffusion-induced relaxation (i.e., G is zero in
+equation 1). For the sandstone and carbonate examples, the image
+resolution is assumed to be 1 μm∕pixel. The number of walkers
+assigned in each pore voxel is either 1 or 4, depending on the pore
+size. The surface relaxivity of carbonate rocks typically ranges from
+1t o 10 μm∕s (Talabi, 2008), and for sandstone rocks it varies from
+9 (Liaw et al., 1996 )t o 46 μm∕s (Roberts et al., 1995 ). Thus, we
+assume a surface relaxivity of 10 μm∕s for sandstone and carbonate
+rocks for convenience of comparison. In this paper, we do not in-
+vestigate the influence of surface relaxivity change on the NMR
+response. We expect that with higher surface relaxivities, the impact
+of diffusional coupling on NMR response decreases ( Ramakrishnan
+et al., 1999 ).
+The NMR T2 distribution is inverted from
+the magnetization decay by using a curvature
+smoothing method ( Chen et al., 1999 ; Toumelin
+et al., 2003 ; Talabi et al., 2009 ). The area under
+each T2 distribution curve represents the total
+porosity of the rock.
+Analytical model for
+diffusional coupling
+The 1D analytical model for the diffusional
+coupling effect is adapted from a previous model
+introduced by Ramakrishnan et al. (1999) . The
+original 1D model described the pore coupling
+between macropores (intergranular) and micro-
+pores (intragranular pores) in carbonate rocks.
+We adapted this model to study the diffusional
+coupling between microfractures and intergra-
+nular pores in various rock samples. Figure 1
+shows the assumed 1D simplified model for the
+fractured rock sample. The magnetization in the
+fracture domain MF is governed by the usual NMR diffusion
+equation:
+D ∂2MF
+∂x2 − MF
+T2B
+¼ ∂MF
+∂t ; (5)
+where D is the diffusion coefficient of fluids within the fractures.
+Within the porous grains, the magnetization MG is governed by
+the modified NMR diffusion equation:
+D
+F
+∂2MG
+∂x2 − ϕGMG
+/C18 1
+T2B
+þ 1
+T2;G
+/C19
+¼ ϕG
+∂MG
+∂t ; (6)
+where T2;G is the relaxation time of fluids within the intergranular
+pores, and F and ϕG are the formation factor and the intergranular
+porosity of the porous grain domain, respectively.
+The boundary conditions between the fracture domain and the
+porous grain domain can be expressed as
+MFjx¼H ¼ MGjx¼H (7)
+and
+D dMF
+dx
+/C12/C12
+/C12/C12
+x¼H
+¼ D
+F
+dMG
+dx
+/C12/C12
+/C12/C12
+x¼H
+− ρð1 − ϕGÞMFjx¼H; (8)
+where ρ is the surface relaxivity of the grains, and H is half the
+thickness of fractures given by H ¼ w∕2.
+According to Ramakrishnan et al. (1999) the approximate ana-
+lytical solutions to equations 5 and 6 can be obtained by assuming
+two principal exponential-decay modes. First, we define coupled
+fractures as the microfractures that are diffusionally coupled
+(i.e., connected) with intergranular pores. Next, we adopt Ramak-
+rishnan et al.’s (1999) approximate analytical solution to obtain the
+relaxation time for the coupled fractures T2F;coupled via
+Figure 1. Simplified 1D model for a fractured rock matrix. The values on the x-axis are
+used to denote the relative dimensions of fractures and grains. H is half the thickness of
+fractures, and W is the distance from fracture center to grain center.
+Impact of fractures on NMR relaxometry D33
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 4 ---
+1
+T2F;coupled
+≅ 1
+H
+/C20 ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ϕGD
+T2;GF
+s
+þ ρð1 − ϕGÞ
+/C21
+: (9)
+Equations 5–9 are adapted from Ramakrishnan et al. (1999) by
+replacing their terms for micro- and macropores with our definitions
+of intergranular pores and microfractures, respectively.
+In comparison, if the microfractures are not connected to any
+intergranular pores, we define them as isolated fractures . The
+relaxation time of fluids within the isolated fractures T
+2F;iso can be
+theoretically estimated by
+1
+T2F;iso
+¼ ρ · 2
+w ¼ ρ
+H . (10)
+It can be easily shown that when the grain porosity ϕG approaches
+zero, equation 9 naturally becomes equation 10, which describes
+isolated microfractures.
+The amplitude of T2 mode in the isolated microfractures Iiso can
+be determined from the input geometry. The amplitude of T2 mode
+in the coupled microfractures Icoupled is then derived using the ana-
+lytical model, given by ( Ramakrishnan et al., 1999 )
+Icoupled ≅ Iiso
+ð1 þ XÞ2
+1 þ X∕2 ; (11)
+where
+X ≅ T2;G∕T2;F;coupledﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ ﬃ1 − T2;G∕T2;F;coupled
+p : (12)
+SYNTHETIC CASE NO. 1: SANDSTONE
+ROCK SAMPLE
+Synthetic case no. 1 is designed to illustrate the impact of micro-
+fractures in a porous media with highly connected intergranular
+pore structure such as conventional sandstone reservoirs. We syn-
+thetically generate pore-scale images of fractured sandstone rocks,
+by inserting synthetic planar fractures into the sandstone matrix.
+The base micro-CT image of the sandstone rock sample is provided
+by the Pore-scale Modeling research group at Imperial College Lon-
+don ( Dong, 2007 ). We assign four walkers in each pore voxel for
+NMR random-walk simulations.
+Figure 2a shows the NMR T
+2 distribution for the synthetic sand-
+stone rock sample including and in the absence of planar fractures.
+The same figure also shows NMR T
+2 distribution for the fractures
+isolated from the sandstone rock matrix. The two square planar frac-
+tures in the sandstone rock sample are identical in shape and size,
+with thickness of 9 μm and length of 270 μm. The results show that
+the relaxation times associated with the isolated
+planar fractures (blue dashed line) are longer
+than those of the original sandstone matrix (black
+dashed line). This is expected because the thick-
+ness of planar fractures, 9 μm, is larger than one-
+third of the dominant pore size in the sandstone
+rock sample, which is estimated as 14.9 μm. We
+also calculated the T
+2 value of the isolated frac-
+tures analytically (Appendix A). The results from
+analytical calculations confirm the simulation re-
+sults for isolated fractures.
+After incorporating the fractures into the sand-
+stone matrix, the resulting T2 distribution (blue
+solid line) is not equivalent to the superposition
+of the previously presented T
+2 distributions (blue
+and black dash lines). Instead, the relaxation time
+corresponding to the planar fractures has been
+significantly shortened from 274 (isolated frac-
+tures) to 178 ms (coupled fractures). Meanwhile,
+the pore relaxation time has been slightly de-
+creased. The T
+2 values for intergranular pores,
+coupled fractures, and isolated fractures are listed
+in Table 1.
+This significant decrease in the fracture T
+2 re-
+laxation time and the slight decrease in the pore
+relaxation time can be explained by the concept
+of diffusional coupling proposed by Ramak-
+rishnan et al. (1999) . The physical origin of
+the decrease in longer T
+2 is that, when the water
+molecules originally in large pores diffuse into
+small pores in which they are exposed to more
+surfaces, their proton spins relax faster. This ef-
+fect is obvious when the fluid diffusion rate is
+faster than the characteristic relaxation rate of
+pores ( Ramakrishnan et al., 1999 ; Anand and
+Figure 2. Sandstone rock sample: Simulated NMR T2 distribution (a) in the rock with
+two planar fractures (solid blue line) with width ( w)o f9 μm and length ( L) of 270 μm
+and without planar fractures (black dashed line). Blue dot-dashed line shows the simu-
+lated NMR T
+2 distribution in the presence of only planar fractures. The blue arrows
+denote the T2 peak corresponding to the planar fractures, which are diffusionally
+coupled with the pore system. The 3D pore-scale image on the left-hand side shows
+the sandstone example with two 9- μm planar fractures and (b) in the rock including
+two planar fractures with width ( w) of 9, 12, or 15 μm and length ( L) of 270 μm. Three
+blue arrows denote the T
+2 peaks for the planar fractures that are diffusionally coupled
+with the pore system. The area under each T2 distribution curve represents the total
+porosity of the rock.
+D34 Chi and Heidari
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 5 ---
+Hirasaki, 2005; Grunewald and Knight, 2009). We need to point out
+that the slight decrease in shorter T2 times observed in our simu-
+lation results (Figure 2a) was also predicted by Ramakrishnan et
+al.’s (1999) theoretical analysis, but it was rarely mentioned or ex-
+plained in literature. In conclusion, we demonstrate that the frac-
+ture-pore diffusional coupling exist in this sandstone example.
+Therefore, the diffusional pore-coupling concept, although pro-
+posed for bimodal pores in carbonate rocks, can be extended to ex-
+plain NMR responses in fractured rocks.
+Figure 2b shows the impact of fracture thickness on NMR T
+2
+distribution. The results show that shrinking fracture thickness leads
+to a more obvious decrease in sandstone pore relaxation times.
+When the fractures narrow down from 15, 12, to 9 μm, the pore
+T2 slightly shifts downward (i.e., from 106.3 to 97.5 ms, denoted
+by a red horizontal arrow). Specifically, in the case of 12- μm frac-
+tures (red line), the pore T2 starts shifting downward as shown by
+the shoulder peak on the left side. The reason is that the fracture
+thickness gets closer to one-third pore size, the diffusional coupling
+among them gets stronger, thus showing a more obvious pore T
+2
+decrease. Indeed, the amount of exchanged fluid between fractures
+and pores becomes nonnegligible when their sizes are similar,
+which promotes the fracture-pore coupling. Furthermore, Chang
+et al. (1997) publish experimental results of real limestone samples
+including artificial fractures and show the same decrease in relax-
+ation times of limestone pores. Chang et al. (1997) provide T
+2 dis-
+tribution results for four Leuters limestone samples, three out of
+which were made with artificial fractures with controlled widths
+of 0.75, 0.35, and 0.25 mm, respectively. Their results show a vis-
+ible decrease in the limestone relaxation times due to the existence
+of artificial fractures, in water- and oil-saturated cases (i.e., from
+∼3.1 to ∼2.5 ms in water-saturated case). Although the authors
+did not mention or explain this phenomenon, we find their exper-
+imental results in agreement with our simulation results and
+Ramakrishnan et al.’s (1999) analytical solutions. Again, these evi-
+dences demonstrate the existence of fracture-pore coupling effect in
+the fractured rocks.
+Furthermore, we estimate the volume occupied by the intergra-
+nular pores and the fractures, respectively, from NMR T
+2 distribu-
+tion of our sandstone example. We calculate the volumes by
+integrating the area below the T
+2 curve that represents pores or frac-
+tures. In the 9-μm fracture case in which the pore and fracture peaks
+are merged together, we select the saddle point (163 ms) as the T2
+cutoff value between the fractures and pores, then we integrate the
+areas above and below the T2 cutoff value to calculate volumes of
+fractures and pores, respectively. The results in Table 1 show that
+the volume ratio of pores versus fractures (i.e., pore/fracture volume
+ratio) is underestimated by NMR T2 distribution, compared with
+the value calculated from the input images, for all three sandstone
+cases. This result is further substantiated by Ramakrishnan et al. ’s
+(1999) observation that the amplitude of short T2 peak gradually
+decreases when coupled with the long T2 peak. This observation in-
+dicates that the volume fraction of the short T2 component (i.e., in-
+tergranular pores in this case) might be underestimated by more than
+10% in NMR T
+2 distribution when diffusional coupling exists.
+SYNTHETIC CASE NO. 2: CARBONATE
+ROCK SAMPLE
+This set of synthetic carbonate examples is designed to compare
+the impact of microfractures in carbonate rock samples with distinct
+pore-size distributions. We synthetically generate two pore-scale
+images of fractured carbonate rocks: one with small pores and
+the other one with large pores. The dominant intergranular pore
+sizes are estimated as 10 and 57 μm, for the small-pore and
+large-pore carbonate rock samples, respectively. The base micro-
+CT images of the carbonate rock examples are provided by a project
+funded by Qatar National Research Fund ( Gupta et al., 2010 ). The
+synthetic microfractures are either planar fractures or channel-like
+inclusions.
+Small-pore carbonate example
+including planar fractures
+This carbonate example illustrates the impact of microfractures in
+a porous media with poorly connected intergranular pore structure.
+The volumetric Euler-Poincaré characteristic (EPC) method is used
+to quantify the pore connectivity in porous media ( V ogel, 1997;
+Chi and Heidari, 2014 ), with lower value of EPC representing
+better pore connectivity. We calculate the volumetric EPC for the
+carbonate and the sandstone samples, which are −1.38 × 10
+−4 and
+4.37 × 10−4 μm−3, respectively. It shows that the carbonate sample
+has poorly connected pores compared with the well-connected
+sandstone sample. The same sets of planar fractures, as used in
+Table 1. Sandstone rock sample: Calculated total porosity, pore T2 value, coupled and isolated fracture T2 values, fracture T2
+relative decrease compared with isolated fractures, and pore/fracture volume ratios calculated from images and estimated from
+NMR T2 distributions, for the sandstone rock shown in Figure 2.
+Matrix
+Sandstone,
+no fractures
+Presence of
+9-μm fractures
+Presence of
+12-μm fractures
+Presence of
+15-μm fractures
+Porosity, % 16.86 18.57 19.15 19.73
+Pore T2, ms 106.3 97.5 106.3 106.3
+Coupled fracture T2,m s — 178 212 251
+Isolated fracture T2,m s — 274 354 421
+Fracture T2 decrease, % — 35 40 40
+Pore/fracture volume ratio (images) — 8.01 5.97 4.75
+Pore/fracture volume ratio (NMR) — 5.63 3.25 2.88
+Impact of fractures on NMR relaxometry D35
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 6 ---
+the sandstone example (i.e., two identical planes with width of 9,
+12, or 15 μm and length of 270 μm), are inserted into the carbonate
+matrix. We assign four walkers in each pore voxel for NMR ran-
+dom-walk simulations.
+Figure 3 shows the impact of fracture thickness on NMR T
+2 dis-
+tribution in the carbonate case. Table 2 lists the T2 values estimated
+for intergranular pores, coupled fractures, and isolated fractures. We
+observe that, unlike the sandstone case, shrinking the fracture thick-
+ness has no impact on the carbonate pore relaxation times; i.e., the
+pore T
+2 decrease is indiscernible. Meanwhile, the fracture T2 de-
+crease is less than that in the sandstone sample. We observe that
+in the carbonate case the coupled fracture T
+2 are decreased by
+29% (Table 2) relative to the isolated fracture T2, which is smaller
+than the 35% ∼ 40% decrease in the sandstone case (Table 1). Total
+porosity and intergranular pore sizes are similar for the carbonate
+and sandstone samples. However, the sandstone pore connectivity is
+much better than that in the carbonate sample. Consequently, we
+conclude that in the highly connected pore structure, the fracture
+T
+2 is shortened more significantly than in the poorly connected pore
+structure. We attribute this observation to the stronger fracture-pore
+coupling in the better-connected pore structure. Indeed, in a highly
+connected pore space, the fluid molecules can migrate between frac-
+tures and pores more easily, which promotes the diffusional cou-
+pling between them.
+Small-pore carbonate example including
+channel-like inclusions
+This example illustrates the impact of microinclusions with aper-
+tures close to the size of intergranular pores, on NMR T2 distribu-
+tion. Channel-like inclusions, with radius of 3 μm and length of
+150 μm, are inserted into the carbonate rock as a special form of
+microfractures in this example. It can be shown that channel-like
+inclusions and planar fractures have similar impact on NMR T
+2 dis-
+tribution by comparing equation A-1 with A-3 in the Appendix A.
+The relaxation times for both of them are solely affected by the size
+of their smallest dimension, which is the diameter of a cylindrical
+channel or the thickness of a planar fracture. Consequently, all the
+conclusions previously drawn for planar fractures can be applied to
+channel-like inclusions. We assign four walkers in each pore voxel
+for NMR random-walk simulations in this synthetic example.
+Figure 4 shows the impact of channel-like inclusions on NMR T
+2
+distribution of the carbonate example. We observe an overlap of
+T2 peaks for channels and intergranular pores (both located at
+106.3 ms). Although the amplitude of T2 peak increases with higher
+concentration of inserted channels, the channels and intergranular
+pores cannot be distinguished from the T
+2 distribution in this case.
+Table 3 shows the calculated total porosity, pore T2 value, and
+coupled channel T2 values for the carbonate example.
+The major difference between planar fractures and channel-like
+inclusions is that, given the same surface-to-volume ratio, a planar
+fracture occupies a larger volume than a cylindrical channel, so the
+NMR T
+2 distribution is more sensitive to planar fractures. In other
+words, planar fractures can be considered as expanded cylindrical
+channels.
+Large-pore carbonate example
+including planar fractures
+In this example, we use a large-pore carbonate matrix to study the
+effect of thin microfractures on large pores. In this synthetic case,
+the total volume of microfractures are kept the same, whereas the
+Table 2. Small-pore carbonate rock sample: Calculated total porosity, pore T2 value, coupled and isolated fracture T2 values,
+and fracture T2 relative decrease compared with isolated fractures, for the sandstone rock shown in Figure 3.
+Matrix
+Small-pore carbonate,
+no fractures
+Presence of
+9-μm fractures
+Presence of
+12-μm fractures
+Presence of
+15-μm fractures
+Porosity, % 15.70 17.44 18.02 18.60
+Pore T2, ms 106.3 106.3 106.3 106.3
+Coupled fracture T2,m s — 194 251 298
+Isolated fracture T2,m s — 274 354 421
+Fracture T2 decrease, % — 29 29 29
+Figure 3. Small-pore carbonate rock sample: Si-
+mulated NMR T2 distribution for the synthetic car-
+bonate example with planar fractures with width
+(w) of 9, 12, or 15 μm and length ( L) of 270 μm.
+Three blue arrows denote the T
+2 peaks for the pla-
+nar fractures, which are diffusionally coupled with
+the pore system. The 3D pore-scale image on the
+left-hand side shows the carbonate example with
+two 15- μm planar fractures. The area under each
+T
+2 distribution curve represents the total porosity
+of the rock.
+D36 Chi and Heidari
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 7 ---
+impact of fracture thickness on NMR T2 distribution is evaluated.
+Square planar fractures with different thickness (i.e., 3, 6, or 9 μm)
+and the same length (150 μm) are inserted into the large-pore car-
+bonate matrix. The aspect ratios (thickness-to-length ratio) of these
+fractures change from 0.02 to 0.04 to 0.06. The number of fractures
+is varied (i.e., 60, 30, or 20 fractures) to maintain the same total
+porosity. We assign one walker in each pore voxel for NMR ran-
+dom-walk simulations in this case.
+Figure 5 shows the simulation results for different fracture sizes.
+Three blue arrows denote the T
+2 peaks of the planar fractures. By
+theoretical calculation (see Appendix A) for the 3- μm fractures and
+separate numerical simulation on a cubic volume containing only
+the 3-μm fractures, we determine that the 3- μm fractures are located
+at T2 ¼ 107 ms . Also 6- and 9- μm fractures are determined and
+labeled in the same way. The second blue T2 peak (w ¼ 3 μm case)
+in the middle is caused by original carbonate pores, which has the
+same origin as the small black peak. This middle peak disappears in
+the red (6 μm) and green (9 μm) cases because it merges with the
+fracture T2 peaks.
+We observe that in the presence of thin planar fractures, relaxa-
+tion times of the large intergranular pores are more significantly
+decreased compared with the case of thick fractures. For example,
+the third blue T
+2 peak in the w ¼ 3 μm case represents the carbon-
+ate intergranular pores. When no fractures exist, this carbonate pore
+Table 3. Small-pore carbonate rock sample: Calculated total porosity, pore T2 value, and coupled channel T2 values for the
+carbonate rock shown in Figure 4.
+Matrix
+Small-pore carbonate, no
+fractures
+Presence of 200
+channels
+Presence of 300
+channels
+Presence of 400
+channels
+Presence of 500
+channels
+Porosity, % 15.70 17.47 18.35 19.25 20.02
+Pore T2, ms 106.3 106.3 106.3 106.3 106.3
+Coupled channel T2,
+ms
+— 106.3 106.3 106.3 106.3
+Figure 4. Small-pore carbonate rock sample: Si-
+mulated NMR T2 distribution for the carbonate
+example including 200 –500 channel-like inclu-
+sions. The 3D pore-scale image on the left-hand
+side shows the carbonate pore structure including
+500 channels. The area under each T
+2 distribution
+curve represents the total porosity of the rock.
+Figure 5. Large-pore carbonate rock sample: Si-
+mulated NMR T2 distribution for the synthetic
+large-pore carbonate example, in presence of pla-
+nar fractures of different widths. The planar frac-
+tures take width ( w)o f3 ,6 ,o r9 μm and keep the
+same length ( L) of 150 μm. The number of planar
+fractures is 60, 30, or 20 for the three cases, re-
+spectively, to maintain a constant total porosity.
+Three blue arrows denote the T
+2 peaks represent-
+ing the planar fractures that are coupled with the
+pore system. The red arrow indicates that thin frac-
+tures can shorten the pore T2 more than thick frac-
+tures. The 3D pore-scale images on the left-hand
+side show the carbonate pore structure including
+planar fractures with widths of 3 (left) and 9 μm
+(right image). The area under each T
+2 distribution
+curve represents the total porosity of the rock.
+Impact of fractures on NMR relaxometry D37
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 8 ---
+peak is located where the largest black peak is; after fracturing, the
+peak is shifted downward by fracture-pore coupling. The pore T2
+peak is shifted downward by 11%, 21%, and 29% from its original
+position in the presence of 9-, 6-, and 3- μm planar fractures, respec-
+tively (Table 4). Again, this is explained by the fluid diffusion be-
+tween fractures and pores — when the water molecules diffuse
+from large pores to thin fractures, they experience a larger surface
+area that makes the proton spins relax faster. The thinner fractures
+have larger surface-to-volume ratio, thus they relax the protons
+originally from large pores faster than thicker fractures. In other
+words, the relaxation time of the long-time component reflects
+an averaging of the sizes of heterogeneous porous structures when
+diffusional coupling exists.
+Large-pore carbonate example including
+channel-like inclusions
+In this synthetic case, the same sets of channel-like inclusions
+with radius of 3 μm and length of 150 μm, as used in the small-pore
+carbonate example, are inserted into the large-pore carbonate rock.
+We assign one walker in each pore voxel for NMR random-walk
+simulations.
+Figure 6 shows the impact of volumetric concentration of micro-
+inclusions on NMR T
+2 distribution in the large-pore carbonate sam-
+ple. Table 5 lists the T2 values estimated for intergranular pores. We
+observe that when thin channel-like fractures are inserted into the
+carbonate rock, the upper peak associated with the intergranular
+pores is shifted downward. Having more channels inserted into
+the carbonate rock, the upper peak shifts more significantly (i.e.,
+denoted by the red arrow). Table 5 lists the estimated pore T
+2 values
+and their corresponding decrease due to the increase in channels.
+The results indicate that in the presence of higher volumetric con-
+centration of microfractures, the fracture-pore coupling becomes
+stronger, causing the fluids in the large pores relax faster. In this
+case, we will significantly underestimate the pore size based on
+NMR T
+2 distribution by up to 14%, if we ignore the microfractures
+(channel-like inclusions) and assume only spherical intergranular
+pores in the rock.
+COMPARISON OF SIMULATION RESULTS
+AGAINST ANALYTICAL MODEL
+We further compare our simulation results against the 1D analyti-
+cal solution described in the method section. Table 6 lists the
+assumed parameters for the analytical model. We assumed a typical
+Table 4. Large-pore carbonate rock sample: Calculated total porosity, pore T2 value, pore T2 relative decrease compared with
+the original value, and coupled fracture T2 values for the large-pore carbonate rock example shown in Figure 5.
+Matrix
+Large-pore carbonate,
+no fractures
+Presence of 3- μm
+fractures (60 fractures)
+Presence of 6- μm
+fractures (30 fractures)
+Presence of 9- μm
+fractures (20 fractures)
+Porosity, % 21.98 31.11 30.96 30.96
+Pore T2, ms 546.1 385.3 432.8 486.1
+Pore T2 decrease, % — 29 21 11
+Coupled fracture T2,m s — 107.2 215.4 271.8
+Figure 6. Large-pore carbonate rock sample: Si-
+mulated NMR T2 distribution for the synthetic
+large-pore carbonate example including 100 –600
+channel-like inclusions. The red arrow denotes
+that pore T
+2 decreases as more fractures are in-
+serted into the matrix, and the blue arrow indicates
+the fracture T
+2 location at around 100 ms. The 3D
+pore-scale image on the left-hand side shows the
+large-pore carbonate sample including 500 chan-
+nels. The area under each T2 distribution curve
+represents the total porosity of the rock.
+Table 5. Large-pore carbonate rock sample: Calculated total
+porosity and pore T2 values for the large-pore carbonate
+example in Figure 6.
+Matrix Porosity, % Pore T2,m s
+Large-pore carbonate, no fractures 21.98 540.1
+Presence of 100 channel-like fractures 22.84 523.7
+Presence of 200 channel-like fractures 23.63 523.7
+Presence of 300 channel-like fractures 24.47 507.8
+Presence of 400 channel-like fractures 25.29 507.8
+Presence of 500 channel-like fractures 25.99 492.4
+Presence of 600 channel-like fractures 27.74 463.0
+D38 Chi and Heidari
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 9 ---
+formation factor of 25 for the sandstone example
+(Ramakrishnan et al., 1999 ) and a formation fac-
+tor of 0.85 for the fractures in the large-pore car-
+bonate example. It should be noted that the
+assumed formation factor of the porous grain do-
+main has significant influences on the estimates
+of T
+2 mode.
+We first compare the simulation results against
+the analytical solution in the sandstone case (i.e.,
+previously shown in Figure 2b). Figure 7 shows
+an agreement between the analytical T
+2 modes
+(arrow and pin bars) and the simulated T2 distri-
+bution (dashed, solid, and dot-dashed curves) for
+the fractured sandstone example. Note that T2
+distribution curves are rescaled in amplitude to
+show the total porosity comparison among each
+curve; i.e., the area under the coupled curves is
+equal to summation of areas under the isolated
+curves. Meanwhile, the amplitude of T
+2 modes
+represents the volume fraction (porosity) of each
+mode. Therefore, the analytical T2 modes not
+only match the T2 peak positions but also predict
+the change in volume fraction of each mode.
+Next, we compare the numerical simulation
+results against the analytical model for the
+large-pore carbonate example (i.e., previously
+shown in Figure 5). In this case, the role of mi-
+crofractures and intergranular pores in the 1D
+analytical model is indeed switched; i.e., the
+microfractures are the short-time mode, whereas
+the intergranular pores are the long-time mode.
+Figure 8 shows the comparison between the
+analytical T
+2 modes (arrow and pin bars) and
+the simulated T2 distribution (dashed and solid
+curves) of the large-pore carbonate rock sample
+including thin planar fractures. The results dem-
+onstrate that analytical T
+2 modes are in agree-
+ment with the simulated T2 distribution in the
+large-pore carbonate case, which further con-
+firms the existence of fracture-pore diffusional
+coupling.
+It should be emphasized that the analytical T
+2
+bars shown in Figures 7 and 8 are the approxi-
+mate analytical solutions of the simplified 1D
+model. Thus, when comparing the T2 modes
+from 1D simplified model to the simulation re-
+sults in 3D volume, the agreement might not
+be perfect. Ramakrishnan et al. (1999) propose
+that the accurate solutions to the 1D model
+can be derived by Laplace transform of equa-
+tions 5–8, and then final solutions can be ob-
+tained by contour integration or numerical
+Laplace inversion.
+DISCUSSIONS
+In this paper, we quantified the impact of natu-
+ral microfractures and the effect of diffusional
+coupling between microfractures and intergranu-
+lar pores on NMR response. We considered
+Table 6. Parameters assumed in the analytical models for the sandstone and
+large-pore carbonate examples.
+Parameters
+Sandstone example (with 9-,
+12-, and 15- μm fractures)
+Large-pore carbonate example
+(with 3-, 6-, and 9- μm fractures)
+T2B, s 3.1 3.1
+D, μm2∕s 2070 2070
+ρ, μm∕s 10 10
+H, μm 4.5, 6, and 7.5 (fractures) 28.5 (pores)
+ϕG, % 16.51, 16.40, and 16.30 (pores) 9.13, 8.98, and 8.98 (fractures)
+T2;G, s 0.106 0.107, 0.215, and 0.272
+F 25 (intergranular pores) 0.85 (fractures)
+Figure 7. Analytical T2 modes and simulated T2 distributions for the sandstone rock
+sample including planar fractures with width ( w) of 9, 12, or 15 μm and length ( L)o f
+270 μm. The arrow bars represent the T2 modes for isolated sandstone pores or fractures,
+and the pin bars show coupled fractures or pores. The T2 curves are the same as in
+Figure 2b, showing the simulated T2 distributions for the isolated sandstone pores
+(dashed), coupled pores-fractures (solid lines), and isolated fractures (dot-dashed), re-
+spectively. The area under each T
+2 distribution curve represents the total porosity of
+the rock.
+Impact of fractures on NMR relaxometry D39
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 10 ---
+spherical intergranular pores and planar microfractures and chan-
+nel-like inclusions in our petrophysical models. The results of sim-
+ulations showed that the effect of diffusional coupling on NMR
+response is not negligible. When the two forms of porous structures
+are diffusionally coupled, we observed that (1) the longer T
+2 com-
+ponent always significantly decreases, and (2) the shorter T2 com-
+ponent remains unaffected or slightly decreased, and the volume
+occupied by the shorter T2 component can be underestimated by
+NMR T2 distribution.
+We evaluated rock samples with different combinations of pore
+and fracture sizes. In the cases in which planar fractures are much
+thinner than one-third of pore size, the pore relaxation times are
+significantly shortened by the existence of fractures. Thin fractures
+shift the pore relaxation time more significantly than thick fractures
+do. In the cases in which planar fractures are much thicker than one-
+third of pore size, the intergranular pores cause a significant de-
+crease in fracture relaxation times. The well-connected pores can
+shorten the fracture relaxation time more significantly than the
+poorly connected pores do. Furthermore, the total volume of inter-
+granular pores can be underestimated in this case. Finally, in the
+cases in which planar fracture apertures close to one-third of pore
+size, the relaxation times corresponding to microfractures overlap
+those of intergranular pores. Thus, fractures and pores cannot be
+distinguished using NMR T
+2 distribution in this case.
+In all the three aforementioned categories, NMR T2 distribution
+is shown to be sensitive to volumetric concentration and shape of
+microfractures. With higher concentration of fractures, the fracture-
+pore coupling becomes stronger. Furthermore, planar fractures show
+more significant impact on T
+2 distribution than channel-like inclu-
+sions even when they have the same S∕V ratio.
+All the randomly distributed and oriented microfractures consid-
+ered in this paper were uniform in width or radius. To investigate the
+impact of nonuniform fractures on NMR T2 dis-
+tribution, we synthesized planar fractures with
+variable widths and constant length of fractures
+in the large-pore carbonate rock sample. Widths
+of synthetic microfractures were randomly gen-
+erated based on Gaussian normal distribution.
+We assumed a mean value of 6 or 9 μm and a
+3-μm deviation from mean value. The NMR sim-
+ulation results (Figure 9) showed that the T
+2 dis-
+tribution in such fractured rocks appears to be
+similar to those with uniform fractures of 6- or
+9-μm width (Figure 5). The pore T
+2 of rocks with
+nonuniform or uniform fractures is the same
+in particular. The T2 distribution can, however,
+get affected by nonuniform fractures in the case
+of a wide range of fracture thickness. Indeed, in
+the presence of a wide range of fracture widths,
+the diffusional coupling between fractures and
+intergranular pores and among fractures with dif-
+ferent widths (if connected) will cause uncer-
+tainty in interpretation of NMR response.
+In this paper, we differentiate microfractures
+and pores by aspect ratio and shape. Microfrac-
+tures refer to pores with low aspect ratio, for ex-
+ample, with aspect ratio of less than 0.1, which is
+significantly less than that of pores. Some grain
+contact asperities might also form porous space,
+and they can be considered as microfractures as
+long as they are thin and long enough. By such
+definition, we believe the fracture-pore coupling
+effect exist in a wide variety of multiple-porosity
+systems, for example, microfractured grains in
+tight sands or deformation bands. The theoretical
+results reported in this paper can be used to ex-
+plain pore-coupling phenomena in such compli-
+cated systems. Furthermore, the outcomes of this
+paper potentially enable quantifying volumetric
+concentration of microfractures using NMR,
+when combined with other well logs such as
+electromagnetic measurements. Such discrimi-
+nation between microfractures and pores can
+facilitate the analysis of pore connectivity and
+topology, which in turn can enhance interpretation
+Figure 8. Analytical T2 modes and simulated T2 distributions for the carbonate rock
+sample including planar fractures with width ( w)o f3 ,6 ,o r9 μm and length ( L)o f
+150 μm. The arrow bars represent the analytical T2 modes for isolated carbonate pores
+or fractures, and the pin bars show coupled fractures or pores. The T2 curves are same as
+in Figure 5, showing the simulated T2 distributions for the isolated carbonate pores
+(dashed) and coupled pores-fractures (solid lines), respectively. The area under each
+T
+2 distribution curve represents the total porosity of the rock.
+D40 Chi and Heidari
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 11 ---
+of other borehole geophysical measurements such as electromag-
+netic and acoustic measurements.
+CONCLUSIONS
+Based on the simulation results and analytical model calculations
+obtained in this research, and previously published experimental
+outcomes, we proposed a new concept of fracture-pore coupling
+and showed that NMR T
+2 distribution is influenced by the diffu-
+sional coupling between microfractures (or channel-like inclusions)
+and intergranular pores.
+Recognition of the fracture-pore diffusional coupling effect can
+improve substantially the interpretation of NMR measurements in a
+variety of rock samples (e.g., naturally fractured carbonates and or-
+ganic-rich source rocks). It is generally accepted that NMR T
+2 dis-
+tribution represents the pore size distribution in rock samples;
+however, we demonstrated that the pore size or the pore volume
+fraction can be significantly underestimated by NMR measure-
+ments due to fracture-pore coupling.
+The findings of this paper, although a first theoretical step to
+tackle the complex problems in multiple-porosity systems, have
+a potential to improve the interpretation of NMR core and borehole
+measurements in challenging reservoirs. Our findings enable future
+applications of NMR measurements for the assessment of volumet-
+ric concentration of microfractures, in addition to inter-/intragranu-
+lar pores, when combined with other conventional well logs.
+ACKNOWLEDGMENTS
+A note of special gratitude goes to the anonymous reviewers of
+GEOPHYSICS for their excellent technical and editorial feedback,
+which improved the first version of the manuscript. The work re-
+ported in this paper was funded by the Texas A&M University ’s
+Joint Industry Research Program on Multi-Scale Formation Evalu-
+ation, jointly sponsored by Aramco Services Company, BHP Billiton,
+BP , Chevron, ConocoPhillips, and Devon Energy.
+Special thanks go to M. Blunt and his research
+group at Imperial College London for providing
+the pore-scale micro-CT images of sandstone rock.
+The carbonate pore-scale image used in this paper
+was provided by a project funded by Qatar Na-
+tional Research Fund (QNRF). A note of gratitude
+goes to QNRF, A. Pasumarti, M. King, A. Datta-
+Gupta, and A. Gupta for providing the carbonate
+pore-scale image.
+APPENDIX A
+CALCULATION OF NMR
+RELAXATION TIMES FOR
+ISOLATED FRACTURES
+Theoretically, we can estimate the T2 value for
+the planar fractures in Figure 2a by combining
+equations 1 and 4, which results in
+1
+T2
+¼ 1
+T2B
+þ ρ2
+/C18 S
+V
+/C19
+plane
+¼ 1
+T2B
+þ ρ2
+/C18 2
+w
+/C19
+plane
+; (A-1)
+where T2B is 3.1 s, ρ2 is chosen as 10 μm∕s, and the thickness of
+planar fractures w is 9 μm. The resulting T2 value for the fractures
+will then be 393 ms. However, our pore-scale simulations, which
+assume voxelized grain boundary, show a fracture T2 peak at
+274 ms (Figure 2a and Table 1). This difference comes from the
+discretization of the pore space in the micro-CT images, which
+overestimates the grain-fluid interface surface area by about 1.5
+times ( Jin et al., 2009 ). Equation A-1 can be modified for a “sur-
+face-area-corrected” coefficient of 1.5 given by
+1
+T2
+¼ 1
+T2B
+þ ρ2 · 1.5
+/C18 S
+V
+/C19
+plane
+¼ 1
+T2B
+þ ρ2 ·
+/C18 3
+w
+/C19
+plane
+;
+(A-2)
+which provides T2 peak location of 274 ms.
+The T2 values for channel-like inclusions can be estimated via
+1
+T2
+¼ 1
+T2B
+þ ρ2 ·
+/C18 S
+V
+/C19
+cylinder
+¼ 1
+T2B
+þ ρ2 ·
+/C18 4
+d
+/C19
+cylinder
+;
+(A-3)
+where d is the diameter of the cylindrical channels. Then, we apply
+a surface-area-corrected coefficient of 1.5 to correct for the discre-
+tization effect.
+NOMENCLATURE
+List of symbols
+ρ = surface relaxivity ( μm∕s)
+ϕG = intergranular porosity in the porous grains (%)
+d = diameter of spherical pores or channel-like in-
+clusions ( μm)
+D = diffusion coefficient ( m2∕s)
+F = formation factor ( )
+Figure 9. Large-pore carbonate rock sample: Simulated NMR T2 distribution for the
+synthetic large-pore carbonate example, in presence of planar fractures of variable
+widths. The red dashed curve shows the carbonate sample including 30 planar fractures,
+with a mean width ( w)o f6 μm and a 3- μm deviation from the mean value. The green
+dashed curve shows 20 planar fractures, with a mean width ( w)o f9 μm and a 3- μm
+deviation. They all keep the same length ( L) of 150 μm. The red and green solid curves
+show the same uniform-width planar fractures as in Figure 5. The area under each T
+2
+distribution curve represents the total porosity of the rock.
+Impact of fractures on NMR relaxometry D41
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1
+
+--- PAGE 12 ---
+G = spatial gradient of the internal magnetic field
+(Hz∕mm)
+H = half the thickness of planar fractures ( μm)
+Icoupled = intensity of coupled microfractures ( )
+Iiso = intensity of isolated microfractures ( )
+L = length of planar fractures or channel-like inclu-
+sions ( μm)
+MF = magnetization in fractures per unit volume
+(A∕m4)
+MG = magnetization in porous grains per unit volume
+of pore space ( A∕m4)
+r = radius of channel-like inclusions ( μm)
+T2 = NMR spin-spin relaxation time (ms)
+T2B = bulk relaxation time (ms)
+T2S = surface relaxation time (ms)
+T2D = diffusion-induced relaxation time (ms)
+T2;G = relaxation time in the porous grains (ms)
+T2F;coupled = relaxation time in the coupled microfractures
+(ms)
+T2F;iso = relaxation time in the isolated microfractures
+(ms)
+TE = interecho spacing time ( μs)
+w = thickness of planar fractures ( μm)
+W = distance from fracture center to grain center in
+the 1D model ( μm)
+γ = gyromagnetic ratio of a proton ( rad  s−1
+Tesla−1)
+List of acronyms
+1D = one-dimensional
+3D = three-dimensional
+CPMG = Carr-Purcell-Meiboom-Gill
+CT = computed tomography
+EPC = Euler-Poincaré characteristics
+FIB-SEM = focused ion beam scanning electron microscope
+NMR = nuclear magnetic resonance
+REFERENCES
+Anand, V ., and G. J. Hirasaki, 2005, Diffusional coupling between micro
+and macroporosity for NMR relaxation in sandstones and grainstones:
+Presented at SPWLA 46th Annual Logging Symposium, SPWLA-
+2005-KKK.
+Brownstein, K. R., and C. E. Tarr, 1979, Importance of classical diffusion in
+NMR studies of water in biological cells: Physical Review A, 19, 2446–
+2453.
+Chang, C. T. P ., J. Qiao, S. Chen, and A. T. Watson, 1997, Fracture char-
+acterization with NMR spectroscopic techniques: Journal of Magnetic
+Resonance, 126, 213 –220.
+Chen, S., D. Georgi, S. Fang, J. Salyer, and D. Shorey, 1999, Optimization of
+NMR logging acquisition and processing: Presented at SPE Annual Tech-
+nical Conference and Exhibition, SPE 56766.
+Chi, L., and Z. Heidari, 2014, Directional permeability assessment in for-
+mations with complex pore geometry using a new NMR-based permeabil-
+ity model: Presented at 55th Annual Symposium of the Society of
+Petrophysicists and Well Log Analysts (SPWLA).
+Coates, G. R., L. Xiao, and M. G. Prammer, 1999, NMR logging principles
+and applications: Halliburton Energy Services.
+Dong, H., 2007, Micro-CT imaging and pore network extraction: Ph.D. the-
+sis, Imperial College London.
+Grunewald, E., and R. Knight, 2009, A laboratory study of NMR relaxation
+times and pore coupling in heterogeneous media: Geophysics, 74, no. 6,
+E215–E221, doi: 10.1190/1.3223712.
+Gupta, A., A. Datta-Gupta, and M. J. King, 2010, Geology-based reservoir
+model building for carbonate reservoirs: A project founded by Qatar Na-
+tional Research Found (QNRF), Cycle 4.
+Jin, G., C. Torres-V erdín, and E. Toumelin, 2009, Comparison of NMR sim-
+ulations of porous media derived from analytical and voxelized represen-
+tations: Journal of Magnetic Resonance, 200, 313–320, doi: 10.1016/j.jmr
+.2009.07.021.
+Kazatchenko, E., M. Markov, A. Mousatov, and E. Pervago, 2007, Joint
+inversion of conventional well logs for evaluation of double-porosity car-
+bonate formations: Journal of Petroleum Science and Engineering, 56,
+252–266, doi: 10.1016/j.petrol.2006.09.008.
+Kleinberg, R. L., W. E. Kenyon, and P . P . Mitra, 1994, Mechanism of NMR
+relaxation of fluids in rock: Journal of Magnetic Resonance, Series A,
+108, 206 –214, doi: 10.1006/jmra.1994.1112.
+Liaw, H.-K., R. Kulkarni, S. Chen, and A. T. Watson, 1996, Characterization
+of fluid distributions in porous media by NMR techniques: AIChE Jour-
+nal, 42, 538 –546, doi: 10.1002/aic.690420223.
+Nakashima, Y ., and T. Kikuchi, 2007, Estimation of the apertures of water-
+saturated fractures by nuclear magnetic resonance well logging: Geo-
+physical Prospecting, 55, 235 –254, doi: 10.1111/j.1365-2478.2006
+.00596.x.
+Øren, P .-E., and S. Bakke, 2002, Process based reconstruction of sandstones
+and prediction of transport properties: Transport in Porous Media, 46,
+311–343, doi: 10.1023/A:1015031122338.
+Ramakrishnan, T. S., L. M. Schwartz, E. J. Fordham, W. E. Kenyon, and D.
+J. Wilkinson, 1998, Forward models for nuclear magnetic resonance in
+carbonate rocks: Presented at SPWLA 39th Annual Logging Symposium,
+SPWLA-1998-SS.
+Ramakrishnan, T. S., L. M. Schwartz, E. J. Fordham, W. E. Kenyon, and D.
+J. Wilkinson, 1999, Forward models for nuclear magnetic resonance in
+carbonate rocks: The Log Analyst, 40, 260 –
+270.
+Roberts, S. P ., P . J. McDonald, and T. Pritchard, 1995, A bulk and spatially
+resolved NMR relaxation study of sandstone rock plugs: Journal of Mag-
+netic Resonance, Series A, 116, 189–195, doi: 10.1006/jmra.1995.0007.
+Schindelin, J., I. Arganda-Carreras, E. Frise, V . Kaynig, M. Longair, T.
+Pietzsch, S. Preibisch, C. Rueden, S. Saalfeld, B. Schmid, J. Y . Tinevez,
+D. J. White, V . Hartenstein, K. Eliceiri, P . Tomancak, and A. Cardona,
+2012, Fiji: An open-source platform for biological-image analysis: Nature
+Methods, 9, 676 –682, doi: 10.1038/nmeth.2019.
+Talabi, O., 2008, Pore-scale simulations of NMR response in porous media:
+Ph.D. thesis, Imperial College London.
+Talabi, O., S. AlSayari, S. Iglauer, and M. J. Blunt, 2009, Pore-scale sim-
+ulation of NMR response: Journal of Petroleum Science and Engineering,
+67, 168 –178, doi: 10.1016/j.petrol.2009.05.013.
+Toumelin, E., C. Torres-V erdín, S. Chen, and M. Fischer, 2002, Analysis of
+NMR diffusion coupling effects in two-phase carbonate rocks: Compari-
+son of measurements with Monte Carlo simulations: Presented at
+SPWLA-2002-JJJ.
+Toumelin, E., C. Torres-V erdín, and S. Chen, 2013, Modeling of multiple
+echo-time NMR measurements for complex pore geometries and multi-
+phase saturations: SPE Reservoir Evaluation & Engineering, 6, 234–243,
+doi: 10.2118/85635-PA.
+V ogel, H. J., 1997, Morphological determination of pore connectivity as a
+function of pore size using serial sections: European Journal of Soil Sci-
+ence, 48, 365 –377, doi: 10.1046/j.1365-2389.1997.00096.x.
+Xiao, L., and K. Li, 2011, Characteristics of the nuclear magnetic resonance
+logging response in fracture oil and gas reservoirs: New Journal of Phys-
+ics, 13, 045003, doi: 10.1088/1367-2630/13/4/045003.
+D42
+Chi and Heidari
+Downloaded 08/30/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2013-0467.1

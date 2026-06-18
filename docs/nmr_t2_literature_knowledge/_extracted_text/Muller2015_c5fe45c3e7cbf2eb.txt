@@ -1,0 +1,1125 @@
+--- PAGE 1 ---
+Nuclear magnetic resonance average pore-size
+estimations outside the fast-diffusion regime
+Mike Müller-Petke 1, Raphael Dlugosch 1, Jochen Lehmann-Horn 2, and Mathias Ronczka 1
+ABSTRACT
+The pore-size distribution (PSD) of geologic materials is an
+important rock parameter to understand the flow of water in the
+subsurface. PSDs can be obtained from sieving analyses, mer-
+cury porosimetry measurements, and imaging techniques, but
+none of these methods is available for in situ measurements.
+Nuclear magnetic resonance (NMR) measurements are con-
+trolled by rock parameters such as the surface-area to pore-
+volume ratio. NMR is available for in situ measurements.
+State-of-the-art NMR relaxation time measurements need a cal-
+ibration of the surface relaxivity ρ to extract pore-size informa-
+tion. State-of-the-art NMR diffusion measurements avoid the
+calibration of ρ but are limited to small pores. We developed
+an approach that estimates the average pore size without
+calibrating ρ by means of incorporating higher order modes into
+the signal interpretation of NMR relaxation times. We con-
+ducted forward-modeling studies using an analytic solution
+for cylindrical tubes, 2D finite-element simulations to incorpo-
+rate fractal pore spaces, and laboratory experiments on synthetic
+and natural samples. Our experimental data indicated that relax-
+ation can occur outside the fast-diffusion regime not only for
+coarse-grained materials, but also for fine- to medium-grained
+unconsolidated sandy materials due to high surface relaxivities.
+We found that the rock-fluid interface’s roughness had a signifi-
+cant impact on the diffusion regime and led to an apparent in-
+crease in ρ, which may cause intermediate or slow diffusion.
+The methodology was limited to materials with a narrow
+PSD and uniform distribution of ρ because we assumed multi-
+exponential decay due to diffusion in single isolated pores.
+INTRODUCTION
+Knowledge of the subsurface ’s hydraulic conductivity distribu-
+tion K is a key to predict the flow of water through shallow aquifers
+and porous media. Estimates of K are obtained using various per-
+meameter realizations or analyses of pore sizes ( Butler, 2005). Car-
+rier (2003) gives handy formulas based on the work of Kozeny
+(1927) and Carman (1939) , reducing the particle-size distribution
+to an effective hydraulic pore radius to estimate K, whereas Brooks
+and Corey (1964) incorporate the complete pore-size distribution
+(PSD) into their analyses. Common approaches to determine PSDs
+use imaging techniques ( Straley et al., 1987 ) or mercury porosim-
+etry ( Brakel et al., 1981 ). Alternatively, the pore surface area of a
+sample can be measured by the Brunauer-Emmet-Teller (BET) ap-
+proach to estimate an average pore radius ( Keating and Knight,
+2010). These techniques are not available for measurements from
+the earth ’s surface or during logging. In in situ studies, K can be
+estimated using aquifer and slug tests. Multilevel slug tests, dipole-
+flow tests, and borehole-flowmeter tests provide K as a function of
+depth. These techniques suffer from limited depth resolution, long
+screening intervals, long measurement times, and considerable
+complexity in the data analysis and uncertainties ( Butler, 2005 ).
+Nuclear magnetic resonance (NMR) is a versatile tool in the
+physical sciences, and it is well known for its imaging and spectros-
+copy applications in medicine, chemistry, and the geosciences ( Cal-
+laghan, 2007 ). NMR instruments are available for laboratory
+(Fukushima and Roeder, 1981 ), borehole ( Dunn et al., 2002 ),
+and surface-based (Dlugosch et al., 2011 ) geophysical applications.
+Its sensitivity to
+1H makes it an attractive method to determine the
+water content of porous materials, and pore-size information can be
+extracted by transforming the NMR quantities of relaxation time or
+pore fluid self-diffusion. The transformation process from NMR
+Manuscript received by the Editor 11 April 2014; revised manuscript received 17 November 2014; published online 18 March 2015.
+1Leibniz Institute for Applied Geophysics, Hannover, Germany. E-mail: mike.mueller-petke@liag-hannover.de; raphael.dlugosch@liag-hannover .de;
+mathias.ronczka@liag-hannover.de.
+2CSIRO Process Science and Engineering, Lucas Heights, New South Wales, Australia. E-mail: jochen.lehmann-horn@csiro.au.
+© 2015 Society of Exploration Geophysicists. All rights reserved.
+D195
+GEOPHYSICS, VOL. 80, NO. 3 (MA Y -JUNE 2015); P . D195 –D206, 9 FIGS., 4 TABLES.
+10.1190/GEO2014-0167.1
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 2 ---
+quantities to pore-size information depends on a priori knowledge,
+namely, assumptions on the material ’s specific parameters and the
+diffusion regime (Figure 1).
+Relaxation in the fast-diffusion regime occurs when (1) the vol-
+ume within the pore space covered by the Brownian motion during
+relaxation is at least several times larger than the pore size ( Brown-
+stein and Tarr, 1979 ) and (2) a moderately homogeneous surface
+relaxivity ρ throughout the pore space ( Keating and Knight,
+2012) can be assumed. In the fast-diffusion regime, a broad or mul-
+timodal distribution of relaxation times (RTD), i.e., a multiexponen-
+tial decay, translates to a broad or multimodal PSD, and a
+monoexponential signal translates to a narrow PSD or a single
+(average) pore size (see Figure 1). In conventional relaxation time
+experiments, calibrating ρ is necessary to transfer RTD to PSD or
+directly to K (Kenyon et al., 1988 ) because otherwise, RTDs only
+indicate a certain relative distribution of pore sizes but do not re-
+present true PSDs. An ideal field practice for calibration is to extract
+a representative sample, conduct laboratory measurements, and ap-
+ply the obtained calibration for the complete log (e.g., Coates et al.,
+1999). More recently, Dlubac et al. (2013) compare different cal-
+ibration methods, including laboratory measurements of samples,
+logging data from pressure tools, and wellbore flow. Parsekian et al.
+(2014) present results using the above-mentioned common hydro-
+logic techniques, such as the multilevel slug test and a statistical
+approach, to obtain calibration parameters for borehole applica-
+tions. Outside the fast-diffusion regime, commonly referred to as
+the slow- and intermediate-diffusion regimes, the situation becomes
+more complicated; RTDs may not translate into PSDs because mul-
+tiexponential decays can be observed from a single pore size due to
+higher order relaxation modes ( Brownstein and Tarr, 1979 ). More-
+over, Keating and Falzone (2013) report difficulties developing a
+calibration method to recover pore sizes from NMR RTDs.
+To avoid calibration, pulsed-field-gradient (PFG) measurements
+to determine the pore fluid self-diffusion coefficient ( Stejskal and
+Tanner, 1965) have been shown to provide an estimate of the aver-
+age pore radius ( Mitra et al., 1993 ; Hürlimann et al., 1994 ; Vo g t
+et al., 2002 ; Pape et al., 2006 ). Probing restricted diffusion using
+PFG sequences is limited to cases in which the pore geometry has
+an effect on the self-diffusion coefficient; i.e., the root-mean-
+square displacement of a proton in the free fluid is larger than
+the average pore size ( Stallmach and Kärger, 1999 ). PFG-based
+pore-size estimations can therefore be used when relaxation occurs
+in small pores (mostly the fast-diffusion regime) but cannot pro-
+vide information on large pores (mostly outside the fast-diffusion
+regime). The technique has been extended to fixed-field gradients
+(FFGs) because PFG sequences are not available in many in situ
+logging tools ( Hürlimann and Grin, 2000 ; Hürlimann and Venka-
+taramanan, 2002 ; Hürlimann et al., 2002 ).
+Figure 1. NMR relaxation and diffusion measurements (center) are used to deduce physical rock and fluid parameters (top). The T1 and T2
+relaxation times are mono- or multiexponential. Different models are used to determine the porosity and PSD from the relaxation behavior, and
+they depend on the diffusion (fast, intermediate, slow) regime. Diffusion measurements may be applied in a PFG or FFG mode and rely on
+restricted-diffusion conditions. The overall goal is to provide the hydraulic properties of the subsurface from NMR during logging or from the
+earth’s surface to investigate fluid flow and transport processes.
+D196 Müller-Petke et al.
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 3 ---
+In this contribution, we hypothesize that average pore sizes can
+be estimated outside the fast-diffusion regime without the calibra-
+tion of ρ. The method can be used for conventional relaxation time
+measurements that are available for in situ experimental techniques,
+such as for surface NMR and shallow groundwater NMR logging.
+Recent developments have shown that reliable relaxation-time mea-
+surements of T
+1 or T2 are feasible for surface NMR measurements
+(Grunewald and Walsh, 2013 ; Müller-Petke et al., 2013 ).
+We develop a forward modeling code based on the equations
+given in Brownstein and Tarr (1979) and the following assumptions:
+(1) the surface relaxivity ρ is homogeneous and (2) the pore
+coupling and internal field gradients are negligible. Using this for-
+ward code, we examine the ability of inverse modeling to extract
+pore sizes without calibration from synthetic signals under the
+assumption of narrow PSDs and multiexponential decay due to only
+higher order modes. We evaluate whether pore sizes can be unam-
+biguously estimated and what the corresponding uncertainties are.
+Numerical 2D finite-element simulations ( Lehmann-Horn et al.,
+2007) are used to investigate the effect of an increasing inner surface
+(fractal rock-fluid interface) of single pores and to evaluate if sur-
+face roughness plays a key role in the departure from the fast-
+diffusion regime. Theoretical considerations are validated via
+laboratory experiments based on synthetic and natural unconsoli-
+dated materials with different pore sizes and surface relaxivities.
+NMR RELAXATION TIMES THEORY
+Torrey (1956) presents a governing diffusion equation to calcu-
+late the NMR relaxation time of a single water-saturated pore.
+Brownstein and Tarr (1979) express solutions to this governing
+equation for three simple geometries (planar, cylindrical, and
+spherical) as a sum of n “normal modes.” These normal modes cor-
+respond to orthogonal spatial eigenfunctions that build the solution
+space to the diffusion equation transferred to an eigenvalue prob-
+lem, with the inverse of the relaxation time being the eigenvalues.
+For cylindrical geometry, the solution reads
+Tn ¼ r2t ∕Dη2n; (1)
+In ¼ 4J2
+1ðηnÞ∕η2n½J2
+0ðηnÞþ J2
+1ðηnÞ/C138 ; (2)
+where Tn is the nth relaxation time, In is the relative intensity of the
+nth relaxation time, rt is the radius of the cylinder, and J0;1 are
+cylindrical Bessel functions of the zeroth and first order. The ηn
+terms are the positive roots of
+ηnJ1ðηnÞ∕J0ðηnÞ¼ ρrt∕D; (3)
+where D is the self-diffusion coefficient of the fluid and ρ is the
+material-specific surface relaxivity describing the interaction of
+the protons with the pore surface. Note that Brownstein and Tarr
+(1979) refer in their original paper to the longitudinal relaxation
+time T1. Because the equations are valid for the longitudinal and
+transverse relaxation times T2 by assigning an individual surface
+relaxivity ρ1;2, we decided to skip any subindex for simplicity here
+and in the following.
+Although Brownstein and Tarr (1979) neglect the relaxation time
+of the bulk fluid TB, we extend equation 1 to
+1
+Tn
+¼ 1
+TB
+þ Dη2n
+r2t
+: (4)
+Incorporating TB is necessary if relaxation due to the interaction of
+the protons with the pore surface is not significantly faster or even
+slower than the bulk relaxation time. In particular, this is the case for
+materials containing large pores (e.g., Dlugosch et al., 2013; Dlubac
+et al., 2014 ) that are of interest for this study.
+One major outcome of the work of Brownstein and Tarr (1979) is
+summarized in Figure 2. Depending on the value of the term
+κ ¼ ρr
+t∕D, three regimes are distinguished:
+ Fast-diffusion regime: The NMR signals are approximately
+monoexponential; i.e., the intensity of the zeroth mode is
+close to one and all the other intensities are negligible.
+Brownstein and Tarr (1979) give κ ≪ 1 as a criterion for fast
+diffusion, whereas Ryu (2009) more explicitly gives κ ≤ 0.1.
+Figure 2. NMR forward response according to Brownstein and Tarr
+(1979) for cylindrical pores. The signal intensity and relaxation
+times for the zeroth to second mode as a function of the tube radius
+rt, surface relaxivity ρ, self-diffusion D, and bulk relaxation time are
+shown in panel (b). The sketches in panels (a and c) for small and
+large tubes qualitatively show the pathways of two hydrogen pro-
+tons during relaxation (a) and the resulting time-dependent decay as
+a superposition of the modes (c). The decay is monoexponential in
+the fast-diffusion regime (small pores), whereas the decay is multi-
+exponential outside the fast-diffusion regime (larger pores).
+NMR average pore-size estimations
+D197
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 4 ---
+ Intermediate-diffusion regime: The NMR signals are signifi-
+cantly multiexponential; i.e., the contributions of higher
+modes are nonnegligible, 1 ≪ κ ≪ 10.
+ Slow-diffusion regime: The NMR signals are still dominated
+by the zeroth mode, but the contributions of the higher
+modes sum up to a few tens of percent, κ ≫ 10.
+For this paper, we incorporate higher order modes into the data
+analyses. Because the intermediate and slow-diffusion regimes
+are assumed to show nonnegligible intensities for higher modes,
+we refer to those two cases as being “outside the fast-diffusion
+regime.”
+Fast-diffusion regime
+In the fast-diffusion regime, the solution for the zeroth mode (the
+first root in the equation 3 and the main relaxation time) is ( Brown-
+stein and Tarr, 1979 )
+Tn¼0 ¼ rt
+ρ : (5)
+Note that in equation 5, TB has been neglected. The value TB can be
+neglected if, as commonly assumed for fast diffusion (e.g., Dunn
+et al., 2002 ), TB is smaller compared to rt∕ρ. Nevertheless, there
+are cases in which TB needs to be considered ( Dlubac et al.,
+2014). In any case, this relationship links the NMR relaxation time
+to pore size. If a multiexponential signal is measured and fast dif-
+fusion can be assumed, the RTD can be related to a PSD. However,
+the relationship needs to be calibrated because ρ is unknown and
+material specific.
+Outside the fast-diffusion regime
+Outside the fast-diffusion regime, RTDs cannot be easily linked
+to different pore sizes because multiexponential signals arise from a
+single pore volume. One extreme type of these conditions is slow
+diffusion (κ ≫ 10). As discussed in Brownstein and Tarr (1979), the
+zeroth relaxation time becomes independent of ρ, and, neglecting
+T
+B, the pore sizes can be directly measured.
+If we account for TB, the zeroth relaxation time may be close to
+TB (Figure 2) and will therefore be difficult to use to estimate the
+pore size. A closer look at the first and second modes, however,
+reveals that the interpretation of these higher modes may also allow
+us to estimate the pore size. These modes are also affected by T
+B,
+but to a lesser extent as shown in Figure 2 and equation 4, where
+Dη2n∕r2t dominates 1∕TB with increasing n. Assuming ρ and D are
+constant, a change in rt impacts the relaxation times and intensities
+of the higher modes. Thus, it appears attractive to evaluate whether
+pore-size information can be extracted from NMR by accounting
+for higher modes.
+SIMULATION
+Brownstein and Tarr cylindrical pore-space modeling
+To evaluate whether higher modes can be used to interpret NMR
+measurements, a forward algorithm has been developed based on
+equations 1–4. This algorithm calculates an NMR signal for a given
+cylindrical tube radius rt, surface relaxivity ρ, self-diffusion coef-
+ficient D, and bulk relaxation time TB. We refer to a model that is
+used to calculate a signal based on the formulation of Brownstein
+and Tarr (1979) as a BT model.
+For the synthetic study, one signal dobs is calculated for two BT
+models with rt of 80 and 500 μm, ρ of 10 μm∕s and 100 μm∕s,
+D ¼ 2.1e − 9m 2∕s, and TB ¼ 3s . The signal is contaminated with
+0.1% Gaussian noise; i.e., a random signal following the Gaussian
+distribution with a standard deviation of 0.001 is added to the data.
+This signal is then treated as the observed data. Next, the signals d
+est
+are calculated by varying the material-specific parameters rt and ρ
+while keeping the fluid parameters D and TB constant. The resid-
+uals between dobs and dest display if other parameter sets of rt and ρ
+generate similar data. We generate a map of the residuals over a
+certain parameter range for r
+t and ρ to explore the correlations
+of the parameters. We use error-weighted residuals χ2 to determine
+if a model is acceptable. A χ2 of one indicates fitting the data within
+the noise. We prefer χ2 because implementing appropriate error es-
+timates is favorable for inversion ( Günther et al., 2006 ).
+Two BT models, the fast-diffusion regime (Figure 3a and 3c) and
+the intermediate/slow regime (Figure 3b and 3d), are chosen to dis-
+tinguish the two fundamental cases. Because the data are contami-
+nated with noise, both cases have several parameter combinations
+that fit the data within the noise level. This demonstrates the uncer-
+tainty associated with noise contamination.
+The data set described approximately by the fast-diffusion regime
+(κ ¼ 0.38) is monoexponential within the data error; i.e., the am-
+plitudes of the higher modes are negligible. Consequently, any com-
+bination of r
+t and ρ that satisfies equation 5 and the conditions of
+the fast-diffusion regime can explain the data set; i.e., rt and ρ are
+strongly correlated (white dashed line in Figure 3). Only the maxi-
+mum pore size can be obtained. Note that neglecting higher modes
+to derive equation 5 is not applicable for noise-free data.
+The multiexponential data set that is described by the intermedi-
+ate/slow regime (κ ¼ 23) does not show this correlation between r
+t
+and ρ. Because the data are contaminated with noise, there is some
+uncertainty associated with the solution, but there is no inherent
+correlation between the two parameters. A change in rt cannot
+be compensated by a change in ρ. Therefore, the pore size could
+be obtained from the measured data (white cross in Figure 3).
+At this point, we would like to emphasize that this method is
+based on fitting the decaying signal; i.e., we calculate the decaying
+signal for the parameters r
+t, ρ, D, and TB and compare these data
+with a measured decay. We do not fit the decaying signal to some
+finite number of relaxation times (biexponential, triexponential,
+::: ) and analyze these extracted relaxation times as modes to find
+the corresponding parameter; such an approach would introduce ad-
+ditional uncertainty because two ill-posed problems (exponential
+fitting and fitting for higher modes) need to be solved instead
+of one.
+Furthermore, we note that the presented approach of estimating r
+t
+and ρ does not rely on a prior calculation of the diffusion regime.
+The BT modeling delivers rt and ρ and their respective uncertain-
+ties. The obtained uncertainties can be used to distinguish the dif-
+fusion regimes because the correlation between rt and ρ decreases
+when leaving the fast-diffusion regime.
+Because we expect that the ability to infer the BT parameters
+from the measured data depends on the signal-to-noise ratio
+(S/N), we also carried out simulations for r
+t ¼ 300 μm, ρ ¼
+100 μm∕s, D ¼ 2.1e − 9m 2∕s, and TB ¼ 3s (leading to κ ¼
+14), where the S/Ns were 100 (typical laboratory conditions), 10
+D198 Müller-Petke et al.
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 5 ---
+(achievable conditions for borehole measurements), and 1 (poor
+borehole conditions). We found (Figure 4) that S/Ns down to 10
+for this parameter combination still allow for reasonable estimates
+of the pore size ( 200 < rt < 400 μm) and surface
+relaxivity (70 < ρ < 110 μm∕s), whereas the un-
+certainties rapidly increase for a lower S/N. This
+uncertainty analysis was carried out by parameter
+variation; i.e., a grid search was applied to find
+all combinations of r
+t and ρ that satisfy the given
+data for the different S/Ns. The results are not
+that surprising because the total intensity of
+the higher modes sums to approximately 10%
+of the total signal intensity for this example.
+Nevertheless, the methodology can be used to es-
+timate parameters even when the data quality is
+similar to that found in borehole measurements.
+2D finite-element simulations account-
+ing for rough rock-fluid interfaces
+The analytical solutions given in Brownstein
+and Tarr (1979) are derived for smooth interfaces
+and simple geometries. To simulate the impact of
+rough interfaces similar to those present in rocks,
+we use a finite-element forward modeling (FEM)
+code to solve the diffusion equation in ( Brown-
+stein and Tarr, 1979)i n2 D( Lehmann-Horn et al.,
+2007). We have simulated two cases: A (Fig-
+ure 5a and 5b) and B (Figure 5d and 5e). Each
+shares the same surface relaxivity ρ ¼ 10 μm∕s
+and average pore size but differs in the roughness
+of the pore rock-fluid interface by a factor of
+three (see Table 1 for details). By comparing
+the simulations for the two cases (Figure 5),
+we found that increasing the interface roughness
+leads to shorter relaxation times. This confirms
+laboratory observations obtained from glass beads treated to in-
+crease their surface roughness ( Keating, 2014). Apart from the im-
+pact on the mean relaxation time, case A (with the less rough
+interface, Figure 5b) shows a nearly monoexponential decay,
+whereas case B (with the rougher interface, Figure 5f) shows a mul-
+tiexponential decay; i.e., the amplitudes of the higher-order modes
+are larger.
+Next, we calculated the controlling parameter κ to determine the
+diffusion regime (Table 1). Analogous to the study of Keating and
+Falzone (2013), we distinguish two radii, an upper and lower radius.
+However, because the FEM simulations are 2D, our upper radius
+r
+max is calculated from a circle with an equivalent area to the pore,
+whereas our lower radius rmin is calculated from the ratio of the
+circumference to the area. Using rmax obviously gives the same
+κ for both cases because the pore areas are similar. Using rmin, κ
+decreases for case B as rmin decreases. Consequently, both types
+of κ do not reflect the effect demonstrated by the simulation; the
+intensity of higher modes is larger for higher roughness.
+For demonstration purposes, we apply the cylindrical (3D) BT
+inverse modeling scheme to the predicted NMR signals of our
+2D fractal pore space. The synthetic decay signals are contaminated
+with 0.1% Gaussian noise. First, we found that the FEM response
+for both cases (A and B) can be sufficiently explained by smooth
+models derived from BT modeling (Figure 5c and 5f). Second, the
+FEM response for case A can be explained by several smooth mod-
+els (dashed area in Figure 5c), in which the r
+t and ρ for these models
+show a linear correlation as expected for fast-diffusion conditions.
+Figure 3. Brownstein and Tarr (1979) forward response for two different tube radii rt
+(80 and 500 μm) and surface relaxivities ρ (10 μm∕s and 100 μm∕s) in panels (a and b),
+respectively. The modes ’ intensities and relaxation times are given as crosses,
+whereas the decaying signal is given as a solid line. The self-diffusion coefficient
+(D ¼ 2.1e − 9m
+2∕s) and bulk relaxation time ( TB ¼ 3s ) are the same in both cases.
+The data are contaminated with 0.1% Gaussian noise equivalent to a signal-to-noise ratio
+(S/N) of 1000. Panels (c and d) show the logarithm of the error-weighted residuals
+log
+10ðχ2Þ (black to white refers to low and high; the numbers refer to the contour line
+value) to the responses in panels (a and b) for variations in the surface relaxivity and tube
+radius. The black dashed lines indicate the slow- and fast-diffusion regimes. The white
+dashed line and the white cross indicate all parameter combinations of r
+t and ρ that
+provide a data fit within the level of noise contamination ( χ2 ¼ 1).
+Figure 4. Parameter uncertainty for rt (a) and ρ (b) as a function of
+the S/N. An S/N of 100 represents typical laboratory conditions,
+whereas an S/N of 10 is achievable for borehole measurements
+and 1 for poor borehole conditions.
+NMR average pore-size estimations
+D199
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 6 ---
+BT modeling cannot be used to determine an average pore size.
+Third, the FEM response for case B can be explained by only a
+few smooth models (white cross in Figure 5f) as expected for a dif-
+fusion regime outside the fast-diffusion regime. BT modeling can
+be used to determine an average pore size that matches the pore size
+used for the FEM modeling, but the derived ρ ¼ 60 μm∕s is larger
+than the value used in the model by a factor of 6. Even though a full
+3D finite-element simulation was used for quantitative interpreta-
+tion, this example highlights that pore roughness controls the dif-
+fusion regime, which is in agreement with Sapoval et al. (1996) .
+Moreover, as commented by Kenyon (1997) , Ramakrishnan et al.
+(1998), and Kleinberg (1996), an apparent surface relaxivity ρ
+a that
+is a function of the true, material-specific ρ, pore roughness, clay
+content, and nonsimple pore shapes controls the NMR relaxation
+time. Considering this ρa of 60 μm∕s and the estimated pore radius
+of about 140 μm, we obtain κ ¼ 4, which actually indicates diffu-
+sion outside the fast-diffusion regime and agrees with the observa-
+tions of the simulated signals.
+LABORATORY MEASUREMENTS
+Sample selection, preparation, and characterization
+Because BT forward modeling is based on a single pore size, we
+use samples from a very narrow PSD. We first choose glass beads to
+create well-defined samples over a range of grain sizes ( dgrain be-
+tween 90 m and 4.4 mm). The beads (Sigmund Lindner GmbH,
+Warmensteinach, Germany) consist of soda-lime glass with a
+chemical composition of mainly SiO2, 54.7%;
+Al2O3, 14.5%; CaO, 22.5%; and B2O3, 5.5%.
+The particles are spherically shaped and split into
+samples with a narrow range of grain sizes as
+shown in Table 2. Secondly, sand samples with
+a high quartz content (Euroquarz GmbH, Dors-
+ten, Germany) but natural grain shapes are used
+(Table 3).
+In addition to selecting samples with different
+pore sizes, samples showing different surface re-
+laxivities and, in the best case, equal pore sizes
+are worth considering. It has been shown that
+surface relaxivity is a function of the amount
+of iron oxides ( Foley et al., 1996 ; Keating and
+Knight, 2007 ). Two options are available to ex-
+perimentally alter the surface relaxivity. Keating
+and Knight (2007) realize this by conducting
+measurements on clean sand samples and sand
+coated with iron oxides. We select a natural sam-
+ple originating from a drilling at the North Sea
+island of Borkum, Germany, from approximately
+2 m deep. We refer to this sample as the B1 sam-
+ple. B1 is treated using an ammonium oxalate
+process followed by a dithionite process to re-
+duce the iron (III) oxides such as goethite, ferri-
+hydrite, and maghemite to iron (II), which is
+aqueous under the chemical conditions present
+in this study. We use this procedure because it
+is the least destructive to silicates ( Mehra and
+Jackson, 1960 ). We find an iron content of
+500 mg ∕kg or 0.05% for the original sample.
+This iron content is not very unusual for natural
+samples. The iron content is visible from the red-
+dish color of the sample (Figure 6), and it is ap-
+parent that there is less iron in the dithionite-
+treated sample due to the change in color. B1
+consists of medium to fine sand. Therefore, we
+use this sample to first conduct measurements
+on the original state and then treat the material
+to dissolve the iron from the pore surfaces before
+measuring again. Even though the mass percent
+of iron used by Keating and Knight (2007) is sig-
+nificantly higher, this approach should enable us
+to conduct measurements on the same sample
+material for different surface relaxivities.
+Figure 5. Two-dimensional finite-element forward response for two cases (panels a
+and d) with equal surface relaxivities ( ρ ¼ 10 μm∕s), self-diffusion coefficients
+(D ¼ 2.1e − 9m 2∕s) and bulk relaxation times ( TB ¼ 3s ) but increasing the inner sur-
+face by a factor of 3 in panel (d). In panels (b and e), the forward response is calculated
+using FEM; the crosses give the mode intensity and relaxation time, and the solid line is
+the decaying signal. Panels (c and f) show the logarithm of the error-weighted residual
+log
+10ðχ2Þ (black to white refers to low and high; the numbers refer to the contour line
+values) to the response of a BT model for variations in the surface relaxivity and tube
+radius. The black dashed lines indicate the slow- and fast-diffusion regimes. The white
+dashed line in panel (c) indicates all parameter combinations of r
+t and ρ that provide a
+data fit within the level of data error ( χ2 ¼ 1). The white cross in panel (f) presents the
+best fitting model and corresponds to the black dashed circle in panel (d).
+D200 Müller-Petke et al.
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 7 ---
+We use the effective grain diameter after Carrier (2003) :
+dgrain ¼ 1∕
+X fi
+d0.5
+li d0.5
+si
+; (6)
+where fi is the (dimensionless) fraction of particles between the
+sieve sizes dli and dsi, which are the respective sieve size limits.
+This effective grain diameter and the sample porosity Φ allow
+the average pore size of each sample to be calculated (e.g., Dlu-
+gosch et al., 2013 ):
+asieve ¼ 1
+3
+Φ
+1 − Φ dgrain: (7)
+Experimental setup
+To visually check the packing of the material, we use a translu-
+cent polycarbonate sample holder with a length of 110 mm and an
+inner diameter of 40 mm. The dimension is chosen to be large
+enough to hold a representative volume of the material but still
+fit in the coil of the laboratory ’s NMR system. The samples are
+saturated with degassed and deionized water with sodium chloride
+to reach an electric conductivity of 400 μS∕cm to
+minimize unwanted dissolution processes. The
+sample holder is first filled with fluid, and then
+the grains are slowly added to the water column
+to prevent air pockets. The material is gradually
+filled and compacted with a pestle to achieve
+similar porosities.
+The NMR measurements are carried out using
+the Rock Core Analyzer (Magritek, Wellington,
+New Zealand), which operates at 2 MHz. We use
+a CPMG pulse sequence with an echo spacing of
+200 μs. Because the diffusion relaxation rate T
+D
+is neglected in equation 4, measurements at dif-
+ferent echo spacings are carried out to confirm
+that this assumption is valid for our samples at
+an echo spacing of 200 μs. We use the built-in
+cooling/heating system to ensure a constant sam-
+ple temperature between 21°C and 22°C during
+the measurements. Because T
+B is not only a
+function of temperature and can be altered by
+dissolved ions, we estimate T
+B separately for
+every sample. Therefore, after the NMR experi-
+ments on the sample, we extract the pore fluid
+and measured T2;B of the liquid. We find T2;B ¼
+2.4 /C6 0.1 s for all samples.
+Pore size estimation for glass beads
+Selecting two samples of different grain sizes,
+we present the results for the glass beads. First,
+the measured data d
+obs (Figure 7a and 7d ) are fit
+to the common multiexponential approach to de-
+rive a smooth RTD (Figure 7b and 7e ). A regu-
+larization parameter λ is used to weigh the
+minimum structure in the RTD and minimum
+residual between the measured data and model
+response (see, e.g., Whittall et al., 1991 ). The
+data are preintegrated into 500 logarithmically spaced time bins.
+We allow for 300 logarithmically spaced relaxation time bins from
+0.01 to 5 s during the inversion. We use an error-weighted inversion
+Table 1. FEM modeling parameter: upper rmax and lower
+rmin radius describing a circle with an equivalent area of the
+pore or based on the ratio of the circumference to the area,
+respectively; the controlling parameter κ is typically used to
+obtain the diffusion regime.
+Case A Case B
+ρ
+true (μm∕s)1 0 1 0
+TB (s) 3 3
+Circumference c (μm) 1422 4495
+Area a (μm2) 51,119 53,750
+rmax ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃ
+a∕π
+p
+(μm) 127 130
+rmin ¼ 2 · a∕c (μm) 71 23
+κðρtrue;r minÞ 0.34 0.11
+κðρtrue;r maxÞ 0.6 0.6
+Table 2. List of sample parameters as derived from the sieving and NMR
+analyses for the set of glass beads.
+Material dsieving
+grain (μm) ΦNMR rsieving
+pore (μm) rNMRpore (μm) ρ (μm∕s)
+Glass beads 4400 –3600 0.39 930 –760 630 –710 330 –170
+1650–1250 0.35 300 –225 350 –250 110 –85
+500–250 0.38 100 –50 110 –90 140 –100
+125–100 0.37 23 –18 < 30 <270
+Table 3. List of sample parameters as derived from the sieving and NMR
+analyses for the natural sand samples.
+Material dsieving
+grain (μm) ΦNMR rsieving
+pore (μm) rNMRpore (μm) ρ (μm∕s)
+Quartz sand 2000 –630 0.41 450 –150 400 –300 300 –150
+1000–500 0.38 200 –100 170 –155 320 –250
+500–125 0.34 85 –21 80 –72 170 –120
+Figure 6. Microphotography of the B1 samples (a) before and (b) after chemical treat-
+ment to dissolve free iron.
+NMR average pore-size estimations D201
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 8 ---
+scheme ( Günther et al., 2006 ) to account for the logarithmic data
+preintegration that changes the error for each time bin. Using this
+approach, the data are fit within the acceptable level of data error (to
+avoid overfitting), and no structure remains in the error-weighted
+residuals that would indicate unexplained data. Therefore, the resid-
+uals for the RTD display a benchmark for the BT modeling. Second,
+similar to the synthetic study, the BT model parameter space of r
+t
+and ρ is varied to calculate the estimated data dest, and the residuals
+between each dest and the measured data are calculated (Figure 7c
+and 7f). The best-fitting BT models are indicated by the area framed
+by a white dashed line. All the models within this area satisfy the
+measured data as well as the RTD (detailed residuals for each of the
+BT models are given for comparison in Figure 7a and 7d). The two
+samples represent the two cases as discussed for the synthetic ex-
+amples: a first case with small grain sizes that does not show a dis-
+tinct minimum and therefore shows a strong correlation with rt and
+ρ and a second case that shows a distinct minimum and allows the
+pore radius to be directly estimated. For a comparison to the T2
+distribution, the higher order modes are given in Figure 7b and
+7e. Note that we scaled the amplitudes of the RTD such that the
+maximum of the RTD matches the amplitude of the zeroth mode.
+Without scaling, the amplitudes of all the relaxation time bins for
+the RTD and the amplitudes of all the modes sum up to the same
+total water content of the sample. Thus, the amplitudes of the RTD
+are necessarily far below the modes. To ease the comparison, we
+prefer to scale the RTD. For a comparison of the RTD and the
+modes, one should keep in mind this scaling and the fact that each
+mode amplitude reflects a certain area of the RTD. Thus, the am-
+plitudes and relaxation times of the modes nicely match the distri-
+bution. The relaxation time of the zeroth mode and the maximum of
+the RTD are very close in both cases. Concerning the second case
+(Figure 7e), the left-side tail of the RTD is represented by the higher
+order modes. However, the most important observation for the sec-
+ond diffusion case outside the fast-diffusion scheme is an average
+pore size of 350 –250 μm, which is well within the estimated pore
+size of 310 –270 μm derived from the grain sizes from the sieving
+analyses (Table 2). In addition to the pore size, we obtain ρ within
+the interval of 110 − 85 μm∕s. Table 2 summarizes the results for
+all samples, showing the grain size, porosity, pore size derived from
+sieving, pore size derived from NMR, and the corresponding sur-
+face relaxivity ρ. All measured data can be explained by the BT
+modeling within the level of noise and is therefore similar to the
+data fit obtained from a standard T
+2 distribution. Overall, a good
+agreement between the pore sizes obtained from NMR and from
+the grain sizes is achieved.
+Pore size estimation for natural sand
+Figure 8 illustrates the detailed results for one
+sample of natural sand, and the results for all
+measured samples are summarized in Table 3.
+The residuals between the measured data and
+each BT model (Figure 8c) have a significant
+minimum. The residuals (light gray in Figure 8a)
+for the best fitting BT models (indicated by the
+area framed by a white dashed line in Figure 8c)
+do not show any remaining structure, indicating
+an acceptable data fit. The deviations (dark gray)
+in a standard T2-distribution are within the same
+range. Thus, BT modeling for this natural sand
+sample is able to sufficiently explain the mea-
+sured data within the measurement error and
+equally well compared to an RTD. The average
+pore sizes, which are as important as the data fit,
+are again well within the results of the sieving
+analyses (Table 3), enabling BT modeling to pre-
+dict pore sizes from NMR measurements without
+any calibration.
+Reliability of pore-size estimations
+We select the measurements of the B1 sample
+to evaluate the reliability of the pore-size estima-
+tion procedure and to test whether multiexponen-
+tial decays are due to the diffusion conditions or
+to the PSDs. The measured data (Figure 9a)o f
+the original sample are significantly multiexpo-
+nential, and the distribution shows a tail at
+shorter times. The measured data (Figure 9d)
+after treatment clearly show the impact of the
+change in ρ caused by the changing content of
+paramagnetic iron. The decay of the obtained
+Figure 7. RTDs and BT modeling for two samples of glass beads with grain sizes rang-
+ing (a-c) from 125 to 100 μm and (d-f) from 1650 μm to 1250 μm. The measured data
+(black), residuals of the forward response from the best fitting BT modeling (light gray),
+and T2 distribution (gray) for the measured data in terms of the error weighted misfit are
+shown in panels (a and d). The BT model (black crosses) and T2 distribution (solid line)
+are presented in panels (b and e). Panels (c and f) show the logarithm of the error
+weighted residuals for different BT models. The black dashed lines indicate the slow-
+and fast-diffusion regions. The white dashed line indicates all parameter combinations of
+r
+t and ρ that provide a data fit within the level of the data error.
+D202 Müller-Petke et al.
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 9 ---
+data is significantly slower compared with that of the original sam-
+ple. The T2 distribution looks remarkably different. The tail of short
+relaxation times has disappeared. However, the sample has not been
+significantly changed despite the dissolution process. Therefore, the
+change in the data is due to an increase in higher order modes.
+The BT modeling nicely reflects that the pore size did not change;
+rather, ρ changed due to the dissolution process. The pore sizes es-
+timated from the data of the two samples are approximately 50 and
+70 μm, respectively, and are well within the results from the grain
+size analyses (Table 4). However, one would give significantly dif-
+ferent PSDs for each sample based on the RTDs, especially in terms
+of the amount of fine grains. Moreover, as expected due to the de-
+crease in paramagnetic content on the pore surface, the best fitting
+BT models estimate ρ to be 600 μm∕s for the original sample and
+120 μm∕s after the sample is treated. The treated sample is close to
+fast-diffusion conditions as expected from the grain size and follow-
+ing a treatment that decreases surface relaxivity. We are, in fact,
+surprised to be still able to extract some information even though
+the uncertainties increased. Note that the data fit for the original
+sample is not as perfect as for all other samples. We think that this
+is most likely caused by a nonuniform distribution of surface re-
+laxivity.
+DISCUSSION
+Pore roughness, apparent surface relaxivities, and dif-
+fusion regime
+We show that average pore sizes can be obtained directly from
+NMR data using a BT modeling approach if relaxation occurs out-
+side the fast-diffusion regime. In addition to rt, ρ controls the dif-
+fusion regime, but the values of ρ observed for the data presented
+are unusually high, implying a slow- or intermediate-diffusion re-
+gime for pores typically assumed to be in the fast-diffusion regime.
+Consequently, we discuss these high surface relaxivities below.
+Because ρ is an NMR intrinsic parameter, neither independent
+nor direct measurement techniques that can determine the value
+of ρ are available. Common procedures that determine ρ are based
+on the NMR measurement itself. Measuring the surface-area-to-
+pore-volume ratio (S/V) using, for instance, BET and assuming fast
+diffusion, ρ is calculated from the relaxation time using (Foley et al.,
+1996)
+1
+T ¼ ρ S
+V : (8)
+If the pore surface is smooth and of simple geometry, S/V can be
+transferred to a mean pore size, and the diffusion case can be cal-
+culated using the cases presented by Brownstein and Tarr (1979) .
+However, if rough pore surfaces are present, ρ can be calculated
+using equation 8 to give the value for the surface relaxivity; how-
+ever, according to the fractal surfaces implemented by our simula-
+tions, the diffusion case cannot be calculated by means of ρ and a
+mean pore size. In fact, it is necessary to account for pore rough-
+ness. We show preliminary attempts to explain the simulated data
+using smooth surfaces, an average pore size and a higher apparent
+surface relaxivity. Following this, the given surface relaxivities in
+this paper are the apparent surface relaxivities ρ
+a and cannot be di-
+rectly compared with the ρ derived from the S/V because the former
+are obtained from a method sensitive to pore roughness. A very sim-
+ple example based on the results published by Keating and Knight
+(2010) appears illustrative. Using the S/V for a sample of quartz
+grains, the authors derive a pore radius of approximately 2 μm from
+BET measurements; based on a grain radius of 200 μm, simple cu-
+bic packing leads to a pore radius of approximately 150 μm. Thus,
+compared to a smooth surface, the real pore surface is increased by a
+factor of 75. This factor may explain the differences in ρ given in
+their paper and those written here.
+The factor of 75 appears high but not impossible following the
+research on pore roughness published by Stallmach et al. (2002) and
+Pape et al. (2006) . They give pore roughness in terms of the fractal
+dimension and report values ranging from 2.26 to 2.46 for sand-
+stones and 2.2 for glacial sand deposits. Using the fractal dimen-
+sion, a ratio between the BET-measured surface-area S
+BET and
+the smooth surface obtained from the grain analyses or flow experi-
+ments S
+grain is calculated as (Pape et al., 1999 , 2006)
+SBET
+Sgrain
+¼
+/C18 λBET
+λgrain
+/C19 2−Dfrac
+; (9)
+Figure 8. RTDs and BT modeling for a sample consisting of natural
+sand with grain sizes ranging from 2000 to 630 μm. The measured
+data (black), residuals of the forward response from the best fitting
+BT modeling (light gray) and T
+2 distribution (gray) for the mea-
+sured data in terms of the error weighted misfit are shown in panel
+(a). The BT model (black crosses) and T2 distribution (solid line)
+are presented in panel (b). Panel (c) shows the logarithm of the er-
+ror-weighted residuals for different BT models. The black dashed
+lines indicate the slow- and fast-diffusion regimes. The white
+dashed line indicates all parameter combinations of r
+t and M that
+provide a data fit within the level of the data error.
+NMR average pore-size estimations D203
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 10 ---
+where λBET is the minimum length resolved by the BET
+(3 · 10−10 m); λgrain is the minimum (pore) length from the grain
+analyses, i.e., the minimal pore size; and Dfrac is the fractal dimen-
+sion. Considering λgrain ¼ 150 μm as above, Dfrac would need to be
+2.33 to obtain a factor of 75, whereas assuming Dfrac to be 2.2 re-
+sults in a factor of 14. Our numerical example shows an impact of
+pore roughness on the relaxation time and diffusion regime by a
+factor of 3. This emphasizes the need to develop appropriate equa-
+tions that include pore roughness (or fractal dimension) when cal-
+culating the diffusion regime.
+Multiexponential decays, nonuniform surface
+relaxivities, and narrow PSDs
+In addition to high (apparent) surface relaxivities, we expect a
+dispute arising from the ambiguity of multiexponential relaxation
+caused by the PSD, higher order modes, or inhomogeneous distri-
+bution of surface relaxivity. We show multiexponential signals
+caused by higher order modes. However, in many cases, the multi-
+exponential signals are due to broad PSDs. We limited this study to
+samples of small grain size distributions to avoid this ambiguity. In
+practice, this reflects the need of strong a priori knowledge and
+shows that one should look at the error connected
+with assuming the wrong case. Moreover, what
+happens in the most general case (see Figure 1)
+of a sample that exhibits relaxation in larger
+pores outside the fast diffusion regime and
+smaller pores within the fast-diffusion regime?
+We controlled the PSDs by selecting appropri-
+ate samples with narrow PSDs. Alternatively, we
+had no control on the distribution of surface re-
+laxivity. Multiexponential relaxation may also be
+due to nonuniform distributions of surface relax-
+ivities in the pore space. Following Keating and
+Falzone (2013), ρ is assumed to be homogeneous
+as long as the distance between two paramag-
+netic sites l
+r is small relative to the distance that
+a proton can travel within the time scale of an
+NMR measurement lD. They calculated lD usingﬃﬃﬃﬃﬃﬃﬃﬃﬃ ﬃ
+6DT
+p
+, where T is the bulk relaxation time. For
+the samples presented in this study, lD is approx-
+imately 180 μm. Consequently, for samples con-
+sisting of pores that are smaller than 180 μm,
+multiexponential relaxation should not be caused
+by nonuniform ρ distributions.
+Nevertheless, multiexponential data caused by
+a nonuniform ρ distribution may be present for
+samples consisting of pores that are larger than
+180 μm. However, we are able to explain these
+samples by higher modes using reasonable pore
+sizes. We argue that it is unlikely that the nonun-
+iformity of ρ would be exactly such as to gener-
+ate relaxation times matching those of the higher
+modes. The different values of ρ would have to
+be distributed in the pore space such that the re-
+laxation times and amplitudes match the higher
+modes. Nevertheless, this is only an indication
+and no rigorous proof, but further investigation
+is beyond the scope of this paper. Therefore,
+we emphasize that research on this topic is nec-
+essary. One may extend the numerical simula-
+tions presented here by assigning different
+values of ρ to the boundaries and implementing
+multiple pores and pore throats connecting these
+pores. This numerical approach would also allow
+us to investigate the pore coupling assumption
+made in this study. One may also continue the
+laboratory study of Keating and Knight (2012)
+on the spatial variability of ρ and pore coupling
+by applying our methodology to these types of
+prepared samples. We recommend that this study
+Figure 9. RTDs and BT modeling for the B1 sample (a-c) before and (d-e) after dis-
+solving free iron. The measured data (black), residuals of the forward response from the
+best fitting BT modeling (light gray), and T
+2 distribution (gray) for the measured data in
+terms of the error weighted misfit are shown in panels (a and d). The BT model (black
+crosses) and T
+2 distribution (solid line) are presented in panels (b and e). Panels (c and f)
+show the logarithm of the error-weighted residuals for different BT models. The black
+dashed lines indicate the slow- and fast-diffusion regimes. The white dashed line indi-
+cates all parameter combinations of r
+t and ρ that provide a data fit within the level of the
+data error.
+Table 4. List of sample parameters as derived from the sieving and NMR
+analyses for the B1 sample.
+Material dsieving
+grain (μm) ΦNMR rsieving
+pore (μm) rNMRpore (μm) ρ (μm∕s)
+B1 original 300 –100 0.41 70 –23 60 –45 1000 –150
+B1 treated 300 –100 0.39 63 –21 100 –40 200 –50
+D204 Müller-Petke et al.
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 11 ---
+be treated as a starting point with significant limitations but high
+potential for further improvements.
+CONCLUSIONS
+We present an approach to estimate the average pore size for
+coarse-grained unconsolidated material by means of incorporating
+higher order modes in NMR decay time interpretation. This is rel-
+evant for in situ NMR experiments such as surface NMR or shallow
+NMR logging, in which PFG or FFG sequences are unavailable and
+one operates outside the fast-diffusion regime. A forward modeling
+study was carried out to show that the pore size can be obtained
+from measured relaxation times without calibration outside the
+fast-diffusion regime. A 2D finite-element fractal pore-space mod-
+eling example demonstrates that an apparent increase in the surface
+relaxivity can be observed when the roughness of the rock-fluid
+interface is increased. We found that pore roughness has a signifi-
+cant impact on the relaxation time and the diffusion regime. In
+agreement with others, we refer to an apparent surface relaxivity
+when surface roughness is neglected in the model. Measurements
+of glass bead and natural sand samples encompassing a small spec-
+trum of grain sizes confirm that the presented approach can be ap-
+plied to natural unconsolidated material. In addition to providing
+estimates of the pore sizes, measurements of a sample before
+and after it was treated to dissolve iron show that this approach
+can be used to estimate the surface relaxivity. The methodology
+is limited to material with a narrow PSD and a uniform distribution
+of ρ because we assume that the multiexponential decay is due only
+to higher order modes and not to an arbitrary PSD or nonuniform ρ
+distribution.
+ACKNOWLEDGMENTS
+We would like to thank K. Keating, two anonymous reviewers,
+and the associate editor for their comments, which helped to im-
+prove the clarity of the manuscript.
+REFERENCES
+Brakel, J. V ., S. Modrý, and M. Svatá, 1981, Mercury porosimetry: State of
+the art: Powder Technology, 29,1 –12, doi: 10.1016/0032-5910(81)
+85001-2.
+Brooks, R. H., and A. T. Corey, 1964, Hydraulic properties of porous media:
+Hydrology papers: Colorado State University.
+Brownstein, K. R., and C. E. Tarr, 1979, Importance of classical diffusion in
+NMR studies of water in biological cells: Physical Review A, 19, 2446–
+2453, doi: 10.1103/PhysRevA.19.2446.
+Butler, J. J., 2005, Hydrogeological methods for estimation of spatial var-
+iations in hydraulic conductivity, in Y . Rubin, and S. S. Hubbard, eds.,
+Hydrogeophysics: Springer, vol. 50, Water Science and Technology Li-
+brary, 23–58.
+Callaghan, P . T., 2007, Principles of nuclear magnetic resonance micros-
+copy: Oxford University Press.
+Carman, P . C., 1939, Permeability of saturated sands, soils and clays:
+The Journal of Agricultural Science, 29, 262 –273, doi: 10.1017/
+S0021859600051789.
+Carrier, W. D., 2003, Goodbye, Hazen; hello, Kozeny-Carman: Journal of
+Geotechnical and Geoenvironmental Engineering, 129, 1054 –1056, doi:
+10.1061/(ASCE)1090-0241(2003)129:11(1054).
+Coates, G. R., L. Xiao, and M. G. Prammer, 1999, NMR logging principles
+and application: Halliburton Energy Services.
+Dlubac, K., R. Knight, and K. Keating, 2014, A numerical study of the re-
+lationship between NMR relaxation and permeability in sands and grav-
+els: Near Surface Geophysics, 12, 219 –230, doi: 10.3997/1873-0604
+.2013042.
+Dlubac, K., R. Knight, Y .-Q. Song, N. Bachman, B. Grau, J. Cannia, and J.
+Williams, 2013, Use of NMR logging to obtain estimates of hydraulic
+conductivity in the High Plains aquifer, Nebraska, USA: Water Resources
+Research, 49, 1871 –1886, doi: 10.1002/wrcr.20151.
+Dlugosch, R., T. Günther, M. Müller-Petke, and U. Yaramanci, 2013,
+Improved prediction of hydraulic conductivity for coarse-grained, uncon-
+solidated material from nuclear magnetic resonance: Geophysics, 78,
+no. 4, EN55 –EN64, doi: 10.1190/geo2012-0187.1.
+Dlugosch, R., M. Mueller-Petke, T. Guenther, S. Costabel, and U. Yara-
+manci, 2011, Assessment of the potential of a new generation of surface
+NMR instruments: Near Surface Geophysics, 9,8 9 –102, doi: 10.3997/
+1873-0604.2010063.
+Dunn, K. J., D. J. Bergman, and G. A. Latorraca, 2002, Nuclear magnetic
+resonance, petrophysical and logging applications, 1st ed.: Pergamon.
+Foley, I., S. A. Farooqui, and R. L. Kleinberg, 1996, Effect of paramagnetic
+ions on NMR relaxation of fluids at solid surfaces: Journal of Magnetic
+Resonance, Series A, 123,9 5 –104, doi: 10.1006/jmra.1996.0218.
+Fukushima, E., and S. B. W. Roeder, 1981, Experimental pulse NMR — A
+nuts and bolts approach: Westview Press.
+Grunewald, E., and D. Walsh, 2013, Multiecho scheme advances surface
+NMR for aquifer characterization: Geophysical Research Letters, 40,
+6346–6350, doi: 10.1002/2013GL057607.
+Günther, T., C. Rücker, and K. Spitzer, 2006, Three-dimensional modeling
+and inversion of DC resistivity data incorporating topography — Part II:
+Inversion: Geophysical Journal International, 166, 506 –517, doi: 10
+.1111/j.1365-246X.2006.03011.x.
+Hürlimann, M. D., and D. D. Griffin, 2000, Spin dynamics of Carr-Purcell-
+Meiboom-Gill-like sequences in grossly inhomogeneous B0 and B1 fields
+and application to NMR well logging: Journal of Magnetic Resonance,
+143, 120 –135, doi: 10.1006/jmre.1999.1967.
+Hürlimann, M. D., K. G. Helmer, L. L. Latour, and C. H. Sotak, 1994,
+Restricted diffusion in sedimentary rocks. Determination of surface-
+area-to-volume ratio and surface relaxivity: Journal of Magnetic Reso-
+nance, Series A, 111, 169 –178, doi: 10.1006/jmra.1994.1243.
+Hürlimann, M. D., and L. V enkataramanan, 2002, Quantitative measurement
+of two-dimensional distribution functions of diffusion and relaxation in
+grossly inhomogeneous fields: Journal of Magnetic Resonance, 157,
+31–42, doi: 10.1006/jmre.2002.2567.
+Hürlimann, M. D., L. V enkataramanan, C. Flaum, P . Speier, C. Karmonik, R.
+Freedman, and N. Heaton, 2002, Diffusion-editing: New NMR measure-
+ment of saturation and pore geometry: Presented at SPWLA 43rd Annual
+Logging Symposium.
+Keating, K., 2014, A laboratory study to determine the effect of surface area
+and bead diameter on NMR relaxation rates of glass bead packs: Near
+Surface Geophysics, 12, 243 –254, doi: 10.3997/1873-0604.2013064.
+Keating, K., and S. Falzone, 2013, Relating nuclear magnetic resonance
+relaxation time distributions to void-size distributions for unconsolidated
+sand packs: Geophysics, 78, no. 6, D461 –D472, doi: 10.1190/geo2012-
+0461.1.
+Keating, K., and R. Knight, 2007, A laboratory study to determine the effect
+of iron oxides on proton NMR measurements: Geophysics, 72, no. 1,
+E27–E32, doi: 10.1190/1.2399445.
+Keating, K., and R. Knight, 2010, A laboratory study of the effect of Fe (II)-
+bearing minerals on nuclear magnetic resonance (NMR) relaxation mea-
+surements: Geophysics, 75, no. 3, F71 –F82, doi: 10.1190/1.3386573.
+Keating, K., and R. Knight, 2012, The effect of spatial variation in surface
+relaxivity on nuclear magnetic resonance relaxation rates: Geophysics, 77,
+no. 5, E365 –E377, doi: 10.1190/geo2011-0462.1.
+Kenyon, W. E., 1997, Petrophysical principles of applications of NMR log-
+ging: The Log Analyst,
+38,2 1 –43.
+Kenyon, W. E., P . I. Day, C. Straley, and J. F. Willemsen, 1988, A three-
+part study of NMR longitudinal relaxation properties of water-saturated
+sandstones: SPE Formation Evaluation, 3, 622–636, doi: 10.2118/15643-
+PA.
+Kleinberg, R., 1996, Utility of NMR T2 distributions, connection with capil-
+lary pressure, clay effect, and determination of the surface relaxivity
+parameter ρ2: Magnetic Resonance Imaging, 14, 761 –767, doi: 10
+.1016/S0730-725X(96)00161-0.
+Kozeny, J., 1927, Über kapillare Leitung des Wassers im Boden: Sitzungs-
+berichte / Akademie der Wissenschaften in Wien, Mathematisch-Natur-
+wissen-schaftliche Klasse Abteilung IIa, 136, 271 –306.
+Lehmann-Horn, J., S. Strehl, and U. Yaramanci, 2007, Numerical simula-
+tions of NMR responses in fractal pore-space with the finite element
+method: Presented at Near Surface 2007 — 13th European Meeting
+of Environmental and Engineering Geophysics.
+Mehra, O., and M. Jackson, 1960, Iron oxide removal from soils and clays
+by a dithionite-citrate system buffered with sodium bicarbonate: Clays
+and Clay Minerals, 7, 317 –327, 10.1346/CCMN.1958.0070122.
+Mitra, P . P ., P . N. Sen, and L. M. Schwartz, 1993, Short-time behavior of the
+diffusion coefficient as a geometrical probe of porous media: Physical
+Review B, 47, 8565 –8574, doi: 10.1103/PhysRevB.47.8565.
+Müller-Petke, M., J. O. Walbrecker, and R. J. Knight, 2013, The inversion of
+surface-NMR T1 data for improved aquifer characterization: Geophysics,
+78, no. 6, EN83 –EN94, doi: 10.1190/geo2013-0035.1.
+NMR average pore-size estimations D205
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1
+
+--- PAGE 12 ---
+Pape, H., C. Clauser, and J. Iffland, 1999, Permeability prediction based on
+fractal pore-space geometry: Geophysics, 64, 1447–1460, doi: 10.1190/1
+.1444649.
+Pape, H., J. E. Tillich, and M. Holz, 2006, Pore geometry of sandstone de-
+rived from pulsed field gradient NMR: Journal of Applied Geophysics,
+58, 232 –252, doi: 10.1016/j.jappgeo.2005.07.002.
+Parsekian, A., K. Dlubac, E. Grunewald, J. Butler, R. Knight, and D. Walsh,
+2014, Bootstrap calibration and uncertainty estimation of downhole NMR
+hydraulic conductivity estimates in an unconsolidated aquifer: Ground
+Water, 53, 111 –121, doi: 10.1111/gwat.12165.
+Ramakrishnan, T. S., L. M. Schwartz, E. J. Fordham, W. E. Kenyon, and D.
+J. Wilkinson, 1998, Forward models for nuclear magnetic resonance in
+carbonate rocks: Presented at SPWLA 39th Annual Logging Symposium.
+Ryu, S., 2009, Effect of inhomogeneous surface relaxivity, pore geometry
+and internal field gradients on NMR logging: Exact and perturbative the-
+ories and numerical investigations: Presented at SPWLA 50th Annual
+Logging Symposium.
+Sapoval, B., S. Russ, D. Petit, and J. P . Korb, 1996, Fractal geometry impact
+on nuclear relaxation in irregular pores: Magnetic Resonance Imaging, 14,
+863–867, doi: 10.1016/S0730-725X(96)00217-2.
+Stallmach, F., and J. Kärger, 1999, The potentials of pulsed field gradient
+NMR for investigation of porous media: Adsorption, 5, 117–133, doi: 10
+.1023/A:1008949607093.
+Stallmach, F., C. V ogt, J. Kärger, K. Helbig, and F. Jacobs, 2002, Fractal
+geometry of surface areas of sand grains probed by pulsed field gradient
+NMR: Physical Review Letters, 88, 105505, doi: 10.1103/PhysRevLett
+.88.105505.
+Stejskal, E. O., and J. E. Tanner, 1965, Spin diffusion measurements: Spin
+echoes in the presence of a time-dependent field gradient: Journal of
+Chemical Physics, 42, 288, doi: 10.1063/1.1695690.
+Straley, C., A. Matteson, S. Feng, L. M. Schwartz, W. E. Kenyon, and J. R.
+Banavar, 1987, Magnetic resonance, digital image analysis, and per-
+meability of porous media: Applied Physics Letters, 51, 1146 –1148,
+doi: 10.1063/1.98766.
+Torrey, H. C., 1956, Bloch equations with diffusion terms: Physical Review,
+104, 563 –565, doi: 10.1103/PhysRev.104.563.
+V ogt, C., P . Galvosas, N. Klitzsch, and F. Stallmach, 2002, Self-diffusion
+studies of pore fluids in unconsolidated sediments by PFG NMR: Journal
+of Applied Geophysics, 50, 455 –467, doi: 10.1016/S0926-9851(02)
+00195-7.
+Whittall, K. P ., M. J. Bronskill, and R. M. Henkelman, 1991, Investigation of
+analysis techniques for complicated NMR relaxation data: Journal
+of Magnetic Resonance, 95, 221 –234, doi: 10.1016/0022-2364(91)
+90213-D.
+D206 Müller-Petke et al.
+Downloaded 09/27/21 to 131.130.169.5. Redistribution subject to SEG license or copyright; see Terms of Use at http://library.seg.org/page/policies/terms
+DOI:10.1190/geo2014-0167.1

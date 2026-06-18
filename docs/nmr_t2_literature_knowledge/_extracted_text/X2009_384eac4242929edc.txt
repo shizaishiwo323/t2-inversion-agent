@@ -1,0 +1,1388 @@
+--- PAGE 1 ---
+Quantitative analysis of diffusional pore coupling from T2-store-T2
+NMR experiments
+Marc Fleury *, Jawed Soualem
+IFP, Petrophysics Department, 1-4 avenue de Bois Préau, 92852 Rueil-Malmaison, France
+article info
+Article history:
+Received 26 January 2009
+Accepted 21 March 2009
+Available online 5 April 2009
+Keywords:
+Pore coupling
+Diffusional exchange
+2D NMR
+Complex carbonates
+Shaly sandstone
+Clay
+2D Inverse Laplace transform
+abstract
+Low ﬁeld NMR T2 distribution is an efﬁcient tool for characterizing pore size distribution in porous media.
+In NMR relaxation experiments, we measure the magnetization decay characterized by the so-called T2
+relaxation time, resulting essentially from liquid–solid interactions of the spins carried by molecules
+and exploring the pore space by diffusion. For multimodal systems, a new technique called T2-store-T2
+allows the analysis of diffusional pore to pore exchange that is extremely useful for the characterization
+of connectivity. This technique uses 2D inverse Laplace techniques and produces T
+2–T2 maps. Qualita-
+tively, a system is coupled when off-diagonal peaks are observed.
+Based on an analytical solution describing diffusional coupling between two pore populations, we pro-
+pose deﬁning a coupling factor that quantify the degree of coupling between the two populations, pro-
+viding an easy understanding of the complex analytical solution. This analysis allows understanding
+1D T
+2 experiments as well, and indicates some limitations of the T2 characterization when interpreted
+as a pore size distribution.
+We provide examples of bimodal pore structures in which we applied our methodology: a clay gel sys-
+tem, a shaly sandstone and two double porosity carbonates. These systems are also described by conven-
+tional techniques (mercury injection, SEM visualization) and illustrate weak, intermediate and strong
+coupling. Despite the presence of distribution of pore sizes, the two pore system exchange model gives
+satisfactory results for the quantitative analysis of the coupling and T
+2-store-T2 experiments. In carbon-
+ates, more complex exchanges can occur between micro-, meso- and macropores.
+/C2112009 Elsevier Inc. All rights reserved.
+1. Introduction
+Low ﬁeld NMR relaxation is a unique non-invasive and non-
+destructive technique to characterize pore size distribution of por-
+ous media. Spin bearing molecules explore the pore space by diffu-
+sion and provide a unique information about the volume to surface
+ratio of a given compartment. This principle was ﬁrst evidenced by
+Brownstein and Tarr [1] in biological cells and relies on a contrast
+between surface and bulk relaxivity. It is used extensively for the
+interpretation of NMR relaxation data in natural porous media
+especially in the ﬁeld of petrophysics. Without considering the
+additional difﬁculty of the fast and slow diffusion regimes of relax-
+ation [2], i.e. we consider typical pore sizes and surface relaxivity
+values, the pore size interpretation is thought to be usually valid
+because the diffusion length during the lifetime of the magnetiza-
+tion is of the same order of the distance between grains. Hence, the
+exchange of molecules between pores should be limited. However,
+there are situations where this is not the case.
+Diffusional pore coupling is an issue of practical importance,
+especially in the ﬁeld of logging interpretation. NMR relaxation
+data should not depend on temperature and this fact was put for-
+ward to justify the surface dominated regime [3]. However, in car-
+bonates, a signiﬁcant temperature dependence can occur, typically
+when comparing laboratory and log data performed, respectively,
+at 20 and 100 /C176C. This is a direct effect of pore coupling and a solu-
+tion to predict the shift of the T
+2 distributions was proposed [4].A t
+the extreme situation, a multimodal system may appear unimodal
+and this has important interpretation consequences since the NMR
+log is the only in situ measurement sensitive to the pore structure.
+Later, Anand et al. [5,6] proposed a 1D geometric model and a cou-
+pling parameter to describe the pore to pore coupling phenomenon
+and applied it to various situations. For bimodal pore systems, the
+shift of macro- and micropore NMR peaks can be predicted as a
+function of the coupling parameter comparing the characteristic
+relaxation rate to the diffusion rate.
+From the NMR point of view, the methods for observing the
+modiﬁcation of the environment of spin carrying molecules has
+been evidenced very early in the development of NMR [7]. At high
+ﬁeld, the analysis of the chemical exchange is now a common prac-
+tice, for example in the exchange spectroscopy technique EXSY [8]
+0021-9797/$ - see front matter /C2112009 Elsevier Inc. All rights reserved.
+doi:10.1016/j.jcis.2009.03.051
+* Corresponding author. Fax: +33 1 47 52 70 72.
+E-mail address: marc.ﬂeury@ifp.fr (M. Fleury).
+Journal of Colloid and Interface Science 336 (2009) 250–259
+Contents lists available at ScienceDirect
+Journal of Colloid and Interface Science
+www.elsevier.com /locate/jcis
+
+--- PAGE 2 ---
+that uses very similar principle as used here. The results of these
+experiments is a 2D map of chemical shift in which off-diagonal
+peaks signify a change of chemical environment after a chosen ex-
+change time. At low ﬁeld, the observation of the modiﬁcation of the
+spin carrying molecules in terms of relaxation is recent. Simulta-
+neously, two groups [9,10] proposed new NMR sequences to detect
+the relaxation exchange of molecules in the case of a cement paste
+and a sandstone. The experiment consists of two T
+2 relaxation peri-
+ods with a variable exchange time sandwiched between them.
+When analyzing the resulting 2D T
+2–T2 maps, the pore coupling
+is evidenced by off-diagonal peaks. The motions of molecules can
+be observed only if a surface relaxivity contrast exists between
+T
+1 and T2 [9,11] which is usually the case in porous media. More
+generally, the existence of off-diagonal peaks can also be analyzed
+from the resolution of eigenvalues of the underlying Bloch-Torrey
+diffusion equations and some general behavior can be deduced
+[11].
+In this work, we ﬁrst analyze the analytical solution proposed
+by Montheillet et al. [9] and propose a coupling parameter based
+uniquely on NMR measurable factors to quantify the degree of cou-
+pling between two pore sizes. Then, the method is applied to dif-
+ferent systems with a large range of sizes, from nanometers to
+tens of microns. We study the pore to pore exchange in a natural
+bimodal model system composed of ﬂocculated clay particles,
+and samples typical of oil bearing rocks: a high permeability sand-
+stone containing clays and two complex carbonates.
+2. Theory: coupling parameter
+We ﬁrst consider the case of complete coupling using a simple
+fast exchange model. Consider two porous zones in a porous media
+(Fig. 1 ), typically representative of micro- (subscript a) and mac-
+ropores (subscript b). For simplicity, we will assume a unique pore
+size in each zone. In these conditions, the NMR relaxation time in
+the surface dominated regime in the absence of coupling will be
+proportional to the volume to surface ratio of the macropores
+T
+2b / Vb/Sb and micropores T2a / Va/Sa. The measured distribution
+will be bimodal. In this case, diffusive molecular motions are such
+that the magnetization has decreased to zero before the molecules
+can travel to a different porosity zone.
+In the case of complete coupling, molecules explore both envi-
+ronments during the typical life time of the magnetization. Assum-
+ing that relaxation is still in the fast diffusion regime, the observed
+relaxation time T
+þ
+2 (the notation is linked to the theory described
+later) is then proportional to the total volume to surface ratio
+according to:
+Tþ
+2 / VT
+ST
+¼ Va þ Vb
+Sa þ Sb
+ð1Þ
+Each volume Va and Vb corresponds to a magnetization M0
+a and M0
+b
+.
+Assuming a unique surface relaxivity for both a and b zones, the ob-
+served relaxation time Tþ
+2 is unique and smaller than the macropore
+peak T2b according to:
+Tþ
+2
+T2b
+¼ M0
+a
+þ M0
+b
+T2b
+T2a
+M0
+a þ M0
+b
+ð2Þ
+For example, when the pore sizes are different by a factor of 10 ( T2b/
+T2a = 10), the observed single relaxation time Tþ
+2 ¼ 0:2T2b when
+M0
+a
+¼ M0
+b
+. The relaxation time Tþ
+2
+is closer to the micro-pore peak
+than the macro-pore because there is much more surface in the
+microporosity.
+If the coupling is intermediate, we now use the theory devel-
+oped by Monteilhet et al. [9] describing the full details of the diffu-
+sional coupling between two zones a and b, and we show that a
+single parameter can be build to characterize the degree of cou-
+pling. For spin-spin relaxation, the system of coupled differential
+equations is given by:
+dMa
+dt ¼/C0 kaMa þ kbMb /C0 Ra
+2Ma
+dMb
+dt ¼/C0 kbMb þ kaMa /C0 Rb
+2Mb
+ð3Þ
+where ka,b is the exchange rate, Ra;b
+2 is the nuclear spin-spin relaxa-
+tion rate (= 1/T2a,b) of each zone in the absence of coupling. At t =0 ,
+the magnetization in each reservoir is M0
+a;b; the exchange rates ka,b
+are linked by the balance equation:
+kaM0
+a ¼ kbM0
+b
+ð4Þ
+The system of Eq.(3) was solved analytically[9] in the speciﬁc context
+of the T2-store-T2 sequence detailed in Appendix A. Essentially, the
+relaxation is ﬁrst observed using a CPMG sequence of variable length.
+Then, the magnetization is stored along the z-axis (T1 relaxation) to
+allow spin bearing molecules to move by diffusion in a different envi-
+ronment (a different pore system). Also, because the surface relaxiv-
+ity is slightly different, the relaxation decay during the storage or
+exchange period is different. Finally, the magnetization is returned
+to the x-y plane and the decay recorded. The result of the experiment
+is a T
+2–T2 map containing four peaks in the case of coupling ( Fig. 2).
+The observed relaxation rates sþ=/C0
+1;2 ð¼ 1=Tþ=/C0
+1;2 Þ are given by:
+sþ=/C0
+1;2 ¼/C0 1
+2 Ra
+1;2 þ ka þ Rb
+1;2
+þ kb
+/C16/C17
+/C6 1
+2
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ ﬃ
+Ra
+1;2 þ ka þ Rb
+1;2
+þ kb
+/C16/C17 2
+/C0 4 Ra
+1;2
+þ ka
+/C16/C17
+Rb
+1;2
+þ kb
+/C16/C17
+/C0 kakb
+nor
+ð5Þ
+Micro pores
+Surface Sa
+volume Va
+Macro pores
+Surface S
+b
+Volume Vb
+Va/Sa Vb/Sb
+Va
+Vb
+ρ2T2
+VT/ST
+NMR response, no coupling
+NMR response, complete coupling
+ρ2T2
+Fig. 1. Illustration of the pore coupling effect on 1D T2 relaxation time distributions. The pore structure information may be lost; micro- and macropores can no longer be
+identiﬁed in the case of complete coupling.
+M. Fleury, J. Soualem / Journal of Colloid and Interface Science 336 (2009) 250–259 251
+
+--- PAGE 3 ---
+The observed amplitudes of the diagonal peaks P++ and P/C0/C0, and off-
+diagonal peaks P+/C0 and P/C0+, are function of the exchange time te that
+can be varied experimentally:
+Pþþ ¼ C1 expðsþ
+1 teÞþ C2 expðs/C0
+1
+teÞ
+P/C0/C0 ¼ C3 expðsþ
+1
+teÞþ C4 expðs/C0
+1
+teÞ
+Pþ/C0 ¼ P/C0þ ¼ C5 expðsþ
+1 teÞþ C6 expðs/C0
+1
+teÞ
+ð6Þ
+where the coefﬁcients from C1 to C6 are complicated functions of
+sþ=/C0
+1;2 , M0
+a;b, Ra;b
+1;2 and ka,b (see Appendix B). Note that the ratio T1/T2
+is included in these coefﬁcients. These peaks can be observed exper-
+imentally using 2D inverse Laplace techniques described later. The
+above model can be used to show the shift of the micro- and
+macropore peaks in a 1D NMR CPMG relaxation experiment, and
+to explore the behavior of 2D experiments for different degrees of
+coupling.
+Due to the complicated solution of Eq. (3), it is rather difﬁcult to
+analyze the effect of the numerous parameters included in the sys-
+tem. For this purpose, we suggest to use the following coupling
+parameter:
+a ¼ ðaverage exchange rateÞ
+ðmicropore relaxation rateÞ ¼ 2ðka þ kbÞT2a ð7Þ
+There are other possibilities for deﬁning a coupling parameter.
+Here, we base our parameter on the micropore relaxation rate (or
+the smallest pores) because microporosity is a major source of
+relaxation due the much larger amount of surface compared to
+macroporosity. We will also see that the use of this parameter
+greatly simpliﬁes the analysis of the system. Note that a is directly
+proportional to the diffusivity of the saturating liquid because we
+expect a direct dependence of exchange rate with diffusivity. Using
+Eqs. (4)–(6), we calculated four quantities of practical interest by
+varying the exchange rate ka by several orders of magnitude; ran-
+dom choices of the pore size ratio T2b/T2a and magnetization ratio
+M0
+a =M0
+b
+were selected in the intervals [5, 50] and [0.05, 1], respec-
+tively. This means that we consider situations where the micro-
+and macropores are well separated and microporosity does not ex-
+ceeds macroporosity. We used T1/T2 = 1.5, a typical value for sand-
+stones and carbonates at a Larmor frequency of 2 MHz.
+The four quantities of interest are plotted in Fig. 3 :
+/C15The ratio P/C0/C0=M0
+a calculated at te = 0 represents the observed
+microporosity amplitude relative to the true one in a 1D exper-
+iment. It mostly follows a S-shaped curve that has been found
+using a very different approach [5]. To go from a weak coupling
+(a < 0.1) to a strong coupling ( a > 10), the parameter a must vary
+by two orders of magnitude.
+/C15The ratio 2P+/C0/Ptot calculated at te = T2b represents the amplitude
+of the relative off-diagonal peak intensity in a 2D experiment.
+With the choice T1/T2 = 1.5, it has a maximum at a ﬃ 1; this max-
+imum will occur at smaller a when increasing the ratio T1/T2 (at
+the extreme value of 4, the maximum occurs at 0.6). For strongly
+coupled systems ( a > 10), it means that the 2D T2-store-T2
+experiment is unable to evidence the coupling. One must lower
+the value of
+a using a ﬂuid of lower diffusivity.
+/C15Concerning relaxation times, the ratio Tþ
+2 =T2b expresses the devi-
+ation of the macropore relaxation time relative to its true value
+without coupling. It depends both on a and the magnetization
+and relaxation time ratio M0
+a =M0
+b
+and T2b/T2a, respectively. We
+also veriﬁed that, for large a:
+Tþ
+2
+ða !1 Þ
+T2b
+¼ M0
+a
+þ M0
+b
+T2b
+T2a
+M0
+a
+þ M0
+b
+ð8Þ
+which corresponds to the value given in Eq. (2) using the simple
+volume to surface model explained above.
+/C15Finally, the ratio T/C0
+2
+=T2a expresses the shift of the micropore
+relaxation time relative to its value without coupling.
+Surprisingly, the micropore peak is shifted to smaller T2 val-
+ues ( Fig. 3 ) as the coupling coefﬁcient increases, whereas
+one would have intuitively expected a gradual merging of
+the micro- and macropore peaks. This behavior has been
+clearly observed experimentally in model systems and pre-
+dicted [5].
+3. Experimental methods
+We describe here some important aspects when performing 2D
+inverse Laplace transform (ILT) and T2-store-T2 experiments.
+From the theory described above, we can extract the amplitudes
+of the off-diagonal peaks to test the feasibility of the method in
+various conﬁguration, and gather important information on how
+to design the experiments. Using the same random ﬂuctuations
+of the ratio T2b/T2a and M0
+a =M0
+b
+as previously, we plotted the relative
+off-diagonal peak amplitudes 2 P+/C0/Ptot (Ptot =( P++ + P/C0/C0 +2 P+/C0)) as
+a function of the storage time te (that can be varied experimentally)
+for a ﬁxed value of the coupling parameter a =1( Fig. 4 ). It is seen
+that the total off-diagonal peak relative amplitude does not exceed
+10% for a typical value of T1/T2 = 1.5, and this has important impli-
+cations for data acquisition and processing. The graph also shows
+that it is sufﬁcient to observe the off-diagonal peaks for storage
+time t
+e at maximum up to the observed dominant peak Tþ
+2 .I fn o
+off-diagonal peak is observed at te ¼ Tþ
+2
+, it means that the bimodal
+system is either not coupled, or totally coupled. To describe the
+coupling, four independent parameters need to be calculated: ka,
+T2b, T2a and M0
+a . The other parameters kb and M0
+b
+are deduced from
+Eq. (4) and by normalizing the data set by M0
+a
+þ M0
+b
+. For this back
+calculation, we suggest to use in addition the diagonal peak ampli-
+tudes that also depends on the storage time te (Fig. 4). For the pres-
+ent conditions, the normalized variation of the macro- and
+micropore peaks ðP
+þþ
+n ¼ Pþþ=Pþþðte ¼ 0Þ and P/C0/C0
+n
+¼ P/C0/C0=P/C0/C0 ðte ¼ 0ÞÞ
+are mostly described by a single exponential decay.
+3.1. Off-diagonal peak detection
+It is well known that ILT must be used carefully [12] to avoid
+spurious peak and over interpretation of the results. For 2D calcu-
+lations, it is obviously more crucial. Based on efﬁcient computing
+algorithms [13], we build our own software and made extensive
+tests to evaluate possible short comings. Essentially, one must ﬁnd
+a matrix of relaxation times A ﬁtting the data, such as to minimize
+the cost function SE:
+Fig. 2. Illustration of the positions and amplitudes of diagonal and off-diagonal
+peaks as a result of diffusional coupling between two reservoirs, as measured in a
+T2-store-T2 experiment.
+252 M. Fleury, J. Soualem / Journal of Colloid and Interface Science 336 (2009) 250–259
+
+--- PAGE 4 ---
+SEðkÞ¼k X /C1A /C0 Sk2 þ kkAk2 ð9Þ
+where S is the measured signal and X is the exponential matrix
+function such that a component of the product X /C1A is Ai,jexp(/C0t1/
+T2i)exp(/C0t2/T2j). The above equation is solved using matrix calcula-
+tions only, involving single value decomposition (SVD) and data
+compression not detailed here. We focus here on the choice of the
+regularization parameter k which is important for the detection of
+small amplitude peaks. For clarity, we illustrate the problem using
+a simple 1D experiment because the same procedure is used for
+1D and 2D calculations. To obtain the optimum regularization va-
+lue, the standard procedure is to plot the SE( k) curve and chose
+the largest value of k giving the lowest SE value ( Fig. 5). This proce-
+dure is more important than one would think in terms of statistical
+signiﬁcance of the small peaks. For this purpose, using a distribution
+containing a small peak characterizing micropores, we calculated a
+synthetic signal. Then we added a white noise at a ratio S/N = 100
+and calculated a new solution according to Eq. (9). This procedure
+was repeated for 1000 different noise realizations. The results are
+plotted in Fig. 6 as a distribution band representing the highest
+and lowest values obtained at a given relaxation time. When the
+regularization parameter is not optimum and too small, the low
+limit of the band reaches zero amplitude for the microporosity peak,
+meaning that the amplitude and position of the peak are very
+10
+-3
+10
+-2
+10
+-1
+10
+0
+10
+1
+10
+2
+10
+3
+0
+0.2
+0.4
+0.6
+0.8
+1
+α
+P-- /M 0
+a
+10
+-2
+10
+-1
+10
+0
+10
+1
+10
+20
+0.02
+0.04
+0.06
+0.08
+0.1
+α
+2P+- /P tot
+T1/T2=1.5
+10
+-2
+10
+-1
+10
+0
+10
+1
+10
+2
+10
+-2
+10
+-1
+10
+0
+α
+T2
++ /T 2b
+10
+-2
+10
+-1
+10
+0
+10
+1
+10
+2
+10
+-2
+10
+-1
+10
+0
+α
+T2
+- /T 2a
+Fig. 3. Study of four quantities of interest as a function of the coupling parameter a when the ratio T2b/T2a varies from 5 up to 50, and M0
+a =M0
+b
+from 0.05 up to 1 ( T1/T2 = 1.5).
+Random combinations of these two ratios were chosen to calculate the curves. P/C0/C0 =M0
+a
+: amplitude ratio of the observed microporosity peak to the true amplitude at te =0 ;
+2P/C0+/Ptot: amplitude ratio of the off-diagonal peak to the macroporosity peak at te ¼ T2b ; Tþ
+2
+=T2b : deviation of the macropore relaxation time relative to its true value; T/C0
+2
+=T2a :
+deviation of the micropore relaxation time relative to its true value.
+0 0.2 0.4 0.6 0.8 1
+-0.02
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+T1/T2=1.5
+te/T +
+2
+2 P+- /P tot
+0 0.2 0.4 0.6 0.8 1
+10
+-1
+10
+0
+te/T +
+2
+P++ / P++(te=0)
+0 0.2 0.4 0.6 0.8 110
+-4
+10
+-3
+10
+-2
+10
+-1
+10
+0
+te/T +
+2
+P-- / P--(te=0)
+Fig. 4. On- and off-diagonal relative amplitude as a function of the storage time te for a coupling parameter a = 1. The ratio T2b/T2a varies randomly from 5 up to 50, and
+M0
+a =M0
+b
+from 0.05 up to 1.
+M. Fleury, J. Soualem / Journal of Colloid and Interface Science 336 (2009) 250–259 253
+
+--- PAGE 5 ---
+uncertain and depend on the noise realization. When the regulari-
+zation parameter is optimum in the sense described above, the low-
+est limit of the error band is non-zero and one can clearly identify
+the micropore peak. Note that the choice of the optimum value
+on the SE( k) curve may differ slightly from one user to another be-
+cause different criteria can be used to deﬁne the curve increase. The
+same tuning applies to the 2D analysis that uses the same algorithm
+and regularization principle. It is particularly important when try-
+ing to detect small amplitude peaks.
+The second important aspect is the effect of the signal to noise
+ratio. This is illustrated on a 2D calculation in which synthetic 2D
+signals were generated from a known solution (Fig. 7 ). The square
+represents the position of the four peaks of amplitude P
+/C0/C0 = 0.07,
+P+/C0 = P/C0+ = 2.5 and P++ = 100. The calculations performed for three
+values of signal to noise ratio indicate that small off-diagonal peaks
+can indeed be detected, but their location may deviate from the
+theoretical square position, except for the highest signal to noise
+ratio of 500. However, such a high value may require time consum-
+ing experiments. We usually acquire experiments at a signal to
+noise ratio of 300.
+4. Experimental results
+We studied four systems showing a bimodal pore structure in
+which diffusional exchange are suspected to modify the pore struc-
+ture information inferred from 1D relaxation time distribution.
+Experiments were performed on a MARAN-ULTRA 23.7 MHz from
+Oxford Instruments equipped with a 18 mm proton probe. The
+samples are small cylinders of diameter 15 mm and length
+20 mm. For the gels, we used a glass container of similar size.
+4.1. Smectite gels
+The ﬁrst system consists of smectite clay particles that have
+aggregated due to inter-particle interactions occurring at high
+salinity (0.1 mol/L CaCl
+2) and high clay concentration. A full study
+of diffusion properties [14] shows an exponential decrease of the
+effective diffusion coefﬁcient as a function of clay fraction. When
+ﬂocculated, the T2 distribution is bimodal ( Fig. 8); the lowest mode
+10
+-1
+10
+0
+400
+500
+600
+700
+800
+900
+1000
+1100
+1200
+Regularization parameter λ
+SE
+te=8ms
+Optimum=0.23
+Fig. 5. Illustration of the choice of the optimum regularization parameter when
+computing 2D relaxation time maps. This curve corresponds to the smectite gel
+example described in Fig. 9 (te = 8 ms).
+10
+-1
+10
+0
+10
+1
+10
+2
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+30% CaCl2
+S/N=628
+λ=0.02
+10
+-1
+10
+0
+10
+1
+10
+2
+0
+0.01
+0.02
+0.03
+0.04
+0.05
+0.06
+0.07
+0.08
+0.09
+30% CaCl2
+S/N=628
+λ=0.08
+Fig. 6. Error band for two different values of the regularization parameter k.
+100 300
+log(x) (ms)
+log(y) (ms)
+−1 0 1
+−1
+−0.5
+0
+0.5
+1
+500
+Fig. 7. Effect of the signal to noise ratio (100, 300, 500) on the detection of off-diagonal peaks in a T2-store-T2 experiment. The input signal consists of four peaks of amplitude
+P/C0/C0 = 0.07, P+/C0 = P/C0+ = 2.5 and P++ = 100.
+254 M. Fleury, J. Soualem / Journal of Colloid and Interface Science 336 (2009) 250–259
+
+--- PAGE 6 ---
+corresponds to the intra-ﬂock spacing (about 1 nm, see Fig. 8 in
+Ref. [14]) and the highest to the inter-ﬂock spacing (about
+10 nm), the latest varying with the amount of clay. Given the very
+small pore sizes in these systems, diffusional coupling may
+strongly affect the T
+2 distribution and result in wrong conclusions
+about the inter- and intra-ﬂocks fraction.
+The T2-store-T2 experiments were performed on the 30% clay
+fraction sample for increasing values of the storage time te, from
+0.5 ms up 10 ms. The 2D maps ( Fig. 9 ) indicate no diagonal peaks
+at short exchange time ( te = 0.5 ms) but they gradually appear
+when increasing the exchange time. Note that the amplitude color 1
+coding is not the same between the different graphs, such that the
+amplitude decreases cannot be observed. The four peaks form a
+square pattern as expected but the square is not perfect for the rea-
+sons developed in the previous section. We also measured T
+1 and
+T2 distributions and determined that T1/T2 = 1.8.
+The analysis of the peak intensities (Fig. 10 ) allows an estima-
+tion of the exchange rates ka and kb, the initial magnetization
+M0
+a and M0
+b
+, and the relaxation times T2b and T2a. We adjusted the
+four parameters ka; M0
+a
+; T2b and T2a to the curves. The intensity
+of the main peak is normalized by the amplitude at the smallest
+imposed te value ðPþþ
+n ¼ Pþþ=Pþþðte ¼ 0:5m sÞÞ. We found
+ka ¼ 0:06, M0
+a
+=ðM0
+a
+þ M0
+b
+Þ¼ 0:155, T2b ¼ 11 ms, T2a ¼ 2 ms. Hence,
+we have kb = 0.011 and the degree of coupling is a = 0.28. Accord-
+ing to Fig. 3, this system is weakly coupled and intraﬂocks porosity
+fraction is underestimated by about 10% only.
+4.2. Shaly sandstone (Vosges sandstone)
+This case is typical of natural sandstones containing a variable
+amount of clays, either ﬁlling the pores or lining at their surface.
+The estimation of the pore volume fraction occupied by water in
+clays is of practical industrial importance because it is directly re-
+lated to the potential of an oil reservoir in terms of hydrocarbon in
+place. Compared to the previous example, the pore sizes are chan-
+ged by several orders of magnitude. Typically, clay pore sizes in
+such natural systems is around 1 lm or less and intergranular
+spacing is of order 10 lm. From a mercury injection experiment
+on a companion sample, the dominant throat diameter is 7 lm,
+and the clays are represented as a tail at smaller size extending
+down to 0.1
+lm. However, the mercury injection experiment is
+somewhat ambiguous because it must be performed in a dry state.
+From this point of view, the NMR T2 characterization appears ideal
+because performed in a fully saturated state. However, the separa-
+tion between water trapped in clays (clay bound water) and inter-
+granular water is usually not well deﬁned, as shown by the 1D
+projection of the 2D map at short exchange time in Fig. 11 .I ti s
+usually considered that a cut-off around 10 ms gives reasonable
+estimation of clay bound water [15].
+The T
+2–T2 maps calculated at a long exchange time (t e = 90 ms,
+Fig. 11) indicate clearly an exchange between clays and intergran-
+ular porosity (i.e. between pores at T/C0
+2 ¼ 2 ms and Tþ
+2
+¼ 50 ms indi-
+cated by the square pattern). In a similar way as for the smectite
+gel, we analyzed the intensities as a function of the exchange time
+te (Fig. 12 ). In this case, we subdivided the T2 maps into four re-
+gions to deﬁne off and on-diagonal intensities (Fig. 11). In this case,
+the intensities P
+++, P/C0/C0, P+/C0 and P/C0+ are the sum of the amplitudes
+in each sub-region. We found ka = 0.02 ms/C01, kb = 0.016 ms/C01,
+M0
+a =ðM0
+a
+þ M0
+b
+Þ¼ 0:45, T2b ¼ 200 ms, T2a = 10 ms. The T1/T2 ratio
+was set at 1.8. Hence, the degree of coupling a = 0.73 is weak to
+intermediate. The back calculated values of T/C0
+2
+and Tþ
+2
+are, respec-
+tively, 8 and 55 ms. Hence, the intergranular pore size (or more ex-
+actly the V/S ratio) is underestimated by a factor of 4 on the 1D
+distribution.
+4.3. Double porosity carbonates
+Carbonates often contain multiple pore sizes due to various dia-
+genetic processes. Contrary to sandstones, natural carbonates are
+made of various debris (animals, plants) that are subjected to dis-
+solution/precipitation before, during or after burial. Hence, poros-
+ity can be present between, as well as, inside ‘‘grains”. The
+samples used here are part of a larger study comparing NMR T2 dis-
+tributions and pore throat size distributions deduced from mercury
+injection experiments (MICP), with the help of visual examination
+of the pore structure from thin sections and scanning electron
+microscopy (SEM) [16,17]. In this work, it was established that
+microporosity deﬁned in the petrographical sense, is the volume
+accessible through throat diameters smaller than 2
+lm and corre-
+spond to relaxation times smaller than 200 ms in the T2 distribu-
+tion. An example is given in Fig. 13 . Macroporosity is located
+between red algaes, that are themselves porous. As a result, the
+MICP distribution indicates a bimodal distribution. The NMR T
+2
+distribution indicates similarly a bimodal distribution shifted, as
+expected, to the left of the MICP distribution, after calculation of
+the surface relaxivity from BET measurements. The macropore
+peak is centered around T
+2 = 1000 ms, and we performed a 2D
+experiment using an exchange time of te = 1000 ms that indicated
+no off-diagonal peak and therefore no pore to pore diffusional ex-
+change. The presence of sparitic cement as well as a cement rim
+around red algae is the most likely explanation for the lack of cou-
+pling. Also, the size of the object containing microporosity is large
+(300
+lm) compared to the diffusion length of molecules during the
+exchange time (about 100 lm for 1000 ms).
+A careful observation of the porous structure may give good
+indication of the existence of pore coupling. In the case of the Lav-
+oux limestone (Fig. 14 , left), microporosity is located in well iden-
+tiﬁed spherical structures (oolithes) without cementation at their
+surface. In this case, the bimodal MICP signature (Fig. 14 , right) is
+in contradiction with the 1D NMR when saturated with water
+(Fig. 15, left). Indeed, the MICP indicates that about 50% of the pore
+volume is accessible through throat diameters below 2
+lm. The
+NMR distribution indicates a wide distribution with a small peak
+around 2 ms representing only 10% of the pore volume. The 2D
+map indicates an exchange between population located at 30 and
+2 ms. Clearly, there exist very large pores (of the order of
+100 lm) that should have a large relaxation time (1000 ms) similar
+to the previous case. Therefore, this system is strongly coupled. To
+10
+-1
+10
+0
+10
+1
+10
+220
+30
+40
+50
+60
+T2 (ms)
+Clay fraction w (%)
+CaCl2 0.1 mole/L
+Fig. 8. Bimodal distributions obtained on ﬂocculated smectite gels as a function of
+clay fraction. From Ref. [14].
+1 For interpretation of the references to color in Fig. 9, the reader is referred to the
+web version of this paper.
+M. Fleury, J. Soualem / Journal of Colloid and Interface Science 336 (2009) 250–259 255
+
+--- PAGE 7 ---
+decrease the degree of coupling, the saturating ﬂuid was replaced
+by a mixture of water and glycerol to a weight ratio of 36:64.
+Hence, the diffusivity is reduced by one order of magnitude (from
+2.6 /C2 10/C09 m2/s down to 0.18 /C2 10/C09 m2/s at 30 /C176C, as measured by
+PFG NMR). The liquid bulk relaxation time is also reduced (from
+2700 down to 380 ms) but is sufﬁciently large to allow the obser-
+vation of large pores. In these conditions, we observed a tri modal
+1D distribution more representative of the texture observed by
+SEM. When performing the exchange experiment using a similar
+exchange time (30 ms), we see two couples of diagonal peaks indi-
+cating an exchange between populations located at 30 and 2 ms,
+and 300 and 2 ms, but no exchange between populations at 300
+and 30 ms. We interpret these observations in terms of the struc-
+ture revealed by SEM visualization (Fig. 14 ): oolithes contain
+microporosity but also intermediate size pores (that could be la-
+beled mesoporosity) in their centers. Hence the exchange between
+meso- and macropores has a large time constant preventing the
+observation of off-diagonal peaks. It is also consistent with the
+observation of two distinct peaks in the MICP distribution: meso-
+porosity is only accessible through microporosity located around
+the oolithes.
+For both saturating liquids, we calculated the peak intensities in
+a similar way as for the Vosges sandstone and attempted to calcu-
+late the coupling coefﬁcients and exchange rates. These attempts
+te=0.5ms te=3ms
+te=8ms
+T2 (ms)
+T2 (ms)
+10
+0
+10
+1
+10
+0
+10
+1
+te=10ms
+Fig. 9. T2-store-T2 relaxation maps for a smectite gel at a clay fraction of 30%, as a function of the exchange time te. The position of the micro- and macropore peaks are
+independent of te ðTþ
+2 ¼ 9:7m s; T/C0
+2
+¼ 1:4m sÞ.
+0 2 4 6 8 10
+10
+-2
+10
+- 1
+10
+0
+te (ms)
+Pn
+-- ,P n
+++
+0 2 4 6 8 100
+0.005
+0.01
+0.015
+0.02
+0.025
+te (ms)
+(P +- +P -+)/P tot
+Fig. 10. Peak intensities as a function of exchange time te for the smectite gel at a clay fraction of 30%. Left: Pþþ
+n ¼ Pþþ =Pþþ ðte ¼ 0:5m sÞ (/C14), P/C0/C0
+n
+¼ P/C0/C0 =P/C0/C0 ðte ¼ 0:5m sÞ (*).
+Right: normalized relative amplitude of the off-diagonal peak intensities. The full curves indicate a ﬁt with ka = 0.060 ms/C01, ka = 0.011 ms/C01, M0
+a
+=ðM0
+a
+þ M0
+b
+Þ¼ 0:155,
+T2b ¼ 11 ms, T2a = 2 ms. The degree of coupling is a = 0.28.
+256 M. Fleury, J. Soualem / Journal of Colloid and Interface Science 336 (2009) 250–259
+
+--- PAGE 8 ---
+were not successful and yielded inconsistent values of T/C0
+2 and Tþ
+2
+when compared to the observed peak center position. This not sur-
+prising because the model only takes into account two pore popu-
+lations. However, we expected to be able to estimate the coupling
+coefﬁcient with the lower diffusivity experiment by analyzing the
+peak intensity separately. We encountered this problem in other
+carbonate samples having large pore size and similar complex
+structure (not shown). This difﬁculty may be linked to the exis-
+tence of a distribution of exchange time. More likely, all the
+macropore water may not be in exchange with micropore water
+Fig. 11. T2-store-T2 relaxation maps for a Vosges sandstone sample for two values of the exchange time te. Porosity 22% and permeability: 210 mD. The clay (micropore) and
+intergranular (macropore) peaks are centered around T/C0
+2 ¼ 2 ms and Tþ
+2
+¼ 50 ms, respectively. The square pattern indicate the coupling, and the dashed lines the sub-regions
+for calculating peak intensities.
+0 20 40 60 80 100
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+te (ms)
+(P +- +P -+)/P tot
+0 20 40 60 80 100
+10
+-3
+10
+-2
+10
+-1
+10
+0
+te (ms)
+Pn
+-- ,P n
+++
+Fig. 12. Peak intensities as a function of exchange time te for the Vosges sandstone sample. Left: Pþþ
+n ¼ Pþþ =Pþþ ðte ¼ 0:5m sÞ (/C14), P/C0/C0
+n
+¼ P/C0/C0 =P/C0/C0 ðte ¼ 0:5m sÞ (/C3). Right:
+normalized relative amplitude of the off-diagonal peak intensities. The full curves indicate a ﬁt with ka ¼ 0:02, M0
+a
+=ðM0
+a
+þ M0
+b
+Þ¼ 0:45, T2b ¼ 200 ms, T2a = 10 ms. The degree of
+coupling is 0.73.
+10
+-3
+10
+-2
+10
+-1
+10
+0
+10
+1
+10
+20
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+V/S , d HG (μm)
+MICP
+NMR T2
+ρ2 =5 . 0μm/s
+Fig. 13. Left: texture of a sample of Estaillades limestone as shown by a thin section; 1: red algae; 2: sparitic cement; 3: partially dissolved cement; 4: brachiopod fragment;
+5: early cement rim. Porosity 29% and permeability: 175 mD. The width of the image represents 3125 lm. The green color indicates macropores (ﬁlled with resin). Right:
+NMR T2 and mercury injection distributions. The surface relaxivity q2 has been calculated using speciﬁc surface measurements on the same sample (BET technique). (For
+interpretation of the references to color in this ﬁgure legend, the reader is referred to the web version of this paper.)
+M. Fleury, J. Soualem / Journal of Colloid and Interface Science 336 (2009) 250–259 257
+
+--- PAGE 9 ---
+because of the large macropore size and an insufﬁcient diffusion
+length, a situation similar to the diffusion limited regime when
+considering surface relaxation mechanism [2]. A rough estimation
+can be made by comparing the experiments with water and water/
+glycerol: the exchange rate being proportional to diffusivity and
+decreased by a factor of ten, we have necessarily a coupling coefﬁ-
+cient in the range 1–10 for water experiment, and 0.1–1 for the
+water/glycerol mixture experiment.
+5. Conclusion
+Diffusional coupling is a very common mechanism, potentially
+perturbing the interpretation of 1D relaxation time distributions,
+but providing new information of the connectivity of porous sys-
+tems. For bimodal systems in which we cover a range of pore sizes
+from 1 nm up to 100
+lm, we deﬁned a coupling parameter a com-
+paring the average exchange rate and the relaxation rate of the
+smallest pore population (micropore) having the largest speciﬁc
+surface. Based on an analytical solution, we analyzed the behavior
+of 1D T
+2 and 2D T2-store-T2 relaxation experiments as a function of
+a. In 1D experiments and for increasing values of a, the relaxation
+time of micropores is shifted to smaller values and their amplitude
+decreases. The coupling parameter, which is proportional to the
+diffusivity of the saturating ﬂuid, must vary by two orders of mag-
+nitude to switch from a weakly to a strongly coupled state. For 2D
+T2-store-T2 experiments, diagonal peak intensities are maximum at
+intermediate coupling degrees and represent at maximum 10% of
+the total intensity for usual T
+1/T2 ratio of 1.5. Therefore, these
+experiments require high signal to noise ratio, of the order of
+200 or larger, and a careful use of 2D inverse Laplace transform,
+as illustrated by various tests of the inversion process. The cou-
+pling was evidenced and quantiﬁed on a ﬂocculated smectite gel
+and a shaly sandstone. Although relatively simple, the two pore
+population model allows the analysis of distributed bimodal sys-
+tems. On complex carbonate structures, multiple exchanges were
+observed and explained with the help of SEM visualizations but
+the two pore population model could not be used for a quantitative
+analysis of molecular exchange. We suggest that this difﬁculty is
+either due a distribution of exchange times or the partial exchange
+of macropore water with microporosity in the case of large pores.
+An estimate of the order of magnitude of the degree is performed
+by changing the diffusivity of the saturating liquid by a factor of
+ten.
+Acknowledgments
+The samples used in the present work were part of the Ph.D.
+study of M. Han focusing on electrical properties. We thank P. Le-
+vitz and J.P. Korb for fruitful discussions on the subject, and Y. San-
+terre for providing the thin sections.
+Fig. 14. Characterization of a Lavoux limestone sample. Left: SEM visualization, right: mercury injection capillary pressure curve (MICP). Porosity: 24%, permeability: 19 mD.
+The two pore size structure is evidenced by the bimodal MICP pore entry size distribution.
+Fig. 15. T2-store-T2 relaxation maps for the Lavoux limestone saturated with water (left, D = 2.610/C09 m2/s at 30 /C176C) and a mixture of water and glycerol (right,
+D = 0.1810/C09 m2/s, T2bulk = 380 ms at 30 /C176C). The squares highlight the exchange between micro- and mesopores, and micro- and macropores. When saturated with water, the
+T2 distribution is wide and quasi-unimodal, in contradiction with the MICP distribution and the SEM visualization in Fig. 14. For a lower molecular diffusion of the saturating
+ﬂuid, the pore coupling decreases and a multimodal distribution is observed.
+258 M. Fleury, J. Soualem / Journal of Colloid and Interface Science 336 (2009) 250–259
+
+--- PAGE 10 ---
+Appendix A. T2-store-T2 sequence
+The T2-store-T2 sequence is essentially a succession of two
+CMPG sequences separated by a storage time te:
+P90 /C0ð s /C0 P180 /C0 s /C0 echo /C0Þ m /C0 P90 /C0 te /C0 P90
+/C0ðs /C0 P180 /C0 s /C0 echoacq /C0Þ n
+All echoes intensities in the second part of the sequence are ac-
+quired, yielding a two-dimensional data set of size ( m, n) such that
+the recorded magnetization is a two-dimensional function:
+Mðt1; t2Þ¼ Axy expð/C0t1=T2xÞ expð/C0te=T1Þ expð/C0t3=T2yÞ;
+t1 ¼ 2ms; t3 ¼ 2ns ð10Þ
+It is usually necessary to have small s values to properly
+catch short relaxation times but this would result in a huge
+number of pulses when large and small relaxation times are
+present simultaneously such as in our carbonate systems. To
+limit the total number of pulses to about 10,000 (to avoid a po-
+tential heating of the sample and unstability of the power ampli-
+ﬁer), the inter-pulse time
+s is increased gradually from an initial
+value of 30 ls up to 100 ls (or more depending on the largest
+relaxation time present in the sample). Then, it stays at a con-
+stant value. During the second CPMG sequence, typically 5000
+echo maximum are recorded (the value of n is tuned such as
+to obtain a signal decreasing to zero, as usually performed in a
+single CPMG sequence). Then this signal is compressed by aver-
+aging all echo maximum in 40 predeﬁned bins having a constant
+log spacing in time (with origin the third P90), yielding a com-
+pressed time series tc. For the ﬁrst CPMG sequence, only the m
+values corresponding to the 40 values of tc are used. Hence,
+the two-dimensional data set acquired reduces ﬁnally to a
+40 /C2 40 matrix. The advantage of this protocol is the large in-
+crease of signal to noise ratio for intermediate and large relaxa-
+tion times due to compression.
+The solutions described in Eqs. (5) and (6) are only valid if a +/- z
+phase cycling is performed when averaging several signals. If this
+is not performed, many off-diagonal peaks may be observed, even
+in a single pore [11]. Adding this phase cycling to the usual CYCLOP
+phase cycling, a minimum of eight scans is necessary.
+Appendix B
+Coefﬁcients included in Eq. (6) describing the dependence of
+the on- and off-diagonal peak amplitudes as a function of stor-
+age time t
+e.
+C1 ¼ A/C0
+2 /C0 F2
+/C0/C1
+A/C0
+1
+A/C0
+2
+M0
+a /C0 G2M0
+b
+/C16/C17
+/C0 G1 B/C0
+2
+M0
+b
+/C0 F2M0
+a
+/C16/C17hi
+þ B/C0
+2
+/C0 G2
+/C0/C1
+B/C0
+1
+B/C0
+2
+M0
+b
+/C0 F2M0
+a
+/C16/C17
+/C0 F1 A/C0
+2 M0
+a /C0 G2M0
+b
+/C16/C17hi
+C2 ¼ A/C0
+2 /C0 F2
+/C0/C1
+Aþ
+1
+A/C0
+2
+M0
+a /C0 G2M0
+b
+/C16/C17
+þ G1 B/C0
+2
+M0
+b
+/C0 F2M0
+a
+/C16/C17hi
+B/C0
+2
+/C0 G2
+/C0/C1
+/C2 Bþ
+1 B/C0
+2
+M0
+b
+/C0 F2M0
+a
+/C16/C17
+þ F1 A/C0
+2 M0
+a /C0 G2M0
+b
+/C16/C17hi
+C3 ¼ Aþ
+2 /C0 F2
+/C0/C1
+A/C0
+1
+Aþ
+2
+M0
+a /C0 G2M0
+b
+/C16/C17
+þ G1 Bþ
+2
+M0
+b
+þ F2M0
+a
+/C16/C17hi
+Bþ
+2
+þ G2
+/C0/C1
+B/C0
+1
+Bþ
+2
+M0
+b
+þ F2M0
+a
+/C16/C17
+/C0 F1 Aþ
+2 M0
+a þ G2M0
+b
+/C16/C17hi
+C4 ¼ Aþ
+2 þ F2
+/C0/C1
+Aþ
+1
+Aþ
+2
+M0
+a þ G2M0
+b
+/C16/C17
+þ G1 Bþ
+2
+M0
+b
+þ F2M0
+a
+/C16/C17hi
+Bþ
+2
+þ G2
+/C0/C1
+Bþ
+1
+Bþ
+2
+M0
+b
+þ F2M0
+a
+/C16/C17
+þ F1 Aþ
+2 M0
+a þ G2M0
+b
+/C16/C17hi
+C5 ¼ Aþ
+2 þ F2
+/C0/C1
+A/C0
+1
+A/C0
+2
+M0
+a /C0 G2M0
+b
+/C16/C17
+/C0 G1 B/C0
+2
+M0
+b
+/C0 F2M0
+a
+/C16/C17hi
+Bþ
+2
+þ G2
+/C0/C1
+B/C0
+1
+B/C0
+2
+M0
+b
+/C0 F2M0
+a
+/C16/C17
+/C0 F1 A/C0
+2 M0
+a /C0 G2M0
+b
+/C16/C17hi
+C6 ¼ Aþ
+2 þ F2
+/C0/C1
+Aþ
+1
+A/C0
+2
+M0
+a /C0 G2M0
+b
+/C16/C17
+þ G1 B/C0
+2
+M0
+b
+/C0 F2M0
+a
+/C16/C17hi
+Bþ
+2
+þ G2
+/C0/C1
+Bþ
+1
+B/C0
+2
+M0
+b
+/C0 F2M0
+a
+/C16/C17
+þ F1 A/C0
+2 M0
+a /C0 G2M0
+b
+/C16/C17hi
+where
+Aþ=/C0
+1;2 ¼
+sþ=/C0
+1;2 þ Ra
+1;2
+þ ka
+sþ=/C0
+1;2 /C0 s/C0=þ
+1;2
+; Bþ=/C0
+1;2 ¼
+sþ=/C0
+1;2 þ Rb
+1;2
+þ kb
+sþ=/C0
+1;2 /C0 s/C0=þ
+1;2
+;
+F1;2 ¼ ka
+s/C0
+1;2 /C0 sþ
+1;2
+; G1;2 ¼ kb
+s/C0
+1;2 /C0 sþ
+1;2
+:
+References
+[1] K.R. Brownstein, C.E. Tarr, Phys. Rev. A 19 (1979) 2446.
+[2] S. Godefroy, J.-P. Korb, M. Fleury, R.G. Bryant, Phys. Rev. E 64 (2001) 021605.
+[3] R.L. Kleinberg, W.E. Kenyon, P.P. Mitra, J. Magn. Reson. A 108 (1994) 206.
+[4] T.S. Ramakrishnan, L.M. Schwartz, E.J. Fordham, W.E. Kenyon, D.J. Wilkinson,
+The Log Analyst 40 (4) (1999) 260.
+[5] V. Anand, G.J. Hirasaki, Petrophysics 48 (4) (2007) 289.
+[6] V. Anand, G.J. Hirasaki, M. Fleury, Petrophysics 49 (4) (2008) 362.
+[7] H. Mc Connell, J. Chem. Phys. 28 (1958) 430.
+[8] K.G. Orell, in: D.M. Grant, R.K. Harris (Eds.), Encyclopedia of Nuclear Magnetic
+Resonance, Wiley, New York, 1996, p. 4856.
+[9] L. Monteilhet, J.-P. Korb, J. Mitchell, P.J. McDonald, Phys. Rev. E 74 (2006)
+061404.
+[10] K.E. Wahsburn, P.T. Callaghan, Phys. Rev. Lett. 97 (2006) 175502.
+[11] Y.Q. Song, L. Zielinski, S. Ryu, Phys. Rev. Let. 100 (2008) 248002.
+[12] R.J.S. Brown, J. Magn. Res. 82 (1989) 539.
+[13] L. Venkataramanan, Y.Q. Song, M.D. Hurlimann, IEEE Trans. Signal Process. 50-
+5 (2002) 1017.
+[14] X. Guichet, M. Fleury, E. Kohler, J. Colloid Interface Sci. 327 (2008) 84.
+[15] K.J. Dunn, D.J. Bergman, G.A. La Torraca, Nuclear Magnetic Resonance:
+Petrophysical and Logging Applications, Pergamon Press, Oxford, 2002.
+[16] M. Fleury, Y. Santerre, B. Vincent, in: Proceeding of the SPWLA Annual
+Symposium, Austin, June 3–6, 2007.
+[17] B. Vincent, Y. Santerre, M. Fleury, J. Sediment. Res. (2009) in press.
+M. Fleury, J. Soualem / Journal of Colloid and Interface Science 336 (2009) 250–259 259

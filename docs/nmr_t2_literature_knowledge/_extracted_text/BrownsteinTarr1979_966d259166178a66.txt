@@ -1,0 +1,822 @@
+--- PAGE 1 ---
+PH Y SICAL REVIEW A VOLUME 19, NUMBER 6 JUNK 1979
+Importance of classical diffusion in NMR studies of water in biological cells
+K. R. Brownstein and C. E. Tarr
+Department of Physics and Astronomy, Uniuersity of Maine, Orono, Maine 04469
+(Received 29 September 1978)
+Nuclear-magnetic-resonance measurements of the proton-spin relaxation for water in biological cells are
+known to exhibit a multiexponential decay, A theory, based on the diffusion equation using the bulk
+diffusivity of water, is developed to explain this phenomenon, It is shown that mul&iexponential decay arises
+simply as a consequence of an eigenvalue problem associated with the size and shape of the cell and that this
+multiexponential decay can only be observed for samples whose size is of the order of a biological cell. As an
+example, the theory is applied to a previously published data for rat gastronemius cells. Excellent agreement
+is obtained, and furthermore, the size of the cell is calculated by fitting the theory to the experiment.
+I. INTRODUCTION
+Proton spin- spin and spin-lattice relaxation
+in water in biological cells appears to be quite
+different from that observed for bulk water. In
+particular, the relaxation times are considerably
+shorter than those in bulk water and the relaxation
+cannot be described by a single-exponential pro-
+cess.' A number of theories have been proposed
+to explain these phenomena which make use of
+detailed properties of the cell; some theories
+necessitate altered properties of the intracellular
+water, such as "bound" water, specific interac-
+tions with membrances, and free macromole-
+cules.' '
+In this paper, we develop a simple explanation
+to account for the proton magnetic relaxation in
+such systems. In this model' only the properties
+of bulk water are used. Further, it is shown that
+the multiexponential nature of the relaxation is a
+consequence of the geometry of the cells. In
+particular, it is possible to infer reasonable esti-
+mates of both the shape and size of the cells from
+NMR data alone.
+In our model we consider an initial state in which
+the nuclear magnetization is uniform throughout
+the water in the cell. The evolutio~ of the system
+is then governed by two properties: (a) paramag-
+netic materials acting as relaxation centers,
+and (b) classical diffusion of the water molecules
+with the diffusion constant characteristic of. bulk
+water.
+II. THEORY
+A. Normal mode analysis
+Consider a sample (e.g., a biological cell) of
+volume V of water having a magnetic moment per
+unit volume (along some specified direction)
+p(r, t). Experimentally, one measures an elec-
+tronic signal proportional to the total nuclear mag-
+netization of the sample
+m(t) = p(r, t)dr.
+Qpg ~ (D o Vp) yp-
+Bg
+(n ~ D Vp+ pp) ~
+=0
+p(r, o) =m(0)jV.
+(2)
+(3)
+(4)
+Equation (2) is the diffusion equation allowing i'or
+the volumelike sink, Eq. (3) is the boundary condi-
+tion on the bounding surface 8 taking into account
+the surfacelike sink, and Eq. (4) is the presumed
+initial condition corresponding to an initial uni-
+form magnetization of the sample. The symbols
+employed here and in what follows are p(r, t):
+magnetic moment per unit volume (*cm '); V:
+This magnetization can decay due to a volumelike
+sink characterized by a sink strength density
+y(r) ~ 0 in an "active volume" v and a surfacelike
+sink characterized by a sink strength density
+p(r) ~ 0 on an "active surface" s. In what follows
+we shall take 3R(t) to mean the reduced magnetiza-
+tion-. For example, in the case of 180 90 Ty
+measurement
+~(t) = tS(")— S(t)Vl2S(") 1
+where S(t) is the observed signal at time t and
+S(~) is the equilibrium value of S. The physical
+nature of these sinks will not be dealt with here,
+but one can hypothesize magnetic impurities such
+as macromolecules, bound water, etc.
+The governing equations for the above situation
+are
+19 1979 The American Physical Society
+
+--- PAGE 2 ---
+19 IMPORTANCE OF CLASSICAL DIFFUSION IN NMR. .. 2447
+sample volume (cm'); v: active volume (cm"):
+d&: volume element (cm'); S: sample surface
+(cm'); s: active surface (cm'); df: surface
+element (cm'); y(r): volume sink strength den-
+sity (s '); p, (r): surface sink strength density
+(cm s '); 1' = (1/v) f y(r) d&: average value of y
+over the active volume v (s ~); M = (1/s)f p(r) df:
+average value of p, over the active surface s
+(cms '); 5R(t) = fp(r, t) d7' total nuclear magneti-
+zation of sample (*); D(r): diffusivity tensor
+(cm' s '); n: unit outward normal at the bounding
+surface. Here typical cgs units have been indi-
+cated in the parentheses; the * denotes any con-
+venient unit, e.g. , erg/G, for magnetic moment.
+The solution to the above diffusion problem can
+be expressed as a sum of "normal modes, "
+p(r, t}=+A„E„(r)e'~r~.
+n=p
+Here the A„are constants and the orthogonal
+spatial eigenfunctions E„(r) satisfy the positive
+definite eigenvalue problem
+-V ' (D ' WE„)+yE„=(1/T„)E„
+for the boundary condition
+(n ~ D ~ VE„+p,E„)ie = 0 ~
+The eigenvalues, 1/T„, appearing in Eq. (6) can
+be ordered such that
+TO~Tj~~ T ~~ T ~ ~0e (6)
+3g(t) =5g(0) g r„e-'», (1o)
+n=p
+where the nth relative intensity, I„, is given by
+I„=— ~ 0.1[fE„()d1'
+(11)i' fE„'Pr)d~
+Note that these r'elative intensities are normalized
+such that
+n=p
+(12)
+Note that the index n refers to the mode number;
+T„ is actually (T,)„for the case of spin-lattice
+relaxation or (T,)„for the case of spin-spin relax-
+ation. The lowest (in terms of 1/T„) mode is
+assigned the index n=0; this mode is always
+nondegenerate.
+The constants A„ in (5} can be evaluated using
+the initial condition (4) and the orthogonality of
+the I'„,
+A„= 3it(O} fE.(r)«
+fE„'(r)d7'
+The observed quantity (1) becomes a sum of de-
+creasing exponential functions of time:
+B. Examples
+In this section three simple solvable geometries
+are considered. For each of them there is a
+surfacelike sink strength density p, =M = const
+over an active surface s. The volumelike sinks
+are assumed to be absent, i.e., y=0 everywhere.
+The diffusivity tensor is taken to be homogeneous
+and isotropic, i.e., D=D1, where D is constant.
+1. Planar geometry
+The region is bounded by the planes z =0 and
+z=a. The active surface is the z =a face. Only
+those modes having no x or y dependence con-
+tribute. The results for the eigenfunctions E„,
+the decay times T„, and the relative intensities
+I„are
+E„= co(sP„z/a},
+T„=a'/Dg
+r„=4 sin'Q/$„[2 $„+sin(2 g„)],
+(13a)
+(13b)
+(13c)
+where the $„(n=o,1, 2, ...) are the positive roots
+(ordered according to value) of the transcendental
+equation
+f„tant =Ma/D. (13d)
+2. Cylindrical geometry
+The region is the interior of the cylinder r=a.
+The surface r= a is the active surface. Only
+those modes having no 8 or z dependence con-
+tribute. The results (in terms of cylindrical
+Bessel functions) are
+E„=Z,(q„via),
+Z" = g'/Dq'
+r„=4d', (n„)/q.'[d;(n.)+P(n.)],
+where the q„are the positive roots of
+ri„J~(q„)/Zo(q„) =Ma/D.
+(14a)
+(14b)
+(14c)
+(14d)
+E„=sin(g„r/a)/(g„via),
+Z 2/Dg2
+12(sint'„- g„cosg„)'
+/[2 f„-sin(2$„)]
+where the g„are the positive roots of
+1 — f„cot/„=M a/D .
+(15a)
+(15b)
+(15c)
+(15d)
+3. Spherical geometry
+The region is the interior of the sphere r = a.
+The surface r = a is the active surface. Only those
+modes having no 8 or P dependence contribute.
+The results are
+
+--- PAGE 3 ---
+K. R. BROWNSTEIN AND C. E. TARR 19
+Figures 1 and 2 show some of the results ob-
+tained for these examples. In Fig. 1 we show
+the ratio T„/T, of the nth mode decay time to that
+of the lowest mode for n= 1,2. In Fig. 2 we show
+the nth relative intensity I„for n=o, 1,2. From
+these graphs and Eqs. (13)-(15)certain conclu-
+sions can be drawn concerning the general be-
+havior of a system of this type (i.e., one with
+simple geometry and no volumelike sinks).
+The decay times T„and the relative intensities
+I„are determined by a dimensionless eigenvalue
+f„(or q„or f„). This eigenvalue spectrum is in
+turn determined by a dimensionless sink strength
+parameter Ma/D. There are three qualitatively
+different regions of behavior according to the
+value of this parameter.
+(a) Ma/D«1 ~ This can be called the "fast-
+diffusion" region and corresponds to the fast-
+exchange limit of discrete multiphase analysis. '
+Here the lowest mode completely dominates,
+Io 1 The corresponding decay time for the
+lowest mode is given by T, = V/ms where V is
+the sample volume and s is the active surface
+area. This can be seen by taking the appropriate
+limits in Eqs. (13)-(15)or from more general
+considerations. " The decay times of the higher
+modes are orders of magnitude smaller than T,.
+(b) 1«Ma/D«10. This can be called the
+"intermediate-diffusion" region. The lowest
+mode still dominates but the higher modes now
+contribute a few percent to the total relative
+intensity. The decay times of the first two higher
+modes are now about one or two orders of mag-
+nitude smaller than that of the lowest mode.
+(c) 10«Ma/D. This can be called the "slow-
+diffusion" region. The majority of the relative
+1$
+1C
+III. GENERAL PROPERTIES OF gp(g)
+The observed quantity K(t) is a sum of decreas-
+ing exponential functions of time with positive
+relative intensities I„,
+(t) =%(0)g I„e '
+n=o
+One may expect a plot of 1n[%(t)/5R(0)) vs t (here-
+(16)
+ii g„(+)
+100
+90-
+10. OP
+70-
+40-
+10
+)S
+1C
+lt
+-2$
+2C
+intensity is still in the lowest mode (81'%%uo, 69%,
+and 61'%%uo, respectively, for the planar, cylindrical,
+and spherical cases considered); the higher modes
+contributing a total of a few tens of percent. The
+decay times of the first two higher modes are only
+about one order of magnitude smaller than that
+of the lowest mode.
+The functional dependence of the decay times
+T„upon the quantities M, a, D, and n is quite
+similar for all three geometries considered. For
+the planar case this dependence is shown in Table
+I. Note that the higher mode decay times T„
+(n ~ 1) are almost independent of the sink strength
+density M.
+0.1 IP, 25
+-2C
+2P
+3.
+2-
+-2P
+0.01
+O.F-
+0.$-
+0.3-
+0-2-
+10
+Ma/p
+100
+10
+FIG. 1. Ratio of the nth mode decay time to the
+lowest-mode decay time (T„/&p) as a. function of the
+dimensionless sink strength parameter Ma/D. Three
+geometries (planar, cylindrical, and spherical) are
+considered; e. g. , the notation 2S means n= 2 with
+spherical geometry.
+FIG. 2. Relative intensity of the nth mode (I„)as a
+function of the dimensionless sink strength parameter
+Ma/D. The notation is as in Fig. 1. The horizontal
+dashed lines indicate the asymptotic values of Ip in the
+slow diffusion limit (Ma/D ~). Note the change of
+scale for the Ip curves.
+
+--- PAGE 4 ---
+19 IMPORTANCE OF CLASSICAL DIFFUSION IN NMR. ..
+A. Bounds on the sample size
+In order to see the effects of the higher modes
+it is necessary that one operate in the slow (or
+at worst, intermediate) diffusion region. Other-
+wise, the higher mode relative intensities are
+much too small (see Fig. 2). The observationally
+possible decay times are limited by the inequali-
+ties
+min n max ~ (17)
+for all modes n of interest. Here T „and T
+are the experimental limits for observation of
+decay times. Using (a} n= 0, 1, 2 (i.e., the three
+lowest modes}, (b) T „=1ps (a reasonable limit
+for pulsed NMR techniques), (c) T =2 s (the
+approximate value of the intrinsic decay time of
+bulk water), (d) T„=a'/ (D~+ —,')'v' (i.e., slow
+In(hl(t)/ln {p})
+after called the decay curve) to resemble that
+shown in Fig. 3. This is a multiexponential curve
+with the majority of the relative intensity being in
+the lowest mode. In this part we investigate the
+circumstances under which this multiexponential
+decay can be discerned from that of a single-
+exponential decay and how certain integral prop-
+erties of the sinks affect the shape of the decay
+curve for small values of t.
+In Sec. III A we establish approximate bounds on
+the possible size of the sample assuming surface-
+like sinks only. In Sec. IIIB, again assuming
+surfacelike sinks, an equation is derived relating
+the initial slope of the decay curve to the sink
+strength parameter Ma/D Fi.nally in Sec. III C,
+it is shown how the initial curvature of the decay
+curve is related to the volume of any volumelike
+sink.
+diffusion, planar geometry), (e) D = 2.5 x 10 5
+cm' s ' (diffusivity of water), and (f) "«" signs
+in (17}to mean a factor of 10, one can solve for
+the sample size limits. The result is
+1 ~+ g ~+ 30 p m i (18)
+We see that it is precisely in the biological-cell
+size range that one must look to see the multi-
+exponential decay. Although derived for the case
+of planar geometry, it is to be expected that the
+bounds given in (18}apply to all reasonable geo-
+metries involving surfacelike sinks only. [Note
+that since a square root was taken, an error in
+T „,T, or even D of a factor of -10 would
+result in the limits (18) changing by only a factor
+of -3.1
+V ~ (5 ~
+Vp) dr ='m(t) .
+~
+~
+Transforming the left-hand side into a surface
+integral, using the boundary condition (3) and the
+initial condition (4), one obtains
+K(0)=K(0)( fgds i
+(2o)
+Now specializing to the case p =M = constant [or
+defining M = (Ip, df)/s as the average value of y,
+over the active surface s] one has
+X(0)/5il(0) =Ms/V. (21)
+But the left-hand side is simply the initial decay
+rate 1/T, , where T, is the initial ef.fective decay
+time, thus
+B. Initial slope and Nu/D
+Even in the very-slow-diffusion limit (Mz/D
+» 10}the initial slope of the decay curve remains
+sensitive to the value of M. To see this, integrate
+the differential equation (2) over the total volume
+V for the case of surfacelike sinks only,
+T, = V/Ms. (22)
+[Remark: If there were volumelike sinks present,
+TABLE I. Dependence of decay times T„upon surface
+sink strength density M, characteristic length dimension
+of sample a, diffusivity D and mode number n. These
+expressions are rigorous for plmmr geometry; similar
+expressions, differing only by factors of the order unity,
+hold for cylindrical and spherical geometries.
+FIG. 3. The expected shape of the decay curve for
+the slow (or intermediate) diffusion case. T; is the
+initial decay time and To is the ultimate (large t) decay
+time.
+T0
+n(n& 1)
+Fast diffusion
+(Ma/D «1)
+a/M
+a2/[D n2m. 2]
+Slow diffusion
+(Ma/D» 10)
+a2/[D(0 + — )2 7r2]
+a2/[D(n + =)2 7r2]
+
+--- PAGE 5 ---
+2450 K. R. BROWNSTEIN AND C. E. TARR 19
+the above procedure would give
+T,.= V/(Ms+ rv), (23) 4') =
+f p—(F) u~. (29)
+where v is the active volume and I'= (J yd&)/v is
+the average value of y over the active volume v.
+It is interesting that expression (23) for the
+initial decay time coincides with that for the
+single (constant} decay time in the fast-diffusion
+limit. "]
+It is instructive to form the ratio of the large-t
+decay time T, (i.e., that of the lowest mode) to the
+initial decay time T,. Using the expressions for
+T, in the three examples considered in Sec. II
+and Eg. (22) for T,, one has
+To/T; = nMa/D, (24)
+where n=1/C, 2/O 2O 3/ft, respe ctively, for these
+three examples. In the slow-diffusion limit, n
+approaches a number of the order of —,' (0.41, 0.35,
+0.31, respectively). Therefore, assuming simple
+geometry and surfacelike sinks only, one may
+estimate the dimensionless sink strength para-
+meter Ma/D in the slow-diffusion region using
+(24) with, say, n= —,'. The estimate would be
+valid only in the slow-diffusion region.
+C. Initial curvature and v/V
+Assume that there is a volumelike sink y(r)
+c 0 only in the interior of the region and that there
+are no surfacelike sinks, i.e., p, =0. Then the
+diffusion problem is
+ep7' ~ D ' vp — yp=-gt
+n'D Upas=0,
+p(r, O) =5R(O)/V,
+(25a)
+(25b)
+(25c)
+(27)
+)
+is the average value of y over the entire volume
+V. [Note that Eqs. (26) and (23) agree since (y)
+= rv/V].
+By differentiating (25a) with respect to f and then
+following the above procedure, one can similarly
+show that
+SR(0)/5R(0) =+ (y'),
+where
+(26)
+with y and all its derivatives vanishing on the
+surface S. By integrating (25a) over the sample
+volume t/ and then setting t=0 one obtains an
+expression for the initial derivative, 5R(0), of %(t):
+5R(O)/5R(O) = (y), (26)
+where
+[If any surfacelike sinks were present the value
+of 3R(0} would have been +~]. Continuing in this
+manner, one can obtain expressions for the higher
+initial derivatives of %(t). These turn out not only
+to involve the average value of a power of y but
+also various diffusion terms involving derivatives
+of y. For example, the relation for M(0) is
+(y) = y,v/V (30a)
+(y') = gv/V. (30b)
+If y were not constant then Egs. (30) can be used
+to define an effective value y, of y and an effective
+active volume v. Using (26), (28), and (30) one
+can show that
+d
+sf f}
+V — 1
+V
+(31)
+where
+I
+T f~= — — ln N t %0 (32)
+is the instantaneous effective decay time (as
+determined from the slope of the decay curve).
+This very important result shows that if the initial
+dimensionless measure of curvature (31) is large,
+then the effective active volume v occupies but a
+small fraction of the total sample volume V. If
+this is the case, then it is supportive evidence for
+surfacelike sinks since a surfacelike sink can be
+treated as the limit v/V-0 of a volumelike sink.
+(Of course a mathematical surfacelike sink would
+yield+~ for the curvature. )
+In summary, one can obtain the following infor-
+mation from a decay curve which resembles that
+in Fig. 3.
+(a) Assuming that there are surfacelike sinks
+only, the experiment must occur in the slow-
+(or at worst, intermediate-) diffusion region.
+Otherwise the curve mill be essentially a single-
+exponential decay. Hence Ma/D ~ l.
+(b) The value of Ma/D can be estimated from
+(24) with n = —,'. A value of Ma/D~ 10 is supportive
+evidence for slow diffusion; a smaller value of
+Ma/D would indicate intermediate diffusion.
+5R(0)/5R(0) = -(y ) — — Vy D ~ ~dr,V
+We shall not pursue the consequences of such
+higher derivatives since it is difficult enough to
+determine 9R(0} from experimental data.
+If y is a constant y, in some active volume v and
+zero elsewhere then
+
+--- PAGE 6 ---
+19 IMPORTANCE OF CLASSICAL DIFFUSION IN NMR. . . 2451
+(c}If one assumes volumelike sinks only, then
+the ratio v/V of active volume to total volume
+can be calculated from (31). A small ratio is
+supportive evidence for surfacelike sinks.
+IV. CASE STUDY
+where
+x M I e-«&n
+n
+n=o
+(33)
+I,„„=0.10,
+T,„„,=155 ms,
+(34a)
+(34b)
+are the relative intensity and decay time of the
+extracellular water. The next longest decay time
+in their data is that of their "major fraction"
+(=80%) of water which we interpret as that of the
+lowest diffusional mode. This decay time (as
+measured from their graph) is 45 ms. They also
+show [in their Fig. 6(c)] that the intercept (due
+to extracellular plus major fraction) on the
+In[1(I(t)/5R(0)] axis is -0.11. In our notation this
+information means that
+In this part we analyze, from the point of view
+of diffusional modes, a published decay curve
+of Hazelwood, Chang, Nichols, and Woessner. '
+These data are for spin-spin relaxation of water
+protons in rat gastronemius muscle. Their
+results [see their Figures 6(a} and 6(b)] show
+a fraction (10%) of extracellular water with a
+characteristic decay time of 155 ms. It is believed
+that this extracellular water is uncoupled from
+the remaining intracellular water. Thus the pre-
+sent diffusional-mode theory would predict an
+%(t) given by
+5g(f)/5g(O) =I.„„,e-" "*'"+(1 — I.„„.)
+t=0. This would give a volume ratio of V/v
+=50 [the 1 in Eq. (31) is now negligible]. We
+estimate, more conservatively, that this initial
+curvature would certainly seem to place the ratio
+V/v somewhere between 25 and ~. This evidence
+supports the hypothesis that the active volume is
+very small and thus at any rate does not disagree
+with an assumption of surfacelike sinks only.
+On the basis of the above reasoning involving
+surface sinks, it was decided to try to reproduce
+their decay curve using each of the three geo-
+metries discussed in Sec. II. Each model posses-
+ses two parameters: a dimensionless sink
+strength parameter Ma/D and a time-scale
+parameter as/D. These are used to satisfy Eqs.
+(35a) and (35b), respectively. It must be em-
+phasized that once Eqs. (35) are satisfied there
+are m free parameters; the decay curve is then
+uniquely determined. Figure 4 shows the decay
+curve associated with the cylindrical-geometry
+case. The planar-geometry case gave a better
+fit and the spherical-geometry case gave the
+poorest fit. A11 three cases exhibit reasonably
+the correct qualitative behavior; on this basis
+alone we believe that one is forced to conclude
+that the effects of these diffusional modes are
+very important and may indeed be the dominant
+reason for the observed multiexponential decay
+in experiments of this type. Quantitatively,
+)fl(ln( tl/m (o))
+0.00 ~
+~ O
+0 0-0.05-
+-0.&0-
+T, =45 ms,
+in[I,„„,+ (1-I,„,„,)I ]= -0.11.
+(35a)
+(35b) -0.15-
+0
+~ 0
+0
+Equation (35b) tells us that the lowest mode rela-
+tive intensity is Ic = 88.4/o.
+Before proceeding further, let us apply the
+tests (b) and (c) mentioned at the end of Sec. III.
+(b} Using T, = 5.4 ms [the value indicated for
+the initial decay time in their Fig. 6(c)] and T,
+= 45 ms, one finds as an estimate for the dimen-
+sionless sink strength parameter Ma/D =25. This
+argues strongly for the extreme slow diffusion
+region for any of the three geometries studied
+in Sec. II.
+(c) It is, of course, very difficult to evaluate
+the initial curvature [left-hand side of (31)]from
+the numerical data. Our estimate, as measured
+from, their Fig. 6(c), is that d(T,«)/dt =50 at
+-0.20- ~ Data
+O Theory
+— — — Asymptote
+I I
+2 3
+t(ms}
+FIG. 4. Decay curve of Hazelwood et al. (dots) and
+its asymptote (dashed line). The open circles are the
+prediction of the present diffusional theory for the
+case of a solid cylinder of radius a. The outer surface
+of the cylinder is active with a surface sink strength
+parameter given by Ma/D=4. 44. This value forces the
+theory to have the correct asymptote; there are no
+other free parameters.
+
+--- PAGE 7 ---
+K. R. BROWNSTEIN AND C. K. TARR 19
+however, the initial decay time T, is too long
+for all three cases. This is related to the fact
+that the values of Ma/D [as determined from
+(35a)] were approximately 8.2, 4.4, and 4.0,
+respectively, for the planar, cylindrical, and
+spherical geometries. These values are consis-
+tent with the intermediate-diffusion region but
+are somewhat inconsistent with the extreme slow-
+diffusion estimate (b) above of Ma/D =25.
+Noting that the results get better in the geometry
+sequence (spherical, cylindrical, planar}, it was
+decided to try a geometry which continued this
+sequence (in the sense that the dominant active
+surface would now be convex with a larger, per-
+haps infinite, value of M) and which was a more
+realistic model of this particular biological cell.
+The geometry selected is that of an annular cylin-
+der a & r & b whose inner surface is infinitely ac-
+tive (p =+ ~ at x= a) and whose outer surface is
+partially active (p =M at r = 5). This model has
+three parameters: Ma/D, a /D and the ratio of
+radii R = 5/a. When conditions (35}are satisfied,
+the model has but one remaining free parameter
+which can be taken to be R. The solution to this
+diffusion problem is
+(36a}
+(36b)
+It turns out that R must be larger than 2.3V
+[otherwise it is impossible to satisfy (35b)].
+Several values of R ~ 2.3V were tried; the best
+decay curve (as judged by eye) was with R =3 (R
+=3.5 almost as good). Figure 5 shows this decay
+curve for R = 3; the agreement with the. experi-
+mental data is very good. The corresponding
+sink strength parameter is Ma/D= 4.9 which, if
+there were no other surface sinks, would corres-
+pond to the intermediate-diffusion region. Table
+II lists some of the numerical quantities asso-
+ciated with this model. Note, in particular, the
+alternation in the intensities with n. This is to be
+expected from such a model with two different
+nonzero sinks. The small n= 1 mode especially
+helps the agreement with the data since it con-
+tributes almost 1% and has a relatively long decay
+time (10 ms). There is no analog of this mode
+for the three geometries considered in Sec. II.
+A total of six modes were used to generate Fig. 5;
+these account for nearly 98% of the total relative
+intensity. Presumably the remaining 2% resides
+in the higher modes whose decay times are very
+short.
+)g(w (t)i~ (o))
+where
+4 uH„(g) („":P
+p„'(R — 1) (u [H„(u)+G„'(u)]}~„":
+(36c)
+0.00-
+(36d)
+(36e)
+with P„satisfying the transcendental equation
+— P„H„(RP„)/G„(RP„)= Ma/D . (36f)
+Here J and F are cylindrical Bessel functions of
+the first and second kind, respectively.
+-0.05-
+-0.10-
+-0.15-
+o"
+o p
+' Q
+~e 0 0 0 Op
+pe 0
+T„(ms) 1„(%)
+1.401
+2.856
+4.332
+5.831
+7.349
+8.874
+45.00
+10.84
+4.71
+2.60
+1.63
+1.12
+88.39
+0.80
+6.83
+0.01
+1.75
+0.01
+97.8 Total
+TABLE II. Properties of the annular cylinder model.
+The ratio of the radii is R= b/a= 3. The inner sink
+strength density is infinity, the outer sink strength den-
+sity M satifies Ma/a=4. 9. Using the first six modes
+accounts for nearly 98% of the total relative intensity.
+The remaining 2% involves modes with very short decay
+times.
+-0.20- ~ Octo
+0 Theory
+——— Asymptote
+I I
+2 3
+t(~~)
+FIG. 5. Decay curve of Hazelwood et aE. (dots) and
+its asymptote (dashed line). The open circles are the
+prediction of the present diffusional theory for the case
+of an annular cylindrical geometry (a ~& «b). The
+inner surface (r =a) is assumed to be infinitely active
+(M,.~,~= ~). The figure is drawn for the case R =b/a
+= 3.0; once this free parameter R is chosen the outer
+surface sink strerigth is determined by demanding that
+the theory have the correct asymptote. In this case
+the outer surface (~ =b) sink strength is given by
+M ~ ~a/D=4. 90.
+
+--- PAGE 8 ---
+IMPORTANCE OF CLASSICAL DIFFUSION IN NMR. . .
+Using (36b) one can now solve for the diameter
+d=2Ra of the cell,
+d=2RPo(TQ)'~
+With D =2.43 x 1O" cm s", R =3, 70=45 ms,
+Po= 1.401 (from Table ll) Eq. (37) gives
+d=88 pm, (38)
+in excellent agreement with the actual diameter
+of the rat gastronemius cell." [The result (38)
+is not very sensitive to the choice R = 3; using
+R.= 3.5 (a 17% increase) resulted in an increase of
+d of only about 8%. This is due to a compensating
+change in Po].
+There could be some disagreement as to the
+correct value of the diffusivity D which should be
+used in this type of calculation. W'e have used
+D =2.43 & 10 ' cm's ' which is the bulk value of
+D for distilled water according to Trappeniers
+et al."and Simpson et al.'4 According to Finch
+et al."the value of D is smaller by about a-factor
+of 2 in this type of biological cell and for major
+fraction decay times of the order of 45 ms. This
+opinion seems to be shared by Hazelwood et al.'
+If we accept this at face value then the cell dia-
+meter result, (38), must be reduced by a factor
+of W2 to d = 62 pm. While we do not disagree
+that the apparent D for small samples is less
+than the bulk value by about a factor of 2, it is
+quite possible that this decrease is simply an-
+other manifestation of the very diffusional modes
+effect discussed in the present article. To quote
+Wayne and Cotts" concerning the reduced value
+of D: "This does not imply that the real self-
+diffusion coefficient depends in any way on sample
+size, ... ." Thus it is our point of view that the
+bulk value of D is the correct one to use.
+V. CONCLUSION
+The general features of proton-magnetic-
+resonance data for water in biological cells
+seem to be adequately described by the simple
+diffusional model outlined above. In particular,
+the details of the multiexponential decay charac-
+teristic of ceQs are seen to be a consequence of
+their size and shape. The only property of water
+used is the bulk diffusion constant. The relaxa-
+tion mechanism is modeled by volume and surface
+like "sinks" whose details are unimportant.
+As an example, a "case study" was made of
+data of Hazelwood ef al.' for rat gastronemius.
+The assumed geometry was that of an annular
+cylinder with an infinitely large surface sink
+strength at the inner surface and a finite surface
+sink strength at the outer surface. Once the
+model was fitted to predict the correct large
+time dependence, it had but one free parameter
+(ratio of outer to inner radii). The model gave
+an excellent fit to the data and, together with the
+known diffusivity of bulk water, furnished the
+correct cell diameter (88 p, m for rat gastrone-
+mius).
+ACKNOWLEDGMENTS
+We wish to thank James A. Rooney and Phillip
+A. Casabella for several illuminating discussions
+on this topic.
+C. F. Hazelwood, D. C. Chang, B. L. Nichols, and
+D. E. Woessner, Biophys. J. 14, 583 (1974) and
+references therein.
+2C. K. Daszkiewicz, J. W. Hennell, B. Lubas, and
+T. W. Szczepkowski, Nature (London) 200, 1006
+(1963).
+3B. Cooke and B. Wien, Biophys. J. 11, 1002 (1971).
+4J. G. Diegel and M. M. Pintar, Biophys. J. 15, 855
+(1975).
+~R. A. Brooks, J. H. Battocletti, A. Sances, Jr. ,
+S. J. Larson, B. L. Bowman, and V. Kudravcev, IEEE
+Trans. Biomed. Eng. 22, 12 (1975).
+K. B. Foster, H. A. Besing, and A. N. Garroway,
+Science 194, 324 (1976).
+~A. Zipp, I, D. Kuntz, and T. L. James, J. Magn.
+Beson. 24, 411 (1976).
+M. M. Civan, A. ,M. Achlama, and M. Shporer,
+Biophys, J. 21, 127 (1978).
+K. R. Brownstein, J. Maine Med. Assn. 68, 252
+(1977).
+J. B. Zimmerman and W. K. Brittin, J. Phys. Chem.
+61, 1328 (1957).
+~~K. R. Brownstein and C. E. Tarr, J. Magn. Beson.
+26, 17 (1977).
+E. D. Cinch, J. F. Harmon, and B. H. Muller,
+Arch. Biochem. Biophys. 147, 299 (1971).
+¹ J. Trappeniers, C. J. Gerritsma, and P. H.
+Oosting, Phys. Lett. 18, 256 (1965).' J. H. Simpson and H. Y. Carr, Phys. Bev. 111,
+1201 (1958).
+~'B. C. Wayne and B. M. Cotts, Phys. Bev. 151, 264
+(1966).

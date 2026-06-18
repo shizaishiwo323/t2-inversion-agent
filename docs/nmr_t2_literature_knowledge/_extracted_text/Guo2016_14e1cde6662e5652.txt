@@ -1,0 +1,1148 @@
+--- PAGE 1 ---
+285 © 2016 Sinopec Geophysical Research Institute Printed in the UK
+1. Introduction
+Tight sandstone reservoirs have the characteristics of low 
+porosity, low permeability and complex pore structure, 
+making evaluating petrophysical properties of these reservoirs 
+by conventional logging methods challenging. Therefore it 
+is necessary to develop new well logging techniques such 
+as nuclear magnetic resonance (NMR) logging to overcome 
+this challenge. NMR logging measures the relaxation and dif-
+fusion information of the hydrogen in formation pore fluid, 
+which can be used to obtain petrophysical parameters, such as 
+porosity, permeability, pore structure, wettability and various 
+fluids saturations (George et al 19 9 8, Dunn et al 2002, Chen 
+et al 2003). However, one dimensional (1D) NMR logging can 
+only make use of the distribution of transverse relaxation time 
+(T2), when multi-phase fluids (water, oil and gas) coexist in 
+porous media. T2 distributions of various fluids often overlap 
+one another, making it difficult to identify the fluids from one 
+another (Sun and Dunn 2002, Hurlimann et al 2002a, 2002b, 
+Xie et  al 2005, Tan et  al 2014). Multi-dimensional NMR 
+describes the spatial distribution of hydrogen protons by using 
+multiple physical parameters, such as transverse relaxation 
+time (T2), longitudinal relaxation time (T1) and diffusion coef-
+ficient (D), which can overcome the disadvantage of 1D NMR 
+in reservoir fluids identification (Heaton et al 2004, 2008, Xie 
+et al 2009 a, Xie and Xiao 2009).
+Numerical simulation of multi-dimensional 
+NMR response in tight sandstone
+Jiangfeng Guo, Ranhong Xie, Youlong Zou and Yejiao Ding
+State Key Laboratory of Petroleum Resources and Prospecting, China University of Petroleum (Beijing), 
+Beijing 10224 9 , People’s Republic of China
+E-mail: xieranhong@cup.edu.cn
+Received 7 November 2015, revised 29 February 2016
+Accepted for publication 11 March 2016
+Published 20 April 2016
+Abstract
+Conventional logging methods have limitations in the evaluation of tight sandstone reservoirs. 
+The multi-dimensional nuclear magnetic resonance (NMR) logging method has the advantage 
+that it can simultaneously measure transverse relaxation time (T2), longitudinal relaxation 
+time (T1) and diffusion coefficient (D). In this paper, we simulate NMR measurements of tight 
+sandstone with different wettability and saturations by the random walk method and obtain 
+the magnetization decays of Carr–Purcell–Meiboom–Gill pulse sequences with different wait 
+times (TW ) and echo spacings (TE) under a magnetic field gradient, resulting in D-T2-T1 maps 
+by the multiple echo trains joint inversion method. We also study the effects of wettability, 
+saturation, signal-to-noise ratio (SNR) of data and restricted diffusion on the D-T2-T1 
+maps in tight sandstone. The results show that with decreasing wetting fluid saturation, the 
+surface relaxation rate of the wetting fluid gradually increases and the restricted diffusion 
+phenomenon becomes more and more obvious, which leads to the wetting fluid signal moving 
+along the direction of short relaxation and the direction of the diffusion coefficient decreasing 
+in D-T2-T1 maps. Meanwhile, the non-wetting fluid position in D-T2-T1 maps does not change 
+with saturation variation. With decreasing SNR, the ability to identify water and oil signals 
+based on NMR maps gradually decreases. The wetting fluid D-T1 and D-T2 correlations in 
+NMR diffusion-relaxation maps of tight sandstone are obtained through expanding the wetting 
+fluid restricted diffusion models, and are further applied to recognize the wetting fluid in 
+simulated D-T2 maps and D-T1 maps.
+Keywords: tight sandstone, multi-dimensional NMR, random walk, wettability, restricted 
+diffusion
+(Some figures may appear in colour only in the online journal)
+J Guo et al
+Printed in the UK
+285
+JGEOC3
+© 2016 Sinopec Geophysical Research Institute
+2016
+13
+J. Geophys. Eng.
+JGE
+1742-2132
+10.1088/1742-2132/13/3/285
+Paper
+3
+Journal of Geophysics and Engineering
+IOP
+Journal of Geophysics and Engineering
+28 5
+29 4
+1742-2132/16/030285 +10$33.00
+doi:10.1088/1742-2132/13/3/285J. Geophys. Eng. 13 (2016) 285 –294
+Downloaded from https://academic.oup.com/jge/article/13/3/285/5113380 by guest on 19 July 2021
+
+--- PAGE 2 ---
+J Guo et al
+286
+Complex pore structure, wettability and various fluids 
+satur ations of tight sandstone reservoirs are the key factors 
+that affect their NMR response. The random walk method 
+can be used to simulate the procedure of NMR measurements 
+accurately and effectively, as well as to study the influence of 
+individual factors on the NMR response. There has been quite 
+a lot of previous research on simulating 1D and two-dimen-
+sional (2D) NMR responses of sandstones and carbonate 
+rocks; for example, Toumelin et  al (2004, 2007) simulated 
+the magnetization decays of Carr –Purcell–Meiboom–Gill 
+(CPMG) pulse sequences with different wait times (TW ) and 
+echo spacings (TE) based on disordered packs of spherical 
+grains, and systematically studied the influence of various 
+factors on fluid identification in D-T2 maps and D-T1maps. 
+Talabi et al (2008), and Arns and Melean (2009) simulated the 
+magnetization decays of single phase fluid in carbonate rocks 
+by the random walk method, and studied the characteristics 
+of water and oil in T2 distributions. Talabi et al (2009, 2010) 
+simulated the magnetization decays of single phase and two 
+phase fluids in sandstone by the random walk method. Arns 
+et  al (2011), and Alghamdi and Arns (2012) simulated the 
+magnetization decays of the pulsed field gradient stimulated 
+echo (PFGSTE) encoding sequence in Bentheimer sandstone 
+and Berea sandstone, and studied the characteristics of water 
+and oil in D-T2 maps. 
+However, few studies have been done on NMR response 
+simulation in tight sandstone, especially multi-dimensional 
+NMR response. In this paper, we simulated NMR measure-
+ments of tight sandstones by the random walk method based 
+on digital core, and studied multi-dimensional NMR response 
+of tight sandstone saturated with water and oil.
+2. NMR theory
+The basis of NMR is the interaction between the magnetic 
+field of the nucleus and the external magnetic field. Before 
+NMR measurements, the hydrogen protons of the formation 
+fluid are orientated randomly and arranged arbitrarily; the 
+spin system has no magnetization macroscopically in this 
+case. Once measurement begins, the permanent magnet of the 
+NMR logging tool produces a static magnetic field B0 which 
+can make the disordered hydrogen protons of the formation 
+fluid magnetized and in order in the nuclear spin space. The 
+magnetization gradually reaches the equilibrium value M0, 
+which has the same direction as B0.
+The antenna of NMR logging tools produces an alternating 
+magnetic field B1, the direction of which is perpendicular to 
+that of B0. When the frequency (ω) of the alternating magnetic 
+field is equal to the Larmor frequency (ω0) of protons, the 
+resonance phenomenon will occur in the nuclear spin system; 
+that is, the nuclear magnetic moment in the low energy state 
+will jump to a high energy state by absorbing energy provided 
+by the alternating magnetic field. Macroscopically, resonance 
+leads to M0 deviating from B0, and M0 rotates 9 0° to the 
+xy-plane by adjusting the pulse width of the alternating magn-
+etic field. After the alternating magnetic field is removed, only 
+the external magnetic field B0 in the z-axis direction persists, 
+and M0 precesses along B0. The nuclear spin system will 
+recover from the non-equilibrium state to equilibrium state. 
+Magnetization M0 is decomposed into two components on the 
+xy-plane (transverse component Mx and My) and one comp-
+onent in the z-axis (longitudinal component Mz). The process 
+of xy-plane components decay back to the initial zero state is 
+defined as the transverse relaxation process, and the time con-
+sumed is expressed as the transverse relaxation time T2. The 
+process of z-axis component recovery back to the initial mag-
+netization M0 is defined as the longitudinal relaxation process, 
+and the time consumed is expressed as the longitudinal relaxa-
+tion time T1. Bloch (19 4 6) described the changing of Mx, My, 
+Mz with time in the rotating frame by
+=−
+=−
+= −
+M
+t
+M
+T
+M
+t
+M
+T
+M
+t
+MM
+T
+d
+d ,
+d
+d ,
+d
+d .
+xx
+yy
+zz
+2
+2
+0
+1
+ 
+(1)
+We combine with initial conditions to solve equation (1):
+()
+[( )]
+== −
+=− −
+MM Mt T
+MM tT
+exp/ ,
+1e xp /.
+xy
+z
+02
+01
+ (2)
+According to equation  (2), Mx and My decay exponentially 
+with a rate of 1/T2, while Mz recovers exponentially back to 
+the initial magnetization M0 with a rate of 1/T1.
+Longitudinal relaxation of the fluid in porous media is 
+affected by two mechanisms, bulk relaxation and surface 
+relaxation, but transverse relaxation is affected by three 
+mechanisms—bulk relaxation, surface relaxation and diffu-
+sion relaxation. T1 and T2 of pore fluid are
+ρ=+TT
+S
+V
+11 ;
+11 B
+1 (3)
+()ρ γ=+ +TT
+S
+V
+GTED11
+12 ,
+22 B
+2
+2
+ (4 )
+where T1B and T2B are longitudinal and transverse bulk relax-
+ation times of the fluid, respectively; different fluids have dif-
+ferent bulk relaxation times. ρ1 and ρ2 are longitudinal and 
+transverse surface relaxativities of rocks, respectively. S/V is 
+the ratio of the surface which relaxes over the volume occu-
+pied by that fluid phase. γ is the proton gyromagnetic ratio. G 
+is externally applied magnetic field gradient. TE is the echo 
+spacing. D is the fluid diffusion coefficient and is time depen-
+dent in porous media.
+3. Random walk method
+3.1 . Theory of method
+The relationship between the macroscopic magnetization of 
+fluid in porous media and time is expressed by Bloch–Torrey 
+equations (Torrey 19 56):
+Μ ΜΒ Μγ=∇ +× −− − −
+t D M
+T
+M
+T
+MM
+Txy zd
+d .x y z2
+22
+0
+1
+ 
+(5)
+J. Geophys. Eng. 13 (2016) 285
+Downloaded from https://academic.oup.com/jge/article/13/3/285/5113380 by guest on 19 July 2021
+
+--- PAGE 3 ---
+J Guo et al
+287
+A CPMG pulse sequence takes the form of a 9 0° pulse lasting 
+t90 along the x-axis followed by a series of 18 0° pulses lasting 
+t18 0 along the y-axis separated by the echo spacing TE, and 
+spin echoes are generated between two successive 18 0 ° 
+pulses. The two major control parameters of CPMG pulse 
+sequence measurements are TW and TE. TW mainly affects 
+the recovery of spin magnetization; if TW is not long enough, 
+some spins may not fully recover to their thermal equilibrium 
+state, i.e. the total magnetization would decrease. TE mainly 
+affects fluid diffusion relaxation and thus the whole magneti-
+zation decays. In the process of polarization, the recovery of 
+normalized magnetization with time is calculated using the 
+following equation:
+()
+()
+=− −⋅ −
+=− −⋅
+⎛
+⎝⎜
+⎞
+⎠⎟
+⎛
+⎝⎜
+⎞
+⎠⎟
+⎛
+⎝⎜
+⎞
+⎠⎟
+Mt t
+T
+t
+T
+t
+T Mt
+1e xp exp
+1e xp .
+1
+1B 1S
+1B
+1S
+ 
+(6)
+In the process of decay, the decay of normalized magnetiza-
+tion with time is calculated using the following equation:
+()
+() ()
+γ=− ⋅− ⋅−
+=− ⋅⋅
+′
+⎛
+⎝⎜
+⎞
+⎠⎟
+⎛
+⎝⎜
+⎞
+⎠⎟
+⎛
+⎝⎜
+⎞
+⎠⎟
+⎛
+⎝⎜
+⎞
+⎠⎟
+Mt
+M
+t
+T
+t
+T
+GTEDt
+t
+T Mt Mt
+expe xp exp 12
+exp,
+2
+0 2B 2S
+22 2
+2B
+2S 2D
+ 
+(7 )
+where ′M0 is the initial magnetization when the decay begins 
+and then comes to 1 when the polarization recovers completely.
+As for bulk relaxation, surface relaxation and the diffusion 
+relaxation of the fluid in the porous media happens simul-
+taneously and independently (Kenyon 19 9 7). Simulating 
+the decays of NMR magnetization can be achieved through 
+respectively simulating the decays of bulk relaxation magneti-
+zation, surface relaxation magnetization and diffusion relaxa-
+tion magnetization. According to the properties of acquiring 
+CPMG spin echoes, the simulation procedure can be divided 
+into two parts, the first part refers to the simulation of the 
+recovery of the longitudinal component Mz on the z-axis back 
+to its initial magnetization M0 during the procedure of polari-
+zation; the second part refers to the simulation of the decay 
+of the magnetization on the xy-plane, and its initial mag-
+netization equals the recovered magnetization from the first 
+part. The recovery of the longitudinal component Mz on the 
+z-axis back to its initial magnetization M0 can be regarded as 
+the inverse process of the magnetization decaying along the 
+z-axis. The decay of the magnetization along the z-axis can be 
+simulated by the random walk method. Specific procedures 
+are shown as follows:
+ (1) A fixed number of protons are placed randomly in the 
+pore of rocks.
+ (2) Calculate the distance (d) between protons and the nearest 
+solid surface, if d is smaller than 3ε (ε is diffusion radius 
+of the conventional random walk method), we choose the 
+conventional random walk method, i.e. diffusion radius 
+r = ε; if d is equal to or larger than 3ε, we choose the 
+first-passage-time technique (Zheng and Chiew 19 8 9), 
+i.e. diffusion radius r = d.
+ (3) Calculate the time interval /∆=tr D62 and the position 
+of the proton in the next moment [() ()+∆ +∆xt tytt,, 
+() ]+∆ztt :
+() ()
+() ()
+() ()
+θϕ
+θϕ
+θ
++∆=+ ⋅⋅
++∆=+ ⋅⋅
++∆=+ ⋅
+xt tx tr
+yt ty tr
+zt tz tr
+sinc os,
+sins in,
+cos,
+ 
+(8 )
+ where θ should be selected randomly in the range 
+[0, π], ϕ should be selected randomly in the range [0, 2π], 
+[() ()()]xtytzt,, is the position of the proton in the present 
+moment.
+ (4 ) Check whether collision happens between protons and 
+the solid surface. If it does happen, protons will be killed 
+with a probability given by (Bergman et al 19 9 5):
+δ ρ=× r
+D
+2
+3 0.96.1
+1 (9 )
+ If the proton survives, it bounces off the solid surface and 
+returns to its previous position. In the process of simu-
+lation, surface relaxation magnetization M1S(t) decays 
+along the z-axis direction:
+() ()
+()=Mt Nt
+N0,1S
+1
+1
+ (10)
+ where N1(t) represents the number of surviving protons at 
+time t and N1(0) represents the number of initial protons.
+ (5) Check whether or not the protons run out of rocks. If this 
+happens, they will land in a random position within the 
+opposite side of rocks.
+ (6) Repeat steps (2)–(5) until the sampling time is larger than 
+TW, and record ()MTW1S at that time. Finally, we get the 
+initial magnetization:
+()
+()=− −⋅′ ⎛
+⎝⎜
+⎞
+⎠⎟M TW
+T
+NTW
+N1e xp 0 .0
+1B
+1
+1
+ (11)
+ The simulation of the magnetization decay on the 
+xy-plane is similar to that on the z-axis, only with one 
+added simulation of diffusion relaxation. The specific 
+steps are as follows:
+ Steps (1)–(5) are similar to those steps mentioned above, 
+only in step (5) the killing probability is changed to:
+δ ρ=× r
+D
+2
+3 0.96.2
+2 (12)
+ (7 ) The proton dephasing in ∆t time can be calculated by:
+{}() ( () ()
+()
+φφ γ
+γ
++∆=+ +∆−−
+×∆+ ∆
+tt tG zt tz tz
+tG Dt
+ ) 2(0)
+2
+6 Normal,
+3
+ 
+(13)
+J. Geophys. Eng. 13 (2016) 285
+Downloaded from https://academic.oup.com/jge/article/13/3/285/5113380 by guest on 19 July 2021
+
+--- PAGE 4 ---
+J Guo et al
+288
+ where Normal() is a normal Gaussian function. In order 
+to conform to the requirements of CPMG pulse sequence 
+acquisition, a phase-shift reversal is passed during the 
+walk step, when t = (n + 1/2)TE, and the echo signal 
+is acquired when t = nTE. Consequently, the diffusion 
+relaxation magnetization is computed by taking the 
+cosine of all spins’ phase shifts, defined by:
+() [( )]∑ φ=
+=
+MnTE N nTE1 cos.
+i
+N
+iG
+1
+ (14 )
+ (8 ) Repeat steps (2)–(6) until the sampling time is larger than 
+the set threshold, and record magnetization at nTE time. 
+The normalized magnetization is described by:
+∑ φ=−′
+=
+⎛
+⎝⎜
+⎞
+⎠⎟MnTEM nTE
+T
+NnTE
+NN nTEexp 0
+1 cos,
+i
+N
+i2 0
+2B
+2
+2 1
+() ()
+() [( )]
+ (15)
+ where N2(t) represents the number of surviving protons at 
+time t and N2(0) represents the number of initial protons 
+during the magnetization decay on the xy-plane.
+3.2. Verification of method
+The accuracy of the random walk method is verified by com-
+paring the results of theoretical calculation and numerical 
+simulation in the spherical pore. The recovery of normalized 
+magnetization is calculated by the theoretical equation:
+()
+⎡
+⎣⎢
+⎛
+⎝⎜
+⎞
+⎠⎟
+⎤
+⎦⎥ρ=− −+Mtt T
+S
+V1e xp 1 .1
+1B
+1 (16)
+After complete polarization, the decay of normalized magneti-
+zation with time is also calculated by the theoretical equation:
+ργ=− ++ ⋅⋅ ⋅⎪
+⎪
+⎧
+⎨
+⎩
+⎡
+⎣⎢
+⎤
+⎦⎥
+⎫
+⎬
+⎭
+Mtt T
+S
+V GTEDexp 11
+12 .2
+2B
+2
+2() () (17 )
+Simulation parameters in the spherical pore are shown in 
+table 1. The magnetization recovery curve simulated from 
+the random walk method is compared with the theoretical 
+curve calculated from equation (16), shown in figure 1(a). 
+The magnetization decay curve simulated from the random 
+walk method is compared with the theoretical curve calcu-
+lated from equation (17), shown in figure 1(b). We evalu-
+ated the accuracy of the numerical simulation method 
+based on the difference between the theoretical value and 
+simulation value of magnetization, and the difference is 
+calculated by:
+=−MMError, ST (18 )
+where MS and MT represent the simulation value and theor-
+etical value of magnetization, respectively. According to 
+figure 1, we can see that the difference is less than 0.01, which 
+suggests the random walk method can be applied to accurately 
+simulate NMR measurements.
+4. NMR response of tight sandstone
+4.1 . Models of the digital core
+The digital core technology has been widely used in studying 
+petrophysical numerical simulations in porous media in which 
+constructing an accurate digital core is its basis and key. At 
+present, the method for constructing a digital core mainly 
+includes the numerical reconstruction method and physical 
+experimental method (Arns 2002, Jin et al 2003). The numer-
+ical reconstruction method reconstructs the 3D digital core 
+mainly based on the statistical function of 2D thin sections, 
+but cannot guarantee the connectivity of the digital core. 
+Table 1. Simulated parameters in the spherical pore.
+Radius
+Bulk relaxation 
+time (T1B = T2B)
+Static magnetic 
+field gradient G
+Echo 
+spacing TE Bulk diffusivity D
+Longitudinal surface 
+relaxivity ρ1
+Transverse 
+surface 
+ relaxivity ρ2
+1 µm 3.0 s 0.3 T m−1 1.2 ms 2.0 × 10−9 m2 s−1 20 µm s−1 30 µm s−1
+Figure 1. Comparison of the theoretical curve with the simulation curve. (a) Comparison of the magnetization recovery curve simulated 
+from the random walk method with the theoretical curve calculated from equation (16). (b) Comparison of the magnetization decay curve 
+simulated from the random walk method with the theoretical curve calculated from equation (17).
+10-3
+10-2
+10-1
+0.2
+0.4
+0.6
+0.8
+1
+Amplitude
+The theoretical curve
+The simulation curve
+10-3
+10-2
+10-10
+1x 10-3
+Time/s
+Error
+10-3
+10-2
+10-10
+0.2
+0.4
+0.6
+0.8
+1
+Amplitude
+The theoretical curve
+The simulation curve
+10-3
+10-2
+10-10
+0.01
+Time/s
+Error
+(a) (b)
+J. Geophys. Eng. 13 (2016) 285
+Downloaded from https://academic.oup.com/jge/article/13/3/285/5113380 by guest on 19 July 2021
+
+--- PAGE 5 ---
+J Guo et al
+289
+The x-ray-CT scanning method is the most popular physical 
+experimental method to construct the digital core, which is 
+the most direct and accurate method and has an advantage of 
+measuring the rock samples nondestructively.
+The digital core models of tight sandstone used in this paper 
+were obtained by the x-ray-CT scanning method, as shown 
+in figure 2(a). Its voxel size is 6003, resolution is 2.7 7 µm 
+and porosity is 6.26%. Imaging models of tight sandstone 
+with different fluid saturations are shown in figures 2(b)–(d), 
+in which the black area represents the rock matrix, red area 
+represents the wetting fluid and blue area represents the non-
+wetting fluid in the porous media.
+4.2. NMR response of tight sandstone in the water-wet case
+Water wettability is assumed preserved in tight sandstone, 
+where longitudinal surface relaxivity (ρ1) is set to 20 µm s−1 
+and transverse surface relaxivity (ρ2) is set to 30 µm s−1. 
+Saturating fluid properties of tight sandstone are summa -
+rized in table 2. The magnetization decays of CPMG pulse 
+sequences with different parameters are simulated using the 
+random walk method under a static magnetic field gradient of 
+0.3 T m−1, and the parameters are shown in table 3.
+The Gaussian noise of the SNR is 100 and is added to 
+obtain noisy echo trains data, and D-T2-T1 maps of tight sand-
+stone with different water saturations in the water-wet case 
+are obtained by the multiple echo trains jointing inversion 
+method (Xie et al 2009 b). In order to visualize the D-T2-T1 3D 
+maps, they are projected onto D-T2, D-T1 and T1-T2 2D maps 
+respectively, as shown in figure 3. The the blue horizontal line 
+represents the water line and the green inclined line represents 
+the oil line in D-T2 and D-T1 maps, with the blue diagonal line 
+representing T1 = T2 in T1-T2 maps.
+Figure 3 shows that the intensity of the water signal gradu-
+ally decreases while the opposite behavior is demonstrated for 
+Figure 2. 3D images of tight sandstone with different fluid saturations. (a) An image of tight sandstone fully saturated with wetting fluid. 
+(b) An image of tight sandstone saturated with 7 5% wetting fluid and 25% non-wetting fluid. (c) An image of tight sandstone saturated with 
+50% wetting fluid and 50% non-wetting fluid. (d) An image of tight sandstone saturated with 25% wetting fluid and 7 5% non-wetting fluid.
+Table 2. Saturating fluid properties.
+Fluid
+Hydrogen 
+index
+Bulk relaxation 
+time (T1B = T2B)
+Bulk 
+diffusivity D
+Water 1.0 3.0 s 2.0 × 10−9 m2 s−1
+Oil 1.0 1.0 s 5.0 × 10−10 m2 s−1
+Table 3. CPMG pulse sequence parameters.
+No.
+Wait time 
+TW (s)
+Echo spacing 
+TE (ms)
+Echo number 
+NE
+1 12.0 0.4 5 4 000
+2 3.0 0.4 5 4 000
+3 1.0 0.4 5 4 000
+4 0.3 0.4 5 4 000
+5 0.1 0.4 5 4 000
+6 0.03 0.4 5 4 000
+7 0.01 0.4 5 4 000
+8 0.003 0.4 5 4 000
+9 1.0 0.9 2000
+10 1.0 1.8 1000
+11 1.0 3.6 500
+12 1.0 7 .2 250
+13 1.0 9 .6 18 7
+14 1.0 12.5 14 4
+J. Geophys. Eng. 13 (2016) 285
+Downloaded from https://academic.oup.com/jge/article/13/3/285/5113380 by guest on 19 July 2021
+
+--- PAGE 6 ---
+J Guo et al
+290
+the intensity of the oil signal, with water saturation decreasing 
+and oil saturation increasing. The position of the oil signal 
+in D-T2-T1 maps does not change with changing oil satur-
+ation. However, with water saturation decreasing, the water 
+signal gradually moves away from the water line and shifts 
+to the short relaxation time in D-T2 and D-T1 maps, gradu-
+ally moving to the short relaxation time along the diagonal 
+direction in T1-T2 maps. This is because the ratio of the effec-
+tive surface area and volume of pore space in the tight sand-
+stone occupied by the wetting water gradually increases with 
+decreasing water saturation, i.e. the surface relaxation rate of 
+wetting water gradually increases, and as a result, the wet-
+ting water signal moves to the short relaxation time in D-T2-T1 
+maps. In addition, the restricted diffusion phenomenon of wet-
+ting water becomes more and more obvious with decreasing 
+water saturation, resulting in the wetting water signal moving 
+away from the water line to the direction of decreasing diffu-
+sion coefficient in D-T2-T1 maps.
+4.3. NMR response of tight sandstone in the oil-wet case
+Oil wettability is assumed preserved in tight sandstone, with 
+longitudinal surface relaxivity (ρ1) set to 7 µm s−1 and trans-
+verse surface relaxivity (ρ2) set to 10 µm s−1. Saturating fluid 
+properties of tight sandstone are summarized in table 2. The 
+magnetization decays of CPMG pulse sequences with dif-
+ferent parameters are simulated using the random walk method 
+under a static magnetic field gradient of 0.3 T m−1, and the 
+parameters are shown in table 3. Gaussian noise of SNR is 100 
+and is added to obtain noisy echo trains data. D-T2-T1 maps of 
+tight sandstone with different oil saturation in the oil-wet case 
+are obtained by the multiple echo trains jointing inversion 
+Figure 3. 3D NMR response of tight sandstone with different water saturation in the water-wet case. (a)–(c) D-T2 map, D-T1 map and 
+T1-T2 map of tight sandstone fully saturated with wetting water. (d)–(f ) D-T2 map, D-T1 map and T1-T2 map of tight sandstone saturated 
+with 7 5% wetting water and 25% non-wetting oil. (g)–(i) D-T2 map, D-T1 map and T1-T2 map of tight sandstone saturated with 50% 
+wetting water and 50% non-wetting oil. ( j)–(l) D-T2 map, D-T1 map and T1-T2 map of tight sandstone saturated with 25% wetting water 
+and 7 5% non-wetting oil.
+waterw ater
+water
+waterwater
+water
+oilo il
+oil
+oiloil
+oil
+T1/T2=1
+T1/T2=1
+T1/T2=1
+1
+water water
+oil oil
+T1/T2=1
+(a) (b) (c)
+(d) (e) (f)
+(g) (h) (i)
+(j) (k) (l)
+J. Geophys. Eng. 13 (2016) 285
+Downloaded from https://academic.oup.com/jge/article/13/3/285/5113380 by guest on 19 July 2021
+
+--- PAGE 7 ---
+J Guo et al
+291
+method. The D-T2-T1 3D maps are projected onto D-T2, D-T1 
+and T1-T2 2D maps, respectively, as shown in figure 4. The 
+meanings of various lines in figure 4 are the same as those in 
+figure 3.
+Figure 4 shows that the intensity of the oil signal gradu-
+ally decreases and the intensity of the water signal gradually 
+increases, with oil saturation decreasing and water saturation 
+increasing. The position of the water signal in D-T2-T1 maps 
+does not change with changing water saturation. However, 
+with oil saturation decreasing, the oil signal gradually moves 
+away from the oil line and shifts to the short relaxation time in 
+D-T2 and D-T1 maps, and gradually moves to the short relaxa-
+tion time along the diagonal direction in T1-T2 maps. This is 
+because the ratio of the effective surface area and volume of 
+pore space in the tight sandstone occupied by wetting oil grad-
+ually increases with decreasing oil saturation, i.e. the surface 
+relaxation rate of wetting oil gradually increases, and as a 
+result, the wetting oil signal moves to the short relaxation time 
+in D-T2-T1 maps. In addition, the restricted diffusion phenom-
+enon of wetting oil becomes more and more obvious with 
+decreasing oil saturation, resulting in the wetting oil signal 
+moving away from the oil line to the direction of decreasing 
+diffusion coefficient in D-T2-T1 maps.
+Comparing D-T2-T1 maps in figure 3 with those in figure 4, 
+we can see that, in the water-wet case, the oil signal can be 
+identified according to the oil line in D-T2 maps and D-T1 
+maps, while in the oil-wetting case, the wetting oil signal 
+moves away from the oil line in D-T2 maps and D-T1 maps. 
+The total relaxation time of the wetting oil is obviously less 
+than its bulk relaxation time because of the influence of sur-
+face relaxation. The T1/T2 value of water and oil are both close 
+to 1, so the positions of the water and oil signal stand near the 
+Figure 4. 3D NMR response of tight sandstone with different oil saturation in the oil-wet case. (a)–(c) D-T2 map, D-T1 map and T1-T2 
+map of tight sandstone fully saturated with wetting oil. (d)–(f) D-T2 map, D-T1 map and T1-T2 map of tight sandstone saturated with 7 5% 
+wetting oil and 25% non-wetting water. (g)–(i) D-T2 map, D-T1 map and T1-T2 map of tight sandstone saturated with 50% wetting oil and 
+50% non-wetting water. ( j)–(l) D-T2 map, D-T1 map and T1-T2 map of tight sandstone saturated with 25% wetting oil and 7 5% non-wetting 
+water.
+oil
+oil
+oil
+oil
+waterw ater
+waterw ater
+waterw ater
+waterw ater
+oil oil
+oil oil
+T1/T2=1
+T1/T2=1
+T1/T2=1
+T1/T2=1
+(a) (b) (c)
+(d) (e) (f)
+(g)( h) (i)
+(j) (k) (l)
+J. Geophys. Eng. 13 (2016) 285
+Downloaded from https://academic.oup.com/jge/article/13/3/285/5113380 by guest on 19 July 2021
+
+--- PAGE 8 ---
+J Guo et al
+292
+diagonal (T1/T2 = 1) in T1-T2 maps, and their relative posi-
+tions change with wettability. According to the tight sandstone 
+simulated in this paper and its saturated fluid properties, when 
+the rock is water-wet, the water signal sits to the lower left 
+of the oil signal in T1-T2 maps. In contrast, when the rock is 
+oil-wet, the water signal sits to the top right of the oil signal 
+in T1-T2 maps. So it is not easy to identify water and oil in 
+T1-T2 maps.
+4.4. NMR maps of tight sandstone sensitivity to SNR
+The fluid signal in tight sandstone detected by NMR logging 
+is very weak, because of low porosity. The SNR of downhole 
+NMR data is low in tight sandstone reservoirs, and data SNR 
+strongly affects the result of NMR data inversion. The echo 
+trains of tight sandstone saturated with 50% wetting water and 
+50% non-wetting oil obtained in section 4 .2 are used as an 
+example. Gaussian noise of different SNR (SNR = 50, 20, 10) 
+is added to echo trains data, and D-T2-T1 maps of tight sand-
+stone with different SNR are obtained by the multiple echo 
+trains jointing inversion method. The D-T2-T1 3D maps are 
+projected onto D-T2, D-T1 and T1-T2 2D maps, respectively, 
+as shown in figure 5. The meanings of various lines in figure 5 
+are the same as those in figure 3.
+As seen in figure 5, we can identify water and oil sig-
+nals clearly in D-T2, D-T1 and T1-T2 maps, when SNR is 50. 
+With decreasing SNR, the signals of water and oil gradually 
+overlap one another and appear ‘long tail’ along the direction 
+of decreasing diffusion coefficient in D-T2 and D-T1 maps, so 
+the ability of identifying water and oil signals based on NMR 
+maps gradually decreases at this time. The effects of SNR on 
+T1-T2 maps is a little weaker than the effects of SNR on D-T2 
+and D-T1 maps.
+5. Restricted diffusion model
+In porous media, fluid molecular motion is affected by the 
+presence of pore walls, and diffusion is restricted such that the 
+apparent diffusion coefficient is time dependent and smaller 
+than that of the bulk fluid (Mitra et al 19 9 2, Latour et al 19 9 3, 
+Hurlimann et  al 2002a, Luo et  al 2015). According to the 
+D-T2-T1 maps of tight sandstone in section 4, restricted dif-
+fusion has a great influence on the NMR response of wetting 
+fluid. For the water-wet case, the water signal moves away 
+from the water line, and for the oil-wet case, the oil signal 
+moves away from the oil line in 2D diffusion-relaxation maps, 
+which makes it hard to identify water and oil. So water could 
+be mistaken for oil in the water-wet case and oil could be mis-
+taken for water or oil of higher viscosity in the oil-wet case. 
+We should consider the effects of restricted diffusion when 
+interpreting D-T2-T1 maps of tight sandstone, especially in the 
+small wetting fluid saturation case. The unrestricted diffusion 
+Figure 5. 3D NMR maps of tight sandstone sensitivity to SNR. (a)–(c) D-T2 map, D-T1 map and T1-T2 map of tight sandstone saturated 
+with 50% wetting water and 50% non-wetting oil in the case of SNR = 50. (d)–(f) D-T2 map, D-T1 map and T1-T2 map of tight sandstone 
+saturated with 50% wetting water and 50% non-wetting oil in the case of SNR = 20. (g)–(i) D-T2 map, D-T1 map and T1-T2 map of tight 
+sandstone saturated with 50% wetting water and 50% non-wetting oil in the case of SNR = 10.
+water
+oil
+water
+water
+oil
+oil
+oiloil
+oil
+waterw ater
+water
+T1/T2=1
+T1/T2=1
+T1/T2=1
+(a) (c)(b)
+(d)
+(h) (i)(g)
+(e) (f)
+J. Geophys. Eng. 13 (2016) 285
+Downloaded from https://academic.oup.com/jge/article/13/3/285/5113380 by guest on 19 July 2021
+
+--- PAGE 9 ---
+J Guo et al
+293
+model is limited in tight sandstone, so we refer to the restricted 
+diffusion model (Zielinski et al 2010, Minh et al 2012, 2015) 
+and obtain D-T2 correlation of wetting fluid in tight sand-
+stone. D-T2 correlation can be applied to identify wetting fluid 
+in D-T2 maps. We have further expanded the model to obtain 
+D-T1 correlation of wetting fluid in D-T1 maps of tight sand-
+stone. Under restricted diffusion, D-T2 or D-T1 correlation of 
+wetting fluid is shown below:
+()
+()(){}
+⎡
+⎣
+⎢
+⎢
+⎢
+⎤
+⎦
+⎥
+⎥
+⎥
+γ
+α
+αγ
+=−
++
+++
+=DD
+L
+L
+T1 ,ii
+i
+L
+L
+i
+L
+L
+,1 ,2 0
+D
+2
+D
+2
+D
+M
+D
+M
+ (19 )
+where α= πρ ′i
+4
+9
+1
+T
+1
+ii
+, γ=− ∞
+1 D
+D0
+ and =LD TD0 D. For a 
+CPMG pulse sequence, ≈TT ED 2, TE is echo spacing, 〈〉 
+denotes the average of the square root, LM is the heterogeneity 
+length scale of the medium, usually LM ≫ LD. ρ′i is the effec-
+tive surface relaxivity, if there is only wetting fluid in the pore, 
+ρ ρ=′i i. In the mixed-saturated case, ρ ρ=′ +i
+S
+S iS
+g
+g
+,1
+,1 1,2
+, where Sg,1 
+is the contact area between the wetting fluid and the grain sur-
+face, S1,2 is the contact area between the wetting fluid and the 
+non-wetting fluid.
+The restricted diffusion model was applied to interpret 
+D-T2 and D-T1 maps of tight sandstone saturated with 25% 
+wetting fluid in section 4, as shown in figure 6. The blue dashed 
+line represents the restricted water line, the green dashed line 
+represents the restricted oil line, the white solid line represents 
+the bulk relaxation line of water, and the red solid line rep-
+resents the bulk relaxation line of oil. The restricted wetting 
+fluid line starts from the intersection point of its free diffusion 
+line and bulk relaxation line, no matter whether in D-T2 maps 
+or in D-T1 maps, such as point A in figure 6(a), point B in 
+figure 6(b), point C in figure 6(c) and point D in figure 6(d). 
+The wetting fluid apparent diffusion coefficient gradually 
+decreases and tends to be constant with decreasing relaxation 
+time (T1 or T2), and changing restricted fluid line tends to be 
+the same regardless of the type of fluid. The wetting water 
+signal sits on the restricted water line in figures 6(a) and (b), 
+and the wetting oil signal sits on the restricted oil line in fig-
+ures 6(c) and (d), which suggests that the wetting fluid signal 
+can be accurately identified by the restricted diffusion model 
+in D-T2 maps and D-T1 maps.
+6. Conclusions
+In this paper, magnetization decays of CPMG pulse sequences 
+with different waiting times (TW ) and echo spacings (TE ) in 
+tight sandstone were simulated, and D-T2-T1 maps of tight 
+sandstone under different fluid saturation were obtained by 
+the multiple echo trains jointing inversion method. Various 
+fluids saturations, wettability, data SNR and restricted dif-
+fusion effects on the NMR response of tight sandstone were 
+thoroughly studied.
+When the wettability of tight sandstone is determined, 
+the surface relaxation rate of wetting fluid increases and the 
+Figure 6. Restricted diffusion model of wetting fluid. (a)–(b) Interpretation for the restricted diffusion water signal in D-T2 map and D-T1 
+map of tight sandstone saturated with 25% wetting water and 7 5% non-wetting oil. (c)–(d) Interpretation for the restricted diffusion oil 
+signal in D-T2 map and D-T1 map of tight sandstone saturated with 25% wetting oil and 7 5% non-wetting water.
+water water
+water water
+oil
+oil
+oil
+oil
+T2B,water T1B,water
+T2B,oil T1B,oil
+AB
+CD
+(a) (b)
+(c) (d)
+J. Geophys. Eng. 13 (2016) 285
+Downloaded from https://academic.oup.com/jge/article/13/3/285/5113380 by guest on 19 July 2021
+
+--- PAGE 10 ---
+J Guo et al
+294
+phenom enon of restricted diffusion tends to be obvious with 
+its saturation decreasing. Furthermore, the wetting fluid signal 
+moves along the directions of short relaxation time and small 
+diffusion coefficient in D-T2-T1 maps. When the fluid satur ation 
+of tight sandstone is determined, if rock wettability is changed 
+from water-wet to oil-wet, the wetting oil signal will shift to 
+the short relaxation time in D-T2-T1 maps due to the effect of 
+surface relaxation. With decreasing SNR, the ability to identify 
+water and oil signals based on NMR maps gradually decreases.
+The wetting fluid signal will move away from the fluid free 
+diffusion line in tight sandstone D-T2-T1 maps because of the 
+effect of restricted diffusion, but can be identified accurately 
+by using the expanded restricted diffusion model.
+Acknowledgments
+This project was funded by the National Natural Science 
+Foundation of China—China National Petroleum Corpora-
+tion Petrochemical Engineering United Fund (U1262114 ) and 
+the Specialized Research Fund for the Doctoral Program of 
+Higher Education of China (Grant No. 20130007 110012).
+References
+Alghamdi T M and Arns C H 2012 Correlations between NMR 
+T2-D responses and relative permeability from micro x-ray-CT 
+images SPE 86th Annual Technical Conf. and Exhibition 
+(Society of Petroleum Engineers) SPE-158 168 -MS
+Arns C H 2002 The Influence of Morphology on Physical Properties 
+of Reservoir Rocks (Sydney: The University of New South Wales)
+Arns C H and Melean Y 2009 Accurate simulation of NMR 
+responses of mono-mineralic carbonate rocks using x-ray-CT 
+images SPWLA 50th Annual Logging Symp. Conf. Paper 
+SPWLA-2009 -33057
+Arns C H, Alghamdi T A and Arns J Y 2011 Numerical analysis of 
+nuclear magnetic resonance relaxation-diffusion responses of 
+sedimentary rock New J. Phys. 13 015004
+Bergman D J, Dunn K J, Schwartz L M and Mitra P P 19 9 5 
+Self-diffusion in a periodic porous medium: a comparison of 
+different approaches Phys. Rev. E 51 339 3–4 00
+Bloch F 19 4 6 Nuclear introduction Phys. Rev. 70 4 60–74
+Chen S H, Beard D C, Gillen M, Fang S and Zhang G 2003 MR 
+explorer log acquisition methods: petrophysical-objective-
+oriented SPWLA 44th Annual Logging Symp. Conf. Paper 
+SPWLA-2003-ZZ
+Dunn K J, Bergman D J and Latorraca G A 2002 Nuclear Magnetic 
+Resonance: Petrophysical and Logging Applications 
+(New York: Pergamon)
+George R C, Xiao L Z and Prammer M G 19 9 8 NMR Logging 
+Principles and Applications (Tewkesbury: Halliburton Energy 
+Services)
+Heaton N J, Minh C C, Kovats J and Guru U 2004 Saturation 
+and viscosity from multidimensional nuclear magnetic 
+resonance logging SPE 78th Annual Technical Conf. and 
+Exhibition Society of Petroleum Engineers SPE-9 0564 -MS
+Heaton N, Bachman H N, Minh C C, Decoster E, Lavigne J, White J 
+and Carmona R 2008 4 D NMR-applications of the radial 
+dimension in magnetic resonance logging Petrophysics 49 17 2–86
+Hurlimann M D, Venkataramanan L and Flaum C 2002a The 
+diffusion-spin relaxation time distribution function as an 
+experimental probe to characterize fluid mixtures in porous 
+media J. Chem. Phys. 117 10223
+Hurlimann M D, V enkataramanan L, Flaum C, Speier P , Karmonik C, 
+Freedman R and Heaton N 2002b Diffusion-editing: new NMR 
+measurement of saturation and pore geometry SPWLA 43rd 
+Annual Logging Symp. Conf. Paper SPWLA-2002-FFF
+Jin G, Patzek T W and Silin D B 2003 Physics-based reconstruction 
+of sedimentary rocks SPE 77th Annual Technical Conf. and 
+Exhibition (Society of Petroleum Engineers) SPE-8 358 7 -MS
+Kenyon W E 19 9 7 Petrophysical principles of applications of NMR 
+logging The Log Anal. 38 21–43
+Latour L L, Mitra P P, Kleinberg R L and Sotak C H 19 9 3 Time-
+dependent diffusion coefficient of fluids in porous media as a 
+probe of surface-to-volume ratio J. Magn. Reson. 101 34 2–6
+Luo Z X, Paulsen J, Vembusubramanian M and Song Y Q 2015 
+Restricted diffusion effects on nuclear magnetic resonance DT2 
+maps Geophysics 80 41–7
+Minh C C, Crary S F, Zielinski L, Liu C B, Jones S and 
+Jacobsen S J 2012 2D-NMR applications in unconventional 
+reservoirs SPE 86th Annual Technical Conf. and Exhibition 
+(Society of Petroleum Engineers) SPE-16157 8 -MS
+Minh C C, Crary S, Singer P M, Valori A, Bachman N, Hursan G, 
+Ma S, Belowi A, Kraishan G and Aramco S 2015 Determination 
+of wettability from magnetic resonance relaxation and diffusion 
+measurements on fresh-state cores SPWLA 56th Annual 
+Logging Symp. Conf. Paper SPWLA-2015-III
+Mitra P P, Sen P N, Schwartz L M and Le D P 19 9 2 Diffusion 
+propagator as a probe of the structure of porous media Phys. 
+Rev. Lett. 68 3555–8
+Sun B and Dunn K J 2002 Core analysis with two dimensional 
+NMR Int. Symp. of the Society of Core Analysts SCA2002-38
+Talabi O A, Alsayari S, Fernø M A, Riskedal H, Graue A and 
+Blunt M J 2008 Pore-scale simulation of NMR response in 
+carbonates Int. Symp. of the Society of Core Analysts SCA2008 -30
+Talabi O A, Alsayari S, Iglauer S and Blunt M J 2009 Pore-scale 
+simulation of NMR response J. Pet. Sci. Eng. 67 168–78
+Talabi O A and Blunt M J 2010 Pore-scale network simulation of 
+NMR response in two-phase flow J. Pet. Sci. Eng. 72 1–9
+Tan M, Wang P and Mao K 2014 Comparative study of inversion 
+methods of three-dimensional NMR and sensitivity to fluids 
+J. Appl. Geophys. 103 12–30
+Torrey H C 19 56 Bloch equations with diffusion terms Phys. Rev. 
+104 563
+Toumelin E, Torres-Verdín C, Sun B and Dunn K J 2004 A 
+numerical assessment of modern borehole NMR interpretation 
+techniques SPE 78th Annual Technical Conf. and Exhibition 
+(Society of Petroleum Engineers) SPE-9 0539 -MS
+Toumelin E, Torres-Verdín C, Sun B and Dunn K J 2007 Random-
+walk technique for simulating NMR measurements and 2D 
+NMR maps of porous media with relaxing and permeable 
+boundaries J. Magn. Reson. 188 83–96
+Xie R H, Xiao L Z, Dunn K J, Liao G Z and Liu T D 2005 Two-
+dimensional NMR logging Well Logging Technol. 29 4 30–4 
+(in Chinese)
+Xie R H, Xiao L Z and Lu D W 2009 a (T2,T1) two-dimensional 
+NMR method for fluid typing Well Logging Technol. 
+33 26–31(in Chinese)
+Xie R H and Xiao L Z 2009 The (T2, D) NMR logging method for 
+fluids characterization Chin. J. Geophys. 52 109 2–100 (in Chinese)
+Xie R H, Xiao L Z, Liu J J and Dunn K J 2009 b A method for 
+multiple echo trains jointing inversion of NMR relaxation 
+measurements Chin. J. Geophys. 52 29 13–9 (in Chinese)
+Zheng L H and Chiew Y C 19 8 9 Computer simulation of diffusion-
+controlled reactions in dispersions of spherical sinks J. Chem. 
+Phys. 90 322–7
+Zielinski L, Ramamoorthy R, Minh C C, Al Daghar K A, Sayed R H 
+and Abdelaal A F 2010 Restricted diffusion effects in saturation 
+estimates from 2D diffusion-relaxation NMR maps SPE 84th 
+Annual Technical Conf. and Exhibition (Society of Petroleum 
+Engineers) SPE-134 8 4 1-MS
+J. Geophys. Eng. 13 (2016) 285
+Downloaded from https://academic.oup.com/jge/article/13/3/285/5113380 by guest on 19 July 2021

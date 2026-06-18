@@ -1,0 +1,1651 @@
+--- PAGE 1 ---
+PHYSICAL REVIEW E 88, 032813 (2013)
+Modeling two-dimensional magnetic resonance measurements in coupled pore systems
+L. M. Schwartz,1 D. L. Johnson,1 J. Mitchell,2,3 T. C. Chandrasekera,2 and E. J. Fordham 3
+1Schlumberger Doll Research, One Hampshire Street, Cambridge, Massachusetts 02139, USA
+2Department of Chemical Engineering and Biotechnology, University of Cambridge, Cambridge CB2 3RA, United Kingdom
+3Schlumberger Gould Research, High Cross, Cambridge CB3 0EL, United Kingdom
+(Received 16 July 2013; published 30 September 2013)
+We present numerical simulations of a two-dimensional (2D) nuclear magnetic resonance process,
+T2-storage-T2, on a simple mixed porosity system, the micrograin consolidation ( μGC) model. The results
+of these calculations are compared with predictions based on the analytic two-site exchange model, for which
+we have independently established numerical values for all the input parameters. Although there is qualitative
+and semiquantitative agreement between the two models, we identify speciﬁc instances where the two-site model
+fails to properly describe the combined effects of relaxation and diffusion. Generally, these instances occur when
+a gradient in magnetization within the large pores of the μGC model is established during the initial phase of the
+2D process. The two-site model assumes that the magnetization is spatially uniform within each of its subpore
+systems and thus cannot describe such effects.
+DOI: 10.1103/PhysRevE.88.032813 PACS number(s): 89 .90.+n, 05.40.Fb, 66.10.−x, 76.60.−k
+I. INTRODUCTION
+Two-dimensional (2D) nuclear magnetic resonance (NMR)
+relaxation experiments have been applied to a wide range of
+ﬂuid-ﬁlled porous media including petroleum reservoir rocks
+[1–7], bead packs [ 8], cements [ 9,10], and gypsum plaster
+[11]. In addition, they have been used to study catalysts [ 12],
+surfactants [13], liquid crystals [14,15], and other materials of
+interest [16,17].
+Two-dimensional NMR relaxation measurements provide a
+correlation between the initial (encoding) and ﬁnal (detection)
+parts of the experiment. The encoding and detection sequences
+may involve longitudinal T
+1 or transverse T2, decay. An
+important class, including T2-T2 [6,10,18] and T1-T1 [19]
+correlations, incorporates a user-controlled storage interval ts
+between the encoding and detection intervals. Typically, the
+experimental data are processed to produce a 2D distribution
+of lifetimes. In the resulting cross plot off-diagonal peaks
+may be observed; these have been interpreted, heuristically, in
+terms of diffusive exchange between distinct spin populations.
+Indeed, by varying t
+s , exchange rates or coupling parameters
+have been estimated by several authors [ 6–8,10,19]. While
+the well-deﬁned storage time is appealing for qualitative
+interpretation, there is a continuing controversy as to the link
+between the off-diagonal peak amplitudes and t
+s .
+In this paper we focus on the T2-ts -T2 correlation in model
+systems with distinct pore subpopulations. Our calculations
+proceed in the time domain; we follow the spin decay from
+the initial encoding sequence through the storage period and
+into the detection sequence. Our results are easily displayed
+as 2D distributions of relaxation lifetimes and we can directly
+monitor the dependence of the off-diagonal peaks amplitudes
+on the storage time t
+s . The ﬁrst model we work with is
+a two-site exchange model introduced by Zimmerman and
+Brittin [ 20] and by McConnell [ 21]. The model is based
+on several critical assumptions, most important that each
+spin population, in isolation, exhibits just a single relaxation
+mode. Physically, this would be consistent with very weak
+surface relaxation as discussed by Brownstein and Tarr [ 22].
+However, individual pores in real samples may exhibit multiple
+relaxation modes [ 22]. Such behavior can arise for a variety
+of reasons, for example, from intermediate or large values
+of surface relaxation or from magnetic susceptibility contrast
+inducing intrapore ﬁeld gradients [ 6,23]. We turn next to the
+micrograin consolidation ( μGC) model. This model is based
+on an explicit three-dimensional pore geometry that idealizes
+the mixture of macropores and micropores found in many
+carbonate grainstones [ 24]. Such textures are important in
+oil reservoirs and have been studied experimentally using the
+T
+2-T2 correlation [7].
+The purpose of our analysis is to clarify the interpretation of
+T2-ts -T2 measurements. Since the value of 2D measurements is
+related to the way that they describe coupling between distinct
+pore populations, it will be useful to modulate this coupling
+directly in our calculations. This is easily done in both the
+two-site exchange andμGC models and we make extensive use
+of this feature. In the ﬁrst case we can turn off (i.e., set to zero)
+the coupling parameters during any of the three stages of the
+measurement. Similarly, in the μGC model we can introduce
+a barrier between the macropores and micropores. As in the
+two-site exchange model, the barrier can be put in place during
+the spin encoding, spin storage, or spin detection parts of
+the calculation. With the ability to monitor the coupling, we
+show that while the amplitude of the off-diagonal peaks in
+the T
+2-T2 map is initially proportional to ts , it is not true
+that these peaks are wholly controlled by diffusive interaction
+during the storage period. Diffusion within a given pore may
+already impose a magnetization gradient even during the ﬁrst
+(encoding) phase of the T
+2-ts -T2 protocol.
+Section II of this paper has three parts, a brief review
+of NMR diffusion and surface relaxation, a description of
+the experimental protocol, and a summary of the equations
+underlying the two-site exchange and μGC models. In Sec. III
+the results of our calculations are presented. In many respects
+the two-site exchange and μGC models yield correlations that
+are quite similar. However, when we modulate the diffusive
+coupling some interesting differences between the two models
+are revealed. In Sec. IV we analyze our results based on the
+normal modes of the diffusion equation. We show that there
+032813-11539-3755/2013/88(3)/032813(13) ©2013 American Physical Society
+
+--- PAGE 2 ---
+L. M. SCHW ARTZet al. PHYSICAL REVIEW E 88, 032813 (2013)
+is a signiﬁcant simpliﬁcation in the formalism if one assumes
+that the system can be approximated as a linear combination
+of only two different basis functions. One of the problems
+in applying the two-site exchange model to real experimental
+data is that it is difﬁcult to unambiguously determine values
+for the parameters that deﬁne the model. Here, because we
+have control over the μGC geometry, we are able to deduce
+all the parameters cleanly. We then compare the predictions
+of the two-site model directly against our simulations of
+this 2D process. We conclude (Sec. V) by summarizing the
+relationship between the two-site exchange and μGC models.
+Under certain conditions the two-site exchange model can
+be relied upon to estimate exchange rates. However, more
+generally, direct solutions of the diffusion equation in speciﬁc
+geometries are required, as is done in a variety of different
+contexts with existing 3D microtomography techniques [ 25].
+II. BASIC CONSIDERA TIONS
+A. Diffusion and magnetic relaxation
+Before considering the 2D NMR measurement, it will be
+useful to summarize the equations that describe magnetic
+resonance in ﬂuid-saturated porous media. We picture a system
+initially prepared with a uniform magnetization M(r,t = 0) =
+M
+0 in the ﬂuid phase. Here M0 is the initial magnetic moment
+per unit pore volume in the sample. The evolution of M(r,t)i s
+then controlled by a combination of molecular diffusion within
+the pore space and absorbtion at the pore-grain interface.
+The basic equations are discussed in detail by Brownstein
+and Tarr [ 22]. The evolution of the magnetization [magnetic
+moment per unit volume M(r,t)] is described by the diffusion
+equation
+D
+0∇2M(r,t) = ∂M (r,t)
+∂t (1)
+subject to the boundary condition on the interface between the
+pore ﬂuid and the solid grain
+[D0 ˆn · ∇M(r,t) + ρM (r,t)]interface = 0. (2)
+[We have set the bulk ﬂuid relaxation equal to zero, without
+loss of generality, because this effect can be added simply by
+the substitution M(r,t) → e
+−t/TB M(r,t), where TB is either
+the longitudinal or transverse relaxation time, as the case may
+be [22].]
+Here D
+0 is the diffusion coefﬁcient for the bulk ﬂuid and
+the parameter ρ describes the interface absorption strength. In
+the present analysis the values of ρ will be assumed constant
+over the entire interface [ 26]. Given these equations, the total
+magnetic moment of the sample can be represented as a
+standard eigenfunction-eigenvalue expansion
+M(t) = M
+0VP
+∞∑
+n=1
+Ane−λnt, (3)
+where VP is the volume of the pore space. Each decay rate λn
+is an eigenvalue pertaining to Eqs. (1) and (2); each amplitude
+An is given in terms of the associated eigenmode qn ≡ qn(r).
+These are deﬁned via solutions to the eigenvalue-eigenvector
+problem
+D
+0∇2qn(r) + λnqn(r) = 0,n = 1,2,3,..., (4)
+subject to the same boundary condition (2).T h es e t{qn} forms
+a complete and orthonormal basis for continuous functions of
+position within the pore space, properties that we shall use
+later. The amplitudes in Eq. (3) are
+A
+n = (m0 · qn)2
+VP
+, (5)
+where m0(r) is a function that is equal to unity in the pore space
+and zero elsewhere. Our notation is that the inner product of
+two functions is the usual
+f · g
+def
+=
+∫
+VP
+f (r)g(r)d3r, (6)
+where f (r) and g(r) are any two functions of position within
+the pore space. Equations (1)–(6) are discussed in detail in
+Ref. [22].
+In general, the eigenfunctions qn(r) and eigenvalues λn
+depend on the value of ρ and on the shape of the pore-grain
+interface. In the two most familiar experiments one looks at the
+decay of either longitudinal (1) or transverse (2) magnetization.
+The above equations describe both measurements although,
+typically, 1.5 <ρ
+2/ρ1 < 2.
+A word on notation is in order: For the purposes of equations
+that involve the inner product it is convenient to represent a
+state function in bold type, e.g., f. However, this represents
+a continuous function of position within the pore space, e.g.,
+f (r). So f and f (r) are the same thing. Later, in Sec. II C
+we introduce the two-site exchange model in which any state
+of the system is represented by a two-dimensional vector f =
+(f
+A,fB ). Here f represents a function that takes on the constant
+value fA in pore A and the constant value fB in pore B.T h e
+inner product between two so-deﬁned state vectors f and g
+still follows from the same deﬁnition (6): f · g = fAgAVA +
+fBgBVB , where VA and VB are the volumes of pore A and
+pore B, respectively. The equations that we presented above,
+as well as those we develop in Secs. II B and IV B, are equally
+applicable to the formalism in which the magnetization is
+described by continuous functions or to that in which it is
+described by two-dimensional vectors. In the latter case the
+integration over the pore space becomes trivially simple.
+B. The 2D measurement protocol
+It will be useful to summarize the experimental protocol to
+which our calculations relate. The ﬁrst T2 interval comprises
+a standard Carr-Purcell–Meiboom-Gill (CPMG) series of N1
+spin echoes [27]( o rs e e[28]). The duration of this preparation
+portion is τ1 ≡ N1te, where te is the temporal separation
+of individual spin echoes. At the end of τ1,a9 0 ◦ radio
+frequency (rf) pulse is applied to store the encoded spins on
+the longitudinal axis for a time t
+s , during which the spins
+undergo longitudinal relaxation. The spins are then restored
+to the transverse plane by another 90
+◦ rf pulse and a second
+CPMG sequence of N2 echoes is used to monitor the decay
+of magnetization. The duration of this second T2 interval is
+τ2 ≡ N2te. Data (spin echo amplitudes) are acquired only in
+this latter portion of the experiment, but a 2D data matrix is
+constructed by varying the number of echoes N
+1 in the ﬁrst T2
+interval. In this manner, the experiment is sensitive to the decay
+of magnetization in the ﬁrst T2 interval via the amplitude of the
+032813-2
+
+--- PAGE 3 ---
+MODELING TWO-DIMENSIONAL MAGNETIC RESONANCE ... PHYSICAL REVIEW E 88, 032813 (2013)
+ﬁrst echo in the secondT2 interval. The entire rf pulse sequence
+is illustrated in Fig. 1(a). We denote the magnetization at an
+arbitrary time in the experiment by M(τ2,τ1; ts ).
+A 2D relaxation time correlation is obtained by numerical
+inversion of the 2D Fredholm integral that describes the
+expected form of the data; methods for inverting NMR
+relaxation and diffusion correlations are reviewed elsewhere
+[29]. The relevant integral equation is
+M(τ
+2,τ1; ts ) =
+∫∫
+K
+(
+τ2,T (1)
+2 ,τ1,T (2)
+2
+)
+×P
+(
+T (1)
+2 ,T (2)
+2 ; ts
+)
+d log10 T (1)
+2 d log10 T (2)
+2
++e(τ2,τ1), (7)
+where K is the kernel function (expected form of the data), P
+is the required distribution, and e is experimental noise. The
+different T2 axes are denoted by T (2,1)
+2 ; T (1)
+2 is associated with
+the τ2 data dimension for consistency with the familiar one-
+dimensional lifetime distribution. For the T2-T2 experiment
+K
+(
+τ2,T (1)
+2 ,τ1,T (2)
+2
+)
+= exp
+(
+−τ2/T (1)
+2
+)
+exp
+(
+− τ1/T (2)
+2
+)
+. (8)
+To solve Eq.(7) for the distributionP (T (1)
+2 ,T (2)
+2 ; ts )w ee m p l o y
+Tikhonov regularization [ 30]; a stable solution is obtained in
+the presence of noise by forcing the resultant distribution to be
+non-negative, smooth, and bounded by ﬁnite values of T (1,2)
+2
+[31–34].
+The theoretical description of this experiment follows along
+the lines of the derivation of Eqs. (3) and (5). Between t = 0
+and t = τ1 the magnetization is given by expressions analo-
+gous to Eqs. (3) and (5) using the transverse eigenfunctions
+and eigenvalues {λn,qn}. Then M(r,τ1) is the initial condition
+for an expansion based on the longitudinal eigenfunctions and
+eigenvalues {Q
+l} and μl . [Note that, because M(r,τ1) will
+in general not be spatially uniform, its projection onto the
+longitudinal eigenfunctions is nontrivial.] Finally, M(r,τ
+1 +
+ts ) is the initial state for the ﬁnal transverse basis function
+expansion between t = τ1 + ts and τ1 + ts + τ2. The result
+is [31,33]
+M(τ1,τ2; ts ) =
+∑
+m,n
+Mnm(ts )e−[λnτ1+λmτ2], (9)
+where
+Mnm(ts ) = M0
+∑
+l
+[m0 · qn][qn · Ql ][Ql · qm]
+× [qm · m0]e−μlts . (10)
+From Eq. (10) we see, by inspection, that the matrix is
+symmetric: Mnm(ts ) = Mmn(ts ). (Here and for the remainder
+of this article, l,m,n are indices relating to the speciﬁc normal
+modes of the problem and are not to be confused with
+echo numbers, mentioned earlier.) In practical terms we take
+it that any well-deﬁned narrow peak in the experimentally
+determined distributionP (T
+(1)
+2 ,T (2)
+2 ; ts ) at valuesT (n) andT (m),
+say, represents a broadened δ function in the space of the
+eigenvalue decay rates λn = 1/T (n) and λm = 1/T (m).
+As mentioned earlier, theT1 normal modes form a complete
+set, which we write in dyadic notation as
+∑
+l
+Ql Ql = I (11)
+and similarly for the T2 modes
+∑
+l
+ql ql = I. (12)
+[When Eqs. (11) and (12) are applied to continuous functions
+of position, I = δ(r − r′); for discrete basis sets, I = δij .]
+Moreover, the basis functions are orthonormal:
+Qn · Qm = δnm ∀n,m (13)
+and
+qn · qm = δnm ∀n,m, (14)
+where δnm is the Kronecker delta. These general properties
+allow one to derive the limiting behavior for short storage
+times μ
+lts ≪ 1. All the exponentials in Eq. (10) are equal to
+unity, the sum on l collapses because of Eq. (11), and the sum
+on m collapses because of Eq. (14) with the result that
+M(τ1,τ2; ts → 0) = M0
+∑
+n
+|qn · m0|2e−λn (τ1+τ2). (15)
+However, this is just Eq. (3) with t = τ1 + τ2. If the storage
+time is short enough the magnetization distribution does not
+change during storage and one has simple T
+2 decay; the off-
+diagonal elements of Mnm vanish identically.
+C. Models
+We will compare calculations based on two models that
+can be used to describe the experiment represented in Fig. 1.
+Throughout this paper two assumptions are made to simplify
+our analysis. First, we ignore both longitudinal and transverse
+relaxation in the bulk ﬂuid. As noted above, this effect
+can easily be added after calculating the surface controlled
+relaxation. Second, we set ρ
+1 = 0 so there is no relaxation
+during the storage period. This maximizes the number of
+ts
+(a)
+te te
+N1 N2 time
+(b) tsτ1 τ2
+FIG. 1. Schematic of the T2-T2 exchange measurement: (a) the
+rf pulse sequence diagram for the NMR experiment; thin and thick
+vertical lines represent 90◦ and 180◦ rf pulses, respectively.N1 echoes
+are generated in the ﬁrst T2 encoding interval and N2 echoes are
+monitored in the second T2 interval. The spins are stored for a time
+ts between the two T2 intervals. The timing diagram (b) indicates the
+corresponding parts of our calculations. The duration of the ﬁrst T2
+interval is τ1 and the duration of the second T2 interval is τ2.F o r
+ag i v e nts , τ1 is varied on a logarithmic scale and the data are then
+processed.
+032813-3
+
+--- PAGE 4 ---
+L. M. SCHW ARTZet al. PHYSICAL REVIEW E 88, 032813 (2013)
+FIG. 2. Microporous version of the grain consolidation model in
+which the large grains are comprised of smaller grains whose centers
+lie on a lattice constructed by subdividing the original unit cell. The
+solid line separating the macropores and micropores represents a
+synthetic barrier that can be switched on and off during the random
+walk simulation.
+spins that survive to the data acquisition segment and are
+available for coupling between distinct spin populations. This
+assumption simpliﬁes our numerical simulations, but does not
+change the qualitative features of our results.
+The μGC model, shown in Fig. 2, is based on a three-
+dimensional periodic packing with a bimodal pore-size distri-
+bution [24,35]. Here large grains, each of which is itself porous,
+are packed on a simple cubic lattice. The large grains are
+comprised of smaller (possibly) overlapping grains centered
+on a lattice constructed by dividing the original unit cell into
+smaller cells. The scale factor governing this division controls
+the degree of mismatch in the model’s pore sizes. If the large
+grains overlap, the μGC model has pathways through the
+large open pores and (roughly) parallel pathways through the
+microporous grains. For the calculations described in this paper
+the edge of the large cube is taken to be 200 μm and the scale
+factor is 20, corresponding to small cells with an edge length
+of 10 μm. The radius of the large grains R
+M and that of the
+small grains Rm are given in Table I. Also given in the table
+are the corresponding macroporosities and microporosities
+(φ
+M and φm, respectively). [The intrinsic porosity within the
+microporous region is φμ = 0.180 and (1 − φM )φμ = φm.] In
+Refs. [ 24,35] we have shown how variable step size random
+walks can be applied to theμGC model to simulate the solution
+of Eqs. (1) and (2). These same techniques can be applied to the
+2D measurement sequence described above. As in Ref. [ 35],
+the diffusion coefﬁcient D0 assigned to the ﬂuid that ﬁlls the
+pore space is 1 μm2/ms = 10−5 cm2/s.
+TABLE I. Parameter values for the simulations based on the μGC
+model.
+RM 125 μm
+φM 0.149
+Rm 6.1 μm
+φm 0.153
+φtotal 0.302
+D0 103 μm2/s
+ρ1 0
+ρ2 2 μm/s
+The second model, which can be treated analytically,
+describes two spin reservoirs coupled by diffusive exchange.
+We picture two spin populations (in our case the macropores
+and the micropores) contributing signal volumes S
+A and
+SB , which are coupled to each other. Here SA,B represents
+the difference from the equilibrium values of the magnetic
+moment in A or B; the total out-of-equilibrium magnetic
+moment is simply M(t) = S
+A(t) + SB (t). In the absence of
+coupling, each population is characterized by a single rate
+for longitudinal (transverse) decay rate R1(2)
+A = 1/T 1(2)
+A and
+R1(2)
+B = 1/T 1(2)
+B . [In the language of Eq. (3), a single mode
+describes the magnetization decay in the absence of coupling.]
+In the language of Ref. [ 22], each subsystem is assumed
+to be in the so-called fast diffusion limit in the sense that
+ρa/D
+0 ≪ 1, where a is a characteristic spatial dimension
+of each subsystem. This assumption guarantees that the
+magnetization within each subsystem is spatially uniform at
+any time.
+Analytic expressions for the time dependence of S
+A and SB
+during the τ1 → ts → τ2 measurement sequence are derived
+by solving the coupled equations
+( dSA
+dt
+dSB
+dt
+)
+=
+(
+−RA − κA κB
+κA −RB − κB
+)
+·
+(
+SA
+SB
+)
+, (16)
+where the parameters κA and κB describe the effective
+exchange rates between the two reservoirs. When the magne-
+tization densities in the two pores are equal S
+A/VA = SB/VB
+(VA and VB are the volumes of the pores) exchange from
+A → B occurs at the same rate as B → A. This condition of
+detailed balance implies κAVA ≡ κBVB
+def
+= k.
+Equation (16) describes a heuristic two-site model with
+potential applicability to a variety of situations. Here we
+explore its applicability to the evolution of spin populations
+in the microporous μGC model. Thus we envision that the
+parameter k is related to the diffusivity D
+0, though the latter
+parameter does not appear explicitly in the model.
+The magnetization in the coupled system is evaluated from
+the eigenvalues of Eq. (16) [9,33]:
+λ± = RA + RB + k(uA + uB ) ±
+√
+(RA − RB )2 + 2k(RA − RB )(uA − uB ) + k2(uA + uB )2
+2 , (17)
+032813-4
+
+--- PAGE 5 ---
+MODELING TWO-DIMENSIONAL MAGNETIC RESONANCE ... PHYSICAL REVIEW E 88, 032813 (2013)
+where uA,B = 1/VA,B . For each eigenvalue λ± there is an
+associated eigenvector (S±
+A ,S±
+B ). We have found it convenient
+to express our results in terms of the magnetization m± =
+(m±
+A,m±
+B
+) = (S±
+A /VA,S±
+B /VB ). From Eq. (16) we may use
+either of the following expressions for the (unnormalized)
+normal modes:
+m
+± = [k,(RAVA + k − λ±VA)],
+(18)
+m± = [(RBVB + k − λ±VB ),k].
+The inner products that appear in Eqs. (5) and (10) are given
+by Eq. (6), which becomes
+f · g = fAgAVA + fBgBVB, (19)
+where fA,B = SA,B /VA,B is the excess magnetization density
+in pore A or B for mode f and similarly for mode g.T h e
+normalized normal modes for the two-site exchange model
+are therefore
+q
+1,2 = m∓
+√
+m∓ · m∓
+. (20)
+Similarly, the normal modes for the storage part Q1,2 are given
+by the same procedure, but with RA = RB = 0.
+If there is no coupling between the two pore systems (k = 0)
+these decay rates become simply RA and RB . It will be useful
+to look at the limiting behavior of the eigenvalues as a function
+of the coupling parameter, k. For small k
+lim
+k→0
+λ±(k) =
+{RA + k/VA + O(k2)
+RB + k/VB + O(k2), (21)
+while for large k
+lim
+k→∞
+λ+(k) = k(uA + uB ) + RAuA + RBuB
+uA + uB
++ O(1/k ),
+(22)
+lim
+k→∞
+λ−(k) = RAVA + RBVB
+VA + VB
++ O(1/k ).
+A useful estimate of the crossover value kxc separating the
+weak coupling regime and the strong coupling regime is given
+by the intersections of either of the two pairs of asymptotes in
+Eqs. (21) and (22). As it happens, these intersections occur at
+the same value of k, which is
+k
+xc = |RA − RB|
+uA + uB
+. (23)
+The eigenvalues deﬁned by Eq. (17) and their limiting values
+(21) and (22) are plotted as functions ofk in Fig. 10 for speciﬁc
+choices of the parameters RA (B) and VA (B).
+Our purpose is to clarify the interpretation of T2-ts -T2
+measurements by comparing calculations based on the two-site
+exchange and μGC models. Since the value of 2D measure-
+ments is related to the way that they describe coupling between
+distinct pore populations, it will be useful to modulate this
+coupling directly in our calculations. This is easily done in both
+models. In the two-site exchange model we can turn off (i.e.,
+set to zero) the coupling parameters κ
+A (B) during any of the
+three stages of the measurement. Similarly, in the μGC model
+we can introduce a barrier (Fig. 2) between the macropores
+and micropores. As in the two-site exchange model, the barrier
+can be put in place during the spin preparation τ
+1, spin storage
+ts , or data acquisition τ2 parts of the measurement sequence.
+10
+−1
+10
+0
+10
+1
+T (2)
+2 (s)
+10
+−1
+10
+0
+10
+110
+− 1
+10
+0
+10
+1
+T (2)
+2 (s)
+T (1)
+2 (s)
+10
+−1
+10
+0
+10
+1
+T (1)
+2 (s)
+(a) (b)
+(c) (d)
+FIG. 3. (Color online) The T2-T2 correlation plots generated using
+the two-site exchange model. The set of parameter values is given
+in Table II. Exchange is allowed during all three intervals in the
+calculation. The storage times are (a) t
+s = 100 ms, (b) 400 ms, (c)
+700 ms, and (d) 1000 ms. The dotted line indicates the diagonal
+T
+2( 1 ) = T2( 2 ) in each plot. The apparent relaxation rates are λ1 =
+0.44 s−1 and λ2 = 2.82 s−1.
+III. CALCULA TIONS
+In Figs. 3 and 4 we show representative calculations based
+on the two-site exchange and μGC models. The T2-T2 cross
+plots are shown for four values of the storage time ts .H e r e
+the parameter values used in the two-site exchange model
+have been chosen so that the results approximate those of the
+μGC model. We describe how this is done in Sec. IV A.T h e
+parameter values are listed in Table II. In these calculations
+the model parameters have been adjusted to give roughly equal
+volumes in the two pore populations and, as noted above,
+we have set ρ
+1 = 0. While the storage of the spins during ts
+is perfect, there is nevertheless signiﬁcant rearrangement of
+the spin density because the boundary condition at the pore-
+grain interface has changed. [As expected, calculations with
+ρ
+1 ̸= 0 (e.g., ρ1 = ρ2/2) yield results that are similar to those
+shown on Figs. 3 and 4, but the off-diagonal peaks are less
+pronounced.]
+Generally, the diagonal peaks in the T2-T2 cross plots are
+thought to represent the lifetime spectrum within distinct pore
+populations and the off-diagonal peaks represent diffusive
+coupling between them. Indeed, the off-diagonal peaks are
+often referred to as exchange peaks and are believed to
+represent diffusion (between the two populations) that takes
+place during the storage period t
+s . It is well-established
+[31,33] that this is not really true; according to Eq. (10),t h e
+off-diagonal peaks are controlled by the degree to which the
+normal modes in the storage period are different from those in
+the initial T
+2 decay. In principle, one may have off-diagonal
+peaks corresponding to different modes within the same single
+pore. In the very special case that the T
+2 modes are describable
+032813-5
+
+--- PAGE 6 ---
+L. M. SCHW ARTZet al. PHYSICAL REVIEW E 88, 032813 (2013)
+10
+−1
+10
+0
+10
+1
+T
+(2)
+2 (s)
+(a) (b)
+10
+−1
+10
+0
+10
+110
+−1
+10
+0
+10
+1
+T
+(2)
+2 (s)
+T
+(1)
+2 (s)
+(c)
+10
+−1
+10
+0
+10
+1
+T
+(1)
+2 (s)
+(d)
+FIG. 4. (Color online) Four T2-T2 cross plots based on the μGC
+model. We have taken ρ1 = 0 and four values of ts :( a )ts = 100 ms,
+(b) 400 ms, (c) 700 ms, and (d) 1000 ms. The dotted line indicates the
+diagonal T2( 1 ) = T2( 2 ) in each plot. In these calculations the model
+parameters have been arranged so that the microporosity φm = 0.16,
+the macroporosity φM = 0.14, and the transverse surface relaxation
+parameter ρ2 = 2.0 μm/s.
+as being weakly coupled in the sense of Eqs. (21),t h e t e r m
+“exchange” may have some approximate validity, but even
+so it is really just a manner of speaking. In physical terms, of
+course, diffusive exchange between the two pore populations is
+taking place over the entire measurement sequence. To better
+understand what is happening, it will be useful to turn the
+coupling on and off during the different stages of the model
+calculations. As we noted above, this can be done by setting the
+coupling parameterκ → 0 in the two-site exchange model and
+by imposing a barrier between the macropores and micropores
+in the μGC model.
+In Figs. 5 and 6 four distinct protocols are employed to
+compare calculations based on the two-site exchange and
+μGC models. In both sets of results the value of t
+s is
+ﬁxed at 700 ms and the value of ρ1 = 0. In Figs. 5(a) and
+6(a) coupling is turned off for the entire measurement and,
+as expected, there are no off-diagonal peaks. In Figs. 5(b)
+and 6(b) coupling is allowed during τ1 and τ2 but is turned off
+during ts . Here we see that the μGC and two-site exchange
+models lead to quite different results. If the off-diagonal peaks
+TABLE II. Parameter values for the two-site exchange model as
+applied to the μGC model.
+VA (μm3)1 .28 × 106
+VB (μm3)1 .12 × 106
+R2A (s−1)2 .26
+R2B (s−1)7 .46 × 10−2
+R1A = R1B 0
+k (μm3 s−1)5 .40 × 105
+10
+−1
+10
+0
+10
+1
+10
+2
+T (2)
+2 (s)
+(a) (b)
+10
+−1
+10
+0
+10
+1
+10
+2
+10
+−1
+10
+0
+10
+1
+10
+2
+T (2)
+2 (s)
+T (1)
+2 (s)
+(c)
+10
+−1
+10
+0
+10
+1
+10
+2
+T (1)
+2 (s)
+(d)
+FIG. 5. (Color online) Four T2-T2 calculations based on the two-
+site exchange model with ts is held ﬁxed at 700 ms. The values of
+k are (a) k = 0 at all times, (b) k = 0 during ts ,( c ) k = 0 during
+τ1 and τ2,a n d( d ) k = 5.40 × 105 μm3/s at all times. [Panel (d) is
+identical to Fig. 3(c).] All other parameters are listed in Table II.N o t e
+the qualitative agreement between these results and those in Fig. 6
+except for (b).
+really describe diffusion between the pores during ts then we
+need to understand why they are still present in the μGC
+calculations. In Figs. 5(c) and 6(c) coupling is allowed only
+during ts and in Figs. 5(d) and 6(d) coupling is allowed over the
+entire measurement (as in Figs. 3 and 4). For both Figs. 5(c)
+and 6(c) and Figs. 5(d) and 6(d) the two models are in good
+qualitative agreement.
+We note that both models share one qualitative feature:
+When the coupling is turned on there appears to be a much
+more signiﬁcant reduction in the longer-lived lifetime than in
+the shorter one. For the two-site exchange model there is a very
+simple explanation, which we defer to Sec. IV A.F o rt h eμGC
+model the spins in the macropore see an enhanced avenue
+for decay into the micorpores when the barrier is removed,
+thereby reducing the lifetime of this mode. Most of the spins
+in the micropores are buried deep inside the micrograin and
+never see the macropore before they decay. Hence this mode’s
+relaxation time is largely unaffected.
+In Sec. IV the behavior of the two-site exchange and
+μGC models will be analyzed in detail. It is not difﬁcult,
+however, to understand qualitatively what is going on. The
+two-site exchange model builds in the assumption that both
+pore populations are in the fast diffusion limit discussed in
+Sec. II C. Thus the magnetization is uniform within each pore
+between t = 0 and t = τ
+1 and then remains uniform within
+each pore during τ1 ⩽ t ⩽ τ1 + ts . By contrast, in the μGC
+model the value ρ2 = 2 μm/s corresponds to an intermediate
+case, viz., the small pores are in the fast diffusion limit but
+the large pores are not fully in that limit ( ρ
+2a/D0 ≈ 0.1).
+Thus, as indicated in Fig. 7, between t = 0 and t = τ1 the
+032813-6
+
+--- PAGE 7 ---
+MODELING TWO-DIMENSIONAL MAGNETIC RESONANCE ... PHYSICAL REVIEW E 88, 032813 (2013)
+10
+−1
+10
+0
+10
+1
+10
+2
+T (2)
+2 (s)
+(a) (b)
+10
+−1
+10
+0
+10
+1
+10
+210
+−1
+10
+0
+10
+1
+10
+2
+T (2)
+2 (s)
+T (1)
+2 (s)
+(c)
+10
+−1
+10
+0
+10
+1
+10
+2
+T (1)
+2 (s)
+(d)
+FIG. 6. (Color online) Four T2-T2 simulations based on the μGC
+model with ts held ﬁxed at 700 ms: (a) a barrier blocks coupling
+between the macropores and micropores for all times, (b) the barrier is
+in place only during ts , (c) coupling of the two populations is allowed
+only during ts , and (d) coupling is allowed at all times. [Panel (d) is
+identical to Fig. 4(c).] As before, the value of ρ2 = 2.0 μm/s.
+magnetization in the large pores builds up signiﬁcant spatial
+gradients. The spin density will be largest near the center of the
+pore and smallest near the interface with the micropores where
+relaxation is taking place. During the intervalτ
+1 ⩽ t ⩽ τ1 + ts
+diffusion within the large pores will make the magnetization
+somewhat more uniform (i.e., smaller in the center of the pore
+and larger at the interface with the micropores). Thus M(r,τ
+1)
+and M(r,τ1 + ts ) will have distinctly different representations
+in terms of the transverse eigenfunctions. This difference is
+a consequence of intrapore diffusion within the macropores
+rather than interpore diffusion and it is responsible for the
+off-diagonal peaks in the T
+2-T2 cross plot.
+To test this explanation, we have done two calculations
+based on the μGC model. First, one might suppose that with
+ρ1 = 0 and a barrier in place, the magnetization decay for
+t ⩾ τ1 + ts would simply be identical to that obtained from
+a T2 calculation without any waiting period. From the results
+FIG. 7. (Color online) One-dimensional representation of a
+macropore coupled on the left and right to microporous regions.
+The magnetization proﬁles at t = 0, t = τ1,a n dt = τ1 + ts are indi-
+cated schematically. Because diffusion between the macropores and
+micropores is forbidden between t = τ
+1 and τ1 + ts , the macropore
+magnetization at the interface increases during this period.
+FIG. 8. (Color online) Two simulations (with different values of
+ts ) based on the μGC model are compared. The dashed curves are
+simply the magnetization decay with coupling allowed at all times and
+no storage period. The solid curves are the magnetization decay with
+a barrier in place during t
+s and storage times of 250 and 50 ms. Also
+shown (as dot-dashed curves) are the dashed curves shifted by ts for
+t ⩾ τ1 + ts . Withts = 250 ms, we see a faster decay rate beginning at
+t = τ1 + ts . This is a consequence of the increased magnetization at
+the interface pictured in Fig 7.W h e nts = 50 ms there is not enough
+time for the magnetization at the interface to adjust and there is no
+increase in the decay rate.
+shown in Fig. 8, we see that this is not the case (although it
+is nearly true as ts → 0). Because the magnetization density
+at the interface has increased during the waiting period,
+the decay rate at t = τ
+1 + ts is larger than the prediction
+of the ts = 0 calculation. (The dependence of this effect
+on the value of ts will be discussed in Sec. IV C.) Second,
+we have repeated our calculations (with the barrier in place
+during t
+s ) with progressively smaller values of ρ2.I nF i g .9 we
+see that as ρ2 decreases and the magnetization within the large
+pores becomes more uniform, the strength of the off-diagonal
+peaks is greatly reduced. Of course, in the limit ρ
+2 → 0t h e
+macropeaks and micropeaks on the diagonal merge and we
+have only a single peak whose location is determined by the
+model’s net surface area [ 24]. The entire pore system has
+moved into the fast diffusion limit, during the T
+2 process.
+032813-7
+
+--- PAGE 8 ---
+L. M. SCHW ARTZet al. PHYSICAL REVIEW E 88, 032813 (2013)
+10
+−1
+10
+0
+10
+1
+10
+210
+−1
+10
+0
+10
+1
+10
+2
+T (1)
+2 (s)
+T (2)
+2 (s)
+10
+−1
+10
+0
+10
+1
+10
+2
+T (1)
+2 (s)
+10
+−1
+10
+0
+10
+1
+10
+2
+T (1)
+2 (s)
+(a) (b) (c)
+FIG. 9. (Color online) Three T2-ts -T2 simulations based on the
+μGC model with progressively smaller values ofρ2:( a )ρ = 2 μm/s,
+(b) ρ = 0.4 μm/s, and (c)ρ = 0.2 μm/s. In all cases a barrier blocks
+coupling between the macropores and micropores during ts .A st h e
+value of ρ2 decreases the entire pore system moves further into the
+fast diffusion limit, the magnetization becomes spatially uniform at
+any time, and the off-diagonal peaks in the cross plot vanish.
+At any instant of time during the process the magnetization
+becomes spatially uniform throughout the entire system.
+IV . DISCUSSION
+Here we examine in some detail the connection between the
+two-site exchange model and the results of our calculations
+based on the μGC model. Is the former a useful way to
+understand the latter? The ﬁrst question to address is whether
+the eigenvalues (the decay rates) can be made to match in the
+two systems. Second, we investigate the dependence of the
+matrix components of the magnetization on the storage time
+t
+s . Finally, we look at the effects of modulating the interaction
+of the macropores and micropores.
+A. Eigenvalues
+The eigenvalues that deﬁne the behavior of the two-site
+exchange model are given by Eq. (17).F o rt h eT2 part of the
+decay process in the μGC model we determine the values of
+RA and RB by setting them equal to the decay rates when
+there is a barrier in place, i.e., when k = 0. For the case where
+ρ2 = 2.0 μm/s these decay rates are seen, in Fig. 6(a) or 6(c),
+as the reciprocals of the T2 times where the peaks are located.
+From these peaks we get R2A = 1/0.4425 = 2.26 s−1 and
+R2B = 1/13.4 = 0.0746 s−1. It is straightforward to compute
+the volume of each of the pore subsystems in the μGC model:
+VA = 1.28 × 106 μm3 and VB = 1.12 × 106 μm3.
+There is only one remaining free parameterk in the two-site
+exchange model. As far as we know, there is no direct way
+of computing this parameter directly so we determine it by
+requiring that the decay rates in the coupled system match.
+(See the ﬁnal paragraph of Sec. IV B.) In Fig. 10 we plot
+Eq. (17) as a function of k. The dot-dashed horizontal lines are
+the decay rates determined from the simulations when there is
+no barrier in place [Fig. 6(b) or 6(d)]. If the two-site exchange
+model is to have any validity for the μGC system the former
+curves should intersect the latter rates at the same value of k
+in the two cases and we see that they basically do. We have
+k = 4.96 × 10
+5 μm3/s for the lower curve and k = 5.80 ×
+105 μm3/s for the upper one. Considering the approximate
+way in which we have determined the decay rates from the
+μGC simulations, for which there is appreciable uncertainty in
+the determination of the decay rates from the decay spectrum,
+0 0.5 1 1.5 20
+0.5
+1
+1.5
+2
+2.5
+3
+3.5
+4
+4.5
+5
+k (106 μm3 s−1)
+λ (s−1)
+ 
+ 
+λ±
+μGC Simulation Results
+Weak Coupling
+Strong Coupling
+FIG. 10. (Color online) Decay rates for the two-site exchange
+model. The solid lines show the dependence of the lifetimesT2 derived
+from Eq. (17) as a function of the coupling parameter k. The other
+parameters of the model are determined from the results of the μGC
+simulations shown in Fig. 6(a) or 6(c), when the barrier is in place,
+and are given in Table II. The dot-dashed horizontal lines are the
+decay rates determined from the μGC simulations in the absence of
+the barrier [Fig. 6(b) or 6(d)]. The intersections of these lines with
+the curves from Eq. (17) determine the values of k implied for each
+of the two modes. That these two values of k are nearly the same
+lends credence to the two-site exchange model as applied to the μGC
+model. The dotted lines and the dashed lines are the small- k and
+large-k limits, respectively [Eqs. (21) and (22)].
+we consider these values of k to be substantially the same. Of
+course, there are inherent uncertainties in this comparison. For
+example, the values derived from the simulations depend on
+(i) where exactly the barrier is placed in the simulations, (ii)
+the value of ρ
+2, and (iii) the details of the processing algorithm
+employed to determine the decay spectrum. Notwithstanding,
+we have found that as long as the values of ρ
+2 are not too
+large, the two-site exchange model is able to reproduce the two
+decay rates with approximately the same value of k. We shall
+use the average value k = 5.40 × 10
+5 μm3/s. The numerical
+values that we have determined for all the two-site exchange
+parameters relevant to the μGC model are shown in Table II.
+These values were used to generate Figs. 3 and 5.
+The dotted and dashed lines in Fig. 10 are, respectively, the
+small- and large- k limits described by Eqs. (21) and (22).
+We note in passing that the coupling in the present μGC
+calculations is fairly weak in the sense that the curves shown in
+Fig. 10 are fairly close to Eqs. (21) at the points of intersection,
+i.e., k<k
+xc .
+We note also that we can give a simple explanation of the
+observation we made in Sec. III about the effect of coupling
+on the lifetimes that are apparent in Fig. 5.B yr e m o v i n g
+032813-8
+
+--- PAGE 9 ---
+MODELING TWO-DIMENSIONAL MAGNETIC RESONANCE ... PHYSICAL REVIEW E 88, 032813 (2013)
+the barrier ( k = 0 is changed to k = 5.40 × 105 μm3/s) the
+change in the decay rates for each of the two modes is about
+the same in absolute terms. However, this represents a much
+larger percentage change for the slower relaxing mode than it
+does for the faster one and this is what we see on the logarithmic
+axes of Fig. 5.
+B. Matrix components of the magnetization
+Suppose that there are only two relevant modes in the
+storage period and two for the T2 part. This is rigorously true
+for the two-site exchange model and approximately true for
+the μGC model. In this section we explore the consequences
+of assuming it to be true for the μGC model.
+At ﬁrst glance Eq. (10) would lead one to think that there
+are six different inner products that must be evaluated in
+order to develop a theoretical prediction of the three functions
+M
+nm, but this is not true. We show that there are at most
+two independent parameters, which reduce to one for the case
+at hand, where we assume that there is no surface relaxivity
+during the storage period. Our convention in the following is
+that subscript 1 refers to the mode with the smaller decay rate
+in each case and 2 refers to the one with the larger decay rate.
+Because of the completeness relation (11), one has the
+following result for the off-diagonal component of Eq. (10)
+with n = 1 and m = 2:
+M
+12(ts ) = M0VP C12[e−μ1ts − e−μ2ts ], (24)
+where
+C12 = [m0 · q1][q2 · m0][q1 · Q1][Q1 · q2]/VP
+=− [m0 · q1][q2 · m0][q1 · Q2][Q2 · q2]/VP . (25)
+Equation (24) exhibits the very general property that initially
+each off-diagonal component of Mnm increases linearly with
+time ts and then reaches a maximal value before decaying
+to zero, as ts is further increased. The simplicity of the
+two-component system lends itself to a simple geometrical
+interpretation. Because [ f · g]
+2 ⩽ [f · f][g · g] for any f,g pair
+and because |m0|= √m0 · m0 = √VP , where VP is the total
+pore volume, we may deﬁne an angle ψ via
+m0 · q1 =
+√
+VP cos(ψ). (26)
+Because orthonormality and completeness of q1 and q2
+imply m0 = (m0 · q1)q1 + (m0 · q2)q2, which in turn implies
+[m0 · q1]2 + [m0 · q2]2 = m0 · m0 = VP ,w eh a v e
+m0 · q2 =
+√
+VP sin(ψ). (27)
+Similarly, we may deﬁne the angle θ via
+Q1 · q1 = cos(θ ), Q1 · q2 = sin(θ ). (28)
+That is
+Q1 = cos(θ )q1 + sin(θ )q2. (29)
+Because Q1 · Q2 = 0w em u s th a v e
+Q2 =± [− sin(θ )q1 + cos(θ )q2]. (30)
+Therefore,
+C12 = 1
+4 sin(2ψ)s i n ( 2θ ). (31)
+Specializing to the case where the T1 relaxivity vanishes,
+ρ1 ≡ 0, one of the normal modes, corresponding to a uniform
+magnetization, does not decay at all:
+μ0
+1(ρ1 = 0) ≡ 0. (32)
+The corresponding normal mode is
+Q1(ρ1 = 0) ≡ m0/
+√
+VP . (33)
+Now Eq. (24) reads
+M12(ts )
+M0VP
+= 1
+4 sin2(2ψ)
+[
+1 − e−μ0
+2 ts
+]
+, (34)
+where we have used the fact that θ ≡ ψ when ρ1 = 0 because
+of Eq. (33). Likewise, we may derive similar expressions for
+the diagonal elements. They are
+M11(ts )
+M0VP
+= cos4(ψ) + 1
+4 sin2(2ψ)e−μ0
+2ts , (35)
+M22(ts )
+M0VP
+= sin4(ψ) + 1
+4 sin2(2ψ)e−μ0
+2ts . (36)
+At this level of approximation, all elements of Mij are
+positive deﬁnite; as far as we know, there is no general proof
+that this must be so.
+That all the elements of M
+nm asymptotically approach
+constant values asts →∞ is a consequence of the assumption
+that the surface relaxivity vanishes for the storage period
+ρ
+1 ≡ 0 and is independent of the assumption that there are
+only two relevant modes. The storage mode corresponding to
+uniform magnetization density Q
+1 ≡ m0/√VP does not decay
+at all. Consequently, we have
+Mnm(ts →∞ )
+M0VP
+= AnAm, (37)
+where An,m are given by Eq. (5).F r o mE q .(15) we have
+Mnm(ts → 0)
+M0VP
+= Anδnm. (38)
+Equations (34)–(38) will prove to be useful for us when we
+interpret our numerical results for the μGC model.
+Finally, we note that the sum of all matrix elements is
+independent of storage time when ρ1 = 0:
+∑
+n,m
+Mnm(ts ) = M0VP . (39)
+This result is easily proved from the deﬁnition (10),u s i n gt h e
+completeness property of the T2 modes (12). It is straightfor-
+ward to demonstrate that Eqs. (34)–(36) satisfy Eq. (39).
+We emphasize that Eqs. (24)–(39) all follow from two
+assumptions. (i) There are only two relevant modes in the
+problem (q
+1 and q2) and every quantity or function of interest
+(m0,Q1,Q2) may be expressed as a linear combination of those
+two. (ii) One of the modes in the storage period corresponds to
+uniform magnetization and does not decay at all. At this level
+of approximation the six different inner products implied by
+Eq. (10) are all expressible in terms of a single parameter ψ,
+which in turn is evaluated by means of its deﬁnition (26).
+In order to proceed further, we need a speciﬁc model with
+which we evaluate ψ and μ
+0
+2. Speciﬁcally, for the two-site
+032813-9
+
+--- PAGE 10 ---
+L. M. SCHW ARTZet al. PHYSICAL REVIEW E 88, 032813 (2013)
+0 500 1000 1500 2000 2500 3000 35000
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+ts (ms)
+Mij(ts) / M0VP
+ 
+ 
+Two−Site Exchange Model
+12 − analytic
+12 − time−domain derived
+11 − analytic
+11 − time−domain derived
+22 − analytic
+22 − time−domain derived
+FIG. 11. (Color online) Strengths of the 2D peaks for the two-site
+exchange model in Fig. 3 plotted as a function of ts . The symbols
+represent values numerically derived by processing time-domain
+data using the 2D Fredholm integral equation. The solid curves are
+Eqs. (34)–(36) using the parameter values listed in Table II.
+exchange model we have
+μ0
+1 = λ−(RA = 0,RB = 0) = 0,
+(40)
+μ0
+2 = λ+(RA = 0,RB = 0) = k(uA + uB ),
+which follow from Eq. (17). Mode 1, which has a decay rate =
+0, corresponds to a uniform magnetization, viz.,
+Q1(RA = 0,RB = 0) ≡ m0/
+√
+VP . (41)
+The initial magnetization in turn is simply m0 = (1,1).
+In Fig. 11 we plot the values of Mij appropriate to
+the two-site exchange model. For each value of ts we have
+generated time-domain data that we processed as if they
+were experimental data in the contour plots such as those
+shown in Fig. 3. We numerically integrate the volume under
+each peak as an estimate of the relevant component M
+ij (ts ).
+These values are plotted with the relevant symbols in Fig. 11.
+Using the same input parameters as in Table II we plot
+Eqs. (34)–(36) as solid curves. Here the relevant relaxation
+time is given by the second of Eqs. (40):1 /μ0
+2 = [k(uA +
+uB )]−1 = [κA + κB ]−1 = 1108 ms. We evaluate the angle ψ
+from its deﬁnition (26) using Eqs. (18) and (20); the initial
+magnetization is simply m0 = (1,1). For this parameter set we
+ﬁnd ψ = 0.619 rad = 35.5◦. That the strictly analytic curves
+agree so well with the numbers determined from the processed
+time-domain data provides conﬁdence that this processing
+scheme will provide accurate results when we apply it to the
+results for the μGC data.
+To what extent do Eqs. (34)–(36) describe the evolution
+of the magnetization elements that we see in our μGC
+simulations? We have already seen that consistency of the
+0 1000 2000 3000 4000 5000 60000
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+ts (ms)
+Mij(ts) / M0VP
+ 
+ 
+μGC Model 12 − analytic
+12 − simulation
+11 − analytic
+11 − simulation
+22 − analytic
+22 − simulation
+FIG. 12. (Color online) Strengths of the 2D peaks for the μGC
+model in Fig. 4 plotted as a function of ts . The symbols represent
+values numerically derived by processing time-domain data using the
+2D Fredholm integral equation. The solid curves are Eqs. (34)–(36)
+using the parameter values given in TableII. The dotted lines indicate
+the values of the diagonal elements of the simulations at ts = 0 from
+which the long-time asymptotic values are predicted according to
+Eq. (37). These values are indicated with solid horizontal lines. It is
+apparent that the simulation results are approaching these values in
+the limit of long storage times.
+eigenvalues in the simulations with the predictions of the
+two-site exchange model determines the parameter set listed in
+Table II. With these values of the parameters, Eqs. (34)–(36)
+are replotted in Fig. 12 along with the results of the time-
+domain simulations based on the μGC model, processed as
+before. The dotted lines indicate the values of the two diagonal
+elements implied by the simulations at t
+s = 0. Using these
+values we indicate the asymptotic values of the simulations as
+predicted by Eq. (37). It is clear that the simulation data are
+consistent with those predictions.
+We have several comments. First, the initial values pre-
+dicted by the two-site exchange model forM
+11(0) and M22(0)
+are in rough agreement with those that are deduced from
+the simulation data. This is equivalent to saying that the
+two-site exchange model does a reasonably good job of
+describing ordinary T
+2 decay (3) for the μGC model. Because
+of Eq. (37) the behavior in the limit of long storage times
+is also reasonably well described by the two-site exchange
+model. Where the model fails is in its estimation of the
+time scale for equilibration, namely, the predicted decay
+rate μ
+0
+2 = k(uA + uB ) is much larger than what we actually
+observe. This is a major shortcoming of the two-site exchange
+model in the present context. This in turn is due to the
+hard-wired assumption in the two-site exchange model that
+each subsystem is strictly in the fast diffusion limit. In reality,
+032813-10
+
+--- PAGE 11 ---
+MODELING TWO-DIMENSIONAL MAGNETIC RESONANCE ... PHYSICAL REVIEW E 88, 032813 (2013)
+0 2000 4000 6000 8000
+10
+−1
+10
+0
+g = [N(t)−N∞] / [N0 − N∞]
+0 20 400
+0.5
+1
+t1/2
+g
+0 2000 4000 6000 8000
+10
+−1
+10
+0
+t (ms)
+g = [N(t)−N∞] / [N0 − N∞]
+0 20 400
+0.5
+1
+t1/2
+g
+FIG. 13. (Color online) Number of walkers N (t) in the macropore
+space monitored as a function of time for a μGC simulation in which
+walkers start only in the macropore. The surface relaxivity vanishes:
+ρ
+1 ≡ 0. A uniform density is achieved at long times because of
+diffusion. The solid line represents a decay time of 3.5 s. In the
+inset the data are plotted vs √t and the dashed line corresponds to
+Eq. (42).
+during the ﬁrst T2 decay period gradients in the magnetization
+are established across the entire unit cell and they relax much
+more slowly during the storage period than the second of
+Eqs. (40) implies.
+In order to correctly estimate this rate we have done a simple
+diffusion simulation in which ρ = 0. We randomly launch
+walkers throughout the macropore only and we monitor the
+number of walkers within the macropore as a function of time
+(Fig. 13). This quantity decays from its initial value N
+0 to
+an equilibrium value N∞ = N0VB/(VA + VB ), where VA and
+VB are the micropore and macropore volumes, respectively.
+Although we see several distinct decay regimes, the slowest
+decay rate corresponds to a lifetime of 3500 ms. We suppose
+that this corresponds to the dominant mode that we observe
+during the storage part of the T
+2-ts -T2 simulations in Fig. 12.
+Accordingly we have replotted Eqs. (34)–(36) against the nu-
+merical data for theμGC model in Fig. 14 using this relaxation
+time, i.e., μ0
+2 = 1/3.5s −1. The parameter ψ in Eqs. (34)–(36)
+is of course unchanged because its value is set by an analysis
+of the coupling of the initial uniform magnetization to the T
+2
+modes, via Eq. (26). Although agreement is not perfect, it is
+much improved over that in Fig. 12.
+We conclude that for this sort of μGC geometry with the
+sizes approximately equal to 100 μm and relaxivity values
+approximately equal to 1 μm/s, which are equal to those we
+have used in our calculations, the two-site exchange model
+0 1000 2000 3000 4000 5000 60000
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+ts (ms)
+Mij(ts) / M0VP
+ 
+ 
+μGC Model: Long T1
+12 − analytic
+12 − simulation
+11 − analytic
+11 − simulation
+22 − analytic
+22 − simulation
+FIG. 14. (Color online) Same as for Fig. 12 except that the decay
+time has been changed to T1 = 3500 ms, as described in the text.
+works reasonably well in describing the T2 decay. Within the
+context of the two-site exchange model, the system is in the
+weak coupling limit k<k
+xc . It fails during the storage part
+because we have setρ1 ≡ 0. Now the two-site exchange model
+seems to be in the strong coupling limit because k ≫ kxc ≡ 0.
+The only mechanism for decay of magnetization imbalance
+is via diffusion, which the two-site exchange model attributes
+solely to diffusion between macropores and micropores. The
+results of our simulations show that intrapore diffusion is
+clearly the limiting process in such a case. The strong
+suggestion of our results thus far is that if a more realistic
+value of ρ
+1 ≈ ρ2/2 were used, the results of the numerical
+simulations would be reasonably well described by the two-site
+exchange model. An analysis of this case is beyond the scope
+of the present paper.
+In connection with Fig. 13, there is an additional ob-
+servation we should make. We said above that there is no
+direct relation between the μGC simulations and the coupling
+parameter k of the two-site exchange model. One might have
+thought that the initial rate at which walkers diffuse into
+the micropores in this simulation could be interpreted as an
+effective exchange rate. According to Eq. (16),
+dSB
+dt |t=0 =
+−(k/VB )SB|t=0, where we identify SB (t) with N(t). In fact,
+we see that the initial slope in Fig. 13 is inﬁnite. At short times
+the decay varies as t1/2 and is well described by the equation
+N(t)
+N0
+= 1 − SB
+VB
+2φμ
+α1/2
+μ + φμ
+√
+D0t, (42)
+where N0 is the initial number of walkers in the macropore
+volume VB , SB is the surface area bounding the macropore,
+φμ is the intrinsic porosity of the micropores, and αμ ≈ φ−1/2
+μ
+032813-11
+
+--- PAGE 12 ---
+L. M. SCHW ARTZet al. PHYSICAL REVIEW E 88, 032813 (2013)
+is the corresponding tortuosity. Equation (42) follows from
+the approximation that the micropores are describable as a
+continuum having a diffusivity D
+0/αμ and a porosity φμ.
+At short times the curvature of the interface between the
+macropore and this continuum may be neglected; the solution
+to the one-dimensional heat equation given by Carslaw and
+Jaeger [36] may be integrated over the coordinate perpendicu-
+lar to the interface to give Eq.(42). Equation (42) is reminiscent
+of a result derived by Mitra et al. [37] in a similar but different
+context.
+C. Effect of barriers to coupling
+A more striking demonstration of the shortcomings of the
+two-site exchange model was presented in Figs. 6(b) and 8.
+There M(r,τ1) and M(r,τ1 + ts ) are not identical and so the
+off-diagonal peaks are not zero as would be implied by the
+two-site exchange model. Within the context of Eq. (10) we
+may write the expression for the off-diagonal element when
+there is a barrier in place during storage as
+M
+12(ts ) = M0[m0 · q1][q1 · Q1][Q1 · q2][q2 · m0]
++M0[m0 · q1][q1 · Q2][Q2 · q2][q2 · m0]
++M0[m0 · q1][q1 · Q3][Q3 · q2][q2 · m0]e−μ3ts
++··· . (43)
+Here Q1 represents the storage mode corresponding to uniform
+magnetization in the macropore. Because ρ1 = 0 its decay
+rate is zero. Similarly, Q2 represents uniform magnetization
+in the micropores, whose decay rate is also zero. All the
+normal modes relevant to the storage period are determined by
+solutions to the diffusion equation with Neumann boundary
+conditions on the pore walls. Further, Q
+3 is the mode with the
+smallest decay rate μ3 contributing to the relaxation pictured
+schematically in Fig. 7. There is no counterpart to it in the
+two-site exchange model. The lowest nontrivial decay rate
+may be estimated asμ
+3 = D0(2π/L)2, whereL is the diagonal
+distance from one grain surface across the macropore to the
+other: L =
+√
+3(200) − 2(125) = 96 μm. This implies a decay
+time 1/μ3 = 120 ms. Thus, for storage times ts signiﬁcantly
+less than this value the magnetization does not have enough
+time to redistribute and contribute to M
+12, whereas for longer
+times it does. This is just the behavior we observe in our results
+depicted in Figs. 6(b) and 8.
+V . CONCLUSION
+The T2-ts -T2 measurements are an important class of 2D
+NMR experiments and have been used to study a wide range
+of complex materials. The general features ofT
+2-T2 cross plots
+can be modeled either by analytic calculations or by random
+walk simulations. In the limit of weak surface relaxation (often
+referred to as the fast diffusion limit) off-diagonal peaks in the
+cross plot are the consequence of diffusive exchange during
+the storage time t
+s . This is the case for materials like cements,
+where all the pores are in the fast diffusion limit and are
+well mixed when exchange occurs [ 9,10]. More generally,
+for intermediate values of surface relaxation, the off-diagonal
+peaks are related to both intrapore and interpore diffusion and
+the interpretation of the measurement is more complicated.
+This is most likely the case in carbonate rocks (and some
+sandstones), where macropores are 10–100 μm in diameter,
+while the micropores are in the 0.1–1.0 μm range.
+In order to clarify the physics underlying the T
+2-ts -T2
+measurement in mixed pore-size systems, we presented here
+the results of numerical simulations for the μGC model. This
+model consists of a periodic arrangement of macrograins (and
+pores) in which each macrograin is itself porous on a length
+scale 10–100 times smaller than that of the macropores. It
+was because we used a variable step size algorithm that we
+were able to simulate accurately processes that occur on vastly
+different time scales. In order to simplify our analysis, we
+limited our attention to the case where, during the storage
+period, the surface relaxivity ρ
+1 vanishes. The resulting T2-T2
+contour plot, at each value of the storage time ts ,w a sw e l l
+described in terms of a simpliﬁed 2 × 2m a t r i xMij (ts ). We
+compared the results of Mij (ts ) deduced from our simulations
+against those predicted directly from an analytic two-site
+exchange model, for which we independently deduced the
+values of all the relevant parameters. Although the general
+features of M
+ij (ts ) are captured by the two-site model it
+does not accurately describe the time over which the matrix
+elements decay from their initial values to their asymptotic
+values. Within the context of the two-site model this decay time
+is simply related to the exchange parameter k. Conversely, if
+one were to attempt to estimate k from the observed relaxation
+time constant, one would deduce quite the wrong answer. The
+issue is that the two-site model attributes relaxation solely
+to interpore coupling, whereas the relaxation seen during the
+storage period in our simulations is due to both interpore and
+intrapore diffusion.
+[ 1 ]M .D .H ¨urlimann, L. V enkataramanan, and C. Flaum, J. Chem.
+Phys. 117, 10223 (2002).
+[2] M. D. H ¨urlimann and L. V enkataramanan,J. Magn. Reson. 157,
+31 (2002).
+[3] P . T. Callaghan, S. Godefroy, and B. N. Ryland,J. Magn. Reson.
+162, 320 (2003).
+[4] L. Zielinski, R. Ramamoorthy, C. C. Minh, K. A. Al Daghar,
+R. H. Sayed, and A. F. Abdelaal, in Proceedings of the SPE
+Annual Technical Conference and Exhibition, Florence, 2010
+(SPE, Richardson, TX, 2010).
+[5] Y . Q. Song, L. V enkataramanan, M. D. H ¨urlimann, M. Flaum,
+P . Frulla, and C. Straley, J. Magn. Reson. 154, 261 (2002).
+[6] K. E. Washburn and P . T. Callaghan,P h y s .R e v .L e t t .97, 175502
+(2006).
+[7] M. Fleury and J. Soualem, J. Colloid Interface Sci. 336, 250
+(2009).
+[8] J. Mitchell, J. D. Grifﬁth, J. H. P . Collins, A. J. Sederman, L. F.
+Gladden, and M. L. Johns, J. Chem. Phys. 127, 234701 (2007).
+[9] P . J. McDonald, J. P . Korb, J. Mitchell, and L. Monteilhet,Phys.
+Rev. E 72, 011409 (2005).
+032813-12
+
+--- PAGE 13 ---
+MODELING TWO-DIMENSIONAL MAGNETIC RESONANCE ... PHYSICAL REVIEW E 88, 032813 (2013)
+[10] L. Monteilhet, J. P . Korb, J. Mitchell, and P . J. McDonald,Phys.
+Rev. E 74, 061404 (2006).
+[11] K. M. Song, J. Mitchell, H. Jaffel, and L. F. Gladden, J. Phys. D
+45, 105302 (2012).
+[12] D. W. Weber, J. Mitchell, J. McGregor, and L. F. Gladden, J.
+Phys. Chem. C 113, 6610 (2009).
+[13] J. D. Grifﬁth, J. Mitchell, A. E. Bayly, and M. L. Johns, J. Phys.
+Chem. B 113, 7156 (2009).
+[14] P . T. Callaghan, S. Godefroy, and B. N. Ryland, Magn. Reson.
+Imag. 21, 243 (2003).
+[15] P . Callaghan and I. Fur ´o, J. Chem. Phys. 120, 4032 (2004).
+[16] Y . Q. Song,Prog. Nucl. Magn. Reson. Spectrosc.55, 324 (2009).
+[17] J. Cox, P . J. McDonald, and B. A. Gardiner, Holzforschung 64,
+259 (2010).
+[18] J. Lee, C. Labadie, C. Springer, and G. Harbison, J. Am. Chem.
+Soc. 115, 7761 (1993).
+[19] T. C. Chandrasekera, J. Mitchell, E. J. Fordham, L. F. Gladden,
+and M. L. Johns, J. Magn. Reson. 194, 156 (2008).
+[20] J. R. Zimmerman and W. E. Brittin, J. Phys. Chem. 61, 1328
+(1957).
+[21] H. M. McConnell, J. Chem. Phys. 28, 430 (1958).
+[22] K. R. Brownstein and C. E. Tarr, Phys. Rev. A 19, 2446 (1979).
+[23] J. Mitchell, T. C. Chandrasekera, M. L. Johns, L. F. Gladden,
+and E. J. Fordham, Phys. Rev. E 81, 026101 (2010).
+[24] T. S. Ramakrishnan, L. M. Schwartz, E. J. Fordham, W. E.
+Kenyon, and D. J. Wilkinson, Log Anal. 40, 260 (1999).
+[25] M. Knackstedt, A. Carnerup, A. Golab, R. Sok, B. Y oung, and
+L. Riepe, Petrophysics 54, 216 (2013).
+[26] S. Ryu and D. L. Johnson, Phys. Rev. Lett. 103, 118701 (2009).
+[27] H. Y . Carr and E. M. Purcell, Phys. Rev. 94, 630 (1954);
+S. Meiboom and D. Gill, Rev. Sci. Instrum. 29, 688 (1958).
+[28] M. H. Levitt, Spin Dynamics: Basics of Nuclear Magnetic
+Resonance (Wiley, Chichester, 2001).
+[29] J. Mitchell, T. C. Chandrasekera, and L. F. Gladden, Prog. Nucl.
+Magn. Reson. Spectrosc. 62, 34 (2012).
+[30] A. N. Tikhonov and V . Y . Arsenin, Solutions of Ill-Posed
+Problems (Winston, Washington, DC, 1977).
+[31] Y . Q. Song, L. Zielinski, and S. Ryu, Phys. Rev. Lett. 100,
+248002 (2008).
+[32] S. Rodts and D. Bytchenkoff, J. Magn. Reson. 205, 315 (2010).
+[33] D. Bytchenkoff and S. Rodts, J. Magn. Reson. 208, 4 (2011).
+[34] G. Wahba, SIAM J. Numer. Anal. 14, 651 (1977).
+[35] Z. Zhang, D. L. Johnson, and L. M. Schwartz, P h y s .R e v .E84,
+031129 (2011).
+[36] H. S. Carslaw and J. C. Jaeger, Conduction of Heat in Solids ,
+2nd ed. (Clarendon, Oxford, 2008).
+[37] P . P . Mitra, P . N. Sen, and L. M. Schwartz,Phys. Rev. B47, 8565
+(1993).
+032813-13

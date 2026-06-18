@@ -1,0 +1,582 @@
+--- PAGE 1 ---
+RELATIONSHIPS BETWEEN NON-WETTING PHASE
+INVASION AND MAGNETIZATION EVOLUTION IN
+CONNECTED PORE SYSTEMS AS REVEALED BY
+NETWORK SIMULATION
+D. Chang, M.A. Ioannidis and I. Chatzis
+Porous Media Research Institute
+Department of Chemical Engineering
+ University of Waterloo
+ABSTRACT
+Pore network models are used to relate fundamental pore structure parameters (pore body
+and pore throat size distributions) to the distribution of water at the pore level and the
+decay of proton magnetization under conditions of primary drainage in water-wet rocks.
+The simulations reveal conditions under which diffusive coupling between pores has a
+significant effect on the decay spectra and provide insight into the estimation of primary
+drainage capillary pressure curves from NMR T2 distributions. The conversion factor k =
+Pc T2 required to map a NMR cumulative T2 distribution at Sw = 100% onto a primary
+drainage capillary pressure curve furnishes important information about the pore-to-
+throat size aspect ratio, a parameter that critically affects recovery efficiency by
+waterflooding in water-wet media.
+INTRODUCTION
+With the advent of NMR wireline logging tools, the feasibility of estimating primary
+drainage capillary pressure curves from the NMR T2 distributions of water-saturated rock
+samples has recently attracted significant attention ( e.g., Volokitin et al. , 1999). In a
+NMR measurement, hydrogen atoms on water molecules probe the pore space by
+diffusive motion. The magnetic moment carried by these atoms relaxes due to dipolar
+interactions with other molecules and with the fluid-solid interface. For a single pore in
+the fast diffusion limit, the surface relaxation rate is slow compared to the rate of
+magnetization equilibration by diffusive motion (Brownstein and Tarr, 1979).
+Consequently, magnetization is approximately uniform across the pore and decays with a
+characteristic time T2 that is inversely proportional to the pore’s surface area-to-volume
+ratio:
+V
+A
+T r==
+2
+1 (1)
+
+--- PAGE 2 ---
+The proportionality constant r is known as the surface relaxivity and knowledge of its
+value allows one to convert a rate of surface relaxation to a characteristic pore size pR
+(e.g., A/V = 3/ pR for spherical pores). The time evolution of proton magnetization in
+sedimentary rocks is usually characterized by a spectrum of decay rates (Kenyon, 1997),
+a fact used to estimate the distribution of pore volume by pore size. Such estimates are
+invariably made under the assumption that, although in the fast diffusion limit, individual
+pores are uncoupled from their neighbors. The effect of this assumption has been
+theoretically investigated by McCall et al. (1991). These authors studied network models
+in which the sizes of pores were broadly distributed, but the pore throat cross-sectional
+areas and inter-pore diffusion lengths were assumed constant. Such models are not quite
+representative of the pore structure of reservoir rocks, in which pore throats are known to
+also be broadly distributed. This is borne out by observation of mercury intrusion curves
+of reservoir rock samples, which show significant penetration over a wide range of
+capillary pressures. Nonetheless, McCall et al. (1991) suggested that in a system with a
+broad distribution of pore sizes, in the range typically found in sandstones, pore coupling
+should be marginally significant. This implies that the spectrum of decay rates obtained
+by multi-exponential decomposition of total magnetization measurements should reflect
+the volume density of pore sizes reasonably well. In the limit of “strong enough”
+diffusive coupling between pores, the entire pore space would behave as a single pore in
+the fast diffusion limit and the spectrum of decay rates would be a d-function centered at
+rA/V, where A and V are the total area and pore volume. What constitutes “strong
+enough” coupling and how it affects the magnetization decay spectra, especially of
+partially-saturated porous media, is still not fully understood.
+A primary drainage capillary pressure curve provides the distribution of pore volume
+accessible to a non-wetting phase by capillary pressure. The latter is related to the size of
+pore throats that are accessible to a non-wetting phase during drainage through the
+Laplace equation:
+t
+c
+R
+)(fP qs= (2)
+where tR is a characteristic pore throat size and )(qf is a function of the mercury-air
+advancing contact angle that depends on the geometry of the pore throat cross-section
+(e.g., )(qf = 2cosq for cylindrical pore throats).
+Even if a NMR T2 distribution adequately reflects the distribution of pore volume by
+pore size ( i.e., if diffusive coupling effects are insignificant), additional assumptions are
+necessary to convert this distribution into a drainage capillary pressure curve. Namely, it
+is necessary to assume that (i) the pore-body to pore-throat size aspect ratio is either
+constant or known as a function of pore body size, (ii) that non-wetting phase invasion
+into a pore network is not subject to accessibility constraints and (iii) that, upon invasion
+by a non-wetting phase, pores are fully drained. Assumption (ii) ignores the fact that
+
+--- PAGE 3 ---
+some large pores are invaded at capillary pressures higher than the pressures
+corresponding to the size of pore throats they are connected to, because they are
+“shielded” by smaller pores. Assumption (iii) ignores the fact that, upon invasion by the
+non-wetting phase into a pore, pore corners and roughness features remain occupied by
+the wetting phase. Thus, only a fraction of the volume of each pore probed by water
+molecules during a NMR experiment is also probed by a non-wetting phase when the
+pore is first invaded. The purpose of this paper is to examine the impact of these
+phenomena on decay rate spectra by means of computer simulation in model pore
+networks. Pore networks with prescribed pore and throat size distributions and pore
+coordination number are constructed and primary drainage by a non-wetting phase is
+simulated using a bond-correlated site percolation algorithm.
+NETWORK SIMULATION APPROACH
+Construction of model pore networks
+The pore structure model used is similar to the one used by Ioannidis and Chatzis (1993)
+to simulate the permeability, formation factor and drainage capillary pressure curves of
+several sandstones. It is a simple cubic network of pores and throats of square cross-
+section (Fig. 1). Pore body sizes are randomly assigned to the sites of the network,
+whereas pore throat sizes are correlated to the size of the smaller of the two pores each
+throat connects. Pore body and pore throat sizes are assumed to follow respective shifted
+Weibull distribution functions (Shapiro and Gross, 1981). These distributions were used
+for their versatility:
+
+
+
+
+
+
+
+
+
+
+ −−⋅
+
+ −⋅
+
+=
+− bb
+aaa
+b min
+1
+min
+i
+RRexpRR(R)f
+throatst
+poresp
+bpi
+=
+=
+= ,
+ (3)
+where a, b are parameters of the distributions and Rmin is a minimum pore body or pore
+throat size. Fixing the porosity of the network determines the distance between pores,
+thus permitting the estimation of pore throat lengths, Lij. These lengths are only used to
+estimate the resistance to diffusion and fluid flow between adjacent pores; all pore
+volume is assigned to the pore bodies. Network models containing 15 3 pore bodies are
+used throughout this work. All results reported are averages over 10 realizations.
+Simulation of magnetization evolution in model pore networks
+A balance of magnetization Mi may be written for each pore i in the network. The net
+rate of magnetization decay in each pore is determined by magnetization relaxation in the
+vicinity of the fluid-matrix interface and by diffusion to and from neighboring pores:
+
+--- PAGE 4 ---
+Figure 1. Schematic representation of the geometry of the pore network model.
+∑ 
+
+
+
+
+
+−⋅⋅+⋅⋅−=
+NN
+j i
+i
+j
+j
+ij
+ij
+i
+i
+i
+i
+V
+M
+V
+M
+L
+SDV
+MAdt
+dM r (4)
+where Ai, Vi are the surface area and volume of pore i, respectively, D is the diffusion
+coefficient of water and Sij, Lij are the cross-sectional area and length of connecting pore
+throats. In dimensionless form, Eq. (4) may be written as follows:
+∑ 
+
+
+
+
+ −⋅⋅+⋅⋅−=
+NN
+j i
+i
+j
+j
+ij
+ij
+cii
+i
+v
+M
+v
+M
+l
+sMrdt
+dM wwr (5)
+In writing Eq. (5) the following definitions are used:
+(6)
+In the equations above, overbars indicate average quantities. The parameters rw and cw
+represent a characteristic rate of relaxation at the fluid-solid interface and a characteristic
+rate of molecular diffusion between pores, respectively. Application of Eq. (5) to each
+pore yields an initial-value, linear ordinary differential equation problem, which is most
+otrw r
+1==××== V
+A
+LV
+SD==cw
+S
+Ss ij
+ij ==
+V
+Vv ij
+ij ==
+L
+Ll ij
+ij ==
+A
+V
+V
+Ar
+i
+i
+i ××==
+
+--- PAGE 5 ---
+efficiently solved by matrix diagonalization methods (McCall et al., 1991). The solution
+provides the volume-weighted distribution )(ln of decay rates l, hereafter referred to as
+sprectrum of decay rates, where each l is an eigenvalue of the problem. In the absence
+of coupling between pores, li = rAi /Vi and the spectrum )(ln exactly corresponds to the
+distribution of pore volume by inverse pore size.
+Simulation of primary drainage
+Simulation of primary drainage is carried out using a bond-correlated site percolation
+algorithm described in detail by Ioannidis and Chatzis (1993). It is assumed in the
+simulations that, once a pore is invaded by the non-wetting phase, a fraction equal to 6%
+of its volume Vi remains occupied by water. This residual water is also assumed to have
+access to the entire surface area Ai of the pore. Water diffusion between neighboring
+pores that are both invaded by the non-wetting phase is assumed to take place through
+constrictions whose cross-sectional area is 6% of the cross-sectional area Sij of the
+connecting pore throat. This value corresponds to the water saturation in capillaries of
+square cross-section at conditions of gas breakthrough (Legait, 1983). Of course, a more
+realistic treatment of “late pore-filling” may involve other assumptions on the geometry
+of corners and crevices and should provide residual water saturation values that decrease
+with increasing capillary pressure in each invaded pore.
+RESULTS AND DISCUSSION
+Porous media properties
+We have considered two rather different pore network models, hereafter referred to as
+Model 1 and Model 2. Their respective pore body size distributions (PSD) and pore
+throat size distributions (TSD) are shown in Fig. 2. Model 1 corresponds to a medium
+with a rather uniform TSD that significantly overlaps the PSD and is more typical of
+unconsolidated materials. Model 2 corresponds to a medium with a heavily skewed TSD
+and is more typical of reservoir sandstones (Ioannidis and Chatzis, 1993a).
+Figure 2. Pore body and pore throat size distributions used in network simulations
+0.00
+0.02
+0.04
+0.06
+0.08
+0.10
+0.12
+0.14
+0 10 20 30 40 50 60
+Pore Size, Rp (mmm)
+fp(R) 
+Model 1
+Model 2
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+0 2 4 6 8 10 12
+Throat Size, Rt (mmm)
+ft(R) 
+Model 1
+Model 2
+
+--- PAGE 6 ---
+Note that the throat size distribution for Model 2 is not completely shown in Fig.2
+because there is a long tail to a maximum throat size of 94 µm and it truly has a mean
+throat size equal to 4 µm. Table 1 lists relevant simulation parameters, including the
+computed absolute permeability of each model. A value of surface relaxivity typical of
+sandstones (100 µm/s) is used in all computations (Slijkerman and Hofman, 1998;
+Roberts et al., 1995).
+Table 1: Pore network model characteristics and simulation parameters
+Parameter Model 1 Model 2
+Mean of PSD (µm) 10 31
+Standard deviation of PSD (µm) 5 5
+Minimum pore size (µm) 2 25
+Maximum pore size (µm) 26.3 98.8
+Mean of TSD (µm) 5 4
+Standard deviation of TSD (µm) 2 7
+Minimum throat size (µm) 1 0.5
+Maximum throat size (µm) 13.8 93.8
+Porosity (%) 17.8 17.8
+Permeability (mD) 459 32.5
+Water Diffusivity (µm2/s) 2500 2500
+Decay of proton magnetization during primary drainage
+Knowledge of the water distribution at the pore level, obtained by simulation of primary
+drainage, enables determination of the magnetization decay spectra at different values of
+water saturation. Pore coupling is insignificant at all saturation levels in Model 2. This is
+mainly due to the higher frequency of small throat sizes in this model, which result in a
+much higher diffusion resistance in the network. Decay spectra at various levels of water
+saturation in this system are shown in Fig. 3. The spectrum at Sw = 100% reflects the
+narrow distribution of pore sizes in this system. Primary drainage results in gradual
+disappearance of slow decay rates from the spectrum as water is being drained from the
+larger pores. Further reduction of Sw causes the appearance of fast rates in the spectrum,
+associated with the presence of residual water in the pore corners, which are not present
+in the spectrum at Sw = 100%. Unlike Model 2, the effects of diffusive pore coupling in
+Model 1 are evident at all saturation levels. As shown in Fig. 4(a), diffusion between
+pores at Sw = 100% narrows the spectrum of decay rates and skews it towards larger rates.
+The effect of coupling is more pronounced at lower levels of water saturation, as shown
+in Fig. 4(b). The evolution of decay spectra with Sw is illustrated in Fig. 5. As with
+
+--- PAGE 7 ---
+Model 2, accounting for the presence of residual water in pores invaded by the non-
+wetting phase significantly extends the spectrum of decay rates at low Sw.
+Drainage capillary pressure curves from T2 distributions
+In order to convert a NMR T2 distribution at Sw = 100% to a primary drainage capillary
+pressure curve, Volokitin et al. (1999) suggested the use of a variable k = Pc/l scaling
+factor, namely one that increases with increasing Pc. The network modeling approach
+pursued in this study allows us to explore the nature of this conversion and determine the
+relationship of the scaling factor to the pore and throat size distributions. A variable
+scaling k( Pc) suggested by Volokitin et al. (1999) is given below:
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+0.0 0.5 1.0 1.5 2.0 2.5 3.0
+Decay rate, ll (s-1)
+n(ll)
+Sw = 100%
+83%
+36%
+21%
+10%0.000
+0.025
+0.050
+10 30
+ll
+n(ll)
+Figure 3. Magnetization decay spectra for Model 2 during primary drainage. Inset shows
+the fast-rate components of the spectra at low Sw.
+Figure 4. Effect of pore coupling on magnetization decay spectra of Model 1: (a) Sw =
+100%, (b) Sw = 10%.
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1 10 100
+Decay rate, l l (s-1)
+n(ll)
+Uncoupled
+Coupled
+Sw = 100%
+0.00
+0.05
+0.10
+0.15
+0.20
+0.25
+1 10 100
+Decay rate, l l (s-1)
+n(ll)
+Uncoupled
+Coupled
+Sw = 10%
+(a) (b)
+
+--- PAGE 8 ---
+0.0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0 5 10 15
+Decay rate, l l (s-1)
+n(ll)
+Sw = 100%
+73%
+40%
+15%
+8%
+0.000
+0.025
+0.050
+20 60 100
+ll
+n(ll)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1 10 100
+Decay rate, l l (s-1)
+n(ll)
+Sw = 100%
+73%
+40%
+15%
+8%
+Figure 5. Magnetization decay spectra for Model 1 during primary drainage: (a) pore
+coupling ignored, (b) pore coupling accounted for.
+(a)
+(b)
+
+--- PAGE 9 ---
+úú
+úú
+úú
+úú
+ûû
+ùù
+êê
+êê
+êê
+êê
+ëë
+éé
+÷÷øø
+ööççèè
+ææ ++
+++== C
+c
+c
+PB
+AP
+1
+1)( okk (7)
+where A,B,C and ko are adjustable constants determined by optimization methods. If it
+can be assumed that the surface relaxivity is independent of pore size, then the value of k
+reflects an effective pore body-to-pore throat size aspect ratio.
+The functions )( cPk of the form of Eq. (7) which best reproduce the drainage
+capillary pressure curves of Model 1 and Model 2 are shown in Fig. 6, whereas the
+simulated drainage capillary pressure curves and those obtained from the NMR T2
+distributions are compared in Fig. 7. A nearly constant scaling factor k ≈ 4.7 is obtained
+for Model 1. This model has a rather uniform and relatively narrow TSD (see Fig. 2).
+Thus, primary drainage in this model takes place within a narrow range of capillary
+pressures, giving a rather steep drainage capillary pressure curve. Using the value of r
+for sandstone = 100 µm/s, we estimate a pore-to-throat size aspect ratio of 2.2 from k ≈
+4.7. This value is to be compared with the actual aspect ratio of the smallest pores and
+throats accessible at breakthrough conditions in Model 1 ( Pc = 13.4 psi; Sw = 0.80), the
+latter value being equal to 1.5. Even though there is a difference in the magnetization
+decay spectra for Model 1 (having a pore structure with narrow throat size distribution),
+no significant difference was found for the κ values, as seen from the results show in
+Figure 6.
+0
+20
+40
+60
+80
+100
+120
+140
+1 10 100 1000
+Pc (psi)
+kk (psi-s)
+Model 1 ( Uncoupled)
+Model 1 (Coupled)
+Model 2
+Figure 6. Scaling factor k used to convert NMR decay spectra to primary drainage
+capillary pressure curves. Data shown correspond to 0.10 < Sw < 0.80 for Model 1 and
+0.10 < Sw < 0.88 for Model 2.
+
+--- PAGE 10 ---
+Figure 7. Simulated (points) and NMR-reconstructed (lines) primary drainage capillary
+pressure curves: (a) Model 1, (b) Model 2.
+Model 2 is characterized by a broader TSD that is heavily skewed towards smaller pore
+throat pore throat sizes (see Fig. 2). This gives rise to a much more gradual capillary
+pressure curve that extends over a wider capillary pressure range. As shown in Fig. 6, the
+scaling factor k required to reproduce the capillary pressure curve from the NMR decay
+spectrum at Sw = 100% (Fig. 3) is not constant in this case. The aspect ratio of the
+smallest pores and throats accessible at breakthrough conditions in Model 2 ( Pc = 11.3
+psi; Sw = 0.88) is equal to 2.7. This value is to be compared with the aspect ratio of 4.3,
+estimated using κ(at Pc = 11.3 psi) = 9.3. An estimated higher aspect ratio is consistent
+with the pore and throat size distributions of this model (Fig. 2). However, the apparent
+aspect ratio calculated from the k values at breakthrough conditions is higher than the
+actual aspect ratio of the pores and throats involved. This discrepancy reflects the effect
+of limited pore accessibility near the percolation threshold. The results indicate that
+scaling NMR T2 distributions to primary drainage capillary pressure curves provides
+information about an apparent pore body-to–pore throat size aspect ratio. This is an
+important pore structure parameter affecting the magnitude of residual non-wetting phase
+saturation after imbibition (Ioannidis and Chatzis, 1993b).
+CONCLUSIONS
+1. The NMR response of partially saturated porous media during drainage
+displacements, can be efficiently simulated using network models of pore structure
+with pore and throat size distributions. The same type of network models have been
+used in previous studies of our group to predict a host of petrophysical properties
+dependent on fluid distributions at the pore scale. In this paper, we provide a useful
+approach to relate NMR T 2 distributions from partially saturated porous media to
+drainage capillary pressure curves and corresponding fluid distributions.
+1
+10
+100
+1000
+0.0 0.2 0.4 0.6 0.8 1.0 1.2
+Sw
+Pc (psi)
+0.1
+1.0
+10.0
+100.0
+1000.0
+0.0 0.2 0.4 0.6 0.8 1.0 1.2
+Sw
+Pc (psi)
+(a) (b)
+
+--- PAGE 11 ---
+2. In the fast diffusion limit, pore coupling can be significant in media with a broad pore
+size distribution when the throat size distribution and inter-pore length are taken into
+account. In such cases, pore coupling is more pronounced at lower wetting phase
+saturations.
+3. For the cases studied, simulations confirm that the conversion of NMR T2
+distributions to primary drainage capillary pressure curves provides information about
+the size aspect ratio of pore throats and pore bodies, which may be usefully correlated
+to recovery efficiency.
+NOMENCLATURE
+T2 – NMR relaxation time (s)
+Ai – Surface area of pore i (µm2)
+Vi – Volume of pore i (µm3)
+Sij – Cross sectional area of throat connecting pores i and j (µm2)
+Lij – Diffusion length between pores i and j (µm)
+Rp – Characteristic pore size (µm)
+Rt – Characteristic throat size (µm)
+Rmin – Minimum pore or throat size (µm)
+D – Diffusion coefficient (µm2/s)
+Mi – Normalized magnetization of pore i
+Sw – Water saturation
+Pc – Capillary pressure (psi)
+α – Weibull location/spread parameter
+β – Weibull kurtosis/skewness parameter
+ρ – Surface relaxivity (µm/s)
+σ – Surface tension (N/m)
+ωρ – Characteristic rate of relaxation at the fluid-solid interface (1/s)
+ωc – Characteristic rate of molecular diffusion between pores (1/s)
+λ – Relaxation rate (1/s)
+κ – Scaling factor between λ and Pc (psi.s)
+REFERENCES
+Brownstein, K.R. and Tarr, C.E., “Importance of classical diffusion in NMR studies
+of water in biological cells”, Physical Review A, (1979) 19, 2446-2453.
+Ioannidis, M.A. and Chatzis, I., “Network modelling of pore structure and transport
+Properties of Porous Media”, Chemical Engineering Science, (1993a) 48, no. 5,
+951-972.
+
+--- PAGE 12 ---
+Ioannidis, M.A. and Chatzis, I., “A mixed-percolation model of capillary hysteresis
+and entrapment in mercury porosimetry”, Journal of Colloid and Interface Science,
+(1993b) 161, 278-291.
+Kenyon, W.E., “Petrophysical principles of applications of NMR logging”, The Log
+Analyst, (1997) 38, no. 2, 21-43.
+Legait, B., “Laminar flow of two phases through a capillary tube with variable square
+cross-section”, Journal of Colloid and Interface Science, (1983) 96, no. 1, 28.
+McCall, K.R., Johnson, D.L. and Guyer, R.A., “Magnetization evolution in connected
+pore systems”, Physical Review B, (1991) 44, no. 14, 7344-7355.
+Roberts, S.P., McDonald, P.J., and Pritchard, T., “A bulk and spatially resolved NMR
+relaxation study of sandstone rock plugs”, Journal of Magnetic Resonance, (1995)
+Series A 116, 189-195.
+Shapiro, S.S. and Gross, A.J., “Statistical Modeling Techniques”, Marcel Dekker,
+New York, 1981.
+Slijkerman, W.F.J., and Hofman, J.P., “Determination of Surface Relaxivity from
+NMR diffusion measurements”, Magnetic Resonance Imaging, (1998) 16, no. 5/6,
+541-544.
+Volokitin, Y., Looyestijn, W.J., Slijkerman, W.F.J. and Hofman, J.P., “A Practical
+Approach to Obtain 1st Drainage Capillary Pressure Curves from NMR Core and
+Log Data”, SCA-9924, 1999.

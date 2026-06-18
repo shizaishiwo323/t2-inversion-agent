@@ -1,0 +1,1443 @@
+--- PAGE 1 ---
+401
+Manuscript received by the Editor June 24, 2011; revised manuscript received July 15, 2012.
+*The work is sponsored by the National Natural Science Foundation of China (41172130), the Fundamental Research Funds 
+for the Central Universities (2-9-2012-48), the National Major Projects (No. 2011ZX05014-001), and CNPC Innovation 
+Foundation (No. 2011D-5006-0305).
+1. Key Laboratory of Geo-detection (China University of Geosciences, Beijing), Ministry of Education, Beijing 100083, China.
+2. School of Geophysics and Information Technology, China University of Geosciences, Beijing 100083, China.
+3. Shengli Well Logging Co., SINOPEC, Dongying 257096, China.
+© 2012 Chinese Geophysical Society. All rights reserved.
+Numerical simulation of (T2, T1) 2D NMR and ﬂ uid 
+responses*
+APPLIED GEOPHYSICS, Vol.9, No.4 (December 2012), P. 401 - 413, 8 Figures.
+DOI:10.1007/s11770-012-0351-3
+Tan Mao-Jin1,2, Zou You-Long2, Zhang Jin-Yan3, and Zhao Xin3
+Abstract: One-dimensional nuclear magnetic resonance (1D NMR) logging technology 
+is limited for fluid typing, while two-dimensional nuclear magnetic resonance (2D NMR) 
+logging can provide more parameters including longitudinal relaxation time ( T1) and 
+transverse relaxation time (T2) relative to fluid types in porous media. Based on the 2D 
+NMR relaxation mechanism in a gradient magnetic field, echo train simulation and 2D 
+NMR inversion are discussed in detail. For 2D NMR inversion, a hybrid inversion method 
+is proposed based on the damping least squares method (LSQR) and an improved truncated 
+singular value decomposition (TSVD) algorithm. A series of spin echoes are ﬁ rst simulated 
+with multiple waiting times (TWs) in a gradient magnetic field for given fluid models and 
+these synthesized echo trains are inverted by the hybrid method. The inversion results are 
+consistent with given models. Moreover, the numerical simulation of various ﬂ uid models 
+such as the gas-water, light oil-water, and vicious oil-water models were carried out with 
+different echo spacings (TEs) and TWs by this hybrid method. Finally, the influences of 
+different signal-to-noise ratios (SNRs) on inversion results in various fluid models are 
+studied. The numerical simulations show that the hybrid method and optimized observation 
+parameters are applicable to ﬂ uid typing of gas-water and oil-water models.
+Keywords: Two-dimensional NMR (2D-NMR) logging, hybrid inversion method, transverse 
+relaxation time (T2), longitudinal relaxation time (T1), ﬂ uid typing
+Introduction
+Nuclear magnetic resonance (NMR) logging is a 
+unique logging method to distinguish movable and bound 
+fluids in formations and is widely used in hydrocarbon 
+identification (Coats et al., 1998; Xiao, 1998; Wang et 
+al., 2001; Xiao, 2007). However, the 1D NMR logging 
+technology can only measure transverse relaxation 
+time (T2) of fluids in pores, so it is greatly limited in 
+identification and quantitative evaluation of fluids such 
+as oil, gas, and water in some reservoirs. That is because 
+when oil, gas, and water coexist in local pores their 
+signals sometimes overlap each other in the T2 spectrum. 
+To distinguish them from each other, the usual differential 
+spectrum method (DSM), shifted spectrum method (SSM), 
+and enhanced diffusion method (EDM) are difﬁ cult (Wang 
+et al., 2001; Shao, 2003; Tan et al., 2006). 
+
+--- PAGE 2 ---
+402
+(T2, T1) 2D NMR and ﬂ uid responses
+Two-dimensional nuclear magnetic resonance (2D 
+NMR) logging is newly developed and can provide a 
+variety of parameters including transverse relaxation 
+time (T2), observed longitudinal relaxation time (T1), 
+fluid diffusion coefficient (D), internal magnetic field 
+gradient (G), and other parameters. The current 1D 
+NMR logging cannot meet 2D observation requirements, 
+so it has to redesign its observation activations and 
+corresponding parameters. The new NMR instruments 
+such as MREx of Baker Atlas and MRX of Schlumberger 
+can both be used for 2D NMR logging. 
+Hurlimann et al. (2002) and Sun and Dunn (2005a; 
+2005b) proposed a method to improve spin-echo pulse 
+sequence (CPMG) using two windows and achieved 
+2D NMR logging based on relaxation- diffusion ( T2, 
+D) analysis, namely (T2, D) 2D NMR, which greatly 
+enhanced the accuracy of fluid identification and 
+saturation calculations. Xiao (1998, 2007) and Xie 
+et al. (2005, 2009) have performed some 2D NMR 
+experiments with man-made paramagnetic sandstone and 
+water-saturated natural shale sandstone and have given 
+two-dimensional distributions of transverse relaxation 
+time (T2) and internal magnetic field gradient (G) 
+namely (T2, G) 2D NMR, which is signiﬁ cant for NMR 
+measurement analysis of complex terrestrial sedimentary 
+rock strata. Gu and Liu (2007) and Gu et al. (2009) have 
+studied traditional singular value decomposition (SVD), 
+improved the SVD algorithm, and have achieved a two-
+dimensional continuous spectrum for NMR inversion 
+and discussed the impacts of signal-noise-ratio (SNR) 
+on inversion results. Tan et al. (2011) used the truncated 
+singular value decomposition (TSVD) for inversion of 
+(T2, D) 2D NMR. The experiment was performed with 
+different magnetic field gradients with different echo 
+spacing groups using gas-water models with different 
+gas saturation and the response characteristics of the 
+different saturation models were analyzed. Furthermore, 
+the effects of different SNRs on inversion results were 
+studied. 
+In this paper, we introduce and study the basic 
+principles and mathematical model of 2D NMR logging 
+with multiple waiting times (Tw) based on the NMR 
+relaxation mechanism under conditions of the gradient 
+magnetic field. Then, the LSQR and TSVD algorithms 
+are used to realize ( T2, T1) 2D NMR inversion. 
+Combined with the characteristics of the two algorithms, 
+a hybrid inversion method for 2D NMR inversion is 
+proposed using the LSQR first and then the TSVD 
+algorithm is used for a second inversion. Whose initial 
+guess is from the LSQR result. In the experiment, the 
+hybrid inversion is better than a single algorithm. Using 
+this new inversion method, the 2D spectrum inversion of 
+different ﬂ uid models are implemented and the inﬂ uence 
+of different combinations of multiple Tw and different 
+TE are studied in detail. The inﬂ uences of different echo 
+spacing, different signal to noise ratio (SNR) on the 
+inversion results are studied. All the research results 
+provide an important guidance for the parameter design 
+for 2D NMR logging.
+Methods and principles
+The purpose of NMR logging is to make porosity 
+calculations, pore structure, and fluids identification in 
+porous media. The new generation of NMR logging tools 
+can measure a number of spin-echo trains with different 
+waiting times (TW). In porous media, we suppose that s 
+groups of spin echo trains with different waiting times 
+(TW) were observed and the echo amplitude in each echo 
+train is relative to both a decaying component, e–Ti, s/T2j, 
+and polarizing factor, 1 – e–TW, s/T1r, so the NMR echo train 
+signals based on the CPMG pulse sequence are discrete 
+are discrete as the following equation (Sun et al., 2005):
+ 2,1 //
+11
+(1 ) , ijWs r
+pm
+tTTT
+is jr is
+jr
+bf e e H
+ 
+  ¦¦ (1)
+where bis is the ith echo amplitude of the sth echo-
+train with waiting time TW, s, fjr is the proton number 
+with transverse relaxation time (T2j) and longitudinal 
+relaxation time (T1r), εis is the ith echo noise of the sth 
+echo-train with waiting time TW, s.
+Equation (1) can also be written as the matrix equation
+ , ,is is jr jr isbA f H  (2)
+where Ais,jr = ( 1 – e–TW, s/T1r)e–Ti, s/T2j, i = 1 , … , NEs, NEs is the 
+number of echoes with waiting time TW, s, s = 1 , … , w, 
+r = 1, …, p, j = 1, …, m, and w is the designed number of 
+waiting times, and p and m are the numbers of T2 and T1 
+components divided, respectively.
+The linear equation (2) may be also written as 
+ .xb A (3)
+The linear equation system (3) is solved by the 
+inversion method and the proton number amplitude 
+(flj) of transverse relaxation time (T2j) and longitudinal 
+relaxation time (T1r) can be calculated and the 2D NMR 
+spectrum is derived and correspondingly constructed 
+and which can be used for ﬂ uid typing identiﬁ cation and 
+evaluation.
+
+--- PAGE 3 ---
+403
+Tan et al.
+Inversion algorithm tests
+For 2D NMR spectrum inversion problems, matrix 
+Am×n is a large sparse kernel matrix. Am×n is dependent 
+on the NMR logging in-site observation activation, 
+observation parameters, and the grid mesh. The ﬁ nal Am
+×n is a serious pathological matrix. In this paper, several 
+inversion algorithms are chosen for checking inversion 
+results, which are veriﬁ ed by the relative error between 
+the model and inversion results,
+ mod
+mod
+|| || ,|| ||
+inv
+x
+xxR x
+ (4)
+where, xmod is the model parameter and xinv is the 
+inversion result. 
+The LSQR method was proposed by Paige and 
+Sanders in 1982 and is used for solving least squares 
+problems with the Lanczos iteration method. The LSQR 
+method has the advantage of simplified sparse matrix 
+calculations and it is suitable for solving large sparse 
+matrix problems (Liu and Liu, 2006; Yang et al., 2008).
+The improved truncated singular value decomposition 
+(TSVD) algorithm is also used to solve most of the 
+linear least squares problems. The TSVD method can 
+give an optimal answer but loses the most powerful 
+oscillation component of the solution, so the method 
+reduces the results resolution which makes the spectrum 
+discontinuous. In order to obtain a continuous spectrum, 
+the solution is pointed to the minimum of ||A∆x–∆b||2 to 
+solve for the optimal solution. First, assuming a known 
+initial guess x0, the original equation (2) is rewritten as 
+A(x – x0) = b – b0 or A∆x = ∆b, which is executed by the 
+TSVD algorithm. When ||Ax–b||2 is a minimum, ∆
+x is the optimal solution, so x0 + ∆x is the ﬁ nal result of 
+equation (2). Since the equation solution of A∆x = ∆b is 
+∆x, it does not reduce the matrix size in the non-negative 
+constraints. If components of the solution are less than 
+zero, these components are directly changed to zero 
+and then the changed solutions are reiterated until the 
+components meet the non-negative conditions. Because 
+the singular value decomposition process of matrix Am×n 
+is executed only once, the amount of computations and 
+computing time are greatly reduced. 
+To verify the hybrid inversion method, a gas reservoir 
+model containing bound water and free gas is built 
+and the fluid properties are listed in Table 1. In the 
+simulation experiment, the two-dimensional grid mesh 
+with transverse relaxation time (T2) and longitudinal 
+relaxation time (T1) is a 30 × 30 logarithmic uniform 
+distribution (Tan et al., 2008). Fluid composition in the 
+two-dimensional spectrum is a Gaussian distribution. The 
+two-dimensional spectrum with multiple peaks is shown 
+in Figure 1a. The fluid model observation parameters 
+are: echo spacing (TE) is 1.2 ms and the group of waiting 
+times (Tw) is set to be 0.2s, 0.8s, 2.0s, 4.0s, 8.0s, and 
+12.0s. The number of echoes of each received echo train 
+is 600. The magnetic ﬁ eld gradient is 2.0 × 10-3 T/cm and 
+six groups of echo trains are simulated (see Figure 1b). 
+In this case, the condition number of matrix A3600×900 is 
+calculated to be about 4.0 × 1025, which indicates that 
+it is a serious pathological matrix. The LSQR and SVD 
+algorithms are combined to solve the two-dimensional 
+inversion problem.
+Table 1 Reservoir fluid parameters 
+Fluid properties T1 (ms) T2 (ms) Saturation (%)
+Bound water 30 10 60.0
+gas 3000 40 40.0
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+T1 (ms)
+104
+103
+102
+101
+100
+T2 (ms)
+104 100001000100101100
+102103
+101 200 400 600 800 1000 1200 1400 1600 1800
+1000
+2000
+3000
+4000
+5000
+6000
+7000
+8000
+9000
+TW = 0.2s
+TW = 0.8s
+TW = 2.0s
+TW = 4.0 ms
+TW = 8.0 ms
+TW = 12.0 ms
+n
+Amplitude
+ (a) Fluid model (b) Synthesized echo trains 
+Fig.1 Fluid model and synthesized echo trains.
+
+--- PAGE 4 ---
+404
+(T2, T1) 2D NMR and ﬂ uid responses
+Figures 2a and 2b illustrate the inversion results for single 
+LSQR and SVD algorithms. The LSQR algorithm relative 
+error is about 0.3046, whereas the SVD algorithm relative 
+error is about 0.7054. We see that the LSQR algorithm 
+inversion accuracy is higher than the SVD algorithm. 
+The LSQR method running time is about 140.5 s and, by 
+contrast, the SVD method running time with 800 iterations 
+is about 1817.125 s. Therefore, the TSVD algorithm 
+inversion speed is slower than the LSQR algorithm.
+Figure 2a shows that the 2D spectrum inverted by 
+the LSQR algorithm is in very good agreement with 
+the given model in Figure 1a. Furthermore, the inverted 
+one-dimensional T2 distribution (short T2 components 
+of 1 to 100 ms) is consistent with the one-dimensional 
+T1 distribution (long T1 components of more than 100 
+ms) in the model. On the contrary, the inverted long T2 
+and short T1 components are not consistent with those 
+of the supposed model. Therefore, the LSQR algorithm 
+cannot achieve the qualitative analysis and quantitative 
+calculations of reservoir ﬂ uid. 
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T1 (ms)
+T2 (ms)
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T1 (ms)
+T2 (ms)
+0.2
+0.6
+1
+1.4
+1.2
+Inversion
+Model
+0.4
+0.8
+104103102101100
+104103102101100
+Inversion
+Model
+AmplitudeAmplitude
+1.6
+0
+-0.2
+T2 (ms)
+T1 (ms)
+1.5
+0.5
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+2
+2.5
+3
+1.5
+0.5
+1
+2
+2.5
+3
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T1 (ms)
+T2 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+1.4
+1.6
+1.6
+1.8
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+(c) LSQR-SVD hybrid method.
+Fig.2 Comparison of different inversion algorithms for 2D NMR.
+(b) Non-negative truncated SVD algorithm.
+(a) LSQR algorithm.
+
+--- PAGE 5 ---
+405
+Tan et al.
+Similarly, Figure 2b shows two-dimensional inversion 
+results of the TSVD algorithm with non-negative 
+constraints. The two-dimensional spectrum looks like 
+the given model in Figure 1a. The long one-dimensional 
+T2 distribution (>100 ms) relaxation components and 
+short T1 relaxation components of the one-dimensional 
+T1 distribution (<100 ms) match well with those of the 
+given model in one-dimensional T1 and T2 distributions 
+but the short T2 components between 1 and 100 ms and 
+long T1 components between 100 and 3000 ms do not 
+match with the given model. Comparisons of the two 
+inversion algorithms indicate that the LSQR has faster 
+inversion speed but lower accuracy. TSVD inversion 
+accuracy can satisfy the requirements but the speed is 
+relatively slow. Moreover, the TSVD algorithm solution 
+is not complete due to decreasing the solution dimension 
+and the lost components should be compensated for to 
+improve the resolution and accuracy. From Figures 2a 
+and 2b, the LSQR method for inversion of the short T2 
+components is good, whereas the long T2 components 
+inverted by the improved TSVD method are better for 
+inversion of long T2 components. Therefore, a hybrid 
+method with TSVD and LSQR algorithms is considered 
+to elevate the inversion accuracy. That is, the inversion 
+is ﬁ rst conducted by LSQR and then the results are set as 
+initial values x0 and then the TSVD inversion algorithm 
+is used for further inversion.
+Figure 2c shows the inversion results by the hybrid 
+method, from which we see that the inversion results 
+are greatly improved. The T2 inverted distribution is 
+consistent with the model in short relaxation components 
+as well as long components and the inverted T1 
+distribution is also closer to the model. In the hybrid 
+inversion process, the number of iterations for the LSQR 
+method is about 800 and for the TSVD algorithm is 400 
+and the total computing time is 1722.41 s with inversion 
+error of 0.07. Therefore, this hybrid method is more 
+accurate and faster than a single LSQR or SVD inversion 
+algorithm. 
+Observation parameter design and 
+analysis
+Observation parameter design is essential for 
+fluid identification by nuclear magnetic resonance 
+measurements. The data core matrix ( Am×n) and the 
+observed echo train (bm) are not only related to the 
+transverse and longitudinal relaxation time but also 
+are affected by different combinations of waiting time 
+and echo spacing (TE). The influences of observation 
+parameters on inversion results should be studied 
+further. Therefore, the oil/water and gas/water models 
+are designed for experimental study of inversion for 
+distinguishing oil or gas from water. The ﬂ uid parameters 
+are listed in Tables 2 and 3 and the corresponding 
+models are shown in Figure 3.
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T1 (ms)
+T2 (ms)
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T1 (ms)
+T2 (ms)
+ (a) Oil-water model. (b) Gas-water model.
+Fig.3 Fluid models based on (T2, T1) 2D NMR.
+Table 2 The properties of oil -water model
+Fluids Properties
+T1 (ms)T2 (ms) Saturation (%)
+Light oil 400 600 25.0
+Viscous oil 20 6 25.0
+Bound water 30 20 25.0
+Free water 1000 300 25.0
+Table 3 the properties of gas-water model
+Fluids Properties
+T1 (ms) T2 (ms) Saturation (%)
+Gas 3000 40 30.0
+Bound water 30 20 40.0
+Free water 1000 300 30.0
+
+--- PAGE 6 ---
+406
+(T2, T1) 2D NMR and ﬂ uid responses
+During the experiment, the model is a 30 × 30 grid, 
+echo spacing is 1.2 ms, the number of echoes is 600, 
+and the magnetic field gradient is 3.0 × 10-3 T/cm with 
+different waiting time (Tw) combinations and different 
+echo spacing (TE). First, six groups of echo trains are 
+simulated and the hybrid method is used to invert the 
+echo trains with different echo spacing or different 
+combinations of waiting time. The inversion results 
+show that the effect of different Tw combinations and 
+TEs on fluid identification are different (see Figure 3). 
+The effect of different magnetic field gradients (G) in 
+diverse ﬂ uid models need to be further studied. The oil, 
+water, and gas contained in the formation are assumed 
+to show a Gaussian distribution and multiple peak 
+shapes. In forward and inversion simulations, transverse 
+relaxation time (T2) and longitude relaxation time (T1) 
+are divided into 30 bins in the range of 0.3 to 3000 ms 
+and 10-power exponents are adopted (Tan et al, 2008). 
+The gyromagnetic ratio (γ) is about 2×42.58×106 Hz/T.
+Different echo spacing (TE)
+For numerical simulations and inversion experiments 
+of different echo spacing in the oil-water model, the 
+observation parameters are: wait time (Tw) group is 0.05 
+s, 0.1 s, 1.0 s, 1.5 s, 3.0 s, 5.6 s, 8.0 s, 10 s, and 12 s 
+and the number of echoes for each echo train is 300 for 
+each waiting time. First, nine groups of echo trains are 
+forward modeled with different echo spacing. Then, 
+the hybrid inversion algorithm is used to invert the 
+modeled data in order to study the effects of different 
+echo spacing on the inversion results. Figure 4 shows 
+the inversion results for different echo spacing in the 
+oil-water model. When the echo spacing is 0.6 ms, the 
+relative error between the inversion results and the 
+model is about 0.1678. When the echo spacing is 1.2 ms, 
+the relative error is about 0.1614. When the echo spacing 
+is 2.4 ms, the relative error is about 0.1572. From Figure 
+4, we see that the echo spacing has almost no impact on 
+the accuracy of the inversion for the oil-water model. 
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+1.4
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Inversion results comparison 
+(a) TE = 0.6 ms
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+1.4
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Inversion results comparison
+(b) TE =1.2 ms 
+
+--- PAGE 7 ---
+407
+Tan et al.
+Similarly, for the gas-water model, a similar experiment 
+was carried out. When the echo spacing is 0.6 ms, the 
+relative error between the inversion results and gas-water 
+model is about 0.1199. When the echo spacing is 2.4 ms, 
+the inversion relative error (Rx) is about 0.1155. From the 
+simulation results we see that in the multiple Tw observation 
+modes, the echo spacing has almost no impact on the 
+inversion accuracy for the gas-water and oil-water models.
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+ Two-dimensional spectrum Inversion results comparison
+(c) TE =2.4 ms 
+Fig.4 Comparisons of 2D NMR inversion results with different TEs for the oil-water model.
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+1.4
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Inversion results comparison
+(a) TE = 0.6 ms 
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Inversion results comparison
+(b) TE = 1.2 ms 
+
+--- PAGE 8 ---
+408
+(T2, T1) 2D NMR and ﬂ uid responses
+Different waiting time (Tw) groups
+For studying the influences of waiting times (Tw) on 
+the inversion results, different waiting time groups are 
+set for a series of simulation and inversion experiments. 
+The observation parameters are: the echo spacing is 
+0.6 ms, the number of echoes is 300 for each echo train 
+corresponding to each waiting time. The waiting time 
+groups are set to 0.05 s, 0.1 s, 1.0 s, 1.5 s, 3.0 s, 5.6 s, 6.0 
+s, 6.5 s, 7.0 s, 8.0 s, 10.0 s, and 12.0 s and 0.05 s, 0.1 s, 1.0 
+s, 3.0 s, 8.0 s, and 12.0 s. First, six groups of echo trains 
+are simulated and then the simulation data is inverted 
+using the hybrid inversion method. The inversion results 
+of different ﬂ uid models are illustrated in Figures 6 and 7.
+When the waiting time group is chosen as 0.05 s, 0.1 
+s, 1.0 s, 1.5 s, 3.0 s, and 5.6s, the relative error (Rx) is 
+about 0.1877. When waiting time group is 6.0 s, 6.5 s, 
+7.0 s, 8.0 s, 10.0 s, and 12.0s, the relative error (Rx) is 
+about 0.7559. When the waiting time group is 0.05 s, 
+0.1 s, 1.0 s, 3.0 s, 8.0 s, and 12.0 s, the relative error 
+(Rx) is about 0.2031. From 2D spectrum inversion and 
+error analysis, the results with the waiting time group of 
+0.05 s, 0.1 s, 1.0 s, 3.0 s, 8.0 s, and 12.0s is best in three 
+tests in which every ﬂ uid peak is focused well and the 
+T2 and T1 distributions also match well with the model. 
+Therefore, in multiple Tw observation modes, for the oil-
+water model, the inversion results of the mixed waiting 
+time group with short and long Tw not only reflect the 
+bound water with short T2 relaxation time and short T1 
+relaxation time but can also identify the components 
+with long T2 and T1 relaxation times in porous media. 
+From two-dimensional inversion spectra, light oil 
+and viscous oil also easily can be distinguished from 
+movable water and bound water.
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Inversion results comparison
+(c) TE = 2.4 ms
+Fig.5 Comparisons of 2D NMR inversion results with different TEs for the gas-water model.
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+1.4
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Inversion results comparison
+(a) Tw = [0.05, 0.1, 1.0, 1.5, 3.0, 5.6] s 
+
+--- PAGE 9 ---
+409
+Tan et al.
+A series of similar experiments was made for the gas-
+water model using a group of waiting times of 0.05 s, 
+0.5 s, 0.1 s, 1.0 s, 1.5 s, 3.0 s, and 5.6 s. The experiments 
+show that the relative error (Rx) between the model and 
+inversion results is about 0.1885. When the group of 
+waiting times is 6.0 s, 6.5 s, 7.0 s, 8.0 s, 10.0 s, and 12.0 s, 
+the relative error (Rx) is about 0.6220. When the group of 
+waiting time is 0.05 s, 0.1 s, 1.0 s, 3.0 s, 8.0 s, and 12.0s, 
+the relative error (Rx) between model and inversion is 
+about 0.1923. 
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+T2 (ms)
+T1 (ms)
+104 100001000100101100
+102103
+101
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Inversion results comparison
+(b) Tw = [6.0, 6.5, 7.0, 8.0, 10.0, 12] s 
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+1.4
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Comparison of inversion results
+(c) Tw = [0.05, 0.1, 1.0, 3.0, 8.0, 12.0] s
+Fig.6 Comparisons of 2D NMR inversion results with different Tw groups for the oil-water model. 
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+1.4
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Inversion results comparison
+(a) Tw = [0.05, 0.1, 1.0, 1.5, 3.0, 5.6] s 
+
+--- PAGE 10 ---
+410
+(T2, T1) 2D NMR and ﬂ uid responses
+From the inversion results and error analysis, we see 
+that for both ﬂ uid models, the error of inversion results 
+with mixed-Tw groups of short waiting time Tw and long 
+waiting time Tw is smallest in three single Tw groups. So, 
+it is most suitable for (T2, T1) 2D NMR logging. 
+Effects of SNRs
+For the gas-water model, we chose different single-to-
+noise-ratios (SNR ratios) to study the effects of different 
+algorithms on (T2, T1) 2D NMR inversion results. In 
+simulation experiments, the echo spacing (TE) is set to 0.6 
+ms, the multiple Tw group is [0.05, 0.1, 1.0, 3.0, 8.0, 12] s. 
+The different SNR ratios are added into the forward echo 
+trains and the inversions are carried out by the hybrid 
+inversion method.
+When the SNR ratio is 150, the inversion results are 
+illustrated in Figure 8a and the relative error (Rx) is about 
+0.2113. The gas can be distinguished from water in the 
+two-dimensional spectrum and one-dimensional T2 and 
+D distributions shown in Figure 8. The inversion process 
+may be directly executed by the hybrid inversion method 
+when the SNR ratio is greater than 150.
+When the SNR ratio is less than 150, the damping 
+factor (α) should be added into the hybrid inversion. 
+The inversion problem of Ax = b is changed to the 
+solution of (ATA+αI)x = ATb, then the hybrid inversion 
+method is used. Different SNR ratios such as 100, 
+50, and 25 were chosen for numerical simulation 
+experiments. The inversion results are shown in Figures 
+8b, 8c, and 8d and the relative errors are about 0.5472, 
+0.6594, and 0.7968, respectively. From Figures 8b and 
+8c, we see that when the SNR ratio is 100 or 50, both 
+the two-dimensional spectrum and the one-dimensional 
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Inversion results comparison
+(b) Tw = [6.0, 6.5, 7.0, 8.0, 10.0, 12.0] s 
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+1.2
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+1.4
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+ Two-dimensional spectrum Inversion results comparison
+(c) Tw = [0.05, 0.1, 1.0, 3.0, 8.0, 12.0] s 
+Fig.7 Comparisons of 2D NMR inversion results with different Tw groups for the gas-water model.
+
+--- PAGE 11 ---
+411
+Tan et al.
+T2 distribution and diffusion coefficients can directly 
+be used to identify the gas and water. When the SNR 
+ratio is lower than 50, the gas and water are mixed (see 
+Figure 8d) and it is difficult to distinguish between 
+them. The SNR ratio is lower and the ﬂ uid identiﬁ cation 
+is more difficult for the gas-water model. However, 
+when the SNR ratio is greater than 50, (T2, T1) 2D NMR 
+can identify ﬂ uids more accurately.
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.5
+1
+1.2
+1.4
+1.5
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+(a) SNR = 150
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+1.6
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+(b) SNR = 100, α = 1.0 e-6
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.2
+0.4
+0.6
+0.8
+1
+1.2
+1.4
+1.6
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+(c) SNR = 50, α = 0.003
+
+--- PAGE 12 ---
+412
+(T2, T1) 2D NMR and ﬂ uid responses
+The experiments were also performed for the oil-water 
+models. The experiment results show that when the SNR 
+ratio is 150, heavy oil can be distinguished from bound 
+water in the viscous oil and water model but the movable 
+water and light oil overlap each other in the light oil-
+water model, so they are difﬁ cult to be identiﬁ ed. When 
+the SNR is 100, the viscous oil and bound water can still 
+be distinguished from each other in the heavy oil-water 
+model. However, the movable water and light oil overlap 
+and light oil is not distinguished from movable water 
+in the light oil and water model. When the SNR ratio 
+is lower than 50, viscous oil and bound water overlap 
+and movable water and light oil also overlap. From the 
+experiments, we conclude that the SNR ratio effect on 
+inversion results in the gas-water model is lower than in 
+the oil-water model for ﬂ uid identiﬁ cation.
+Conclusions
+The proposed non-negative LSQR and SVD hybrid 
+inversion method achieves (T2, T1) 2D NMR inversion 
+with multiple-Tw activation. The hybrid method can 
+be used through redesigned acquisition parameters. 
+Numerical simulation experiments show that the hybrid 
+inversion method can meet the needs of practical 
+application. From the inversion results and error 
+analysis, we conclude that: 
+(1) The hybrid inversion method is stable and more 
+accurate than a single inversion algorithm which 
+decomposes a matrix only once. It shows fast calculation 
+speed and only needs small storage space. The algorithm 
+easily achieves the non-negative constraints and can get 
+a continuous 2D high-precision spectrum.
+(2) With respect to the acquisition parameters, the 
+mixed waiting time combination with short and long 
+waiting times are more suitable for ﬂ uid identiﬁ cation. 
+The results identify bound ﬂ uids with the fast relaxation 
+components and oil or gas and water with the slow 
+relaxation component. 
+(3) The SNR ratio effect on inversion results in the 
+gas-water model is lower than in the oil-water model for 
+ﬂ uid identiﬁ cation.
+(4) The reservoir fluids can be qualitatively 
+determined by the location and amplitude of the focused 
+signals in the two-dimensional spectrum. For light 
+oil-water and gas-water models, both oil and gas are 
+distinguished from water more easily, whereas for ﬂ uid 
+models containing viscous oil, the oil and water are not 
+easily identiﬁ ed because the NMR relaxation properties 
+of bound ﬂ uids and viscous oil are very similar.
+References
+Bi, L. R., 2007, Latest advances in NMR logging 
+technology: Chinese Journal of Engineering Geophysics, 
+4(4), 369 – 374.
+Coates, G. R., Xiao, L. Z., and Prammer, M. G., 1998, 
+NMR logging principle & applications: Gulf Publishing 
+Company, Texas.
+Dunn, K. J., and Latorraca, G. A., 1999, The inversion of 
+NMR log data sets with different measurement errors: 
+Journal of Magnetic Resonance, 140, 153 – 161.
+Gu, Z. B., and Liu, W., 2007, The inversion of two-
+dimensional NMR map: Chinese Journal of Magnetic 
+Resonance, 24(3), 311 – 319.
+Gu, Z. B., Liu, W., and Sun, D. Q., 2009, Application of 2D 
+11 0 1 0 0 1 0 0 0 1 0 0 0 0
+0
+0.2
+0.4
+0.6
+0.8
+1
+104
+103
+102
+101
+100
+104 100001000100101100
+102103
+101
+T2 (ms)
+T1 (ms)
+0.20.40.60.811.21.41.61.82
+0.2
+0.4
+0.6
+0.8
+1
+104103102101100
+104103102101100
+AmplitudeAmplitude
+T1 (ms)
+T2 (ms)
+Inversion
+Model
+Inversion
+Model
+(d) SNR = 25, α = 0.175
+Fig.8 Inversion results with different SNRs for gas-water models.
+
+--- PAGE 13 ---
+413
+Tan et al.
+NMR techniques in petroleum logging: Chinese Journal 
+of Magnetic Resonance, 26(4), 560 – 568.
+Hurlimann, M. D., Venkataramanan, L., and Flaum, C., et 
+al., 2002, Diffusion-editing: New NMR measurement of 
+saturation and pore geometry: Paper FFF in 43rd Annual 
+Symposium of SPWLA, Oiso, Japan, June 3 – 6.
+Liu, J. S., and Liu, F. T., 2006, Seismic tomography LSQR 
+algorithm parallelization: Geophysics, 49(2), 540 – 545.
+Shao, W. Z., 2003, On the effect of NMR differential and 
+shifted spectrum method in laboratory: Well Logging 
+Technology, 27(6), 502 – 507.
+Sun, B. Q., and Dunn, K. J., 2005, A global inversion 
+method for multi-dimensional NMR logging: Journal of 
+Magnetic Resonance, 40(2), 152 – 160.
+Tan, M. J., Zhao, W. J., and Fan, Y . R., 2006, Identiﬁ cation 
+of reservoir ﬂ uid with double-Tw NMR logging activity 
+properties: Natural Gas Industry, 26(4), 38 – 40.
+Tan, M. J., Shi, Y . L., and Zhao, W. J., et al., 2008, A joint 
+inversion method for NMR dual-Tw logging data and 
+ﬂ uid typing: Chinese Journal of Geophysics, 51(5), 1100 
+– 1109.
+Tan, M. J., Zou, Y . L., and Liu, B. K., et al., 2011, Inversion 
+simulation of (T2, D) 2D NMR logging and analysis of 
+observation parameters effects in gas-water model: Well 
+Logging Technology, 35(2), 130 – 136.
+Wang, Z. D., Wang, H., and Xiang, T. D., 2001, Integration 
+of NMR DTw logs and DTE logs to improve the oil bed 
+interpretation accuracy: Well Logging Technology, 25(5), 
+365 – 368.
+Xiao, L. Z., 1998, Nuclear magnetic imaging logging, 
+rock NMR experiment and applications: Science Press, 
+Beijing.
+Xiao, L. Z., 2007, Some important issues for NMR logging 
+applications in China: Well Logging Technology, 31(5), 
+401 – 407.
+Xie, R. H., Xiao, L. Z., Dunn, K. J., et al., 2005, Two-
+dimensional NMR logging: Well Logging Technology, 
+29(5), 430 – 434.
+Xie, R. H., Xiao, L. Z., and Fu, S. Q., et al., 2007, 
+Experimental study on nuclear magnetic resonance 
+relaxation characteristic of crude oil at variable 
+temperature: Journal of China University of Petroleum, 
+31(4), 34 – 37.
+Xie, R. H., Xiao, L. Z., and Lu, D. W., 2009, (T2, T1) Two-
+dimensional NMR method for ﬂ uid typing: Well Logging 
+Technology, 33(1), 10 – 20.
+Xie, R. H., and Xiao, L. Z., 2009, Two-dimensional 
+NMR logging method for identifying reservoir fluids: 
+Geophysics, 52(9), 2410 – 2418.
+Yang, W., Liu, S. X., and Feng, Y. Q., 2008, Cross-
+hole tomography LSQR algorithm: Geophysical and 
+Geochemical Exploration, 32(2), 199 – 202.
+Yun, H. Y., and Tan, M. J., 2006, Observation way and 
+analytical approach of dual waiting time by nuclear 
+magnetic resonance logging: Petroleum Geology and 
+Recover Efﬁ ciency, 13(4), 96 – 98.
+Tan Mao-Jin, an Associate Professor at China University 
+of Geosciences (Beijing). He gained a PhD at China 
+University of Petroleum in 2006 and was a postdoctoral 
+fellow of GUCAS in Geophysics from 2006 to 2008. 
+He is interested in well logging theory and logging 
+interpretation and evaluation of complex reservoirs.

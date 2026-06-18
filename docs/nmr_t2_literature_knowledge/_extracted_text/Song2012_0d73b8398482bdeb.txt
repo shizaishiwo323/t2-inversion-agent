@@ -1,0 +1,1727 @@
+--- PAGE 1 ---
+Perspectives in Magnetic Resonance
+Magnetic Resonance of Porous Media (MRPM): A perspective
+Yi-Qiao Song ⇑
+Schlumberger-Doll Research, One Hampshire Street, Cambridge, MA 02139, USA
+article info
+Article history:
+Received 25 August 2012
+Revised 11 November 2012
+Available online 10 December 2012
+Keywords:
+Porous media
+Microstructure
+Relaxation
+Diffusion
+Magnetic resonance
+abstract
+Porous media are ubiquitous in our environment and their application is extremely broad. The common
+connection between these diverse materials is the importance of the microstructure ( lm to mm scale) in
+determining the physical, chemical and biological functions and properties. Magnetic resonance and its
+imaging modality have been essential for noninvasive characterization of these materials, in the develop-
+ment of catalysts, understanding cement hydration, ﬂuid transport in rocks and soil, geological prospect-
+ing, and characterization of tissue properties for medical diagnosis. The past two decades have witnessed
+signiﬁcant development of MRPM that couples advances in physics, chemistry and engineering with a
+broad range of applications. This article will summarize key advances in basic physics and methodology,
+examine their limitations and envision future R&D directions.
+/C2112012 Elsevier Inc. All rights reserved.
+1. Introduction
+Look around your home, ofﬁces, laboratories, buildings, and the
+cities you live in and visit. You will ﬁnd that our living environ-
+ment is not only ﬁlled with porous materials, but they perform
+essential functions in our modern society. For example, concrete,
+the single most used material in the world at two billion tons
+per year, is an aggregates of complex chemistry and pore struc-
+tures from nanometer to centimeter scales. Porous stones, wood,
+composites, and ﬁbrous materials such as papers are a common
+sight in ofﬁces and homes. Near-surface aquifers store 99% of the
+planet’s fresh water in highly porous and unconsolidated rocks.
+Porous sedimentary rock formations provide much of the primary
+energy (oil and gas) that powers the modern economy and living
+standard. The scale of our energy need is one of the most promi-
+nent drivers for scientiﬁc and technological development to under-
+stand and control porous media.
+Porous media are generally considered a material with structures
+of importance at length scales larger than atoms and these struc-
+tures are essential for the material properties and performance.
+For example, ﬂuid transport is an essential property for many porous
+media from water and contamination movement in aquifers, chem-
+ical reactions in porous catalysts, ﬁltration, gas exchange in lung tis-
+sue, and blood and oxygen perfusion in brain and cancer growth.
+Magnetic resonance (MR) is uniquely suited for such studies primar-
+ily because the pore ﬁlling ﬂuid often exhibits a strong MR signal and
+the power of MR allows direct detection of the ﬂuid through spin
+relaxation, diffusion, ﬂow and imaging experiments.
+MR experiment can be performed without physical contact of
+the sample. This is an advantage that cannot be overemphasized.
+Many other analytical techniques require contact, sampling, sam-
+ple manipulation, single phase or optical transparency. It is partic-
+ularly powerful when the materials of investigation are large,
+immobile or optically opaque. Magnetic Resonance of Porous Med-
+ia (MRPM) has become an exciting branch of science that enjoys
+broad range of applications and opportunities to engage in multi-
+disciplinary research.
+This article will summarize a few aspects of MR research of por-
+ous media mainly from a personal perspective. The focus is the
+essential physical processes that have enabled the use of MR for
+porous media study and the methodology development in the past
+two decades. Then I will discuss the limitation of the current meth-
+odology and future directions of MRPM. Instrumentation is critical
+to MRPM and is well covered in a recent book [1]. I will touch upon
+the instrument need in the last chapter.
+1.1. Classical period: 1950–2000
+The study of porous materials using MR started from the early
+days of MR. In 1956, Varian ﬁled a patent describing a method to
+perform MR at the Earth magnetic ﬁeld frequency to detect ground
+water [2]. In the same year, Torrey published a paper entitled
+‘‘Bloch equations with diffusion terms’’ [3] laying the foundation
+to understand the complex diffusion dynamics inside the porous
+media. Brown [4] considered magnetic ﬁeld inhomogeneity due
+to the packing of the grains in a model porous media. From late
+1960s and early 1970s NMR relaxation properties have been con-
+sidered a potential for characterizing permeability of porous rocks
+[5,6]. The basic physics of the surface relaxation mechanisms has
+1090-7807/$ - see front matter /C2112012 Elsevier Inc. All rights reserved.
+http://dx.doi.org/10.1016/j.jmr.2012.11.010
+⇑ Fax: +1 617 768 2386.
+E-mail address: ysong@slb.com
+Journal of Magnetic Resonance 229 (2013) 12–24
+Contents lists available at SciVerse ScienceDirect
+Journal of Magnetic Resonance
+journal homepage: www.else vier.com/locate/jmr
+
+--- PAGE 2 ---
+also been studied [7,8] and its relationship to pore surface area
+[9,10]. In 1982, two papers outlined a concept to use spin relaxa-
+tion to probe surface-to-volume ratio (SVR) [11,12] which is still
+in wide application today. In late 1970s, Brownstein and Tarr pub-
+lished two classic papers [13,14] combining diffusion and surface
+relaxation demonstrating the complexity and richness of MR at
+probing the pore structure. Since then, NMR spin relaxation has
+found extended applications in the study of many materials, such
+as cement [15,16], microporous materials such as zeolites [17],
+and subsurface rock formations [18].
+In parallel to the development of the spin relaxation theory, di-
+rect measurement of diffusion was also found to be a fruitful ap-
+proach to characterize pore space. The effect of the pore space on
+molecular diffusion was recognized in early 1960s [19,20]. Work
+on restricted diffusion in open pores led to the concept of
+time-dependent diffusion coefﬁcient [21–24] as the key physics
+to describe diffusion dynamics in porous media. Callaghan et al.
+[25,26] discovered the diffusion diffraction phenomenon
+when the gradient wavelength approaches the characteristic pore
+size.
+For geological prospecting, traditional laboratory MR equip-
+ment is clearly inadequate because it requires the sample to be in-
+side the magnet. Inside-out pulsed MR design was pursued in the
+early 1980s [27,28] using permanent magnet array to produce sig-
+niﬁcant magnetic ﬁeld outside the instrument. Such idea has
+grown into a large array of MR tools for well-logging and estab-
+lished an important service for petroleum and mining exploration,
+water aquifer prospecting [29,30], as well as diverse range of de-
+vices for research and concepts [1]. This period was reviewed by
+Kleinberg in Ref. [31].
+1.2. Modern period: 2000–now
+One key technology shift in the past decade is the wide adop-
+tion of the two-dimensional (2D) and multi-dimensional (MD)
+MR methodology for relaxation and diffusion. This is similar to
+the adoption of the 2D and MD methods for Fourier spectroscopy
+starting in 1970s. In contrast, a 2D-relaxation experiment requires
+2D Laplace inversion which is signiﬁcantly more difﬁcult than its
+1D counterpart and MD Fourier inversion. The development of an
+efﬁcient algorithm for 2D Laplace inversion was the key for the
+adoption of the 2D methods. Such MD method signiﬁcantly en-
+hanced the spectral resolution of relaxation and diffusion and has
+been applied in many research laboratories and commercially in
+well-logging.
+In addition to enhance resolution, 2D methodologies open a
+new possibility to study the dynamics of spin and molecular mo-
+tion. For example, chemical exchange and complex diffusion
+dynamics can be studied by T
+2–T2 and T1–T2 type of experiments,
+in a similar fashion as COSY and NOESY.
+Biological tissues exhibit complex structures and many aspects
+are similar to inorganic porous media. For example, trabecular
+bones are porous and their porous structure is known to be
+important to the mechanical integrity. The loss of bone and its
+structure is a key cost of bone fracture especially at advanced
+ages. Perfusion of tissues of nutrients, oxygen, and drug mole-
+cules is important for understanding tissue physiology and drug
+delivery. Imaging the ﬂow and diffusion of contrast agents using
+DCE-MRI is in many ways mirroring the experiments to under-
+stand ﬂuid ﬂow in subsurface rocks and soils. Imaging of brain
+microstructure using DTI (diffusion tensor imaging [32]) and
+DSI (diffusion spectrum imaging [33]) has greatly advanced our
+understanding of brain structure and neuroanatomy. However,
+such approaches have not been broadly applied to study inor-
+ganic porous media.
+2. Physics: surface relaxation and diffusion
+2.1. Spin relaxation and diffusion
+Spin relaxation is a key parameter describing the dynamics of
+the spins under investigation and its interaction with the sur-
+rounding environment. Many physical processes could contribute
+to such relaxation. For example, magnetic ions could exhibit a
+strong ﬂuctuating magnetic ﬁeld in its immediate surrounding.
+Such magnetic ion can be a strong relaxation source for the
+nearby nuclear spins and also those that travel to the close prox-
+imity temporarily. In ﬂuid ﬁlled porous media, relaxation occurs
+at the ﬂuid/solid boundary when the ﬂuid spins (such as water
+molecules) diffuse to the surface. Such behavior can be charac-
+terized by a surface relaxivity which is proportional to the ion
+density. The resulting relaxation rate of the pore ﬂuid is then
+proportional to SVR which is an important parameter of the pore
+structure.
+In a molecular ﬂuid without magnetic components, the spin
+relaxation is often dominated by the dipolar interaction between
+nuclear spins. The magnetic ﬁeld experienced by one spin from an-
+other may vary as the distance and/or the orientation of the pair
+changes. As a result, both translational and rotational diffusion
+may introduce a ﬂuctuating magnetic ﬁeld to cause spin relaxation.
+In many liquids, dipolar relaxation due to protons on the same
+molecule is the main source of relaxation. For example, the rota-
+tional diffusion of small molecules tends to be fast and the correla-
+tion time is short and thus the relaxation is weak. For larger
+molecules, their rotational correlation time is longer and thus the
+relaxation is more effective. Hence spin relaxation can be used as
+a means to determine molecular size.
+Molecular translational diffusion shares a similar behavior in
+bulk ﬂuids with relaxation that smaller molecules diffuse faster
+and larger molecules slower. Since bulk ﬂuid diffusion constant
+of many substances is known and well studied, diffusion can be
+used to identify molecules and ﬂuid phases in a mixture.
+2.2. Diffusion and relaxation of chain molecules
+Characterization of bulk ﬂuid diffusion is a prerequisite for the
+understanding of its diffusion in porous media. Diffusion of solid
+spherical particles can be well described by the Stoke–Einstein
+relationship. However, for molecules with signiﬁcant internal
+structure, such as long chain molecules (e. g. polymers, hydrocar-
+bon chains), the internal molecular motion can have a signiﬁcant
+effect on the diffusion properties. For example, the diffusion coef-
+ﬁcient is often found to be a power law for polymers and alkanes
+[34–36].
+Generally, the diffusion coefﬁcient of an individual molecule in
+a mixture can be divided into two parts. One part depends on the
+individual molecule, such as its size, internal structure and stiff-
+ness; and the second part depends on the properties of the sur-
+rounding ﬂuid, such as the density and the viscosity. Thus, the
+diffusion coefﬁcient for the ith component ( D
+i) should have the
+form: Di ¼ N/C0 m
+i gðfNi gÞ, where g({Ni}) is a function of all compo-
+nents in the mixture and common for all molecules. Freed et al.
+[37] have found that this relationship is indeed true for a large
+number of alkane mixtures that strongly validated the above mod-
+el. They further showed a complete scaling relationship,
+Di ¼ AN/C0 m
+i N/C0 b; ð1Þ
+where N is the average chain length. This scaling relationship can be
+used to obtain mixture composition directly from diffusion and
+relaxation, for example, using low ﬁeld NMR [37,38].
+Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24 13
+
+--- PAGE 3 ---
+2.3. Relaxation in porous media
+When a ﬂuid saturates the pore space, interaction between the
+ﬂuid molecules and the solid surface may contribute to additional
+relaxation, a phenomenon often called surface relaxation. One
+source of such relaxation is the presence of magnetic ions on the
+solid surface. When a water molecule diffuse close the surface,
+the ﬂuctuating ﬁeld can cause spin relaxation [7,8,39,40]. Such sur-
+face relaxation has been directly measured by drying the pore ﬂuid
+to only a monolayer on the solid surfaces [15]. Field dependent T1
+of ﬂuid saturated porous media [41–43] show anomalous diffusion
+dynamics on the solid surface to be characteristic of Lévy walk.
+Independent of the mechanism of surface relaxation, the exper-
+imentally measured relaxation rate is often found to be propor-
+tional to SVR. This may be understood by considering only a
+surface layer of thickness d of the ﬂuid is affected by the surface
+relaxation, to have a relaxation time of T
+s. The volume of this layer
+is dS where S is the total surface area of the sample. Since water
+molecules will diffuse between this thin layer and the bulk space
+of the pores (total pore volume of Vp), the measured relaxation will
+be an average between the surface and bulk volumes,
+1
+T1;2
+¼ 1
+T1b;2b
+þ dS
+Vp
+/C1 1
+T1s;2s
+ð2Þ
+where the subscript 1 and 2 denotes T1 and T2, respectively and the
+subscript s denotes the relaxation of the surface layer. T1b and T2b
+are the bulk relaxation of T1 and T2. The above equation is often
+rewritten in term of surface relaxivity, q /C17d/Ts,
+1
+T1;2
+¼ 1
+T1b;2b
+þ q1;2
+S
+Vp
+: ð3Þ
+and q1 and q2 denote the surface relaxivity for T1 and T2 processes.
+The validity of the above discussion [9,11] is dependent on a key
+assumption that the water molecules diffuse rapidly between the
+surface and the bulk regions so that the relaxation effect is aver-
+aged. This is often called the fast diffusion assumption. Brownstein
+and Tarr [14] described an analytical solution of diffusion-relaxa-
+tion equations in a few simple geometries demonstrating the
+importance of diffusion in relaxation measurements and interpreta-
+tion. For arbitrary pore geometries numerical methods can be ap-
+plied to solve the combined relaxation and diffusion problem
+with regard to NMR experiments [44,45]. Further theory of diffu-
+sion dynamics for NMR will be discussed in Section 4.
+2.4. Diffusion in complex media
+It is well-known that a porous structure reduces the diffusion of
+molecules in the pore-ﬁlling ﬂuid. This behavior is often character-
+ized by a reduced diffusion coefﬁcient as compared to its bulk va-
+lue ( D0). Solid porous materials such as rock and soil are, to an
+approximation, a packing of solid particles with interstitial space
+occupied by ﬂuids. This is the case in petroleum reservoirs and
+water aquifers. When water molecules are near a solid pore wall,
+the space available for the movement of the water molecules is re-
+duced since the solid wall cannot be penetrated by water. For
+example, if a molecule starts right at the surface, the only allowed
+movement is away from the wall [46] so that the range of displace-
+ment is reduced from that of free diffusion. In biological tissues,
+cell membranes exhibit ﬁnite permeability to water transport thus
+limiting the diffusion displacement through the membranes and in
+tissues. Also, some tissues exhibit speciﬁc cell shapes, such as the
+elongated plant cells and extended neurons in animals, the diffu-
+sion restriction can be anisotropic. This can give rise to diffusion
+anisotropy.
+For a closed system such as ﬂuid drops, the long time displace-
+ment is ﬁnite and limited by the size of the enclosing structure. For
+example, at the limit of long diffusion time when the initial and ﬁ-
+nal positions are uncorrelated, the mean square displacement is
+hDr2i/C17
+ZZ
+jr1 /C0 r2j2Pðr1; r2; tÞdr1dr2 ð4Þ
+¼ 1
+Vp
+ZZ
+jr1 /C0 r2j2dr1dr2 ð5Þ
+¼2ðhr2i/C0h ri2Þ; ð6Þ
+where P is the diffusion propagator and P =1 /Vp at long time ( Vp is
+the pore volume). For a sphere of diameter d, hDr2i can be evaluated
+and is given by
+hDr2i¼ 3d
+2
+=5: ð7Þ
+For NMR experiments measuring diffusion along one direction, the
+mean-square displacement will be one-third of hDr2i. This phenom-
+enon has been used to characterize emulsions [47,48].
+For an open porous system where the pore space is intercon-
+nected, there are two aspects of this effect. One is that at short dif-
+fusion time, those molecules near the surface of the solid matrix
+(or grains) have less free space to diffuse and the net displacement
+is reduced. This effect is directly proportional to SVR of the mate-
+rial and it is often characterized by a reduced diffusion coefﬁcient
+[23],
+DðtÞ
+D0
+/C25 1 /C0 A
+ﬃﬃﬃﬃﬃﬃﬃﬃ
+D0t
+p S
+Vp
+; ð8Þ
+where D0 is the bulk diffusion coefﬁcient, and D(t) is the diffusion
+coefﬁcient at the diffusion time t. A is a constant dependent on
+dimensionality. The approximation is valid when the diffusion dis-
+tance ﬃﬃﬃﬃﬃﬃﬃﬃD0tp is much less than pore size. Here the diffusion coefﬁ-
+cient is deﬁned as hDx(t)2i/2t, where x(t) is the net displacement
+along one direction at time t and hDx(t)2i is the mean square dis-
+placement. For isotropic diffusion in three dimensions, D(t) can be
+deﬁned from the vector displacement Dr: D(t)= hDr(t)2i/6t.
+The second effect is the long time diffusion when the diffusion
+distance, ﬃﬃﬃﬃﬃﬃﬃﬃD0tp is larger than the characteristic length scale of the
+pores, such as the pore size. For an open system, D(t) will approach
+a constant at long time, but with a value less than D0. This is be-
+cause the diffusing molecules have to travel around the grains so
+that the distance to travel in order to achieve a displacement x is
+larger than x. In other words, such molecules have to meander
+around the grains (geometrical obstacles) in a similar way as
+motorists have to travel along predetermined streets instead of
+moving straight to destinations. The reduction of the long time dif-
+fusion coefﬁcient compared to D0 is related to the tortuosity factor
+T [21],
+Dðt !1 Þ
+D0
+¼ 1
+T : ð9Þ
+For more theoretical review of the physics of diffusion in porous
+media, please refer to the papers by Sen [49] and Grebenkov [50].
+2.5. Diffusion in internal ﬁeld
+The diffusion coefﬁcient is often measured by applying known
+magnetic ﬁeld gradients. When a porous sample is placed in a uni-
+form magnetic ﬁeld (such as the NMR/MRI magnet), the magnetic
+ﬁeld inside the sample, in particular, inside the pore space, is nat-
+urally inhomogeneous due to the susceptibility contrast between
+the solid phase and the ﬂuid in the pores. Molecular diffusion in
+such an internal ﬁeld can be detected by NMR and it has been show
+to reﬂect the underlying pore geometry [51–54]. The spatial proﬁle
+of this ﬁeld will be determined by the structure of the underlying
+14 Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24
+
+--- PAGE 4 ---
+porous medium. While this assertion is qualitatively not surpris-
+ing, in fact, quantitative connections exist between the pore struc-
+ture and the magnetic ﬁeld structure. For example, the two-point
+correlation function of the internal ﬁeld is closely related to the
+structural factor of the medium in a model system [55,56]. Exper-
+imental method has been developed to speciﬁcally use this internal
+ﬁeld to extract pore size distributions in inorganic porous materi-
+als and tissues [57,58].
+2.6. Diffusion anisotropy
+If the enclosing structure exhibits anisotropy, such as a long cyl-
+inder, the diffusive motion of the molecules will reﬂect this con-
+ﬁnement symmetry. Considering the long cylinder with a
+diameter r and a length L, and L /C29 r. When the diffusion time D
+is such that
+ﬃﬃﬃﬃﬃﬃﬃ
+DD
+p
+/C24 r, the diffusion across the cylinder is signiﬁ-
+cantly restricted leading to an apparent diffusion constant much
+reduced from its bulk value. However, along the axial direction,ﬃﬃﬃﬃﬃﬃﬃ
+DD
+p
+/C28 L, thus the axial extent of the structure is not reﬂected in
+the axial diffusion and the axial diffusion constant will remain
+close to the bulk diffusion coefﬁcient. This diffusion anisotropy
+can be approximated by a second rank tensor. In biomedical imag-
+ing, this diffusion anisotropy is often used to characterize the ﬁber
+structure of tissues through the technique of diffusion tensor imag-
+ing (DTI) [59,32].
+3. Multidimensional NMR of relaxation and diffusion
+Conventional NMR relaxation and diffusion techniques measure
+one parameter (e.g. T1 and T2, T1q,o r D) in a single experiment. For
+example, T2 is typically obtained by executing a series of NMR
+experiments with changing relaxation time period, t, and measur-
+ing the signal at each t. For a single species of spins, the signal de-
+cays in an exponential functional form. For mixtures, each
+component may have a unique T2 value and thus the total signal
+(M) will be a superposition of many exponential functions,
+MðtÞ¼
+X
+i
+mi expð/C0 t=T2iÞð 10Þ
+where T2i is the relaxation time constant and mi the amplitude of
+the signal from component i. For example, in a ﬂuid mixture of dif-
+ferent molecules, the smaller molecules often exhibit faster transla-
+tional and rotational diffusion and thus longer T2. Thus, the
+distribution of T2 can be used to quantify molecular weight distribu-
+tions. In porous media, T2 is found to be enhanced by surface relax-
+ation and thus used to measure pore sizes. However, in a more
+complex sample, such as a porous rock saturated with a mixture
+of water and oil, the relaxation time constant of water and oil
+may be similar due to a combination of oil molecular size and water
+surface relaxation.
+The newly developed multi-dimensional (MD) NMR technique
+improves the resolution of different molecules by measuring the
+correlation function of two or more parameters, such as T1–T2 cor-
+relation, D–T2, T1–T2–D, and D–D. The one-dimensional (1D) NMR
+experiment typically refers to an experiment that measures signals
+as a function of a particular experimentally controlled parameter,
+such as a time delay in the pulse sequence, the amplitude of an
+RF pulse, or the amplitude of the ﬁeld gradient pulse. In contrast,
+MD NMR is performed by varying two or more experimental
+parameters and acquires NMR signals as a two- or higher dimen-
+sional data matrices. Laplace inversion of such MD matrices is used
+to obtain the multi-parameter correlation functions. Such MD cor-
+relation spectrum allows more separation of signals from different
+components, helps to identify different phases and to observe
+changes of the composition and physical properties.
+For example, a T1–T2 correlation experiment uses two parame-
+ters: ta for the T1 recovery time, and tb for the T2 decay time. Typ-
+ically, for every value of ta, data at the full range of tb is acquired. In
+this case, the ﬁnal data set is a full 2D matrix. Other experiments
+may not require to ﬁll the entire 2D data matrix.
+This type of correlation experiments was ﬁrst reported in 1980s
+to study the multiple components of a chemical and biological sys-
+tems. Even though the NMR experiments of this type could be per-
+formed on the NMR spectrometer at the time, data analysis was a
+considerable barrier due to the requirement of large computing
+power and computer memory [60]. In early 2000, a new algorithm
+was developed to rapidly perform the multi-dimensional Laplace
+inversion without the huge memory requirement so that MD
+NMR data can be analyzed on regular PCs and laptops [61]. This
+development leads to a rapid expansion of application of the MD
+methodology in geological materials [61–63], chemistry [64],
+material science [65,66], food science [67,68]. It has been since
+used commercially in petroleum exploration [69].
+3.1. Relaxation correlation experiments: T
+1–T2
+The pulse sequence for a T1–T2 experiment is the following:
+RD /C0 p /C0 ta|ﬄﬄﬄ{zﬄﬄﬄ}
+first part
+/C0 p
+2 /C0 te=2 /C0 p /C0 te
+2 /C0 Acq /C0 te
+2
+/C20/C21
+N|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ}
+second part
+: ð11Þ
+where N is the echo number, RD the recycle delay, and Acq is data
+acquisition. The ﬁrst time variable is ta and the second one is tb =
+Nte. This sequence is essentially a combination of the inversion-
+recovery and the CPMG, thus it is often called IRCPMG. The CPMG
+is used to detect the signal of T2 decay from the end of the T1 recov-
+ery period. For a spin species with a speciﬁc T1 and T2, the signal is
+proportional to [1–2exp (- ta/T1)]exp (-tb/T2), thus the total signal as
+a function of ta and tb is
+Mðta; tbÞ¼
+ZZ
+ð1 /C0 2e/C0 ta =T1 Þe/C0 tb =T2 /C2F ð T1; T2ÞdT1dT2; ð12Þ
+where Fð T1; T2Þ is the probability density of molecules with speciﬁc
+T1 and T2. To obtain F from data M, a 2D Laplace inversion is
+needed.
+3.2. Relaxation correlation experiments: T 2–T2
+The general concept of a 2D NMR experiment is ﬂexible to in-
+clude arbitrary spin evolution for the ﬁrst and second periods.
+The T2–T2 experiment is an interesting example that both periods
+involve T2 relaxation process. The pulse sequence is shown below
+p
+2 /C0 te
+2 /C0 p /C0 te
+2
+/C20/C21
+n
+/C0 p
+2|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ}
+T2 relaxation ðTa
+2 Þ
+/C0 D /C0 p
+2 /C0 te
+2 /C0 p /C0 te
+2 /C0 Acq /C0 te
+2
+/C20/C21
+m|ﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ{zﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄﬄ}
+T2 relaxation ðTb
+2 Þ
+: ð13Þ
+The ﬁrst segment involves T2 relaxation through the use of CPMG
+sequence with n p pulses and the echo signals is not measured.
+The second p/2 pulse at the end of the [ ... ]n rotates the magnetiza-
+tion back to the z-axis. It is important to note that this magnetiza-
+tion has gone through T2 relaxation for this period. During the
+subsequence delay time of D, the spins experience T1 relaxation
+since they are aligned with B0. The second period is a CPMG se-
+quence of m p pulses and the echo train is acquired. In this exper-
+iment, the two T2 relaxation evolutions are measured by two
+independent times, ta = nte and tb = mte.
+The inclusion of the time D is important for this experiment be-
+cause the two T2 variables are measured at different times ( Ta
+2 and
+Tb
+2). If the system is static, that is the T2 of a molecule is identical
+before and after D, then Ta
+2 ¼ Tb
+2. On the two-dimensional plot of
+Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24 15
+
+--- PAGE 5 ---
+Ta
+2 vs. Tb
+2, only diagonal signals (i.e. Ta
+2 ¼ Tb
+2) will appear and there
+will be no off-diagonal signals ( Ta
+2 – Tb
+2). If, however, during D,
+the T2 of a molecule is changed, then an off-diagonal signal ap-
+pears. Such an experiment thus has the potential to characterize
+the complex system dynamics (e.g. Refs. [64,70]). Since T1 relaxa-
+tion is effective during D period, the range of this period is limited
+by T1.
+Similar concepts have been demonstrated recently for other
+relaxation processes, such as T1–T1 experiment, T1q–T1q experi-
+ment. These different experiments examine different relaxation
+mechanisms that could be sensitive to other aspects of molecular
+dynamics. They are an interesting extension of the T2–T2 concept
+and their potentials are to be explored.
+3.3. Diffusion-relaxation correlation experiments
+Fig. 1 illustrates two implementations of the diffusion-relaxation
+experiment using pulse ﬁeld gradients. In the ﬁrst implementation,
+a spin-echo sequence is used for segment 1 with a gradient pair be-
+fore and after the second pulse. The ﬁrst echo spacing tcp1 is often
+quite long, several milliseconds, in order to allow sufﬁcient time
+for the gradient pulses to yield an appropriate diffusion decay
+given the diffusion constant of the sample. The second echo spac-
+ing during segment 2 is often very short, for example, 100 ls, to in-
+crease the number of echoes and to reduce the effect of
+background gradients. The diffusion decay caused by this segment
+is known [71] as
+exp /C0 Dc2g2d2ðD þ 2d=3Þ
+/C2/C3
+; ð14Þ
+where c is the gyromagnetic ratio, D the diffusion constant, g the
+amplitude of the gradients, d the during of the gradient pulse, and
+D the time period between the two gradients. This equation is valid
+within the Gaussian phase approximation, such as diffusion in bulk
+ﬂuids.
+A stimulated echo with pulsed gradients can also be used for
+the diffusion weighting segment, Fig. 1B. The ﬁrst three 90 /C176pulses
+and the two associated gradient pulses produce the stimulated
+echo. The 180 /C176pulses afterward refocus the magnetization repeat-
+edly producing a train of echoes. Similar to the spin-echo case for
+the diffusion weighting ( Fig. 1 A), the period between the ﬁrst two
+pulses is often several milliseconds long to allow sufﬁcient gradi-
+ent-induced modulation. In addition, the diffusion time between
+the 2nd and 3rd pulses ( /C24 D) allows a further increase of diffusion
+weighting. A long D period can be particularly useful for samples
+with a short T2 but a long T1.
+For the case of the spin-echo for diffusion weighting, the full
+kernel, k, can be written as
+k ¼ expð/C0 2tcp1=T2Þ/C2 exp /C0 Dc2g2d2ðD þ 2d=3Þ
+/C2/C3
+/C2 expð/C0 2ntcp=T2Þ; ð15Þ
+where the ﬁrst factor is the T2 decay during the ﬁrst segment which
+can be a ﬁxed constant provided tcp1 is kept constant for different
+g’s. The full kernel for the stimulated echo case can be written as
+k ¼ expð/C0 2tcp1=T2 /C0 Td=T1Þ/C2 exp /C0 Dc2g2d2ðD þ 2d=3Þ
+/C2/C3
+/C2 expð/C0 2ntcp=T2Þ: ð16Þ
+The ﬁrst factor is the T1 and T2 decay during the ﬁrst segment. In
+both cases, the kernel can be written as a tensor product.
+A static ﬁeld gradient can also be used to measure diffusion
+[72,73]. A static ﬁeld gradient is always present in regions away
+from the geometric center of most NMR magnets, and also in specif-
+ically designed magnets using permanent magnets, such as the
+NMR well-logging tool [74], Garﬁeld magnet [75] and the NMR
+MOUSE [76]. Such permanent magnet can be miniaturized, inex-
+pensive, and there is no need for pulsed ﬁeld gradients, signiﬁcantly
+simplifying the equipment and operation of diffusion experiments.
+3.4. Diffusion-diffusion correlation experiment
+Similar to the relaxation-relaxation correlation technique, diffu-
+sion can be used for the both dimensions of the 2D experiment.
+Using pulsed ﬁeld gradients, the pulse sequence is shown in
+Fig. 2 . Such experiment can also be performed with spin echo se-
+quence, for example, using the segment 1 in Fig. 1 A for both seg-
+ment. The one advantage of the stimulated echo based sequence
+(Fig. 2 ) is its ﬂexibility in adjusting Td. For either case, we use b1
+and b2 to denote the diffusion weighting for segment 1 and 2,
+the kernel can be written as
+k ¼ exp /C0 D1b1 /C0 D2b2½/C138 ð 17Þ
+Here we have ignored the relaxation contribution to the kernel
+since they are kept constant in an experiment.
+Both segments measure the diffusion coefﬁcient, however, at
+different times separated by Td. We will use D1 and D2 to denote
+the diffusion coefﬁcient associated with the ﬁrst and second seg-
+ments (gradient g1 and g2), respectively. If a molecule does not
+change its diffusion coefﬁcient during Td, then D1 = D2. If the mol-
+ecule changes its own conﬁguration of environment during Td, then
+D1 – D2. On a 2D plot with axes D1 and D2, signals with D1 = D2 are
+on the diagonal line and the that with D1 – D2 are off-diagonal. As
+a result, the off-diagonal signal can be an indication of molecular
+exchange and dynamics.
+tcptcp1 tcp1 2tcp90
+Segment 1 Segment 2
+180
+RF
+Grad
+g
+(A)
+tcptcp1 tcp1 2tcp2tcp90
+Segment 1 Segment 2
+180
+RF
+Grad
+g
+(B)
+Td
+Δ
+Δδδ
+δδ
+Fig. 1. Diffusion-relaxation correlation sequences using pulsed ﬁeld gradients. (A)
+The ﬁrst segment is a spin-echo with the echo appearing at a time 2 tcp1 after the
+ﬁrst pulse. (B) The ﬁrst segment is a stimulated echo appearing at a time tcp1 after
+the third pulse. The detection (2nd) segment for both is a CPMG pulse train. The
+amplitude or the duration of the gradient pairs in both sequences is incremented in
+order to vary the diffusion weighting.
+t cp1 tcp190
+Segment 2Segment 1
+RF
+Grad
+g1 g1
+tcp1 tcp190
+g2 g2
+Td
+δδ δδ
+Fig. 2. Diffusion–Diffusion correlation sequences using pulsed ﬁeld gradients. The
+two segments are both a stimulated echo sequence. At the end of the ﬁrst
+stimulated echo, a p/2 pulse is used at a time tcp1 after the third pulse in order to
+rotate the stimulated echo magnetization to the longitudinal direction. The 2nd
+segment detects the stimulated echo. All RF pulses are
+p/2. The amplitude or the
+duration of the two gradient pairs ( g1 and g2) are incremented independently.
+16 Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24
+
+--- PAGE 6 ---
+To include this exchange effect, the signal of the experiment can
+be written as
+Mðb1; b2Þ¼
+ZZ
+exp /C0 D1b1 /C0 D2b2½/C138 /C2F ð D1; D2; TdÞdD1dD2; ð18Þ
+where Fð D1; D2; TdÞ is the probability density of molecules that
+evolve from D1 to D2 over the time period Td, a concept similar to
+that of the diffusion propagator. In an homogeneous system, the
+correlation vanishes at long time so that Fð D1; D2;
+Td !1 Þ¼ FðD1ÞFðD2Þ, where F(D) is the 1D diffusion distribution.
+Thus the 2D plot of D1 and D2 will be very broad showing extended
+exchanges between all values of diffusion.
+On the other hand when Td is much shorter than the character-
+istic exchange time, then D1 and D2 are highly correlated, thus only
+allowed signal will satisfy D1 = D2, and only diagonal signal can be
+observed. Hence, the off-diagonal amplitude and its Td dependence
+can be used as a measure of the exchange phenomenon. In fact, this
+behavior is very similar to the conventional NOESY experiment in
+2D Fourier spectroscopy.
+3.5. Exchange or diffusion
+It is important to distinguish this type of chemical exchange,
+such as a chemical reaction, or a molecular conﬁguration modiﬁca-
+tion, from diffusion dynamics. Diffusion in porous media, in
+particular, diffusion between different pores, is often discussed in
+the literature loosely as exchange, since it is often described as
+the ﬂuid molecules ‘‘exchange’’ between different pores. However,
+the behavior of chemical exchange and diffusion is fundamentally
+different in a 2D NMR experiment. The mechanism of chemical
+exchange is external to the spin Hamiltonian and its spin evolution
+so that it can be introduced as an independent probability
+(Fð D1; D2; TdÞ). However, for a stationary diffusion system, such
+as ﬂuid ﬁlled pore space, the spin Hamiltonian considers diffusion
+dynamics [44] fully and explicitly through Torrey equation, Eq. (19),
+for all relaxation and diffusion pulse sequences. Thus, diffusion
+between different pores should not be explicitly considered as
+an independent probability. Also, the diffusion theory predicts sev-
+eral features that cannot be explained by the exchange formalism.
+The theory of 2D NMR for diffusion system is discussed in
+Section 4.
+4. Theory of 2D NMR of diffusion systems
+4.1. Diffusion equation and eigenmode methods
+The magnetization evolution due to diffusion and relaxation can
+be studied theoretically using the Bloch-Torrey equation [3]:
+@
+@t mr ; tðÞ ¼ Dr2mr ; tðÞ /C0 lmr ; tðÞ : ð19Þ
+Here m(r, t) is the relative difference of the magnetization and its
+equilibrium value, D is the bulk diffusion coefﬁcient, and l is the
+bulk relaxation rate. Also, the spin precession is not considered here
+because it is absent during T1 decay and being refocused during
+CPMG. The general solution to the Torrey–Bloch equation can be
+written as a sum of eigenmodes,
+mr ; tðÞ ¼ e/C0 lt
+X1
+i¼0
+ai/i rðÞ e/C0 t=si ; ð20Þ
+where /i and si are normalized eigenfunctions and eigenvalues,
+respectively. /i with different indices are orthogonal to each other,
+and satisfy the following equation:
+Dr2/i rðÞ þ 1
+si
+/i rðÞ ¼ 0: ð21Þ
+The pore boundary behaves as a magnetization sink due to the sur-
+face relaxation thus the diffusion ﬂux into the surface is related to
+the strength of the surface relaxivity q:
+D^n /C1r/i þ q/i ¼ 0; ð22Þ
+where ^n is the unit vector normal to the surface. Once the location
+of the boundaries are known, the above equation can be applied to
+determine the eigenvalues. Analytical and numerical solutions and
+the properties of these solutions have been reported in the litera-
+ture [14,77,78,45,79].
+Since the T1 and T2 processes may have contributions from dif-
+ferent mechanisms, thus the surface relaxivity is in general differ-
+ent for T1 and T2, so we label them as q1 and q2, respectively. As a
+result, we need to consider two sets of eigenmodes corresponding
+to the T1 and T2 dynamics. We call the two sets of modes L-modes
+and T-modes and denote them /L
+i and /T
+i and their eigenvalues T1i
+and T2i, respectively [44]. For example, during a inversion recovery
+experiment, q1 and /L
+i are modes to describe the spin dynamics,
+while for CPMG, q2 and /T
+i .
+Here we show the solution for one-dimensional model to show
+an intuitive understanding of the eigenmodes. In a one-dimen-
+sional pore, the Torrey–Bloch equation can be solved analytically
+and with fast diffusion and weak relaxation, it can be shown that
+the eigenvalues are [14]
+s0 /C25 d
+q ð23Þ
+si /C25 d
+2
+Dp2i2 ; i ¼ 1; 2; 3; ... ð24Þ
+where d is the pore size, q the surface relaxivity. The eigenfunctions
+/i(r) for this case are readily calculated. The ‘‘ground state’’ eigen-
+function /0(r) is approximately constant across the pore, while
+the higher order functions ( i > 0) oscillate in space [13,80,79].
+Any magnetization, m(r, t), can be decomposed into a sum of the
+eigenmodes, Eq. (20). The weight of these ‘‘modes’’ in the magneti-
+zation is given by a coefﬁcient ai, which is determined by the over-
+lap integral of m(r, t) with the i-th eigenmode, ai ¼R drmðr; 0Þ/iðrÞ.
+This weighting can be selectively manipulated to some extent
+through the choice of pulse sequence. Since the B1 ﬁeld is not spa-
+tially varying over pore scale as in a typical NMR probe, the RF
+pulses do not usually excite higher modes directly. It is typically
+the spin evolution during the relaxation time or precession that cre-
+ates the spatial modulation and thus higher modes. This scenario is
+similar to the excitation of multiple quantum coherences in con-
+ventional Fourier NMR spectroscopy that relies on the non-com-
+muting Hamiltonian such as dipolar coupling. The more control is
+exercised on which modes are ‘‘excited’’, the less error will be asso-
+ciated with the data analysis for extracting pore microstructural
+properties. For example in fast diffusion limit (
+qd/D /C28 1), an inver-
+sion recovery experiment will only excite the lowest mode, a0 – 0
+[14]. This is because in fast diffusion, the lowest mode is approxi-
+mately a constant in the pore space, /0 /C24 1/Vp. Such a ﬂat /0
+matches well with the spatially ﬂat magnetization proﬁle ( m(r,0 )
+at time zero) on the pore length scale. Thus a0/C25 1. Because the high-
+er modes are orthogonal to /0; ai ¼
+R
+drmðr; 0Þ/iðrÞ/C25
+R
+dr/0/i ¼ 0
+when i – 0. The ground state mode is sometimes referred to as
+the relaxation mode for this reason. The decay of the modes of
+i > 0 is primarily due to diffusion, hence the name ‘‘diffusion’’
+modes.
+It should be noted that the decomposition shown in Eq. (20) is
+not necessarily a subdivision of spins, since all spins in general are
+subject to both relaxation and diffusion. Rather, it is a classiﬁcation
+of different spatial structures of magnetization modulation and
+their corresponding decay dynamics.
+Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24 17
+
+--- PAGE 7 ---
+4.2. 2D NMR of diffusion system
+We will use the eigenmode formalism to describe the diffusion
+dynamics during a 2D NMR experiment including the pulsed ﬁeld
+gradient effect. The following examples will illustrate the applica-
+tion of the eigenmode formalism to analyze pulse sequences. We
+consider that the RF magnetic ﬁeld is uniform over the pore length
+scale so that the RF pulses do not introduce additional spatial mod-
+ulation. Also, all eigenmodes will be considered and the formalism
+is applicable for all diffusion regimes, not limited to fast diffusion.
+4.2.1. Relaxation correlation
+A T1–T2 experiment using IRCPMG as shown in Eq. (11) involves
+two periods with different spin dynamics. During the ta period, the
+magnetization dynamics ( T1 process) is described by L-modes. The
+magnetization, m1( r, ta), at the end of the ta period is
+m1ðr; taÞ¼
+X1
+i¼0
+ai/L
+i ðrÞe/C0 ta =T1i : ð25Þ
+Here ai is determined by the initial magnetization after the ﬁrst
+180/C176pulse, m0(r)= /C0 1. Since different eigenmodes evolves at differ-
+ent rate, the magnetization m1(r, t) may develop signiﬁcant spatial
+variation as t evolves. After the 90 /C176pulse, the magnetization is ro-
+tated to the transverse plane so that the spin dynamics is governed
+by T-modes. Thus, the evolution of the CPMG echo signal, m (r, ta, tb),
+is:
+mðr; ta; tbÞ¼
+X1
+j¼0
+bj/T
+j ðrÞe/C0 tb =T2j : ð26Þ
+where bj ¼R m1ðr; taÞ/T
+j ðrÞdv. The detected time-domain signal is
+simply the integral of the magnetization:
+Sðta; tbÞ¼
+Z
+dv /C1mðr; ta; tbÞð 27Þ
+¼
+X
+i;j
+sije/C0 ta =T1i /C0 tb =T2j ð28Þ
+where sij ¼h /T
+j j1ih/T
+j j/L
+i ih/L
+i j1i. Here we use the notation
+h/jjwii¼
+R
+dv /C1//C3
+j wi, and //C3
+j is the complex conjugate of /j. Also,
+j1i stands for a constant function within the pore space. The 2D
+spectrum can be obtained after Laplace inversion as
+s12ðT1; T2Þ¼
+X
+i;j
+h1j/T
+j ih/T
+j j/L
+i ih/L
+i j1i/C2 dðT1 /C0 T1;iÞdðT2 /C0 T2;jÞ: ð29Þ
+The signal corresponding to i = j are called diagonal, and those for
+i – j are off-diagonal signals. One of the important feature of the
+off-diagonal signals is that it measures the overlap integral of differ-
+ent eigenmodes ( T- and L-modes). For example, if q1 = q2, then the
+two sets of T- and L-modes are identical, thus there will be no off-
+diagonal peaks. This is because of the orthogonality of eigenmodes,
+and h/jj/ii = 0 (for i – j) [44].
+The same framework can be used to analyze T2–T2 correlation
+experiment Eq. (13) with the resulting 2D spectrum [44]:
+s22ðTb
+2; D; Ta
+2Þ¼
+X
+p;q;r
+h1j/T
+p ih/T
+p j/L
+r ih/L
+r j/T
+q ih/T
+q j1ie/C0 D=T1r /C2 dðTa
+2
+/C0 T2pÞdðTb
+2 /C0 T2qÞ: ð30Þ
+In contrast to the s12, s22 now has a user controlled parameter D
+which can be used to manipulate the weight distribution among
+the modes. When D = 0, since P
+r j/L
+r ih/L
+r j¼ 1,
+s22ðTa
+2; 0; Tb
+2Þ¼
+X
+p;q
+dp;qh1j/T
+p ih/T
+q j1i/C2 dðTa
+2 /C0 T2pÞdðTb
+2 /C0 T2qÞ; ð31Þ
+where only the diagonal signals survive. When D is long, the slow-
+est T1 mode (r = 0) dominates the evolution and the weight distribu-
+tion will be controlled by the non-orthogonality h/T
+p j/L
+0i between
+the T1 (L) and T2 (T) modes.
+For both T1–T2 and T2–T2 experiments, the presence of the off-
+diagonal peak requires q1 – q2, independent of the diffusion re-
+gime. This result is valid for any pore systems independent of pore
+size and connectivity [44,81], a clear distinction from the phenom-
+enon of molecular exchange. Even though the 1D pore is a very
+simple model, it nevertheless illustrates many of the key features.
+Ref. [44] has reported calculations of the 2D relaxation spectrum
+for a range of surface relaxivity and timings to demonstrate the
+behavior of off-diagonal signals. For example, it shows that in both
+extreme fast or slow diffusion regimes, since the shape of the
+eigenmodes becomes insensitive to q, then the two sets of T- and
+L-modes are essentially identical and thus the amplitude of the
+off-diagonal peaks approaches zero. For a simple 1D pore, a com-
+plex off-diagonal signal with several peaks (some positive and oth-
+ers negative) may exist when qd/D /C24 1 and q1 – q2.
+Another interesting case of coupled pores was studied [44,80]
+showing that diffusion between pores can be detected by the 2D
+NMR methods. Fig. 3 shows T1–T2 spectra of a two-pores system
+and the diffusion coupling is characterized by an effective distance
+between them. At strong coupling, the two pores essentially form a
+single pore and the 2D spectrum is a single peak. For very weak
+coupling, right panel, the two pores are essentially unrelated and
+thus the 2D spectrum is simply the superposition of the two pores.
+In the intermediate coupling case, the diffusion dynamics are more
+complex and the spectrum contains more pronounced off-diagonal
+peaks. In this case, an observation of the off-diagonal signal should
+be regarded as indicative of direct diffusion between different parts
+of the pore space.
+4.2.2. Diffusion experiments
+A PFG-CPMG experiment such as shown in Fig. 1 involves two
+periods with different spin dynamics. During the ﬁrst period, the
+magnetization is ﬁrst modulated by the gradient pulse, then
+demodulated by the same gradient after a time period D. The
+T2 (secs)
+T
+10.10.01
+1
+0.1
+0.01
+10.1 10.01 0.1 0.01
+1 (secs)
+Fig. 3. 2D NMR T1–T2 spectra of coupled pores for different coupling lengths: strong (left), intermediate (middle), and weak coupling (right). Figure from [44].
+18 Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24
+
+--- PAGE 8 ---
+magnetization, m1( r, s1), at the end of the second gradient pulse
+period is
+m1ðr; D; qÞ¼
+X1
+j¼0
+ai/jðrÞe/C0 iqre/C0 D=Tkj ; ð32Þ
+where aj ¼h 1je/C0 iqrj/ji/C17
+R
+e/C0 iqr/jðrÞdr. Depending on the PFG pulse
+sequences, such as spin echo or stimulated echo, the corresponding
+eigenmode and decay time constant Tkj will be used ( /T and T2j for
+spin echo and /L and T1j for stimulated echo).
+The second period is a CPMG sequence so that the spin dynam-
+ics is governed by /T modes. Thus, the evolution of the echo signal,
+m (r, D, q, t), is:
+mðr; D; tÞ¼
+X1
+j¼0
+bj/T
+j ðrÞe/C0 t=T2j : ð33Þ
+where bj is determined by m1(r, D, q):
+bj ¼
+Z
+m1ðr; s1; qÞ/T
+j ðrÞdv: ð34Þ
+The detected time-domain signal is the integral of the magnetiza-
+tion over the sample volume:
+SðD; q; tÞ¼
+Z
+dv /C1mðr; D; q; tÞ¼
+X
+l;j
+sljðqÞe/C0 D=Tkl /C0 t=T2j ð35Þ
+where sljðqÞ¼h 1jeiqrj/lih/lje/C0 iqrj/T
+j ih/T
+j j1i.
+5. Laplace inversion
+Spin relaxation and diffusion are typically manifested as decay-
+ing signals. Data analysis then often involves a Laplace inversion to
+obtain a spectrum (or distribution) of relaxation times or diffusion
+constants. This inversion is ill-conditioned in the sense that small
+noise in the data can cause signiﬁcant changes in the resulting
+spectrum. For experimental data with noise, the ill-conditioned
+nature also manifests itself as the existence of inﬁnite number of
+solutions that satisfy the noise model. For such ill-conditioned
+inversion problems, it is most desirable to quantify the properties
+of the entire solution space [82]. However, the conventional ap-
+proaches aim at ﬁnding a single best solution according to a certain
+criterion, such as stability against noise.
+One common class of methods is designed to select a subset of
+the solutions, for example, the smooth solutions, and then look
+for the best solution within this subset. Commonly used methods
+include Tikhonov regularization [83] and the maximum entropy
+method [84] to handle this and other types of inversion [85]. Even
+though there are well-established algorithms to perform numerical
+Laplace inversion for NMR work [86–88], however, its use may not
+be straightforward and requires experience. For example, the
+choice of the optimal regularization parameter is nontrivial. This
+is primarily due to the complex noise propagation in such an inver-
+sion. It is thus useful to understand the essential mathematics in-
+volved to better guide its application and be aware of its limitations.
+5.1. General theory
+The 1D Laplace inversion is to solve the following problem: gi-
+ven a dataset M(s) of ﬁnite number of data points, determine Fð TÞ,
+so that MðsÞ¼
+R
+e/C0 s=T Fð TÞdT, within the statistics of the noise.
+Here T is the decay time constant. This equation can be approxi-
+mated by a discretized matrix form:
+M ¼ KF þ N; ð36Þ
+where M and N are the data and noise vectors, matrices K, and F are
+discretized version of the kernel, and Fð TÞ, respectively. Only M and
+K are known. The true solution F should satisfy Eq. (36) by
+kM /C0 KFk < r, where k/C1kis the vector norm and r the noise vari-
+ance. However, given a ﬁnite SNR, many solutions satisfy this crite-
+rion, and this is the source of the ill-conditioned nature of the
+Laplace inversion.
+The regularization method obtains a ﬁt to the data through
+minimization of the following expression:
+kM /C0 KFk2 þ akFk2; ð37Þ
+The ﬁrst term measures the difference between the data and the ﬁt,
+KF . The second term is a Tikhonov regularization and its amplitude
+is controlled by the parameter a. The effect of this regularization
+term is to select out a solution with a small 2-norm kFk2 and as a re-
+sult a solution that is smooth and with fewer sharp spikes. However,
+it may cause a bias to the result. When a is chosen such that the two
+terms are comparable, the bias is considered minimized and the re-
+sult is stable in the presence of noise [88,61]. When a is much smal-
+ler, the resulting spectrum F can be spiky and sensitive to noise.
+In order to accelerate the minimization of Eq. (37), the data and
+the kernel can be compressed to a fewer number of variables using
+singular value decomposition (SVD) of K,
+K ¼ URVT ; ð38Þ
+where R is a diagonal matrix with singular values in a descending
+order, U and V are unitary matrices. VT denotes the transpose of ma-
+trix V. For the exponential kernel, the singular values typically de-
+cay quickly. We limit our algorithm to the subspace spanned by
+typically fewer than 10 largest singular values. Such a subspace is
+adequate for the limited signal-to-noise (SNR) ratio of the usual
+experimental data. Using the SVD of K, Eq. (37) can be rewritten
+in an identical structure but with a compressed data eM ¼ UT MU
+and a kernel of much smaller size. Then, the optimization of Eq.
+(37) is performed in this reduced space resulting in a greatly in-
+creased inversion speed.
+5.2. Fast Laplace Inversion – FLI
+In fact, the 2D Laplace inversion, such as Eq. (12), can be cast into
+the 1D form of Eq. (36). However, the size of the kernel matrix will
+be huge. For example, aT1–T2 experiment may acquire 30T1-recovery
+points and 8192 echoes for each recovery. Thus, assume that 100
+points for T1 and T2 are used, respectively, the kernel will be a ma-
+trix of (30 /C2 8192) /C2 10,000 with 2.5 /C2 109 elements. It is difﬁcult
+to employ the commonly used SVD routine (such as that of Matlab)
+to perform SVD on such a matrix on current desktop computers.
+Thus the 1D algorithm cannot be used directly in practice.
+Many 2D NMR experiments such as most of those outlined
+earlier exhibit a unique kernel structure such that the full kernel
+can be written as a product of two independent kernels:
+kðx1; x2; R1; R2Þ¼ k1ðx1; R1Þk2ðx2; R2Þ: ð39Þ
+Here x denotes experimental pulse sequence parameters (such as
+delay time t), and R the spectral parameters (such as T1). For exam-
+ple, the kernels for the T1–T2 experiment are
+k1 ¼ 1 /C0 2 expð/C0 ta=T1Þð 40Þ
+k2 ¼ expð/C0 tb=T2Þ: ð41Þ
+Thus, if experiments are designed in such a way that the data can be
+written in the form of a matrix M, Eq. (36) can be then put into the
+following form:
+M ¼ K1FKT
+2 þ N: ð42Þ
+Here M and N are the data and the noise in their 2D matrix form.
+The matrix elements are deﬁned as ðK1Þij ¼ k1ðx1i; R1jÞ and
+ðK2Þij ¼ k2ðx1i; R1jÞ.
+Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24 19
+
+--- PAGE 9 ---
+The beneﬁt of this tensor product structure of the kernel is that
+the SVD of K1 and K2 is quite manageable on current computers.
+Once the SVD of K1 and K2 is obtained, the SVD of the product ma-
+trix can be approximated. For example, the product of the singular
+values of K1 and K2 will be the singular value of the product matrix
+K. As a result, for a 2D experiment with similar SNR as a 1D exper-
+iment, for example, SNR /C24 1000, then 50–100 singular values are
+found to be useful for 2D inversion while typically fewer than 10
+are found for 1D. Once the SVD of the combined kernel is obtained,
+the 2D inversion problem (Eq. (42)) is converted to 1D (Eq. (36))
+and the existing algorithms, e.g. Ref. [88] can be used directly.
+The detailed mathematics are presented in Ref. [61,89].
+5.3. Manual compression
+There are other techniques to reduce the data size of a 1D, 2D or
+3D experiment without using SVD. For example, one may choose to
+use only a fraction of the data points to perform the inversion in
+order to reduce the data size. However, this simple method will
+miss a lot of signal. The so-called window-sum technique manually
+compresses the CPMG data before optimization and it has been
+used for Laplace inversion of up to 4D data [90–92].
+The basic idea of the window-sum technique is to realize that for
+a multi-exponential decay signal, the signal at time t is contributed
+mostly by those signals with decay time constant close or longer
+than time t. The signal of much shorter decay time constant has
+essentially decayed away. This means that the signal does not have
+a rapid time variation and the only potential time scale ist or longer.
+Thus, a CPMG echo train data can be lumped into a series of bins, and
+the data of each bin can be a sum (or a mean) of the original echoes.
+As the decay time t increases, the size of the bin may increase too.
+Sci ¼
+Xni
+j
+Sj ð43Þ
+where Sj is the jth (original) echo data, ni is the size of the ith bin,
+and Sci is the compressed ith data. The corresponding compressed
+kernel Kc is
+Kcij ¼
+Xni
+k
+Kkj ð44Þ
+where Kkj was the original kernel. For example, for 1D inversion of
+T2, Kkj = exp(/C0 tk/T2j). Now the compressed equation is
+Sc ¼ Kc /C1F ð45Þ
+and F is the same as in Eq. (36).
+5.4. Maximum entropy method (MEM)
+In addition to the method outlined in Section 5.2, maximum en-
+tropy method has also been used for the MD Laplace inversion
+[92,93]. The principle of maximum entropy (maxent) is that out
+of all the solutions that satisfy the data equation, e.g. Eq. (36),
+the most likely solution is the one that maximizes the entropy
+function, S ¼/C0
+R
+Fð TÞ ln½F ðTÞ/C138dT, and Fð TÞ > 0. Thus the result is
+FMEðTÞ¼ð 1=ZÞ exp
+X
+n
+knSnVn
+ !
+; ð46Þ
+where Z is a normalization constant, kn is the set of coefﬁcients cor-
+responding to the solution F /C25 P
+nknVn. Strictly speaking, Eq. (46) is
+only true when the k’s are the solution, however, it can be used as a
+recursive relationship to obtain the solution iteratively. Even
+though the formal MEM solution appears to have avoided the regu-
+larization parameter choice (e.g. FLI algorithm, Section 5.2), it how-
+ever requires a predetermined number of singular values to be
+included in the summation, Eq. (46), based on the SNR. It can be
+shown that the regularization corresponds to a smooth cutoff of
+the singular values, in contrast to the abrupt cutoff.
+6. Challenges and new directions
+The ﬁeld of MRPM is ultimately driven by its applications. How-
+ever, the history has indicated that it is insufﬁcient to simply bor-
+row methods and technologies developed for other NMR
+applications. The material complexity as well as the unique
+deployment requirement deserve dedicated R&D for this ﬁeld.
+For example, the development of commercial well-logging tech-
+nology is the result of many years of academic and commercial ef-
+forts and resources in theory, instrumentation, and interpretation. I
+will discuss a few directions of future research in three broad areas.
+6.1. Theory and methods
+Comparing to the complexity of porous media, our current
+understanding of the pore space is still very limited. Using the lan-
+guage of eigenmodes, NMR is essentially detecting the ground
+state alone. For example, the relaxation experiments typically
+measure the decay time constant of the ground state which is
+determined by average SVR and not sensitive to pore shape. In a
+porous rock, the pore space is typically characterized by a pore
+body and pore throat which connects the pore bodies. The perme-
+ability of a rock is highly dependent on pore throat size, which can
+be very different from the average pore SVR. No current NMR
+methods are capable to independently determine permeability
+without laboratory calibration using core samples.
+For the related ﬁeld of medical MRI, it is important to character-
+ize tissue properties both in static structure and dynamics such as
+blood ﬂow for pathological diagnostics and disease/treatment
+monitoring. There has been extensive development in this area
+such as DTI and DSI that have revolutionized our understanding
+of brain structure, in particular the connectivity of tissues. Such
+techniques should be applied to study inorganic porous media.
+Another area of recent growth is numerical simulation of por-
+ous media based on high-resolution X-ray tomography [94]. Rapid
+improvement of X-ray equipment allows routine acquisition of 3D
+tomography of porous materials down to 1–2
+lm resolutions for a
+sample of a few millimeter in size. However, geological samples
+are often heterogeneous and larger samples are likely to contain
+structures not present in smaller one. It is crucial that such numer-
+ical technique can be scaled up to a few cc volume in order to have
+a meaningful comparison with NMR data.
+It is the opinion of this author that the following directions de-
+serve more attention:
+/C15Novel pulse sequence to detect pore structure
+Pore orientation and anisotropy are important aspects of pore
+space. DTI and DSI techniques could be applied to map the anisot-
+ropy of pore space in order to better understand tortuosity and
+permeability. Similarly, isotropy of diffusion coefﬁcient [95]
+could allow better characterization of pore sizes and distribution.
+A new class of experiments that uses two pairs of PFG pulses
+(double-PFG) [96–98] has shown interesting features to charac-
+terize isotropic and anisotropic pore space. Combining propaga-
+tor and relaxation [99,100] is another interesting approach.
+While diffusion is limited in the probing length scale, ﬂow will be
+able to yield distance larger than grain sizes. Coupling ﬂow to
+NMR propagator and other methods could be very interesting
+to probe pore structure over a much large scale.
+/C15Diffusion dynamics in real pore systems
+We have argued that it is highly desirable to move beyond the
+ground state and the concept of average SVR in order to
+20 Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24
+
+--- PAGE 10 ---
+describe more details of the pore space. Combining the advance
+in high-resolution X-ray tomography and high computing
+power, it may be feasible now to perform numerical calculation
+of the eigenmodes and understand the diffusion dynamics in
+the 2D experiments such as T1–T2, and T2–T2, etc. These calcula-
+tions could become the guide for more sophisticated experi-
+ment as well as developing an interpretation of NMR results.
+Even though the basic theory of diffusion dynamics can be for-
+mulated and evaluated, interpretation of experimental results
+from real materials remains challenging.
+/C15Internal magnetic ﬁeld and its application
+Compared to relaxation and diffusion, internal magnetic ﬁeld is
+a relatively new piece of physics that is closely related to the
+pore structure. Because it exhibits a strong correlation at the
+pore size scale, it is unique and could be used to obtain pore
+sizes. In addition, it can be used to excite the higher eigenmodes
+[101].
+/C15Inversion
+Obtaining a spectrum of relaxation or diffusion is equally
+important as inversion Fourier transform for spectroscopy.
+However, the mathematics of Laplace inversion is more com-
+plex and requires signiﬁcantly more computing resources. Also
+due to the nonlinear nature of the inversion, the conventional
+algorithms (based on the concept of regularization) only derive
+one plausible solution and do not provide a measure of error
+and uncertainty.
+Statistics based methods (e.g. Monte Carlo [82] or Baysian
+approaches [102]) obtain the statistics of the solution space
+instead of picking a preferred spectrum as the ﬁnal solution.
+Such statistics are only constrained by the data with no ad
+hoc assumption of the properties of the solution (e.g. smooth-
+ness). This type of approaches could become the new method
+of choice for future Laplace inversion analysis.
+6.2. Instrumentation
+The use of NMR for geological materials often requires a ﬁeld-
+worthy portable instrument. Robust and simple operation can be
+critical for such exploration. In the past two decades, a variety of
+designs and equipments have been demonstrated [1]. For example,
+well-logging tools require the measurement volume to be signiﬁ-
+cantly away from the instrument in order to isolate the unaffected
+formation. This distance is often call DOI, distance or depth of
+investigation. For an imaging device (such as NMR MOUSE), good
+spatial resolution and high SNR are important requiring the use
+of high ﬁeld permanent magnet and short DOI. Due to the diverse
+nature of the applications, the requirement and design can be dras-
+tically different. This is a signiﬁcant deviation from the conven-
+tional NMR/MRI devices that are of only a few common designs.
+For a well-logging device, larger DOI would be very desirable; on
+the other hand for measurement of thin samples, such as surface
+of paintings, skin, small DOI and high spatial resolution are the key.
+Some of the common challenges of MRPM hardware are the
+following:
+/C15Magnet and design
+High magnetic ﬁeld is often the solution to improve SNR of MR.
+For inside-out NMR equipments employing permanent mag-
+nets, the ﬁeld is limited to a few hundreds Gauss except for
+those with very small DOI. Magnetic materials with larger mag-
+netization would be highly desirable, such as superconducting
+magnets. The practical use of superconductors would be a seri-
+ous challenge for ﬁeld application and even more so for the high
+temperature downhole environment. However, if there is a
+breakthrough in miniaturized cryogenic coolers, it is conceiv-
+able to include superconductors into the magnet design.
+/C15RF design
+RF efﬁciency of an inside-out NMR device is always poor due to
+the extremely low ﬁlling factor. For example, a typical device
+irradiates a large volume of space where the signal is only gen-
+erated from a rather localized shell due to the presence of
+strong magnetic ﬁeld gradient. Also the B
+1 is much weaker at
+the sample volume than at the surface of the RF probe. It is
+highly desirable to focus the B1 ﬁeld to the sample volume only.
+Such coil is likely to be much more complex than the simple
+designs (solenoid, surface loops, etc.) currently in use.
+/C15SNR and sensitivity
+Inside-out NMR devices typically exhibit a strong ﬁeld gradient
+and thus the detection volume is a thin shell, signiﬁcantly lim-
+iting the SNR. Interestingly, a probe with lower Q may obtain
+better SNR by enlarging the excitation and detection bandwidth
+and thus sample volume. This is a scenario quite different from
+the conventional NMR in uniform ﬁeld. As a result, a fully
+broadband system (electronics and probe) may be seriously
+advantageous. This then requires fully broadband electronics
+(transmitter and receiver) as well as novel pulses for broadband
+excitation.
+/C15Surface NMR
+Surface NMR (SNMR, or sometime called Magnetic Resonance
+Sounding, MRS), developed from 1980s [103] is a method to
+use the Earth magnetic ﬁeld as the static ﬁeld and deploys a
+large coil (up to 100 m) at the surface to detect the signal from
+the near-surface water body ( [104]). Compared to the sophisti-
+cation of the conventional NMR/MRI, SNMR primarily uses sin-
+gle-pulse FID. Two-pulse sequences have been recently used to
+measure true T
+2 [105] or T1 [106]. Development of further pulse
+sequences and the associated hardware will undoubtedly be
+critical.
+/C15Laboratory NMR equipment
+Simulating in situ conditions of porous media could be very
+challenging in the lab. For example, a typical NMR system for
+rock core measurement employs a core holder in order to apply
+pressure and temperature to the sample while RF and gradient
+coils are placed outside of the core holder [107]. Such a design
+suffers a low ﬁlling factor when the required temperature and
+pressure are high due to the space needed for a thick wall core
+holder. Because only non-metallic materials can be used for
+core holder in such design, the pressure speciﬁcation is limited.
+Recent design of putting a RF coil inside the metallic pressure
+housing is an important innovation to achieve signiﬁcant higher
+pressure [108,109]. Compare to pressure, temperature is often a
+more sensitive parameter determining the spin relaxation and
+diffusion properties. However, most of the measurements
+reported in the literature have not explored the temperature
+dependence. This may be largely due to the lack of suitable
+commercial sample holders that are designed for alleviated
+temperatures.
+6.3. Applications
+The usefulness of MRPM is the ability to measure or infer non-
+MR knowledge of the porous sample using MR methods. Thus it is
+crucial to develop the connection between MR parameters with
+material properties such as porosity, permeability, composition,
+and ﬂuid–solid interactions, etc. Often such connection is built
+via a combination of NMR development (e.g. pulse sequence de-
+sign) and basic physical/chemical research.
+/C15Pore shape and connectivity
+Conventional relaxation and diffusion methods are able to char-
+acterize the average SVR. Further details of the pore space can
+be important to determine permeability and ﬂow properties,
+Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24 21
+
+--- PAGE 11 ---
+they could also provide information on the geological processes
+for the formation/alteration of the pores (sedimentation and
+diagenesis). It could also impact the interpretation of other
+measurements, such as electrical conductivity.
+/C15Solid matrix
+Most of the investigation of porous media is focused on the ﬂu-
+ids inside the pore space. The mineral phase in fact is just as
+important in understanding geological processes, mechanical
+properties, and ﬂuid–solid interaction. However, it may be a
+challenge to apply solid state NMR methods to such materials.
+In addition to mineral composition, the physical shape and size
+of the grains and their contact are very important parameters.
+/C15Wetting, ﬂuid–solid interface, surface relaxivity
+One key aspect of the physics governing the overall properties
+of the ﬂuid-ﬁlled porous materials is the ﬂuid–solid interaction
+at the solid surface. For example, the wetting condition (e.g. oil
+or water wet) has a large impact on the amount of residue oil
+left in a oil reservoir after initial production. It could be sensi-
+tively dependent on the properties of both the ﬂuid and solid
+phases. NMR surface relaxivity in fact is a sensitive tool to study
+such interaction at the molecular scale.
+/C15Temperature dependence
+Many of the relaxation phenomena are temperature sensitive
+due to the molecular interactions between the ﬂuid molecules
+and with the surfaces. For example, bulk relaxation and surface
+relaxivity can be temperature dependent. So is the diffusion
+coefﬁcient of ﬂuids. Such temperature dependence is critical
+for interpretation of NMR results for ﬂuid or PM properties. Fur-
+thermore, the overall diffusion dynamics (Section 4) depend on
+all such factors (diffusion coefﬁcient, surface relaxivity, bulk
+relaxation). The literature on temperature dependence of MRPM
+is in fact very limited [110,63].
+/C15Flow
+The non-invasive methods of NMR and MRI to probe inside an
+opaque sample with molecular sensitivity is unrivaled in the
+laboratory and in the ﬁeld. This is particularly true for the study
+of ﬂuid ﬂow in porous media where majority of the literature on
+such topics only monitors the efﬂuent discharge. For example,
+models for ﬁltration can be tested directly by MRI of the trap-
+ping phase. This can be particularly interesting for studying
+transport of nano-size contaminants. Spatial conﬁguration and
+network of the two ﬂuid phases is dependent on ﬂuid–ﬂuid,
+ﬂuid-surface interactions and ﬂow history. Understanding of
+such multi-phase system is very important to understand and
+characterize oil production (such as EOR, enhanced oil recov-
+ery).
+Flow is also an important topic for biological systems such as
+blood ﬂow, perfusion, oxygen and nutrient transport, tumor
+growth, and drug delivery. Ideas and methods developed in
+either ﬁeld could become inspiration for others. The complex
+hierarchical structure of the blood vessel network will likely
+prove to be as challenging as the multiphase ﬂow phenomenon
+in inorganic porous media.
+/C15Low-cost logging tools for prospecting water resource
+MR well-logging is a well-established industry with signiﬁcant
+commercial support for research, engineering and deployment.
+Even though the same logging tools can be used in water
+wells, the high cost of the instrument and their deployment
+makes it inaccessible for water management. Compared to
+the deep wells at temperatures up to 200 /C176C and pressure
+2000 atm, the operating environment of a water well is benign
+and the wells are much shallower (<200 m). A simpler MR log-
+ging tool (e.g. Ref. [111,112]) and the associated inexpensive
+deployment strategy could signiﬁcantly improve water
+management.
+7. Conclusion
+MRPM touches many scientiﬁc disciplines both in its technical
+development and applications. It has its roots in the molecular
+interactions and dynamics and applications as diverse as modern
+life itself, and it is built from the foundation of MR science, technol-
+ogy, and methodology. In recent years, it has become clear that
+simply borrowing from existing MR literature is insufﬁcient and
+dedicated development for MRPM is required in order to address
+the profound and distinct needs of the ﬁeld. This development will
+inevitably include both new MR methodology as well as under-
+standing the basic physics and chemistry of the materials.
+References
+[1] F. Casanova, J. Perlo, B. Blümich (Eds.), Single-Sided NMR, Springer, 2011.
+[2] R.H. Varian, Ground Liquid Prospecting Method and Apparatus, US Patent
+3019383.
+[3] H.C. Torrey, Bloch equations with diffusion terms, Phys. Rev. 104 (1956) 563–
+565.
+[4] R.J.S. Brown, Distribution of ﬁelds from randomly placed dipoles: free-
+precession signal decay as a result of magnetic grains, Phys. Rev. 121 (1961)
+1379–1381.
+[5] S.D. Senturia, J.D. Robinson, Nuclear spin lattice relaxation of liquid conﬁned
+in porous solids, SPE J. 10 (3) (1970) 237–244.
+[6] D.O. Seevers, A nuclear magnetic method for determining the permeability of
+sandstones, Loggin Symp. Trans. 7 (1966) 1–14.
+[7] J. Korringa, D.O. Seevers, H.C. Torrey, Theory of spin pumping and relaxation
+in systems with a low concentration of electron spin resonance centers, Phys.
+Rev. 127 (4) (1962) 1143–1150.
+[8] H.C. Torrey, J. Korringa, D.O. Seevers, J. Uebersfeld, Magnetic spin pumping in
+ﬂuids contained in porous media, Phys. Rev. Lett. 3 (9) (1959) 418–419.
+[9] F. Bloch, Nuclear relaxation in gases by surface catalysis, Phys. Rev. 83 (5)
+(1951) 1062–1063.
+[10] R. Garwin, H. Reich, Self-diffusion and nuclear relaxation in He3, Phys. Rev.
+115 (6) (1959) 1478–1492.
+[11] M.H. Cohen, K.S. Mendelson, Nuclear magnetic relaxation and the internal
+geometry of sedimentary rocks, J. Appl. Phys. 53 (1982) 1127–1135.
+[12] P.G. de Gennes, Surface and interphase physics – excitation transfer in
+random media, C.R. Acad. Sci. III 295 (1982) 1061–1064.
+[13] K.R. Brownstein, C.E. Tarr, Spin-lattice relaxation in a system governed by
+diffusion, J. Magn. Reson. 26 (1977) 17–24.
+[14] K.R. Brownstein, C.E. Tarr, Importance of classical diffusion in nmr studies of
+water in biological cells, Phys. Rev. A 19 (1979) 2446–2453.
+[15] F. D’Orazio, S. Bhattacharja, W. Halperin, K. Eguchi, T. Mizusaki, Molecular
+diffusion and nuclear-magnetic-resonance relaxation of water in unsaturated
+porous silica glass, Phys. Rev. B, Condens. Matter 42 (16) (1990) 9810–9818.
+[16] W.P. Halperin, F. D’Orazio, S. Bhattacharja, J.C. Tarczon, Magnetic resonance
+relaxation analysis of porous media, in: J. Klafter, J. Drake (Eds.), Molecular
+Dynamics in Restricted Geometries, John Wiley & Sons, New York, 1989.
+[17] J. Karger, D. Ruthven, Diffusion in Zeolites and Other Microporous Solids, John
+Wiley and Sons, Inc., New York, 1992.
+[18] W.E. Kenyon, Nuclear magnetic resonance as a petrophysical measurement,
+Nucl. Geophys. 6 (1992) 153–171.
+[19] D.E. Woessner, Nmr spin-echo self-diffusion measurements on ﬂuids
+undergoing restricted diffusion, J. Phys. Chem. 67 (1963) 1365–1367.
+[20] R.C. Wayne, R.M. Cotts, Nuclear-magnetic-resonance study of self-diffusion in
+a bounded medium, Phys. Rev. 151 (1966) 264–272.
+[21] L.L. Latour, P.P. Mitra, R.L. Kleinberg, C.H. Sotak, Time-dependent diffusion
+coefﬁcient of ﬂuids in porous media as a probe of surface-to-volume ratio, J.
+Magn. Reson. Ser. A 101 (1993) 342–346.
+[22] P.P. Mitra, P.N. Sen, L.M. Schwartz, Short-time behavior of the diffusion
+coefﬁcient as a geometrical probe of porous media, Phys. Rev. B 47 (1993)
+8565–8574.
+[23] P.P. Mitra, P.N. Sen, L.M. Schwartz, P. Le Doussal, Diffusion propagator as a
+probe of the structure of porous media, Phys. Rev. Lett. 68 (1992) 3555–3558.
+[24] L.L. Latour, K. Svoboda, P.P. Mitra, C.H. Sotak, Time-dependent diffusion of
+water in a biological model system, Proc. Nat. Acad. Sci. 91 (4) (1994) 1229–
+1233.
+[25] P.T. Callaghan, A. Coy, D. MacGowan, K.J. Packer, F.O. Zelaya, Diffraction-like
+effects in nmr diffusion studies of ﬂuids in porous solids, Nature 351 (1991)
+467.
+[26] P.T. Callaghan, A. Coy, T.P.J. Halpin, K.J. Packer, F.O. Zelay, Diffusion in porous
+systems and the inﬂuence of pore morphology in pulsed gradient spin-echo
+nuclear magnetic resonance studies, J. Chem. Phys. 97 (1992) 651–662.
+[27] J.A. Jackson, L.J. Burnett, J.F. Harmon, Remote (inside-out) NMR. III. Detection
+of nuclear magnetic resonance in a remotely produced region of
+homogeneous magnetic ﬁeld, J. Magn. Reson. 41 (3) (1980) 411–421 (1969).
+[28] J.A. Jackson, Los alamos NMR well logging project, Concepts Magn. Reson. 13
+(6) (2001) 368–378.
+22 Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24
+
+--- PAGE 12 ---
+[29] R.L. Kleinberg, J.A. Jackson, An introduction to the history of nmr well logging,
+Concepts Magn. Reson. 13 (6) (2001) 340–342.
+[30] R.L. Kleinberg, Well logging, in: D.M. Grant, R.K. Harris (Eds.), Encyclopedia of
+Nuclear Magnetic Resonance, John Wiley & Sons, New York, 1995.
+[31] R.L. Kleinberg, Methods in the Physics of Porous Media, vol. 35, Academic
+Press, 1999.
+[32] C. Pierpaoli, P. Jezzard, P.J. Basser, A. Barnett, G. Di Chiro, Diffusion tensor MR
+imaging of the human brain, Radiology 201 (3) (1996) 637–648.
+[33] V.J. Wedeen, P. Hagmann, W.-Y.I. Tseng, T.G. Reese, R.M. Weisskoff, Mapping
+complex tissue architecture with diffusion spectrum magnetic resonance
+imaging, Magn. Reson. Med. 54 (6) (2005) 1377–1386. doi: 10.1002/
+mrm.2064.
+[34] D.W. McCall, D.C. Douglass, E.W. Anderson, Diffusion in ethylene polymers.
+IV, J. Chem. Phys. 30 (3) (1959) 771–773.
+[35] R. Bachus, R. Kimmich, Molecular weight and temperature dependence of
+self-diffusion coefﬁcients in polyethylene and polystyrene melts investigated
+using a modiﬁed N.M.R. ﬁeld-gradient technique, Polymer 24 (1983) 964.
+[36] E. von Meerwall, S. Beckman, J. Jang, W.L. Mattice, Diffusion of liquid n-
+alkanes: free-volume and density effects, J. Chem. Phys. 108 (10) (1998)
+4299–4304.
+[37] D. Freed, L. Burcaw, Y.-Q. Song, Scaling laws for diffusion coefﬁcients in
+mixtures of alkanes, Phys. Rev. Lett. 94 (2005) 067602.
+[38] D. Freed, Dependence on chain length of nmr relaxation times in mixtures of
+alkanes, J. Chem. Phys. 126 (2007) 174502.
+[39] R.L. Kleinberg, H. MA, Transverse relaxation processes in porous sedimentary
+rock, J. Magn. Reson. 88 (1) (1990) 9–19.
+[40] R.L. Kleinberg, W.E. Kenyon, P.P. Mitra, Mechanism of NMR relaxation of
+ﬂuids in rock, J. Magn. Reson. Ser. A 108A (2) (1994) 206–214.
+[41] S. Stapf, R. Kimmich, R.O. Seitter, Proton and deuteron ﬁeld-cycling NMR
+relaxometry of liquids in porous glasses: evidence for Lévy–Walk statistics,
+Phys. Rev. Lett. 75 (15) (1995) 2855–2858.
+[42] R. Kimmich, E. Anoardo, Field-cycling NMR relaxometry, Prog. Nucl. Magn.
+Reson. Spectrosc. 44 (3-4) (2004) 257–320.
+[43] S. Godefroy, J.-P. Korb, M. Fleury, R. Bryant, Surface nuclear magnetic
+relaxation and dynamics of water and oil in macroporous media, Phys. Rev.
+E Stat. nonlinear Soft Matter Phys. 64 (2) (2001) 021605.
+[44] Y.-Q. Song, L. Zielinski, S. Ryu, Two-dimensional NMR of diffusion systems,
+Phys. Rev. Lett. 100 (24) (2008) 248002.
+[45] A.T. de Hoop, M.D. Prange, Variational analysis of the natural decay rates and
+eigenmodes of cavity-enclosed diffusive ﬁelds, J Phys. A: Math. Theor. 40 (41)
+(2007) 12463–12477. < http://stacks.iop.org/1751-8121/40/1246>.
+[46] Y.-Q. Song, B.M. Goodson, B. Sheridan, T.M. de Swiet, A. Pines, Effects of
+diffusion on magnetic resonance imaging of laser-polarized xenon gas, J.
+Chem. Phys. 108 (15) (1998) 6233–6239, http://dx.doi.org/10.1063/1.476030.
+[47] K.J. Packer, C. Rees, Pulsed NMR studies of restricted diffusion. I. Droplet size
+distributions in emulsions, J. Colloid Interface Sci. 40 (2) (1972) 206–
+218.
+[48] J.C. Van den Enden, D. Waddington, H. Van Aalst, C.G. Van Kralingen, K.J.
+Packer, Rapid determination of water droplet size distributions by PFG-NMR,
+J, Colloid Interface Sci. 140 (1) (1990) 105–113.
+[49] P.N. Sen, Time-dependent diffusion coefﬁcient as a probe of geometry,
+Concepts Magn. Reson. Part A 23A (1) (2004) 1–21. < http://dx.doi.org/
+10.1002/cmr.a.20017>.
+[50] D. Grebenkov, NMR survey of the reﬂected brownian motion, Rev. Mod. Phys.
+79 (3) (2007) 1077–1137.
+[51] R.J.S. Brown, P. Fantazzini, Conditions for initial quasilinear 1/ t
+2 versus s for
+carr-purcell-meiboom-gill nmr with diffusion and susceptibility differences
+in porous media and tissues, Phys. Rev. B 47 (1993) 14823–14834.
+[52] R.M. Weisskoff, C.S. Zuo, J.L. Boxerman, B.R. Rosen, Microscopic susceptibility
+variation and transverse relaxation: theory and experiment, Magn. Reson.
+Med. 31 (1994) 601–610.
+[53] G.C. Borgia, R.J.S. Brown, P. Fantazzini, Scaling of spin-echo amplitudes with
+frequency, diffusion coefﬁcient, pore size, and susceptibility difference for the
+nmr of ﬂuids in porous media and biological tissues, Phys. Rev. E 51 (1995)
+2104–2114.
+[54] M.D. Hürlimann, Effective gradients in porous media due to susceptibility
+differences, J. Magn. Reson. 131 (1998) 232–240.
+[55] B. Audoly, P.N. Sen, S. Ryu, Y.-Q. Song, Correlation functions for
+inhomogeneous magnetic ﬁeld in random media with application to a
+dense random pack of spheres, J. Magn. Reson. 164 (2003) 154–159.
+[56] H. Cho, Y.-Q. Song, NMR measurement of the magnetic ﬁeld correlation
+function in porous media, Phys. Rev. Lett. 100 (2) (2008) 025501.
+[57] Y.-Q. Song, S. Ryu, P.N. Sen, Determining multiple length scales in rocks,
+Nature (London) 406 (2000) 178–181.
+[58] E.E. Sigmund, H. Cho, P. Chen, S. Byrnes, Y.-Q. Song, X. Guo, T. Brown,
+Diffusion-based mr methods for bone structure and evolution, Magn. Reson.
+Med. 59 (2008) 28–39.
+[59] P.J. Basser, J. Mattiello, D. LeBihan, Estimation of the effective self-diffusion
+tensor from the NMR spin echo, J. Magn. Reson. Ser. B 103 (3) (1994) 247–
+254.
+[60] A.E. English, K.P. Whittall, M.L.G. Joy, R.M. Henkelman, Quantitative two-
+dimensional time correlation relaxometry, Magn. Reson. Med 22 (1991) 425–
+434.
+[61] Y.-Q. Song, L. Venkataramanan, M.D. Hurlimann, M. Flaum, P. Frulla, C.
+Straley, T
+1–T2 correlation spectra obtained using a fast two-dimensional
+laplace inversion, J. Magn. Reson. 154 (2002) 261–268.
+[62] M.D. Hürlimann, M. Flaum, L. Venkataramanan, C. Flaum, R. Freedman, G.J.
+Hirasaki, Diffusion-relaxation distribution functions of sedimentary rocks in
+different saturation states, Magn. Reson. Imaging 21 (2003) 269–277.
+[63] A. Mutina, M. Hurlimann, Correlation of transverse and rotational diffusion
+coefﬁcient: a probe of chemical composition in hydrocarbon oils, J. Phys.
+Chem. A 112 (15) (2008) 3291–3301.
+[64] J.-H. Lee, C. Labadie, C.S. Springer Jr, G.S. Harbison, Two-dimensional inverse
+laplace transform nmr: altered relaxation times allow detection of exchange
+correlation, J. Am. Chem. Soc. 115 (1993) 7761–7764.
+[65] P.L. Hubbard, K.M. McGrath, P.T. Callaghan, A study of anisotropic water self-
+diffusion and defects in the lamellar mesophase, Langmuir 21 (2005) 4340–
+4346.
+[66] L. Monteilhet, J.-P. Korb, J. Mitchell, P.J. McDonald, Observation of exchange of
+micropore water in cement pastes by two-dimensional T
+2–T2 nuclear
+magnetic resonance relaxometry, Phys. Rev. E 74 (6) (2006) 061404.
+[67] M. Hurlimann, L. Burcaw, Y.-Q. Song, Quantitative characterization of food
+products by two-dimensional D–T2 and T1–T2 distribution functions in a static
+gradient, J Colloid Interface Sci. 297 (2005) 303–311.
+[68] B. Hills, Applications of low-ﬁeld nmr to food science, Annu. Rep. NMR
+Spectrosc. 58 (2006) 177–230.
+[69] M.D. Hürlimann, L. Venkataramanan, C. Flaum, P. Speier, C. Karmonik, R.
+Freedman, N. Heaton, Diffusion-editing: new nmr measurement of saturation
+and pore geometry, in: 43rd Annual SPWLA meeting in Oiso, Japan, 2002, p.
+paper FFF.
+[70] K.E. Washburn, P.T. Callaghan, Tracking pore to pore exchange using
+relaxation exchange spectroscopy, Phys. Rev. Lett. 97 (17) (2006) 175502.
+[71] E.O. Stejskal, J.E. Tanner, Spin diffusion measurements: spin echoes in the
+presence of a time-dependent ﬁeld gradient, J. Chem. Phys. 42 (1965) 288–
+292.
+[72] M.D. Hürlimann, L. Venkataramanan, Quantitative measurement of two-
+dimensional distribution functions of diffusion and relaxation in grossly
+inhomogeneous ﬁelds, J. Magn. Reson. 157 (2002) 31–42.
+[73] M.D. Hürlimann, L. Venkataramanan, C. Flaum, The diffusion-spin relaxation
+time distribution as an experimental probe to characterize ﬂuid mixtures in
+porous media, J. Chem. Phys. 117 (2002) 10223–10232.
+[74] R.L. Kleinberg, A. Sezginer, D.D. Grifﬁn, M. Fukuhara, Novel nmr apparatus for
+investigating an external sample, J. Magn. Reson. 97 (1992) 466–485.
+[75] P.M. Glover, P.S. Aptaker, J.R. Bowler, E. Ciampi, P.J. McDonald, A novel high-
+gradient permanent magnet for the proﬁling of planar ﬁlms and coatings, J.
+Magn. Reson. 139 (1999) 90–97.
+[76] G. Eidmann, R. Savelsberg, P. Blumler, B. Blümich, The nmr mouse, a mobile
+universal surface explorer, J. Magn. Reson. A 122 (1996) 104–109.
+[77] M. Kac, Can one hear the shape of a drum?, Am Math. Mon. 73 (1966) 1.
+[78] S. Sridhar, A. Kudrolli, Experiments on not ‘‘hearing the shape’’ of drums,
+Phys. Rev. Lett. 72 (1994) 2175–2178.
+[79] D.S. Grebenkov, Laplacian eigenfunctions in NMR.I. A numerical tool,
+Concepts Magn. Reson. Part A 32A (4) (2008) 277–301.
+[80] L.J. Zielinski, Y.-Q. Song, S. Ryu, P.N. Sen, Characterization of coupled pore
+systems from the diffusion eigenspectrum, J. Chem. Phys. 117 (2002) 5361–
+5365.
+[81] D. Bytchenkoff, S. Rodts, Structure of the two-dimensional relaxation spectra
+seen within the eigenmode perturbation theory and the two-site exchange
+model, J. Magn. Reson. 208 (1) (2011) 4–19.
+[82] M. Prange, Y.-Q. Song, Quantifying uncertainty in NMR T
+2 spectra using
+monte carlo inversion, J. Magn. Reson. 196 (1) (2009) 54–60, http://
+dx.doi.org/10.1016/j.jmr.2008.10.008.
+[83] A.N. Tikhonov, V.Y. Arsenin, Solutions of Ill-Posed Problems, John Wiley and
+Sons, New York, 1977.
+[84] J. Skilling, Classic maximum entropy, in: J. Skilling (Ed.), Maximum Entropy
+and Bayesian Methods, Kluwer Academic, Dordrecht, 1989, pp. 45–52.
+[85] C.L. Lawson, R.J. Hanson, Solving Least Squares Problems, Prentice-Hall,
+Englewood Cliffs, NJ, 1974.
+[86] S.W. Provencher, Contin: a general purpose constrained regularization
+program for inverting noisy linear algebraic and integral equations,
+Comput. Phys. Commun. 27 (1982) 229.
+[87] G.C. Borgia, R.J.S. Brown, P. Fantazzini, Uniform-penalty inversion of
+multiexponential decay data, J. Magn. Reson. 132 (1998) 65–77.
+[88] E.J. Fordham, A. Sezginer, L.D. Hall, Imaging multiexponential relaxation in
+the ( y, log t
+1) plane, with application to clay ﬁltration in rock cores, J. Magn.
+Reson. Ser. A 113 (1995) 139–150.
+[89] L. Venkataramanan, Y.-Q. Song, M.D. Hürlimann, Solving fredholm integrals of
+the ﬁrst kind with tensor product structure in 2 and 2.5 dimensions, IEEE
+Trans. Signal Proc. 50 (2002) 1017–1026.
+[90] R. Freedman, Method and Apparatus for Compressing Data Produced from a
+Well Tool in a Wellbore Prior to Transmitting the Compressed Data Uphole to
+a Surface Apparatus, US Patent 5381092.
+[91] R. Freedman, C. Morriss, Processing of data from an nmr logging tool, SPE
+30560.
+[92] N.J. Heaton, C. Cao Minh, J. Kovats, U. Guru, Saturation and viscosity from
+multidimensional nuclear magnetic resonance logging, Soc Petro Eng J paper
+90564. doi:10.2118/90564-MS.
+[93] N.J. Heaton, Multi-Measurement NMR Analysis Based on Maximum Entropy,
+US Patent 6960913 B2 (2005) 1–15.
+[94] A. Sakellariou, C.H. Arns, A.P. Sheppard, R.M. Sok, H. Averdunk, A. Limaye, A.C.
+Jones, T.J. Senden, M.A. Knackstedt, Developing a virtual materials laboratory,
+Mater. Today 10 (12) (2007) 44–51.
+Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24 23
+
+--- PAGE 13 ---
+[95] S. Mori, P. Van Zijl, Diffusion weighting by the trace of the diffusion tensor
+within a single scan, Magn. Reson. Med. 33 (1) (1995) 41–52.
+[96] P. Mitra, Multiple wave-vector extensions of the NMR pulsed-ﬁeld-gradient
+spin-echo diffusion measurement, Phys. Rev. B, Condens. Matter 51 (21)
+(1995) 15074–15078.
+[97] P.T. Callaghan, M.E. Komlosh, Locally anisotropic motion in a macroscopically
+isotropic system: displacement correlations measured using double pulsed
+gradient spin-echo nmr, Magn. Reson. Chem. 40 (13) (2002) S15–S19.
+[98] N. Shemesh, E. Özarslan, M.E. Komlosh, P.J. Basser, Y. Cohen, From single-
+pulsed ﬁeld gradient to double-pulsed ﬁeld gradient MR: gleaning new
+microstructural information and developing new forms of contrast in MRI,
+NMR in Biomed. 23 (7) (2010) 757–780.
+[99] K. Washburn, P. Callaghan, Propagator resolved transverse relaxation
+exchange spectroscopy, J. Magn. Reson. 186 (2) (2007) 337–340, http://
+dx.doi.org/10.1016/j.jmr.2007.02.011.
+[100] L.M. Burcaw, M.W. Hunter, P.T. Callaghan, Propagator-resolved 2D exchange
+in porous media in the inhomogeneous magnetic ﬁeld, J. Magn. Reson. 205
+(2) (2010) 209–215.
+[101] Y.-Q. Song, Detection of the high eigenmodes of spin diffusion in porous
+media, Phys. Rev. Lett. 85 (2000) 3878–3881.
+[102] D.J. Holland, A. Blake, A.B. Tayler, A.J. Sederman, L.F. Gladden, A Bayesian
+approach to characterising multi-phase ﬂows using magnetic resonance:
+Application to bubble ﬂows, J. Magn. Reson. 209 (1) (2011) 83–87.
+[103] A.G. Semenov, A.Y. Pusep, M.D. Schirov, Hydroscope–an installation for
+prospecting without drilling, USSR Acad. Sci., Novosibirsk (Russian)
+(1982) 1–26.
+[104] A. Legchenko, P. Valla, A review of the basic principles for proton magnetic
+resonance sounding measurements, J. Appl. Geophys. 50 (2002) 3–19.
+[105] A. Legchenko, J.-M. Vouillamoz, J. Roy, Application of the magnetic resonance
+sounding method to the investigation of aquifers in the presence of magnetic
+materials, Geophysics 75 (6) (2010) L91.
+[106] J.O. Walbrecker, M. Hertrich, J.A. Lehmann-Horn, A.G. Green, Estimating the
+longitudinal relaxation time T1 in surface NMR, Geophysics 76 (2) (2011)
+F111.
+[107] R. Chen, P. Stallworth, S. Greenbaum, R. Kleinberg, Proton and deuteron
+magnetic resonance of water in natural rock and artiﬁcial porous media:
+effects of hydrostatic pressure, J. Magn. Reson. Ser. A 110 (1994) 77.
+[108] R. Freedman, K. Ganesan, D.W. Grant, High Pressure/High Temperature
+Magnetic Resonance Tool, US Patent (7683613 B2).
+[109] H. Han, M. Ouellette, B. MacMillan, F. Goora, R. MacGregor, D. Green, B.J.
+Balcom, High pressure magnetic resonance imaging with metallic vessels, J.
+Magn. Reson. 213 (1) (2011) 90–97.
+[110] L. Latour, R. Kleinberg, A. Sezginer, Nuclear magnetic resonance properties of
+rocks at elevated temperatures, J. Colloid Interface Sci. 150 (1992) 535.
+[111] D. Walsh, E. Grunewald, P. Turner, I. Frid, Javel: a slimhole and microhole
+NMR logging tool, Fast Times 15 (3) (2010) 67–72.
+[112] R. Knight, E. Grunewald, T. Irons, K. Dlubac, Y.-Q. Song, H.N. Bachman, B. Grau,
+D. Walsh, J.D. Abraham, J. Cannia, Field experiment provides ground truth for
+surface nuclear magnetic resonance measurement, Geophys. Res. Lett. 39 (3)
+(2012) L03304.
+24 Y.-Q. Song / Journal of Magnetic Resonance 229 (2013) 12–24

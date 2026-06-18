@@ -1,0 +1,710 @@
+--- PAGE 1 ---
+Journal of Physics A: Mathematical and General
+Random walks and NMR measurements in porous
+media
+To cite this article: M Leibig 1993 J. Phys. A: Math. Gen. 26 3349
+ 
+View the article online for updates and enhancements.
+Related content
+Aggregation kinetics
+Paul Meakin
+-
+Anomalous transport in the crowded world
+of biological cells
+Felix Höfling and Thomas Franosch
+-
+The effect of morphological disorder on
+hydrodynamic dispersion in flow through
+porous media
+M Sahimi and A O Imdakm
+-
+Recent citations
+A physicist’s guide to explicit summation
+formulas involving zeros of Bessel
+functions and related spectral sums
+Denis S. Grebenkov
+-
+Pore-fluid characterizations and
+microscopic mechanisms of sedimentary
+rocks with three-dimensional NMR: Tight
+sandstone as an example
+Jiangfeng Guo et al
+-
+Simulations of NMR Relaxation in a Real
+Porous Structure: Pre-asymptotic Behavior
+to the Localization Regime
+J. L. Gonzalez et al
+-
+This content was downloaded from IP address 131.130.169.5 on 01/09/2021 at 11:41
+
+--- PAGE 2 ---
+1. phys. A. Math. Gen. 26 (1993) 3349-3367. Printed in the UK 
+Random walks and NMR measurements in porous media 
+Michael Leibig? 
+The James Franck Institute and Department of Physics, The University of Chicago, 5640 
+South Ellis Avenue, Chicago, IL 60637, USA 
+Received 13 July 1992, in final form 19 February 1993 
+Abstract This paper studies the relationship between NMR measurements of the magnetization 
+decay in porous media and random-walk problems. The behaviour of this decay can be related 
+to the statistical properlies of random walks which interact with the pore-solid interface via 
+perfectly reflecting boundary conditions. An efficient numerical technique measures Ihese 
+statistics using a variable step size random-walk simulation. This technique is applied to lhree 
+simple models for porous materials. The results indicate that there is a regime of setched- 
+expnential relaxation of the magnetization for a permlation model 
+1. Introduction 
+Nuclear magnetic resonance (NMR) techniques have shown promise as a tool for 
+understanding the structure of materials. In their classic work, Brownstein and Tan used 
+NMR relaxation measurements to determine the size of biological cells [I]. They also looked 
+at three simple geometries for pore spaces and calculated the corresponding relaxation 
+curves. Since then there has been much interest in determining the type of structural 
+information &at can be discerned from NMR experiments [2-6]. 
+Different types of NMR measurements can be performed on a sample of porous material, 
+and ,each technique yields different information about the pore structure [2,6,3]. The 
+numerical methods that I discuss are most directly applicable to the following NMR 
+experiment. A sample of a porous material is saturated or partially saturated with a fluid 
+which contains an NMR active nucleus. Let the pore volume be written as V, with the pore 
+surface S referring to the boundary between the pore space and the^ solid material of the 
+sample. The sample is placed in a high magnetic field and acquires~ a net magnetization 
+in the direction of this extemal field. The sample is then exposed to a short RF pulse at 
+the Larmor frequency of the active nucleus. This pulse rotates the sample's magnetization 
+away from the dirrction of the external field [4]. After the initial pulse, the magnetization 
+will, through natural processes, relax back to its original orientation. 
+There are, of course, many subtle experimental issues associated with actually making 
+these measwements [IO, 131; however, the basic physics of the system is straightforward. 
+ the^ time evolution of any component of the local magnetization density, m(x, t). in the 
+pore volume is described by [31] 
+-- am(x, t, - &m(x, t) ' m(x, 0) = MO 
+at 
+t Resent address: HLRZ KFAJUich, Postfach 1913.52425 JUlich, Federal Republic of Gemany. 
+03054470/93/143349+19$07.50 @ 1993 IOP Publishing Ltd 3349 
+
+--- PAGE 3 ---
+3350 M Leibig 
+where D is a diffusion constant, MO is the magnetization at time t = 0 and p is the surface 
+relaxation parameter (which may be diierent for different components of the magnetization) 
+[lo]. Experimentally, it is the quantity m(t) that is actually measured. These equations 
+ignore the effect of the decay which occurs in the bulk liquid; it has been shown that this 
+bulk relaxation gives only a trivial exponential prefactor to m(t) 191. 
+It is straightforward to create a random-walk algorithm whose behaviour is described by 
+equations equivalent to (1.1). Consider No random walkers placed within the pore volume of 
+the sample at t = 0. Whenever any of these walker encounters the interface, it is destroyed 
+with a probability q and reflected back into the pore volume with a probability 1-4. Given 
+these rules, the density of these random walkers, u(x. t). satisfies the following equations: 
+U(X, 0) = No/V ”” 
+where D‘ is a diffusion constant (which depends on the microscopic size, a, of a single 
+step, the time, 5, for such a step, and d, the dimensionality of space) [211, and q’ is 
+a constant determined by the microscopic details of the random-walk algorithm [11,14]. 
+There is currently some debate over the proper functional form for q’ in lattice simulations. 
+Fortunately, the analysis and formalism that I present below do not depend crucially on 
+these details. When making comparisons with experimental observations, I will assume that 
+q’ zz qa/s, which is the accepted form for small q. The quantity U@), which corresponds 
+to the measurable quantity m(t) in the magnetization experiment, can be interpreted as the 
+probability that a typical walker will survive to a time f. 
+The correspondence between m(t) and ~(t) suggests a computational method for 
+calculating the decay curve that would be measured for a specific model of a porous material. 
+With the geometry of the pore space encoded into computer memory (e.g. as a set of points 
+in space, or a set of intersection planes), it is possible to implement this partially reflecting 
+random-walk scheme to calculate the function ~(t) [ll, 141. The NMR magnetization curve 
+for such a model pore space is ther. simply given by 
+(1.3) 
+Unfortunately, this random-walk method suffers from two fundamental problems. The 
+first is that as time passes, the number of times that a typical walker has encountered the 
+surface increases. Since each of these contacts represents a possible termination of the walk, 
+it requires a large number of walks to get good statistics at long times. 
+The second difficulty is that the passage of time is measured in units of 5, the amount 
+of ‘time’ required to take one step of length U. Thus, to measure the elapsed time for a 
+specific walk, the trajectory must be made up of steps with this fixed size. This method 
+becomes inefficient when the trajectory of the random walk takes it into the centre of a 
+large void. It takes a very large number of steps for the walk to make significant progress 
+toward the surface. 
+It is possible to overcome these problems with the numerical methods presented below 
+and there are two facts that motivate this investigation and distinguish it from earlier 
+numerical studies. The first is that the properties of random walks that are either destroyed 
+or reflected at a surface are intimately related to the properties of walks that are always 
+
+--- PAGE 4 ---
+Random walkr and NMR measurements 3351 
+reflected from that surface. Thus, the partially reflecting random-walk algorithm can be 
+replaced by one that utilizes random walks that live forever. 
+The second important fact is that it is possible to have a variable step size random walk 
+and still retain time information. Consider a random walker taking a single step of length r. 
+To know the elapsed time for this one step, it is nezzssary to determine the number of steps 
+that it would have required to make this excursion with steps of length a. This calculation 
+has been done for the case of a continuous random walk [ZO]. By making use of this result 
+it is possible to determine probabilistically how many small steps would have been required 
+to make the progress that was made by a single large step. 
+The rest of this paper is organized in the following manner. In section 2. I present the 
+formalism that relates the quantity u(t) to the properties of random walks that are always 
+reflected from the pore surface. Section 3 contains a brief discussion of the numerical 
+method used and then presents results for three simple models for porous media. Section 
+4 contains some discussion of the applicability of this numerical method to real systems, 
+and an extension of these ideas to a different NMR problem. In appendix A, I describe the 
+relevant details of my implementation of the random-walk scheme discussed in section 3. 
+2. .Formalism 
+Consider a specific~walker labelled by i, moving about the p& volume with the partially 
+reflecting random-walk algorithm described above. Imagine that a record is kept of the 
+total number of steps that this walker has taken since its creation. For each contact with 
+the boundary surface, I define Pi(t) as the probability that at time f the ith walker had its 
+nth contact with the boundary. (For a random walk with a fixed step size, the distribution 
+is a 8-function in time. I show below that for variable step size walks, Pi@) is a 
+general distribution.) The character of PL (t) will depend on the environment of the walk. 
+A walk which remains in a relatively confined region can quickly accumulate n contacts 
+with the boundary, while a walk which explores a large void requires a large amount of 
+time to accrue n bounces. 
+dt’Pi(t’) is the probability that this walker has bounced n times within 
+a time t. Let the contact at which the ith walk is terminated be denoted as ni. For n < ni, 
+JF dt‘Pi(t‘) = 1, while this integral is zem for n ni. I define u’(t) as the probability 
+that the ith walker is still alive at time t. This can be written as 
+The integral 
+(2.1) 
+where I have labelled the first contact with the surface as n = 0. I now write the total 
+number of walks that survive to time t as 
+The labelling by i is arbitmy, and thus I choose to sort the data according to the 
+condition nt 6 n2 6 .. . c nNo. Define kj as the number of walks that died after exactly j 
+contacts with the cluster. Then I may write 
+
+--- PAGE 5 ---
+3352 M Leibig 
+where the first term comes from the walks that were terminated on the first contact, the 
+second term comes from walks that were terminated on the second contact, and so on. 
+Consider the jth term in this series. It is made up of kj walks that terminated on the 
+jth contact with the surface. Thus, up until this final contact, these walkers behaved just 
+as if they were walkers that were never going to be destroyed. Therefore, I consider a 
+modified random-walk algorithm in which a large number of random walkers are released 
+in the same pore volume and whenever a walker crosses the surface S, it is always reflected. 
+I define P,(t) as the probability that one of these walks had its nth bounce at time f. Thus 
+the normalization condition is I,”dtP,(t) = 1. 
+The behaviour of these walks as they strike the surface for the jth time should be the 
+same as the behaviour of the kj walks that are destroyed at this contact. Thus, I write 
+XO+k,+-+k, f r 
+1 dt’Pj(f‘) = kj dr’(r‘)P,(t’). 
+r=l+ko+t,+ ...+ k,-, 
+(2.4) 
+I now use the fact that on average kj = Noq(1 - q)’, along with (2.3) and (2.4) to write 
+The quantity in brackets in (2.5) is dependent only on quantities averaged over aIl random 
+walks which are reflected after every contact with the surface S. Using relation (1.3), I find 
+that the magnetization is 
+Also useful is the time derivative of m(r), 
+m 
+-- 
+?l=O dt 
+Equations (2.6) and (2.7) represent the main results of this section. 
+It is worth discussing the issue of averaging in somewhat more detail. In studying a 
+problem involving random walks which are destroyed, it may seem counter-intuitive to use 
+statistics derived from a set of walks that are always reflected f” S. If some of these 
+walks which never terminate, had been forced to terminate, then clearly some of some 
+of these walks would not contribute to the behaviour at large n. But which ones would 
+contribute? The answer is that because the walks which survive are chosen at random, each 
+walk could potentially have contributed. Thus, the statistics of the surviving walks should 
+be independent of the number of walks which survive. In order to get the best statistics, I 
+allow all of the walks to survive. 
+I have recast the problem of calculating u(t) into determining the set of functions P,,(t). 
+These functions are, of course, interesting in their own right. They are quantities describing 
+the behaviour of a random walk moving in a confined geometry. The true promise of this 
+method, however, is that it may be possible to understand the function P,(t) in terms of 
+the structural features of the pore geometry or vice versa. If a form for these functions 
+can be derived theoretically, or measured computationally, (2.6) gives the experimentally 
+measurable relaxation curve for such a pore geometry. 
+
+--- PAGE 6 ---
+Random walks and NMR measurements 3353 
+3. Numerical results 
+This section begins with a brief discussion of the computational scheme used to calculate 
+the functions Pa@). Only the most important ideas are presented here, with more details 
+being provided in the appendix. 
+P,(f) is defined as the probability that a walker which is started with equal probability 
+anywhere in the pore volume will have its nth encounter with the pore surface at time t. 
+This probability is averaged over all possible trajectories available to the walker. 
+A standard trick which increases the efficiency of a random-walk algorithm is to use a 
+variable step size random walk [22]. By this scheme, when a walker is far from an interface, 
+it takes larger steps, taking short steps of^ the minimal size, a, only when it is near to a 
+surface. However, in taking these large steps, I need to know how many short steps would 
+have been required to cover the distance of the larger step. Because I am interested in 
+averaging over all~random-walk trajectories, it is the distribution of possible elapsed times 
+that is of interest. Thus, the variable step size walk actually provides more information with 
+fewer walkers than the standard fixed step size algorithm. 
+In the continuum limit (i.e. a + 0, r + 0, D' = a2/rd = constant), there is a discrete 
+solution for the problem of the elapsed time distribution for variable step sizes [20]; For 
+spatial dimension d = 2, the probability, pr(t), that a random walk will travel a linear 
+distance r in time t is 
+where J,,(x) is the Bessel function'of order n, and <O,X is the kth zero of J&). (It is 
+possible to calculate p,(r) ford > 2, but in this work, for simplicity, I consider only two- 
+dimensional systems.) Unfortunately, (3.1) is valid only for a continuous random walk. For 
+large r, however, this expression provides a good approximation to the discrete probability 
+distribution. 
+Equation (3.1) gives the probability distribution for the elapsed time of a single step 
+of length r. In order to calculate the distribution of elapsed time for a collection of such 
+steps, it is simply a matter of performing a series of convolutions of many functions of 
+the form of (3.1) with the values of r being determined by the specific trajectoty of the 
+walker. The resulting convolution from all steps up to the nth contact gives the function 
+PL(t). Averaging over all such walks, I determine Pn(t). 
+I now turn to the results of a study of three different geometric models for porous 
+materials. For each model, I discuss the observed Pn(t) and, where possible, consider the 
+NMR decay that each pore geometry would produce. The first model pore space is the 
+interior of a circle. The trivial nature of this geometry allows for comparison with exact 
+results~and illustrates the basic behaviour for an isolated pore. 
+The second model is a set of identical circular pores connected to one another with 
+narrow channels. This relatively minor change from an isolated pore results in drastic 
+changes in Pn(t). Additionally, since the behaviour of random walks is well understood 
+for both the circular pore and in the narrow channel separately [19], this model should lend 
+itself to analytic calculation. 
+The third model for a porous material is a percolation cluster. Percolation is an important 
+problem in condensed matter physics 12.51, and the functions P,(t) may provide a fruitful 
+tool for understanding its structure. As a model for porous media, it also captures the 
+flavour of the random grain structure of many real porous samples, and there have been 
+
+--- PAGE 7 ---
+3354 M Leibig 
+experimental measurements of porous materials that have shown percolation-like behaviour 
+U61. 
+These models are not intended to serve as exact representations of the microstructure for 
+a physical porous medium. The actual geometry of a real porous material is very sample 
+specific. There is a bewildering variety of influences which contribute to the formation 
+of real rocks, and each of these factors affects the microscopic details of the pore surface 
+[18]. It is not my goal to create a perfectly accurate physical description for one specific 
+sample and then measure the function P,(t) for it. The purpose of this numerical study is 
+to illustrate the geometrical features that affect the function Pn(t). and more importantly, 
+the relaxation curve m(r). 
+In the analysis of the functions P&), I will show two different types of results for each 
+curve. The first is derived from the moments of each distribution. For each model pore 
+space I plot as a function of n, the average elapsed time, (t),, the standard deviation for 
+the distribution, (u)~, and the skewness of the distribution, (v)~. The skewness involves 
+the third moment of the distribution and reflects the symmeny of the distribution about 
+the average. A positive skewness indicates that the tail of the distribution is much broader 
+above the mean than below. The opposite is hue for a negative skewness. 
+I also show for each pore the actual functions Pn(t). For large n, these curves take on 
+the scaling form 
+where F(x) is some function characteristic of each model. In order to display the behaviour 
+of F(x), it is convenient to plot Iog((~)~P~(t)) versus (r - (r),J/(u)-. For the circle and 
+percolation, I am able to make quantitative statements about the function F(x), as well as 
+to calculate its implications for the long-time behaviour of the magnetization decay. 
+All of the data shown below are averages over IOOOO random walkers. For calculating 
+the moments, I followed these walks up to nm = 10000 bounces. In measuring the full 
+functions Pn(r), I only calculated up to n- = 1OOO. The results are reported assuming 
+U = 1 and 5 = 1. 
+3.1. The circle 
+The simplest possible model for a pore space is the interior of a circle. This problem was 
+taken up by Brownstein and Tan, and the behaviour of the magnetization is well understood. 
+This makes it an ideal testing ground for the exploration of the relationship between the 
+functions Pn (f) and the magnetization decay. 
+Numerical simulations were performed on circles of various sizes; here I present the 
+results for a circle with a radius R = IOU. The behaviour of the average time, the standard 
+deviation and the skewness are shown in figures 1 and 2. .All three of these quantities have 
+been plotted on a logarithmic scale to show their power-law behaviour. 
+For large n, the average time (t). SS Rn. It is possible to show [20] that for a random 
+walk starting a distance b from the surface of a circle, the average time, r, at which that 
+walker encounters the circle is 
+7 = bR(1- b/2R) (3.3) 
+where I have used the fact that in my simulations the walker's diffusion constant D' = $. 
+Before the first contact with the circle, the random walkers begin with a uniform distibution 
+
+--- PAGE 8 ---
+Random walks and NMR measurements 3355 
+loq,,,inI 
+Figure 1. Average and standard deviation of Pn(f) for the random walks inside a circle. The 
+broken we is the exact result for a continuum random walk 
+0.5 I I 1 
+-1.51 I I I 
+0~ 1 2 3 4 
+loglo(n1 
+Figure 2. Skewness of P,, (r) for the circle. The curve seems to indicate a power-law-like decay. 
+The high level of noise for large n is a result of the sensitiviy of higher moments to outliers. 
+inside the circle. Thus, to determine (t)~, I integrate over all possible starting radii. I find 
+that 
+(t)~ = R2/4. (3.4) 
+After the first bounce, the walkers always sm a distance b' e 0.75 from the edge of the 
+circle (the reason that b' c 1 is discussed in the appendix). Thus, I~ have 
+(t)" = R2/4+nRb'(l - b'/2R). (3.5) 
+
+--- PAGE 9 ---
+3356 M Leibig 
+Figure 3. PA) for circle for n = 316,398,501,630,794,1000. The data have been collapsed 
+to show the form of F(x). 
+The curve (3.5) is also plotted in figure 1. Note that the theoretical curve is displaced below 
+the numerical result. This shift exists because (3.5) is for a continuous random walk, and 
+diffusion on the smallest scales happens faster for continuous walks than for discrete walks. 
+The two CUN- can be brought together by choosing the unit of time for the continuous 
+random walk to be 1.8 r. 
+Figure 1 shows that at large n the standard deviation increases as n'j2. This can be 
+understood by considering the central limit theorem, which states that if I choose n times at 
+random from a fixed distribution, then asymptotically the distribution that describes my total 
+after n draws will be a Gaussian [27]. This distribution will have a mean that goes linearly 
+in n and a standard deviation that increases as nilz. After the first bounce, this applies 
+exactly to this random-walk problem. There is some function that describes the distribution 
+of elapsed times between successive contacts with the circle. Each time a random walk 
+moves from bounce n to n + 1, it is taking a sample from that distribution function. Thus, 
+the central-limit theorem should apply to P,(t) in the limit of large n. 
+Also, notice that the skewness seems to show a power-law decay to zero. This implies 
+that the distribution is becoming more symmetric as n increases, as it should if this function 
+is becoming a Gaussian. 
+The actual functions Pn(t) are shown in figure 3. The data have been collapsed as 
+described above to show the form of F(x) for the circle. I assume the form F(x) x 
+A 4- BJxl' near x = 0. The difficulty in determining (L from the data arises because of the 
+inherent noise which masks the behaviour near x = 0, and because the usable data extends 
+only to x = 3. To find the power law, I subtract the value at the maximum from F(x), 
+and then plot the resulting function on a log-log scale. The results for x 4 0 are shown 
+in figure 4. From the central-limit theorem argument, I expect that (L = 2, and the curves 
+show good agreement with this in the large-n limit. 
+Finally, consider the long-time behaviour of the magnetization implied by the Gaussian 
+form for Pn(r). For long times, it will be the large-n terms that contribute and I have from 
+(2.7) 
+
+--- PAGE 10 ---
+Random walks and NMR measurements 
+1.0, I, I, I I I I e, 
+3357 
+loq,,(-xi 
+Figure 4. Power-law behaviour for F(x) for x~ 
+lines show the behaviour for F(+) =A + Bx'. 
+0. The value of A = -0.90. The broken 
+(3.6) 
+where q" = -log( 1 - q) > 0, with A' and C constants. Ignoring logarithmic corrections, 
+and converting the sum into an integral, I can evaluate (3.6) by the method of steepest 
+descent. I then find that for large times, 
+m(t) = MAexp(-t/T) (3.7) 
+where MA and T are constants. This is exactly the form for the long-time decay of the 
+magnetization in a circular geomefq [I]. Thus, this Gaussian form for P,(t) leads to simple 
+exponential decay. 
+3.2. Connected circles 
+The next level of difficulty is the case of connected pores. I choose to study a system of 
+identical circular pores connected by long nmow channels. Physically, this might model a 
+sample in which the voids in a rock are connected by long cracks. I have simulated this 
+by considering a single pore of radius R connected to two channels on opposite sides, as 
+shown in figure 5. I then impose periodic boundary conditions, and this becomes an infinite 
+system of pores. The three important length scales are the radius R of the pore, the length L 
+of the channel, and the width W of the channel. The results shown below are for R = 20a, 
+L = 40a, and W = 5a. 
+The results for the average, standard deviation and skewness are shown in figures 6 and 
+7. Also shown are the results for a single circular pore with the same value for R. The (t). 
+becomes linear for large n, but the curve is lower than for a single pore. Thus, the channel 
+decreased the effective radius of the pore. 
+The (q), is plotted versus log@) in figure 7. This curve indicates that the asymptotic 
+state for the distribution is asymmetric, with a broad tail at short times. The region 
+10 < n < 150 suggests that the curve has a regime in which (q)* = KO + KI log@). 
+Doing a least-square fit, I find KO = 3.0 and K, = -0.6. 
+
+--- PAGE 11 ---
+3358 M Leibig 
+Flgure 5. Circular pores with wnnecting mow channels. The pores are of radius R and the 
+channels have a length L and a width W. 
+I' I I I I 
+Figure 6. Average and srandard deviation of Pn(t) for the circular pores with w~ecling 
+channels. The broken curves are the results for an isolated circular pore with the Same value of 
+R. 
+The goss behaviour of the random walkers is evident in Pn(t). In figure 8, I show the 
+short-time behaviour of these functions. The broad peak is associated with walkers which 
+start in the large pore. The peak at short times is due to the random walks that initially 
+find themselves in the narrow channel. It will take walks which remain in this channel little 
+time to accumulate n bounces. It is also evident that at some n - 500 this peak can no 
+longer be distinguished from the tail of the distribution caused by walks that have visited 
+the pore. This indicates that almost all of the walks that started in the channel have visited 
+the pore at least once and have had their individual probability distribution smeared out by 
+the long trajectories available in the large pore. 
+When would this behaviour of a strong peak which dies out slowly be manifested in 
+a general pore structure? An initial strong peak at a small time is characteristic of any 
+structure which has one dimension that is small. The fact that it takes several hundred 
+bounces for this peak to disappear is due to the long dimension of the channel. Had these 
+random walks started in a small circle which had relatively easy access to a neighbouring 
+large pore, this peak would have died out at much smaller values of n. Thus, long-lived, 
+short-time peaks should be characteristic of either small pores that are very isolated from 
+their surroundings, or from structures that have very large length-to-width ratios. 
+
+--- PAGE 12 ---
+. ~~ 
+Random walks and NMR measurements 3359 
+Figure 7. Skewness of Pn (I) for circular pores with connecting channels. The value for large n 
+is negative. indicating a broader tail for shorter times. This cwe also appears 10 have a linear 
+regime from 10 < n < 150. 
+0.0008 I I I’ 
+f 
+Figure 8. fn(t) for shoR times. The curves shown are for n = 63, 100, 158, 251, 316, 398, 
+501,630.794. The small peak at shoR times is indistinguishable f” therail of the broad peak 
+after n = 501. 
+Figure 9 shows the collapsed form of the Pa@). There is a a clear asymmetry in the 
+distribution. It may seem surprising that F(x) does not possess the simple parabolic form 
+for its asymptotic state. Unfortunately, the cenhd-limit theorem does not apply to this 
+geometry. The difference between this case and the circle is that here the random walk 
+is not always sampling from the same distribution. Walkers in the channel have a very 
+different distribution for the elapsed time between bounces than do walkers in the lee 
+pore. 
+
+--- PAGE 13 ---
+3360 M Leibig 
+Or------ 
+t I 
+(P-(t)/J/@)" 
+Figure 9. P,,(r) for circular pores with channels n = 316.398,501,630.194. IOW. The data 
+has been collapsed to show the behaviour of F(x). The cwes are highly asymmehic. and the 
+small peak is moving to the left for larger n. 
+33. Percolation 
+The final model that I wish to consider is the pore geometry of continuum percolation 
+[28]. The model is generated by placing circles at random in a square with periodic 
+boundary conditions. Figure IO shows the specific realization of the circles used in the 
+results shown below. The square has an edge of length L = 100a, and each circle has a 
+radius R = 3a. The pore volume is the entire region not covered by the circles. There is a 
+well-connected region which extends from one end of the square to the other, and thus the 
+region complementary to the circles has a 'percolating cluster', and the pore space is above 
+the percolation threshold. 
+The results for the average, standard deviation and skewness are shown in figures 11 
+and 12. In the large-n limit, (t). seems to be slowly approaching a linear behaviour, and 
+gives an effective radius of the pores of R = loa. In the region 100 < n c 1Oo00, a 
+least-square fit indicates that (I), - Rn0,97. 
+The (u)~ also displays a region of anomalous power-law behaviour. If I write (o),, - nB, 
+then I find that for percolation, ,!I = 0.71 f 0.02. The implications of this power-law 
+behaviour will be discussed below. The (q),, is plotted versus log(n). Fitting the linear 
+region 150 < n < 7000 to the form (v)~ = Ko+K, log@), I find KO 2.7 and KI % -0.5. 
+Note also that all of these moments seem to display a clear cut-off in the scaling behaviour 
+at n 7000. 
+In figure 13, I show the fonn of P,(t) for this model. I have collapsed the data to 
+attempt to determine the function F(x). There are two behaviours which are of interest 
+The first is the cross-over at very small values of x. It may be that this curve becomes 
+constant for large negative x. 
+Also unusual is that in the broad peak there seems to be different behaviour above and 
+below x = 0. I assume that near n = 0, I have F(x) w A f BIxIa*, where the plus and 
+minus indicate different values for positive and negative values of x. Figure 14 shows the 
+results from subtracting the value of A, and plotting the resulting curves on a log-log scale 
+for x < 0. For small negative x, I find that a- % 1.6. A similar plot for x > 0 shows 
+
+--- PAGE 14 ---
+Random walks and NMR measurements 3361 
+Figure 10. Continuum permlation model for porous malerial. There are 150 circles of radius 3 
+~n a 100 x 100 square. The random walks move in the region exterior to the circles. 
+Figure 11. Average and smdard deviation of P.(r) in the percolation model. The broken curve 
+has the same slope as the power-law behaviour in (ch. 
+that U+ % 2.3. For x > 0, it was not clear that an asymptotic state had been reached; and 
+the true exponent e+ may be lower than reported here. Fortunately, the behaviour of the 
+magnetization is quh insensitive to the behaviour ahove x = 0. 
+These power-law behaviours have interesting consequences for the magnetization decay, 
+m(t). Consider the time derivative of the magnetization, assuming the power-law form for 
+F(x), 
+
+--- PAGE 15 ---
+3362 M Leibig 
+Figure 12. Skewness of P. (t) for the percolation model. The negative value for large n indicates 
+a broad tail for small 1. The curve also seem to display a linear behaviour for 150 < n < 7WO. 
+( f - ttl” I /(U)” 
+Figure 13. P.0) for the percolation model for n = 316.398.501,630,194,1WO. The data 
+has been collapsed to show F(x). The data suggests thai F(x) may become constant for large 
+negative x. 
+where I have assumed that (t). = Rn6, and the constants are defined as in (3.6). I again 
+tum this sum into an integral and evaluate it by steepest descent. In the long-time limit, I 
+obtain a magnetization of the form 
+where MA and T are constants, and I have ignored logarithmic corrections. The value of 
+the exponent is given by 
+m(t) = MAexp(-(t/T)$) (3.9) 
+(3.10) 
+
+--- PAGE 16 ---
+~ ~ Random walks and NMR measurements 3363 
+loQ,o(-x) 
+Figure 14. Power-law tehaviom of F(x) for x < 0 in percolaton model. The value used for 
+A = -0.85. The bmken line shows the behaviour for F(x) = A + BIxI'.~. Again the data 
+suggesfs that F(x) becomes constant for large negative x. 
+For the case of percolation, this gives @ w 0.75. 
+The long-time limit is, however, a serious restriction on the experimental observability 
+of such behaviour. To be Observed, there must be sufficient magnetization remaining in the 
+pore volume. At n = I/q". 63% of the initial walkers would have been terminated. In 
+the calculation that gives (3.10). the long-time limit means that this stretched exponential 
+behaviour will be seen only fort z t*, where t* - (l/q")X. The exponent ,y is given by 
+R 
+(3.11) 
+The natural observability condition is that ,y Q 1. For percolation, ,y 
+There is also a long-time cut-off time when this stretched exponential will no longer be 
+observed. This occurs when either the maximum of the exponent in (3.8) moves outside 
+the power-law regime of the function F(x), or when the anomalous power-law behaviour 
+disappears. 
+Finally, it is worth emphasizing the relationship between the numerical results from 
+the random-walk simulation and the determination of the magnetization decay. The 
+computational study yields information about the form of the functions Pn(t). This form 
+was then used in the series (3.8), and that series was then evaluate,d analytically. This 
+analysis lead to a the prediction for the magnetization of the form given by (3.9) and 
+(3.10). This illustrates the approach that must be taken for each specific geometry-first 
+determine the behaviour of P,&) and then evaluate analytically the series (2.7) to determine 
+the magnetization decay. This approach is, in spirit, very similar to a method by which the 
+double-layer impedance for fractals was determined by using random-walk methods [321. 
+1.6. 
+4. Discussion 
+In this work, I have described a new formalism with which to consider the problem of 
+magnetic relaxation in porous media This formalism suggests a natural numerical scheme 
+
+--- PAGE 17 ---
+3364 M Leibig 
+to measure the behaviour of model systems, and I have discussed ways to make this methcd 
+a practical computational tool. Finally, I applied this numerical method to three systems 
+and discussed the resulting behaviours. 
+By far the most exciting implication for real systems is the observed mechanism for 
+a stretched exponential relaxation, a behaviour that is common in measurements of the 
+magnetization in real rocks [17,8]. Equation (3.10) and the analysis that leads to it, does 
+not depend on the percolation geometry, only on the existence of the power-law behaviour 
+of Pn(f). This suggests that the stretched exponential behaviour is more than an interesting 
+way to plot experimental data, but reflects the fundamental behaviour of the magnetization 
+decay. The next step is to understand under what circumstances the required power-law 
+behaviour will be observed in P&). 
+This method is, of course, still a long way from being a useful technique for 
+characterizing a porous material. The success of this work comes from recasting the 
+calculation of m(f) into the problem of calculating Pn(f), this latter quantity being much 
+more amenable to analytical and numerical study. 
+The general method of calculating the time behaviour for a variable-step-size random 
+walk may have interesting applications to other NMR methods used to study porous media. 
+In recent work on pulsed field gradient methods [7], an important parameter is an efFective 
+diffusion coefficient for the system. For a particular pore geometry, this coefficient is 
+proportional to the mean-square displacement of the walker at time r. The numerical 
+method presented here should easily generalize to calculate the distance from the walker's 
+initial position as well as the elapsed time for the walk. 
+Acknowledgments 
+I would like to thank T C Halsey for his suggestion to study this problem, his help with the 
+manuscript and fruitful discussion throughout this project. I would also like to acknowledge 
+R A Goldstein for his original insights and his notes regarding some of the material on 
+random walks. Finally, I would like to acknowledge useful discussion with B Duplantier, 
+R Blumenfeld, P Mitra, W Halperin, K McCall, L Schwartz and P Le Doussal. Financial 
+support for this work was provided by the Materials Research Laboratory. 
+This work is presented as a thesis to the Department of Physics, The University of 
+Chicago, in partial fulfillment of the requirements for the PhD degree. 
+Appendix. Calculating Pa@): Details of the Implementation 
+In this appendix, I present further information about the numerical algorithm that I described 
+briefly in section 3. In writing an actual program which performs the random walk and 
+calculates the functions P,(t), there are many important details which are not described 
+here. I discuss only those pieces of information which serve to clarify what is actually 
+being calculated in section 3, and which may help readers who wish to use some of these 
+ideas in their computational studies. 
+There are two distinct computational processes involved. The first is performing a large 
+number of off-lattice random walks with variablestep-size. The second is transforming the 
+step size information from.these walks into the functions P,(f). I begin with a discussion 
+of the random-walk simulation. Recall from above that my calculations are for a two- 
+dimensional off-lattice random walk, and for this I choose a minimum step of length 1 
+which takes a time 1. Such an algorithm has a diffusion constant D' = 4. The pore surface 
+
+--- PAGE 18 ---
+Random walks and NMR measurements 3365 
+is represented by a discrete set of points, with the distance between neiqboring points 
+always less than 1. The simulation then treats these points as the centres for a set of circles 
+with unit radius. 
+When a walker smkes the surface of one of these small circles, the walk is reflected. 
+The simplest way to simulate this reflection is to retum the walker to its position before 
+the step was taken. Even though the step is taken back, the total elapsed time for the walk 
+is still incremented by one-the random walk behaves like a 'myopic' ant [26]. Because 
+the step is taken back, the walker will not always end up a fixed distance away from the 
+surface. This distance will always be less than one, depending on how far the walk is from 
+the surface at the start of its step. With sufficiently large number of walks, the variation 
+in this step-back distance becomes unimportant and the overall behaviour is described by 
+some effective step length. 
+The rest of the variable step size random-walk algorithm follows conventional methods 
+[22], and I now turn to the numerical processing involved with calculating the functions 
+P,,(t). From (3.1). it is straightforward to calculate numerically the functions p&) for all 
+the different step sizes that the random walk may take. Consider s steps of length r taken 
+between successive contacts of the walk with the pore surface. The contribution of these 
+steps to Pi(t) will be from s convotutions of pr(t) with itself, which I Write as p:(t). These 
+self-convolution integrals need only be done once, and then stored for later use. To actually 
+perform these convolution integrals, it is best to do them using a fast fourier transform (IT$ 
+method [24]. 
+The program which actually calculates P,'(t) then performs convolutions of these various 
+functions p;(f). The choice of which functions to convolve is the information provided by 
+the random-walk simulation. Each p:(t) is successively convolved with the function which 
+is the probability distribution resulting from all.of the previous steps in the walk. After all 
+the steps up to a given contact have been process, the computer has generated Pi([) for 
+ that walker. 
+In order to avoid performing ms on excessively long functions, I use the hierarchical 
+data stmcture shown in figure AI. Each array has a maximum length of LO. At the bottom 
+of the hierarchy. each element of the may represents a length of time 1. Going up each 
+level in the hierarchy, the amount of time'falling into each array element increases by a 
+factor of To. As each new function p;(t) contributes, it is convolved with the function 
+occupying the bottom level of the hierarchy. As a result of these convolutions the function 
+in the lowest level increases in size. Eventually it becomes impossible for the next &(t) to 
+be convolved into the lowest array. When this happens, the function that is in the bottom 
+may is compressed in time by the factor To, and is then convolved with the array which 
+is above it in the hierarchy. Once this old function is convolved into the array above, 
+the new p;(t) is placed into the bottom array, and the process is started again. With this 
+procedure, eventually the function in the second level of the hierarchy will grow beyond a 
+length LO. This second array is then compressed by a factor To, and convolved with the 
+function above it. This can be done ad infinitum, creating new levels as the total time of 
+the walk is increased. With this hierarchical scheme, m are performed on arrays which 
+are never longer than Lo. 
+To determine the PL(t) for a specific n, the function in each level must be compressed 
+and convolved with the function directly above it, beginning with the bottom of the hierarchy 
+and continuing to the top. At the end of this procedure, the function which occupies the 
+top of the hierarchy is Pi@). This function is then averaged with the other values of 
+which were measured from different random walks. Once this average over all walks is 
+performed, I have P,(t). 
+, 
+~ ~ 
+
+--- PAGE 19 ---
+3366 M Leibig 
+3 T; ... 
+- 1, Elements - 
+~ 
+FCre AI. Hierarchical data sh’ucture for calculating PR(t). Each array has Lo elements. At 
+the bonom of the hierarchy. the time scale for each amy element is 1. The time scale associated 
+with an element of the array increases by a factor of To at each level of the hierarchy. Whenever 
+a function gets too long to be contained in its current level, the function is c”ad by a factor 
+of To and convolved into the array above it 
+With this scheme for calculating PJt) it required roughly 20 times more CPU time to 
+process all of the convolutions than to perform the random walks. This suggest that doing 
+simulations to measure P,(t) for three-dimensional models should not take much more real 
+time than was required for two dimensions. Working in three dimensions will slow down 
+the random-walk p“ of this procedure, but the convolutions are what determine the overall 
+processing time. 
+Finally, I would like to mention that it is possible to calculate exactly the moments of 
+the functions pr(t) in closed form. Thus, when calculating the moments of P,(t) it is not 
+necessary to do any convolution at all. It is for this reason that the results for the moments 
+are shown up to a much larger value of n. 
+References 
+U1 Brownstein K R and Tarr C E 1979 Phys. Rev. A 19 2446 
+[2] Lipsicas M, Banavar J R and Willemsen J 1986 Appl. Phys. Len. 48 1544 
+[31 Wayne R C and Cons R M 1966 Phys. Rev. 151 264 
+Robertson B 1966 Phrs. Rev. 151 213 
+[41 Farrar T C 1989 Puisb Nuclenr Mngneric Resonance Specrmcopy (Chicago, U Farragut Press) 
+[51 Timur A 1969 J. Perm. Tech. 21 775 
+Loren J D Perm. J. Tech. 1972 24 923 
+161 Mina P P and Sen P N 1992 Phys. Rev. B 45 143 
+171 Miua P P. Sen P N. Schwa L M and Le Doussal P Phys. Rev. &U. to be published 
+[SI Halperin W P, DOrazio F. Bhattacharja S and Twn J C 1989 Moieculnr Dynamics in Resrricled Geomro 
+191 Wilkinson D J, Johnson D L and Schwam L M 1991 Phys. Rev. B 44 4960 
+ed 1 Klafter and J M Drake (New York: Wiley) 
+
+--- PAGE 20 ---
+Random walks and NMR measurements 3367 
+1141 
+IS1 
+I261 
+1271 
+1281 
+1291 
+1301 
+[311 
+1321 
+DOra2io F, Bhr4mchq.a S. Halperin W P, Eguchi K and Mirusaki T 1990 Phys. Rev. B 42 9810 
+Bhattachaja S, DOra2io F. Tarczon I C, Halperin W P and Gerhardt R 1989 1. Am. Cemm. Soc. 72 2126 
+Mendelson K S 1990 Phys. Rev. B 41 562 
+McCall K R. Johnson D L and Guyer R A 1991 Phys. Rev. B 44 7344 
+DOrazio F 1990 Geomehical and physical charscterization of porous mnierials by nuclear magnetic 
+resonance techniques PhD thesis Northwestem University 
+Banavar I R and Schwaru L M 1987 Phys. Rev. Lett. 58 1411 
+Banavar J R and Schwaru L M 1989 Molecular Dynamics in Resnicted Geometries ed J Klafter and J M 
+Korringa I, Seevers D 0 and Torrey H C 1962 Phys. Rev. 127 1143 
+Thompson A H Katz A I and Raschke R A 1987 Phys. Rev. Lett. 58 29 
+Dashen R. Day P, Kenyon W. SValey C and Willemsen I Physics and Chemistfy of Porous Media II: AIP 
+Conf. Pmc. vo1 154 ed I R Banavar, I Koplik and K W Winkler (New York American Institute Of 
+Physics) 
+. 
+Drake (New York: Wiley) 
+North F K 1985 Petrolem Geology (Winchester. MA: Allen and Unwin) 
+Halsey T C and Leibig M 1991 Europhys. Lett. 14 815 
+Goldstein R E. Halsey T C and Leibig M 1991 Phyx Rev. Lett. 66 1551 
+Chandrasekhar S 1943 Rev. Mod. Phys. 15 1 
+Meakin P 1985 1. Phys. A 18 U61 
+Pndnikov A P, Brychkov Y A and Marichev 0 I Integrals andseries "012 (New York Gordon and Breach) 
+Press W H, Flannery B P. Teukolsky S A and Verterling W T 1986 Numerical Recipes: The Art of Scient&c 
+Zallen R 1983 Percolorion Struclurer ondProcesses (Amah ofthe Isroe1 Physical Society 5) ed G Deutscher, 
+Mirescu C D and Roussenq J 1983 Percolation Structures and Processes (ARMIS of the Israel Physical 
+Mathews J and Walker R L 1970 Mathemtical Methods of Physics (Reading. MA: Addison-Wesley) 
+Gawlinski ET and Stanley H E 1981 J. Phys. A 14 U91 
+Halsey T C and Leibig M 1990 1. Chem. Phys. 92 3756 
+Leibig M and Halsey T C. unpublished 
+Tomy H C 1956 Phys. Rm. 104 563 
+&hen M H and Mendelson K S 1982 1. Appl. Phys. 53 1127 
+Halsey T C and Leibig M 1991 Am. Phys. 219 109 
+Meakin P and Sapoval B 1991 Phys. Rev. A 43 2993 
+Computing (Cambridge: Cambridge University Press) 
+R Zallen and J Adler (Bristool: Hilger) 
+Society 5) ed G Deutscher, R Zallen and I Adler (Bristol: Hilger)

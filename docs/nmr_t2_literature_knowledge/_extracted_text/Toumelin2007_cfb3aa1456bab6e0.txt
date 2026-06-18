@@ -1,0 +1,1609 @@
+--- PAGE 1 ---
+Random-walk technique for simulating NMR measurements
+and 2D NMR maps of porous media with relaxing and
+permeable boundaries
+Emmanuel Toumelin a,1, Carlos Torres-Verdı´n a,*, Boqin Sun b, Keh-Jim Dunn b
+a Department of Petroleum and Geosystems Engineering, The University of Texas, Austin, TX 78712, USA
+b Chevron Energy Technology Company, San Ramon, CA 94583, USA
+Received 18 July 2006; revised 23 May 2007
+Available online 17 June 2007
+Abstract
+We revisit random-walk methods to simulate the NMR response of ﬂuids in porous media. Simulations reproduce the eﬀects of dif-
+fusion within external inhomogeneous background magnetic ﬁelds, imperfect and ﬁnite-duration B1 pulses, T1/T2 contrasts, and relaxing
+or permeable boundaries. The simulation approach consolidates existing NMR numerical methods used in biology and engineering into
+a single formulation that expands on the magnetic-dipole equivalent of spin packets. When ﬂuids exhibit low T1/T2 contrasts and when
+CPMG pulse sequences are used to acquire NMR measurements, we verify that classical NMR numerical models that neglect T1 eﬀects
+accurately reproduce surface magnetization decays of saturated granular porous media regardless of the diﬀusion/relaxation regime.
+Currently, analytical expressions exist only for the case of arbitrary pore shapes within the fast-diﬀusion limit. However, when ﬂuids
+include several components or when magnetic ﬁelds are strongly inhomogeneous, we show that simulations results obtained using the
+complete set of Bloch’s equations diﬀer substantially from those of classical NMR models. In addition, our random-walk formulation
+accurately reproduces magnetization echoes stemming from coherent-pathway calculations. We show that the random-walk approach is
+especially suited to generate parametric multi-dimensional T
+1/T2/D NMR maps to improve the characterization of pore structures and
+saturating ﬂuids.
+/C211 2007 Elsevier Inc. All rights reserved.
+Keywords: Random walks; NMR relaxation; Porous media; Fluid typing; 2D NMR
+1. Introduction
+The application of NMR measurements for pore size
+characterization of porous and permeable media is moti-
+vated by two relationships between measurable quantities
+and the pore surface-to-volume ratio S/V of porous media
+saturated with a single ﬂuid phase. First, longitudinal and
+transversal relaxation times of a ﬂuid ( T
+1 and T2, respec-
+tively) are related to the product q(S/V), where q is the
+relaxivity of the pore surface. This relationship remains
+valid in the fast-diﬀusion limit [1] when paramagnetic cen-
+ters are present at the pore wall surface. Second, the short-
+time asymptotic behavior of the eﬀective ﬂuid diﬀusivity D
+is directly related to S/V [2,3]. Practical limitations exist
+when applying these two relationships to the interpretation
+of NMR measurements of porous media. Speciﬁcally, it is
+normally assumed that (1) pores are well deﬁned and iso-
+lated, and (2) inversion techniques can reliably and accu-
+rately estimate the distribution of surface-to-volume
+ratios. Experimental evidence shows that pores spanning
+diﬀerent length scales can be connected and, therefore, that
+the estimated values of S/V could be interpreted in an aver-
+age sense in the presence of low surface relaxivity, such as
+in certain carbonate rocks [4]. In addition, eﬀective pore
+values of S/V sensed by protons in a ﬂuid phase depend
+1090-7807/$ - see front matter /C211 2007 Elsevier Inc. All rights reserved.
+doi:10.1016/j.jmr.2007.05.024
+* Corresponding author. Fax: +1 512 471 4900.
+E-mail address: cverdin@mail.utexas.edu (C. Torres-Verdı´n).
+1 Present address: Chevron North America Exploration and Production,
+Houston, TX 77099, USA.
+www.elsevier.com/locate/jmr
+Journal of Magnetic Resonance 188 (2007) 83–96
+
+--- PAGE 2 ---
+on the relative saturation of that phase within the pore:
+when several ﬂuid phases are present in the same pore
+space, such as in the case of mixed-wettabilities, the actual
+and eﬀective values of S/V for that pore may diﬀer substan-
+tially. Models used in biological applications to study the
+inﬂuence of membrane permeability on NMR signals also
+over-simplify the pore structure of biological systems
+because of the lack of eﬃcient numerical simulation tech-
+niques [5–8].
+Recently, special acquisition techniques have been devel-
+oped to improve the accuracy of NMR measurements to
+assess ﬂuid types [9–11] using (a) suites of magnetic pulse
+sequences of diﬀerent magnitudes, orientations, and char-
+acteristic times, e.g., CPMG-like sequences with diﬀerent
+echo times and wait times, and (b) multi-dimensional inver-
+sion of the measured magnetization decays in the form of
+intensity maps in T
+1, T2, and D domains. Despite these
+eﬀorts, ambiguities remain when the saturating ﬂuids exhi-
+bit similar characteristics, such as light oil and water in
+water-wet and mixed-wet rocks, because the inversion pro-
+cess is sensitive to ﬂuid diﬀusivity contrasts, restricted dif-
+fusion, surface relaxation, and wettability of the porous
+medium.
+Modern NMR applications require simulation and
+interpretation methods that can incorporate the complexity
+of real porous media and multiphase ﬂuid saturation at the
+pore scale. Accurate simulation methods have been pro-
+posed based on coherent pathways for bulk ﬂuids [12–
+15], or based on analytical diﬀusion propagators for the
+case of periodic porous microstructures [16]. However,
+the disordered nature of most biological and mineral por-
+ous media demands more sophisticated approaches for
+numerical simulation.
+The objective of this paper is to develop an accurate an
+eﬃcient algorithm for the simulation of NMR measure-
+ments of saturated microporous media. Speciﬁcally, the
+algorithm is designed to account for known distributions
+of (a) pore boundaries and surface characteristics (i.e.,
+geometry and surface relaxation q and/or diﬀusion perme-
+ability P), (b) static and susceptibility-induced magnetic
+ﬁelds, (c) ﬂuid phases and their bulk properties, and (d)
+corresponding velocity ﬁelds superimposed to the diﬀusive
+Brownian motion in the case of ionic displacement [17] or
+hydraulic motion [18]. After motivating the need for a
+microscopic description of the pore space to construct
+quantitative NMR numerical models, we develop the algo-
+rithm for the solution of Bloch’s equations along the con-
+tinuous diﬀusion pathways of random walkers. This
+approach remains valid when the magnetization coupling
+between spins in a ﬂuid is governed by constant longitudi-
+nal and transversal bulk relaxations, and when Bloch’s
+equations remain valid to describe spin magnetization,
+i.e., both in the low-ﬁeld NMR measurement of spin 1/2,
+and in the high-ﬁeld
+1H measurements of water. Our
+approach is benchmarked against analytical solutions for
+complex diﬀusion/relaxation problems. We then generalize
+the application of the algorithm for simulating the NMR
+response of ﬂuids in porous media, and emphasize its key
+role in parametric multi-dimensional NMR modeling using
+pore-scale arguments.
+2. Macroscopic theory
+Macroscopic descriptions of NMR measurements usually
+invoke three independent processes to describe the relaxa-
+tion time of the measured magnetization: (1) bulk ﬂuid
+relaxation, with characteristic longitudinal and transversal
+times T
+1B and T2B, mainly due to dipole–dipole interac-
+tions between spins within the ﬂuid; (2) surface relaxation,
+characterized by eﬀective relaxation times T
+1S and T2S,
+which occurs because of the proximity with paramagnetic
+centers at interfaces between pore ﬂuids and grain solids;
+and (3) relaxation due to the presence of background mag-
+netic ﬁeld heterogeneities, T
+2D. The longitudinal and trans-
+versal relaxation times measured for a ﬂuid-saturated
+sample are equal to the harmonic averages [19]
+1
+T 1
+¼ 1
+T 1B
+þ 1
+T 1S
+; ð1Þ
+and
+1
+T 2
+¼ 1
+T 2B
+þ 1
+T 2S
+þ 1
+T 2D
+: ð2Þ
+Bulk and surface relaxation times are intrinsic properties
+given by ﬂuid, porous medium, and thermodynamic state.
+Bulk relaxations are usually expressed in the form [20,21]
+T
+1B;2B ¼ a T
+g ¼ fP ; TðÞ DB; ð3Þ
+where a is a ﬂuid-speciﬁc constant, f a thermodynamic
+function, and P, T, g, and DB the pressure, temperature,
+viscosity, and bulk diﬀusivity of the ﬂuid, respectively.
+When diﬀusion–relaxation is controlled by diﬀusion, i.e.,
+in the fast-diﬀusion limit qR/DB <1( R being the pore ra-
+dius), the surface decay times T1S and T2S are proportional
+to S/V [1]
+1
+T 1S;2S
+¼ q1;2
+S
+V : ð4Þ
+The variable T2D, on the other hand, is an experimentally
+controllable quantity aﬀected by ﬂuid diﬀusivity, internal
+ﬁelds induced by porous medium magnetic heterogeneities,
+and instrument conﬁguration. For instance, using a CPMG
+sequence with constant echo time TE and an applied mag-
+netic gradient G, we have
+1
+T 2D
+¼ c G TEðÞ 2D
+12 ; ð5Þ
+where c is the hydrogen gyromagnetic ratio and D remains
+the eﬀective diﬀusivity of the ﬂuid under consideration.
+The intrinsic bulk and surface relaxation times aﬀect the
+time-space evolution of the macroscopic magnetization
+M =( Mx, My, Mz)T of a given volume of ﬂuid. Following
+84 E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96
+
+--- PAGE 3 ---
+Bloch–Torrey’s equation in the rotating frame
+R ¼ð ^x0; ^y0; ^zÞ, one has [22]:
+dM
+dt ¼ DBr2M þ cB /C2 M /C0 Mx
+T 2
+^x0 /C0 My
+T 2
+^y0 /C0 Mz
+T 1
+^z þ M0
+T 1
+:
+ð6Þ
+In this equation, M0 ¼ M0^z is the equilibrium magnetiza-
+tion aligned with the background magnetic ﬁeld B0, and
+B =( Bx, By, Bz)T is the total magnetic ﬁeld that aﬀects the
+spins in R. The magnetic ﬁeld B varies as a function of time
+and space because of (a) inhomogeneous tool background
+ﬁeld maps such as described in Fig. 1 , (b) susceptibility
+contrasts between ﬂuid and porous matrix which distort
+the background ﬁeld map [16,23], and (c) additional back-
+ground ﬁeld gradients used to enhance the NMR decay due
+to diﬀusivity contrasts between ﬂuids in low-ﬁeld applica-
+tions, or to encode the spin position in high-ﬁeld MRI
+applications. When a RF pulse sequence is used to enforce
+spin refocusing and echo forming, B
+1 magnetic pulses
+superimpose to B0 for ﬁnite durations th. This duration
+quantiﬁes the amount of magnetization tilting ( h = ciB1ith)
+they create through the curl term in Eq. (6)—usually p/2 or
+p for the entire pulse duration. For instance, regular
+CPMG pulse sequences take the form of a p/2-pulse of
+duration t90 along the ^x0 axis, followed by a series of p
+pulses of duration t180 along the ^y0 axis separated by the in-
+ter-echo time TE = 2 s. Spin echoes are stimulated between
+two successive p pulses. Together with the proximity of
+relaxing surfaces which aﬀect the relaxation of the spin
+packets captured by Eq. (6), this variation of B with both
+time and space supports a microscopic description wherein
+such constraints can be explicitly enforced in the numerical
+formulation.
+3. Microscopic random-walk resolution
+Random walkers reproducing the diﬀusive motion of
+spins have proved to be a reliable and ﬂexible approach
+to simulate the NMR responses in a variety of porous
+medium geometries, including fractal or 3D disordered
+granular porous media [24,25]. In addition, diﬀusion ran-
+dom walks readily lend themselves to distributed com-
+puter environments, thereby considerably reducing
+computation time. Such algorithms simulate the projec-
+tion of spin packets in the transversal plane of the rotat-
+ing frame, i.e., in the plane of measurement of an NMR
+tool antenna, and describe either surface relaxation eﬀects
+[4,26] or diﬀusion eﬀects [23,27]. In this section, we intro-
+duce a uniﬁed formulation for the simulation of NMR
+measurements acquired for a wide range of engineering
+and biological applications.
+3.1. Diﬀusion of equivalent magnetic dipoles
+We use a classical continuous random walk, whereby an
+equivalent magnetic dipole is displaced within the pore
+space attributed to a given ﬂuid of self-diﬀusion D
+B and
+bulk relaxation times T1B and T2B. Following an initial
+location randomly determined within that ﬂuid volume,
+at each time step of inﬁnitesimal-duration dt a vector of
+normally distributed random numbers n =( nx, ny, nz)i s
+generated with unit variance and zero mean. The walker
+is then spatially displaced in the Cartesian geometrical ref-
+erence by a vector
+dr
+D ¼ð 6DB dtÞ1=2 n=knk: ð7Þ
+In the presence of velocity drift v applied to the molecule, an
+additional drift displacement drV = vdt is added to drD.I ns o
+doing, dt is dynamically adapted along the walk so that (a) it
+is smaller than any magnetic ﬁeld pulse duration, (b) the
+amplitude of the total displacement, idr = dr
+D + drVi, is sev-
+eral times smaller than surrounding geometric length scales
+(e.g., pore throats restricting pore-to-pore connections,
+wetting ﬁlm thickness, etc.), (c) the value of the total mag-
+netic ﬁeld resulting from B
+0 and B1 in the rotating frame
+can be assumed constant during each step, and (d) all walkers
+Fig. 1. Magnetic ﬁeld map representing an approximation of the
+background magnetic ﬁeld imposed by the measurement system and
+adapted from Ref. [12], assuming B
+0 of the elliptical form B0 =
+(/C0 (x/c /C0 0.5)2 +( y/c /C0 0.5)2 · 30 ^z [Gauss], where c = 1 cm.
+E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96 85
+
+--- PAGE 4 ---
+are synchronized at the onset and oﬀset of magnetic pulses as
+well as at the time of echo acquisition.
+3.2. Magnetization formulation A
+We use diﬀusing random walkers to simulate NMR sig-
+nals under the assumption that each walker carries a mag-
+netic-dipole equivalent to that of a hydrogen spin packet.
+Eq. (6) is adapted along each one-dimensional segment
+by neglecting its convection term in $
+2 and by deﬁning
+the evolution matrix A given by
+A ¼
+/C0 1
+T 2
+cBz /C0 cBy
+/C0 cBz /C0 1
+T 2
+cBx
+cBy /C0 cBx /C0 1
+T 1
+2
+664
+3
+775; ð8Þ
+and the reduced magnetization
+M0 ¼ M þ A/C0 1 /C1M0=T 1: ð9Þ
+Eq. (6) is integrated as
+M0ðtÞ¼ eAt /C1M0ð0Þ; ð10Þ
+where M0(0) is the reduced magnetization at the onset of
+each integration interval. New appropriate values for Bx,
+By, and Bz are used on each random-walk segment. The
+relaxation times T1 and T2 are also locally adjusted to ac-
+count for the proximity of a relaxing boundary. Conse-
+quently, for each step i spanning the time interval
+[t
+i, ti + dti], the spin carried by the random walker is subject
+to a new evolution matrix Ai and longitudinal relaxation
+time T i
+1. This calculation yields the magnetization formula-
+tion A
+Mi ¼ eðAiÞdti /C1 Mi/C0 1 þ Ai/C0/C1 /C0 1
+/C1M0
+T i
+1
+/C26/C27
+/C0ð AiÞ/C0 1 /C1M0
+T i
+1
+: ð11Þ
+The total NMR signal is the sum of all M vectors for all
+diﬀusing magnetic dipoles, sampled at the same rate.
+Hydrogen indices weigh the magnetization contribution
+of each walker in the presence of multiple ﬂuid phases with
+diﬀerent hydrogen index. The Appendix provides analytical
+solutions for the exponential of matrix A. Tracking the
+projections of that total magnetization M onto ^z and ^y
+0
+with time yields the magnetization polarizations and de-
+cays illustrated in Fig. 2 . This ﬁgure shows the responses
+of both bulk water and water within relaxing porous med-
+ium, simulated with CPMG pulse sequences and diﬀerent
+values of wait times (TW) and echo time (TE). Fig. 3 illus-
+trates the joint inﬂuence of sampling and step size of the
+random walks on the accuracy of the simulation results.
+3.3. Magnetization formulation B
+Previously developed NMR simulation algorithms
+focused exclusively on reproducing surface relaxation or
+diﬀusion within inhomogeneous ﬁelds. The latter eﬀect
+was usually treated in a manner similar to the one
+described above, except that Bloch’s equation was solved
+in the ð ^x
+0; ^y0Þ projection of R by substituting M in Eq. (6)
+with a complex magnetization M* = Mx +i My [28].I n
+turn, the magnetization was calculated numerically using
+ﬁnite-diﬀerence methods [29] or without including a con-
+vection term along random-walk trajectories [23,27]. That
+approach neglected surface as well as longitudinal relaxa-
+tion eﬀects. Likewise, RF pulses were not accurately repro-
+duced, and ( p)
+y pulses could only be treated as a sign
+change in the phase of M* [23], which made the method
+exclusively amenable to CPMG sequences. The NMR sig-
+nal was then considered equal to the sum of the cosine of
+the spin phase shifts, where the phase shifts were equal to
+the same rotation angle as in the evolution matrix for 3D
+calculations (see the Appendix), i.e., / = cBdt. For com-
+parison purposes, we also implemented this simulation
+method in ð ^x
+0; ^y0Þ space as formulation B.
+3.4. Treatment of local surface relaxation
+While the walker remains away from a ﬂuid boundary,
+the relaxation times T1 and T2 that aﬀect the equivalent
+magnetic dipole of the random walker are equal to the bulk
+ﬂuid longitudinal and transversal relaxation times, T
+1B and
+T2B, respectively. However, once the walker is located
+within one step of a ﬂuid boundary of surface relaxivities
+q
+1 (longitudinal) and q2 (transversal), the magnetization
+decay is locally enhanced to include this surface relaxation
+eﬀect at the microscopic level. If the displacement achieved
+0
+200
+400
+600
+800
+1000 0
+1
+2
+3
+0
+0.5
+1
+Wait time [s]
+Acquisition time [ms]
+Magnetization
+Mz
+pm
+Mz
+bulk
+My
+pm for increasingTEs
+My
+bulk for increasingTEs
+Fig. 2. Amplitude of the mean Mz and My magnetizations simulated for
+1-s CPMG pulse acquisitions taking place after diﬀerent wait times for the
+same volume of bulk water (dashed curves, noted
+bulk) and water relaxing
+in the porous medium (continuous curves, noted pm) formed by the void
+fraction of the disordered grain packing shown in Fig. 10 . Surface
+relaxivity ( q1 = q2 =2 0 lm/s) and pore size (30 lm) were considered
+uniform. Each magnetic dipole is initially depolarized ( Mz = 0 and My
+randomly distributed with zero mean), then Mz increases freely for a wait
+time TW (no RF pulse). Dipoles collectively generate an exponential
+build-up of the form 1 /C0 exp(/C0 t/T1). The CPMG RF pulse sequence is
+then turned on, Mz is tilted by the ﬁrst ( p/2)x-pulse into My which becomes
+non-zero and subsequently decays. Next, dipoles collectively generate a
+macroscopic magnetization in the exponential form exp ( /C0 t/T2) following
+the subsequent ( p)y refocusing pulses. The results plotted above were
+simulated for TE = 0.3 ms at TW = 0.03, 0.1, 0.3, and 1 s, and for
+TE = 0.3, 1, 4, and 16 ms at TW = 3 s.
+86 E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96
+
+--- PAGE 5 ---
+during the interval [ t, t + dt] comes within a distance dro fa
+ﬂuid boundary, the boundary equation
+Dbulk
+oM
+o^n þ
+q2
+q2
+q1
+2
+6664
+3
+7775 /C1M ¼ 0 ð12Þ
+governs the behavior of the relaxation, where the unit vec-
+tor ^n describes the normal direction to the surface bound-
+ary. For a locally ﬂat boundary, Eq. (12) is solved on a
+square lattice [30] or for continuous random walks [26] to
+deﬁne a probability of instantaneously ‘annihilating’ the
+spin when it reaches the boundary. Bergman et al. [26]
+solved the boundary condition by integrating diﬀusion
+propagators and related that ‘annihilating’ probability p
+to surface relaxivity q as
+p ¼
+2
+3
+qdr
+DB
+/C2 0:96: ð13Þ
+In our model, we consider that each time the walker
+reaches a relaxing boundary the magnetization decreases
+by a factor (1 /C0 p), or exp[ /C0 dt(p/dt)] since p /C28 1. There-
+fore, the total relaxation rate becomes 1/ T
+1,2 =1 /T1B,2B +
+p/dt for that step. Equivalently, the relaxation times used
+on each segment of the random walk become
+1
+T 1;2
+¼ 1
+T 1B;2B
+þ e 3:84q1;2
+dr ; ð14Þ
+where e = 1 when the walker is located within a step of the
+relaxing boundary, and 0 otherwise.
+3.5. Transfer probability of permeable membranes
+The case of permeable barriers between pore volumes
+can be approached in a similar fashion to the case of relax-
+ing surfaces. A boundary exchange rate k
+j is deﬁned as the
+proportionality factor between diﬀusion ﬂux and concen-
+tration diﬀerence across a boundary j, in units of time
+/C0 1.
+If bulk and surface relaxations can be neglected, then
+the macroscopic magnetizat ion balance of a compart-
+ment bounded by permeable membranes is given in
+[7,8]
+oM
+ot ¼ DBr2M þ cB /C2 M /C0
+X
+outwards
+kjM þ
+X
+inwards
+kjMðjÞ;
+ð15Þ
+where M(j) is the magnetization within a neighboring com-
+partment j. The sum P over outward boundaries acts as a
+surface sink term whereas the one over inward boundaries
+acts as a surface source term. Since the surface sink term in
+Eq. (12) acts as the relaxation decay terms in Eq. (1), the
+following equivalence holds:
+1
+T 2
+/C17
+X
+outwards
+kj: ð16Þ
+Furthermore, in the fast-diﬀusion limit we have 1/ T2S =
+q(S/V) [1]; similarly, kj = Pj(S/V) [7], where Pj is the mem-
+brane permeability in units of length per unit time. It is
+then possible to solve for surface permeability using
+Bergman et al.’s treatment of surface relaxation: when
+the walker comes within one step of distance dr from a per-
+meable boundary k, there is a probability of transfer equal
+to
+g
+k ¼ 2
+3
+P k dr
+DB
+/C2 0:96 ð17Þ
+that the walker crosses the boundary; if that probability is
+not honored, then the walker bounces back into its original
+compartment while the clock time is incremented by dt. It
+is particularly remarkable that both ﬂuid/rock surface
+relaxation [31] and biological membrane permeability [7]
+exhibit the same range of values between 0.5 and 30 lm/s.
+This similarity suggests that the parallel treatment of
+relaxing or permeable boundaries remains valid on the
+same range of ﬂuid types and pore sizes.
+4. Simulation results in bulk ﬂuid
+4.1. Echo sampling
+The accuracy of our algorithm is ﬁrst tested for the
+case of a homogeneous background magnetic ﬁeld
+0 200 400 600 800 1000
+0
+0.2
+0.4
+0.6
+0.8
+1
+Mean magnetization
+0 200 400 600 800 1000
+0
+0.2
+0.4
+0.6
+0.8
+1
+Time [ms]
+Mean magnetization
+Analytical
+N=200, δr = 1μm
+N=200, δr = 3μm
+N=200, δr = 30μm
+Analytical
+N=2000, δr = 1μm
+N=2000, δr = 3μm
+N=2000, δr = 30μm
+Fig. 3. Inﬂuence of walker number ( N) and nominal step size ( dr) on the
+accuracy of the numerical simulations. This example simulates the
+response of a water volume of 2 · 2 · 2 mm, with G = 13.2 G/cm and
+TE = 2 ms. The resulting apparent T2 value is equal to 751 ms. Large
+values of N are necessary to obtain smooth decays. Even with large N
+values, too large values of dr create a bias. In this example, no step size
+larger than 1 lm should be used for maximal accuracy.
+E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96 87
+
+--- PAGE 6 ---
+gradient. Fig. 4 shows the shapes of the 1st, 2nd, 5th,
+and 15th CPMG echoes simulated with the random-
+walk algorithm for diﬀerent echo times. The results
+are in excellent agreement with both the measurements
+and the coherent-pathway calculations of Hu ¨ rlimann in
+Ref. [13]. We can therefore conclude that random-walk
+simulations are a viable and easily implemented
+alternative to the more complex coherent-pathway
+calculations.
+Hu¨ rlimann and Griﬃn [12] quantiﬁed the relative ampli-
+tude variation of the stimulated echo (produced by the
+energy stored during the initial ðp=2Þ
+x0 -pulse) and of the
+ﬁrst spin echo (refocused by the ﬁrst CPMG ðpÞy0 pulses)
+with coherent-pathway calculations for given ﬁeld maps
+and pulse durations. In Fig. 5 we show that similar results
+are obtained with the random-walk technique. The diﬀer-
+ences between the results of Ref. [12] and our simulations
+can be attributed to diﬀerences in ﬁeld map details and
+Measurements
+Signal
+–100 –50 0 50 100
+1.2
+0.8
+0.4
+0.0
+Signal
+–100 –50 0 50 100
+1.2
+0.8
+0.4
+0.0
+Signal
+–100 –50 0 50 100
+1.2
+0.8
+0.4
+0.0
+Time [μs]
+Signal
+–100 –50 0 50 100
+1.2
+0.8
+0.4
+0.0
+Time [μs]
+–100 –50 0 50 100
+1.2
+0.8
+0.4
+0.0
+–100 –50 0 50 100
+1.2
+0.8
+0.4
+0.0
+–100 –50 0 50 100
+1.2
+0.8
+0.4
+0.0
+Coherent pathway 
+calculations
+–100 –50 0 50 100
+1.2
+0.8
+0.4
+0.0
+–100 –50 0 50 100
+0.0
+0.4
+0.8
+1.2
+Random walk 
+calculations
+–100 –50 0 50 100
+0.0
+0.4
+0.8
+1.2
+–100 –50 0 50 100
+0.0
+0.4
+0.8
+1.2
+–100 –50 0 50 100
+0.0
+0.4
+0.8
+1.2
+Time [μs]
+1st echo 
+2nd echo 
+5th echo 
+15th echo 15th echo 15th echo 
+5th echo 5th echo 
+2nd echo 2nd echo 
+1st echo 1st echo 
+Fig. 4. Comparison between measurements and coherent-pathway calculations from Hu ¨ rlimann [13], and random-walk simulations of the 1st, 2nd, 5th,
+and 15th echoes obtained for a CPMG sequence with a water sample. The random-walk simulations considered 20,000 walkers distributed in a volume of
+2 · 2 · 2 cm. All results use the same parameters: homogeneous gradient of strength G = 13.2 G/cm; pulse durations t180 =5 0 ls, t90 =2 5 ls; for the 1st
+echo, TE = 0.4, 8.35, 10.35, 12.35, 14.35, and 16.35 ms; for the 2nd echo, TE = 0.4, 4.35, 6.35, 8.35, 10.35, and 12.35 ms; for the 5th echo, TE = 0.4, 2.35,
+3.75, 4.95, 6.35, and 8.35 ms; for the 15th echo, TE = 0.4, 1.354, 2.75, 3.75, 4.95, and 6.35 ms. The time scale is centered with the midpoint between the
+pulses that immediately precede and follow the echoes.
+88 E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96
+
+--- PAGE 7 ---
+homogeneity of the background magnetic ﬁeld. In all cases,
+the amplitude of the ﬁrst echo is remarkably lower than
+that of the second echo for TE <5 ms, and becomes larger
+when TE increases.
+Dispersion of magnetic ﬁeld strength—and therefore of
+Larmor frequencies—throughout the volume enhances the
+precession decay and the creation of echoes due to the RF
+p pulses of a CPMG sequence. When the duration of these
+RF pulses increases, then the measurable echo amplitude
+decreases. Background ﬁeld maps can therefore be opti-
+mized to maximize the signal obtained during measurement
+acquisition. These remarks are illustrated in Fig. 6 , where
+the formation of echoes in 1 cm
+3 of water is simulated with
+our random-walk method (formulation A) through spin
+refocusing between two p pulses, for diﬀerent pulse widths
+and two permanent magnetic ﬁeld maps. As the duration of
+the RF pulses increases, the quality of the echoes degrades
+through lower amplitudes and larger spread. In these tests,
+the ﬁeld map shown in Fig. 1 generates higher echo ampli-
+tudes, hence higher signal, than that of a homogeneous
+magnetic gradient.
+The magnetization decays considered in the following
+sections of this paper are taken as the envelopes of maximal
+values reached at each M
+y echo.
+4.2. Decay in an inhomogeneous background magnetic ﬁeld
+We now compare the decays generated by the presence
+of background magnetic gradients between (1) random-
+walk formulation A, (2) random-walk formulation B, and
+(3) the normalized apparent decay M ¼ exp½/C0 tð1=T 2Bþ
+1=T 2DÞ/C138. Because the My signal obtained using formulation
+A is sensitive to large sampling volumes and imperfections
+in the magnetic ﬁeld distribution, all its simulated decays
+were normalized at the time origin. Fig. 7 compares simu-
+lation results for two values of homogeneous gradient,
+G
+z = 12 and 29 G/cm, three echo times, TE = 0.3, 1, and
+3 ms, and two sampling volumes, 1 mm 3 and 1 cm 3. For-
+mulation B yields the same decays regardless of the sample
+2 4 6 8 10 12 14 160
+0.2
+0.4
+0.6
+0.8
+1
+Echo time [ms]
+Echo amplitude
+Fig. 5. Amplitudes of the ﬁrst (dash) and second (plain) CPMG echoes
+simulated as a function of echo time for 1 cm 3 of bulk water volume.
+Curves with square and circle markers identify the mean My signal
+simulated with 10,000 random walkers in the ﬁeld map of Fig. 1 , for
+diﬀerent B1 pulse widths (square markers: t90 =1 0 ls, t180 =1 5 ls; circle
+markers: t90 =2 0 ls, t180 =3 0 ls). Calculations reported in Ref. [12] for a
+similar ﬁeld map are plotted with open triangle markers.
+0 .3 .6 .9 1.2 1.5 1.8
+0
+0.2
+0.4
+0.6
+0.8
+1
+Mean magnetization
+t90 = 10 μs , t180 = 15 μs
+0 .3 .6 .9 1.2 1.5 1.8
+0
+0.2
+0.4
+0.6
+0.8
+1
+0 .3 .6 .9 1.2 1.5 1.8
+0
+0.2
+0.4
+0.6
+0.8
+1
+t90 = 30 μs , t180 = 45 μs
+0 .3 .6 .9 1.2 1.5 1.8
+0
+0.2
+0.4
+0.6
+0.8
+1
+Mean magnetization
+0 .3 .6 .9 1.2 1.5 1.8
+0
+0.2
+0.4
+0.6
+0.8
+1
+Time [ms]
+0 .3 .6 .9 1.2 1.5 1.8
+0
+0.2
+0.4
+0.6
+0.8
+1
+Time [ms]
+homogeneous gradient 
+approximate logging tool map approximate logging tool map approximate logging tool map 
+homogeneous gradient homogeneous gradient 
+t90 = 20 μs , t180 = 30 μs
+Time [ms]
+Fig. 6. Impact of background gradient on NMR echo amplitudes. The mean NMR magnetization is calculated from 20,000 walkers for a water volume of
+1c m3, 300-ls echo time CPMG sequence, and diﬀerent values of t90 and t180. Plain curves identify My projection (signal); dotted curves, Mx (out-of-phase
+noise); dashed curves, Mz. Top row: simulations performed with a homogeneous permanent gradient Gz = 20 G/cm. Bottom row: simulations performed
+with the ﬁeld map described in Fig. 1 .
+E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96 89
+
+--- PAGE 8 ---
+volume and exactly matches the analytical decays. Formu-
+lation A also perfectly ﬁts the analytical results for the
+smaller sampling volume, but exhibits substantial diﬀer-
+ences for the larger volume. This eﬀect is due to the distri-
+bution of the energy acquired during the diﬀerent RF
+pulses, as mentioned in Section 4.1, and cannot be
+accounted for by formulation B or by standard analytical
+expressions that disregard the ﬁnite duration of the RF
+pulses.
+4.3. T
+1 scaling
+It is customary to consider that the NMR decay
+obtained for a ﬂuid after partial repolarization of duration
+TW is equal to the decay at full polarization (i.e., starting
+from M = M
+0,o rT W ﬁ 1) weighted by the value
+(1 /C0 exp(/C0 TW/T1)). Fig. 8 shows that this treatment is
+appropriate for a simple-component ﬂuid such as 7-cp oil
+with unimodal bulk relaxation time at 200-ms in laboratory
+conditions. For a 300-cp multi-component heavy oil with
+40-ms relaxation peak value (distribution shown in the
+insert of Fig. 8), the decays obtained after partial polariza-
+tion are normalized so that the amplitude of each decay is 1
+when t = 0. For a known distribution of bulk relaxations
+of the multi-component ﬂuid, each walker accounted for
+a molecule of one miscible component of that ﬂuid, and
+was stochastically assigned values of bulk relaxation time
+and diﬀusivity so that the T
+2 distribution was honored over
+the entire population of random walkers. The normalized
+decays show that no scaling exists between the diﬀerent
+decays due to the wide distribution of relaxation times.
+In the presence of strong internal ﬁelds, the apparent values
+of T
+2 would also span a wide relaxation range, but without
+the corresponding spread in the T1 spectrum. Again, in this
+case no scaling will exist between the magnetization decays
+measured after incomplete polarizations with diﬀerent
+wait times. Because only Formulation A incorporates T
+1
+build-up, it needs to be used for the cases of strong
+0 .1 .2 .3 .4 .5 .6 .7 .8 .9 1
+0 
+0.2
+0.4
+0.6
+0.8
+1.0
+Time [s]
+Normalized amplitude
+Gz = 12 G/cm
+0 .1 .2 .3 .4 .5 .6 .7 .8 .9 1
+0 
+0.2
+0.4
+0.6
+0.8
+1.0 
+Time [s]
+Gz = 29 G/cm
+TE = 0.3 ms 
+TE = 1 ms 
+TE = 3 ms 
+TE = 0.3 ms 
+TE = 1 ms 
+TE = 3 ms 
+Normalized amplitude
+Fig. 7. NMR decay for CPMG pulse acquisition of bulk water in a homogeneous background magnetic gradient Gz for diﬀerent values of TE and for
+magnetization formulations A and B. Open square markers describe the analytical solution; simulation results of Formulation A are described by
+continuous curves for a 1 mm
+3 simulated water sample, and by dots for a 1 cm 3 water sample. For each value of TE and each sampling volume,
+Formulation B yields results that exactly match the analytical solution.
+0 0.5 1 1.5 2 
+0
+.2
+.4
+.6
+.8
+1
+Amplitude
+0 .2 .4 .6 .8 1
+0
+.2
+.4
+.6
+.8
+1
+0 0.5 1 1.5 2 
+0
+.2
+.4
+.6
+.8
+1
+Time [s]
+Amplitude
+0 .2 .4 .6 .8 1
+0
+.2
+.4
+.6
+.8
+1
+Time [s]
+10
+–1
+10
+0
+10
+1
+10
+2
+T2B Relaxation time [ms]
+Amplitude
+TW = 1 ms
+TW = 10 ms
+TW = 100 ms
+TW = 1 s
+TW = 10 s
+7–cp Oil
+unimodal 
+T2B = 200 ms
+300–cp Oil
+multimodal
+T2B
+peak = 40 ms
+Fig. 8. NMR magnetization decays of bulk ﬂuids simulated for diﬀerent
+values of wait time (left panels), and equivalent decays normalized in
+amplitude at time t = 0 (right-hand panels). The same legend applies to all
+panels. For simple ﬂuids with unimodal distribution of bulk relaxation
+times (top-right panel), all curves scale with TW and overlap with the
+canonical form (1 /C0 exp(/C0 TW/T
+1)) · exp(/C0 t/T2). For multi-component
+hydrocarbons (bottom right-hand panel), such normalized curves do not
+overlap. The insert describes the distribution of bulk relaxation times for
+the 300-cp heavy oil measured at laboratory conditions, and is used as
+input to the simulation algorithm.
+90 E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96
+
+--- PAGE 9 ---
+heterogeneities in bulk relaxation and internal ﬁelds to
+ensure accurate simulation results for partial polarization.
+5. Simulation results in saturated porous media
+We now study how the incorporation of a porous med-
+ium exhibiting surface relaxation aﬀects the quality of the
+simulation results. Diﬀerent relaxation types are incorpo-
+rated simultaneously to generate parametric multi-dimen-
+sional NMR maps with the purpose of characterizing
+pore size, wettability, ﬂuid type and volumetric fraction
+in the context of saturated rock-core analysis and in-situ
+oil ﬁeld evaluation.
+5.1. Surface relaxation in diﬀerent diﬀusion/relaxation
+regimes
+We test our algorithm for the classical context of an iso-
+lated spherical pore of radius R, where S/V =3 /R. Fig. 9
+shows the results of simulations performed with diﬀerent
+spherical pore radii ranging from 0.4 to 400 lm, and for
+diﬀerent values of surface relaxivity. In all the cases, the
+simulation decays obtained with both formulations A
+and B perfectly overlap in the absence of q
+1/q2 contrast,
+as encountered in natural systems; for example, it is
+observed that this contrast usually does not exceed 1.5 in
+water-saturated rocks [31]. If this contrast were to reach
+several units, however, diﬀerences in apparent decay times
+would appear between formulations A and B. Likewise, a
+local increase of the gradient due to diamagnetic or para-
+magnetic materials in the solid phase of the porous medium
+is more likely to aﬀect simulation results using formulation
+A because of the ﬁnite duration of the B
+1 pulses.
+The simulation results shown in Fig. 9 match the ﬁrst-
+order surface relaxation time described by Eq. (4) as long
+as qR/DB < 1. Identical results were obtained in the 3D
+star-shaped pores formed by the void space fraction exist-
+ing within a dense packing of overlapping spherical grains
+with diﬀerent compaction coeﬃcients.
+Outside the fast-diﬀusion limit, that is when qR/D
+B
+becomes larger than 1, the surface relaxation described
+by Eq. (4) becomes inaccurate. It is then necessary to con-
+sider Brownstein and Tarr’s [1] full analytical solution,
+whereby the total magnetization decay due to surface relax-
+ation is equal to
+MðtÞ¼ Mð0Þ
+X
+1
+n¼0
+Ine/C0 t=T n : ð18Þ
+In this expression, In ¼ 12 sin fn/C0 fn cos fnðÞ 2
+f3
+n 2fn /C0 sin 2 fnðÞ½/C138 and T n ¼ R2=Df2
+n are
+the amplitude and relaxation time deﬁned by fn, the nth po-
+sitive root of the equation
+1 /C0 fn cot fn ¼ qR=D: ð19Þ
+In Fig. 9 , simulation results show the deviation from Eq.
+(4) to Eq. (18) is correctly captured by the random-walk
+algorithm for any value of qR/DB.
+5.2. Two-dimensional NMR maps of gas/water and oil/water
+mixtures in saturated rocks
+In oil exploration and rock/ﬂuid characterization, ﬂuids
+measured by in-situ NMR logging tools include brine, sin-
+gle- and multi-component oil, gas, and water-based or oil-
+based drilling-mud ﬁltrate which leaked into a freshly
+drilled porous rock formation. Multi-dimensional NMR
+techniques are currently based on the simultaneous
+0 10 20 30 40 50 60 
+10
+0
+10
+1
+10
+2
+Magnetization
+0 20 40 60 80 100
+10
+0
+10
+1
+10
+2
+Magnetization
+0 100 200 300 400 500 
+10
+0
+10
+1
+10
+2
+Magnetization
+0 200 400 600 800 1000
+10
+2
+Time [μs]
+Magnetization
+R=0.4µm 
+R=4µm 
+R=40µm 
+R=400µm 
+(ρR)/DB=[4/20/200μm/s*400μm / 2.5μm2/ms]=0.64/3.2/32
+(ρR)/DB=[4/20/200μm/s*40μm / 2.5μm2/ms]=0.064/0.32/3.2
+(ρR)/DB=[4/20/200μm/s*4μm / 2.5μm2/ms]=0.0064/0.032/0.32
+(ρR)/DB=[4/20/200μm/s*.4μm / 2.5μm2/ms]=0.00064/0.0032/0.032
+Fig. 9. Decay curves simulated for water ( DB = 2.5 lm2/ms, T2B = 3 s) in
+a single spherical pore with no background magnetic ﬁeld gradient. The
+pore radius R varies logarithmically from 0.4 (top panel) to 400 lm
+(bottom panel), while for each radius the surface relaxivity q at the pore
+wall is equal to 4 lm/s (triangles), 20 lm/s (circles) or 200 lm/s (squares).
+These markers deﬁne the ﬁrst-order analytical decay for a sphere
+(1/T2 =1 /T2B +3 q/R) which diverges from the full expression of Brownstein
+and Tarr [1] (in dashes) when qR/DB reaches 1, Eq. (18). Results simulated
+with formulations A and B overlap (plain lines) and almost perfectly
+match the full analytical expression in all cases. The ratio qR/DB is
+computed within the panels for each combination of R and q.
+E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96 91
+
+--- PAGE 10 ---
+inversion of suites of CPMG-like sequences with multiple
+values of TE and/or TW which allow diﬀerent degrees of
+spin repolarization between successive CPMG RF
+sequences ( Fig. 2 ). Fluid phases are distributed in the pore
+space of a disordered grain pack ( Fig. 10) according to geo-
+metrical models in agreement with thermodynamic capil-
+lary equilibrium [32] or with more complex principles of
+drainage, imbibition, and electrical properties [33]. In these
+models, as exempliﬁed in Fig. 11 , ﬂuid phases are distrib-
+uted at the pore level as overlapping blobs which are trun-
+cated by grain surfaces. Two examples of rock/ﬂuid
+systems were simulated to illustrate the methodology in
+disordered packs of overlapping spheres exhibiting 20%
+void space, uniform distribution of pore sizes, and enforc-
+ing a homogeneous gradient with G
+z = 16 G/cm.
+The ﬁrst example was simulated for a mixture of 30%
+water and 70% gas in arbitrary reservoir conditions, whose
+bulk properties are shown in Table 1 . Wait times varying
+logarithmically from 1 ms to 10 s were applied during the
+simulations of CPMG decay with 0.2 ms echo time, and
+the corresponding magnetization decays were processed
+with a T
+1/T2 inversion algorithm [11]. The left-hand panel
+of Fig. 12 shows the resulting intensity T1/T2 map, where
+the water peak located at T1 = T2 = 100 ms is aﬀected by
+surface decay. The small echo time has negligible inﬂuence
+on the T2 response of the low-diﬀusivity water; however, it
+signiﬁcantly reduces the apparent T2 value of the large-dif-
+fusivity gas with respect to its intrinsic T1 value. In this
+case, inversion of the T1 dimension eﬃciently discriminates
+the signals from the two ﬂuids. We also synthesized magne-
+tization decays for multiple-TE diﬀusion sequences for D/T
+2
+inversion and mapping. This was done by considering full
+polarization (TW ﬁ 1) and values of TE equal to
+0.2, 1, 3, 9, and 16 ms for a homogeneous gradient
+G
+z = 16 G/cm. Focusing on the same water/gas mixture
+saturating our porous rock model, we obtain the D/T2
+map shown in the right-hand panel of Fig. 12 . In this plot,
+as in subsequent D/T2 maps, the diagonal line characterizes
+a D/T2 correlation existing for live hydrocarbons at speciﬁc
+conditions of pressure and temperature (Eq. (3)). In this
+plot, water and gas are distinguishable on both the D
+and T2 dimensions.
+Our second example consists of a mixture of 60% water
+and 40% 7-cp oil at ambient conditions (see Table 1) within
+the same rock model, and illustrates the simulation of wet-
+tability eﬀects at the rock surface. The same diﬀusion
+sequences were implemented, and the simulation results
+were inverted into the D/T
+2 maps shown in Fig. 13. Simula-
+tion results for the water-wet case (left-hand panel) exhibit a
+water peak at the intersection of the bulk water diﬀusivity
+(2.10
+5 m2/ms) and the surface relaxation time previously
+observed in Fig. 13 (100 ms). The oil peak, however, lies
+along the D/T2 hydrocarbon correlation line. The ( D, T2)
+coordinates of that peak along that line enable the assess-
+ment of oil viscosity and possibly water-wettability. Upon
+wettability alteration, it is usually assumed that the water
+ﬁlm existing between oil and rock surface ruptures under
+diﬀerent chemical and thermodynamic conditions [34,35],
+while the least attainable zones of the pore space remain
+water-wet (see Fig. 11 ). The right-hand panel of Fig. 13
+shows simulation results obtained when such microscopic
+geometries are included in the model. When oil is considered
+as the wetting ﬂuid phase, it is aﬀected by surface relaxation
+and the spread of its D/T
+2 peak increases along both the D
+and T2 dimensions. Concomitantly, the relaxation time of
+the water peak increases because some relaxing water/rock
+surfaces have disappeared, and some of the water now
+relaxes in bulk mode. Because of the low T
+1B/T2B contrasts
+for water and oil, the low gradient value, and because of the
+choice of CPMG acquisition sequence, Formulation B was
+computationally eﬃcient in this particular case. We empha-
+size, however, that Formulation A would be required for
+more general RF sequences or in the presence of stronger
+magnetic ﬁeld gradients.
+The random-walk algorithm developed in this paper can
+be used to quantify the impact on NMR measurements of
+the combined eﬀects of ﬂuid content, ﬂuid viscosity, satura-
+tion history of the porous medium, and rock wettability.
+For instance, Refs. [32,33] study the reliability of D/T
+2
+2D NMR interpretation to accurately assess hydrocarbon
+content and rock properties under the assumption of spe-
+ciﬁc ﬂuid displacement mechanisms within the pore space.
+Fig. 10. Example of disordered packing of identical grains used as rock
+model to generate the 2D NMR maps shown in Figs. 12 and 13 . The
+spherical grains are overgrown until the void fraction reaches 20% of the
+bulk volume.
+Table 1
+Bulk properties of the ﬂuids used in the numerical simulation of NMR
+measurements of saturated rocks
+Fluid Hydrogen
+index
+Bulk relaxation times
+T
+1B = T2B
+Bulk diﬀusivity
+DB (cm2/s)
+Water 1.0 3 s 2 Æ 10/C0 5
+Gas 0.3 4.5 s 10 /C0 3
+7-cp oil 1.0 0.2 ms 10 /C0 6
+92 E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96
+
+--- PAGE 11 ---
+Fig. 12. T1/T2 (left) and D/T2 (right) NMR maps simulated for a two-phase immiscible mixture of 70% gas and 30% water in the grain packing of Fig. 10.
+The diagonal line in the left-hand panel represents the T1 = T2 relationship. The diagonal line in the right-hand panel represents the D/T2 correlation
+characterizing hydrocarbons in the conditions assumed for the simulations (after Ref. [32]).
+Fig. 11. Examples of ﬂuid distributions implemented at the pore scale. Each tetrahedron is centered on a pore from the void space of the grain packing
+(Fig. 10), and is limited by sets of four-closest grains (in gray). Blue represents the water-ﬁlled pore space, red the oil-ﬁlled pore space. (a) Water ﬁlls the
+pore. (b) An oil blob centered with the pore under the double assumption of oil-wettability (OW) of the grain surface within the radius of the oil blob, a nd
+water-wettability (WW) of the grain surface in the least-accessible pore regions. (c) A thin ﬁlm of wetting oil and bridging oil lenses are left in the o il-wet
+region of the pore after invasion by water. The random-walk step is adjusted within each ﬂuid zone.
+Fig. 13. D/T2 NMR maps simulated for a two-phase immiscible mixture of 60% water and 40% 7-cp oil in the grain packing of Fig. 10, for water-wet (left-
+hand panel) and oil-wet (right-hand panel) conﬁgurations. The diagonal line in the two panels represents the D/T2 correlation characterizing hydrocarbons
+in the conditions assumed for the simulations (after Ref. [32]).
+E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96 93
+
+--- PAGE 12 ---
+6. Conclusions
+The simulation algorithm described in this paper consol-
+idates existing NMR numerical simulation methods used in
+diverse areas of biology and engineering into a single for-
+mulation that incorporates both diﬀusion within inhomo-
+geneous magnetic ﬁelds and surface eﬀects, including
+magnetization relaxivity and membrane permeability.
+Other than the magnetic-dipole approximation, this formu-
+lation is constrained by none of the assumptions required
+for analytical models concerning the statistical distribution
+of spin phase shifts, spin density, ﬁeld homogeneity, or
+fast-diﬀusion limit. In addition, the simulation algorithm
+described in this paper extends NMR simulation capabili-
+ties beyond those of single-phase periodic media, which
+are so far the only type of porous media that can be accu-
+rately described with analytical techniques.
+Previously described NMR simulations techniques
+neglected longitudinal eﬀects; while it is expected that those
+techniques would not accurately reproduce the NMR
+response of molecules with substantial T
+1/T2 contrasts,
+we showed that the solution of the complete set of Bloch’s
+equations is necessary to accurately reproduce echo ampli-
+tudes in the presence of strongly inhomogeneous magnetic
+ﬁelds and arbitrary pulse sequences. The simulation algo-
+rithm described in this paper was successfully validated
+against coherent-pathway results in homogeneous gradi-
+ents and against the full expansion of Brownstein and
+Tarr’s surface relaxation in spherical pores; these results
+suggest that random walkers can reliably be used to accu-
+rately characterize diﬀusion in arbitrary porous media,
+where analytical expressions are not accurate.
+We considered suites of longitudinal and transversal
+magnetizations for multiphase ﬂuid mixtures saturating
+models of porous media for diﬀerent values of wait time
+and echo time. These synthetic magnetizations can be
+subsequently inverted into parametric multi-dimensional
+intensity maps cross-plotting T
+1, T2, and D for improved
+characterization of pore structure, wettability, and ﬂuid
+types. Such a methodology provides new opportunities
+to study quantitative relationships between NMR mea-
+surements and properties of economic interest that
+cannot be directly measured in-situ [31]. Moreover, the
+accurate simulation of magnetization decay opens the
+possibility of optimizing new NMR pulse acquisition
+sequences for speciﬁc applications in porous media in
+the presence of local variations of ﬂuid distributions
+and internal ﬁelds.
+Appendix A. Analytical calculations of the time-evolution
+matrix exponentials in Bloch’s equation
+The total magnetic ﬁeld applied to the spin B = B
+0 + B1
+is either B ¼ B0 ¼ B0^z between RF pulses, B ¼ B1 ^x þ B0^z
+during x0-pulses, or B ¼ B1^y þ B0^z during y0-pulses. This
+approach makes no approximation on the quality of mag-
+netic pulses because the actual dispersion of Larmor fre-
+quencies is honored across the spin population and the
+spin diﬀusion is fully accounted for during the enforcement
+of B
+1.
+Between B1 pulses, the only magnetic ﬁeld present is the
+background ﬁeld, and the eﬀective relaxation times T1,2 for
+that step are given by Eq. (14). It then follows that
+Adt ¼
+/C0 dt
+T 2
+cBzdt 0
+/C0 cBzdt /C0 dt
+T 2
+0
+00 /C0 Dt
+T 1
+2
+66
+4
+3
+77
+5; and therefore
+e
+Adt ¼
+e/C0 dt
+T 2 cos cBzdtðÞ e/C0 dt
+T 2 sin cBzdtðÞ 0
+/C0 e/C0 dt
+T 2 sin cBzdtðÞ e/C0 dt
+T 2 cos cBzdtðÞ 0
+00 e /C0 dt
+T 1
+2
+664
+3
+775: ðA1Þ
+During B1 (p/2)x pulses, the product Adt takes on the form
+Adt ¼
+/C0 dt
+T 2
+cBzdt 0
+/C0 cBzdt /C0 dt
+T 2
+cBxdt
+0 /C0 cBxdt /C0 dt
+T 1
+2
+664
+3
+775: ðA2Þ
+The three eigenvalues ki of Adt are found by solving the
+characteristic polynomial given by
+P xðkÞ¼ detðkI /C0 AdtÞ
+¼ k3 þ k2 2dt
+T 2
+þ dt
+T 1
+/C18/C19
+þ k 2ðdtÞ2
+T 2T 1
+þ ðdtÞ2
+T 2
+2
+þð cBxdtÞ2 þð cBzdtÞ2
+ !
+þ ðdtÞ3
+T 2
+2T 1
+þ ðdtÞ3ðcBxÞ2
+T 2
+þ ðdtÞ3ðcBzÞ2
+T 1
+ !
+;
+which we solve using Cardan’s method
+k1 ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðs /C0 qÞ3
+p
+/C0
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðs þ qÞ3
+p
+/C0 a
+3 ;
+k2 ¼ 1
+2
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðs þ qÞ3
+p
+/C0
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðs /C0 qÞ3
+p/C0/C1
+/C0 a
+3 þ i
+ﬃﬃ
+3
+p
+2
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðs þ qÞ3
+p
+þ
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðs /C0 qÞ3
+p/C0/C1
+;
+k3 ¼ 1
+2
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðs þ qÞ3
+p
+/C0
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðs /C0 qÞ3
+p/C0/C1
+/C0 a
+3 /C0 i
+ﬃﬃ
+3
+p
+2
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðs þ qÞ3
+p
+þ
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+ðs /C0 qÞ3
+p/C0/C1
+;
+8
+>>>
+>
+<
+>>
+>
+>
+:
+ðA3Þ
+with p ¼ 1
+3 b /C0 a2
+3
+/C18/C19
+; q ¼ 1
+2 c /C0 ab
+3 þ 2a3
+27
+/C18/C19
+;
+s ¼
+ﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃﬃ
+q2 þ p3
+p
+; and
+a ¼ 2dt
+T 2
+þ dt
+T 1
+/C18/C19
+; b ¼ 2 dtðÞ 2
+T 2T 1
+þ dtðÞ 2
+T 2
+2
+þ cBxdtðÞ 2 þ cBzdtðÞ 2
+ !
+;
+c ¼ dtðÞ 3
+T 2
+2T 1
+þ dtðÞ 3 cBxðÞ 2
+T 2
+þ dtðÞ 3 cBzðÞ 2
+T 1
+ !
+:
+ðA4Þ
+A matrix of eigenvectors corresponding to the above eigen-
+values can be calculated as
+94 E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96
+
+--- PAGE 13 ---
+U ¼
+cBz dt
+k1 þ dt
+T 2
+cBz dt
+k2 þ dt
+T 2
+cBz dt
+k3 þ dt
+T 2
+111
+/C0 cBxdt
+k1 þ dt
+T 1
+/C0 cBxdt
+k2 þ dt
+T 1
+/C0 cBxdt
+k3 þ dt
+T 1
+2
+6666
+6
+666
+4
+3
+7777
+7
+777
+5
+;
+whereupon,
+e
+Adt ¼ U /C1
+ek1 00
+0e k2 0
+00 e k3
+2
+64
+3
+75 /C1U/C0 1:
+During B1 (p)y pulses, Adt takes on the form
+Adt ¼
+/C0 dt
+T 2
+cBzdt /C0 cBy dt
+/C0 cBzdt /C0 dt
+T 2
+0
+cBy dt 0 /C0 dt
+T 1
+2
+664
+3
+775:
+Upon replacing Bx with By in Eq. (A4), it is readily found
+that the eigenvalues of this last matrix are identical to those
+of Eq. (A3). The corresponding eigenvectors are included
+in matrix U as
+U ¼
+111
+/C0
+cBzdt
+k1 þ dt
+T 2
+/C0 cBz dt
+k2 þ dt
+T 2
+/C0 cBz dt
+k3 þ dt
+T 2
+cBy dt
+k1 þ dt
+T 1
+cBy dt
+k2 þ dt
+T 1
+cBy dt
+k3 þ dt
+T 1
+2
+666
+666
+64
+3
+777
+777
+75
+:
+The computation of e
+Adt follows directly from the above
+expressions.
+References
+[1] K.R. Brownstein, C.E. Tarr, Importance of classical diﬀusion in
+NMR studies of water in biological cells, Phys. Rev. A 19 (1979)
+2446–2453.
+[2] L.L. Latour, P.P. Mitra, R.L. Kleinberg, C.H. Sotak, Time-depen-
+dent diﬀusion coeﬃcient of ﬂuids in porous media as a probe of
+surface-to-volume ratio, J. Magn. Res. A 101 (1993) 342–346.
+[3] Y.-Q. Song, Determining pore sizes using an internal magnetic ﬁeld,
+J. Magn. Res. 143 (2000) 397–401.
+[4] T.S. Ramakrishnan, L.M. Schwartz, E.J. Fordham, W.E. Kenyon,
+D.J. Wilkinson, Forward models for nuclear magnetic resonance in
+carbonate rocks, Log Analyst 40 (1999) 260–270.
+[5] E. von Meerwall, R.D. Ferguson, Interpreting pulsed-gradient spin-
+echo diﬀusion experiments with permeable membranes, J. Chem.
+Phys. 74 (1981) 6956–6959.
+[6] J. Pfeuﬀer, W. Dreher, E. Sykova, D. Leibfritz, Water signal
+attenuation in diﬀusion-weighted 1H NMR experiments during
+cerebral ischemia: inﬂuence of intracellular restrictions, extracellu-
+lar tortuosity, and exchange, Magn. Res. Imag. 16 (1998) 1023–
+1032.
+[7] G.J. Stanisz, A. Szafer, G.A. Wright, R.M. Henkelman, An analytical
+model of restricted diﬀusion in bovine optic nerve, Magn. Res. Med.
+37 (1997) 103–111.
+[8] G.P. Zientara, J.H. Freed, Spin-echoes for diﬀusion in bounded,
+heterogeneous media: a numerical study, J. Chem. Phys. 72 (1980)
+1285–1292.
+[9] M.D. Hu¨ rlimann, L. Venkataramanan, Quantitative measurement of
+two-dimensional distribution functions of diﬀusion and relaxation in
+grossly inhomogeneous ﬁelds, J. Magn. Res. 157 (2002) 31–42.
+[10] B. Sun, K.-J. Dunn, Probing the internal ﬁeld gradients of porous
+media, Phys. Rev. E 65 (2002) 051309.
+[11] B. Sun, K.-J. Dunn, A global inversion method for multi-dimensional
+NMR logging, J. Magn. Res. 172 (2005) 152–160.
+[12] M.D. Hu ¨ rlimann, D.D. Griﬃn, Spin dynamics of Carr–Purcell–
+Meiboom–Gill-like sequences in grossly inhomogeneous B
+0 and B1
+ﬁelds and application to NMR well logging, J. Magn. Res. 143 (2000)
+120–135.
+[13] M.D. Hu¨ rlimann, Diﬀusion and relaxation eﬀects in general stray
+ﬁeld NMR experiments, J. Magn. Res. 148 (2001) 367–378.
+[14] Y.-Q. Song, Categories of coherence pathways for the CPMG
+sequence, J. Magn. Res. 157 (2002) 82–91.
+[15] Y. Zur, An algorithm to calculate the NMR signal of a multi spin-
+echo sequence with relaxation and spin-diﬀusion, J. Magn. Res. 171
+(2004) 97–106.
+[16] K.-J. Dunn, Enhanced transverse relaxation in porous media due to
+internal ﬁeld gradients, J. Magn. Res. 156 (2002) 171–180.
+[17] C.S. Johnson Jr., Q. He, Electrophoretic nuclear magnetic resonance,
+in: J.S. Waugh (Ed.), Advances in Magnetic Resonance 13, Academic
+Press, London, 1989, pp. 131–159.
+[18] A. Caprihan, E. Fukushima, Flow measurements by NMR, Phys.
+Rep. 198 (1990) 195–235.
+[19] E. Fukushima, S.B.W. Roeder, Experimental Pulse NMR: A
+Nuts and Bolts Approach, Addison-Wesley, Reading, Massachu-
+setts, 1981.
+[20] S.-W. Lo, G.J. Hirasaki,W.V. House, R. Kobayashi, Mixing rules
+and correlations of NMR relaxation time with viscosity, diﬀusivity,
+and gas/oil ratio of methane/hydrocarbon mixtures, SPE paper
+77264, SPE J. 7 (2002) 24–34.
+[21] M. Winkler, J.J. Freeman, M. Appel, The limits of ﬂuid property
+correlations used in NMR well-logging: an experimental study of
+reservoir ﬂuids at reservoir conditions, Petrophysics 46 (2005) 104–
+112.
+[22] H. Torrey, Bloch equations with diﬀusion terms, Phys. Rev. 104
+(1956) 563–565.
+[23] R.M. Weiskoﬀ, C.S. Zuo, J.L. Boxerman, B.R. Rosen, Microscopic
+susceptibility variation and transverse relaxation: theory and exper-
+iment, Magn. Res. Med. 31 (1994) 601–609.
+[24] L.M. Schwartz, J.R. Banavar, Transport properties of disordered
+continuum systems, Phys. Rev. B 39 (1989) 11965–11970.
+[25] D.J. Wilkinson, D.L. Johnson, L.M. Schwartz, Nuclear magnetic
+relaxation in porous media: the role of the mean lifetime s (q,D),
+Phys. Rev. B 44 (1991) 4960–4973.
+[26] D.J. Bergman, K.-J. Dunn, L.M. Schwartz, P.P. Mitra, Self-diﬀusion
+in a periodic porous medium: a comparison of diﬀerent approaches,
+Phys. Rev. E 51 (1995) 3393–3400.
+[27] H. Gudbjartsson, S. Patz, NMR diﬀusion simulation based on
+conditional random walk, IEEE Trans. Med. Imag. 14 (1995)
+636–642.
+[28] C.P. Slichter, Principles of Magnetic Resonance, Springer, New York,
+1992.
+[29] P. Sen, A. Andre ´, S. Axelrod, Spin echoes of nuclear magnetization
+diﬀusing in a constant magnetic ﬁeld gradient and in a restricted
+geometry, J. Chem. Phys. 111 (1999) 6548–6555.
+[30] K.S. Mendelson, Continuum and random-walk models of mag-
+netic relaxation in porous media, Phys. Rev. B 47 (1993)
+1081–1083.
+[31] W.E. Kenyon, Petrophysical principles of applications of NMR
+logging, Log Analyst 38 (1997) 21–43.
+[32] E. Toumelin, C. Torres-Verdı ´n, B. Sun, K.-J. Dunn, Limits of
+2D NMR interpretation techniques to quantify pore size,
+wettability, and ﬂuid type: a numerical sensitivity study, SPE J.
+11 (2006) 354–363.
+[33] E. Toumelin, C. Torres-Verdı ´n, S. Devarajan, B. Sun, An
+integrated pore-scale approach for the simulation of grain
+E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96 95
+
+--- PAGE 14 ---
+morphology, wettability, and saturation-history eﬀects on elec-
+trical resistivity and NMR measurements of saturated rocks,
+Paper presented at the 2006 International Symposium of the
+Society of Core Analysts, Trondheim, Norway, September
+12–16.
+[34] G. Hirasaki, Wettability: fundamentals and surface forces, SPE
+Formation Eval. 6 (1991) 217–226.
+[35] A.R. Kovscek, H. Wong, C.J. Radke, A pore-level scenario for the
+development of mixed wettability in oil reservoirs, AIChE J. 39 (1993)
+1072–1085.
+96 E. Toumelin et al. / Journal of Magnetic Resonance 188 (2007) 83–96

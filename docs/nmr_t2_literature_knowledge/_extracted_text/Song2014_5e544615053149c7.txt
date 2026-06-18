@@ -1,0 +1,508 @@
+--- PAGE 1 ---
+Experimental Identification of Diffusive Coupling Using 2D NMR
+Y .-Q. Song,1* G. Carneiro, 1,2 L. M. Schwartz, 1 and D. L. Johnson 1
+1Schlumberger-Doll Research, One Hampshire Street, Cambridge, Massachusetts 02139, USA
+2Schlumberger Brazil Research and Geoengineering Center, Cidade Universitaria, Rio de Janeiro 21941-907, Brazil
+(Received 30 March 2014; published 4 December 2014)
+Spin relaxation based nuclear magnetic resonance (NMR) methods have been used extensively to
+determine pore size distributions in a variety of materials. This approach is based on the assumption that
+each pore is in the fast diffusion limit but that diffusion between pores can be neglected. However, in
+complex materials these assumptions may be violated and the relaxation time distribution is not easily
+interpreted. We present a 2D NMR technique and an associated data analysis that allow us to work directly
+with the time dependent experimental data without Laplace inversion to identify the signature of diffusive
+coupling between different pores. Measurements on microporous glass beads and numerical simulations
+are used to illustrate the technique.
+DOI: 10.1103/PhysRevLett.113.235503 PACS numbers: 61.43.Gt, 66.30.jj, 76.60. −k
+NMR has been used to study a wide array of biological,
+geological, and synthetic porous materials [1,2]. In these
+systems the decay of the spin magnetization is controlled
+by a combination of diffusion and enhanced relaxation at
+the pore-solid interface. If the surface relaxation is rela-
+tively weak, then each pore will exhibit single exponential
+decay with a lifetime determined by its size; this is the fast
+diffusion regime, and the net decay signal is a sum of
+exponentials that reflects the distribution of pore sizes.
+However, these assumptions can break down, either
+because the surface relaxation is large enough that relax-
+ation within a given pore involves several modes or because
+interpore diffusion is important. For example, in materials
+with a mixture of small and large pores, the 1D relaxation
+time spectrum can be either very narrow or very broad,
+depending on the connectivity between pores of different
+sizes [3]. The situation is further complicated by the
+presence of spatial heterogeneity of pore sizes over dis-
+tances beyond the diffusion length (typically ∼100 μm) [4].
+This Letter presents a 2D NMR relaxation method to
+identify the diffusion regimes.
+Two-dimensional NMR experiments involve a correlated
+measurement of longitudinal ( T
+1) and transverse ( T2)
+relaxation and a 2D correlation map (e.g., T1-T2)i s
+obtained via a 2D Laplace inversion [5–9]. In these
+experiments diffusive coupling and pore size distributions
+can exhibit qualitatively different features. For example,
+when all of the pores are in the fast diffusion regime, the
+signal from each pore will exhibit a single T
+1 and T2 value
+and thus appears as a single point on the 2D correlation
+plot. A distribution of pore sizes will lead to signals along
+a ridge in the 2D plot with the specific ratio r ≡ T1=T2.
+On the other hand, if the fast diffusion regime does not
+apply, the 2D T1-T2 cross plot can be considerably more
+complicated with significant contributions away from the
+T2 ¼ rT1 ridge. Indeed, it has been shown theoretically
+that in certain regions the signal can have small negative
+amplitude peaks, a fact that severely limits the stability of
+the 2D Laplace inversion [7,10,11]. Therefore, a new
+approach to the T1-T2 measurement is needed for complex
+systems. We introduce a way of working directly with the
+time-domain data that can sense the small negative signals
+that are associated with more complex diffusion phenom-
+ena. This technique is illustrated with a study of packed
+microporous glass beads where diffusion occurs between
+the intergranular pores and the micropores inside the grains.
+Our measurements and numerical simulations of the
+diffusion dynamics are shown to identify the presence of
+the negative correlation peaks. Our experiments were
+exclusively performed at low magnetic field ( ∼500 G) to
+avoid the complication of higher magnetic fields [12].
+The evolution of the nonequilibrium magnetization,
+mðr;t Þ, is described by the diffusion equation [13],
+D
+0∇2mðr;t Þ¼ ∂mðr;t Þ
+∂t ; ð1Þ
+subject to the boundary condition on the interface between
+the pore fluid and the solid grains,
+½D0 ˆn · ∇mðr;t Þþ ρmðr;t Þ/C138 S ¼ 0: ð2Þ
+Here D0 is the intrinsic diffusion coefficient for the fluid
+saturating the pores, and the parameter ρ measures the
+strength of the enhanced relaxation at the interface, S. For a
+pore of size a, a key dimensionless parameter is k ≡ ρa=D0
+[14]. In the fast diffusion regime, where the fluid molecules
+diffuse extensively before being relaxed at the interface,
+we have k ≪ 1 and the magnetization decays as a single
+exponential with lifetime T ∼ a=ρ.F o r k ≥ 1 (i.e., larger
+pores or stronger surface relaxation) spin relaxation
+becomes a multiexponential process.
+An example in Fig.1 shows the T
+2 spectra of two samples
+of randomly packed solid borosilicate glass beads of
+diameter 55 and 150 μm, respectively. From the measured
+PRL 113, 235503 (2014) PHYSICAL REVIEW LETTERS week ending
+5 DECEMBER 2014
+0031-9007=14=113(23)=235503(5) 235503-1 © 2014 American Physical Society
+
+--- PAGE 2 ---
+relaxation we estimate k ¼ 1.7 and 4.4 for the two samples.
+Thus the 150 μm system is certainly not expected to exhibit
+fast diffusion behavior, while the 55 μm sample is in an
+intermediate regime. This is confirmed by the measured T2
+distributions; the 150 μm sample shows a more pronounced
+tail at short T2 than does the 55 μm sample. Such behavior
+can also be seen in the time-domain decay (Fig. 1 inset)
+where the larger-grain data show more curvature. We
+emphasize that the short- T2 tail does not directly represent
+the small pores; instead, it reflects the complicated diffusion
+dynamics in the pore space [14]. Even though this forward
+problem is well understood, the inverse problem, on the
+other hand, is much more difficult. For example, given a
+broad T
+2 distribution from a natural material, it is impossible
+to know from this 1D experiment whether slow diffusion is
+the source of the distribution ’s width or if the width simply
+reflects a wide distribution of pore sizes.
+This Letter focuses on the T1-T2 correlation experiment
+which uses the inversion-recovery-Carr-Purcell-Meiboom-
+Gill pulse sequence [8],
+RD − π − τ
+1 − π
+2 − te=2 − ½π − te=2 − Acq − te=2/C138 N ; ð3Þ
+where N is the echo number, RD the recycle delay, and
+Acq represents data acquisition. The signal is obtained
+in a 2D matrix mðτ
+1; τ2 ≡ NteÞ. We define Mðτ1; τ2Þ≡
+mðτ1 → ∞; τ2Þ − mðτ1; τ2Þ, which is the deviation of
+signal from its equilibrium. M is related to the T1-T2
+correlation function SðT1;T 2Þ by
+Mðτ1;τ2Þ¼
+Z
+dT1dT2SðT1;T 2Þexpð−τ1=T1 −τ2=T2Þð 4Þ
+The formalism used by Brownstein and Tarr has been
+extended to characterize 2D experiments [7,10]. The
+magnetization solution is written as
+mðr;t Þ¼
+X∞
+n¼0
+anϕnðrÞe−t=Tn ; ð5Þ
+and the detected signal is the volume integral of m. Here
+ϕn and Tn are the eigenfunctions and eigenvalues of
+Eq. (1) and the boundary condition [Eq. (2)]. It is important
+to note that the surface relaxation parameters governing
+longitudinal and transverse relaxation, ρ
+1 and ρ2 (ρ1 < ρ2),
+are different [15]. Thus two distinct eigensystems are
+required to describe the T1-T2 experiment. We denote
+these as fϕ1;n;T 1;ng and fϕ2;n;T 2;ng. The difference
+between the two eigensystems is critical to the phenomena
+discussed in this Letter. The T1-T2 correlation spectrum
+can be written as [7]
+SðT1;T 2Þ¼
+X
+p;q
+hfjϕ2;qihϕ2;qjϕ1;pihϕ1;pjii
+× δðT1 − T1;pÞδðT2 − T2;qÞ; ð6Þ
+where hϕjψi ≡
+R
+d3rϕ/C3 ðrÞψðrÞ and jii and jfi represent
+the initial and final distributions which are taken to be
+constant. While hfjϕi and hϕjii are associated with the
+initial and final states, the cross terms hϕ2;qjϕ1;pi are related
+to the overlap of the eigenfunctions in the transverse and
+longitudinal manifolds and are not detected in 1D experi-
+ments [14]. For each value of T
+1 and of T2, there may be a
+nonzero value of SðT1;T 2Þ, even if T1 <T 2. This simply
+reflects the ability of a longitudinal mode with relaxation
+time T
+1 to couple into a transverse mode with relaxation
+time T2. For example, terms in Eq. (6) with p ≠ q are
+referred to as off diagonal because they contribute to
+SðT1;T 2Þ away from the T1 ¼ T2 diagonal line, which
+is dominated by terms with p ¼ q ¼ 0; 1; 2; … . Figure 2
+shows an example from Ref. [7], a single, one-dimensional
+pore with k1 ≡ ρ1a=D ¼ 0.5 and k2 ≡ ρ2a=D ¼ 5.I n
+this case the eigenmodes were evaluated analytically and
+SðT1;T 2Þ was obtained from Eq. (6), without Laplace
+inversion. In addition to contributions near the diagonal
+line, Fig. 2(a) clearly shows off-diagonal terms correspond-
+ing to p ¼ 0 and q ¼ 1, etc. Note that the amplitude of the
+off-diagonal terms is small and that the peaks above the
+diagonal are negative; thus, the conventional algorithm [8]
+cannot apply.
+Small off-diagonal signals are difficult to detect because
+of the ill-conditioned nature of Laplace inversion tech-
+niques [8]. However, the negative character of such peaks
+has a signature that can be seen directly in the time domain
+signal without using Laplace inversion, as shown by the
+dashed line in Fig. 2(b). Note that, for a larger τ
+2, M
+initially increases as τ1 increases and then decays. The
+slope of M at small τ1 is − R dT1SðT1;T 2Þ=T1. Since
+T1 > 0, a positive initial slope (as observed in Fig. 2)
+indicates that the amplitude SðT1;T 2Þ contains negative
+peaks which can only arise in systems that are not in the fast
+diffusion regime.
+10−2 10
+−1
+100 1010
+1
+T2, s
+0 0.05 0.1
+0.1
+1
+τ2, s
+55 μm
+150 μm
+150S
+55 μm
+150 μm
+FIG. 1 (color online). T2 spectrum for two packings of solid
+borosilicate beads with diameters of 55 and 150 μm. The inset
+shows the initial echo decay data for the two samples. The trace
+marked 150S is a scaled decay of the 150 μm sample to match the
+initial decay rate of the 55 μm sample demonstrating the higher
+curvature of the decay of the large-grain sample.
+PRL 113, 235503 (2014) PHYSICAL REVIEW LETTERS week ending
+5 DECEMBER 2014
+235503-2
+
+--- PAGE 3 ---
+T1-T2 measurements were carried out on a water
+saturated pack (1 in. diameter and 1 in. long) of about
+150 μm microporous beads (CPG3000A, Millipore), and
+on a bulk water sample for comparison (Fig. 3). The CPG
+beads are themselves porous, with an average micropore
+diameter of 0.3 μm. For this sample the total porosity is
+80% and is divided equally between the micro- and
+macropores. The NMR experiments were performed using
+a Rock Core Analyzer (Magritek Limited, Wellington, NZ)
+at
+1H NMR frequency of 2 MHz. Because of the large
+surface area, spin relaxation for the water inside the grains
+is substantially enhanced. The water molecules in the
+macropores (between the grains) are relaxed by diffusion
+into the micropores. Because diffusion between the micro-
+pores and the macropores is an essential part of the overall
+relaxation process, this system cannot be described with a
+picture based on fast diffusion.
+In Figs. 3(b) and 3(c) the decay data, Mðτ
+1; τ2Þ=
+Mð0; τ2Þ, is graphed as a function of τ1 for the different
+echo times, and each trace is shifted vertically in order to
+highlight the details at short τ1. For the bulk water sample
+[panel (c)], we see a continuously decreasing signal for
+all echo times. By contrast, in Fig. 3(b), the signal is
+observed to increase for τ
+2 > 240 ms. As discussed above,
+this behavior is a clear indication of negative peaks in
+the T1-T2 spectrum. Furthermore, since the positive slope
+in M occurs when τ1 is small, the negative amplitude in
+SðT1;T 2Þ must be at low T1 values. Similarly, since the
+positive slope is seen only at longer echo times, we expect
+the negative amplitudes to be associated with large T
+2
+values (≥ 240 ms). Thus, looking only at the time-domain
+data, without any Laplace inversion, we can argue that the
+negative contributions have to be in the upper left corner
+of the T
+1-T2 spectrum, consistent with the analytic result
+of Fig. 2.
+Relaxation typically describes signal loss as time
+increases; thus, it is surprising to observe signal increase
+as τ1 lengthens. To understand the physical origin of the
+observed phenomenon, consider the highly simplified
+model shown in Fig. 4, with a microporous region (shaded)
+to the left of the macropore. The qualitative behavior of the
+T
+1 modes [4(a)] is central to this phenomenon. The slowest
+mode, ϕ1;0, which would be spatially uniform in the limit
+ρ1 → 0, has the same sign in both regions. Because the
+source of relaxation is the micropores, the amplitude of ϕ1;0
+is higher in the macropore and lower in the micropore.
+The second mode, ϕ1;1, is asymmetric and positive in
+the micropore and negative in the macropore due to its
+orthogonality with the first mode. Figure 4(a) shows the
+contribution to the initial magnetization ( m
+0) from ϕ1;0 (the
+long dashed line) and ϕ1;1 (the short dashed line), and they
+10−3 10−2 10−1 100 101
+10−3
+10−2
+10−1
+100
+101
+T1 (secs)
+T2 (secs)
+ 
+ 
+0
+0.05
+0.1
+10−3 10−2 10−1 100
+0.02
+0.1
+τ1, s
+(a) (b)
+FIG. 2 (color online). T1-T2 data from Fig. 1 of Ref. [7].
+(a) T1-T2 spectrum showing several peaks [( p; q), marked] and
+negative signals above the diagonal (dashed contour lines).
+(b) The time domain signal M is plotted as a function of τ
+1 at
+several τ2 values (marked in the panel). Note the small initial rise
+of the signal at longer echoes highlighted by the dashed line.
+10−4 10−3 10−2 10−1
+τ1, s
+10−4 10−3 10−2
+0.8
+0.9
+1
+1.1
+τ1, s
+8 ms
+80 ms
+240 ms
+320 ms
+τ2=400 ms
+(a)
+(b) (c)
+pore size 0.3 μm
+FIG. 3 (color online). (a) A micrograph shows the internal
+structure of the porous beads. The light gray is the solid phase.
+Average pore diameter is 0.3 μm. (b),(c) T
+1-T2 measurements on
+porous beads (b) and water (c). Mðτ1; τ2Þ is plotted as a function
+of τ1 for the different echo times shown above each data set.
+The data are scaled to the average of the first eight data points and
+then shifted away from unity for display. An initial rise is
+observed for echo times larger than 240 ms. This rise corresponds
+to negative components in SðT
+1;T 2Þ associated with diffusive
+coupling between the micro- and macropores. No initial rise is
+observed for the bulk water signal.
+PRL 113, 235503 (2014) PHYSICAL REVIEW LETTERS week ending
+5 DECEMBER 2014
+235503-3
+
+--- PAGE 4 ---
+add up to the constant m0, m0 ¼ a0ϕ1;0 þ a1ϕ1;1. Note that
+ja0ϕ1;0j >m 0 in the macropore region [Fig. 4(a)].
+We further assume ρ2 is much larger than ρ1, and thus the
+T2 modes behave as if the two pores are mostly decoupled
+[Fig. 4(b)]. As a result, at long τ2 the micropore signal
+decays and the detected signal only comes from the
+macropore, thus
+m ∝ e−ðτ1=T1;0Þja0ϕ1;0j − e−ðτ1=T1;1Þja1ϕ1;1j; ð7Þ
+evaluated within the macropore. Note that T1;0 >T 1;1.
+As τ1 increases, the weight of jϕ1;1j decreases and thus M
+increases. For our sample, the contrast between ρ1 and ρ2 is
+finite; thus, the resulting increase is small.
+To further validate our argument, we have performed
+numerical simulations based on a three-dimensional micro-
+porous model whose geometrical parameters can be
+matched to those of the bead pack discussed in connection
+with Fig. 3. The simulations employ variable step-size
+random walks in a packing of microporous spherical grains
+[16,17]. The large grains are arranged on a face centered
+cubic lattice; by adjusting their radius we can fix the
+amount of macroporosity at 0.40. We have examined two
+ways of representing the microporous structure within these
+grains based on periodic arrangements of either spherical
+micrograins or overlapping spherical micropores. In both
+cases the porosity within the large grains is adjusted to 0.67
+so that the porosity contribution from the macro- and
+micropores are both 0.40. The grain sizes are adjusted
+so that the effective pore volume to surface area ratio,
+V
+P=S ¼ 0.31 μm. The diffusion coefficient for the bulk
+fluid is 2.5 μm2=ms. First, the comparison of the measured
+diffusion coefficient [ DðtÞ] with the simulation [16],
+Fig. 5(a), shows that the model with spherical micropores
+provides a much better fit to the experimental diffusion
+data. Second, the simulation of the T
+1 and T2 distributions
+is compared with our experiment [Fig. 5(b)] in order to
+determine ρ1 and ρ2. Next, the micropore model was used
+to simulate the T1-T2 experiment and the results are
+presented in Fig. 5(c). The calculations are presented in
+the same fashion as the experimental data [Fig. 3(b)] and a
+small positive slope is observed for τ2 > 240 ms, as in the
+experiment.
+Consistency between our measurements, simulation,
+and analysis demonstrates that the T1-T2 experiment can
+identify deviations from the fast diffusion regime. Evidence
+for this effect can be seen directly in the time-domain data
+without the complication of the Laplace inversion. In the
+presence of a broad spectrum of pore sizes, this method
+should continue to work well because SðT
+1;T 2Þ integrates
+contributions from different pore sizes and the negative
+contributions will remain. The position of the negative
+structure is likely to depend on the pore size and will
+produce a strip of off-diagonal negative amplitude (instead
+of individual peaks). The location and magnitude of this
+structure will hold the information about pore coupling in
+such systems.
+In conclusion, we have demonstrated that time depen-
+dent 2D NMR data can be used directly to identify complex
+diffusion regimes and diffusive coupling between pores
+in porous media. We plan to extend our analysis to other
+2D experiments (e.g., T
+2-storage-T2 experiments) [7,17]
+and natural samples with a wide distribution of pore sizes.
+(a)
+(b)
+FIG. 4 (color online). Qualitative illustration of the first two
+eigenmodes of T1 (a) and T2 (b) in macro- and micropores.
+The T2 modes are mostly isolated to macro- and micropores due
+to the larger ρ2.
+10
+−3
+10
+−2
+10
+−1
+10
+−3
+10
+−2
+10
+−1
+10
+0
+τ2 = 400 ms
+320 ms
+240 ms
+80 ms
+8 ms
+τ1 (s)
+1
+1.1
+0.9
+0 5 10 15
+.8
+.9
+1
+D(t)/D0
+(D t)0
+1/2 (μm)
+Spherical micro−grains
+Spherical micro−pores
+Experiment
+T2
+T1
+ρ2 = 7.24 μm/s
+ρ1 = 2.0 μm/s
+T1 or T2 (s)
+Relaxation Distribution0
+1
+2
+(a)
+(b)
+(c)
+FIG. 5 (color online). Simulation results for microporous bead
+models. (a) Comparison of the measured time dependent dif-
+fusion coefficient, DðtÞ, with calculations based on two models
+for the microstructure. (b) Comparison of the simulated T
+1 and T2
+distributions (dashed lines) with the measurements (solid lines).
+(c) Simulation of the T1-T2 experiment. Data are plotted as in
+Fig. 3(b), showing the initial rise for τ2 > 240 ms.
+PRL 113, 235503 (2014) PHYSICAL REVIEW LETTERS week ending
+5 DECEMBER 2014
+235503-4
+
+--- PAGE 5 ---
+*ysong@slb.com
+[1] W. P . Halperin, F. D ’Orazio, S. Bhattacharja, and J. C.
+Tarczon, in Molecular Dynamics in Restricted Geometries ,
+edited by J. Klafter and J. Drake (John Wiley & Sons,
+New Y ork, 1989).
+[2] Y .-Q. Song, J. Magn. Reson. 229, 12 (2013) .
+[3] T. S. Ramakrishnan, L. M. Schwartz, E. J. Fordham, W. E.
+Kenyon, and D. J. Wilkinson, The Log Analyst 40, 260
+(1999).
+[4] D. S. Novikov, J. H. Jensen, J. A. Helpern, and E. Fieremans,
+Proc. Natl. Acad. Sci. U.S.A. 111, 5088 (2014) .
+[5] P . J. McDonald, J.-P . Korb, J. Mitchell, and L. Monteilhet,
+Phys. Rev. E 72, 011409 (2005) .
+[6] K. E. Washburn and P . T. Callaghan, Phys. Rev. Lett. 97,
+175502 (2006) .
+[7] Y .-Q. Song, L. Zielinski, and S. Ryu, Phys. Rev. Lett. 100,
+248002 (2008) .
+[8] Y .-Q. Song, L. V enkataramanan, M. D. Hurlimann, M.
+Flaum, P . Frulla, and C. Straley, J. Magn. Reson. 154,
+261 (2002) .
+[9] J. Cox, P . J. McDonald, and B. A. Gardiner, Holzforschung
+64, 259 (2010) .
+[10] D. Bytchenkoff and S. Rodts, J. Magn. Reson. 208,4
+(2011).
+[11] In the special case where T
+1;2 can each be described with
+just two modes, one can derive an explicit formula for
+the negative amplitude. See Eq. (18) of D. L. Johnson and
+L. M. Schwartz, Phys. Rev. 4 90, 032407 (2014) .
+[12] J. Mitchell, T. C. Chandrasekera, M. L. Johns, and L. F.
+Gladden, Phys. Rev. E 81, 026101 (2010) .
+[13] H. C. Torrey, Phys. Rev. 104, 563 (1956) .
+[14] K. R. Brownstein and C. E. Tarr, Phys. Rev. A 19, 2446
+(1979).
+[15] R. L. Kleinberg, S. A. Farooqui, and M. A. Horsfield,
+J. Colloid Interface Sci. 158, 195 (1993) .
+[16] Z. Zhang, D. L. Johnson, and L. M. Schwartz, Phys. Rev. E
+84, 031129 (2011) .
+[17] L. M. Schwartz, D. L. Johnson, J. Mitchell, T. C.
+Chandrasekera, and E. J. Fordham, Phys. Rev. E 88,
+032813 (2013) .
+PRL 113, 235503 (2014) PHYSICAL REVIEW LETTERS week ending
+5 DECEMBER 2014
+235503-5

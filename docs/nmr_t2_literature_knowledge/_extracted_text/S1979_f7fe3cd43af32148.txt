@@ -1,0 +1,1407 @@
+--- PAGE 1 ---
+Journal of Colloid and Interface Science 253, 159–170 (2002)
+doi:10.1006/jcis.2002.8472
+Magnetization Evolution in Network Models of Porous Rock
+under Conditions of Drainage and Imbibition
+D. Chang and M. A. Ioannidis1
+Porous Media Research Institute, Department of Chemical Engineering, University of Waterloo, Waterloo, Ontario N2L 3G1, Canada
+Received October 3, 2001; accepted May 9, 2002
+Surface-enhanced relaxation of nuclear magnetization in fully
+and partially saturated water-wet porous media is studied using a
+pore network simulator. The simulator is based on a description
+of the pore space in terms of a regular cubic lattice of pores and
+throats following respective size distributions. The latter are ob-
+tained from geometric characterization of 3D stochastic replicas of
+real porous rock samples. Concepts of percolation theory are used
+to simulate the pore-scale distribution of a strongly wetting phase
+under conditions of quasistatic drainage by or imbibition against a
+nonwetting phase. The results of these simulations compare favor-
+ably with experimental mercury intrusion/retraction curves. The
+equations governing magnetization evolution in a connected pore
+system are then solved by matrix diagonalization for different val-
+ues of wetting-phase saturation along the primary drainage and
+secondary imbibition paths. Analysis of the corresponding spec-
+tra of decay rates provides new insights regarding the inﬂuence of
+pore structure (pore and throat size distributions, spatial correla-
+tion), surface relaxation strength, and ﬂuid distribution on diffusive
+coupling between pores. For pore and throat size distributions and
+surface relaxation strength representative of sandstones, diffusive
+coupling is quite important, especially under conditions of partial
+saturation. Remarkably, simulations show that correlated hetero-
+geneity is the main reason pores appear poorly coupled with respect
+to NMR relaxation—an assumption underlying the correspondence
+between pore size and relaxation time distributions. Finally, for a
+given value of wetting-phase saturation, the history of saturation
+change (drainage or imbibition) is shown to have a profound effect
+on the spectrum of decay rates.
+C⃝ 2002 Elsevier Science (USA)
+Key Words: magnetic resonance; relaxation; spatial correlation;
+diffusion; drainage; imbibition; network model; pore size distribu-
+tion.
+1. INTRODUCTION
+The sensitivity of nuclear magnetic resonance (NMR) to
+molecular-level events within ﬂuids provides important oppor-
+tunities for determining ﬂuid states and properties within porous
+media (1). NMR methods have recently found important prac-
+tical applications in downhole well logging for hydrocarbon
+formation evaluation (2). In a NMR measurement, polarized
+1 To whom correspondence should be addressed. E-mail: mioannid@cape.
+uwaterloo.ca (M.A.Ioannidis).
+nuclear spins in ﬂuid molecules probe the pore space by dif-
+fusive motion. The magnetic moment carried by these spins
+relaxes due to dipolar interactions with other ﬂuid molecules
+and, for a wetting ﬂuid, also due to interactions at the ﬂuid-solid
+interface. The total magnetization evolves by diffusion and re-
+laxation processes and is sensitive to the geometry of the pore
+space (3). Measurements of the decay of nuclear magnetiza-
+tion are relatively straightforward. However, interpretation of
+these measurements to determine structural properties of porous
+media and characterize the distribution and ﬂow of ﬂuids therein
+is a task that remains partly unresolved (4).
+In a seminal contribution, Brownstein and Tarr (5) established
+that the effect of surface-enhanced relaxation on magnetization
+decay within a single isolated pore of simple geometry is de-
+scribed, to an excellent approximation, by a single relaxation
+time, T
+s , depending on the value of the dimensionless parameter
+ρα/ D,
+1
+Ts
+=
+{ ρ
+α , ρα
+D ≪ 1
+D
+α2 , ρα
+D ≫ 1
+, [1]
+where D is the self-diffusion coefﬁcient of the saturating ﬂuid,
+ρ is a parameter characterizing the strength of surface re-
+laxation, and α is a characteristic pore size corresponding to
+Vp /Ap, the ratio of pore volume to pore surface area. The con-
+dition ρα/ D ≪ 1 corresponds to the so-called “fast-diffusion”
+regime—a situation for which the relaxation rate is controlled by
+pore surface interactions. The conditionρα/ D ≫ 1 corresponds
+to the “slow-diffusion” regime—a situation for which the rate of
+surface relaxation equals the rate of molecular diffusion to the
+ﬂuid-solid interface.
+Bulk relaxation processes within the ﬂuid contribute in par-
+allel to surface relaxation, so that the observed relaxation rate is
+given by (1)
+1
+T = 1
+Ts
++ 1
+Tb
+, [2]
+where 1 /Tb is the bulk relaxation rate. Bulk relaxation is of-
+ten, but not always (6), negligible by comparison to surface
+relaxation (i.e., T
+b ≫ Ts ). In any case, its effect can be easily
+159 0021-9797/02 $35.00
+C⃝ 2002 Elsevier Science (USA)
+All rights reserved.
+
+--- PAGE 2 ---
+160 CHANG AND IOANNIDIS
+separated from the effect of surface relaxation on magnetization
+decay and, for this reason, it is not discussed further.
+The interpretation of magnetization decay observed in porous
+rock is based on two fundamental, and seemingly contradictory,
+assumptions (2). The ﬁrst assumption is that each pore is in the
+“fast-diffusion” regime; i.e., diffusion is fast enough to maintain
+a uniform magnetization across space. This assumption is es-
+sential for establishing a direct relationship between relaxation
+time and pore size, as shown in Eq. [1]. Sufﬁciently large pores
+may be in the slow-diffusion regime, although in such cases it
+is likely that the longer surface relaxation will be swamped by
+T
+b (2). For a variety of rock samples, Latour et al. (6) obtained
+relaxation time distributions that were independent of tempera-
+ture over the range 25 –175
+◦C. Since the relaxation time in the
+diffusion-limited case depends explicitly on the bulk diffusion
+coefﬁcient (cf. Eq. [1]), itself a function of temperature, the re-
+sults of Latour et al. (6) suggest that the samples studied were
+in the fast-diffusion regime.
+The second assumption is that diffusion between pores is
+unimportant, so that magnetization in each pore decays indepen-
+dently of other pores. On this assumption, the broad distribution
+of relaxation times usually observed in samples of porous rock
+(6–8),
+M(t) = M
+o
+∑
+i
+fi e−t/Ti , [3]
+is interpreted as a volume-based distribution of pore sizes, where
+fi is the fraction of pore volume associated with pores of char-
+acteristic size ( Vp /Ap)i = ρTi (9). Since, however, the pore
+space is highly connected, it is reasonable to expect that nuclear
+spins will probe more than one pore during NMR observation
+times (3), in apparent contradiction with the assumption of weak
+coupling.
+Following Cohen and Mendelson (10), McCall et al. (11)
+investigated the effects of diffusive coupling between pores un-
+der conditions of fast diffusion. These authors formulated and
+solved the coupled magnetization balance equations for a fully
+saturated network of pores connected with pore throats. They
+demonstrated that the breadth of the decay rate distribution de-
+creases and the distribution shifts to higher rates, as coupling
+increases. For very strong coupling, the spectrum is reduced to a
+narrow peak at a rate determined by the ratio of the total surface
+to total volume of the pore system. This situation corresponds
+to a magnetization that is uniform within the entire sample and
+decays as a single exponential.
+McCall et al.(11) argued that pore coupling in sandstone rocks
+is weak, and therefore the assumption that the spectrum of decay
+rates reﬂects the density of pore sizes is probably a good one.
+Their conclusions, however, were based on simulations using
+random pore networks in which the size of pore throats was
+uniform. In real sandstone rock and other porous media, not
+only pore and throat sizes follow respective distributions, but
+also correlation between the size of a throat and the size of
+adjacent pores (12, 13), as well as spatial correlation among
+the pore sizes (14 –16), are very likely to exist. None of these
+correlations were included in the model of McCall et al. (11).
+Their theoretical prediction that a signi ﬁcant narrowing of the
+decay rate spectrum should take place as the coupling strength
+is increased by increasing the bulk diffusion coefﬁcient (i.e., by
+increasing temperature) was not con ﬁrmed by the experiments
+of Latour et al. (6).
+Importantly, the assumption that a relaxation time distribution
+corresponds to a pore size distribution also underlies attempts to
+estimate a drainage capillary pressure curve by simply rescal-
+ing a relaxation time distribution (17). This correspondence has
+received little theoretical attention. NMR relaxation measure-
+ments in porous samples that have undergone drainage-type
+displacement have revealed qualitative changes in the spectrum
+of decay rates, which are consistent with the accepted view that
+(i) relaxation time is proportional to pore size for water-saturated
+pores and (ii) the nonwetting ﬂuid enters progressively smaller
+pores as the water saturation decreases (4).
+Network models have been instrumental in understanding
+the distribution and ﬂow of immiscible ﬂuids in porous media
+(18, 19). However, with the exception of McCall et al. (11),
+who only considered fully saturated networks of very simple
+and somewhat unrealistic geometry, NMR relaxation in porous
+media has not been studied by network simulation. This task is
+undertaken here. We are particularly interested in network mod-
+els which are consistent with structural information extracted by
+analysis of 3D images of the pore space and which can quan-
+titatively describe experimental mercury porosimetry data (20).
+With such models at hand, our attention is then focused on infor-
+mation about the pore geometry and ﬂuid distribution that may
+be garnered by NMR relaxation analysis.
+This paper is structured as follows. In theﬁrst section we de-
+scribe the construction of the pore network model, paying partic-
+ular attention to its geometric and correlation aspects (pore and
+throat size distributions, pore/throat correlation, spatial struc-
+ture, pore surface roughness). In the same section we brieﬂy de-
+scribe the algorithms used to simulate drainage and imbibition,
+develop the magnetization balance equations, and discuss their
+solution. In a subsequent section, we ﬁrst demonstrate that the
+network model can successfully simulate experimental mercury-
+air drainage and imbibition capillary pressure curves obtained
+from Berea sandstone and North Sea chalk samples. We then an-
+alyze magnetization decay spectra obtained at different values
+of saturation along the primary drainage and secondary imbibi-
+tion paths. We show that, in the absence of spatial correlation
+among the pores and for pore structure and relaxation parameters
+consistent with experimental data for Berea sandstone, diffusive
+coupling is quite pronounced. We then demonstrate that spatial
+correlation of the pore sizes masks the effects of diffusive cou-
+pling, so that the observed spectrum of decay rates at S
+w = 1
+corresponds well with the pore size distribution, even when dif-
+fusive coupling is signiﬁcant. We also discuss the signi ﬁcance
+of these results for the interpretation of NMR relaxation spectra
+
+--- PAGE 3 ---
+MAGNETIZATION EVOLUTION IN POROUS ROCK 161
+at partial saturation under conditions of primary drainage and
+secondary imbibition. Finally, we use the network simulator to
+explore the correspondence between NMR relaxation spectra at
+S
+w = 1 and primary drainage capillary pressure curves.
+2. THEORY
+2.1. Network Model of Rock Pore Structure
+Following previous work (21, 22), we choose to represent the
+structure of porous rock with a regular cubic lattice of pores and
+throats. Pores are identiﬁed with sites in the lattice and throats
+with bonds between sites. We consider that pores are irregular
+in shape and choose to characterize them by an equivalent-cube
+dimension, R
+p, so that their pore volume and surface area are
+given byVp = 8R3
+p and Sp = 24R2
+p, respectively. We also assume
+that pore sizes are randomly distributed on lattice sites according
+to a known pore size distribution (PSD), in an uncorrelated or
+spatially correlated fashion. In the latter case, we choose an
+isotropic exponential autocorrelation function with correlation
+length equal to ﬁve lattice sites (15, 22).
+Consistent with recent advances in 3D pore space character-
+ization (23, 24), we take pore throats to represent volumeless
+constrictions between pores. The throat cross sections may also
+be irregular. We choose to characterize pore throats in terms
+of a single dimension, R
+t , such that Rt = √At /2, where At is
+the throat cross-sectional area. The distributions of both At and
+Vp can be measured, if a description of the pore space in the
+form of 3D volume data is available (23, 24). Determination of
+the characteristic dimensions R
+p and Rt from such information
+is straightforward. Throat sizes from a respective distribution
+(TSD) are distributed on the bonds of the lattice according to
+the bond-site correlation scheme detailed elsewhere (21, 25).
+This scheme introduces positive correlation between the size
+of a throat and the size of the pores communicating through
+it, in agreement with the generally accepted view of rock pore
+structure (13). To account for resistance to molecular diffusion
+between pores in the model, we consider an interpore diffu-
+sion length distribution (DLD). Interpore diffusion lengths cor-
+respond to the lengths of distinct pore space channels. Their
+determination by morphological skeletonization of 3D volume
+data has been detailed elsewhere (23). Interpore diffusion lengths
+are also positively correlated to the size of the adjoining pores.
+Pore size, throat size, and interpore length distributions obtained
+from 3D stochastic models representative of Berea sandstone are
+shown in Fig. 1.
+2.2. Percolation Modeling of Drainage and Imbibition
+Assuming strongly water-wet conditions, we model qua-
+sistatic drainage as bond-correlated site percolation without
+trapping (12, 15, 25), and quasistatic imbibition as mixed-
+percolation (22) on a lattice. The reader is referred to the original
+publications for detailed descriptions of the algorithms used to
+determine the ﬂuid occupancy of pores and throats as a function
+of capillary pressure during drainage and imbibition. Here, we
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+0.16
+0 5 10 15 20 25 30 35 40
+Size (µm)
+Distribution Function
+PSD
+TSD
+DLD
+FIG. 1. Number-based pore size (PSD), throat size (TSD), and diffusion
+length (DLD) distributions for Berea sandstone.
+note that the critical capillary pressure for piston-type invasion
+of the nonwetting phase into a pore or throat during drainage is
+computed from
+P
+( piston)
+c = σ f (θR)
+R , [4]
+where θR is the receding contact angle,σ is the interfacial tension
+and the function f (θR) is given by (26)
+f (θR) = θR + cos2 θR − π/4 − sin θR cos θR
+cos θR − √π/4 − θR + sin θR cos θR
+. [5]
+The critical capillary pressure for piston-type retraction of the
+nonwetting phase from a pore or throat during imbibition is also
+computed from Eq. [4] and Eq. [5] using the advancing contact
+angle θ
+A in place of θR. Cooperative pore ﬁlling (27, 28) is not
+taken into account.
+The critical capillary pressure for snap-off in pore throats
+during imbibition is computed as
+P(snap-off )
+c = P(piston)
+c
+ξ , [6]
+where the critical pressure ratio,ξ,i sd eﬁned as the ratio of cap-
+illary pressure for piston-type retraction to the capillary pressure
+for snap-off in a pore throat (29). For throats and pores of sim-
+ple geometry, the critical pressure ratioξ can be computed from
+interfacial stability considerations (22, 30). However, to avoid
+imposing arbitrary geometric restrictions and to preserve the
+ﬂexibility of the network model, we choose to treat ξ as an ad-
+justable parameter in the simulation (31). We expect that, if the
+model provides a reasonable representation of real media, the
+values of ξ which give good agreement with experimental data
+will also agree reasonably well with theoretical predictions of
+this parameter (22, 30).
+
+--- PAGE 4 ---
+162 CHANG AND IOANNIDIS
+FIG. 2. Illustration of irregular pore geometry in stochastically recon-
+structed porous media. Pore throats are shown in black (after (24)).
+2.3. Modeling the Effect of Irregular Pore Geometry
+on Fluid Distribution
+It is important to note that the rock-pore interface in real
+porous media is quite rough and often fractal (32–34). Accord-
+ingly, pore and throat sizes may be expected to span a broad
+range of length scales. In agreement with this expectation, ex-
+perimental mercury porosimetry curves usually reveal that con-
+siderable fractions of the total pore volume are intruded over
+a very broad range of pressures. These observations have two
+important consequences for the simulation of drainage and im-
+bibition using network models. First, PSD and TSD functions
+determined by analysis of 3D volume data of limited resolution
+(ca. 1–5 µm for sandstone and 0.1–0.3 µm for chalk) and subse-
+quently used in network models do not represent the entire spec-
+trum of pore and throat sizes present in real rock. Secondly, even
+if the pore volume distribution were perfectly known, mapping
+of irregular pores (see Fig. 2) onto regular, albeit angular, objects
+(e.g., cubes) would still result in poor approximation of the vol-
+ume of the wetting ﬂuid that remains in the pores after they are
+invaded by a nonwetting ﬂuid. Tsakiroglou and Payatakes (35)
+recognized this and proposed to endow network models with a
+geometrically determined fractal model of the pore surface, in
+connection with simulations of mercury porosimetry.
+Here, we propose to capture the effect of pore structure that
+is not explicitly represented in the network model, on the dis-
+tribution of wetting ﬂuid at the pore scale as follows. Consider
+that upon invasion of the nonwettingﬂuid into porei at capillary
+pressure P
+∗
+c,i , the remaining wettingﬂuid occupies a fractionS∗
+w
+of the volume of the pore. At capillary pressure Pc > P∗
+c,i , the
+fraction of pore volume occupied by the wettingﬂuid is assumed
+to vary according to the expression:
+Sw,i
+S∗w
+=
+(P∗
+c,i
+Pc
+)η
+. [7]
+The initial fraction S∗
+w and “ﬁlling” exponent η are physically
+meaningful model parameters. For 0 <η< 1, drainage of the
+wetting ﬂuid within each pore atPc > P∗
+c,i corresponds to ﬁlling
+with the nonwetting phase of a surface fractal with dimension
+2 < D
+s < 3. This follows from consideration of a fractal distri-
+bution of length scales characterizing the geometry of the pore
+walls (34). Forη> 1 the pore behaves as a rough, but not fractal,
+object. For example, η = 3 for wetting ﬂuid in the corner of a
+cube and η< 3 for more irregular (but nonfractal) geometries.
+The parameter S
+∗
+w may be identi ﬁed with the fraction of pore
+volume contributed by length scales not explicitly represented
+in the network model, because they are lacking from the mea-
+sured TSD and PSD and/or because the measured volume of
+each pore is assigned to a regular geometric object. The value of
+P
+∗
+c,i is different for each pore and depends on the adjoining throat
+sizes and pore accessibility. During primary imbibition, and for
+as long as piston-type retraction or disconnection of the nonwet-
+ting ﬂuid in a pore has not taken place, the wettingﬂuid content
+of a pore increases according to Eq. [8]. This implies neglect
+of nonwetting phase trapping within the unresolved pore space.
+Note ﬁnally that, unlike the roughness model of Tsakiroglou
+and Payatakes (35), the model proposed here does not require
+explicit description of the geometry of roughness features.
+2.4. Modeling of Magnetization Evolution
+in the Pore Network
+Following McCall et al. (11), we assume that magnetization
+within each pore is uniform (fast-diffusion regime), but mag-
+netization exchange by diffusion between pores is possible. A
+balance of magnetization M
+i may be written for each porei,e x -
+pressing the fact that the net rate of magnetization decay in each
+pore is determined by magnetization relaxation in the vicinity of
+the ﬂuid-matrix interface and by diffusion to and from nearest
+neighboring (NN) pores,
+dM
+i
+dt =− ρ · Ap,i · Mi
+Vw,i
++ D ·
+NN∑
+j
+Aw,ij
+Lij
+·
+( Mj
+Vw, j
+− Mi
+Vw,i
+)
+,
+[8]
+where Ap,i , Vw,i are the surface area and volume occupied by
+water within pore i, respectively, D is the self-diffusion coef-
+ﬁcient of water, and Aw,ij , Lij are the cross-sectional area and
+length associated with the diffusion of water between pores i
+and j. Note that, since pore surfaces are covered with wetting
+ﬂuid at all times, Ap,i is a constant for each pore, whereas Vw,i
+and Aw,ij depend on ﬂuid occupancy and capillary pressure.
+Speciﬁcally, Vw,i = Sw,i Vp,i and Aw,ij = Sw,ij At,ij , where Sw,i
+and Sw,ij for pores and throats are both computed using Eq. [7].
+In compact form, Eq. [8] may be written as
+dM i
+dt =− ωρ · ri · Mi + ωc ·
+NN∑
+j
+sij
+lij
+·
+(Mj
+vj
+− Mi
+vi
+)
+, [9]
+
+--- PAGE 5 ---
+MAGNETIZATION EVOLUTION IN POROUS ROCK 163
+where
+ri = Ap,i
+Vw,i
+· ⟨Vw ⟩
+⟨Ap ⟩,v i ≡ Vw,i
+⟨Vw ⟩, sij ≡ Aw,ij
+⟨Aw ⟩, and lij ≡ Lij
+⟨L⟩
+(angular brackets denote average values). The parameters
+ωρ ≡ ρ · ⟨Ap ⟩
+⟨Vw ⟩= 1
+τo
+and ωc ≡ D⟨Aw ⟩
+⟨Vw ⟩⟨L⟩
+represent characteristic rates of relaxation at the ﬂuid-solid in-
+terface and of molecular diffusion between pores, respectively.
+Application of Eq. [9] to each pore yields an initial-value, linear
+ordinary differential equation problem, which is most efﬁciently
+solved by matrix diagonalization methods (11). To simplify the
+solution, the following change of variables is made:
+θ
+i = Mi
+√vi
+. [10]
+This change in variables modiﬁes Eq. [10] as
+dθi
+dt =− ωρ · ri · θi + ωc ·
+NN∑
+j
+sij
+lij
+·
+( θj
+√vj · vi
+− θi
+vi
+)
+, [11]
+or in matrix form,
+d
+dt {θ }=− [H] ·{ θ }, [12]
+where [ H] is a symmetric Hamiltonian matrix. The vector of
+initial conditions is given as
+θ(0) = 1√
+N
+·
+
+
+
+
+√
+v1
+√v2
+..
+.√
+vN
+
+
+
+
+, [13]
+where N is the total number of pores in the network. The solution
+of the problem deﬁned by Eq. [12] and Eq. [13] is expressed in
+terms of the eigenvalues and eigenvectors of matrix [H]a s
+M(t)
+M(0) =
+∑
+n
+|θ(0) · ψn |2 · e−λn t , [14]
+n(λ) =
+∑
+n
+|θ(0) · ψn |2 · δ(λ − λn), [15]
+where ψn are the eigenvectors and λn are the corresponding
+eigenvalues. Equation [15] gives the volume-weighted distribu-
+tion n(λ) of decay rates λ. In the absence of coupling between
+pores (ω
+c = 0), one hasλi = ρ Ap,i /Vw,i and the spectrumn(λ)a t
+Sw = 1 exactly corresponds to the volume-weighted distribution
+of inverse pore size.
+3. RESULTS AND DISCUSSION
+Determining all the eigenvalues and eigenvectors of large
+sparse matrices is a numerically intensive task. Due to computa-
+tional constraints, we limited our investigation to pore networks
+of size 15
+3 in 3D (without spatial correlation of pore sizes) and
+502 in 2D (with and without spatial correlation of pore sizes).
+To obtain statistically representative results, we studied 10 re-
+alizations of each pore network and averaged the results. Key
+properties of the pore networks used are listed in Table 1.
+3.1. Simulation of Drainage and Imbibition
+Capillary Pressure Curves
+Figure 3a illustrates the effect of parameter S
+∗
+w on the sim-
+ulated drainage and imbibition capillary pressure curves for a
+value of η = 1.5 (networks 3D-SS1U and 3D-SS2U). The re-
+sults from all 10 different realizations are plotted to illustrate
+the magnitude of variability among different realizations. In all
+simulations reported here, θ
+R = 40◦ and θA = 60◦. It is observed
+that, as S∗
+w increases, the increase of nonwetting phase satura-
+tion with capillary pressure (drainage) becomes more gradual.
+During imbibition, a greater amount of nonwetting ﬂuid is dis-
+placed before a large number of piston-type and snap-off events
+take place. The location of the main leg of the imbibition curve
+is not affected, but the residual nonwetting-phase saturation is
+considerably reduced as S
+∗
+w increases.
+The effect of parameter η is illustrated in Fig. 3b (networks
+3D-SS2U and 3D-SS3U). As can be seen, changing η from
+1.5 (rough, but not fractal pore geometry) to 0.5 (fractal pore
+geometry) results in even more gradual drainage and imbibi-
+tion curves. Reducing η has negligible effect on the residual
+nonwetting-phase saturation. In Fig. 3c, we compare the results
+from network 3D-SS3U (average over 10 realizations) to ex-
+perimental mercury porosimetry curves of a Berea sandstone
+sample (36). Note that both drainage and imbibition curves are
+well reproduced by the model using ξ = 6,η = 0.5, S
+∗
+w = 0.24,
+and the pore and throat size distributions shown in Fig. 1. No
+further attempt was made to optimize these parameters.
+To further verify the simulator ’s ability to describe quasi-
+static drainage and imbibition in reservoir rock, we modeled
+the mercury porosimetry curves obtained experimentally from
+a North Sea chalk sample (37). Backscatter SEM images of
+this sample were used to generate a 3D stochastic replica of its
+TABLE 1
+Network Simulation Parameters
+Model ρ (µm/s) ξ S∗
+w η PSD, TSD Spatial correlation
+3D-SS1U — 6 0.24 0.5 Fig. 1 No
+3D-SS2U — 6 0.24 0.5 Fig. 1 No
+3D-SS3U 5,100 6 0.24 0.5 Fig. 1 No
+3D-CH1U — 2 0.30 1.1 Fig. 4a No
+2D-SS3U 5 6 0.24 0.5 Fig. 1 No
+2D-SS3C 5 6 0.24 0.5 Fig. 1 Exponential
+
+--- PAGE 6 ---
+164 CHANG AND IOANNIDIS
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0.01 0.1 1 10
+Pc /σ (µm-1)
+Snw
+Sw* = 0.06
+Sw* = 0.24
+a
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0.01 0.1 1 10
+Pc /σ (µm-1)
+Snw η = 1.5
+η = 0.5
+b
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0.01 0.1 10 1
+Pc /σ (µm-1)
+Snw
+c
+FIG. 3. (a) Effect of parameter S∗
+w on simulated drainage and imbibition
+capillary pressure curves. (b) Effect of parameter η on drainage and imbibi-
+tion capillary pressure curves. (c) Comparison of simulated and experimental
+mercury porosimetry curves for Berea sandstone.
+microstructure, which was then analyzed using pore space parti-
+tioning techniques developed recently (23). The pore and throat
+size distributions measured in the 3D stochastic replica of the
+sample are shown in Fig. 4a. For details on the 3D reconstruc-
+tion and characterization of the chalk microstructure, the reader
+is referred to Talukdaret al. (37). As shown in Fig. 4b, network
+simulation of drainage and imbibition using ξ = 2,η = 1.1, and
+S
+∗
+w = 0.3 (network 3D-CH1U) is in very good agreement with
+the experiment. Again, no rigorous optimization of these para-
+meters was attempted.
+It is encouraging that the values of critical pressure ratioξ that
+give reasonable agreement with experiment are also in reason-
+able agreement with theoretical analyses of interfacial stability
+in pore throats of geometry representative of the media under
+consideration. A value of ξ = 6 for sandstone suggests the pres-
+ence of short pore throats of anticlastic shape, as might be ex-
+pected for consolidated packing of grains, whereas a value of
+ξ = 2 for chalk suggests the presence of elongated pore throats.
+Additionally, the value η = 0.5 for sandstone corresponds to
+a surface fractal dimension D
+s = 2.5, in reasonable agreement
+with published values (38), whereas pore surfaces in chalk ap-
+pear to be rough, but not fractal.
+It should be noted that the aforementioned results were ob-
+tained from pore networks in which throat sizes are correlated
+to the sizes of adjoining pores, but pores of similar size are not
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+0.16
+0.18
+0.01 0.1 1 10
+Size (mm)
+Distribution Function
+PSD
+TSD
+a
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0.01 0.1 1 10 100 1000
+Pc /σ (µm-1)
+Snw
+b
+FIG. 4. (a) Number-based pore (PSD) and throat (TSD) size distributions
+for North Sea chalk (after (37)). (b) Comparison of simulated and experimental
+mercury porosimetry curves for North Sea chalk.
+
+--- PAGE 7 ---
+MAGNETIZATION EVOLUTION IN POROUS ROCK 165
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+0.6
+0.7
+0.8
+0.9
+1
+0.001 0.01 0.1 1 10
+Pc /σ (µm-1)
+Snw
+FIG. 5. Effect of spatial correlation on simulated drainage and imbibition
+capillary pressure curves of 2D pore networks. Solid circles, uncorrelated pore
+sizes; empty circles, exponentially correlated pore sizes (correlation length =
+5 pores).
+clustered together (no spatial correlations). In previous studies
+(14, 15, 22), it was found that spatial correlation among the pores
+causes the drainage curve to become more gradual, increases
+the hysteresis between drainage and imbibition and reduces the
+residual nonwetting-phase saturation. These observations are es-
+sentially conﬁrmed by the results shown in Fig. 5 for networks
+2D-SS3U and 2D-SS3C. Using spatially correlated networks in
+the modeling of experimental drainage and imbibition capillary
+pressure curves would likely result in a modest decrease in the
+values of S
+∗
+w ,η and ξ that ﬁt the experimental data.
+3.2. Decay Rate Spectra of Fully Saturated
+Model Pore Networks
+Having established a pore network model capable of describ-
+ing the drainage and imbibition capillary pressure curves of a
+real sample, we examined NMR relaxation atS
+w = 1. Using the
+parameters corresponding to network 3D-SS3U (see Table 1),
+we carried out simulations usingρ = 100 µm/s (high surface re-
+laxivity) and ρ = 5 µm/s (low surface relaxivity). These values
+are roughly at the extremes of reported surface relaxivity values,
+with ρ = 5 µm/s frequently attributed to sandstones (17, 39). In
+each case, we compared the true decay rate spectrum to the one
+obtained if diffusion between the pores is ignored (i.e.,ω
+c = 0).
+These comparisons are shown in Fig. 6a ( ρ = 100 µm/s) and
+Fig. 6b (ρ = 5 µm/s). For ρ = 100 and 5 µm/s, the mean relax-
+ation times are τo = 0.0684 and 1.37 s, respectively. The ratio of
+the two is precisely equal to the ratio of surface relaxivities, as
+expected. For Berea sandstone samples, Latour et al. (6) have
+reported mean relaxation times in the range 0.2 –0.5 s for tem-
+peratures in the range 25–175
+◦C. Examination of Fig. 6 reveals
+that, for a high value of ρ, the effects of pore coupling on the
+spectrum of decay rates appear to be small, whereas for a low
+value ofρ, the spectrum is reduced to a sharp peak. The latter re-
+sult is in qualitative accord with the predictions of McCallet al.
+(11), for situations corresponding to ω
+c ≫ ωρ .I f ρ = 5 µm/s is
+representative of sandstones, however, our computations show
+that mangetization decay should be dominated by diffusive cou-
+pling, something which has not been observed experimental-
+ly (6).
+Remarkably, spatial correlations mask the effects of pore cou-
+pling on the decay rate spectra. This is born out by comparing
+the magnetization decay in 2D pore networks without and with
+spatial correlations (networks 2D-SS3U and 2D-SS3C, respec-
+tively) for a value of ρ = 5 µm/s. These results are shown in
+Fig. 7a for 2D-SS3U and Fig. 7b for 2D-SS3C. In the absence
+of spatial correlation the results are similar to those obtained
+from 3D networks (see Fig. 6a), as strong diffusive coupling
+signiﬁcantly reduces the breadth of the spectrum. The effect is
+somewhat weaker in 2D because of reduced pore connectivity,
+as also noted by McCallet al. (11). On the contrary, when pores
+of similar size are clustered together, exchange of magnetization
+by diffusion between pores cannot effectively homogenize the
+kinetics of surface-enhanced relaxation (see Fig. 7b). Note the
+presence of a number of small peaks in the spectrum shown in
+Fig. 7b. Coupling is not weak but localized, and therefore its
+effects are not observable in the presence of spatial structure
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+0.16
+1 10 100
+λ (s-1)
+n(λ)
+Uncoupled
+Coupled
+a
+0
+5
+10
+15
+20
+25
+0.1 1 10
+λ (s-1)
+n(λ)
+Uncoupled
+Coupled
+b
+FIG. 6. (a) Magnetization decay spectra for network 3D-SS3U with ρ =
+100 µm/s (ωρ = 15.59, ωc = 0.98). (b) Magnetization decay spectra for network
+3D-SS3U with ρ = 5 µm/s (ωρ = 0.78, ωc = 1.03).
+
+--- PAGE 8 ---
+166 CHANG AND IOANNIDIS
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+0.1 1 10
+λ (s-1)
+n(λ)
+Uncoupled
+Coupled
+a
+0
+1
+2
+3
+4
+5
+6
+0.1 10
+λ (s-1)
+n(λ)
+Uncoupled
+Coupled
+1
+b
+FIG. 7. (a) Magnetization decay spectra for network 2D-SS3U with ρ =
+5 µm/s (ωρ = 0.78, ωc = 0.98). (b) Magnetization decay spectra for network
+2D-SS3C with ρ = 5 µm/s (ωρ = 0.78, ωc = 0.98).
+(i.e., locally homogeneous pore size). On the basis of these ob-
+servations, we suggest that the broad relaxation rate spectra, ob-
+tained from water-saturated reservoir rock samples in numerous
+experimental studies, constitute evidence, not only of broad pore
+size distributions but also of correlated heterogeneity at length
+scales greater than the length scales of diffusion during NMR
+observation times.
+As a further test, we considered the recovery of the known
+volume-weighted distribution of pore sizes using multiexponen-
+tial inversion of the computed magnetization data, M(t) (see
+Eq. [3]). This inversion was accomplished using a simulated an-
+nealing algorithm described in the appendix. As shown in Fig. 8,
+the pore size distribution obtained by multiexponential analysis
+of the M(t) data agrees very well with the known pore size dis-
+tribution. However, none of the peaks evident in the spectrum
+of decay rates is recovered. This is likely a consequence of the
+ill-conditioned nature of the multiexponential inversion problem
+(4). It is, thus, not surprising that such peaks are not observed in
+the analysis of experimental data.
+3.3. Decay Rate Spectra of Partially Saturated
+Model Pore Networks
+Network Model 3D-SS3U was used to study NMR relaxation
+under conditions of drainage and imbibition. This network lacks
+spatial structure and, on the basis of the observations made in the
+previous section, it is not entirely representative of Berea sand-
+stone. Since we could not investigate NMR relaxation in large
+three-dimensional spatially correlated pore networks, we chose
+to study the problem using Model 3D-SS3U withρ = 100 µm/s.
+Under such conditions, the effects of pore coupling appear to be
+weak (see Fig. 6a).
+As seen in Fig. 9a, the larger pores are preferentially ﬁlled
+with nonwetting ﬂuid during drainage. Note that we do not con-
+sider bulk relaxation effects and therefore no signal from the
+nonwetting phase is reported in the spectra. The wetting ﬂuid
+in the invaded pores continues to be in contact with the entire
+surface of the pores, but its volumetric content decreases dur-
+ing drainage. This results in the gradual disappearance of the
+slower decay rates as the effective surface to volume ratio of the
+invaded pores increases, and the spectrum shifts toward higher
+rates. The remaining slow decay rates present in the spectrum
+belong to larger pores that are inaccessible by the nonwetting
+ﬂuid.
+During imbibition, the smaller pores are preferentially in-
+vaded by the wetting ﬂuid, resulting in the gradual disappear-
+ance of the faster decay rates, as shown in Fig. 9b. The spec-
+trum gradually shifts to slower rates as an increasingly greater
+amount of wetting phase exists in larger pores. As the nonwetting
+phase saturation decreases, the spectrum of decay rates shown in
+Fig. 9a for S
+w = 1 is only partly recovered, due to the presence
+of residual nonwetting-phase saturation. This is more clearly
+shown in Fig. 10a. Note the presence of a second peak in the
+spectrum under conditions of residual nonwetting-phase satu-
+ration. Pores containing trapped nonwetting phase also contain
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+0.16
+0.18
+0 5 10 15 20 25 30 35 40
+Rp (µm)
+Distribution Function
+Actual PSD
+PSD from decay rate spectrum
+PSD from M(t)
+FIG. 8. Recovery of pore size distribution (PSD) from the spectrum n(λ)
+and by inversion of M(t) using a simulated annealing algorithm.
+
+--- PAGE 9 ---
+MAGNETIZATION EVOLUTION IN POROUS ROCK 167
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+0.16
+1 10 100 1000
+λ λ (s-1)
+n(λ)
+Sw = 1
+Sw = 0.3
+Sw = 0.2
+a
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+1 10 100 1000
+λ (s-1)
+n(λ)
+Sw = 0.2
+Sw = 0.3
+Sw = 0.525 (residual)
+b
+FIG. 9. (a) Magnetization decay spectra of partially saturated pore net-
+work 3D-SS3U ( ρ = 100 µm/s) during drainage ( Sw = 1, ωρ = 15.59, ωc =
+0.98; Sw = 0.3, ωρ = 100.49, ωc = 2.39; Sw = 0.2, ωρ = 201.75, ωc = 2.92).
+(b) Magnetization decay spectra of partially saturated pore network 3D-SS3U
+(ρ = 100 µm/s) during imbibition (S
+w = 0.2, ωρ = 85.40, ωc = 1.30; Sw = 0.3,
+ωρ = 54.24, ωc = 1.49; Sw = 0.525, ωρ = 29.50, ωc = 1.46).
+a signiﬁcant amount of wetting phase, whose characteristic re-
+laxation rate is faster than most of the rates appearing in the
+spectrum at S
+w = 1. Figure 10b compares NMR relaxation rate
+spectra at the same saturation (Sw = 0.3) for drainage and imbi-
+bition. These spectra reﬂect the markedly different distribution
+of the wetting phase in each case. During drainage, large pores
+not accessible to nonwetting phase contribute to the slow-rate
+end of the spectrum. During imbibition, many of these pores
+contain trapped nonwetting phase, resulting in the appearance
+of a second peak corresponding to fast relaxation rates in the
+spectrum. Clearly, interpretation of decay spectra in terms of
+pore structure parameters cannot be made without knowledge
+of the history of saturation change.
+On the basis of the above observations, we investigated
+whether it is possible to identify the pores containing trapped
+nonwetting phase in the spectrum of decay rates at conditions of
+residual nonwetting phase saturation. A decomposition of this
+spectrum assuming that coupling effects are negligible is shown
+in Fig. 11a. As seen in this ﬁgure, the spectrum is almost per-
+fectly split into two portions. The slower rates are contributed
+almost exclusively from pores that are fully saturated with the
+wetting phase. If diffusion is ignored, the area under the peak
+corresponding to the fastest decay rates measures the fraction
+of pore volume occupied by wetting phase in pores containing
+residual nonwetting phase. Note that the slowest of these rates
+correspond to the largest pores containing residual nonwetting
+phase.
+When diffusion between pores is accounted for, a very dif-
+ferent picture emerges by decomposing the decay spectrum (see
+Fig. 11b). Slow decay rates are contributed by pores that are
+fully ﬁlled with wetting phase, as well as from pores that con-
+tain residual nonwetting phase. The same is true of fast de-
+cay rates. Large pores containing trapped nonwetting phase ex-
+change magnetization with smaller pores fully saturated with
+wetting phase and their effective decay rate decreases. Simi-
+larly, large pores fully saturated with wetting phase exchange
+magnetization with smaller pores containing residual nonwet-
+ting phase and their effective decay rate increases. Note that
+these observations concern a case for which surface relaxation
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+0.16
+1 10 100 1000
+λ λ (s-1)
+n(λ)
+Sw = 1
+Sw=0.525 (residual)
+a
+0
+0.02
+0.04
+0.06
+0.08
+0.1
+0.12
+0.14
+1 10 100 1000
+λ λ (s-1)
+n(λ)
+Drainage Sw=0.3
+Imbibition Sw=0.3
+b
+FIG. 10. (a) Comparison of magnetization decay spectra at Sw = 1 and
+Sw = 0.525 (residual after imbibition). (b) Comparison of magnetization decay
+spectra at equal saturation (Sw = 0.3) after drainage and imbibition.
+
+--- PAGE 10 ---
+168 CHANG AND IOANNIDIS
+0
+0.01
+0.02
+0.03
+0.04
+0.05
+0.06
+0.07
+0.08
+0.09
+1 10 100 1000
+λ (s-1)
+n(λ)
+No nwp Residual nwp
+a
+0
+0.01
+0.02
+0.03
+0.04
+0.05
+0.06
+0.07
+0.08
+1 10 100 1000
+λ (s-1)
+n(λ )
+No nwp
+Residual nwp
+b
+FIG. 11. (a) Decomposition of magnetization decay spectrum atSor condi-
+tions in the absence of interpore diffusion. (b) Decomposition of magnetization
+decay spectrum at S
+or conditions in the presence of interpore diffusion.
+is relatively strong (ρ = 100 µm/s) and the effects of interpore
+diffusion on the spectrum for Sw = 1 are apparently weak (see
+Fig. 6a). Nonetheless, diffusive coupling makes it impossible
+to distinguish pores containing trapped nonwetting phase in
+the spectrum. The same qualitative picture was obtained from
+simulations using Model 2D-SS3C.
+3.4. Relationship between Decay Rate Spectrum at S
+w = 1
+and Primary Drainage Capillary Pressure Curve
+Assuming fast-diffusion and weak effects of diffusive cou-
+pling, Kleinberg (17) suggested that relaxation rate spectra at
+Sw = 1 may be used to estimate primary drainage capillary pres-
+sure curves of porous rock. This suggestion is based on the
+additional assumptions that: (i) all pores of any given size are
+accessible by mercury at their corresponding entry pressure, and
+(ii) there is correlation between pore and throat sizes, so that en-
+try pressures, which are dictated by pore throat size, are directly
+related to the size of adjoining pore bodies. These assumptions
+suggest a scaling between drainage capillary pressure and relax-
+ation rate, such that κ = P
+c/λ is a constant. We tested this hy-
+pothesis using the spectra of decay rates obtained by simulation
+of the magnetization decay in Models 3D-SS3U (ρ = 100 µm/s,
+Fig. 6a) and 2D-SS3C ( ρ = 5 µm/s, Fig. 7b) at S
+w = 1. The
+results are shown in Fig. 12. In each case, a good match of
+the simulated drainage capillary pressure curves is obtained in
+the approximate range 0 .3 < S
+w < 1 with scaling factor κ ≈ 1
+(Model 3D-SS3U) and κ ≈ 20 (Model 2D-SS3C). The ratio of
+0.1
+1
+10
+100
+1000
+1 10 100 1000 10000
+Pc (psi)
+κ (psi.s)
+a
+0
+0.2
+0.4
+0.6
+0.8
+1
+1 10 100 1000 10000
+Pc (psi)
+Snw
+b
+0
+0.2
+0.4
+0.6
+0.8
+1
+1 10 100 1000
+Pc (psi)
+Snw
+c
+FIG. 12. (a) Scaling factor κ between relaxation rate and capillary pres-
+sure. Solid line, Model 3D-SS3U ( ρ = 100 µm/s, Fig. 6a); broken line, Model
+2D-SS3C (ρ = 5 µm/s, Fig. 7b). (b) Drainage capillary pressure curve (solid
+line) constructed by scaling the relaxation rate spectrum at Sw = 1 (Model 3D-
+SS3U, ρ = 100 µm/s) to the simulated drainage capillary pressure curve (points).
+(c) Drainage capillary pressure curve (solid line) constructed by scaling the re-
+laxation rate spectrum atS
+w = 1 (Model 2D-SS3C,ρ = 5 µm/s) to the simulated
+drainage capillary pressure curve (points).
+
+--- PAGE 11 ---
+MAGNETIZATION EVOLUTION IN POROUS ROCK 169
+the two κ values is equal to the inverse of the ratio of the corre-
+sponding surface relaxivity values, as expected. For Sw < 0.3,
+however, the scaling factor required to bring the two distributions
+into coincidence is observed to increase sharply with increasing
+capillary pressure, not unlike what is often observed experimen-
+tally (40). This result is explained by considering that pore space
+features that retain wetting phase at S
+w < 0.3 during drainage
+(i.e., microporosity) are here assumed to be diffusively coupled
+to the macropores in which they are contained. Within each pore
+in the network, magnetization is therefore uniform and decays
+as a single exponential. It is precisely for this reason that fast
+relaxation rates attributed to microporosity are not seen in the
+simulated spectra at S
+w = 1 (see Fig. 6a).
+4. CONCLUSIONS
+Network modeling was employed to study NMR relaxation
+under conditions of drainage and imbibition in porous media. A
+novel aspect of this work is that the model pore networks stud-
+ied were developed using microstructure information obtained
+by comprehensive geometric and topological characterization
+of 3D stochastic replicas of sandstone and chalk samples. The
+effects of unresolved pore space geometry on ﬂuid distribution
+were taken into account using a simple but physically mean-
+ingful two-parameter model. This enabled us to model quanti-
+tatively the measured mercury-air drainage and imbibition cap-
+illary pressure curves of Berea sandstone and North Sea chalk
+samples. Simulations of magnetization evolution in pore net-
+works revealed that, for pore structure and surface relaxation
+parameters representative of sandstones, spin diffusion between
+pores results in signiﬁcant narrowing of the decay rate spectrum,
+unless spatial correlation among pore sizes is taken into account.
+This result offers an explanation for the apparently contradictory
+experimental observation of broad relaxation time distributions
+under conditions of fast diffusion in water-saturated reservoir
+rock samples. We therefore suggest that such observations are
+evidence of correlated heterogeneity in porous rock.
+Additionally, we used the simulator to explore the relaxation
+response of partially saturated porous rock. The results reveal
+the appearance in the drainage spectra of decay rates faster than
+any of the rates observed at S
+w = 1. These rates were seen to
+correspond to the decay of magnetization in partially drained
+small pores. We suggest that similar observations in experimen-
+tal systems may be taken as an indication of diffusive coupling of
+magnetization between macro- and microporosity. Furthermore,
+it was observed that relaxation spectra at partial saturation are
+very sensitive to saturation history (drainage vs imbibition). It
+was also shown that diffusion of magnetization between pores
+precludes the identi ﬁcation of pores containing trapped oil in
+the spectrum of decay rates at S
+or . Finally, the connections be-
+tween drainage capillary pressure curves and relaxation spectra
+at S
+w = 1 were explored.
+NOMENCLATURE
+Ap Surface area of a pore [L2]
+At Cross-sectional area of a throat [L2]
+Aw,ij Cross-sectional area occupied by wetting phase within
+a throat connecting pores i and j [L2]
+D Self-diffusion coefﬁcient of wetting phase [L2t−1]
+Ds Surface fractal dimension [−]
+fi Fraction of pore volume with relaxation time Ti [−]
+Lij Length of diffusion path between pores i and j [L]
+Mi Magnetization in pore i [a.u.]
+Pc Capillary pressure [ML −1t−2]
+P∗
+c,i Capillary pressure for nonwetting-phase invasion in
+pore i [ML −1t−2]
+Rp Equivalent pore radius [L]
+Rt Equivalent throat radius [L]
+Sw Wetting phase saturation [−]
+S∗
+w Wetting phase saturation in pore upon invasion by the
+nonwetting phase [−]
+Sw,ij Wetting phase saturation in throat connecting pores
+i and j [−]
+Ts Surface relaxation time [t]
+Tb Bulk relaxation time [t]
+Vp,i V olume of porei [L3]
+Vw,i V olume of wetting phase within porei [L3]
+Greek Letters
+α Characteristic pore size [L]
+η “Filling” exponent [−]
+θA Advancing contact angle [◦]
+θR Receeding contact angle [◦]
+λn nth eigenvalue of matrix H [t−1]
+λ Relaxation rate [t−1]
+ρ Surface relaxivity [Lt −1]
+σ Interfacial tension [Mt −2]
+ξ Critical pressure ratio [−]
+ψn nth eigenvector of matrix H [a.u.]
+APPENDIX
+Multiexponential Inversion by Simulated Annealing
+A multiexponential magnetization decayM(t) may in general
+be written as
+M(t) = Mo
+∑
+i
+fi e−t/Ti , [A.1]
+where fi is the fraction of ﬂuid volume relaxing at a rate 1 /Ti
+and is constrained to be nonnegative. The established practice is
+to select a number of Ti values (N = 10 to 100), equally spaced
+on linear or logarithmic scales, and ﬁnd the corresponding co-
+efﬁcients fi (4). This problem is known to be ill-conditioned
+and its solution is not unique when M(t) is noisy or when the
+mathematical computation has ﬁnite precision. To improve the
+
+--- PAGE 12 ---
+170 CHANG AND IOANNIDIS
+reproducibility of the results, modern inversion algorithms make
+use of regularization, a technique that effects a certain degree of
+smoothing on the resulting distributions (4).
+In this work, inversion of simulated magnetization data,
+M
+sim(t)/Mo, to obtain fi was achieved using a simple algo-
+rithm. First, a number of Ti values ( N = 26), equally spaced
+in the range [0.3125, 3.4375], were assigned to the midpoints
+of an equal number of bins. The amplitude of these bins was
+initialized to f
+(0)
+i = 1/N, corresponding to an initially uni-
+form distribution of Ti values. Simulated annealing was then
+implemented to minimize the objective function:
+E(k) =
+∑
+j
+(
+Msim(tj )/Mo −
+∑
+i
+f (k)
+i e−tj /Ti
+)2
+. [A.2]
+At each iteration step k, two bins m and n (m ̸= n, f (k−1)
+m ≥
+δ f , f (k−1)
+n ≥ δ f ) were randomly chosen, and their amplitudes
+modiﬁed as
+f (k)
+m = f (k−1)
+m − δ f, [A.3]
+f (k)
+n = f (k−1)
+n + δ f, [A.4]
+where δ f ≪ 1/N. This modiﬁcation altered the objective func-
+tion by an amount /Delta1E(k) given by
+/Delta1E(k) = E(k) − E(k−1). [A.5]
+At each iteration step k, the modi ﬁcation was accepted with
+probability p(k)
+a given by the classical Metropolis rule,
+p(k)
+a =
+{1,/Delta1 E(k) < 0
+e−/Delta1E(k)/ψ(k)
+,/Delta1E(k) ≥ 0
+, [A.6]
+where ψ(k) is a control parameter whose value decreases slowly
+with the number of iterations. Details on determining the ini-
+tial value and rate of decrease of ψ
+(k) are given elsewhere (41).
+The simulated algorithm terminated when E(k) became smaller
+than a prescribed error tolerance or when no further reduc-
+tion of E
+(k) could be achieved after a set number of iteration
+steps. Note that the conditions f (k−1)
+m ≥ δ f and f (k−1)
+n ≥ δ f en-
+sured the nonnegativity of fi . Also, ∑
+i f (k)
+i = 1 at each iteration
+step k.
+ACKNOWLEDGMENT
+Financial support for this research from the Natural Sciences and Engineering
+Research Council (NSERC) of Canada is gratefully acknowledged.
+REFERENCES
+1. Banavar, J. R., and Schwartz, L. M., in “Molecular Dynamics in Restricted
+Geometries” (J. Klafter and J. M. Drake, Eds.). Wiley, New York, 1989.
+2. Kenyon, W. E., Log Analyst 38, 21 (1997).
+3. Halperin, W. P., D ’Orazio, F., Bhattacharja, S., and Tarczon, J. C., in
+“Molecular Dynamics in Restricted Geometries”(J. Klafter and J. M. Drake,
+Eds.). Wiley, New York, 1989.
+4. Watson, A. T., and Chang, C. T. P.,Progress Nucl. Magn. Reson. Spectrosc.
+31, 343 (1997).
+5. Brownstein, K. R., and Tarr, C. E., Phys. Rev. A 19, 2446 (1979).
+6. Latour, L. L., Kleinberg, R. L., and Sezginer, A., J. Colloid Interface Sci.
+150, 535 (1992).
+7. Howard, J. J., Kenyon, W. E., and Straley, C., SPE Formation Eval. 9, 194
+(1993).
+8. Kleinberg, R. L., Farooqui, S. A., and Horsﬁeld, M. A.,J. Colloid Interface
+Sci. 158, 195 (1993).
+9. Gallegos, D. P., and Smith, D. M.,J. Colloid Interface Sci. 122, 143 (1988).
+10. Cohen, M. H., and Mendelson, K. S., J. Appl. Phys. 53, 1127 (1982).
+11. McCall, K. R., Johnson, D. L., and Guyer, R. A., Phys. Rev. B 44, 7344
+(1991).
+12. Chatzis, I., and Dullien, F. A. L., Int. Chem. Eng. 25, 47 (1985).
+13. Wardlaw, N. C., Li, Y ., and Forbes, D.,Transp. Porous Media3, 597 (1987).
+14. Tsakiroglou, C. D., and Payatakes, A. C., J. Colloid Interface Sci.146, 315
+(1991).
+15. Ioannidis, M. A., Chatzis, I., and Sudicky, E. A., Water Resour. Res. 29,
+1777 (1993).
+16. Knackstedt, M. A., Sheppard, A. P., and Pinczewski, W. V ., Phys. Rev. E
+58, 6923 (1998).
+17. Kleinberg, R. L., Magn. Reson. Imaging 14, 761 (1996).
+18. Payatakes, A. C., and Dias, M. M., Rev. Chem. Eng. 2, 85 (1983).
+19. Celia, M. A., Reeves, P. C., and Ferrand, L. A., Rev. Geophys. 33, 1049
+(1995).
+20. Tsakiroglou, C. D., and Payatakes, A. C.,Adv. Water Resour.23, 773 (2000).
+21. Ioannidis, M. A., and Chatzis, I., Chem. Eng. Sci. 48, 951 (1993).
+22. Ioannidis, M. A., and Chatzis, I., J. Colloid Interface Sci. 161, 278 (1993).
+23. Liang, Z., Ioannidis, M. A., and Chatzis, I., J. Colloid Interface Sci. 221,
+13 (2000).
+24. Ioannidis, M. A., and Chatzis, I., J. Colloid Interface Sci. 229, 323 (2000).
+25. Diaz, C. E., Chatzis, I., and Dullien, F. A. L., Transp. Porous Media2, 215
+(1987).
+26. Legait, B., J. Colloid Interface Sci. 96, 28 (1983).
+27. Ioannidis, M. A., Chatzis, I., and Payatakes, A. C., J. Colloid Interface Sci.
+143, 22 (1991).
+28. Blunt, M. J., and Scher, H., Phys. Rev. E 52, 6387 (1995).
+29. Li, Y ., and Wardlaw, N. C.,J. Colloid Interface Sci. 109, 461 (1986).
+30. Tsakiroglou, C. D., and Payatakes, A. C., J. Colloid Interface Sci.137, 315
+(1990).
+31. Jerauld, G. R., and Salter, S., Transp. Porous Media5, 103 (1990).
+32. Wong, P.-Z., Howard, J., and Lin, J.-S., Phys. Rev. Lett. 57, 637 (1986).
+33. Radlinski, A. P., Radlinska, E. Z., Agamalian, M., Wignall, G. D., Lindner,
+P., and Randl, O. G., Phys. Rev. Lett. 82, 3078 (1999).
+34. Sahouli, B., Blacher, S., Pirard, R., and Brouers, F.,J. Colloid Interface Sci.
+214, 450 (1999).
+35. Tsakiroglou, C. D., and Payatakes, A. C., J. Colloid Interface Sci.159, 287
+(1993).
+36. Chatzis, I., A network approach to analyze and model capillary and transport
+phenomena in porous media, Ph.D. dissertation, University of Waterloo,
+1980.
+37. Talukdar, M. S., Torsaeter, O., Ioannidis, M. A., and Howard, J. J., Transp.
+Porous Media48, 101 (2002).
+38. Krohn, C. E., J. Geophys. Res. 93, 3286 (1988).
+39. Slijkerman, W. F. J., and Hofman, J. P., Magn. Reson. Imaging 16, 541
+(1998).
+40. V olokitin, Y ., Looyestijn, W. J., Slijkerman, W. F. J., and Hofman, J. P.,
+A practical approach to obtain 1st drainage capillary pressure curves from
+NMR core and log data, paper No. 9924, presented at the Annual Sympo-
+sium of the Society of Core Analysts, Golden, CO, 1999.
+41. Talukdar, M. S., Torsaeter, O., and Ioannidis, M. A., J. Colloid Interface
+Sci. 248, 419 (2002).

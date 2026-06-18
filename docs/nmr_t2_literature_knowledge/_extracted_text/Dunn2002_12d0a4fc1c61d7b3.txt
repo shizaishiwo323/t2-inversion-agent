@@ -1,0 +1,2025 @@
+--- PAGE 1 ---
+Chapter 4 
+Petrophysical NMR 
+measurements 
+4.1 NMR in porous media 
+As described in earlier chapters, the nuclear magnetic relaxation behavior of 
+water in porous media tends to be quite different from that of water in the 
+bulk phase. There were experiments [41, 37] performed which demonstrated 
+that water, when it resides in the pore space of a rock (e.g. Berea sandstone), 
+has a much shorter relaxation time (T1 typically varies from 10 to several 
+hundred milliseconds) than it has in the bulk phase (about 3 seconds). The 
+very same water, when removed from the rock, regains its long relaxation 
+time. Hence, the water that came into contact with the Berea sandstone 
+did not change, or at least did not change significantly enough to have any 
+discernible change in the relaxation time. Accordingly, one can only interpret 
+the fast relaxation of water in Berea sandstones as the result of enhanced 
+surface relaxation at the pore-matrix interface, which is presumably due to 
+a combination of paramagnetic impurity ions and reduced correlation times 
+at the interface. 
+In porous rocks, we mostly study the relaxation of hydrogen nuclei in the 
+pore space. The values of T~ and T2 are affected by the physical and chemical 
+properties of the rock fluids, the uniformity of the the static magnetic field, 
+the variations in pore sizes, the differences between the magnetic susceptibil- 
+ity of pore fluids and rock grains, the fluid viscosity and diffusion, and the 
+presence of paramagnetic impurity ions on the pore walls or in the fluids. 
+71 
+
+--- PAGE 2 ---
+72 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+4.1.1 Surface relaxation 
+The basic physics of NMR relaxation of fluids at solid surfaces in porous me- 
+dia were first studied by Korringa, Seevers, and Torrey [129]. They identified 
+two surface relaxation mechanisms: one occurs at all sites on the surface, and 
+the other is associated with dilute paramagnetic ion impurities. The relax- 
+ation process associated with all non-magnetic sites on the surface is much 
+too weak to account for the fast relaxation observed for water in rocks (A1- 
+magor and Belfort [6], D'Orazio et al. [73]). Para- and ferromagnetic ions, 
+such as iron, manganese, nickel, and chromium can cause strong surface re- 
+laxation. Their presence on the solid surfaces of the rock will dominate the 
+relaxation process of water in the pore space. Typical sandstones have about 
+1% iron content, and some contain a significant concentration of manganese. 
+This level of paramagnetic impurity ions will make spins relax very efficiently. 
+Carbonates, on the other hand, have more varied mineralogies, large vuggy 
+pores, and a wider range of surface relaxation strength (typically smaller 
+than sandstones). Hence, their relaxation times can sometimes be as long as 
+the bulk water values. 
+Fast, intermediate, and slow diffusion regimes 
+There is evidence that the relaxation of polarized proton spins in fluids, which 
+occupy porous rocks or biological tissues, cannot be described by a single re- 
+laxation time. Brownstein and Tarr [45] demonstrated that multiexponential 
+decay arises simply as a consequence of an eigenvalue problem of spin dif- 
+fusion in porous media of various sizes and shapes, even in the case of a 
+very simple shape of an isolated void or biological cell. They considered two 
+properties which govern the evolution of spin polarization in the system: (1) 
+paramagnetic materials on the solid/fluid interface acting as relaxation cen- 
+ters, and (2) classical diffusion of water molecules with the diffusion constant 
+characteristic of bulk water. 
+The governing equations for diffusion of spins in the porous media can 
+then be written as 
+DV2m(r, t) - m(r, t) = 
+TB 
+ft. DVm(r, t)+ inn(r, t) Is - 
+0re(r, t) 
+0t in the pore space 
+0 at the interface (4.1) 
+where re(r, t) is the density of unrelaxed spins, 1/TB is the bulk relaxation 
+
+--- PAGE 3 ---
+4.1. NMR IN PORO US MEDIA 73 
+rate, p is the relaxation rate at the solid/fluid interface, or surface relaxation 
+strength, D is the diffusion coefficient of spins in the pore fluid, and fi is the 
+unit outward normal on that interface (i.e., it points out of the pore space and 
+into the solid matrix). Brownstein and Tarr showed that the magnetization 
+M(t) - f re(r, t)d3r (4.2) 
+is given by a sum of decreasing exponential functions of time 
+(x) (x) 
+M(t) - M(O) ~ f~e -~t - M(O) ~ f~e -t/T~ (4.3) 
+n=O n=O 
+where fn are the relative amplitudes for each exponential decay, and An (or 
+1/Tn) are the eigenvalues of the time independent version of Eq. (4.1), i.e., 
+DV2r (r) + (r) - 0 (4.4) 
+with the boundary condition 
+ft. DVr (r) + pr (r) Is - 0 (4.5) 
+where the bulk relaxation e -t/TB has been factored out. (Note that the 
+bulk relaxation term is often neglected in the discussion because typically 
+TB >> T~ and the relaxation is dominated by 1lTd. However, this is not 
+always true as we shall discuss below.) These eigenvalues, A~ (1/T~), are 
+primarily determined by the geometry of the pore space. However, their 
+values depend strongly on p, the surface relaxivity, and D, the diffusion 
+constant of water. 
+Brownstein and Tarr found that when paiD << 1, where a is a character- 
+istic dimension of the system they considered, the lowest eigenvalue, 1~To, is 
+given by 
+1 S _ p (4.6) 
+-~oo ~- P V - a 
+where S is the pore surface and V is the pore volume, a can now be alterna- 
+tively defined as V/S, a characteristic dimension of the porous system. Thus, 
+the condition pa/D << 1 occurs when the the time it takes for the spin to 
+diffuse to the solid/fluid interface, t ~ a2/D, is much shorter than the spin 
+relaxation time, a/p, i.e., a fast diffusion situation. 
+
+--- PAGE 4 ---
+74 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+Based upon the three simple pore shapes which they studied, namely 
+parallel slab, circular cylinder, and sphere, Brownstein and Tarr categorized 
+the diffusion into three different regimes, i.e., 
+and 
+fast- paiD ~ 1, 
+intermediate- 1 ~ paiD ~ 10, 
+slow - 10 ~ pa / D 
+diffusion regimes. 
+In the fast diffusion regime, there is a large gap between the lowest eigen- 
+value, pS/V, and the second lowest and higher eigenvalues. Thus, the lowest 
+eigenvalue is the dominant term, and it depends only on S/V: No other de- 
+tail of the microstructure enters. This is because the fast diffusion equalizes 
+the spin density everywhere within the pore space. The fine details of the 
+pore geometry thus do not play a role in the magnetization decay, except at 
+extremely short times. 
+In the slow diffusion regime, the lowest eigenvalue is of the order of a2/D, 
+and expectedly, somewhat different for different pore shapes. Its value is very 
+close to the higher eigenvalues which contain detailed information on the 
+pore geometry. In this case, the magnetization decay has a multiexponential 
+behavior, even for a single pore. 
+Figure 4.1 illustrates the fast and slow diffusion behavior in a simple 
+pictorial way. On the left is the fast diffusion regime. Because of the fast dif- 
+fusion and the small surface relaxivity, the unrelaxed spin density is uniform 
+over the pore space. When these spins wander around and come into contact 
+with the surface and relax, the unrelaxed spin population is quickly equalized 
+through the diffusion process. As a result, the magnetization decays with a 
+uniform spin density. On the right is the slow diffusion regime. In this case, 
+the surface relaxivity is large and the diffusion is slow. The unrelaxed spin 
+density near the surface decreases faster than the rate at which the unrelaxed 
+spins can flow in, by diffusion from other parts of the pore space, to replace 
+the loss. The spin density thus develops a profile which is high at the center 
+of the pore and near zero at the pore surface. 
+The temperature and pressure effects 
+If rocks are in the slow diffusion regime, then their relaxation rates should 
+depend on the self diffusion coefficient of water which is very sensitive to 
+
+--- PAGE 5 ---
+4.1. NMR IN PORO US MEDIA 75 
+o~ 
+9 ,,h 
+................... i 
+Fast Diffusion 
+~ r., : 
+Slow Diffusion 
+Figure 4.1" Schematic diagram of the slow and fast diffusion regimes 
+temperature changes. Latour, Kleinberg, and Sezginer [138] have demon- 
+strated experimentally that T~ and T2 of water-saturated sandstones and 
+some carbonates are only weakly dependent on temperature over the range 
+of 25 ~ to 175~ Figure 4.2 shows some of their results. The lack of tem- 
+perature dependence of relaxation times has been taken as evidence that 
+water-saturated rocks are in the fast diffusion regime. It also suggests that 
+the surface relaxivity is independent of temperature. 
+In the same paper, Latour et al. [138] also demonstrated that the T1 
+relaxation behavior of oil-saturated rocks cannot be properly explained by 
+the slow diffusion analysis. If the fast diffusion regime is assumed, they 
+found Pou = pw/17 in one case, and po~l = p~/30 in another. However, 
+there is a significant difference between the temperature behavior of the T1 
+distributions of water-saturated rocks versus that of oil-saturated rocks. For 
+water-saturated rocks, the surface relaxation plays a dominant role, and the 
+bulk relaxation term can practically be neglected. Hence, if the surface 
+relaxivity is temperature independent, so is the T~ distribution. This is not 
+true in the oil-saturated rocks. Since po~l << p~, the surface relaxation is very 
+weak, and the oil bulk relaxation, which is temperature dependent, cannot 
+be neglected and has to be included in the consideration. As a result, even 
+
+--- PAGE 6 ---
+76 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+- ' 25"C 
+75"C 
+.......... ~_~ 
+, , , ,,,,,i ' ' ' , ,, ,,,,i 
+0.001 0.01 0.1 1 10 
+T 1 (s) 
+(a) 
+26"C 
+75"C 
+125~ 
+175"C 
+0.001 0.01 0.1 1 10 
+T 1 Is) 
+(b) 
+Figure 4.2" The T1 distributions of water-saturated sandstones (a) and car- 
+Donates (b) at four different temperatures. (From Latour et al. [138].) 
+though the surface relaxation is in the fast diffusion regime and independent 
+of temperature, the overall T~ distributions, when including the temperature 
+sensitive bulk relaxation, can be quite sensitive to temperature changes. 
+Recent work on carbonates by Ramakrishnan et al. [183, 184] and Ford- 
+ham et al. [86] indicated that the carbonates which Latour et al. [138] studied 
+are only a subset of carbonates whose T~ and T2 distributions are weakly tem- 
+perature dependent. They found that although that the T2 distributions of 
+most sandstones and some carbonates that Latour et al. studied are weakly 
+temperature dependent, there are other types of carbonates whose T2 dis- 
+tributions show strong temperature dependency. Figure 4.3 shows one such 
+type of carbonate sample which displays a strong temperature dependence in 
+its T2 distributions. They suggested a model which explains the temperature 
+dependent behavior of the T2 distributions of some types of carbonates, but 
+fails to explain the others (see discussion on carbonates in Section 4.1.3). 
+Chen et al. [57] studied the hydrostatic pressure effect on proton and 
+deuteron magnetic relaxation behavior of water in rocks and glass bead packs. 
+From ambient to 250 MPa, they found very little change in the T~ distribu- 
+tions of H20 and D20 saturated porous systems. The weak pressure depen- 
+
+--- PAGE 7 ---
+4.1. NMR IN PORO US MEDIA 77 
+lO 
+30a 
+7O 
+i\ '\ - ......... 130 /~/" /V'\ " 
+9 ~o~ !:,'i i\",: ' 
+!'_,'i! \**,'. ", 
+..... _~ ~.._~..~----~ _ ~; 
+' ...... ~Ci" ...... ii$ ~ ...... 1i$" ..... i6 0 .... io' 
+r~ (sec) 
+Figure 4.3: The T2 distributions from 30~ to 130~ for a carbonate rock 
+sample. (From Ramakrishnan et al. [184].) 
+dence of D20 relaxation in porous media appears to follow that of the bulk 
+liquid. 
+Relaxation of water-saturated rocks 
+Now that we know the relaxation of water-saturated rocks is usually in the 
+fast diffusion regime, the total relaxation rate of water in the pore space 
+is a simple volumetric rate average without involving the diffusion constant. 
+Suppose there is a surface layer of thickness A, such that any spin which enters 
+this layer relaxes at the surface relaxation rate 1~Tim, where the subscript 
+m stands for mineral or matrix. The total relaxation rate of the water in the 
+pore space 1/T1 can be written as: 
+1 1 (1- AS' 1 AS (4.7) 
+~ = T,--; T )~ T,~ V' 
+where S and V are the surface and volume of the pore space, respectively. 
+The bulk relaxation time, TIB, is of the order of 1 second, and the surface 
+relaxation time, Tim, for water in sandstones, is of the order of 0.1 to 1 
+
+--- PAGE 8 ---
+78 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+millisecond. If the second term on the RHS of Eq. (4.7) is much larger than 
+the first term, we can write: 
+1 pS 1 ,,k -- ~ : , p- , (4.8) 
+T~ v T~s T.~ 
+where 1/Tls is the surface relaxation rate. We now see that the total relax- 
+ation is dominated by the surface relaxation, and the relaxation time Tls is 
+proportional to the pore size a, which is characterized by V/S. Since the 
+spins diffuse very fast in the pore space, the earlier implicit assumption of 
+paramagnetic impurity ions being uniformly distributed over the pore surface 
+is really irrelevant. All spins within a pore will simply relax at a monoex- 
+ponential rate given by exp(-t/T~s). Similar arguments and Eqs. (4.7) and 
+(4.8) also hold true for T2. 
+The self diffusion coefficient for water at 25~ is: D = 2.5  10-Scm2/sec. 
+For one second, a spin can travel a distance of the order of x/6Dt, which is 
+about 120 #m. For sandstones, this is typically a distance of a few pores. 
+Travelling through a narrow pore throat, the spin is more likely to relax be- 
+cause of higher frequency of hitting the surface. As a result, the signal of 
+the total magnetization of the rock is the sum of all relaxation rates, each of 
+which is associated with an individual pore, or at most a group of neighbor- 
+ing pores. Since, each relaxation time is proportional to the pore size, this 
+becomes the basis for the assertion that NMR relaxation time distribution 
+reflects the pore size distribution. 
+4.1.2 Pore size distribution 
+Based on the understanding in the previous section, we can describe the 
+relaxation of the magnetization of a rock as follows: 
+n n 
+M(t)/Mo - ~ fje -t/T~ , ~ fj - 1, (4.9) 
+j=l j=l 
+where M(t) and M0 represent the magnetization at time t and 0, respectively, 
+and fj the volume fraction of those pores which have a relaxation time Tj. 
+Each relaxation time, Tj = aj/p, is characterized by its own pore dimension 
+aj and decoupled from other Tj's which have other values of aj. That is, 
+each individual pore or a group of neighboring pores, is relaxing more or 
+less independently of other pores because of the short diffusion distance we 
+discussed above. 
+
+--- PAGE 9 ---
+4.1. NMR IN PORO US MEDIA 79 
+Silt 
+Small pores 
+..... ~ +:i" . 
+Echo Trains 
+= Porosity 
+3 Exponentials 
+Multi- Exponentials 
+,' "n.. 
+T 2 Amplitude Distribution 
+Figure 4.4: A typical analysis of water-saturated rocks with three exponential 
+decaying curves from a nonlinear fit, as well as a continuous distribution of 
+relaxation times equally spaced on a logarithmic scale with corresponding 
+amplitudes from a linear inversion process. 
+To illustrate this, consider a possible time decaying NMR signal from a 
+brine-saturated rock as shown in Figure 4.4. The total signal is the sum 
+of those signals from the fluid in silt or shale, small pores and large pores, 
+each decaying at a monoexponential rate with a relaxation time Tj which 
+is proportional to the pore size in those regions, and with an amplitude fj 
+which is proportional to the amount of hydrogen nuclei (or volume fraction) 
+in those regions. 
+There are several methods for obtaining the values of volume fractions 
+fj and relaxation times T3. An early approach [212, 213] assumed a two- or 
+three-exponential model as follows: 
+M(t)lMo - fAe -tlTA + fne -tlTB 
+1 -- fA+fB, (4.10) 
+or 
+U(t)lUo - h~ -<i~" + i~ -~i~" + i~ -~i~ 
+
+--- PAGE 10 ---
+80 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+1 = fA+fB+fC, (4.11) 
+To analyze a set of data, for example M(ti)/Mo, we try to minimize the 
+following quantity 
+m 
+X 2 - ~-~(fAe -t'/TA + fse -t'/TB -- M(ti)/Mo) 2 (4.12) 
+i=1 
+by choosing appropriate fitting constants fA, fB, TA, and TB. This is a 
+nonlinear fit procedure. Sometimes, it is extended to four- or even five- 
+exponentials, and may include also the signal at infinite time as a regression 
+parameter. This procedure worked well for fitting most relaxation data but 
+the interdependency of the amplitudes and time constants made it difficult 
+to use for pore size estimation and comparisons of measurements on samples 
+under different saturation conditions. 
+Another early approach, a stretched exponential fit of the following form 
+suggested by Kenyon et al. [116, 121]: 
+M(t) - Moe (-t/T'~)~, (4.13) 
+is also a nonlinear fitting procedure. However, this method has not been used 
+widely. It does not provide an intuitive picture of its connection to the pore 
+size distribution. It is also difficult to incorporate other petrophysical anal- 
+yses such as the T2 cutoff for irreducible water saturation and the diffusion 
+effect. Furthermore, there are numerous relaxation data for petrophysical 
+samples that the stretched exponential form does not fit well. 
+It was soon found that these nonlinear inversion processes were not ad- 
+equate for efficient processing of the large amount of NMR logging data. 
+Therefore, instead of searching for the fitting constants, Tj, we assume a set 
+of Tj which are equally spaced on a logarithmic time scale and fit for the 
+amplitudes, fj, only. The inversion procedure reduces to a linear inversion 
+problem. Although this kind of linear inversion is well known to be ill-posed, 
+it provides a consistent definition of irreducible water saturation using a T2 
+cutoff, and it is very efficient in processing large amount of NMR log data. 
+Also because there is a physical basis for assuming a continuous pore size 
+distribution, this linear inversion method has gained wide acceptance in the 
+NMR logging community. We shall discuss this inversion in more detail in 
+Chapter 6. 
+Figure 4.4 also shows a relaxation time distribution with the relative am- 
+plitude fj corresponding to relaxation time Tj, as compared to a previously 
+
+--- PAGE 11 ---
+4.1. NMR IN POROUS MEDIA 81 
+inverted three exponential result. Since Tj is proportional to a/p where a 
+is the pore size (see Eq. (4.8)), this relaxation time distribution curve is 
+frequently considered as a reflection of pore size distribution. 
+It should be noted that Eq. (4.9) was written based on the assumption 
+that the water in the porous rock was in the fast diffusion regime. In fact, 
+even in the slow diffusion regime, we can still analyze the time decaying 
+magnetization using a sum of exponentials just like Eq. (4.9), except now 
+the relaxation time Tj is proportional to a2/D (instead of a/p) which is no 
+longer proportional to the pore size a and becomes dependent on the diffusion 
+coefficient of water. 
+Surface relaxivity 
+To treat the relaxation time distribution as a reflection of pore size distri- 
+bution, not only do we have to be in the fast diffusion regime, but also the 
+surface relaxivity, or the average surface density of paramagnetic impurity 
+ions for each pore, should be nearly the same over the whole rock. 
+Surprisingly, numerous experiments on brine-saturated rock samples 
+(Kenyon et al. [117, 118, 119], Straley et al. [208], Loren and Robinson [146]) 
+have shown that indeed the relaxation time distribution curve is very simi- 
+lar to the pore size distribution curve obtained by other techniques such as 
+mercury injection. Naturally, such similarity is not universal, as the NMR is 
+a measure of the size of the pore bodies, whereas the mercury porosimetry is 
+a measure of the size of the pore throats. However, if there is a reasonably 
+consistent factor between the pore throat and the pore body, then the NMR 
+relaxation time distribution can be quite similar to the pore size distribution 
+determined by mercury porosimetry. Of course, if the average surface relax- 
+ivity p is not fairly constant over the whole scale, then the similarity between 
+the two distributions can be affected. 
+Figure 4.5 from Straley et al. [208] shows an example of the T2 distribu- 
+tions of four brine-saturated sandstones versus the corresponding differential 
+mercury injection curves. The similarity between the two data sets is re- 
+markable. Figure 4.6 from Morriss et al. [168] shows a different example 
+for a particular type of rock, i.e., diatomite ~. The match between the two 
+1A type of rock formed from the siliceous shells of diatoms which are microscopic plants 
+living in the ocean. Diatomite's mineral composition is mainly amorphous silica (opal A). 
+It has extremely small pore sizes. 
+
+--- PAGE 12 ---
+82 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+o 
+2 
+~ 1..,I 
+I1) 
+Log l0 time constant, sec 
+-3 -2 -1 -0 ~l ,,,I I I 1I 
+4 3 i 1 () 
+Log10 pressure, psi 
+Figure 4.5: Differential mercury injection curves (solid) with the T2 distribu- 
+tions (dotted) for four sandstones. (From Straley et al. [208].) 
+distributions is again very good until the formation of opal CT 2 which has 
+a mercury injection pressure of 30,000 to 40,000 psi, and a corresponding T2 
+near 0.4 ms, which the NMR T2 measurements have completely missed. 
+By properly comparing the T1,2 relaxation time scale 
+1 S 2 = - (4.14) 
+T1,2 
+with the mercury entry pressure P 
+p = 2~, cos_______~, (4.15) 
+r 
+assuming a cylindrical pore of radius r, where 0 is the contact angle (140 ~ 
+and "~ is the surface tension (7.15  10 -3 psi. cm) for mercury, we get 
+~/cos.__.._O~. (4.16) 
+Pl,2-- T1,2P 
+2Under moderate pressures and temperatures, diatomite (opal A) becomes a partially 
+crystallized less hydrous silica, called opal CT, before finally turning into quartz at even 
+higher pressures and temperatures. Opal CT has even smaller pore sizes than opal A. 
+
+--- PAGE 13 ---
+4.1. NMR IN POROUS MEDIA 83 
+Thus, the surface relaxivity, based on a cylindrical model, can be easily 
+estimated. 
+For Straley et al.'s example shown in Figure 4.5, the match of the two 
+scales was found at T2P = 5.33 s. psi, leading to P2 - 10.3 #m/s. For Morriss 
+et al.'s example in Figure 4.6, we have T2P = 10 s-psi and p2 = 5.5 #m/s. 
+Kleinberg [125] found that the surface relaxation strength, determined 
+from comparing T2 with the mercury injection curve, is very close to that 
+determined by comparing T~ with the air-water capillary curve. This consis- 
+tency thus lends support to the validity of the general approach. He found 
+that p values for many sandstones are quite consistent with the surface re- 
+laxivity found for other porous media. Other work by Borgia et al. [32] and 
+Bryar et al. [46] have found similar Pl values for sandstones. However, Bryar 
+et al. also found some silica gel with p~ as low as 1.2 x 10-a#m/s. The values 
+of surface relaxivity for various porous materials are shown in Table 4.1. 
+Earlier work by Howard et al. [104], using an optical method to evaluate 
+the pore dimension, had come up with p values about an order of magnitude 
+higher, apparently due to the complication of not being able to properly 
+characterize the surface to volume ratio of the porous media. There is a more 
+sophisticated method which extracts the surface to volume ratio from the 
+short time behavior of the restricted diffusion coefficient D(t)/Do. We shall 
+discuss this approach in detail in Chapter 7. Using this method, Hilrlimann 
+et al. [108] found p~ - 16 #m/s for a Fontainebleau sandstone sample. 
+T1/T2 ratio 
+Early laboratory NMR work on rocks was confined mostly to T~ measure- 
+ments at proton Larmor frequencies of 10 MHz and above, except for work 
+on the NML project at Chevron in the 1950's, which covered fields corre- 
+sponding to the frequency range from 8 kHz to 30 MHz. This is because 
+the T2 measurements are often affected by the diffusion effect caused by the 
+internal field gradients which are difficult to characterize. In the subsequent 
+development of pulsed NMR logging tools, it became apparent that only 
+T2 CPMG type measurements could offer short enough measurement time 
+and practical logging speed. With a very short echo spacing, presumably 
+the diffusion effect due to unknown internal field gradients in the T2 CPMG 
+measurements of the logging tools (Larmor frequency at 1 to 2 MHz) can be 
+kept to a minimum. 
+It then becomes desirable to learn what the 7'1 distribution of the rock 
+
+--- PAGE 14 ---
+84 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+,,,", 1304 ft /~ 1774 ft 
+(,~o,) ,r ,_-~o, ("") /i ~ ,_-~,0 
+f \ ;, ,i(:3..I) " 0.6 /.," ~\ 9,(3~) " 0.4 
+--/ ..... ..... ..,-/_:: .... .... :r,,:, , 9 .... ~ ......... 9 .... ~ ,- 
+.", t3.~ ft 
+/.....- \! ,,,(,,)-t, 
+.! 1926 ft 
+~f(3~ - 08 
+,/, T=~- 6.8 
+"" i - - 
+./: \ " ~,,(,~ 4.7 
+. ---.-:- ..... 
+2008 ft 
+tPf(3~) = 0.0 
+TZ~ I- 6.4 
+(r~) 
+.',, 1744S ff 
+~! ~,~- 57.7 
+Z-"" ~' ,,(33) " 0.9 
+...... "~ ..... r---~ .... ._A _ ; 
+,', 2119 ff 
+~,(3~ - 0.0 
+TI.~II,, 3.4 
+(r~) 
+,,"~ r/64 ft 
+...... -:-:,:'.. ...... , .... .',L_r . _. 
+2472 ft 
+. "...~.. ,,o~- o.3 
+I(~ ' I i ' i" i ! i i .... J' 
+1oooo too(} lOO lo loo(3oo 1oooo looo too lo 
+Mercury Pressure (p=3 Mercury Pressure (p=~ 
+i I ,L .... 9 .... I 9 _ 9 , ll Ii~ 
+o., to ,o'.o ~o.o x)oo.o o., Lo ~).o .o ,~oo.o 
+T2(ms) T2(ms) 
+Figure 4.6: Differential capillary pressure curves (dashed) compared to T2 
+distributions (solid) on cleaned and water-saturated samples from diatomite 
+reservoir. Sample depths for the capillary pressure measurements are shown 
+on the left in parentheses. Sample depths for the NMR measurements are 
+shown on the right, along with NMR porosity (r free fluid porosity 
+(r and logarithmic mean of T2 relaxation times (T2,~og). The opal CT, 
+characterized by a peak near 30,000 psi mercury injection pressure on the 
+right panel of the figure, was not detected by the NMR T2 measurements. 
+(From Morriss et al. [169].) 
+
+--- PAGE 15 ---
+4.1. NMR IN PORO US MEDIA 85 
+Table 4.1" Surface relaxivities of several porous materials 
+Material pl (#m/s) Ref. 
+Quartz 3 
+Silica gel 1-13 
+Porcelain 4 
+Alumina 3 
+Glass beads 5 
+Glass beads 11 
+[194] 
+[217] 
+[146] 
+[35] 
+[35] 
+[207] 
+Ultraclean crushed SiO2 1.5 ~ [42] 
+Microporous porcelain 2.5 ~ [33] 
+Sandstones 2.39 b [32] 
+Sandstones 0.37 b [97] 
+Sandstones 0.61 ~ [195] 
+Silica gel 1.2  10 -3 
+Porous silica glass 1.8 x 10 -3 
+Silica gel 4.2  10 -3 
+Silica gel (3.1- 7.7)  10 -3 
+Quartz sand 0.013 + 0.015 
+Quartz 0.83 
+Synthetic Ca silicate 0.406 - 4.04 
+Silica sand 2.89 - 3.06 
+Sandstones 9.0-46 
+[46] 
+[72] 
+[91] 
+[101] 
+[46] 
+[122] 
+[85] 
+[101] 
+[~86] 
+Fontainebleau sandstone 16 [108] 
+acomputed with monoexponential. 
+bcomputed by initial rate. 
+%omputed by geometric mean of relaxation rates. 
+
+--- PAGE 16 ---
+9 - 
+CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+0 - 
+10-4 
+30 
+LL6 T 1 (2 MHz) 
+,' 
+"i"2(2 
+, ...... -,.; 'i".':.".-'--.. ....... 
+10-3 10-2 lO-I 10 o 10 ! 
+T l(s) or 2.58xT 2(s) 
+Figure 4.7" An example of T1/T2 cross correlation. The T2 distribution has 
+been shifted by a factor of 2.58 to the right to most closely match the T~ 
+distribution. (From Kleinberg et al. [127].) 
+25 Mean T 1/T2=1.65 _ 
+20 
+15 
+10 
+86 
+,,,, 
+0 1 
+-I .... 
+2 3 4 
+~/'!'2 (2aHz) 
+Figure 4.8: Histogram of 2 MHz T1/T2 ratio for 105 rocks. The CPMG echo 
+spacing is 0.16 ms. (From Kleinberg et al. [127].) 
+
+--- PAGE 17 ---
+4.1. NMR IN POROUS MEDIA 87 
+looks like at the same Larmor frequency (1 to 2 MHz) at which we measured 
+the T2 distribution, what the differences between the two are, and what 
+causes those differences. 
+Kleinberg et al. [126, 127] investigated many rock samples and found that 
+when sufficiently small echo spacing is used, the diffusion effect for T2 at 1 
+to 2 MHz Larmor frequency can be minimized, and that the T2 distribution 
+has a similar appearance to that of T~ with a slight shift of the scale. Figure 
+4.7 shows such a comparison where the T2 scale is shifted to longer times 
+by multiplying by a factor of 2.58. Figure 4.8 shows the result of such an 
+investigation for 105 rocks at a Larmor frequency of 2 MHz. The mean 7'1/7'2 
+ratio is about 1.65. 
+The T2 relaxation process in rocks is controlled by a number of mech- 
+anisms. Bulk relaxation can often be neglected. The surface relaxation 
+mechanism is the same as the one that dominates the T~ relaxation process 
+in rocks, and provides the link to the pore size distribution of rocks. The 
+third mechanism is molecular diffusion in macroscopic and microscopic field 
+gradients. The CPMG pulse sequence and low Larmor frequencies can be 
+used to minimize this diffusion effect. However, the internal gradients, in- 
+duced by magnetic susceptibility contrasts between the pore fluid and solid 
+matrix, occur at the pore scale and are difficult to eliminate completely by 
+the CPMG pulse sequence. This kind of internal field gradient due to mag- 
+netic susceptibility contrast is proportional to the applied field strength. The 
+enhanced relaxation rate it brings about is proportional to the square of the 
+applied field strength. It is the primary source for the difference between T~ 
+and T2 distributions [19]. As the Larmor frequency increases, the T~/T2 ratio 
+is expected to increase. 
+Kleinberg et al.'s work [126, 127] has shown that aside from special cir- 
+cumstances such as the existence of extremely large internal field gradients, 
+T2 distribution can reflect the pore size distribution of rocks with limitations 
+similar to those in the case of T~ distribution. Their work also provides the 
+important information that the T1/T2 ratio at 2 MHz is roughly around 1.65. 
+This information can be used for porosity corrections in data inversion pro- 
+cess when the repeat delay time between excitations during logging is not 
+sufficient to have a complete polarization recovery of the spins. 
+
+--- PAGE 18 ---
+88 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+4.1.3 
+Clastics 
+NMR behavior of different rock types 
+The T1 or T2 distributions of sedimentary rocks have been studied exten- 
+sively. In such rocks, consistent NMR behaviors have been observed and 
+correlated to petrophysical parameters of interest to the petroleum industry. 
+Laboratory measurements [127] have shown that sandstones typically have a 
+paramagnetic ion content of 1% and grain susceptibilities ~ 10 -s cgs/cm 3. 
+The surface relaxivity typically falls in a narrow range of 1-10 #m/s [125, 32]. 
+The T2 distribution is often highly correlated to the pore size distribution. 
+When the grains are well sorted, the T2 distribution can display a single 
+peak at long relaxation times. Typically, a short relaxation time component 
+is present as a shoulder or a separate bump indicating the presence of fine 
+silt with capillary bound water or clays. The permeability formula devel- 
+oped from laboratory measurements usually works quite well for predicting 
+permeability from NMR logs. 
+Carbonates 
+Carbonates usually have a surface relaxivity almost an order of magnitude 
+smaller than that of sandstones. As a result, the diffusion coupling between 
+pores is stronger. Thus, different pore scales, which would have different re- 
+laxation times in sandstones, are coupled to each other through the diffusion 
+process, and merge to yield an intermediate state, or in the extreme case, a 
+single relaxation time characteristic of the combined surface to volume ra- 
+tio. Hence, the T2 distribution of a carbonate may not reflect the pore size 
+distribution of the rock. 
+Ramakrishnan et al. [183, 184], using a random walk simulation, were 
+able to demonstrate that, indeed, the surface relaxivity plays an important 
+role in determining whether the NMR relaxation time distribution reflects 
+the pore size distribution. If the surface relaxivity is weak, spins diffuse easily 
+between large and small pores, there can be a strong coupling of the decay of 
+the magnetizations for large and small pores, and the NMR relaxation time 
+distribution no longer reflects the pore size distribution. 
+They suggested a model for the analysis of carbonates which consist of a 
+three-dimensional array of spherical grains surrounded by intergranular pore 
+space, where all spherical grains are microporous, with a porosity of Cu. The 
+total porosity of the system is r which is the sum of the intergranular pore 
+
+--- PAGE 19 ---
+4.1. NMR IN POROUS MEDIA 89 
+space and the micropores of the grains. Assuming that the surface relaxivity 
+p is the same for both the fluid/solid interfaces in the intergranular pores and 
+the microporous pores, they were able to show that the apparent relaxivity Pa 
+of the fluid/solid interface in the intergranular pores is given by the following 
+expression 
+~cP~Do~cP~Do (4.17) 
+Pa~P(1-r F, T2, ~ F, T2,' 
+where Do is the diffusion coefficient of the pore fluid, F, is the local formation 
+factor for the microporous grains, and T2" is the local T2 relaxation time for 
+the micropores (i.e., 1/T2, - pS~,/V,, S~, and V, being the surface and pore 
+volume of the microporous medium). The second term is much larger than 
+the first term, hence, the apparent relaxivity can be approximated by the 
+second term. 
+With this model, the apparent relaxivity becomes temperature sensitive 
+through the diffusion coefficient. They argued that this explains the tem- 
+perature dependent behavior of the T2 distribution for carbonates of grain- 
+supported lithology when two pore length scales exist. For carbonates with 
+mud supported lithology which also show strong temperature dependence in 
+their T2 distributions, they speculated that the intrinsic relaxivity p itself 
+may be temperature dependent [86]. 
+Thus, the temperature dependent behavior of the T2 distributions for 
+carbonates has not been fully understood yet. Some of them may be simply 
+due to the fact that the temperature sensitive bulk relaxation time cannot 
+be neglected for carbonates which have large pore sizes and a small surface 
+relaxivity. One of the consequences of the temperature dependent behavior 
+of the T2 distributions is that the T2 cutoff (see Section 4.3.2) determined at 
+room temperature in the laboratory may need modifications in the analysis 
+of the T2 data acquired at the reservoir temperature. 
+Clay 
+The short relaxation time components in a T2 distribution of a rock is fre- 
+quently attributed to the water in clays. It is common practice to categorize 
+the T2 components below 3 ms as being associated with clay bound water, 
+and those between 3 and 33 ms to be irreducible capillary bound water, 
+and those above 33 ms to be free fluid. Clearly, this is an oversimplified 
+partition. Earlier, Straley et al. [208] compared the clay-bound water vol- 
+
+--- PAGE 20 ---
+90 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+ume (computed from cation exchange capacity/pore volume, Q,~, which was 
+determined from electrical membrane measurements) with the NMR T2 mea- 
+surements at 2 MHz, for 45 oilfield sandstones, and determined that the T2 
+cutoff at 3 ms provided the best correlation between the two. Later, Prammer 
+et al. [177] reported measurements of T2 relaxation times for various types 
+of clay, and showed that these clays cover a wide range of relaxation times. 
+Their results (shown in Table 4.2) indicate that kaolinite has T2 relaxation 
+time peaks varying from 8 to 16 ms, whereas illite has T2 peaks around 1 to 
+2 ms and montmorillonite has T2 peaks from 0.3 to 1 ms. 
+Prammer et al.'s work [177], though pointing out that the convenient T2 
+cutoff at 3 ms for categorizing clay is somewhat arbitrary, does suggest the 
+possibility that the T2 peak position can be used for clay typing. 
+Further work by Matteson et al. [156] suggested that such clay typing 
+may be difficult. They conducted T~ and T2 measurements of brine mixed 
+with four clays (kaolinite, smectite, illite, and glauconite) as function of com- 
+paction, at a Larmor frequency of 2 MHz and an echo spacing of 0.16 ms (sim- 
+ilar to those used in Straley et al.'s experiments [208]). The measurements 
+were started on clays in a state of slurry and proceeded to clays subjected 
+to a compaction pressure of 16,000 psi. Their results (shown in Figure 4.9) 
+indicate that there is only one relaxation peak, regardless of clay type, which 
+shifts from over 10 ms continuously to below 1 ms as the compaction pressure 
+increases. Thus, they concluded that it is not possible to do clay typing from 
+the NMR T2 relaxation time distributions if the compaction history is not 
+known. 
+From their experiments, the shift of the T2 relaxation time appears to be 
+simply reflecting the change of pore volume (surface area, presumably, should 
+stay constant) as a function of the compaction. Assuming the surface area of 
+the clay stays the same during compaction, the computed surface relaxivity 
+remains nearly constant as a function of compaction. Among the four clays 
+they studied, kaolinite has the lowest value for the surface relaxivity, 1.8 
+#m/s, and glauconite has the highest, 3.3 #m/s. The T2 peak positions of 
+the slurry and centrifuged samples are, from the longest to shortest relaxation 
+time, kaolinite, smectite, illite, and glauconite. For compacted samples from 
+500 to 16,000 psi, the kaolinite has the longest relaxation time, whereas 
+smectite, illite, and glauconite have the same peak position which is shorter 
+than that of kaolinite. 
+One of Matteson et al.'s findings was that there does not exist a separate 
+peak as clay-bound water. All the observed peaks appear to be simply due 
+
+--- PAGE 21 ---
+4.1. NMR IN PORO US MEDIA 91 
+Table 4.2: Prammer et al.'s laboratory T2 measurements at 1 MHz and at 
+25~ of various types of clay. Samples were saturated with different amounts 
+of brine, pressed at 2,500 psi, and sealed. Water weight was determined from 
+weight loss by overnight drying in a vacuum chamber at 103~ The apparent 
+transverse surface relaxivities p2 are calculated from specific surface area, the 
+water-to-dry weight ratios, and T2 values. All measurements were performed 
+at an echo spacing of 0.5 ms. 
+Clay Type Water Wt ~ Signal b T2 ~ p2 d Remarks 
+(%) (%) (ms) (#m/s) 
+Montmorillonite 7.0 20 - - 
+18.9 90 0.3 1 
+31.1 100 0.5 1 
+54.4 100 1 0.9 
+T2 < 0.2ms 
+T1 -- 1.5ms 
+Illite 8.8 90 1 0.9 
+15.8 100 2 0.8 
+Kaolinite 11.7 100 8 0.8 
+17.4 100 12 0.8 
+20.0 100 16 0.7 T1 = 30ms 
+Chlorite 7.5 100 5 0.4 P2 too low ~ 
+~Water weight per dry clay weight. 
+bRatio of measured NMR amplitude per milliliter water content. 
+~T2 of clay bound water. 
+~Apparent transverse surface relaxivity. 
+ep2 may be too low as a result of overestimated surface area. 
+
+--- PAGE 22 ---
+92 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+o~. 
+ol o.7 F 
+Ka o Iinite ~| S lu rry 
+4000 psi 
+A , 8000 psi 1 
+16000 psi 
+0 
+2 
+0 
+2I'" o 
+o 
+,, , "' ', 27 psi ] 
+0 
+:if A 1000 psi t 
+2000 psi 1 
+I 
+o 
+0.7 
+0 
+4000 psi 
+8000 psi 
+0.5 
+0. 
+3O 
+0 
+0 /% 
+16000 psi 
+8 psi 1 
+2 
+0 
+2 
+1. 0 
+0 
+0.7 
+0 
+0.50 
+, ~ ,, 0.5 
+8000 psi t 
+1 6000 psi 
+] 
+10 ~ 10" 10 "4 10 "= 10 "z 10" 010.4 10 "~ 10 .2 10" 10 ~ 
+T= (sec) T= (sec) 
+10' 
+Figure 4.9: The T~ and T2 distributions of clay-brine slurries for kaolinite, 
+smectite, illite, and glauconite. (From Matteson et al. [156].) 
+
+--- PAGE 23 ---
+4.2. DIFFUSION IN POROUS MEDIA 93 
+w 
+o q.. 
+o 
+E 
+"o 
+& 
+o 
+m 
+m 
+Q 
+E Ilc 
+z 
+m L 
+IL 
+0.~ , , 
+Vaporized 
+clay 
+0.40 I 
+Unimoda/ 
+T2 
+o~ / A 
+0.10 -~1 
+0.10 
+Water-saturated clay 
+It -~- 9 
+BirnodaJ " ' | 
+T 2 I I 
+e ~ I t 
+W,w-r~t.~,mu., .,on~.o~.- 
+= = -WaSer-mluniled Ca montmodlloniSe 
+--Vaporized Na montmodllontlll 
+Vaporized Ca monlmodllonitt __. 
+1.00 10.00 100.00 1000.( 
+T2 in ms 
+Figure 4.10" Typical T2 distributions of hydrated montmorillonite. 
+Chitale et al. [61].) 
+(From 
+to the pore water between the clay particles. Chitale et al. [61], on the other 
+hand, found that for hydrated samples of Ca and Na montmorillonite there 
+exists a fast T2 component clustered around 1 ms. As the water content 
+increases beyond the critical saturation for the clay, the T2 distribution be- 
+comes bi-modal, with the fast component staying the same near 1 ms and 
+the slow component moving toward longer time. Chitale et al.'s result is 
+shown in Figure 4.10. While there are differences between the experimental 
+findings, it seems fair to say that kaolinite has the longest relaxation time 
+under the same compaction history. Thus, at least distinguishing kaolinite 
+from other clays appears possible. 
+4.2 Diffusion in porous media 
+Near the end of Chapter 2, we discussed the effect of diffusion of spins in a 
+constant field gradient in an infinite medium. In a Hahn's echo measurement, 
+the spin dephasing due to diffusion causes an additional magnetization decay 
+besides the normal T2 relaxation. The total decay is given by the following 
+
+--- PAGE 24 ---
+94 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+expression 
+exp T2 -~"/ G2 Dr a , (4.18) 
+where 2T is the echo spacing, 3' is the gyromagnetic ratio, G the constant 
+field gradient, and D the self diffusion coefficient of the molecule where the 
+spin resides. For a CPMG type measurement, the magnetization decay of 
+the nth echo is given by the following expression 
+/4.10/ r2 " 
+Diffusion only affects T2, not the 7'1 measurement a, because there are spin 
+dephasing and refocusing involved in the former. 
+We should first realize that, if the field is perfectly homogeneous every- 
+where, the diffusion of spins will not produce any degradation to the magne- 
+tization. This is because all spins, no matter where they go, precess at the 
+same Larmor frequency, and there is no dephasing. If there is a field gradient 
+and no diffusion, then the dephased spins can be brought back in phase by a 
+7r pulse for refocusing in a spin echo experiment. In reality, neither a perfectly 
+homogeneous field nor a non-diffusive spin is possible. Thus, when both field 
+gradient and diffusion are present, dephasing will occur and cause further 
+degradation in the T2 magnetization decay. Eqs. (4.18) and (4.19), which 
+describe these decays, are strictly valid only for an infinite fluid medium, 
+and are only approximately correct in a porous medium under conditions of 
+restricted diffusion. 
+4.2.1 Enhanced T2 relaxation 
+As we move from relaxation in an infinite fluid medium to relaxation in a 
+fluid-saturated porous medium, analysis becomes more complicated. How- 
+ever, as long as the diffusion time is short, i.e., the T in Eq. (4.19) is small, we 
+can assume most of the spins do not experience the presence of the pore wall. 
+Thus, Eq. (4.19) derived for an infinite uniform fluid is still approximately 
+correct for the pore fluid in the rock. We can write the measured apparent 
+T2 relaxation rate of the rock in the following form: 
+1 1 1 1 
+- T2-"B + ~ + T2D (4.20) 
+3See footnote [1] of Chapter 2 in p. 29 
+
+--- PAGE 25 ---
+4.2. DIFFUSION IN POROUS MEDIA 95 
+where the 1/T2 in Eq. (4.19) is replaced by 1/T2B + 1/T2s, and the enhanced 
+relaxation rate is replaced by 1/T2D. 
+T2B represents the T2 value for the bulk fluid, and T~s represents the 
+relaxation caused by the surface relaxivity which we discussed in the previous 
+section, i.e., 
+1 S 
+T2"---~ = P2V" (4.21) 
+The enhanced T2 relaxation rate, caused by the effect of spin diffusion in a 
+field gradient, is given by: 
+1 _- (,yG~-)2D = ('yGtE)2D, (4.22) 
+T2D 3 12 
+where tE -- 2T (TE) is the time between echoes. 
+In general the value of 1/T2B is much smaller than 1/T2s, and usually can 
+be neglected. Then the relaxation rate 1/T2s is enhanced by the presence 
+of 1/T2D. For porous systems such as rocks, which have multiple pore sizes, 
+T2s is replaced by a distribution of T2 values representing different pore sizes, 
+and each of them is modified by a constant enhanced relaxation rate 1/T2D 
+when the rock is placed in an externally applied constant field gradient and 
+there are no significant internal gradients. Thus, a large T2s experiences a 
+large shift in the apparent T2, whereas a small T2s acquires only a very small 
+shift in its apparent value. 
+As we stated earlier, Eq. (4.20) is approximately valid for fluid-saturated 
+rocks as long as the diffusion time (i.e., TE or 2~-) is very short. For the same 
+length of diffusion time, a large field gradient causes much faster dephasing. 
+Naturally, the length of this diffusion time, for which Eq. (4.20) is approx- 
+imately valid, depends on the value of the externally applied constant field 
+gradient. The larger the value of the field gradient, the smaller the value of 
+the diffusion time for which Eq. (4.20) is approximately valid. 
+Under such constraints, Eq. (4.20) is frequently used for the analysis of 
+T2 distributions of rocks in a well-defined externally applied constant field 
+gradient. Note that 1/T2D cannot properly characterize the enhanced T2 
+relaxation rate caused by the internal local field gradients within the pore 
+space, because the latter are not uniform at the pore scale. 
+Thus, when the diffusion time is long, there are at least two additional 
+considerations we need to think about in going from the infinite uniform 
+fluid to a fluid-saturated porous medium, i.e., internal field gradients and 
+
+--- PAGE 26 ---
+96 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+restricted diffusion. These two issues are very complicated and difficult to 
+treat theoretically in a rigorous manner. We shall study these in more detail 
+in Chapter 7. For now, we will only review these qualitatively, and discuss 
+the general approximate approaches by making several assumptions which 
+the logging environment may or may not satisfy. 
+4.2.2 Restricted diffusion 
+As the spins diffuse in the pore space, they encounter the pore wall of the 
+solid grains and redirect their random walk path to other directions in the 
+pore space. Certainly, the diffusion profile will differ from the profile of spins 
+which are in an infinite medium and are not restricted by the pore geometry. 
+As a result, the spin echo amplitude, i.e., Eqs. (4.18) and (4.19), will be 
+modified accordingly. Since these equations are frequently used in NMR log 
+interpretation for estimating the diffusion coefficient of the oils or the field 
+gradients in the rocks, it is important to learn what needs to be modified 
+and what are the bounds of validity for these equations. 
+At times short enough that most spins do not encounter the pore walls 
+or experience a significant change in local gradient, we expect Eqs. (4.18) 
+and (4.19) to remain valid. As time goes on, since diffusion is restricted, 
+we expect the effective diffusion coefficient D(t) to decrease with time. In 
+the short time regime, only spins within a distance v/D0i from the pore 
+walls, of area S, sense the presence of the walls. Thus, only a fraction 
+x/-~otS/Vp of the total spin population, where V v is the pore volume, deviate 
+from their diffusive behavior in the free medium. Thus the diffusion behavior 
+is expected to deviate from its free medium behavior by the same order of 
+magnitude. Mitra et al. [165, 166, 167], using an approximate solution for 
+the diffusion propagator near a pore wall, were able to derive the following 
+temporal behavior for restricted diffusion in the short time regime: 
+D(t) 
+Do 
+4 S ~~ot - S 1 1 IpS 977 V v ~-~ < -~l + -~2 ) D o t + -~ -~v D o t + O [ ( D o t ) a / 2 ] (4.23) 
+This relation was later used by Hiirlimann et al. [108] and Slijkerman and 
+Hofman [202] to obtain the surface relaxivity experimentally. 
+For a long diffusion time, the time dependent diffusion constant ap- 
+proaches a constant value if the pore space is connected. If the surface 
+relaxivity p is zero, then the asymptotic value of the effective diffusion co- 
+efficient is related to the electrical conductivity via the standard Einstein 
+
+--- PAGE 27 ---
+4.2. DIFFUSION IN POROUS MEDIA 97 
+relation [75] 
+lim D(t) = 1 (4.24) 
+t~ Do Fr 
+where F - ap/a~ is the formation factor 4 of the porous medium with ap being 
+the conductivity of the pore fluid (brine) and a~ being the effective conduc- 
+tivity of the porous medium, assuming the rock matrix is non-conductive. 
+When p # 0, the infinite time limit of D(t)/Do is related to another elec- 
+trical conductivity problem, where the pore fluid has a modified electrical 
+conductivity- see Section 7.1.2, Eq. (7.35), and Ref. [21]. 
+4.2.3 Spin echo amplitude 
+To derive the T2 spin echo amplitude in a restricted geometry, one has to 
+evaluate the phase shift accumulated by a precessing spin in a Hahn spin 
+echo experiment: 
+- -'y(foo~dt6H[r(t)]- f2~dtSH[r(t)]) (4.25) 
+where 5H is the local field deviation from a uniform background field H0 
+H(r) = Ho + 6H. (4.26) 
+The average spin echo amplitude is evaluated by 
+(e_ir } _ 1 -ir g f f drdr'G(rr'lt)e (4.27) 
+which takes into account all possible paths of a diffusing spin by means of the 
+diffusion propagator G(rr']t) and averages over all spins in the pore space. 
+The diffusion propagator G(rr'lt ) is the solution of the following diffusion 
+equation: 
+DV2a(rr'lt) = 
+ft. DVG(rr'lt) + pG(rr'it ) Is - 
+G(rr', t = O) = 
+oa(rr'lt) 
+0t 
+0 
+6(r- r') 
+in the pore space 
+at the interface 
+(4.28) 
+4Formation factor is a quantity frequently used in petrophysics, and it is related to 
+another frequently used petrophysical quantity, tortuosity a, through the relation a -- Fr 
+where r is the porosity. 
+
+--- PAGE 28 ---
+98 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+Neuman [171] carried out an approximate version of this calculation for 
+the simple geometries of parallel plates, sphere, and cylinder in a constant 
+field gradient, by evaluating (e -ir under the assumption that the phase (I) is 
+distributed as a Gaussian. He showed that when T (half of the echo spacing) 
+is much less than a2/D, i.e., the diffusion time across a pore dimension a, the 
+magnetization reduces to the same form as in the case of the infinite medium: 
+2T 272G2DT3) (4.29) M(2T) ,,~ exp T2 3 
+This is what we expected. In fact, in a restricted geometry such as porous 
+media like rocks, we have to satisfy two requirements before we can safely 
+use Eq. (4.29). First, the distribution of the phase (Eq. (4.25)) should be 
+Gaussian or nearly Gaussian. The Gaussian approximation is good only for 
+a limited range of diffusion time and field gradient strength. Beyond that, 
+the distribution is no longer Gaussian, and an equation of the form of Eq. 
+(4.29) is no longer valid. Second, when the Gaussian approximation is valid 
+and a magnetization decay form of Eq. (4.29) is used, we need to replace D 
+with a time dependent diffusion coefficient D(t) when the diffusion time t is 
+long. As this depends on many factors, such as surface relaxivity, pore size, 
+field strength, etc., it is difficult to set a guideline. However, it is not unusual 
+that with an echo spacing of 2 ms, the diffusion coefficient may experience a 
+10 to 20% reduction due to restricted diffusion. 
+A more rigorous discussion of this problem appears in Section 7.1.3. 
+4.2.4 Internal gradients 
+The internal field gradients of porous media are induced mainly by the mag- 
+netic susceptibility contrast between the solid matrix and pore fluid. The 
+magnitudes of these internal gradients depend not only on the magnetic sus- 
+ceptibility contrast but also on the pore geometries. The local field gradient 
+can be extremely high near the sharp corners of solid grains. When spins 
+diffuse near those corners, they can be quickly relaxed. 
+Strong internal field gradients present at least two problems. First, T2 of 
+the short relaxation time components can relax so fast that the signal is not 
+captured, leading to an underestimated porosity. Second, the shift of the T2 
+peaks towards shorter relaxation times can cause errors in the computation 
+of the diffusion coefficient or viscosity of the oils, or other errors in the in- 
+
+--- PAGE 29 ---
+4.2. DIFFUSION IN POROUS MEDIA 99 
+terpretation of the T2 distributions. Thus, it is important to understand the 
+effect of strong internal field gradients and further to quantify such an effect. 
+There have been numerous attempts to quantify such internal field gra- 
+dient distribution (Bendel [12], Hiirlimann [109], Appel et el. [10], Zhang 
+et al. [231]). But the complexity of the problem makes rigorous analysis of 
+experimental data extremely difficult. We attempt to express the CPMG 
+measurement result for a fluid-saturated rock with internal field gradients as 
+follows: 
+M(ti) ti -~o - y~ fj exp[-~j] f dgPj(g)exp[-~v2g2D, r2ti] (4.30) 
+J 
+where ti = 2iT, j is referring to different pore sizes, fj is the volume fraction 
+of pore size j, and the integration is over different possible values of the field 
+gradient g in that type of pore, with the normalized field distribution Pj(g), 
+i.e., 
+] Pj (g)dg - 1. (4.31) 
+Here, we assume the enhanced relaxation rate is always proportional to f, 
+which may not be true, and we also assume that all pores of size j have the 
+same distribution of internal field gradients, which, of course, may be a shaky 
+assumption as well. 
+The analysis of experimental data is very difficult because it is not trivial 
+to decouple the surface relaxation term from the field gradient contribution. 
+However, if we make the drastic assumption that Pj(g) for all pore sizes are 
+the same, the integration in Eq. (4.30) becomes a common factor for all pore 
+sizes and can be pulled out of the summation. Then, the ratio of the mag- 
+netization measured with an arbitrary echo spacing r to the magnetization 
+measured with the smallest echo spacing % becomes: 
+M(ti, r) M(ti,%) = f dgP(g)exp[-1 2 2 57 g Dpr2ti] (4.32) 
+where we assume 
+and 
+ti M(ti, %) --+ Z fJ exp[-~jj] (4.33) 
+J 
+l~/2 g2DpW2ti] f dgP(g) exp[--~ ---+ 1 (4.34) 
+
+--- PAGE 30 ---
+100 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+for the smallest 7-, i.e., ~-~. Once Eq. (4.30) is reduced to the form of Eq. 
+(4.32), it is possible to obtain the internal field gradient distribution P(g) 
+by inverting this Gaussian transformation. Obviously, many rocks do not 
+satisfy such a requirement, and the interpretation of the distribution P(g) 
+obtained this way would then be ambiguous. 
+4.3 Petrophysical applications 
+To understand and/or interpret the results of NMR logs from borehole mea- 
+surements, it is imperative to conduct NMR laboratory measurements on 
+brine and/or oil saturated rock samples first. Such measurements can be 
+carried out to almost any desired accuracy using various means not readily 
+available in a logging situation. For example, the measured NMR signals 
+can be conveniently stacked many times to obtain a very high signal to noise 
+ratio. One can study how the level of noise tends to affect the characteristics 
+of the T2 distributions. When the water and oil signals are both present in 
+the measurements, one can soak the core plugs in DeO to remove the water 
+signal, or use the Magic Angle Spinning (MAS) technique to differentiate the 
+two phases in high magnetic field. The determination of irreducible water 
+saturation, the understanding of oil T2 relaxation times with respect to its 
+viscosity and diffusion coefficient, as well as the establishment of permeability 
+estimators, are all important steps in the laboratory for the understanding, 
+interpretation, and applications of NMR logs to formation evaluation. In the 
+following we shall discuss them in detail. 
+4.3.1 Porosity 
+The NMR signal, when extrapolated back to zero time (in a T~ or T2 mea- 
+surement), is proportional to the population of the hydrogen nuclei in the 
+probed zone. When properly calibrated, the NMR measurement is an ex- 
+cellent way to measure porosity. Figure 4.11 (from Straley [208]) shows 
+the excellent comparison of 2 MHz NMR porosity of T2 measurements with 
+buoyancy porosity for 192 sandstones. However, if the T2 measurement is 
+conducted at very high magnetic field, the correlation can be poor. This is 
+because the magnetic susceptibility contrast induced internal field gradients 
+are proportional to the applied field strength, and the enhanced relaxation 
+rate is proportional to the square of the applied field strength. Thus, as the 
+
+--- PAGE 31 ---
+4.3. PETROPHYSICAL APPLICATIONS 101 
+O 
+30 
+20 
+10 
+....... = ! ....... | ....... 
+J 
+/ _ , ,. .... I . ! ........ ,, _ ._ 
+0 10 20 30 
+Buoyancy porosity, p.u. 
+Figure 4.11" Comparison of 2 MHz NMR porosity with buoyancy porosity 
+for 192 sandstones. (From Straley et al. [208].) 
+field strength increases, the increased T2 relaxation rate causes some of the 
+NMR signal to decay too quickly to be recorded. 
+Figure 4.12 shows a comparison of NMR porosity at three field strengths 
+to buoyancy porosity. It is clear that those measured at 85 MHz suffered sig- 
+nificant signal loss from induced internal gradients. Typically, one should do 
+these experiments near the logging frequencies, i.e., 1 to 2 MHz. Then, with 
+a reasonably small echo spacing, internal gradient effects can be minimized. 
+However, even at Larmor frequencies of 1 to 2 MHz, porosity can be 
+underestimated when the Q of the rf coil is degraded by highly saline brine 
+in the rock pores. This problem can be dealt with by proper calibration and 
+adjustments to the Q of the rf coil. 
+4.3.2 Irreducible water saturation 
+One of the more important applications of NMR logging is to estimate the 
+irreducible water saturation. Irreducible water saturation is not a precisely 
+defined term. It can be loosely defined as the water saturation below which 
+increases in capillary pressure will result in negligible decreases in its value. 
+
+--- PAGE 32 ---
+102 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+-J r 
+o 
+o 
+Z 
+20 
+15 
+10 
+5 
+0 
+0 
+_ + .. 
+/~oO o % i 
+~" o o 
+_ / o o oo t 
+Y ~ i i O0 Oj I 
+5 10 15 20 
+Buoyancy porosity, p.u. 
+Figure 4.12- Comparison of NMR porosity of T2 measurements at three field 
+strengths to buoyancy porosity, o is 85 MHz, + is 2 MHz, and 9 is 1 MHz 
+data. (From Straley et al. [208].) 
+Capillary pressure is derived from the difference in density between oil and 
+brine which causes the oil to displace or "drain" the water from the for- 
+mation. In the oil industry, a capillary pressure of 50 psi is often used to 
+determine irreducible water saturation in poorly consolidated core. For well 
+consolidated core, a capillary pressure of 100 psi or higher is typically used. 
+Early experiments by Timur [213] use a three-exponential model to ana- 
+lyze the 7'1 relaxation data for 100% fully brine saturated core samples. The 
+fraction associated with the long T1 component(s) (defined as Free Fluid In- 
+dex, FFI) beyond a critical T~ value was plotted against the movable fluid 
+determined by the core measurements with a desaturation pressure of 50 
+psi. A good linear correlation was found. Usually, the irreducible water 
+saturation is found to be related to the shortest T~ component. Thus, the 
+NMR measurements of a brine-saturated rock provide a good estimate on its 
+irreducible water saturation. 
+
+--- PAGE 33 ---
+4.3. PETROPHYSICAL APPLICATIONS 
+3 - w v vwuum ~ v wvuvvn v lr. luvlnw ~ w vvwwwl l_i 
+'0 
+j~ 
+10 4 10-3 10-2 lO-X 10 o 
+103 
+Time constant, sec 
+Figure 4.13: The T2 distributions of a sandstone when it is fully saturated 
+(solid) and when it is desaturated after centrifuging at 100 psi (dashed). The 
+vertical cutoff in the T2 distribution separates the porosity into the one for 
+free fluid (shaded) and the one which is irreducible, with the latter equal to 
+the water content of the desaturated sample. (From Straley et al. [208].) 
+T2 cutoff 
+When a set of relaxation times equally spaced on a logarithmic scale is chosen, 
+and a regularized inversion process is adopted for the analysis of NMR data, 
+numerous laboratory experiments [168, 208, 76, 56, 120] indicate that a T2 
+cutoff value of 33 ms for sandstones and 100 ms for carbonates are appropriate 
+for irreducible water saturation determination. Of course, these are based on 
+averages determined empirically from experiments. Caution should be used 
+in the application of such cutoffs. Measurements on cores from the reservoir 
+studied provide the most reliable cutoffs. 
+Figure 4.13 shows T2 distributions of a sandstone sample when it is fully 
+saturated and after it is desaturated by centrifuging at an equivalent air/brine 
+capillary pressure of 100 psi. The T2 cutoff (vertical line) separates the 
+distribution into the porosity containing the movable fluid with long T2 and 
+the porosity containing the irreducible water with short T2. Figure 4.14 shows 
+a cross plot of the Free Fluid Index (FFI), obtained by centrifuging a suite of 
+
+--- PAGE 34 ---
+104 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+::5 
+,...:, or,=l 
+to 
+30 
+20 
+10 
+s S 
++s S -t- 
+_ + .11. ~,,~ "~t 
+cg. ! , 
+10 
+i s' 
+s S 
+s S 
+js 
+s 
+4 
+s 
+s S _ 
+js 
+! 
+0 20 30 
+NMR FFI (33 msec), p.u. 
+Figure 4.14" The crossplot for a suite of sandstones of centrifuge FFI at 100 
+psi versus the NMR determined FFI based on a T2 cutoff at 33 ms. (From 
+Straley et al. [208].) 
+20 
+9 ~ 15 
+rj 
+I ! j' 
+a 
+,d s 9 _ 
+s 
+s 
+~s S 
+s 
+sa~ 
+s 
+i' s 
+O ! I 9 
+0 5 10 15 20 
+NMR FFI (92 msec); p..,u. 
+Figure 4.15" The crossplot for a suite of carbonates of centrifuge FFI at 100 
+psi versus the NMR determined FFI based on a T2 cutoff at 92 ms. (From 
+Straley et al. [208].) 
+
+--- PAGE 35 ---
+4.3. PETROPHYSICAL APPLICATIONS 105 
+< 
+J 33 ms After 
+desaturation 
+10 1 10000 
+Fully saturated 
+/ 
+1 O0 1000 
+T 2 Relaxation Time (ms) 
+Figure 4.16" The T2 distributions for a rock sample with a relatively uniform 
+pore size when it is fully saturated and when it is desaturated (shaded). The 
+T2 peak emerges below 33 ms only after the desaturation. Note that the 
+normal T2 cutoff of 33 ms will not work in this case. 
+sandstone samples at an equivalent capillary pressure of 100 psi, versus the 
+FFI determined by the cutoff at 33 ms on the T2 measurements made on the 
+same samples. Figure 4.15 shows a similar cross plot for carbonates where 
+a T2 cutoff of 92 ms was used. The appropriate T2 cutoff for sandstones or 
+carbonates can vary from reservoir to reservoir. For example, the T2 cutoff 
+for sandstones can vary from 20 to 50 ms, whereas that for carbonates from 
+90 to 150 ms. The fact that the T2 cutoffs for carbonates are typically much 
+larger than those for sandstones is understandably due to the much smaller 
+surface relaxivity for carbonates. 
+Spectral representation 
+Frequently, when the pore size is uniform with little variation, the T2 distri- 
+bution for a fully water-saturated core has only one peak at long relaxation 
+times, far above the T2 cutoff. As the core is desaturated, the water in the 
+pore space is emptied, leaving only small amount of water in the interstitial 
+
+--- PAGE 36 ---
+106 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+space near the grain contacts. This results in the emergence of a T2 peak at 
+a short relaxation time which was absent before desaturation. Figure 4.16 
+shows T2 distributions for such a situation. In this case, the regular cutoff 
+will not work, and it will lead to a zero value for the irreducible water. 
+There have been various proposals suggested to handle a situation like 
+this. Some use a variable cutoff for different lithologies or facies, where each 
+cutoff is determined empirically from laboratory core measurements. 
+Some use what is called the Spectral BVI method (Coates et al. [64]), 
+namely, a combination of fractions of the amplitude for all the relaxation 
+times, to determine the irreducible water saturation. For short relaxation 
+times, nearly all amplitudes contribute to the irreducible water. For long 
+relaxation times, only a small portion of the amplitudes contribute to the 
+irreducible water. These different fractions of amplitude for different relax- 
+ation times are also empirically determined from core measurements. 
+Bi-exponential model 
+Another method is to use an experimentally determined empirical relation be- 
+tween the irreducible water saturation, S~i,.,. and the T2,LM (the logarithmic 
+mean of T2 relaxation times) for the prediction of S~i~. All these methods 
+work equally well. 
+Figure 4.17 is a crossplot of S~i~ vs T2,LM. The data are from the NMR 
+Rock Catalogue from the combined companies ART/SCINTEF/RESLAB in 
+England and Norway. The S~i~ were obtained by centrifugation using an 
+equivalent air/brine capillary pressure of 100 psi. The T2,LM were determined 
+at an echo spacing of 0.35 ms using a 2 MHz, homogeneous field spectrometer. 
+The data is fitted using a bi-exponential model. The fitted equation is given 
+by: 
+S~ - 0.6101 exp(--T2,LM/15.9) + 0.3688exp(--T2,LM/276.8) (4.35) 
+where the T2,LM is in ms. Long T2,LM values are clearly associated with small 
+S~i~ values but the data density at long T2,LM values is sparse. 
+The core used in the study comes from different oil companies but is 
+largely from North Sea reservoirs. For logging tools with a field gradient, 
+modifications to Eq. (4.35) are needed to account for diffusion effects in the 
+field gradient. 
+
+--- PAGE 37 ---
+4.3. PETROPHYSICAL APPLICATIONS 107 
+A 
+o.8 C 
+0 o.,,= 
+L_ 
+",-' 0.6 
+c 
+m 0.4 
+(D ,.,.., 
+o 
+::3 
+qD 
+r 0.2 I,,,,, 
+ID~ ' ~ I ~'~ ' ' I'' ~' I'''' I' ' ' ~ I ~ ' ' ' I ' '""' ' I ' '' '_~ 
+Swirr= 0"61exPl'T2L~15"9)* 0.37exPl-T2LM/276.81 
+,~0 "1 
+O 
+e, 
+# Q 
+O 
+-n 
+O 
+0 
+0 50 100 150 200 250 300 350 400 
+Logarithmic Mean T 2 (T2LM)in ms 
+Figure 4.17" The irreducible water saturation, S,~i,-~, versus T2,LM of fully 
+brine-saturated state for a suite of rock samples. The data are fitted with a 
+two-exponential model. 
+Capillary curve 
+As we discussed earlier, the pore size distribution determined by mercury 
+porosimetry is similar to the T2 distribution of the rock. Similarly, its cu- 
+mulative quantity, i.e., the capillary pressure curve, is connected to the cu- 
+mulative T2 distribution. This is shown in Figure 4.18. In capillary pressure 
+based estimates of S~i~, we typically use the apparent asymptotic value of 
+Sw, beyond which very large Pc values would be needed to reduce Sw, or 
+we determine a maximum capillary pressure for a reservoir and argue that 
+the S~ at that pressure, in an air/brine or oil/brine drainage experiment, is 
+the irreducible brine saturation. Such data can be interpreted in terms of a 
+minimum pore size through which the non-wetting phase (oil) can displace 
+the wetting phase (brine). In a similar manner, a cutoff in the T2 distribution 
+is often used to estimate S~i~. 
+
+--- PAGE 38 ---
+108 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+D 
+D_ 
+O~ "1- 
+Connection Between NMR 
+and Capillary Pressure 
+10 5 10-4 
+10 
+10 
+10 
+10 
+t~ I i I 
+s i 
+I 
+10 I L i a 
+0 20 40 60 80 100 
+10 
+10 
+10 
+I0 0 
+1 10 
+Bo 
+o v 
+Wetting Phase Saturation 
+Figure 4.18: The connection between capillary pressure curve and cumulative 
+T2 distribution. (From Kleinberg [125].) 
+4.3.3 Permeability predictor 
+T2,LM equation 
+The fact that NMR log can be used for permeability prediction is because 
+the T2 relaxation time is proportional to pore size (or pore volume to surface 
+ratio)- 
+V T2 ~ (4.36) p2S 
+and provides the length scale for permeability prediction. Kenyon et al. 
+[121] and Banavar and Schwartz [11] have shown that the following equation 
+provides a good permeability prediction for sandstones: 
+k- T 2 r (4.37) 1,LM 
+A general form of k - aTb, LMr c can be used with the prefactor, a (which 
+includes the T1,LM/T2,LM ratio), and the exponents, b and c, specifically 
+determined from fitting a set of core permeability measurements. 
+Other forms, such as k- aTb2,LM/F c, (where F is the formation factor) 
+have been suggested [222, 115, 113, 78, 195, 28]. Both forms work about 
+
+--- PAGE 39 ---
+4.3. PETROPHYSICAL APPLICATIONS 109 
+Brine Permeability 
+K~., (md) 
+10000 
+1000 
+100 
+10 
+.01 
+1 1000 
+~k = 1.99 o ,~o 
+0 
+1 10 100 
+Ratio of T1 (geometric mean) to 
+Formation Factor (Tla/F) in ms 
+Figure 4.19: Brine permeability versus T1,LM/F for a suite of sandstones. 
+The dimensionless quantity ak is defined in Table 4.3. (From LaTorraca et 
+al. [132].) 
+equally well within experimental error. Table 4.3 [132] shows some of the 
+comparison between different models. Figure 4.19 shows such a plot for 
+sandstones from a single field. 
+This suggested form of permeability predictor has its physical basis. It 
+was shown by Katz and Thompson [115], Johnson et al. [113], and many 
+others, that the permeability of a porous medium can be well described by 
+the following form: 
+k ~ L2(a/as)- L21F- L2r m. (4.38) 
+Here a and a/ are the electrical conductivities of the fully saturated rock 
+and the pore fluid, respectively, L is a length scale characteristic of the pore 
+geometry, and F is the formation factor. The last part of Eq. (4.38) is simply 
+from Archie's law (i.e., F ,.~ C-m). As pointed out earlier, T2 is proportional 
+to the characteristic length of the pore scale, and hence L. Naturally, different 
+pore geometries will affect the value of the exponents for L and r They are 
+usually empirically determined for a suite of rocks from a reservoir. 
+
+--- PAGE 40 ---
+110 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+Table 4.3: Least-squares fit permeability estimators. 
+Reference Permeability (mD) crk ~ n b 
+Kenyon et al. [121] Kb,.i,~- 1.17(r2ar 1"13 2.7 
+Sen et al. [195] Kbrine- 0.794(T1(~/F) 2"15 3.3 
+Borgia et al. [28] hai,.- 3.25(T21,~/F2) ~ 2.1 
+Kair -- O.076(Tla/F) TM 2.3 
+h~i,.- 10.7(T12ar ~ 1.9 
+LaTorraca et al. [132] Kbrine -- O.O063(Tla/F) 1"23 3.7 257 
+K~in~ - 0.43(T1,LM/F) 2''6 3.4 257 
+Kl,.i,~e - 0.33(T1,~/F) 2"~ 3.4 257 
+gbrin e -- 1.21 2 4 1.00 (T1,LMr 3.6 257 
+K~ri,~ - 4.00(~i=13 (Air i2 )0.933c 3.7 257 
+(Clastic subset) Kb~ine -- 0.29(T1,LM/F) 216 2.0 57 
+- 0.45(TI,, M/F*) 2~ 2.0 57 
+*K is in roD, T1 in ms, and r in fraction. 
+%r k is the factor by which the estimated permeability misses the measured 
+permeability, i.e., ak = 10 e, where c is obtained from loglo K = a + b log10 
+(predictor)  c. 
+bNumber of samples. 
+CAi and Tli are fitting constants in a three-exponential model fit for the T1 
+distribution. Thus, Air and Tli are the partial porosity and the corres- 
+ponding T1 component, respectively. 
+dF* is the clay-corrected formation factor. 
+
+--- PAGE 41 ---
+4.3. PETROPHYSICAL APPLICATIONS 111 
+Since Eq. (4.37) is determined from sandstone core plugs fully saturated 
+with water, the presence of oil will affect the value of T2,LM , and hence 
+the permeability prediction. In this situation, other permeability predictors, 
+as discussed below, using irreducible water saturation S~.,ir,. as input are 
+frequently used. 
+Coates/Timur equation 
+Multiple studies have shown that the permeability in clastic reservoirs is 
+related to the irreducible brine saturation (Swi,.,-). Related quantities that 
+can be estimated from NMR are the Bulk Volume Irreducible water BVI (or 
+r and the Free Fluid Index (FFI) (or 0(1- Swi,.,.)). 
+Timur [214] developed a permeability estimator based on numerous core 
+measurements. It has the following form: 
+k- 104 r S~,i~ (4.39) 
+where r and S~,i~ are in fractions, and k is in mD (milli-Darcy). 
+Coates [63] developed a widely used equation based on the irreducible 
+brine saturation. There are several versions of his equation. The most com- 
+monly used one is" 
+k- ((r 2 (4.40) 
+where r FFI, and BVI, are in p.u. (porosity unit), and k is in mD. 
+This kind of empirical form for permeability prediction can be traced back 
+to the Kozeny equation [53], i.e., 
+r 
+k- AS- ~, (4.41) 
+where r is porosity, S is the surface area per unit bulk volume, and A is an 
+empirical constant. The surface area S in the denominator is related to the 
+irreducible water saturation or BVI. 
+Summation of echoes 
+The summation of echo amplitudes is mathematically related to the mean 
+relaxation time, (T2). Sezginer et al. [199] showed that 
+N N 
+P - ~ gi ~ ~_~ ei + HIr (4.42) 
+i=1 i=1 
+
+--- PAGE 42 ---
+112 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+10 4 
+10 3 
+r~ 10 2 
+E 
+.~_- 101 
+loo 
+n 
+10-1 
+10-2 
+10 2 
+_'" , T 9 ,, ~',i i ' I I 't i I tll i '! I I i t !i 
+- 0 - 
+_ 
+- : 
+_ 
+_-'---=-- / "-=_ 
+_ 
+t 1 I ,,,I, i tt,i 1 I I I 1 III] I I I t tit _ 
+10 3 10 4 10 5 
+Sum (Echoes) (p.u.) 
+Figure 4.20: Measured permeability versus sum of echoes for 10 quarried 
+sandstone samples. TE=0.2 ms. (From Sezginer et al. [199].) 
+where p is the summation of echoes; g~, the amplitude of the i-th echo; ci, 
+the noise level of i-th echo; HI, the hydrogen index; r the porosity; {T2), the 
+mean relaxation time; tE, the echo spacing, and N the number of echoes. 
+(T2) is somewhat different from the commonly used logarithmic mean, 
+T2,LM. It is related to the surface to volume ratio (with strong weight for 
+large pores) of the rock formation; thus, it is related to permeability. From 
+laboratory experiments on quarried sandstones, Sezginer et al. [199] found 
+a good correlation (Figure 4.20), and suggested the following relations for 
+TE=0.2 ms: 
+k ~ 6.18  10-i2p 3~2 for N-600 (4.43) 
+k ~ 4.58  10-t2p 3"13 for N- 1200 (4.44) 
+where k is the permeability in mD, and p is in p.u. 
+Permeability prediction for carbonates 
+Carbonates not only occur in a wide variety of pore sizes and shapes, but 
+also exhibit a heterogeneous distribution of pore types at all core and log- 
+
+--- PAGE 43 ---
+4.3. PETROPHYSICAL APPLICATIONS 113 
+0 +-.: Ill o v=. 
+o +. 
+u4 
++ 
+U,I-" 
+sP=, 
+0 
+O 
+Oss S 
+0 9 
+0 ~' e S 
+9 0 
+"0 
+0 " 
+/ 
+0 / 
+0 .t5 
+/ 0 0 
+s 
+s S 
+,,/0 O 
+0 ~" 0 o 
+0 ," 0 
+s S 
+e" 
+iiiI~ i i llllll I i i i iiiii| l I i lllll| i i iiiiii I i 1 1111111 i i 
+1.E-03 1s 1.E-01 1.E+O0 1~--I-01 1JE+02 
+(~nmr,750)4 ('['2.75012 
+Figure 4.21" Crossplot of air permeability K~ versus (r 4 (T2,<750) 2 
+for a suite of carbonates where the porosity and T2 above 750 ms are not 
+included. (From Chang et al. [56].) 
+ging measurement scales. Chang et al. [56] has published studies of NMR 
+T2 measurements on samples 100% brine saturated and desaturated by cen- 
+trifugation to approximately S~i~. Based on these studies, they infer that all 
+signal above 750 ms is due to vugs, and that if the vuggy porosity is not in- 
+cluded for r and T2, then the permeability equation k = r works quite 
+well. A crossplot of air permeability K~i~ versus (r 2, for a 
+suite of carbonates from their work, is shown in Figure 4.21. Their measure- 
+ments were made in homogeneous magnetic field. The NMR logging tools 
+usually have significant field gradients which will reduce the 750 ms cutoff 
+substantially when the vugs are brine filled and to a lesser extent if the vugs 
+are filled with light crude. 
+4.3.4 Wettability 
+Wettability is defined as "the tendency of one fluid to spread on or adhere to 
+a solid surface in the presence of other immiscible fluids" [69]. The spreading 
+on or adherence to a solid surface is commonly described as wetting. It can 
+
+--- PAGE 44 ---
+114 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+Oil 
+i 
+~O 
+Wa'o 
+Figure 4.22: Schematic diagram of a water-oil-solid interface showing the 
+equilibrium of interfacial forces, where a~o, a~, and a~o are the interfacial 
+tensions between the solid and oil, solid and water, and water and oil, re- 
+spectively. 
+be measured by adhesion tension, a function of the interfacial tension which 
+determines which fluid will preferentially wet the solid. 
+As shown in Figure 4.22, two immiscible liquids, oil and water, are in 
+contact with a solid. The contact angle ~ is measured through the denser 
+liquid phase and ranges from 0 ~ to 180 ~ The adhesion tension AT is defined 
+as 
+AT = aso -- asw = awo cos Owo (4.45) 
+where aso is the interfacial tension between the solid and lighter fluid, oil; 
+a~ is the interfacial tension between the solid and denser fluid, water; and 
+awo is the interfacial tension between fluids, water and oil. 
+A positive value of adhesion tension indicates that the denser liquid pref- 
+erentially wets the solid surface, whereas a negative value indicates the lighter 
+liquid preferentially wets the surface. A zero value indicates both liquids have 
+an equal affinity for the surface. A reservoir rock can be water-wet, or oil- 
+wet, or having both conditions coexist, i.e., a mixed wettability situation. 
+Wettability of reservoir rocks can have dramatic effects on the effective per- 
+
+--- PAGE 45 ---
+4.3. PETROPHYSICAL APPLICATIONS 115 
+meability of oil 5 and the efficiency of oil recovery. 
+There is abundant literature on wettability studies [9, 190, 170, 130]. 
+There are different methods for measuring wettability [9], some of them 
+quite elaborate and time consuming. Although these methods show gen- 
+eral agreement in discriminating oil-wet versus water-wet media, there is no 
+quantitative correspondence between these measures. 
+NMR relaxation is a convenient method for characterizing wettability of 
+a pore fluid phase. When a non-wetting phase becomes partially-wetting, its 
+relaxation time typically becomes shorter as compared to its value for the 
+bulk phase due to surface relaxation. There have been numerous studies on 
+the wettability problem using NMR methods [37, 191,224, 107, 74, 29, 105, 
+106, 174, 27, 155, 204, 232]. There is, however, no generally agreed upon 
+method for quantifying the wettability. These studies are largely confined 
+to laboratory core measurements. Applications of NMR logs for wettability 
+analysis have been scanty, and require careful coordination of core measure- 
+ments and log interpretation. 
+Brown and Fatt [37] studied the wettability problem of reservoir rocks us- 
+ing an NMR method with mixtures of preferentially oil wet and preferentially 
+water wet sands. Their result for relaxation rates of fully water saturated 
+sand mixtures containing various percentages of preferentially oil wet sands 
+is shown in Figure 4.23. The linear relationship clearly suggests that the wa- 
+ter wet surface has a higher surface relaxivity than the oil wet surface, and 
+the linear variation of the relaxation rate simply reflects the abundance of 
+the oil wet surfaces. To apply such a finding to core analysis, they suggested 
+using a procedure of measuring the relaxation rates of core at an unaltered 
+wettability state, 100 percent water-wet state, and 100 percent oil-wet state. 
+Then the percentage of the oil-wet surface for the initial mixed wettability 
+state is determined from the straight line drawn between the 100 percent 
+water-wet and 100 percent oil-wet states. 
+However, the application of such reasoning to the amount of wettability 
+from NMR relaxation rate measurements is complicated by the pore size 
+effect. Except when there is only one pore size, the relaxation rate measured 
+at t-O is an average relaxation rate of all pore sizes. If the oil-wetting occurs 
+preferentially for larger pores, the variation of the relaxation rate may not be 
+linear as that shown in Figure 4.23. Then the interpretation of the fractional 
+5The effective permeability is a relative measure of the conductance of the porous 
+medium for one fluid phase when the medium is saturated with more than one fluid. 
+
+--- PAGE 46 ---
+_ 
+CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+w 
+w 
+I- 
+z 
+0 
+I-- 
+X 
+t z b 
+116 
+I 
+t 
+25 50 75 
+PER GENT DRI-FILMED SAND 
+100 
+Figure 4.23: Relaxation rates for sand mixtures containing various percent- 
+ages of oil wet sand. (From Brown and Fatt [37].) 
+wettability of a core becomes complicated and can be ambiguous. 
+Borgia et al. [29] and Howard [105, 106] chose chalk samples for the 
+wettability study because of the narrow distribution of pore sizes for chalk 
+samples making the interpretation of experimental results easier. Amott 
+index [7] (the ratio of the spontaneous imbibition of water to the amount of 
+imbibition plus forced displacement by centrifuge) was used in their analysis 
+either to characterize the wettability of the rock samples or to correlate to an 
+NMR-based wettability index. Howard suggested an NMR based wettability 
+index as follows: 
+Tn - CS~ (4.46) 
+where T~ is the normalized relaxation time of the water-filled component 
+compared to a fully saturated state (i.e., T~ = T2,s~/T2,s~=l where T2,s~ and 
+T2,s~=~ are the T2 peak of water at partially and fully water-saturated states, 
+respectively), C is an empirical constant, and the exponent b is correlated 
+with wettability. For a fully water wet core, b is equal to 1. A decrease in b 
+indicates weaker proton interaction with the pore wall, i.e., less water wet, 
+at a given water saturation. 
+
+--- PAGE 47 ---
+4.4. MAS NMR 117 
+Zhang et a1.[232] studied the wettability of some sandstones with an NMR 
+method and found that some of them became mixed-wet after being saturated 
+with refined or crude oil and aging for a certain length of time. Some of the 
+pore-lining chlorite flakes apparently became oil wet and shielded the water 
+from having contact with the pore walls. 
+Wettability is an important parameter in oil recovery. NMR offers a con- 
+venient technique for characterizing wettability. However, a quantitative and 
+generally accepted method for measuring wettability has yet to be developed. 
+4.4 MAS NMR 
+The Magic Angle Spinning (MAS) technique is used routinely in solid state 
+NMR to average out chemical shift anisotropy and internuclear dipolar inter- 
+actions (see, for example, Mehring [160]). However, the application of such a 
+technique to the study of fluids contained in rocks is relatively recent (Xiao 
+et al. [228], de Swiet et al. [71], Wilson and aaTorraca [225]). There are 
+many areas yet to be explored, such as oil viscosity, preferential wettability, 
+etc., which may develop into a powerful technique for petrophysical analysis. 
+In fluid-saturated rocks, the paramagnetic impurities residing at the pore 
+wall, as well as the magnetic susceptibility contrast between the solid matrix 
+and the pore fluid, create a rather heterogeneous local field environment. 
+Such field inhomogeneity leads to a broad featureless line in ~H NMR spectra 
+and renders it useless in identifying or quantifying the oil and water contents 
+in the rocks. The local field Bloc, in a dipole approximation, is given by 
+B,o~(r) 9 ~ - B0 / (3 cos 2 0 - 1) 
+47r x(r') ir_r,[ 3 dr' (4.47) 
+where )~(r') is the local magnetic susceptibility in the rock, B0 the external 
+applied field in the z direction, and 0 is the angle that r- r' makes with the 
+applied field as shown in Figure 4.24. 
+When a fluid-saturated rock is placed in a rotor inclined at an angle 0 with 
+respect to the applied field B0 in the z direction, the proton spin inside the 
+molecules is aligned in the z direction. As the sample starts to rotate about 
+the rotor axis, the proton spins remain aligned in the z-direction, whereas 
+the surrounding paramagnetic atoms residing either on the pore wall or solid 
+matrix start to rotate. Thus the proton spins experience a time varying 
+local field which is rotating about the rotor axis. The NMR signals that 
+
+--- PAGE 48 ---
+118 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+B 
+(a) (b) 
+Figure 4.24: The local dipolar field in a rock (a), and the magic angle spinning 
+(b) where the rock sample is placed inside a rotor spinning about its axis 
+which makes an angle of 54.7 ~ with respect to the applied field B0. 
+we measure will be a time average of these varying fields. If the magnetic 
+susceptibility x(r') is isotropic, all of these will average to zero, except the 
+contributions of paramagnetic atoms lying along the rotor axis. But those 
+contributions are also made to vanish, as we purposely set the inclined angle 
+- 54.7 ~ - cos-~(1/v~) which nullifies the dipolar field given by Eq. (4.47). 
+Hence, this technique is called magic angle spinning (MAS). 
+As shown in the left side of Figure 4.25, when the rotor is stationary, 
+the ~H NMR spectrum of a water-saturated Berea sandstone shows a broad 
+featureless peak. When the rotor spins at 1 and 2.5 kHz, the broad spectrum 
+narrows to a sharp peak with many spinning sidebands, spaced at the rotor 
+frequency. The existence of the spinning sidebands can be understood as 
+follows: Recall that the spectrum is the Fourier transform of the FID after the 
+application of a 90 ~ rf pulse. As the spins are precessing in the xy plane and 
+signals are being collected, those with the Larmor frequency determined by 
+B0 will be stationary in a coordinate frame rotating about the z-axis with that 
+frequency. All spins with different local Larmor frequencies will be rotation- 
+averaged except those whose local Larmor frequency is higher or lower than 
+
+--- PAGE 49 ---
+4.4. MASNMR 119 
+6'0 " 4'0 2o " 6 " -~;o Jo :6o 
+r ~ 
+60 40 20 0 -20 -40 -60 
+............. 
+60 40 20 0 
+ppm 
+60 40 20 
+-20 ~0 -60 60 40 
+,.-.. 
+,k_ _Y~, 9 
+0 -20 -40 -60 
+.-~,:. 
+.- . 
+0 -20 -40 -60 
+ppm 
+Figure 4.25" The effect of MAS on ~H NMR spectra of water-saturated Berea 
+sandstone is shown on the left. From top to bottom are spectra of spinning 
+the sample at 0 Hz, lkHz, and 2.5 kHz, respectively. On the right, it shows 
+the ~H NMR spectra of Berea sandstone saturated with a light crude oil 
+(top), and a mixture of crude and water (bottom). The rotor spinning speed 
+was 2 kHz in both cases. The dotted line shows the spectra in stationary 
+state, and the solid line shows the spectra at MAS condition. (From de Swiet 
+et al. [71].) 
+the main Larmor frequency by an exact multiple of the rotor frequency. They 
+will also be stationary in the rotating frame indistinguishable from those with 
+the main Larmor frequency and be collected in the FID. Thus, they will also 
+show up in the Fourier transform of the NMR signal. As the rotor spinning 
+frequency increases, the spinning sidebands move out from the main peak 
+and eventually disappear. 
+A more interesting aspect of the MAS technique is its application to the 
+wettability issue, as demonstrated by the work of de Swiet et al. [71] shown 
+in the right of Figure 4.25. The top of the figure shows the NMR spectrum 
+of a Berea sandstone, saturated with a light crude of 12 centipoise viscosity, 
+both in stationary state (dotted line) and at a spinning speed of 2 kHz (solid 
+line). The spectrum of the oil shows a large peak in the aliphatic region 
+
+--- PAGE 50 ---
+j/ Interpcdse 
+ay = 1333 
+1673~f~ 
+CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+9 ,,! .... I .... ! .... i .... ! .... i 
+~5 10 5 0 -5 
+PPN 
+Water Aromatic / 
+H ~/ ~J m/Aliphatic H 
+X x 10 I MAS 
+120 
+Static 
+Figure 4.26: The 1H NMR spectra of a T~ inversion recovery sequence at 
+different ~- (ms) in the MAS experiment for a diatomite sample. As shown at 
+the right of the figure, from bottom to top, the ~H NMR spectra of the sample 
+when it is stationary, when it is under the MAS condition, and the enlarged 
+plots (xxl0 and then y x5) of the observed peak in the MAS experiment. 
+The major peak is from the aliphatic H, and to the left of the major peak 
+are the water and aromatic H at much smaller amplitudes. (From Wilson 
+and LaTorraca [225].) 
+and a small peak in the aromatic region (i.e., the tiny bump at the left 
+tail of the central peak), as expected for a light crude. This information is 
+obviously unavailable in the broad peak exhibited by the stationary sample. 
+The bottom of the figure shows the spectrum of a Berea sandstone saturated 
+with a mixture of crude and water. The spectrum exhibits an aliphatic peak 
+and a much stronger water peak which obscures the very small aromatic peak 
+near its base. Assuming the 1H density is the same in oil and water, de Swiet 
+et al. calculated the oil:water ratio within the sample to be 0.95 : 1.0  0.1. 
+Considering the sample was prepared by immersion in a mixture of oil:water 
+ratio of 3:1, they concluded the sample was preferentially water wet. 
+In fact, the wettability issue can be more quantitatively studied by mea- 
+suring the T1 relaxation of the sample under the spinning condition. Wilson 
+
+--- PAGE 51 ---
+4.4. MASNMR 121 
+High Resolution CPMG 
+n= 182 
+102 . 
+62 
+30 
+22 ~- 
+10 
+8 
+1 cycle = 83.3 p sec 4 ~--------- 
+" " "15 .... I0 .... ]5 .... 0 .... -5 .... J 
+PPN 
+Figure 4.27: The 1H NMR spectra of a T2 CPMG sequence at selected n-th 
+spin echo in the MAS experiment for a diatomite sample. The major peak 
+is from the aliphatic H, and the minor peaks of water and aromatic H are 
+clearly visible at the left shoulder of the major peak. (From Wilson and 
+LaTorraca [225].) 
+and LaTorraca [225] show measurements of T~ (Figure 4.26) and T2 (Figure 
+4.27) for diatomite samples under the MAS condition. The high resolution 
+T~ method is the common inversion recovery sequence with a Fourier trans- 
+form to yield the spectra. The CPMG sequence was obtained with 7r pulses 
+synchronized with MAS spinning, i.e., the echo spacing being the same as the 
+spinning cycle, with a Fourier transform to yield the spectrum at selected n- 
+th spin echoes. As shown in Figure 4.27, the major peak is from the aliphatic 
+H, and to the left of the major peak are the water and aromatic H at much 
+smaller amplitudes. The amplitude of each peak can be easily tracked, thus 
+its relaxation behavior can be analyzed independently. 
+MAS NMR has been shown so far to be a promising technique for core 
+analysis. The mechanical effect of MAS was qualitatively investigated by 
+Xiao et al. [228]. The centrifugal forces may overcome capillary pressure 
+and cause pore fluid to slosh around creating undesirable artefacts for the 
+experiments. Further work is needed so that proper sample preparation 
+
+--- PAGE 52 ---
+122 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+procedures can be developed to minimize such an effect. 
+4.5 NMR core imaging 
+NMR imaging is mainly used for core imaging in a similar way as the X-ray 
+CAT (Computer-Aided Tomography) scans are used in core studies. The 
+purpose is to understand the fluid distributions within a core before, during, 
+and after a core-flood experiment. The X-ray CAT scan image is based on the 
+contrast in X-ray absorption in different parts of the core. The images depend 
+largely on the high X-ray absortion of the minerals in the solid matrix, not 
+that of the pore fluids. In contrast, all the signal in NMR images comes from 
+the hydrogen nuclei in water or oil in the pore space. The matrix does not 
+contribute to the signal at all. The two techniques are thus complementary. 
+Unlike the petrophysical applications of other NMR properties, which 
+have a close relationship to rock properties such as irreducible water satura- 
+tion, pore size distribution, and permeability, NMR core imaging is at present 
+mostly limited to studies of fluid distributions within the pore space. In the 
+future, NMR core imaging may very well develop into a tool for wettability 
+studies and other applications. Because of its importance in core study, as 
+well as in biology and medicine, we shall briefly outline its principles here. 
+For a detailed account, the readers should refer to Callaghan [49]. 
+NMR imaging can perhaps be best understood by first considering an 
+example of one-dimensional imaging: In a T2 measurement, where the applied 
+field H0 lies along z and the Larmor angular frequency is w0 - 7H0, the 
+magnetization vector is first tipped from the z axis into the xy plane. We 
+then turn on a constant field gradient Gz in the z direction (i.e., the gradient 
+is in the same direction as the spin polarizing field itself) which is so large 
+that it overwhelms the small field inhomogeneities of the instrument and 
+forces different spins to precess differently according to their z coordinate: 
+Each spin precesses at some frequency w, which differs from w0 by 
+/kw -- w -- Wo -- "76z z. (4.48) 
+Note that this offset can be either positive or negative, since each of the con- 
+tributing factors G~, z can be either positive or negative (the gyromagnetic 
+ratio 3' for proton is, of course, positive). If the constant field gradient G~ 
+is applied for a time t, those spins will acquire an extra phase ~/G~zt. Thus, 
+
+--- PAGE 53 ---
+4.5. NMR COREIMAGING 123 
+the free induction decay (FID) signal obtained from the sample, while the 
+gradient G z is on, is given by 
+S(t) - / p(z) exp(iTC~zt)dz. (4.49) 
+The inverse Fourier transform of S (t) is then proportional to the one-dimensional 
+proton density profile p(z) along the z axis: 
+p(z) ,,~ / S(t) exp(-i~fa~zt)dt. (4.50) 
+Extending this observation to three dimensions, when the pulse field gra- 
+dient G is a three dimensional vector which is turned on for a time t and can 
+point in any direction, the spins at r now precess at an excess frequency of 
+Aw :ca--WO :")'G'r. (4.51) 
+Thus, the signal from all p(r) is given by 
+S(t) = / / /p(r)exp(iTG. rt)dr. (4.52) 
+From Eq. (4.52), we can define a "reciprocal space vector" k in three dimen- 
+sions as 
+k = -),Gt. (4.53) 
+This allows us to introduce the conjugate pair of functions, S(k) and p(r), 
+where S(k) is the spatial Fourier transform of the local proton density in the 
+system p(r). These two quantities are related by means of Fourier transfor- 
+mations: 
+S(k) - / f f p(r)eik'rdr, (4.54) 
+= fffs(k) -'k'rdk. p(r) (4.55) 
+This concept of "k" space was first suggested by Mansfield [150, 151, 152, 
+153]. With this definition, k can be made to span the entire three-dimensional 
+space by varying G and t. Thus, we have constructed a scheme for measuring 
+the "signal" S(k) as a function of k. Using the inverse Fourier transformation 
+of Eq. (4.55), S(k) can be processed to produce the NMR image of p(r). 
+
+--- PAGE 54 ---
+124 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+In the above discussion of Eq. (4.52), we neglected the T2 spin relaxation. 
+When this is not justified, special pulsing schemes should be employed in 
+order to obtain a faithful NMR image. 
+To illustrate how this is typically done in practice, we consider the exam- 
+ple outlined in Figure 4.28: First, a 90 ~ rf pulse, with a sinc function (sin x/x) 
+envelope and a mean carrier frequency ~0, generates a square shaped slice 
+in the frequency domain while a large field gradient G~ is applied along z, in 
+the same direction as the mean spin polarizing field Hoez. This procedure 
+selects a thin slab or slice of the sample, parallel to the xy plane. The spins 
+in this slice have a narrow range of Larmor precession frequencies centered 
+around w0 and are tilted by the rf pulse into the xy plane. The thickness of 
+this slice is determined by the length of the sinc function and the magnitude 
+of G~. Only the spins in this thin slice are in resonance with the rf pulse and 
+are, therefore, tipped to the xy plane. Some phase spreading of these spins 
+will occur as a result of the large gradient G~. The field gradient is then 
+turned off, after which a 180 ~ spin inverting rf pulse is applied. Then the 
+same field gradient Gz is turned on again, but for a different length of time, 
+in order to refocus the phases of the precessing spins in the selected slice in 
+an optimal fashion. The purpose of the 180 ~ rf pulse and the subsequent 
+pulse field gradient G~ is to make all the precessing spins in the selected slice 
+have nearly the same phase and frequency, in preparation for the subsequent 
+phase and frequency encoding. 
+At this juncture, a pulse field gradient Gy is turned on, along y, for a 
+time ty. This causes each spin to precess at a rate that depends on its y 
+coordinate. Thus, it acquires a phase which depends on that coordinate. 
+This corresponds to shifting the origin in k space by an amount ky = ~/Gyt~ 
+along y. This is commonly referred to as "phase encoding". 
+After that, the so-called "reac~' gradient Gx is turned on, along x, and 
+the FID signal is collected. The gradient G~ now causes the spins with the 
+same y coordinate, which used to have the same rate of precession, to be 
+split into groups with different Larmor frequencies, varying in linear fashion 
+with x. This part of the procedure is called "frequency encoding". 
+While this gradient G~ is left on, the FID signal is collected from the 
+entire system, as a function of the time t~ elapsed since that gradient was 
+turned on. The signal comes from only those spins in the original xy slice 
+that were tipped to the xy plane in the first place, all of which have the same 
+value of z! Each digitized signal of the FID corresponds to a particular value 
+of tx, and thus to a particular value of k~ = ~/G~tx. Therefore the signal, 
+
+--- PAGE 55 ---
+4.5. NMR CORE IMAGING 125 
+recorded as function of t~, represents a trace along the k~ direction for all 
+those k~ values and with a fixed value of k~. The digitized FID is therefore 
+a sequence of values of S(kx, k~, z), with k~ ranging from 0 to kx,m~ and 
+at fixed values of k~ and z. By repeating this measurement, using different 
+values of Gy and a fixed time interval ty, we can collect S(k~, ky, z) for all 
+values of k~ and ky at one fixed value of z. A 2D NMR image can then be 
+obtained by using the 2D version of the inverse Fourier transformation of Eq. 
+(4.55). In order to obtain the full three-dimensional image, the mean carrier 
+frequency of the initial 90 ~ soft (sinc function) rf pulse is varied to select 
+different xy slices in the sample. 
+Numerous other field gradient and rf pulsing schemes or sequences can be 
+used for obtaining NMR images of p(r). The basic idea is always to find an 
+efficient way of measuring S(k~, ky, z) at kx and k~ values which span that 
+entire 2D subspace of k space and at a fixed value of z. Figure 4.29 shows 
+low resolution NMR images of the fluids in thin slices through rock samples. 
+
+--- PAGE 56 ---
+126 CHAPTER 4. PETROPHYSICAL NMR MEASUREMENTS 
+90~ 180y 
+r.f. 
+slice 
+Gz L i i i 
+Cx 
+signal 
+phase 
+read 
+i ! 
+~= k~,,,,~ 
+I , 
+. ,~ begin acquisition 
+I It \ "" ~% 
+i 
+ky 
+phase axis ji, 
+oooo*o*li 
+a i @ 9 9 9 9 
+9 9 9 9 9 9 9 
+9 9 9 9 9 9 9 
+i,9 9 9 9 'Pro 9 read axis I 9 9 9 9 9 9 9 
+/ 
+9 9 9 9 9 9 9 
+( 9 9 9 9 9 9 9 
+i 
+ql o o 9 9 9 9 o 
+q 9 9 9 9 9 9 9 
+q 9 9 9 9 9 9 9 
+q 9 9 9 9 9 9 9 
+Figure 4.28: The pulsing sequence of getting a 2D NMR image. The bot- 
+tom of the figure illustrates the path of scanning the k vector in k space. 
+(From Callaghan [49]. Redrawn from Figure 3.14 of Ref. [49] with author's 
+permission.) 
+
+--- PAGE 57 ---
+4.5. NMR CORE IMA GING 127 
+Figure 4.29" NMR images of thin slices through rock samples. The light 
+color represents higher porosity.

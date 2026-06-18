@@ -1,0 +1,188 @@
+# Citation Registry
+
+本文件把 Agent 报告中使用的 `[@citation_key]` 映射到本地 PDF、知识卡和推荐检索标签。
+
+- `[@BrownsteinTarr1979]` - Importance of classical diffusion in NMR studies of water in biological cells
+  - PDF: `01_core_theory_inversion\BrownsteinTarr1979.pdf`
+  - Card: `papers\BrownsteinTarr1979.md`
+  - Tags: `core_theory_inversion`, `eigenmodes`, `geometry`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Whittall1991NNLS]` - Journal of Magnetic Resonance Series A 1991 Whittall
+  - PDF: `01_core_theory_inversion\Journal of Magnetic Resonance Series A 1991 Whittall.pdf`
+  - Card: `papers\Whittall1991NNLS.md`
+  - Tags: `component_assignment`, `core_theory_inversion`, `cpmg`, `echo_spacing`, `echo_train`, `gaussian_decomposition`, `ill_posed`, `inverse_laplace`, `nnls`, `overfitting`, `peak_count`, `pulse_sequence`
+- `[@Song2012MRPM]` - Magnetic Resonance of Porous Media (MRPM): A perspective
+  - PDF: `01_core_theory_inversion\Song2012_NMR_PorousMedia_t2t2.pdf`
+  - Card: `papers\Song2012MRPM.md`
+  - Tags: `core_theory_inversion`, `diffusive_coupling`, `eigenmodes`, `exchange`, `geometry`, `multidimensional_nmr`, `peak_merging`, `pore_coupling`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`
+- `[@Ramakrishnan1999Carbonates]` - Ramakrishnan1999_CarbonateRocks
+  - PDF: `01_core_theory_inversion\Ramakrishnan1999_CarbonateRocks.pdf`
+  - Card: `papers\Ramakrishnan1999Carbonates.md`
+  - Tags: `core_theory_inversion`, `diffusive_coupling`, `eigenmodes`, `exchange`, `geometry`, `peak_merging`, `pore_coupling`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`
+- `[@Mohnke2015TriangularPores]` - Mohnke2015_triangular_pore_intro!
+  - PDF: `01_core_theory_inversion\Mohnke2015_triangular_pore_intro!.pdf`
+  - Card: `papers\Mohnke2015TriangularPores.md`
+  - Tags: `core_theory_inversion`, `eigenmodes`, `geometry`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@MullerPetke2015DiffusionRegimes]` - Nuclear magnetic resonance average pore-size estimations outside the fast-diffusion regime
+  - PDF: `01_core_theory_inversion\Muller-Petke2015_DiffusionRegimes.pdf`
+  - Card: `papers\MullerPetke2015DiffusionRegimes.md`
+  - Tags: `core_theory_inversion`, `eigenmodes`, `geometry`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Keating2012NMRAssumptions]` - 2011-0462 365..377
+  - PDF: `01_core_theory_inversion\keating2012.pdf`
+  - Card: `papers\Keating2012NMRAssumptions.md`
+  - Tags: `core_theory_inversion`, `dephasing`, `diffusive_coupling`, `echo_spacing`, `eigenmodes`, `exchange`, `field_inhomogeneity`, `geometry`, `internal_gradient`, `peak_merging`, `pore_coupling`, `pore_shape`
+- `[@Dunn2002PorousMediaNMR]` - 2002 Dunn-12
+  - PDF: `01_core_theory_inversion\2002 Dunn-12.pdf`
+  - Card: `papers\Dunn2002PorousMediaNMR.md`
+  - Tags: `core_theory_inversion`, `cpmg`, `dephasing`, `echo_spacing`, `echo_train`, `eigenmodes`, `field_inhomogeneity`, `geometry`, `internal_gradient`, `pore_shape`, `pore_size`, `pulse_sequence`
+- `[@Coates1999NMRLogging]` - NMR Logging Principles and Applications
+  - PDF: `01_core_theory_inversion\1999 Coates.pdf`
+  - Card: `papers\Coates1999NMRLogging.md`
+  - Tags: `component_assignment`, `core_theory_inversion`, `cpmg`, `echo_spacing`, `echo_train`, `gaussian_decomposition`, `ill_posed`, `inverse_laplace`, `nnls`, `overfitting`, `peak_count`, `pore_size`
+- `[@Toumelin2007GeneralRandomWalk]` - doi:10.1016/j.jmr.2007.05.024
+  - PDF: `02_pore_scale_simulation_random_walk\Toumelin2007_GeneralRW.pdf`
+  - Card: `papers\Toumelin2007GeneralRandomWalk.md`
+  - Tags: `cpmg`, `dephasing`, `echo_spacing`, `echo_train`, `eigenmodes`, `field_inhomogeneity`, `forward_simulation`, `geometry`, `internal_gradient`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`
+- `[@Toumelin2003GeneralRandomWalk]` - Toumelin2003_generalRW
+  - PDF: `02_pore_scale_simulation_random_walk\Toumelin2003_generalRW.pdf`
+  - Card: `papers\Toumelin2003GeneralRandomWalk.md`
+  - Tags: `dephasing`, `diffusive_coupling`, `echo_spacing`, `eigenmodes`, `exchange`, `field_inhomogeneity`, `forward_simulation`, `geometry`, `internal_gradient`, `monte_carlo`, `peak_merging`, `pore_coupling`
+- `[@Toumelin2003TemperatureDiffusiveCoupling]` - Toumelin et al. - , C. Torres-Verdín.pdf
+  - PDF: `02_pore_scale_simulation_random_walk\Toumelin2003_Temp&DiffusiveCoupling.pdf`
+  - Card: `papers\Toumelin2003TemperatureDiffusiveCoupling.md`
+  - Tags: `cpmg`, `diffusive_coupling`, `echo_spacing`, `echo_train`, `exchange`, `peak_merging`, `pore_coupling`, `pore_scale_simulation_random_walk`, `pore_size`, `pulse_sequence`, `sampling`, `short_t2`
+- `[@Toumelin2002MonteCarloNMR]` - Quantification of Multi-Phase Fluid Saturations in Complex Pore Geometries From Simulations of Nuclear Magnetic Resonance Measurements
+  - PDF: `02_pore_scale_simulation_random_walk\toumelin2002.pdf`
+  - Card: `papers\Toumelin2002MonteCarloNMR.md`
+  - Tags: `diffusive_coupling`, `eigenmodes`, `exchange`, `forward_simulation`, `geometry`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`
+- `[@Chi2015DiffusionalCoupling]` - Diffusional coupling between microfractures and pore structure and its impact on nuclear magnetic resonance measurements in multiple-porosity systems
+  - PDF: `02_pore_scale_simulation_random_walk\Chi2015_DiffusionalCoupling.pdf`
+  - Card: `papers\Chi2015DiffusionalCoupling.md`
+  - Tags: `diffusive_coupling`, `eigenmodes`, `exchange`, `forward_simulation`, `geometry`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`
+- `[@Fraga2013CarbonatePoreCoupling]` - Fraga2013_RWCarbonatesPoreCoupling
+  - PDF: `02_pore_scale_simulation_random_walk\Fraga2013_RWCarbonatesPoreCoupling.pdf`
+  - Card: `papers\Fraga2013CarbonatePoreCoupling.md`
+  - Tags: `diffusive_coupling`, `exchange`, `forward_simulation`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_size`, `random_walk`, `short_t2`, `surface_relaxation`
+- `[@Carneiro2014DiffusiveCoupling]` - Carneiro2014
+  - PDF: `02_pore_scale_simulation_random_walk\Carneiro2014.pdf`
+  - Card: `papers\Carneiro2014DiffusiveCoupling.md`
+  - Tags: `diffusive_coupling`, `exchange`, `forward_simulation`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_size`, `random_walk`, `short_t2`, `surface_relaxation`
+- `[@Alhwety2014RockTypingDiffusiveCoupling]` - DF_Alhwety_v4_final_nodate
+  - PDF: `02_pore_scale_simulation_random_walk\Alhwety2014_Rock-typing_DiffCoupl.pdf`
+  - Card: `papers\Alhwety2014RockTypingDiffusiveCoupling.md`
+  - Tags: `dephasing`, `diffusive_coupling`, `echo_spacing`, `exchange`, `field_inhomogeneity`, `forward_simulation`, `internal_gradient`, `monte_carlo`, `peak_merging`, `pore_coupling`, `pore_scale`, `pore_scale_simulation_random_walk`
+- `[@LucasOliveira2018RestrictedDiffusion]` - Computational approach to integrate 3D X-ray microtomography and NMR data
+  - PDF: `02_pore_scale_simulation_random_walk\Lucas-Oliveira2018.pdf`
+  - Card: `papers\LucasOliveira2018RestrictedDiffusion.md`
+  - Tags: `eigenmodes`, `forward_simulation`, `geometry`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`, `random_walk`, `restricted_diffusion`, `short_t2`, `surface_relaxation`
+- `[@Guo2016MultidimensionalNMRSimulation]` - Guo et al. - 2016 - Numerical simulation of multi-dimensional NMR resp.pdf
+  - PDF: `02_pore_scale_simulation_random_walk\Guo et al. - 2016 - Numerical simulation of multi-dimensional NMR resp.pdf`
+  - Card: `papers\Guo2016MultidimensionalNMRSimulation.md`
+  - Tags: `cpmg`, `echo_spacing`, `echo_train`, `eigenmodes`, `exchange`, `forward_simulation`, `geometry`, `monte_carlo`, `multidimensional_nmr`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`
+- `[@McCall1991RestrictedDiffusion]` - Magnetization evolution in connected pore systems
+  - PDF: `02_pore_scale_simulation_random_walk\McCall1991.pdf`
+  - Card: `papers\McCall1991RestrictedDiffusion.md`
+  - Tags: `analytical_forward_model`, `eigenmodes`, `eigenvalues`, `geometry`, `matrix_diagonalization`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Liebig1993RandomWalk]` - Leibig1993_RW
+  - PDF: `02_pore_scale_simulation_random_walk\Leibig1993_RW.pdf`
+  - Card: `papers\Liebig1993RandomWalk.md`
+  - Tags: `eigenmodes`, `forward_simulation`, `geometry`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `random_walk`, `restricted_diffusion`
+- `[@Noetinger2016DiffusionRandomWalk]` - Noetinger2016_preprint
+  - PDF: `02_pore_scale_simulation_random_walk\Noetinger2016_preprint.pdf`
+  - Card: `papers\Noetinger2016DiffusionRandomWalk.md`
+  - Tags: `eigenmodes`, `forward_simulation`, `geometry`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `random_walk`, `restricted_diffusion`
+- `[@Gonzalez2020FieldInhomogeneities]` - Simulations of NMR Relaxation in a Real Porous Structure: Pre-asymptotic Behavior to the Localization Regime
+  - PDF: `02_pore_scale_simulation_random_walk\Gonzalez2020_Inhomogeneities .pdf`
+  - Card: `papers\Gonzalez2020FieldInhomogeneities.md`
+  - Tags: `dephasing`, `echo_spacing`, `eigenmodes`, `field_inhomogeneity`, `forward_simulation`, `geometry`, `internal_gradient`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `random_walk`
+- `[@SCA2008PoreScaleNMRSimulation]` - 2008: Pore-Scale Simulation of Nmr Response in Carbonates
+  - PDF: `02_pore_scale_simulation_random_walk\SCA2008-30.pdf`
+  - Card: `papers\SCA2008PoreScaleNMRSimulation.md`
+  - Tags: `eigenmodes`, `forward_simulation`, `geometry`, `monte_carlo`, `pore_scale`, `pore_scale_simulation_random_walk`, `pore_shape`, `pore_size`, `random_walk`, `restricted_diffusion`, `short_t2`, `surface_relaxation`
+- `[@Tandon2018FiniteVolumeInternalGradients]` - Effect of Internal Magnetic-Field Gradients on Nuclear-Magnetic-Resonance Measurements and Nuclear-Magnetic-Resonance-Based
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Tandon2018_FiniteVolumeMethod_InternalGradients.pdf`
+  - Card: `papers\Tandon2018FiniteVolumeInternalGradients.md`
+  - Tags: `dephasing`, `echo_spacing`, `eigenmodes`, `field_inhomogeneity`, `finite_element`, `finite_volume`, `geometry`, `internal_gradient`, `mesh`, `numerical_methods_fem_lbm_matrix`, `pde_solver`, `pore_shape`
+- `[@Ghomeshi2018FEMNMR]` - An investigation into the effects of pore connectivity on T2 NMR relaxation
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Ghomeshi2018_FEM.pdf`
+  - Card: `papers\Ghomeshi2018FEMNMR.md`
+  - Tags: `eigenmodes`, `finite_element`, `finite_volume`, `geometry`, `mesh`, `numerical_methods_fem_lbm_matrix`, `pde_solver`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`
+- `[@Mitchell2019FiniteElementNMR]` - A finite element approach to forward modeling of nuclear magnetic resonance measurements in coupled pore systems
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Mitchel2019_FEModeling.pdf`
+  - Card: `papers\Mitchell2019FiniteElementNMR.md`
+  - Tags: `eigenmodes`, `finite_element`, `finite_volume`, `geometry`, `mesh`, `numerical_methods_fem_lbm_matrix`, `pde_solver`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`
+- `[@Mohnke2010PoreScaleSimulation]` - Microscale Simulations of NMR Relaxation in Porous Media Considering Internal Field Gradients
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Mohnke2010.pdf`
+  - Card: `papers\Mohnke2010PoreScaleSimulation.md`
+  - Tags: `dephasing`, `echo_spacing`, `eigenmodes`, `field_inhomogeneity`, `finite_element`, `finite_volume`, `geometry`, `internal_gradient`, `mesh`, `numerical_methods_fem_lbm_matrix`, `pde_solver`, `pore_shape`
+- `[@Schwartz2013T2T2Simulation]` - Schwartz2013_t2t2
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Schwartz2013_t2t2.pdf`
+  - Card: `papers\Schwartz2013T2T2Simulation.md`
+  - Tags: `diffusive_coupling`, `exchange`, `ill_posed`, `inverse_laplace`, `multidimensional_nmr`, `nnls`, `numerical_methods_fem_lbm_matrix`, `peak_merging`, `pore_coupling`, `regularization`, `regularized_inversion`, `t1_t2`
+- `[@Hagslatt2002RestrictiveGeometries]` - doi:10.1016/S1090-7807(02)00039-3
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Hagslatt2002_restrictiveGeometries.pdf`
+  - Card: `papers\Hagslatt2002RestrictiveGeometries.md`
+  - Tags: `eigenmodes`, `geometry`, `numerical_methods_fem_lbm_matrix`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Oliveira2021COMSOLNMRGuide]` - Oliveira2021_COMSOL_Guide!
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Oliveira2021_COMSOL_Guide!.pdf`
+  - Card: `papers\Oliveira2021COMSOLNMRGuide.md`
+  - Tags: `eigenmodes`, `finite_element`, `finite_volume`, `geometry`, `mesh`, `numerical_methods_fem_lbm_matrix`, `pde_solver`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`
+- `[@Mohnke2014LBMNMR]` - Joint numerical microscale simulations of multiphase flow and NMR relaxation behavior in porous media using Lattice Boltzmann methods
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Mohnke2014.pdf`
+  - Card: `papers\Mohnke2014LBMNMR.md`
+  - Tags: `diffusive_coupling`, `eigenmodes`, `exchange`, `geometry`, `lattice_boltzmann`, `lbm`, `numerical_methods_fem_lbm_matrix`, `peak_merging`, `pore_coupling`, `pore_network`, `pore_shape`, `pore_size`
+- `[@Guyer2000LBMDiffusion]` - USING STANDARD SYSTE
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Guyer2000_LBM.pdf`
+  - Card: `papers\Guyer2000LBMDiffusion.md`
+  - Tags: `eigenmodes`, `geometry`, `lattice_boltzmann`, `lbm`, `numerical_methods_fem_lbm_matrix`, `pore_network`, `pore_shape`, `restricted_diffusion`
+- `[@Chang2000MatrixDiagonalization]` - Ioannidis.PDF
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Chang2000.pdf`
+  - Card: `papers\Chang2000MatrixDiagonalization.md`
+  - Tags: `analytical_forward_model`, `eigenmodes`, `eigenvalues`, `geometry`, `matrix_diagonalization`, `numerical_methods_fem_lbm_matrix`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Chang2001DrainageSaturationHistory]` - 2001: Pore Network Simulation of Low-Field NMR Relaxometry Under Conditions of Drainage and Imbibition: Effects of Pore Structure and Saturation History
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Chang2001_drainage_conditions_saturation_history.pdf`
+  - Card: `papers\Chang2001DrainageSaturationHistory.md`
+  - Tags: `analytical_forward_model`, `eigenmodes`, `eigenvalues`, `geometry`, `matrix_diagonalization`, `numerical_methods_fem_lbm_matrix`, `pore_shape`, `pore_size`, `restricted_diffusion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@MatrixDiagonalization2002NMR]` - Magnetization Evolution in Network Models of Porous Rockunder Conditions of Drainage and Imbibition
+  - PDF: `03_numerical_methods_fem_lbm_matrix\1-s2.0-S0021979702984729-main.pdf`
+  - Card: `papers\MatrixDiagonalization2002NMR.md`
+  - Tags: `analytical_forward_model`, `eigenmodes`, `eigenvalues`, `geometry`, `matrix_diagonalization`, `numerical_methods_fem_lbm_matrix`, `pore_shape`, `restricted_diffusion`
+- `[@Tan2012T2T1Simulation]` - Tan et al. - 2012 - Numerical simulation of (T2, T1) 2D NMR and fluid .pdf
+  - PDF: `03_numerical_methods_fem_lbm_matrix\Tan et al. - 2012 - Numerical simulation of (T2, T1) 2D NMR and fluid .pdf`
+  - Card: `papers\Tan2012T2T1Simulation.md`
+  - Tags: `cpmg`, `echo_spacing`, `echo_train`, `exchange`, `forward_simulation`, `monte_carlo`, `multidimensional_nmr`, `numerical_methods_fem_lbm_matrix`, `pore_scale`, `pulse_sequence`, `random_walk`, `sampling`
+- `[@EchoTrainSimulation2021]` - Numerical investigating the low field NMR response of representative pores at different pulse sequence parameters
+  - PDF: `03_numerical_methods_fem_lbm_matrix\1-s2.0-S0098300421000686-main.pdf`
+  - Card: `papers\EchoTrainSimulation2021.md`
+  - Tags: `cpmg`, `echo_spacing`, `echo_train`, `numerical_methods_fem_lbm_matrix`, `pulse_sequence`, `sampling`
+- `[@Song2014PoreCouplingReview]` - Song2014_reviewLetters
+  - PDF: `04_pore_coupling_t2t2_interpretation\Song2014_reviewLetters.pdf`
+  - Card: `papers\Song2014PoreCouplingReview.md`
+  - Tags: `diffusive_coupling`, `exchange`, `multidimensional_nmr`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `pore_size`, `short_t2`, `surface_relaxation`, `surface_relaxivity`, `t1_t2`, `t2_t2`
+- `[@Grunewald2009PoreCoupling]` - A laboratory study of NMR relaxation times and pore coupling in heterogeneous media
+  - PDF: `04_pore_coupling_t2t2_interpretation\Grunewald2009_LabStudy_PoreCoupling.pdf`
+  - Card: `papers\Grunewald2009PoreCoupling.md`
+  - Tags: `component_assignment`, `diffusive_coupling`, `exchange`, `gaussian_decomposition`, `overfitting`, `peak_count`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `pore_size`, `short_t2`, `surface_relaxation`
+- `[@Fleury2009PoreCoupling]` - Quantitative analysis of diffusional pore coupling from T2-store-T2 NMR experiments
+  - PDF: `04_pore_coupling_t2t2_interpretation\x_Fleury2009.pdf`
+  - Card: `papers\Fleury2009PoreCoupling.md`
+  - Tags: `diffusive_coupling`, `exchange`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `pore_size`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Yu2019T2T2]` - Characterization of porous media by T2-T2 correlation beyond fast diffusion limit
+  - PDF: `04_pore_coupling_t2t2_interpretation\Yu_2019.pdf`
+  - Card: `papers\Yu2019T2T2.md`
+  - Tags: `exchange`, `ill_posed`, `inverse_laplace`, `multidimensional_nmr`, `nnls`, `pore_coupling_t2t2_interpretation`, `pore_size`, `regularization`, `regularized_inversion`, `short_t2`, `surface_relaxation`, `surface_relaxivity`
+- `[@Song2016T2T2]` - The robust identification of exchange from T2â€“T2 time-domain features
+  - PDF: `04_pore_coupling_t2t2_interpretation\x_Song2016.pdf`
+  - Card: `papers\Song2016T2T2.md`
+  - Tags: `diffusive_coupling`, `exchange`, `ill_posed`, `inverse_laplace`, `multidimensional_nmr`, `nnls`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `regularization`, `regularized_inversion`, `t1_t2`
+- `[@Song2008T2T2]` - x_Song2008
+  - PDF: `04_pore_coupling_t2t2_interpretation\x_Song2008.pdf`
+  - Card: `papers\Song2008T2T2.md`
+  - Tags: `diffusive_coupling`, `exchange`, `multidimensional_nmr`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `pore_size`, `short_t2`, `surface_relaxation`, `surface_relaxivity`, `t1_t2`, `t2_t2`
+- `[@Johnson2014T2T2]` - x_Johnson2014
+  - PDF: `04_pore_coupling_t2t2_interpretation\x_Johnson2014.pdf`
+  - Card: `papers\Johnson2014T2T2.md`
+  - Tags: `diffusive_coupling`, `exchange`, `multidimensional_nmr`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `t1_t2`, `t2_t2`
+- `[@Monteilhet2006T2T2]` - Monteilheit2006_T2-T2
+  - PDF: `04_pore_coupling_t2t2_interpretation\Monteilheit2006_T2-T2.pdf`
+  - Card: `papers\Monteilhet2006T2T2.md`
+  - Tags: `diffusive_coupling`, `exchange`, `ill_posed`, `inverse_laplace`, `multidimensional_nmr`, `nnls`, `peak_merging`, `pore_coupling`, `pore_coupling_t2t2_interpretation`, `regularization`, `regularized_inversion`, `t1_t2`

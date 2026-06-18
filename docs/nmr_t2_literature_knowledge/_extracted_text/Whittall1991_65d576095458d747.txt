@@ -1,0 +1,550 @@
+--- PAGE 1 ---
+JOURNAL OF MAGNETIC RESONANCE 9522 l-234 ( 199 1) 
+Investigation of Analysis Techniques for Complicated NMR 
+Relaxation Data 
+KENNETHP.WHITTALL 
+Department of Geophysics and Astronomy, University of British Columbia, Vancouver, 
+British Columbia, Canada V6T I IV5 
+AND 
+MICHAELJ.BRONSKILLAND R. MARKHENKELMAN 
+Department of Medical Biophysics, University of Toronto, Toronto, Ontario, Canada 
+Received May 10, 1990; revised May ‘3, 199 1 
+Precision NMR relaxation measurements of biological tissue frequently show complex 
+multicomponent behavior. This paper presents methods for generating information about 
+these relaxation spectra even when the original data are nonideal. A variety of acceptable 
+solutions with differing types of simplicity are investigated. Ways of inferring trends in 
+relaxation spectra that are independent of the particular analysis model are illustrated with 
+examples using linear programming techniques. The question of the number, spacing, 
+and signal-to-noise ratio of data for optimal experiments is also addressed. o 1991 Academic 
+Press, Inc. 
+Measurements of NMR relaxation times in biological tissues have been used for a 
+number of years to probe the organizational structure of tissue ( 2 ) , the molecular 
+dynamics of water in tissues (2), and the nature of malignant changes (3). Water 
+proton relaxation in tissue occurs through spin exchange with macromolecular protons, 
+by chemical-shift anisotropy, by restricted motion of water associated with the mac- 
+romolecular-water interface, by paramagnetic ions, and by microscopic perturbation 
+of the local magnetic field, to name just a few of the mechanisms. It is evident, therefore, 
+that a clear understanding of tissue relaxation can be achieved only from highly precise 
+and complete measurements. 
+NMR relaxation times of tissues now produce contrast in clinical magnetic resonance 
+images but image contrast is usually interpreted only qualitatively. Greater exploitation 
+of the diagnostic potential of relaxation times requires a better understanding of the 
+biophysics of relaxation times in both normal and abnormal tissues as well as more 
+quantitative and accurate methods of measuring relaxation in vivo. The successful 
+accomplishment of these goals would lead to significant diagnostic and therapeutic 
+applications. 
+It is the purpose of this paper to provide a practical guide for the analysis of exper- 
+imental relaxation data to derive the maximum amount of specific information from 
+any relaxation experiment. 
+221 0022-2364191 $3.00 
+Copyxigbt 0 1991 by Academic Press, Inc. 
+AU rights of reproduction in any form resened 
+
+--- PAGE 2 ---
+222 WHITTALL, BRONSKILL, AND HENKELMAN 
+MATHEMATICAL BASIS 
+A basic equation describing the relaxation of magnetization in an NMR experiment 
+is 
+s 
+Till, 
+Ytti) = Yi = s( T)e-QITdT, i= l,...,N, T,,, 
+where the N decay-curve data yi are measured at times ti , and s( T) is the unknown 
+spectrum amplitude as a function of the relaxation time T. The spectrum s(T) may 
+consist of discrete components or a continuous distribution. T represents T2 or, with 
+a simple transformation of the inversion-recovery data, it represents T, . The limits 
+on the integral of Tmin and T,, are chosen to encompass the values of T expected 
+for the physical system being analyzed. 
+One way to make Eq. [I] discrete for computer implementation is to assume that 
+the spectrum is a sum of M 6 functions with unknown positive weights Sj at known 
+relaxation times Tj. That is, 
+S(T) = 5 Sj6(T- Tj). 121 j=l 
+Typically M is chosen to lie between 100 and 200 so as not to bias the solution into 
+a small number of relaxation times. Substituting E.q. [ 21 into Eq. [l] yields 
+M 
+yi = 2 sjemtifTi > i= I ,.‘., N. [31 
+j=l 
+This linear system of N equations in A4 unknowns is solved using least-squares or 
+linear programming algorithms to find a variety of relaxation spectra Sj, j = 1, . . , , 
+M, which fit the data. 
+An adequate fit is usually defined in terms of the X2 statistic. That is, 
+N 
+X2 = 2 (vi - yp)2/UF [41 i=l 
+where J$’ are the data corresponding to the constructed spectrum, and ui are the 
+standard deviations of the measurements yi. The expected value of X2 is N and its 
+standard deviation is (2N) ‘I2 Typically spectra ,with misfits less than one or two . 
+standard deviations above the expected v’ahte are classed as acceptable. 
+Effects which distort the data from the idealized representation given in Eq. [I] 
+should be incorporated if they have a known form. The following sections describe 
+two additions to the basic equation: baseline offsets and nonlinear effects. 
+BASELINE OFFSETS 
+Baseline offsets are implicit in inversion-recovery sequences and can be present in 
+CPMG sequences for various reasons including electronic offsets, nonideal 180” pulses, 
+and RF ringdown (4, 5). To account for offsets the mathematical formulation must 
+be changed to 
+
+--- PAGE 3 ---
+ANALYSIS OF RELAXATION D4TA 223 
+=- yi = s s( T)epfilTdT + B, i== l,...,N, Tmin is1 
+where B is the constant baseline offset. Nonconstant o&ets of a known mathematical 
+form are also tractable. 
+A test was made using a synthetic decay curve of 100 points contaminated with 
+zero-mean, Gaussian noise with a standard deviation equal to 0.2% of the maximum 
+amplitude. Many new data sets were constructed by adding positive and negative 
+offsets to these original data. 
+The relaxation spectra were calculated using a nonnegative least-squares (NNLS) 
+algorithm (6). Figure 1 plots the least-squares misfit assuming B = 0 versus the actual 
+data baseline offset. For large negative offsets the misfit is very high, reflecting the 
+inability to describe negative data. For positive offsets the least-squares misfit rises 
+more slowly because a peak appears near the maximum allowed relaxation time T,, 
+and generates data similar to a constant positive offset. As T,,, increases, the ap- 
+proximation to B improves and the misfit decreases. For this figure, the expected value 
+of x 2 was 100 (horizontal dashed line). Erring on the side of a positive offset enables 
+a safer interpretation. 
+NONLINEAR EFFECTS 
+Known distortions due to nonlinearity in the electronics should be incorporated 
+into the mathematical description. Failure to do so results in errors in peak positions 
+and amplitudes ( 7, 8). For T, experiments, nonlinearity flattens the initial recovery 
+and depresses the final stages such that fast relaxation components are diminished 
+and slow components are shifted toward faster times. F’or T2 experiments short relax- 
+ation components are diminished or eliminated. A typical representation of nonlinear 
+effects is 
+s 
+=lIlaX 
+Yi = s( T) [ e-‘flT - A( e-ti’T)3] dT, i= 1 > *.*, N, =min 
+where A is the degree of nonlinearity embodied by the (e-‘i’T)3 term. 
+-4 -2 0 2 4 6 8 10 
+Actual Baseline Offset B 
+FIG. 1. Misfit assuming zero baseline. The solid line is the minimum x2 achievable by NNLS spectra 
+assuming zero offset for data with actual offsets B between -5 and 10. The horizontal dashed line is the 
+expected value of x2, which is 100 for these data. 
+
+--- PAGE 4 ---
+224 WHITTALL, BRONSKILL, AND HENKELMAN 
+Figure 2 illustrates that incorporating a description of the nonlinearity increases the 
+reliability of the interpretation. We used 200 CPMG data from a spectrum with discrete 
+amplitudes of 5 12 at T = 0.030 and 0.100 s (dashed lines). The data were contaminated 
+with 0.4% noise and distorted by nonlinear effects as in Eq. [ 61 to produce a new data 
+set with A = 0.20. Figure 2a shows the corresponding NNLS spectrum (solid lines) 
+derived from these new data without allowing for the nonlinearity. Increasing the 
+nonlinear distortion of the data increases the x2 misfit, and the peaks shift to longer 
+times before eventually merging. Figure 2b shows the NNLS spectrum obtained after 
+incorporating the correct degree of nonlinearity. The x2 misfit is acceptable and the 
+peak positions and amplitudes are well determined (given the noisy data). 
+If the actual degree of nonlinearity is not known then a series of A values may be 
+tested. For A less than the true value, peaks are shifted to longer times and X2 is 
+slightly larger than its expected value. As A increases beyond the true value of 0.20 
+the peak positions remain well reproduced but their amplitudes become progressively 
+more distorted. In addition, spurious peaks begin to appear at short times although 
+10-Z 
+Relaxation Time 
+1 o-1 
+T (s) 
+600, 
+500 c I I b 
+Relaxation Time T (s) 
+FIG. 2. (a) A NNLS spectrum (solid lines) derived from nonlinearly distorted data (A = 0.20) without 
+allowing for the nonlinearity. The dashed lines represent the true spectrum. (b) A NNLS spectrum incor- 
+porating the nonlinear effects (solid lines). The noisy data prohibit an exact recovery of the spike amplitudes 
+and positions; however, the derived spectra and their misfits are improved. 
+
+--- PAGE 5 ---
+ANALYSIS OF RELAXATION DATA 225 
+the x2 misfit remains at an acceptable level. Thus, overestimating the degree of non- 
+linearity results in an acceptable solution but not one which resembles the true 
+spectrum. 
+Numerical schemes which attempt to determine a spectrum and A automatically 
+such that x2 is minimized are doomed to fail because X2 decreases monotonically as 
+A increases. The marginally better fit achieved by setting A larger than its true value 
+may be due to the extra degree of flexibility to represent the noisy data provided by 
+the (e-‘i’T)3 term. Thus nonlinearity in the amplitude of the data can be handled 
+explicitly to achieve accurate relaxation spectra if the nonlinearity is known, However, 
+attempts to estimate nonlinearities give unreliable results unless the nonlinearity is 
+extreme. 
+MINIMUM-STRUCTURE SOLUTIONS 
+In practice, a finite number of noisy relaxation data cannot uniquely determine 
+s( T). Many solutions exist which adequately fit the data. Moreover, the possible 
+forms of these acceptable spectra are very different, ranging from 6 function represen- 
+tations, to piecewise-constant models, to smooth profiles. This is important because 
+the correct underlying explanation for tissue relaxation cannot be determined uniquely 
+from relaxation measurements alone (6, 8). Models of tissue relaxation based on 
+several identifiable groups of spins which lead to discrete relaxation spectra cannot be 
+distinguished experimentally from models based on continuous size distributions of 
+compartments which lead to continuous spectra. Because of this nonuniqueness, it is 
+essential to analyze relaxation data using algorithms which fit the data with diverse 
+spectra. Each solution reveals different aspects of the data so that more complete 
+interpretations are possible. Our philosophy is to construct a variety of minimum- 
+structure solutions which are likely to have the essential features required by the data 
+and be consistent with physical reality. Minimum structure may be defined in several 
+ways. Three examples are a few isolated 6 functions, a piecewise-constant spectrum 
+with few changes in level, or a smooth curve with few oscillations. This is the principle 
+of parsimony (9-12). 
+The minimum-misfit algorithms generate spectra composed of a few isolated 6 func- 
+tions which correspond to the first definition of minimum structure. Sometimes it is 
+appropriate to relax the fit from the minimum possible to a larger misfit near the 
+expected value. A linear programming (LP) algorithm (6) is able to do this while still 
+generating spectra composed of a few 6 functions. 
+The second definition of minimum structure is realized by using LP to minimize 
+the one norm of the spectrum variation ( 13). That is, the algorithm finds that spectrum 
+which minimizes 
+M-l 
+C Isj+l - sjl 
+j=l 
+subject to fitting the data constraints. Figure 3a (solid line) gives the minimum one- 
+norm variation spectrum derived using 100 noisy data corresponding to the true spec- 
+trum given by the dashed lines. The one norm allows large jumps locally, but the total 
+variation is the minimum possible for the misfit level achieved. Allowing a larger misfit 
+results in even less variation. 
+
+--- PAGE 6 ---
+226 WHITTALL, BRONSIULL, AND HENKELMAN 
+a 
+1 I 
+I A 
+I I I 
+I-TJ 
+01 
+II I I I I 
+I I1111111 I I I I,,,,, I 
+1 o-3 1 o-2 10-l 
+Relaxation Time T (s) 
+Relaxation Time T (s) 
+FIG. 3. The solid lines in (a) and (b) are the spectra corresponding to the minimum one-norm and 
+minimum two-norm variations, respectively. The dashed lines ;are the true spectra. The X2 misfits are both 
+near the expected value of 100 despite the very different forms of the calculated spectra. The small steps on 
+the flanks of the spectrum in (a) are artifacts of the finite partition of the relaxation-time axis. 
+The third minimum structure definition is achieved by adding extra constraints to 
+the basic NNLS formulation (6). One version of these constraints requires a joint 
+minimization of the x2 misfit plus the two-norm variation 
+M-l 
+j=l 
+These constraints discriminate more strongly against large jumps in the spectrum than 
+the one-norm version (Eq. [ 71). The result is the very smooth profile shown in Fig. 
+3b (solid line). This solution has an acceptable misfit which is nearly the same as that 
+in Fig. 3a. Figure 3 illustrates the nonuniqueness by showing that broad distributions 
+of relaxation times fit data from spectra composed of a few 6 functions. 
+INFERENCE 
+The linear programming and least-squares tools described in the previous sections 
+provide a flexible framework for the interpreter to design algorithms to return useful 
+information from the data. In this section, we explore some possible design strategies. 
+
+--- PAGE 7 ---
+ANALYSIS OF RELAXATION DATA 227 
+Diverse spectra may fit the same noisy data equally well. This inherent nonunique- 
+ness cannot be overcome using methods which construct only a single solution because 
+the space of acceptable solutions is infinite in extent. Since an exhaustive search is 
+impossible, it is preferable to infer information about features or properties common 
+to all acceptable spectra. This approach usually generates extreme values of some 
+property along with the spectrum that achieves this extreme. For a particular misfit 
+level, all other acceptable solutions have values bounded by this extreme. 
+The best-fit solutions can be thought of as examples of this technique. All other 
+spectra must have a larger misfit. These solutions are important because they determine 
+whether any spectrum which adequately fits the data exists. 
+The minimum-structure solutions in Fig. 3 are extreme in the sense that every other 
+spectrum must have more one-norm or two-norm variation for the given misfit level. 
+They are not extreme in the sense of barely fitting the data. Minimum-structure so- 
+lutions are important because features on these spectra are likely required by the data 
+and not simply artifacts of the noise or the construction algorithm. They are conser- 
+vative representations of the data. 
+Linear programming is a powerful tool for generating bounds on any linear com- 
+bination of the spectrum amplitudes, Sj, by minimizing or maximizing the objective 
+function 
+M 
+j=l 
+subject to fitting the data. The weights Wj are chosen such that in combination with 
+Sj they represent the property to be made extreme. 
+Figure 4a shows an application of the LP inference approach. In this case, the signal 
+is maximized within a series of narrow, nonoverlapping intervals, subject to achieving 
+an acceptable misfit level. The maximum value as a percentage of the total spectrum 
+integral is plotted as a horizontal bar spanning each interval. The maxima themselves 
+do not form a solution which fits the data because each one is realized by a different 
+spectrum; however, the maxima closely follow the form of the true spectrum per- 
+centages (dashed lines). Note that this information is independent of any construction 
+algorithm and is information about the entire space of acceptable solutions. Hence, 
+the true solution (if it does not radically misfit the noisy data) must have values within 
+these extremes. An example inference is that all spectra (with a one-norm misfit less 
+than that used in generating the figure) must have less than 3 1% of their signal within 
+the interval 0.0185 < T < 0.0216 s. Examining a single spectrum from a particular 
+construction algorithm does not permit rigorous inferences of this type. 
+The corresponding lower bound over such narrow intervals is zero because the 
+signal is easily moved just outside the region without significantly changing the misfit. 
+However, as the intervals widen, larger shifts become more difficult and eventually 
+some signal must appear within the interval. For these data, a region near 0.100 s is 
+the first to have a nonzero minimum. This is consistent with the form of the true 
+spectrum, which has most of its signal near 0.100 s. For example, when the range is 
+from 0.040 to 0.185 s, the minimum signal is 38% of the total. That is, these data do 
+not permit any spectrum with a similar or smaller misfit to have less than 38% of its 
+signal over this range. The true spectrum has 56% of its signal within this range. 
+
+--- PAGE 8 ---
+228 WHITTALL, BRONSKILL, AND HENKELMAN 
+60 
+g 50 - s cl 
+5 40- 2 I - 
+d 30- 
+, -- - , 
+16 \ 
+14- 0 
+1 I b 
+2- I \ 
+O- ’ , 
+I*\ ’ I 
+8- I I ’ 1 
+’ I 
+6- 
+I ,‘\ 
+4- I I , ’ \ I 
+2- \ 
+,1 .JL!l 
+\ I I I I \ \ ’ 1 ,\ I \ 
+0 I.,, I iL, ,( 
+1 o-3 1 o-2 10-l 
+Relaxation Time T (s) 
+FIG. 4. In (a) the horizontal bars define a series of narrow intervals over which the spectrum amplitudes 
+were maximized. The height of the bar is the resulting maximum percentage of signal in that interval. The 
+dashed lines are the percentages of the components of the true spectrum. In (b) the least-upper-bound 
+spectrum is plotted with solid lines and the true spectrum with dashed lines. The small steps on the flanks 
+of the spectra are artifacts of the finite partition of the relaxation axis. 
+The least-upper-bound solution is a second example of an inference using LP. In 
+this case, subject to fitting the data and the extra constraints 
+Sj G S, j= 1 ,--’ 3 M, 1101 
+the LP algorithm minimizes the objective function 
+4 = s, 1111 
+where S is an additional variable. The result is the least upper bound S and a spectrum 
+which achieves this bound. Figure 4b shows an example of this approach. The true 
+spectrum is plotted as dashed lines. This smooth, continuous spectrum was selected 
+to be representative of distributions of relaxation times arising from tissues with a 
+wide range of proton environments. The inference is that all other acceptable spectra 
+must meet or exceed the least upper bound S somewhere within the given interval 
+from 0.001 to 0.400 s. Note that these spectra have quite an unusual form. They are 
+
+--- PAGE 9 ---
+ANALYSIS OF RELAXATION DATA 229 
+essentially either zero or the bound S. The minor steps on the sides of the blocks are 
+due to the finite partition of the Taxis. Yet these block-like spectra fit the data well, 
+with x2 equal to its expected value. 
+One final example of an inference using LP follows the observation by Kroeker et 
+al. ( 14) that spectrum peaks from KHT tumors in mice redistribute toward higher 
+relaxation times as the tumors grow. The first moment quantifies this shift and in 
+discrete form it is 
+5 TjSj. [=I j=l 
+This is equivalent to the LP objective function of Eq. [9] with weights Wj = Tj. The 
+first moment of individual peaks within a spectrum is calculated by altering the upper 
+and lower limits of the summation over j. Minimizing and maximizing the objective 
+function [ 121 subject to the data constraints gives the extremes allowed by the data. 
+Comparing the maximum first moment at one tumor weight with the minimum first 
+moment at a greater weight shows whether the increase in first moment is rigorously 
+required by the data. Figure 5 gives an example of this method applied to noisy data 
+18 
+16 
+c 14 
+t; 12 
+$ 10 
+= 8 c 
+p 
+4 
+2 
+n 
+I cl 
+--I 
+:I 
+I ’ 
+A I ’ 
+I \ I ’ 
+I 1 I ’ 
+1 o-2 10-l 
+Relaxation Time T (s) 
+18, 
+6- 
+4- 111 b 
+2- :: 
+O- * I ’ 
+I 1 I ’ 
+8- I / I ’ 
+6- I I I 
+I \ Y- 
+’ 4- / \ I ’ 
+’ 
+/ 2- , \ I I \ 
+/ L \ 0 I’ III’III~ 1 I\Illllll -1 1 
+10-J 1 o-2 10-l 
+Relaxation Time T (s) 
+FIG. 5. The solid lines in (a) and (b) are spectra with minimum and maximum first moment, respectively, 
+within an interval from 0.001 to 0.009 s. The dashed line is the true spectrum. 
+
+--- PAGE 10 ---
+230 WHIlTALL, BRONSKILL, AND HENKIZLMAN 
+from the three-peak test spectrum shown as dashed lines. An upper bound was imposed 
+on the one-norm variation of the solution (Eq. [ 71) to give the blocky spectra shown 
+as solid lines. An interval from 0.001 to 0.009 s was chosen to encompass the first 
+peak. The minimization result in Fig. 5a shows a shift to shorter times with respect 
+to the true spectrum. The maximization result in Fig. 5b shows a redistribution to 
+longer times. The average relaxation time of a peak is given by 
+Ta, = $J 7jSj $J Sj. [I31 .i=il. I’ i=& 
+For the true spectrum T,, = 4.1 ms. The minimum and maximum first-moment 
+spectra in Fig. 5 have T,, = 3.6 and 4.6 ms, respectively. These extreme values can 
+be compared with other relaxation times of individual probes to see if systematic 
+change with tumor progression is resolvable. Such strategies also cope with the biological 
+heterogeneity inherent in such systems. 
+EXPERIMENTAL DESIGN 
+The resolution and accuracy of spectra derived from relaxation data improve with 
+the number of points, N, and the signal-to-noise ratio, SNR. The ideal experiment 
+yields an infinite number of precise data so that s(T) is uniquely determined, however, 
+compromises must be made in practice. For T, experiments especially, there are usually 
+strict time constraints which prohibit sampling a large number of points. In this section, 
+we examine how to choose N, SNR, and the measurement times ti to maximize the 
+information in the data. Backus and Gilbert (15, 26) presented a method which is 
+suited to this analysis. Parker ( 17) and Oldenburg ( 18) reviewed the Backus-Gilbert 
+(BG) method. 
+Consider a linear combination of both sides of Eq. [I], 
+5 Ui( To)yi = 2 ai( To) J”^ S( T)c”‘~~T 
+i=l i=l Tmin 
+s 
+Till, 
+= S( T) 5 ai ( To)e-f”TdT, Tllll” i=l 
+1141 
+where ai ( To) are coefficients for a particular T = 2r0. Define the averaging function 
+A( T, To) as a linear combination of the exponentials 
+A( Ty To) = $ ai( To)tl-“‘T. [I51 
+i=l 
+Substituting Eq. [ 151 into Eq. [ 141 gives 
+Tmax (s( T,,)) = s s( T)A( T, T,,)d7’, 
+TIlli” [161 
+where 
+(I) = 5 ai(To)Yi i=l 
+1171 
+
+--- PAGE 11 ---
+ANALYSIS OF RELAXATION DATA 231 
+is an average of the spectrum near T = T,, . For accurate data these averages are unique 
+for a given set of aj ( To) because every solution reproducing the data, yi, has the same 
+linear combination in Eq. [ 171. Thus the averaging function is a window through 
+which all acceptable spectra are viewed, and the average value is information common 
+to these spectra and independent of any construction algorithm. For inaccurate data, 
+the averages have a known variance derived from the data covariance matrix. 
+The BG method achieves a tradeoff between the averaging function resolution and 
+the variance of the average value by finding those ai ( To) which minimize 
++(To) = v(To) + ~w(To)> [I81 
+where 
+W( To) = *A’( T, To)dT + ‘A2(T, To)dT [I91 
+is a measure of the averaging function width, 
+?‘(To) = ; af(T [201 i=l 
+is the variance of the average estimate, and P is a positive tradeoff parameter. When 
+p = 0 the variance is minimized at the expense of the resolution. When p is large the 
+resolution width is small but the variance is increased. The definition of W( To) used 
+here is a modification of the spread criterion of (15). We chose this form because it 
+usually produces nonnegative averaging functions centered on To and symmetric on 
+a logarithmic scale. The resolving width of the averaging function is defined as the 
+ratio of the relaxation time at the upper half-maximum point to that at the lower. 
+Figure 6a shows three typical averaging functions for a relative error in the average 
+estimate of 2%. The locations are To = 0.004,0.020, and 0.100 s. These functions are 
+rather wide, suggesting that components separated by less than a ratio of about 4 are 
+not fully resolved by the 100 noisy, logarithmically spaced data. The three averaging 
+functions from left to right have widths of 4.8,5.8, and 4.4. However, these averaging 
+functions are wide partly because no positivity constraints on the spectrum can be 
+applied. Hence, this extra information cannot be used to improve the resolution. 
+Figure 6b shows the effect on resolution of a different data sampling. The decay 
+curve was resampled with a linear instead of logarithmic spacing over the same interval. 
+The three new averaging functions now have widths of 10.1,6.4, and 4.1, for the same 
+2% relative error in the average estimate. Resolution of fast relaxing components near 
+0.004 s is degraded because of the relatively few data at short times. Resolution of the 
+long components near 0.100 s is enhanced because more decay-curve data now fall 
+near this time. In general, to resolve a component at a particular relaxation time, this 
+method shows that the decay curve must be sampled often at measurement times near 
+the target relaxation time. 
+The effects of various N and SNR on the resolution can be assessed by a tradeoff 
+curve. A tradeoff curve at a particular To is formed by plotting the standard deviations 
+of the averages versus the widths of the averaging functions obtained by minimizing 
+Eq. [ 181 for many values of p. This calculation requires only the sampling times ti 
+
+--- PAGE 12 ---
+232 WHITTALL, BRONSKILL, AND HENKBLMAN WHITTALL, BRONSKILL, AND HENKBLMAN 
+1.6 - 1.6 - 
+1.4 - a 1.4 - a 
+al al 1.2 - 1.2 - 
+2 2 l.O- l.O- .e .e 
+Z. Z. 
+ii ii 
+0.8 - /!xa 0.8 - /!xa 
+0.6 - 0.6 - 
+0.4 - 0.4 - 
+0.2 - 0.2 - 
+0.0 0.0 
+10-J 10-J 1 o-2 1 o-2 10-l 10-l 
+Relaxation Time T (s) 
+1.41 / \b 
+t;mu 
+10-3 1 o-2 10-l 
+Relaxation Time T (s) 
+FIG. 6. (a) The three averaging functions are derived from 100 logarithmically spaced decay-curve data 
+covering the interval 0.001 to 0.500 s. Their locations rc, are 0.004, 0.020, and 0.100 s, and their ratios of 
+upper to lower half-maximum point are 4.8, 5.8, and 4.4. (b) The three averaging functions are derived 
+from 100 linearly spaced data covering the same interval. Their locations are also the same. However, the 
+resolving widths are now 10. I, 6.4, and 4.1. 
+and the data standard deviations ui . Thus, the tradeoff curve is independent of the 
+actual data yi and so the analysis is general rather than specific to a particular set of 
+measurements. 
+We generated data sets with 30,60, and 120 points spaced logarithmically between 
+0.001 and 0.500 s. For each of these, the SNR was set at 250, 125, and 62.5. Thus 
+there are nine data sets in total. The SNR is defined as the ratio of the decay-curve 
+maximum at zero time to the standard deviation of the added noise. Five of the nine 
+tradeoff curves for T,, = 0.020 s are plotted in Fig. 7a. Curves closer to the lower left 
+comer indicate better resolution because, at a given standard deviation of the average 
+estimate, the width is smaller. As expected, increasing the number of points at a 
+particular SNR (top three curves) or increasing the SNR for a fixed number of points 
+(bottom three curves) improves the resolution. Figure 7b shows two pairs of curves 
+(indistinguishable) which indicate a rule for choosmg the number of data N and the 
+SNR. The top pair corresponds to 30 points with a SNR of 125 and 120 points with 
+a SNR of 62.5. The lower two curves result from 30 points with SNR = 250 and 120 
+
+--- PAGE 13 ---
+ANALYSIS OF RELAXATION DATA 233 
+4 8 12 16 20 
+Width 
+b 
+4 8 12 16 20 
+Width 
+FIG. 7. The tradeoff curves in (a) and (b) quantify the decrease in standard deviation of the average 
+estimate with the increase in width of the averaging function. (a) The curves from top to bottom correspond 
+to 30 data with SNR = 62.5, 60 data with SNR = 62.5, 120 data with SNR = 62.5, 120 data with SNR 
+= 125, and 120 data with SNR = 250. (b) The top curve corresponds to 30 data with SNR = 125, as 
+well as 120 data with SNR = 62.5. The lower curve is 30 data with SNR = 250 and 120 data with SNR 
+= 125. These two pairs of curves overlap and suggest that the resolving power follows the product 
+SNR fi. 
+points with SNR = 125. The overlap of the individual pairs suggests that the resolving 
+power follows the product 
+SNR\TN, [211 
+with higher values indicating better resolution. Hence, to achieve the same resolution 
+at half the SNR it is necessary to measure four times as many points. This rule is 
+intuitively obvious for monoexponential data, where the decay curve is a straight line 
+on a semilogarithmic plot. Measuring at four times as many locations is equivalent 
+to repeating the measurements at the original locations four times and so doubling 
+the SNR. Because the BG method is independent of the actual data values, it dem- 
+onstrates the general applicability of Eq. [ 2 11. This result aids the design of experiments 
+where time constraints may be different for different S’NR and N. 
+
+--- PAGE 14 ---
+234 WHITTALL, BRONSKILL, AND HENKELMAN 
+ACKNOWLEDGMENTS 
+The authors gratefully acknowledge support from the Natural Sciences and Engineering Research Council 
+of Canada, the Medical Research Council of Canada, and the National Cancer Institute of Canada. 
+REFERENCES 
+1. P. S. BELTON AND R. G. RATCLIFFE, Magn. Reson. Med. 17,241 ( 1985). 
+2. J. ZHONG, J. C. GORE, AND I. M. ARMITAGE, Mugn. Reson. Med. 21,295 ( 1989). 
+3. W. R. INCH, J. A. M&&DIE, R. R. KNISPEL, R. T. THO~IPSON, AND M. M. PINTAR, J. N&l. Cancer 
+Inst. 52, 353 ( 1974). 
+4. R. L. VOLD, R. R. VOLD, AND H. E. SIMON, J. Mugn. Rexon. 11,283 ( 1973). 
+5. D. G. HUGHES AND G. LINDBLOM, J. Mugn. Reson. 26,469 ( 1977). 
+6. K. P. WHI~ALL AND A. L. MACKAY, J. Mugn. Reson. 84, 134 ( 1989). 
+7. R. J. S. BROWN, J. Mugn. Reson. 82,539 (1989). 
+8. C. H. NEWCOMB, S. J. GRAHAM, AND M. J. BRONSKILL, J: Mugn. Reson. 90,279 ( 1989). 
+9. S. W. F’ROVENCHER, Comput. Phys. Commun. 27,213 (1982). 
+10. OCCAM, WILLIAM OF, Summa Totius Logical, Paris, 1488. 
+11. S. W. PROVENCHER, Comput. Phys. Commun. 27,229 (1982). 
+12. S. C. CONSTABLE, R. L. PARKER, AND C. G. CONSTABLE, Geophysics 52,289 ( 1987). 
+13. S. E. DOSSO AND D. W. OLDENBURG, Geophys. J Int. 99,483 (1989). 
+14. R. M. KROEKER, C. A. STEWART, M. J. BRONSKILL, AND R. M. HENKELMAN, Mugn. Reson. Med. 6, 
+24 (1988). 
+15. G. E. BACKUS AND J. F. GILBERT, Geophys. J. R. Astron. Xoc. 16, 169 ( 1968). 
+16. G. E. BACKUS AND J. F. GILBERT, Phil. Trans. R. Sot. A 266, 123 ( 1970). 
+17. R. L. PARKER, Annu. Rev. Eurth Planet. Sci. 5, 35 ( 1977). 
+18. D. W. OLDENBURG, IEEE Trans. Geosci. Remote Sensing GE-22,664 ( 1984).

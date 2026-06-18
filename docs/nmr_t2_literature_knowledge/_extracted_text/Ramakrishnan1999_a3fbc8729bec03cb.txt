@@ -1,0 +1,677 @@
+--- PAGE 1 ---
+THE LOG ANALYST, VOL 40, NO. 4 (JULY-AUGUST 1999). P. 2bC-270. I I FIGURES 
+Forward Models for Nuclear Magnetic 
+Resonance in Carbonate Rocks 
+T. S. Ramakrishnan, L. M. Schwartz, E. J. Fordham, W. E. Kenyon, and D. J. Wilkinson] 
+ABSTRACT 
+In the conventional approach to the interpretation of 
+nuclear tnagnetic resonance (NMR) measurements on 
+water-saturated reservoir rocks, it is assumed that the T, 
+distribution and the pore size distribution are directly re- 
+lated. However, both laboratory and log data show that 
+this relationship breaks down in many pore systems, es- 
+pecially carbonates, which consist of tnicro (,intragranu- 
+lar) and macro (intergranular) porosity. This breakdown 
+limits our ability to predict permeability and movable 
+fluid fractions. Physically, it is due to the diffusion of 
+magnetization between the intra- and intergranular 
+pores. 
+We present here three geometrical models that help 
+clarify the relationship between NMR measurements 
+and the underlying pore geometry. All of the models 
+characterize this geometry in terms of four parameters: 
+(1) the volume fraction of total porosity, $ 
+(2) the volume fraction of intergranular porosity, fm 
+(3) the pore volume to surface area ratio for the niicro- 
+pores, VS,, 
+(4) the pore volume to surface area ratio for the niacro- 
+pores, Vsni 
+In the first model, we apply random walk numerical 
+simulations to an ordered cubic packing of consolidated 
+microporous grains. For given values of the above pa- 
+rameters, the Tz distribution is evaluated as a function of 
+surface relaxation parameter, p. In the second and third 
+models, the microporous grains are treated as a contin- 
+uum. For thep values of greatest interest, roughly, 1.50 
++ 7.50pm/s, essentially identical results can be derived 
+from a three-dimensional (3D) analytical model. In ad- 
+dition, for all values ofp, many features of the T, distri- 
+bution can be represented in terms of a one-dimensional 
+(1 D) model pore space. 
+INTRODUCTION 
+Conventional interpretation of NMR relaxation in 
+water-saturated reservoir rocks is based on two assump- 
+tions. The first is that the magnetization relaxation within 
+each pore is controlled by surface relaxivity so that the ef- 
+fective lifetime is V, lp. Here V, is the volume to surface 
+area ratio ofthe individual pore andp is the surface relaxiv- 
+ity parameter. The net transverse relaxation rate for that 
+pore is then 
+(1) 
+where the second tertn on the right side represents a small 
+correction associated with the bulk lifetime, T2B, of the 
+fluid. Second. in the rock as a whole, each pore is assumed 
+to act independently so that the measured magnetization is 
+simply a sum of contributions from the individual pores 
+(Kenyon et al., 1989. Kenyon, 1992, Kenyon, 1997). In 
+this scenario, it follows that the T, and pore size distribu- 
+tions are directly related. In carbonates, especially in grain- 
+stones and packstones, experiments perfomed at our 
+laboratory indicate that these assumptions often fail. The 
+purpose of this paper is to show that this failure can be un- 
+derstood in terms of the diffusion of water molecules be- 
+tween the inter- and intragranular pores. To illustrate, we 
+Manuscript received by the Editor February 22, 1999; revised manuscript received May 3, 1999, 
+' Schlumberger-Doll Research, Ridgefield, CT 06877-4 108, USA 
+01999 Society of Professional Well Log Analysts. All rights reserved. 
+260 The Log Analyst 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021
+
+--- PAGE 2 ---
+Forward Models for Nuclear Magnetic Resonance in Carbonate Rocks 
+consider 111 rigures 1 and 2 two examples of Middle East 
+carbonates. In the left-hand panel of Figure 1 we have an 
+image of a peloidal grainstone obtained fiom an optical 
+thin section. The right-hand panel shows an environmental 
+scanning electron microscope (ESEM) image of the inte- 
+rior of what appear as dark solid grains in the left-hand op- 
+tical image. Clearly, the large grains are comprised of 
+roughly micron sized pellets and the rock‘s porosity is di- 
+vided between two populations with very different length 
+1 L‘ 
+$4 
+scales. Similar behaviour is seen in Figure 2 where two 
+ESEM images of a different Middle Eastern carbonate are 
+shown (Anselmetti et al., 1998). Here the left-hand panel 
+shows both large textured grains and intergranular porosity 
+while the right-hand panel illustrates the fine grained char- 
+acter found in the large grains. Despite the fact that these 
+pore spaces involve widely separated length scales, we see 
+in Figure 3 that the T, spectrum measured on the sample 
+shown in Figure 1 has only a single peak. Clearly, in this 
+FIG. 1. The left-hand panel is an optical micrograph of a peloidal grainstone with grains that are roughly 200pm in diameter. 
+Here the white objects are recrystalized calcite grains, the dark objects are microporous grains and the intergranular pores are 
+filled with blue expoxy. The right-hand panel is an environmental scanning electron micrograph (ESEM) image taken from the 
+same sample. The fine structure within what appear to be dark solid grains (on the left) is typical of many carbonate grainstones. 
+: 
+FIG. 2. The left-hand panel is an ESEM image of a peloidal grainsTone with a 200 pm scale bar at its bottom. The right-hand 
+ESEM image is from a mudstone sample and the scale bar now represents 30pm. The fine structure in the mudstone is quite simi- 
+lar to the features within the microporous calcite grains shown on the left. 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021
+
+--- PAGE 3 ---
+Schwartz ct al. 
+case the direct link between T, and pore size is lost. This 
+may be the reason that carbonate T, spectra have been unre- 
+liable for estimating both permeability and bound fluid vol- 
+ume. 
+In the following sections we will develop three models 
+that lead to a common understanding of NMR measure- 
+ments in water-saturated carbonates with inter- and intra- 
+granular porosity. From the outset we picture the 
+homogeneous rock fabric as having three subvolumes: 
+grains, intergranular pores and vugs, with volume fractions 
+J,, Jm and Sv, respectively. The grains themselves have po- 
+rosity (Pk, so the total porosity, @, is given by 
+@ = Sv + Sm + @pSg > (2) 
+l=SV+Sm+S,. (3) 
+where 
+Vugs are associated with grains that have been dissolved 
+away from the original granular network. Their size can 
+vary from that of a single grain (roughly, 100 pm) to centi- 
+meters. Water in vugs contributes to the rock’s NMR signal 
+at the bulk fluid rate. Their influence will not be treated ex- 
+plicitly here; if the vug porosity is known a priori, a correc- 
+tion to ourforward models is easily made. (By contrast, if 
+we are concerned with the inverse problem, the vug contri- 
+bution to the magnetization decay spectrum can be readily 
+identified only if J, << Sm + @J’,.) We will also discuss, 
+briefly, the effects of oil in the pore space, within the 
+framework of a rock that remains water wet. 
+THREE-DIMENSIONAL 
+NUMERICAL SIMULATIONS 
+The purpose of numerical simulations is to provide re- 
+sults that mimic as closely as possible the physical pro- 
+cesses underlying NMR measurements on rocks. They are 
+valuable because (1) they help clarify the basic mecha- 
+nisms operating within a specified pore geometry and (2) 
+they provide the benchmark for the analytical models to be 
+discussed in the following sections. The analytical models 
+are computationally much less demanding, and can thus be 
+employed for the inversion of both laboratory and field 
+data. The geometry for the numerical simulations (Figure 
+4) is based on a simple cubic grain consolidation model 
+(Schwartz, 1990) in which each of the large grains com- 
+prises smaller, consolidated, grains whose centers lie on a 
+commensurate sublattice. This model is defined by four 
+geometrical parameters: the radii R, and rg of the large and 
+the small spheres (which determine the porosity contribu- 
+tion from inter- and intragranular pores) and the lengths, A, 
+and us, of the large and small unit cells. Within the normal 
+range of R, and rg, both pore types will form connected 
+pathways. 
+To study the NMR properties of this geometric model, 
+we have carried out numerical simulations based on ran- 
+dom walk techniques. In conventional random walk simu- 
+lations (Bergman, et al., 1995), diffusing particles are 
+randomly placed in the pore space and take steps of a fixed 
+size, E. With each step, the clock advances by a fixed time, 
+E,/ (60& where Do is the diffusion coefficient for bulk wa- 
+15 
+FIG. 3. T2 distribution measured on a plug taken from a sam- 
+ple similar to the one shown in Figure 1. For this sample the 
+NMR and bouyancy porosities are 24.7 and 25.4 P.u., respec- 
+tively. 
+Pore Section Throat Section 
+FIG. 4. Three-dimensional model based on a periodic pack- 
+ing of consolidated microporous grains. 
+262 The Log Analyst July-AuguSt 1999 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021
+
+--- PAGE 4 ---
+Forward Models for Nuclear Magnetic Resonance in Carbonate Rocks 
+ter. In the present case, however, such simulations are not 
+practical. Because E must be chosen to be much smaller 
+than the smallest features in the pore space (i.e., the throats 
+in the microporous grains) the description of diffusion in 
+the large intergranular pores is prohibitively inefficient. 
+Accordingly, we have adapted the first arrival tech- 
+niques employed by Torquato and Kim (1989). In this 
+method, at each step one draws the largest possible sphere 
+within the pore space centered at the walker’s current posi- 
+tion. The walker then jumps to a randomly chosen point on 
+the sphere’s surface and the clock is advanced by an 
+amount related to the jump distance. Since we are dealing 
+with diffusion in free space, the distribution of allowed 
+times for a first arrival to the surface of a sphere of radius R 
+&an be obtained analytically. In terms of the dimensionless 
+we denote this distribution as 
+I 
+-1 .. 
+FIG. 5. T2 distributions are shown for five values of the relaxa- 
+tion parameter, p. In the left panel the inter- and intragranular 
+porosity are isolated while in the right panel diffusion between 
+the two parts of the pore space is allowed. 
+f(x). cf(x) will be peaked at roughly x = 116.) It can then be 
+shown that 
+where the series expansions in the second and third lines of 
+this equation are to be used for small and large values of x, 
+respectively. This process continues until the walker 
+reaches a thin layer of width, say, 3~ from the pore grain in- 
+terface, at which point we revert to the standard random 
+walk algorithm with fixed steps of length E. If one of these 
+steps takes the walker into the grain, the walk ends with 
+probability y. When the walk ends, the net time associated 
+with the random walk is entered into a histogram fiom 
+which one derives the final magnetization versus time 
+curve. The relation between y and the macroscopic relaxiv- 
+ity parameterp isp = 3y D01(2&) (Bergman et al., 1995). 
+T2 distributions obtained from our simulations are illus- 
+trated in Figure 5. Here we have taken A, = 80 pm, a, = 2 
+pm, and 2RglAg = 1.23 = 2rgfar These values of Rg and rg 
+lead to a total porosity, t$ = 0.3 1, which is divided between 
+microporosity, t$J, = 0.17, and intergranular porosity, f,,, 
+= 0.14. In the right-hand panel, the computed T2 distribu- 
+tions are shown for five values of p ranging between 1.50 
+pmls and 937.5 pmls. In the left-hand panel the corre- 
+sponding results are shown for simulations in which diffu- 
+sion between the intra- and intergranular pore is forbidden. 
+It should be emphasized that only the two smallest val- 
+ues ofp employed in Figure 5 are thought to be representa- 
+tive of reservoir carbonates. Results with larger p values 
+are shown to illustrate the physical processes at work. The 
+horizontal axis ispT2 which can be thought of as an effec- 
+tive pore size. In both panels, beginning with the shortest 
+times, we have shaded the porosity fiaction associated with 
+the microporosity. Note that on the left-hand side the two 
+pore populations remain essentially unchanged as the value 
+ofp decreases so that the T2 distribution does, in fact, give 
+an accurate representation of the pore size distribution. By 
+contrast, on the right-hand side, the results are quite differ- 
+ent and, as the values ofp decrease toward the range of ex- 
+perimental interest, two important trends are evident. 
+First, the area under the short time peak gradually de- 
+creases and second, the position of the upper peak shifts to- 
+ward shorter times. Acting together, these two effects tend 
+to merge the two peaks and produce a T2 distribution that 
+bears little resemblance to the original pore size distribu- 
+JQ-AwSt 1999 2f3 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021
+
+--- PAGE 5 ---
+Schwartz et al. 
+L 1 
+I 
+PT, m) 
+Fi6.6. T2 distributions are shown (for the same five p values 
+used in ngure 5) for a model with @ = 0.25, fm = 0.05, and @Jg 
+= 0.m. 
+tion. Physically, the origin of these effects is diffusion of 
+water molecules between the micro- and qaacropores. Ifthe 
+ough, molecules originally in the mi- 
+into the macropores before their nu- 
+clear spins relax. The decay of these spins then proceeds 
+much more slowly and they contribute to the late time 
+peak. This explains the apparent transfer of weight from 
+the early time to the late time peaks. Similarly, molecules 
+originally in the large pores can diffuse into the micropores 
+where they are exposed to an enormous surface compared 
+to the case of a solid grain. This excess surface area leads to 
+increased relaxation rates and thus shifts the position of the 
+late time peak to earlier times. 
+shown for a system with the same 
+values of A, and ug but with RJAg = 1.30 and 
+give (B = 0.25, @Jg = 0.20, and fm = 0.05. These parameters 
+were typical of many Middle East carbonates examined in 
+our laboratory. Here, for thep values of experimental inter- 
+est, the two peaks have merged into a single peak that is 
+quite similar to the results shown in 
+ed above We emphasize that the diffusion e 
+are strongly affected by the presence on of hy- 
+drocarbon in the pore space. To illustrate this point, con- 
+sider a very simple periodic model in which oil blobs are 
+centerd in the intergranular pores (Figure 7, left panel). We 
+assume that the micropores remain water filled (so that the 
+rock is water-wet) and that the oil drop begins as a sphere 
+which grows as S, decreases. The oil drop 
+cal until it first touches the grain and then 
+Figure 7, so as to not invade the microporous region. In the 
+right-hand panel of Figure 7 we return to the parameters 
+employed in Figure 5. Because the system is water wet, the 
+hydrocarbon component of the NMR signal is identical to 
+In Figure 6 resu 
+FIG. 7. Distribution of oil blobs (shaded) in the intergranular pores of the model shown in Figure 4. We are looking at a slice 
+through a unit cell ceneterd at the corner of, and oriented at 45" relative to the cell shown in Figure 4. In the right-hand panel the T2 
+distributions for four values of S, are shown. The smallest value of S, corresponds to the filling of the intergranular pores with oil. 
+The Log Analyst 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021
+
+--- PAGE 6 ---
+that of bulk oil. It is represented here as a peak centered at 
+T2 = Is, which is appropriate for a light oil. For S, = 0.55 
+the entire macropore is filled with oil and diffusion be- 
+tween the micro- and macropores is completely sup- 
+pressed. The T2 distribution then separates into two 
+well-defined peaks corresponding to oil and water. For 
+0.55 I S, 5 0.66 the shape of the oil blob is as shown in 
+Figure 7. For S, 1 0.66, the area under the oil peak de- 
+creases and the part of the distribution associated with wa- 
+ter molecules regains the structure associated with 
+coupling between inter- and intragranular pores. 
+ANALYTICAL MODELS 
+General Equations 
+In Figure 8 we depict, schematically, the structure of 
+two simpler models that capture the physical picture devel- 
+oped in the preceding section. Here we envision either a 3D 
+array of spherical microporous grains each of which is sur- 
+rounded by intergranular pore space or a 1D periodic ar- 
+rangement of identical slab-like microporous grains 
+separated by intergranular pores. 
+The central equations that describe these two models are. 
+identical. Within the intergranular pore, the magnetization, 
+M,,,, is subject to the usual difksion equation: 
+Mm - aMm 
+T2B at . DoV2Mm - - - - (5) 
+The microporous grains are treated as a continuum with 
+local magnetization per unit volume of pore space, A,Q In 
+contrast to the model of Figure 4, no attempt is made here 
+to represent the actual structure of the microporosity. In- 
+stead, this structure enters through the local porosity, @, 
+and the electrical formation factor, F,, of the microporous 
+.. ../------ -. 
+Forward Models for Nuclear Magnetic Resonance in Carbonate Rocks 
+July-August 1999 The Log Analyst 265 
+FIG. 8. Three-dimensional (upper panel) and one- 
+dimensional (lower panel) geometries underlying our analyti- 
+cal models. 
+continuum. Enhanced relaxation at the interface within the 
+microporous grain is represented in terms of the decay rate 
+llT2,, = plVs,, where Vs, is the pore-volume-to-surface- 
+area ratio within the microporous grain. Within the micro- 
+porous grain, M, obeys the modified diffusion equation 
+What are the boundary conditions to be applied at the in- 
+terface between the macro- and micropores? First, there is 
+the simple continuity condition, Mm = M,. We must also 
+match the flux from the macropore into the wall with (1) 
+the flux away from the wall in the microporous grain and 
+(2) a surface demagnetization rate dependent on a local sur- 
+face relaxivity p: 
+Don.VM, =-n.VM, DO +pMnI(1-@,) (7) 
+FP 
+where n is the unit normal vector pointing out of the grain. 
+Note that if we let @, + 0, equation (7) reduces to 
+Don - VM,, = pM,, and we recover the problem studied by 
+Brownstein and Tarr (1979). The final boundary condition 
+is the periodicity of M,,, across the faces of the unit cell. 
+Equations (5) through (7) determine the behavior of the 
+two models defined in Figure 8. The solution to these equa- 
+tions can be obtained in a variety of ways, for example, by 
+an extension of standard eigenfunction methods or by 
+Laplace transforms. The computational advantage of one 
+method over the other depends on the specific details of the 
+problem. Both models are defined by the same four geo- 
+metrical parameters introduced in connection with Figure 
+4. For example, in the 1D case, the intergranular porosity is 
+given by fm = LIW and the average microporosity of the 
+system is f, = @,fg = @,( 1 - fm). The pore volume to sur- 
+face area ratio for the intergranular pore, Vs,,,, is simply L 
+while that for the microporous grain ispT2,. While the 3D 
+model might appear to have an additional curvature pa- 
+rameter, Rg, this model is in fact fully defined by @, fm, Vsm, 
+and Tw. For both models, the physical parameters Do, TZs, 
+and F, must be estimated independently. 
+Apparent Relaxivity 
+The boundary condition of equation (7) allows us to in- 
+troduce the concept of apparent relaxivity, po at the inter- 
+face between the intergranuar pore and the microporous 
+grain. Suppose we assume that the magnetization near the 
+surface of the microporous grain varies on a time scale 
+much larger than T2,. The transient term in equation (6) can 
+then be ignored to yield a quasistatic description of M,, and 
+pN can be defined by writing the boundary condition (7) as 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021
+
+--- PAGE 7 ---
+Schwartz et al. 
+Dun.VM,,, =-n.VhI,, Do +pM,,,(l-@l,)~ p,hl,,, . (8) 
+5, 
+Solving the quasistatic equations, the formulas for pLI in 
+one and three dimensions are: 
+ply related to the porosity fractions as in equation ( 12). In 
+practice, we find that the two-exponential fit over- 
+estimates the value off,,,. For the 1D model, an explicit, but 
+approximate, correction is given in equation ( 16). 
+On the other hand, for intermediate values ofp, when 
+where L, I FV- L represents a one-dimensional "grain ra- 
+dius," and 
+(10) 
+Substituting typical numbers for reservoir grainstones and 
+packstones (Do = 2.5 (pm)'/rns. @/i = 0.20, F,, = 25.0, R, = 
+100 pm, and p = 1.5 pmls), we find (1) that the diffusion 
+length within the microporous grain, 
+JmZim 
+is much smaller than the grain diameter (so that the pene- 
+tration of M,,, into the microporous grain is essentially a 
+surface effect) and (2) that equations (9) and (1 0) reduce to 
+Note that the microscopic paraineter,p, does not appear ex- 
+plicitly in equation (1 1); it enters only through the relaxa- 
+tion time, T2,(, a quantity that can, in principle, be measured 
+directly. With the numbers given above, we find that the 
+value ofp, can easily be an order of magnitude larger than 
+the intrinsic p value. 
+The above equation for pi, immediately suggests an ap- 
+proximate two-exponential fit to the relaxation data 
+Here Vs,,l is the ratio of the macropore volume to the exter- 
+nal surface area of the microporous grain. We emphasize 
+that equation (1 2) suffers from two important drawbacks. 
+First, because p, is generally much larger than p, the time 
+scale for macropore relaxation is not significantly different 
+from TZp and the quasistatic approximation is not justified. 
+Second, when the diffusion length in the microporous grain 
+is not small, a significant amount of magnetization can leak 
+from the microporous grain to the intergranular pore. The 
+amplitudes of the dominant decay modes are then riot sim- 
+the two-exponential approximation is more realistic. As p 
+decreases, however, some of the microporosity leaks into 
+the intergranular pore and this picture breaks down. Mathe- 
+matically, this breakdown arises because the two- 
+exponential approximation does not satisfy the boundary 
+condition (8). Thus. while the quasistatic approximation 
+explains the enhanced relaxivity of the intergranular pores. 
+it is inadequate for thep values of interest in reservoir car- 
+bonates. 
+One-dimensional analytical results 
+Without any additional approximations, the equations 
+developed above can be solved by introducing a Laplace 
+transform ofhI(t) to M(s) 
+M(s) = M(t)e-"dt. (13! 
+Once M(s) has been evaluated, inversion back to A4(t) can 
+be carried out either numerically or using contour integra- 
+tion. The time-dependent magnetization is evaluated from 
+the residue theorem: 
+lum 
+m 
+where (s,) are the simple poles of M(s) in the complex s- 
+plane. M(t) is thus a sum of discrete exponential decays 
+with amplitudes that may be evaluated from equation (14). 
+To each mode rate there corresponds a shape; these can be 
+used to compute explicit magnetization profiles through 
+the pore and grain, at various stages of the decay. 
+Typical results obtained for this model are illustrated in 
+Figure 9. Here we have taken p = 1 SO pds, and fixed the 
+geometrical parameters to match the system described in 
+Figure 6. In Figure 9a we see that the M(t) curves calcu- 
+lated from the one-dimensional model and the three- 
+dimensional random walk simulations are essentially iden- 
+tical. In Figure 9b, for five different times, (t = 0, T,,/2, T2p, 
+To, and 2T0) the magnetization is shown as function ofposi- 
+tion in the one-dimensional unit half cell. (To is defined in 
+equation ( 19.) Here we see that the intergranular pore ex- 
+hibits fast diffusion behavior (i.e., spatially uniform mag- 
+netization) while the microporous grain shows a clear 
+magnetization gradient. Physically, this gradient repre- 
+sents the replenishing of magnetization within the grain via 
+266 The Log Analyst July-AuguSt 1999 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021
+
+--- PAGE 8 ---
+Forward Models for Nuclear Magnetic Resonance in Carbonate Rocks 
+the diffusive entry of water molecules coming from the in- 
+terwular pore. In Fi 
+ma1 mode solution i 
+determine ly by the input geometry, is represented by 
+1 
+.I 
+0 
+10' 102 1 o3 
+time tlms 
+loo 
+two sticks ending with boxes, whose height gives the am- 
+plitude of the corresponding mode. The coupled case is 
+dramatically different. Here the modes are shown as sticks 
+ending with circles and the enhanced relaxivity of the mi- 
+croporous grain acting on the magnetization in the inter- 
+granular pore has shifted the corresponding mode to much 
+earlier times. In addition, we see the spillover effect (i.e., 
+penetration of magnetization from the intergranular mode 
+into the grain) which markedly increases the amplitude of 
+the pore mode. In Figure 10 the one dimensional normal 
+mode results are compared directly with the T2 distribu- 
+tions from Figure 6. The level of qualitative agreement is 
+quite satisfying. 
+Some simple approximations help in understanding 
+these results. In many typical cases the decay is dominated 
+by just two or three exponential decay modes. There is usu- 
+ally a single pore-like mode, which arises mainly from the 
+intergranular pore, and which penetrates exponentially into 
+the grain. Its relaxation rate, l/To, is given approximately 
+bY 
+"0 10 20 a 
+Position in unit half cell x IW 
+lo-' 1 oo 
+Apparent pore size p7; I pm 
+FIG. 9. Results for the one-dimensional analytical model with 
+parameters chosen to correspond to those of Figure 6. In 
+panel (a) the magnetization, M(f), is compared with the results 
+obtained from the random walk simulation. In (b) the spatial 
+dependence of the magnetization is shown for five values off 
+(see text). W = 73.5 pm, so that only a fraction of the grain is 
+shown.) In panel (c) the location of the normal modes is dis- 
+played with the uncoupled and coupled modes shown in blue 
+and red, respectively. 
+......... ......... ......... 
+10 - 
+m 
+... 0 
+J ___ 
+I 1 
+FIG. 10. Modal analysis from the 1 D coupled diffusion model 
+(red) compared with the T, distributions shown in Figure 6 
+(green). 
+267 The Log Analyst 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021
+
+--- PAGE 9 ---
+Schwartz et al. 
+Here we see that the rate assigned to this mode is controlled 
+by the apparent rekvity, pn, origmally defined in connection 
+with equation (9). Its intensity lo is shifted from f, to 
+(16) 
+where 
+Because of the strength of the diffusive coupling in shifting 
+To from the intrinsic value, Llp, towards T*, Xis not nec- 
+essarily small. The rest of the decay is often dominated by 
+one or two "grain-like" modes, shifted by small amounts 
+away from Tw. The practical consequence is that fre- 
+quently the magnetization can be approximated as a bi- or 
+tri-exponential decay. However, the rates and intensities of 
+such modes are related in a complicated and nonlinear way 
+1.0, I 
+0.8 
+0.6 
+m 
+z 
+0.4 
+0.2 
+0.0 
+lo' Id 
+ms 
+d 4- ' """ 1 
+5 
+lo] 0 0.1 1 
+FIG. 11. In the upper panel a comparison of the magnetiza- 
+tion calculated from the 3D analytical model with the corre- 
+sponding results obtained from numerical simulation. Here, as 
+in Figure 9, the geometrical parameters are chosen as in Fig- 
+ure 6. In the lower panel the corresponding normal modes are 
+shown. These results are very similar to their one-dimensional 
+counterparts shown in Figure 9c. 
+to the main parameters of the model, such as the porosity 
+partitions fm and @,, and the length scales L andpTw. We 
+emphasize again that approximations like equation (12) are 
+generally not valid for the analysis of carbonate Nh4R data. 
+Three-dimensional analytical results 
+To keep the analysis of the 3D model tractable, we limit 
+our attention to values ofp that are small enough to guaran- 
+tee that the magnetization in the intergranular pore remains 
+uniform. (This was seen quite clearly in Figure 9b, for the 
+one dimensional model.) As long as pJ( Vsm Do) << 1, the 
+spatial gradients in Mm are negligible, and the actual shape 
+of the intergranular pore is irrelevant. Within this frame- 
+work, in addition to equation (5), the magnetization in the 
+intergranular pore, M,, is described by 
+DO 
+F, 
+= -n-VM, (R,) + pM, (1 -@, ) . (17) 
+Once the profile for Mp is obtained at a given time, its 
+value at Y = Rg gives Mm (from equation (17)). The integral 
+of M, over the volume of the spherical grain then gives the 
+contribution from the grain. Results for the magnetization 
+calculated from this model are compared with numerical 
+simulation data in the upper panel of Figure 11. In the 
+lower panel of this figure the underlying normal mode 
+spectrum is shown. Here the geometry is taken to be the 
+same as in Figure 6 and the agreement between the analytic 
+and simulation results is excellent. 
+CONCLUSIONS 
+A family of geometrical models has been developed to 
+describe magnetization decay in carbonates with mixed 
+micro- and intergranular porosity. These models resolve 
+the apparent contradiction between the pore structure and 
+the measured T2 distribution. In addition, the analytic mod- 
+els provide a basis for the inversion of laboratory and field 
+NMR measurements. 
+ACKNOWLEDGEMENT 
+The authors would like to acknowledge important conversa- 
+tions with F. Anselmetti, G. Eberli, C. Flaum, B. Halperin, M. 
+Herron, D. Johnson, S. Luthi, A. Matteson, and A. Rabaute. We 
+are especially grateful to Drs. Anselmetti, Luthi, and Eberli for 
+permission to reproduce figures from their paper. 
+REFERENCES 
+Anselmetti, F. S., Luthi, S. M., and Eberli, G. P., 1998, Quantita- 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021
+
+--- PAGE 10 ---
+Forward Models for Nuclear Magnetic Resonance in Carbonate Rocks 
+tive characterization of carbonate pore systems by digital im- 
+age analysis, AAPG Bulletin, v. 82, no. 10, pp. 1815-36. 
+Bergman, D. J., Dunn, K.-J., Schwartz, L., and Mitra, P., 1995, 
+Self-diffusion in a periodic porous medium: A comparison of 
+different approaches, Physical Review E, v. 51, pp. 
+Brownstein, K. R. and Tarr, C. E., 1979, Importance of classical 
+diffusion in NMR studies of water in biological cells, Physical 
+Review A, v. 19, no. 6, pp. 2446-2453. 
+Kenyon, W. E., Howard, J. J., Sezginer, A., Straley, C., Matteson, 
+A., Horkowitz, K., and Ehrlich, R., 1989, Pore size distribu- 
+tion and NMR in microporous cherty sandstones, paper LL, in 
+30th Annual Logging Symposium Transactions: Society of 
+Professional Well Log Analysts, 24 p. 
+Kenyon, W. E., 1992, Nuclear magnetic resonance as a petro- 
+physical measurement, Nuclear Geophysics, v. 6, no. 2, pp. 
+Kenyon, W. E., 1997, Petrophysical principles of applications of 
+NMR logging, The Log Analyst, v. 38, no. 2, p. 21-43. 
+Schwartz, L., 1990, Modeling transport in granular porous media, 
+paper Y, in 3 1 st Annual Logging Symposium Transactions: 
+Society of Professional Well Log Analyst, 23 p. 
+Torquato, S. and Kim, I. C., 1989, Efficient simulation technique 
+to compute effective properties of heterogeneous media, Ap- 
+pliedPhysics Letters, v. 55, no. 18, pp. 1847-49. 
+3393-3400. 
+153-171. 
+ABOUT THE AUTHORS 
+T. S. Ramakrishnan has a BS degree in chemical engineering 
+from the Indian Institute of Technology, Delhi and a PhD degree 
+from the Illinois Institute of Technology, Chicago. He is a scienti- 
+fic advisor working at Schlumberger-Doll Research, Ridgefield, 
+Connecticut. He is an editor for Society ofPetroleum Engineers J. 
+His research interests include the theoretical and experimental as- 
+pects of flow in porous media and rock physics. (ramaaridge- 
+field. sdr. slb.com) 
+Lawrence M. Schwartz recieved his PhD degree in physics 
+from Harvard University in 1970. He was a postdoctoral research 
+associate at Harvard from 1970 to 1972 when he joined the Phys- 
+ics Department at Brandeis University. While at Brandeis he 
+studied the electronic properties of disordered metals and metal- 
+lic compounds. In 1982 he joined Schlumberger-Doll Research 
+where he is now a scientific advisor. His research deals with the 
+interplay between the geometry of porous media and their physi- 
+cal properties. (schwartz@ridgefield.sdr.slb.com) 
+Edmund Fordham graduated in physics from the University 
+of Cambridge in 1977. He returned in 1980 for graduate studies at 
+the Cavendish Laboratory, receiving his PhD degree in applied 
+fluid mechanics in 1984. He joined Schlumberger Cambridge Re- 
+search in 1985, where he has worked on borehole filtration, inva- 
+sion, and multiphase flow. From 1990 to 1992 he was a Royal 
+Society Industrial Fellow at the Herchel Smith Laboratory, Uni- 
+versity of Cambridge, where he studied NMR imaging of trans- 
+port processes in porous media. Since April 1996 he has been a 
+Senior Research Scientist at Schlumberger-Doll Research. 
+He is a member of the SPE, the Institute of Physics (London), 
+and is a European Engineer of the Federation Europeenne d’As- 
+sociations Nationales d’Ingenieurs (FEANI). (fordham@ridge- 
+field.sdr.slb.com) 
+July-AuguSt 1999 The Log Analyst 269 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021
+
+--- PAGE 11 ---
+Schwartz et al. 
+William Kenyon is a scientific advisor in the Interpretation 
+Scicncc Department at Schlumberger-Doll Research, Ridgefield, 
+Connecticut. His present interests are carbonate reservoirs and 
+nuclear magnetic resonance petrophysics. Bill was previously 
+program lcader in rock physics and department head of the soft- 
+ware cngincering group. He joined Schlumberger in 1968 in 
+Houston. He has a BS degree in engineering physics from the 
+Univcrsity of Toronto and a PhD degree in electrical engineering 
+from Princeton University. (kenyon@ridgefield.sdr.slb.com) 
+David Wilkinson received a BA degree in mathematics from 
+Trinity Collegc, Cambridge in 1969, and a PhD degree in theo- 
+retical physics from the University of Pennsylvania in 1975. Af- 
+ter postdoctoral positions at S.U.N.Y Stony Brook and the Fermi 
+National Accelerator Laboratory, he joined Schlumbergcr-Doll 
+Research in 198 1, whcre he worked on petrophysics, fluid flow in 
+porous media, and log interpretation. He lcft Schlumberger in 
+1996, and is currently working as an independent consultant in 
+the financial industry. (DaveWiIk@worldnet.att.net) 
+270 The Log Analyst July-AuguSt 1999 
+Downloaded from http://onepetro.org/petrophysics/article-pdf/2197251/spwla-1999-v40n4a1.pdf/1 by University of Kansas user on 15 November 2021

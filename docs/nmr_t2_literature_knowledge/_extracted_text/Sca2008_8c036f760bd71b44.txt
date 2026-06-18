@@ -1,0 +1,891 @@
+--- PAGE 1 ---
+SCA2008-30 
+ 
+ 
+1/12
+PORE-SCALE SIMULATION OF NMR RESPONSE IN 
+CARBONATES 
+ 
+Olumide Talabi1, Saif Alsayari1, Martin A. Fernø2, Haldis Riskedal2, 
+Arne Graue2 and Martin J Blunt1 
+1 Department of Earth Science and Engineering, Imperial College London, UK 
+2 Department of Physics and Technology, University of Bergen, Norway 
+ 
+This paper was prepared for presentation at the International Symposium of the 
+Society of Core Analysts held in Abu Dhabi, UAE 29 October-2 November, 2008 
+ 
+ 
+ABSTRACT 
+We simulate magnetization decay in porous media using a random walk method. Simple 
+sand pack systems were initially studied before actual porous and heterogeneous 
+carbonates were investigated. Topologically equi valent sand pack networks were extracted 
+from micro-CT images using a maximal ball algorithm. The simulated magnetization 
+decay and T
+2 distribution in the images and networks were successfully compared with 
+experimental data. The algorithm used in the simulations of NMR response in networks 
+was validated using a tuned Berea network that reproduced experimental capillary pressure 
+data in Bentheimer sandstone. Th e simulated magnetization decay and T2 distribution of 
+this tuned network is shown to be in good agreement with experimental measurements. 
+Significant differences were observed between the simulated magnetization decays of the 
+micro-CT image and extracted network of car bonates. The coincidence between simulated 
+and experimental magnetization decays and T2 distributions improved when networks are 
+generated from capillary pressure data. 
+ 
+INTRODUCTION 
+Rock flow properties are usually predicte d using a 3D representation of the rock 
+microstructure, which is commonly obtained from X-ray computed tomography (micro-
+CT) at resolutions of a few microns (Hazlett, 1995; Arns et al., 2004). In carbonate rocks 
+however, because of the bimodal pore size di stributions (micro-pores and macro-pores), 
+with micro pores having sizes in sub-micron range, micro-CT resolutions of a few microns 
+cannot capture the features of these micro pores. In order to overcome this limitation, 
+multiple point statistics had been used to reconstruct 3D images of carbonates from 2D thin 
+section images (Okabe and Blunt, 2004; Okabe and Blunt, 2005). Pre dictions of transport 
+properties such as permeability, formation factor, relative permeability and capillary 
+pressures have been made on networks extract ed from these reconstructed 3D images of 
+carbonates using a maximal ball algorithm (Al-Kharusi and Blunt, 2007). An alternative to 
+generating networks without an underlying microstructure is by tuning the properties of a 
+known network to generate simulated capill ary pressures that reproduces the measured 
+data, (Valvatne and Blunt, 2004). 
+ 
+
+--- PAGE 2 ---
+SCA2008-30 
+ 
+ 
+2/12
+In this work, we obtained a micro-CT imag e of a carbonate and used a maximal ball 
+algorithm (Silin et al., 2003; Silin and Patzek, 2006; Al-Kharusi and Blunt, 2007; Dong, 
+2007) to extract a network of pores and throats. We simulated magnetization decay in the 
+image and network using a random walk method, (Ramakrishnan et al., 1999; Øren et al., 
+2002), these decays were inverted into T
+2 distributions by a curvature-smoothing 
+regularization method (Chen et al., 1999; Toumelin, 2002). We observed significant 
+differences in the simulated magnetization deca ys of the image and network, inferring that 
+the network is not identical both in the geom etry of the network elements and topology to 
+the micro-CT image. To overcome this problem , we generated networks that reproduce the 
+mercury injection capillary pressure data of the carbonates studied in this work. An 
+important parameter in the simulation of NM R response is surface relaxivity; the values 
+used in our simulations are within the range measured previously for carbonates. 
+Simulation results of the magnetization decays and T2 distributions of the resulting 
+networks were compared with experimental measurements. 
+ 
+SIMULATION OF NMR RESPONSE 
+NMR response is simulated in the 3D images and networks by the random walk method 
+(Ramakrishnan et al., 1999; Øren et al., 2002). This method simulates the Brownian 
+motion of a diffusing particle called the walker. Initially the walkers are placed randomly 
+in the 3D pore space, at each time step they diffuse from their current position 
+() () ()[] tztytx ,, to a new position ( ) ( ) ( )[ ]ttzttyttx ∆+∆+∆+ ,, on the surface of a sphere 
+with radius s, centered on their initial positions. The time step t∆ is given by: 
+ D
+st 6
+2
+=∆ (1) 
+where D is the diffusion coefficient of the fluid, the new position after each time step is 
+given by: 
+ ( ) ( ) θφ cossinstxttx +=∆+ (2) 
+ ( ) ( ) θφ sinsinstytty +=∆+ (3) 
+ ( ) ( ) φcosstzttz +=∆+ (4) 
+the angles θ and φ are randomly selected in the range ( )πθ 20 ≤≤ . If the walker 
+encounters a solid surface, it is killed with a finite killing probability, δ (Bergman et al., 
+1995): 
+ D
+s
+3
+2ρδ = (5) 
+where ρ is surface relaxivity. If the walker survives, it simply bounces off the solid 
+surface and returns to its previous position and time is advanced by the time step given in 
+equation (1). When a walker in a micro-CT image diffuses out of the entire image, a new 
+walker is placed in a randomly selected pore voxel on the opposite face of the image 
+thereby leading to a conservation of the total number of walkers in the image at any given 
+time. For walkers in networks, inter pore diffu sion (pore-to-throat and throat-to-pore) was 
+
+--- PAGE 3 ---
+SCA2008-30 
+ 
+ 
+3/12
+accounted for, as such walkers in an element always diffuse into connected elements when 
+their z-coordinates are negative or greater than the length of the element, except for 
+isolated pores where all the walkers decay within the pore. The life time distribution of the 
+walkers is the magnetization decay which is inverted into T2 distribution by using the 
+curvature-smoothing regularization method (Chen et al., 1999; Toumelin, 2002). 
+ 
+RESULTS AND DISCUSSION 
+NMR simulations were performed on 3D images and extracted networks of sand packs 
+(cores LV60B and F42B) and networks generated from the experimental capillary pressure 
+measurements of Bentheimer sandstone, Ed ward limestone (cores MB03 & MB11), and 
+carbonates C22 and C32. Each core used in the study, with corresponding experimental 
+and predicted porosities and permeabilities are listed in Table 1. The brine used to saturate 
+the cores for the NMR experiments have densities and viscosities in the range (1005 – 
+1050) kg/m
+3 and (1.04 – 1.09)×10-3 Pa.s respectively. 
+ 
+ Experimental Network Simulations 
+Rock 
+Description 
+Core ID Porosity 
+[%] 
+Permeability 
+[mD] 
+Porosity 
+[%] 
+Permeability 
+[mD]
+ 
+LV60B 37.0 ± 0.2 (32.2 ± 0.3)×10 3 36.8 29.0×10 3 Sand packs F42B 35.4 ± 1.3 (42.0 ± 4.0)×10 3 33.3 48.0×10 3 
+Bentheimer - 23.0 ± 0.4 1,410 ± 28 23.0 950 
+MB03 14.3 ± 0.2 5.3 ± 0.2 14.2 0.2 Edwards 
+Limestone MB11 12.4 ± 0.2 5.6 ± 0.2 12.4 2.21 
+C1 14.8 * 72.0* 14.8 167.0 
+C22 27.5 ± 0.2 6.6 ± 0.2 27.5 0.03 Carbonate 
+Rock C32 29.6 ± 0.2 7.7 ± 0.2 29.6 0.01 
+ 
+* Value determined from micro-CT image 
+ 
+Table 1. Experimental and computed rock properties 
+ 
+Sand Packs 
+Two quartz sands (Leavenseat sand [LV60B], WBB Minerals, UK and Ottawa unground 
+silica [F42B], US Silica Company) were used for the NMR measurements and micro CT 
+imaging. The micro-CT imaging was performed on small sand pack samples of diameter 
+0.65 cm and 4 cm in length. The micro-CT imaging was performed on a commercial XMT 
+unit (Phoenix—X-ray Systems and Services GmbH ), and are shown in Figure 1.Analysis of 
+the resultant image confirms that the sand pack s had similar porosities as the plugs used in 
+the NMR experiments. Central cubic sections of voxel sizes 338 3 and 3003 cropped from 
+the micro CT images of Leavenseat and Ottawa sand packs respectively, were used for the 
+simulations. In the NMR measurements, the sands were packed in cylindrical thermo-
+plastic sleeve of diameter 3.81 cm and 10 cm in length, these packs were then saturated 
+with brine of viscosity 1.04×10 -3 Pas and density 1035 kg/m 3. The measurements were 
+performed using a MARAN2 bench top spectrometer (Resonance Instruments) at a 
+temperature of 308K operating at 2 MHz. 
+
+--- PAGE 4 ---
+SCA2008-30 
+ 
+ 
+4/12
+ 
+ 
+(a) (b) 
+Figure 1. 2-D micro-CT image of the two quartz sand types used (a) Ottawa unground silica (F42B) with 
+resolution 10 µm and (b) Leavenseat sand (LV60B) with resolution 8.85 µm 
+ 
+The Carr-Purcell-Meiboom-Gill (CPMG) sequence was used for T2 measurements with an 
+inter-echo spacing of 200µs. A surface relaxivity value of 41×10 -6 m/s was used in the 
+simulations to match the experimental NMR measurements of both sand packs shown in 
+Figures 2 and 3. This value is higher than reported surface relaxivi ty for silica sands 
+(Hinedi et al., 1997) which is in the range of 2.89 to 3.06 µm/s. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 2a: Comparison of the experimental 
+magnetization decay of LV60B with the micro CT 
+image and extracted network simulations. 
+Figure 2b: Comparison of the inverted T 2 
+distributions from the magnetization decays 
+of LV60B in Figure 2a, porosity (arbitrary 
+unit) is plotted against T2. 
+Figure 3a: Comparison of the experimental 
+magnetization decay of F42B with the micro 
+CT image and extracted network simulations. 
+Figure 3b: Comparison of the inverted T 2 
+distributions from the magnetization decays of 
+F42B in Figure 3a 
+LV 60B
+0.01
+0.1
+1
+0 1000 2000 3000
+Ti me (ms )
+Normalized Amplitude
+Experimental
+Micro CT S imulation
+Netw ork S imu lation
+LV 60B
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+10 100 1000 10000 T2 (ms)
+Porosity (a.u)
+Experimental
+Micro CT S imulation
+Netw ork S imu lation
+F42B
+0.01
+0.1
+1
+0 1000 2000 3000
+Ti me (ms )
+Normalized Amplitude
+Experimental
+Micro CT S imulation
+Netw ork S imu lation
+F42B
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+10 100 1000 10000 T
+2 (ms)
+Porosity (a.u)
+Experimental
+Micro CT S imulation
+Netw ork S imu lation
+
+--- PAGE 5 ---
+SCA2008-30 
+ 
+ 
+5/12
+These earlier reported values were obtained using nitrogen absorption method, which 
+probes the surface area at a much higher resolution, resulting in a larger measured surface 
+area per unit volume and lower surface relaxiv ity. In our work however, the surface area 
+was determined at the resolution of the micro-CT image (~10 µm), resulting in a lower 
+surface area and consequently higher surface relaxivity. The simulated magnetization 
+decays and T
+2 distributions of the micro-CT image and network shown in Figures 2 and 3 
+are somewhat similar. Although, the T2 distribution of the network is narrower than the 
+micro-CT, which implies that some features of full ranges of pore sizes and shapes are lost 
+in the extraction algorithm. 
+ 
+Bentheimer Sandstone 
+Simulated NMR results were compared with the experimental NMR data of Bentheimer 
+sandstone to further validate the algorithm used in simulating NMR response in networks. 
+Unlike the sand packs, where a network was extracted from a micro-CT image, the 
+Bentheimer network was generated from a tuned Berea network. A Berea network of 
+12,349 pores and 26,146 throats with an aver age coordination number of 4.2 extracted 
+from reconstructed Berea sandstone (Lerdahl et al., 2000) was tuned to match the mercury 
+injection capillary pressure data of Benthe imer sandstone as shown in Figure 4. The 
+underlying assumption of this tuning method is that higher order topological information, 
+are important and less specific to a given sy stem than are properties such as pore size 
+distribution. By preserving the rank order of the individual network elements, topological 
+information are maintained, (Valvatne and Blunt, 2004) thereby resolving the problem of 
+non-uniqueness as noted by Vogel (2000). Re lative permeabilities of an intergranular 
+carbonate had been predicted from a network obtained by tuning Berea network elements’ 
+properties, these predictions had been successfully compared with experimental results 
+(Valvatne and Blunt, 2004). Simulation of NM R response on the networks obtained using 
+this method is similar to the networks obtained from the maximal ball network extraction 
+algorithm. 
+ 
+The measured capillary pressure data in pore throat radii and the fraction of pore space 
+occupied by the invading fluid is used as input into the tuning algorithm. The initial 
+network elements are assigned pore sizes (rad ii) based on the radii distribution from the 
+measured capillary pressure data. This tuned ne twork is then used to generate a capillary 
+pressure curve which is compared with the measured capillary pressure data. If no 
+satisfactory match is obtained, the network elements’ radii are tuned until the best possible 
+match with the experimental capillary pressure data is obtained. The topological 
+information of the initial Berea network (number of network elements, relative pore 
+locations and connection numbers) are maintained in the tuned network. Pore and throat 
+volumes of the initial Berea network elements we re adjusted by a constant factor to obtain 
+the porosity of the experimental data. The surface areas (which are dependent on shape 
+factors) of the tuned network are retained from the initial network. The initial Berea 
+network has a porosity of 18.3% and permeability of 2670mD. The tuned network was 
+then used for the simulation of NMR response which was compared with experimental 
+measurements. 
+
+--- PAGE 6 ---
+SCA2008-30 
+ 
+ 
+6/12
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Figure 4: Comparison of the experimental capillary pressure data of the Bentheimer sandstone with simulation results of 
+the tuned Berea network 
+ 
+A Bentheimer sandstone plug of diameter 3. 73cm and length 6.01cm fully saturated with 
+brine was used for the NMR measurements. The computed and measured porosities and 
+permeabilities are shown in Table 1. The surface relaxivity used in the simulation was 
+9.3µm/s, a value obtained for Bentheimer sa ndstones (Liaw et. al, 1996). Thin-section 
+analysis of the Bentheimer sandstone used for the determination of this surface relaxivity 
+indicates the presence of abundant prim ary intergranular pores and less abundant 
+secondary pores. The simulated magnetization decay is consistent with experimental values 
+as shown in Figure 5a. The inverted T2 distributions shown in Figure 5b are similar, 
+indicating that the network fully captured the pore size distribution and topology of the 
+Bentheimer sandstone. These results validate the algorithm used for the simulation of 
+magnetization decay in networks. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Carbonate Rock Type: C1 
+Carbonate C1 is a typical calcrete or lithifie d paleosol, enclosing carbonate clastic detritus 
+Analysis of its thin-section images suggests it probably developed as a weathering rind of 
+limestones during exposure (uplift or sea-level drop). The porosity of its micro CT image 
+Figure 5a: Comparison of magnetization decays of 
+the experimental data of Bentheimer sandstone 
+with simulation results of the tuned network. 
+Figure 5b: The inverted T 2 distributions from 
+the magnetization decays of Bentheimer 
+sandstone shown in Figure 5a. 
+Bentheimer
+0
+10
+20
+30
+40
+0 0.2 0.4 0.6 0.8 1
+Water Saturation 
+Capillary Pressure (KPa)
+Experimental
+Netw ork simu lation
+Bentheimer
+0.01
+0.1
+1
+0 1000 2000 3000
+Ti me (ms )
+Normalized Amplitude
+Experimental
+Netw ork simu lation
+Bentheimer
+0
+0.05
+0.1
+0.15
+0.2
+0.25
+10 100 1000 10000
+T2 (ms)
+Porosity (a.u)
+Experimental
+Netw ork simulation
+
+--- PAGE 7 ---
+SCA2008-30 
+ 
+ 
+7/12
+shown in Figure 6 is 14.8% while its resolution is 5.345µm. This carbonate has highly 
+heterogeneous pore structure with poorly connected pores as shown in Figure 6. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ (a) (b) (c) 
+Figure 6: (a) 2D section of the micro-CT image of carbonate C1. (b & c) 2D images of the cropped section from the 
+image in (a); simulations were performed on the 3D cropped section ( the dark areas are the pore spaces and the white 
+represent grains). 
+ 
+A network of 3,574 pores and 4,198 throats with an average coordination number of 2.3 
+was extracted from the cropped central cubic section of the micro-CT image using the 
+maximal ball algorithm. This relatively low coordination number is as a result of a large 
+number of poorly connected pores seen in Figure 6. A surface relaxivity of 5µm/s, which is 
+a typical value for carbonates, was used in the simulations. The simulated magnetization of 
+the network decays faster than that of the micro-CT image as shown in Figure 7a. This 
+could be explained by the poorly connected pores and low average coordination number of 
+the network. These results show that network did not fully capture both the geometries of 
+the pores and the topology of the micro-CT image, thereby necessitating the need for 
+alternative methods of generating networks for carbonates. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Edwards Limestone 
+Experimental NMR measurements and mercury injection capillary pressure curves were 
+generated on two Edward limestone cores, MB03 and MB11. Core plugs diameter and 
+length was 3.81cm and 6cm, respectively. The computed and measured porosities and 
+Figure 7a: Comparison of the magnetization 
+decays of the micro CT image of carbonate C1
+and the extracted network. 
+Figure 7b: Comparison of the inverted T 2 
+distributions of the magnetization decays of 
+carbonate C1 shown in Figure 7a. 
+C1
+0.01
+0.1
+1
+0 1000 2000 3000 4000
+Ti me (ms )
+Normalized Amplitude
+Micro CT Simulation
+Netw ork simu lation
+1mm 0.5mm
+C1
+0
+0.2
+0.4
+0.6
+100 1000 10000
+T2 (ms)
+Porosity (a.u)
+Micro CT S imulation
+Netw ork simu lation
+
+--- PAGE 8 ---
+SCA2008-30 
+ 
+ 
+8/12
+permeabilities are shown in Table 1. The pr operties of the Berea network were tuned to 
+obtain the best possible match with the limeston e mercury injection capillary pressure data 
+of the plugs as shown in Figures 8 and 9. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The resulting tuned networks were then used for the simulations of NMR response which 
+were compared with experimental measurements in Figures 10 and 11. The surface 
+relaxivities used in the simulations were sele cted to match the experimental data, surface 
+relaxivity values of 3µm/s and 4.5µm/s were used for MB03 and MB11 simulations 
+respectively. These values are within the ra nge for carbonates, usually between 1µm/s and 
+10µm/s (Chang et al., 1997; Ramakrishnan et al., 1999). 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Although surface relaxivity values were selected to match experimental data, the 
+magnetization decays faster in the network th an experimental observations at late times, 
+shown in Figures 10a and 11a. Simila r trends were observed in the T
+2 distributions shown 
+in Figures 10b and 11b, although the T2 distributions of the networks seem to be wider than 
+the experimental data. 
+Figure 8: Comparison of the measured capillary 
+pressure curve of MB03 wi th simulation results of 
+the tuned network. 
+Figure 9: Comparison of the measured capillary 
+pressure curve of MB11 with simulation results 
+of the tuned network. 
+MB03
+0
+0.05
+0.1
+0.15
+0.2
+10 100 1000 10000
+T2 (ms)
+Porosity (a.u)
+Experimental
+Netw ork simu lation
+Figure 10a: Comparison of magnetization 
+decays of the experimental data of MB03 with 
+simulation results of the tuned network. 
+Figure 10b: The inverted T 2 distributions from 
+the magnetization decays of MB03 shown in 
+Figure 10a. 
+MB03
+0
+100
+200
+300
+400
+500
+0 0.2 0.4 0.6 0.8 1
+Water S atu ration 
+Capillary Pressure (KPa)
+Experimental
+Netw ork simulation
+MB11
+0
+100
+200
+300
+400
+500
+0 0.2 0.4 0.6 0.8 1
+Water S atu ration 
+Capillary Pressure (KPa)
+Experimental
+Netw ork simu lation
+MB03
+0.01
+0.1
+1
+0 500 1000 1500 2000
+Ti me (ms )
+Normalized Amplitude
+Experimental
+Netw ork simu lation
+
+--- PAGE 9 ---
+SCA2008-30 
+ 
+ 
+9/12
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Carbonates: C22 & C32 
+NMR and mercury injection capillary pressure measurements were also performed on two 
+homogeneous carbonate reservoir core sample s (C22 and C32) from a producing field in 
+the Middle East. Core plug diameter and length was 3.81cm and 10cm, respectively for 
+both cores during NMR measurements. The computed and measured porosities and 
+permeabilities are shown in Table 1. A sim ilar approach to the Edward limestone was 
+selected, where the properties of the Berea network were tuned to match the mercury 
+injection capillary pressure data, shown in Figures 12 and 13. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The surface relaxivities used in the simulation were also selected to match the experimental 
+data, surface relaxivity values of 2.8µm/s and 2.1µm/s were used for C22 and C32 
+networks respectively. The normalized magnetization decays of the networks and 
+experimental data of both samples are consis tent as shown in Figures 14a and 15a. The 
+magnetization of the limestone (MB03 and MB11) and carbonates (C22 and C32) decay in 
+the fast diffusion limit, i.e. (ρr/D <<1). This ratio ranges from 6×10
+-4 to 4.5×10-3 where r is 
+determined as the average radius of the network elements, hence surface relaxation 
+dominates. 
+MB11
+0
+0.1
+0.2
+0.3
+10 100 1000 10000
+T
+2 (ms)
+Porosity (a.u)
+Experimental
+Netw ork simu lation
+Figure 11a: Comparison of magnetization decays 
+of the experimental data of MB11 with simulation 
+results of the tuned network. 
+Figure 11b: The inverted T 2 distributions from 
+the magnetization decays of MB11 shown in 
+Figure 11a. 
+Figure 12: Comparison of the measured 
+capillary pressure curve of carbonate C22 with 
+simulation results. 
+Figure 13: Comparison of the measured capillary 
+pressure curve of carbonate C32 with simulation 
+results. 
+MB11
+0.01
+0.1
+1
+0 500 1000 1500 2000
+Ti me (ms )
+Normalized Amplitude
+Experimental
+Network simulation
+C22
+0
+200
+400
+600
+800
+1000
+0.0 0.2 0.4 0.6 0.8 1.0
+Water S atu ration 
+Capillary Pressure (KPa)
+Experimental
+Netw ork simu lation
+C32
+0
+200
+400
+600
+800
+0.0 0.2 0.4 0.6 0.8 1.0
+Water S atu ration 
+Capillary Pressure (KPa)
+Experimental
+Netw ork simu lation
+
+--- PAGE 10 ---
+SCA2008-30 
+ 
+ 
+10/12
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+The relaxation rate is controlled by the surface area to volume ratio of the network 
+elements. Thus, the differences observed between the experimental and the simulated 
+magnetization decays and T2 distributions limestone (M B03 and MB11) and carbonates 
+(C22 and C32) are attributed to geometrical e ffects (pore sizes and surface areas) inferring 
+that the tuned network did not fully capture the pore sizes and surface areas of the actual 
+porous medium. 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+CONCLUSIONS 
+In this work, we have been able to succ essfully compare magnetization decays and T2 
+distributions of brine in networks extracte d using the maximal ball method (Silin and 
+Patzek, 2006; Al-Kharusi and Blunt, 2007; Dong, 2007) and micro CT images of sand 
+packs within a good degree of accuracy. The experimental T2 distribution of the sand packs 
+and those of the micro-CT images are wider than the T2 distribution of the networks which 
+is attributable to the fact that some fine details of the pore structure were lost during 
+network extraction. For the Bentheimer sandstone, predicted permeability and T2 
+Figure 14a: Comparison of magnetization decays 
+of the experimental data of C22 with simulation 
+results of the tuned network. 
+Figure 14b: The inverted T2 distributions from
+the magnetization decays of C22 shown in 
+Figure 14a. 
+Figure 15a: Comparison of magnetization decays of 
+the experimental data of C32 with simulation results 
+of the tuned network. 
+Figure 15b: The inverted T 2 distributions 
+from the magnetization decays of C32 shown 
+in Figure 15a. 
+C22
+0.01
+0.1
+1
+0 500 1000 1500 2000
+Ti me (ms )
+Normalized Amplitude
+Experimental
+Netw ork simu lation
+C22
+0
+0.1
+0.2
+0.3
+10 100 1000 10000
+T2 (ms)
+Porosity (a.u)
+Experimental
+Netw ork simu lation
+C32
+0.01
+0.1
+1
+0 500 1000 1500 2000
+Ti me (ms )
+Normalized Amplitude
+Experimental
+Netw ork simu lation C32
+0
+0.1
+0.2
+0.3
+0.4
+0.5
+10 100 1000 10000 T2 (ms)
+Porosity (a.u)
+Experimental
+Netw ork simu lation
+
+--- PAGE 11 ---
+SCA2008-30 
+ 
+ 
+11/12
+distribution of the tuned network are similar inferring that the network is identical both in 
+geometry (pore sizes and surface areas) and topology to the real rock. However for 
+carbonates, tuning elements’ properties of a known network to match experimental 
+capillary pressure resulted in differences in the comparison of the predicted permeability 
+and T
+2 distributions with experimental data. The differences observed in the experimental 
+and the simulated T2 distributions is more likely to be attributed to geometrical effects 
+(pore sizes and surface areas) than topological differences since the walkers diffuse in fast 
+diffusion limits which is governed by the su rface area to volume ratio of the network 
+elements. While the differences observed in the experimental and predicted permeabilities 
+are as a result of both geometrical effects and topology. For carbonates, the tuning 
+algorithm (Valvatne and Blunt, 2004) requires additional information about the pore space 
+such as surface areas and pore sizes. As such, we believe that by combining this algorithm 
+with other independent sources of informatio n such as synchrotron micro CT images will 
+further assist in obtaining be tter networks. This work high lights some of the challenges 
+involved in obtaining networks that are geometrically and topologically identical to 
+carbonates. 
+ 
+ACKNOWLEDGEMENTS 
+The members of the Imperial College consortium on Pore-Scale Modelling (BHP, Eni 
+JOGMEC, Saudi Aramco, Schlumberger, Shell, Statoil, Total, the U.K. Department of 
+Trade and Industry and the EPSRC) are thanke d for their financial support. We will also 
+like to express our gratitude to Reslab fo r allowing us to measure NMR response and 
+capillary pressures at their Laboratory. Olumide Talabi will like to thank the Petroleum 
+Technology Development Fund of Nigeria for Financial Support. Martin Fernø would like 
+to acknowledge the Royal Norwegian Research Council for research funding. 
+ 
+REFERENCES 
+Al-Kharusi, A.S. and Blunt, M.J., 2007. Ne twork extraction from sandstone and carbonate 
+pore space images. Journal of Petroleum Science and Engineering 56: 219-231. 
+Arns, C., Knackstedt, M., Pinczewski, W. V. and N. Martys, 2004, Virtual permeametry on 
+microtomographic images, J. Petroleum Science and Engineering, 45, 41-46. 
+Bergman, D. J., Dunn, K. J., Schwartz, L. M., and Mitra, P. P., 1995. Self-Diffusion in a 
+Periodic Porous Medium: A Comparison of Different Approaches, Phys. Rev. 51 
+(4), 3393-3400. 
+Chang, D., Vinegar, H., Moriss, C., and Strale y, C. 1997, Effective porosity, producible 
+fluid, and permeability in carbonates from NMR logging, Log Analyst 38, 60-72. 
+Chen, S., Georgi, D., Fang, S., Salyer, J., and Shorey, D., 1999. Optimization of NMR 
+Logging Acquisition and Processing: SPE 56766, presented at SPE 74th Annual 
+Conference and Technical Exhibition (ATCE), Houston, Texas. 
+Dong, H., 2007. Micro CT imaging and pore network extraction, PhD thesis, Department 
+of Earth Science and Engineering, Imperial College London. 
+http://www3.imperial.ac.uk/earthscienceandengineering/research/perm. 
+
+--- PAGE 12 ---
+SCA2008-30 
+ 
+ 
+12/12
+Hazlett, R.D., 1995. Simulation of capillary-dominated displacements in microtomographic 
+images of reservoir rocks. Transport Porous Media 20, 21–35. 
+Hinedi, Z. R., Chang, A. C., Anderson, M. A. and D. B. Borchardt, 1997, Quantification of 
+microporosity by nuclear magnetic resonance relaxation of water imbibed in porous 
+media, Water Resources. Research, 33, 2697–2704. 
+Lerdahl, T. R., P. E. Øren, and S. Bakke, 2000, A Predictive Network Model for Three-
+Phase Flow in Porous Media, proceedings of the SPE/DOE Symposium on 
+Improved Oil Recovery, SPE 59311, Soc. of Petroleum Engineers, Tulsa. 
+Liaw, H., Kulkarni, R., Chen, S., and A. Te d Watson, 1996. Charact erization of fluid 
+distributions in porous media by NMR techniques, AIChE 42 (2), 538-546. 
+Okabe, H. and Blunt, J. M., 2004, Prediction of permeability for porous media 
+reconstructed using multiple-point statistics, Phys. Rev. E 70, 066135. 
+Okabe, H., Blunt, M., 2005. Pore space reconstruction using multiple point statistics. J. Pet. 
+Sci. Eng. 46, 121–137. 
+Øren, P. E., Antonsen, F., Rueslatten, H. G. and S. Bakke, 2002. Numerical Simulations of 
+NMR Responses for Improved Interpretations of NMR Measurements in Reservoir 
+Rocks, SPE 77398, SPE Annual Technical Conference and Exhibition, San 
+Antonio, Texas, 2002. 
+Ramakrishnan, T.S., Schwartz, L.M., Fordham, E.J., Kenyon, W.E., and Wilkinson, D.J., 
+1999, Forward models for nuclear magnetic resonance in carbonate rocks, Log 
+Analyst 40, 260-270. 
+Silin, D.B., Jin, G. and Patzek, T.W., 20 03. Robust Determination of Pore Space 
+Morphology in Sedimentary Rocks, SPE 84296, Proceedings of SPE Annual 
+Technical Conference and Exhibition, Denver, Colorado, U.S.A. 
+ 
+Silin, D. and Patzek, T., 2006. Pore space morphology analysis using maximal inscribed 
+spheres. Physica A, 371: 336-360. 
+Toumelin, E., 2002. Monte Carlo simulations of NMR measurements in carbonate rocks 
+under a constant magnetic field gradient. Ma ster’s thesis, University of Texas at 
+Austin. 
+Valvatne, P. H., 2003. Predictive pore-scale modelling of multiphase flow, PhD thesis, 
+Department of Earth Science and Engineering, Imperial College London. 
+http://www3.imperial.ac.uk/earthscienceandengineering/research/perm; 
+Valvatne, P.H. and Blunt, M.J., 2003. Predic tive Pore-scale Network Modeling, SPE 
+84550, SPE Annual Technical Conference and Exhibition, Denver, Colorado, 2003. 
+Valvatne, P.H. and Blunt, M.J., 2004. Predictive Pore-scale Modeling of Two-phase Flow 
+in Mixed Wet Media. Water Resources Research, 40, W07406. 
+Vogel, H. J., A numerical experiment on pore size, pore connectivity, water retention, 
+permeability, and solute transport using network models, European Journal of Soil 
+Science, 51, 99-105, 2000.
