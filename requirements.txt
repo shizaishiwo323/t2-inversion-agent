@@ -9,3 +9,4 @@ openpyxl>=3.1
 xlrd>=2.0
 Pillow>=10.0
 scikit-image>=0.22
+pygimli>=1.6,<2

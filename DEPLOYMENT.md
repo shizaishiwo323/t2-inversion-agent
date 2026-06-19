@@ -86,11 +86,14 @@ If you still create an app from Streamlit Community Cloud, use:
 - Repository: `shizaishiwo323/t2-inversion-agent`
 - Branch: `main`
 - Main file path: `streamlit_app.py`
-- Python version: Python 3.11 if the platform lets you choose
+- Python version: Python 3.11 in Advanced settings
 
 This mode is suitable only if pyGIMLi installs successfully on the Cloud build
-image. For the required pyGIMLi mesh workflow, Docker/conda deployment is the
-supported public path.
+image. The app's `requirements.txt` includes `pygimli`, but Community Cloud
+Python itself is selected in the deployment UI; if the existing app was created
+with a different Python version, delete and redeploy it with Python 3.11. For
+the required pyGIMLi mesh workflow, Docker/conda deployment is still the
+preferred public path.
 
 If you want the public app to have a default DeepSeek key, add it through
 Streamlit Cloud **Advanced settings -> Secrets**. If you leave secrets empty,
