@@ -13,6 +13,8 @@ from streamlit_app import (
     DEFAULT_MODEL,
     DEFAULT_THINKING_ENABLED,
     INTRO_QUERY_KEY,
+    TURN_ARTIFACT_EXPANDER_MARKER_CLASS,
+    TURN_RESULT_EXPANDER_MARKER_CLASS,
     artifact_kind,
     collect_turn_artifacts,
     clear_query_param,
@@ -23,6 +25,7 @@ from streamlit_app import (
     query_param_enabled,
     render_artifact_chip,
     render_turn_artifacts,
+    render_turn_result_sections,
     resolve_artifact_image_reference,
     selected_alpha_fixed_nnls_params,
     should_run_local_demo_without_api,
@@ -33,6 +36,7 @@ from streamlit_app import (
     turn_image_paths_for_display,
     turn_scoped_result_for_display,
     turn_result_groups,
+    workspace_style_css,
 )
 
 
@@ -222,6 +226,100 @@ def test_turn_artifacts_renders_every_file_in_left_chat(monkeypatch, tmp_path):
     assert not any("还有" in str(item) for name, item in calls if name == "caption")
 
 
+def test_turn_artifact_expander_header_is_sticky_only_in_chat_history(monkeypatch, tmp_path):
+    artifact = tmp_path / "artifact.txt"
+    artifact.write_text("artifact", encoding="utf-8")
+    calls: list[tuple[str, object]] = []
+
+    class FakeExpander:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+    class FakeStreamlit:
+        def expander(self, label, *_args, **_kwargs):
+            calls.append(("expander", label))
+            return FakeExpander()
+
+        def markdown(self, message, *_args, **_kwargs):
+            calls.append(("markdown", message))
+
+        def caption(self, message, *_args, **_kwargs):
+            calls.append(("caption", message))
+
+        def download_button(self, *_args, **_kwargs):
+            calls.append(("download", None))
+
+    monkeypatch.setattr(streamlit_app, "st", FakeStreamlit())
+
+    render_turn_artifacts([str(artifact)], "中文", 0)
+
+    css = workspace_style_css()
+    assert any(TURN_ARTIFACT_EXPANDER_MARKER_CLASS in str(item) for name, item in calls if name == "markdown")
+    assert "st-key-t2_chat_history_panel" in css
+    assert TURN_ARTIFACT_EXPANDER_MARKER_CLASS in css
+    assert "position: sticky" in css
+
+
+def test_turn_result_expander_header_is_sticky_only_in_results_panel(monkeypatch, tmp_path):
+    calls: list[tuple[str, object]] = []
+
+    class FakeExpander:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+    class FakeStreamlit:
+        session_state = {
+            "display_messages": [("user", "第二轮"), ("assistant", "完成")],
+            "display_tool_results": [[], [AgentToolResult("success", "ok")]],
+            "display_artifacts": [[], []],
+            "live_turn_tool_results": [],
+        }
+
+        def info(self, message, *_args, **_kwargs):
+            calls.append(("info", message))
+
+        def expander(self, label, *_args, **_kwargs):
+            calls.append(("expander", label))
+            return FakeExpander()
+
+        def markdown(self, message, *_args, **_kwargs):
+            calls.append(("markdown", message))
+
+        def caption(self, message, *_args, **_kwargs):
+            calls.append(("caption", message))
+
+        def success(self, message, *_args, **_kwargs):
+            calls.append(("success", message))
+
+        def error(self, message, *_args, **_kwargs):
+            calls.append(("error", message))
+
+        def code(self, message, *_args, **_kwargs):
+            calls.append(("code", message))
+
+        def json(self, message, *_args, **_kwargs):
+            calls.append(("json", message))
+
+        def image(self, *_args, **_kwargs):
+            calls.append(("image", None))
+
+    monkeypatch.setattr(streamlit_app, "st", FakeStreamlit())
+
+    render_turn_result_sections(AgentRuntimeContext(workspace=tmp_path), "中文")
+
+    css = workspace_style_css()
+    assert any(TURN_RESULT_EXPANDER_MARKER_CLASS in str(item) for name, item in calls if name == "markdown")
+    assert "st-key-t2_results_scroll_panel" in css
+    assert TURN_RESULT_EXPANDER_MARKER_CLASS in css
+    assert "position: sticky" in css
+
+
 def test_intro_query_preference_helpers(monkeypatch):
     query_params = {INTRO_QUERY_KEY: "1", "other": "kept"}
     monkeypatch.setattr(streamlit_app.st, "query_params", query_params)
@@ -367,6 +465,14 @@ def test_lcurve_picker_keys_can_be_scoped_to_chat_turns():
     assert second_turn["open_button"] == "lcurve-alpha-picker-turn-2-result-0-open-button"
 
 
+def test_lcurve_picker_keys_include_result_files_to_prevent_turn_reuse():
+    first_run = lcurve_picker_state_keys("turn-1-result-0", "metrics-a.xlsx", "decay-a.xlsx")
+    second_run = lcurve_picker_state_keys("turn-1-result-0", "metrics-b.xlsx", "decay-b.xlsx")
+
+    assert first_run["base"] != second_run["base"]
+    assert first_run["open_button"] != second_run["open_button"]
+
+
 def test_turn_result_groups_follow_assistant_message_turns():
     first = AgentToolResult("success", "first")
     second = AgentToolResult("success", "second")
@@ -430,6 +536,139 @@ def test_lcurve_source_decay_path_prefers_result_specific_decay(tmp_path):
     result = AgentToolResult("success", "ok", summary={"simulation_decay_xlsx": str(first_decay)})
 
     assert lcurve_source_decay_path(context, result) == first_decay
+
+
+def test_lcurve_picker_dialog_does_not_pass_unsupported_key(monkeypatch, tmp_path):
+    metrics_path = tmp_path / "metrics.xlsx"
+    pd.DataFrame(
+        {
+            "alpha_regularization": [0.001, 0.01, 0.1],
+            "residual_norm": [3.0, 2.0, 1.0],
+            "roughness_norm": [1.0, 2.0, 3.0],
+            "slope_reciprocal": [0.2, 0.3, 0.4],
+            "is_selected": [False, True, False],
+        }
+    ).to_excel(metrics_path, index=False)
+    decay_path = tmp_path / "decay.xlsx"
+    decay_path.write_bytes(b"placeholder")
+    context = AgentRuntimeContext(workspace=tmp_path, repaired_path=decay_path)
+    result = AgentToolResult("success", "ok", summary={"metrics_xlsx": str(metrics_path), "source_decay_xlsx": str(decay_path)})
+    dialog_kwargs: list[dict] = []
+
+    class FakeColumn:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+    class FakeStreamlit:
+        def __init__(self):
+            self.session_state = {}
+
+        def caption(self, *_args, **_kwargs):
+            return None
+
+        def button(self, _label, key=None, **_kwargs):
+            return bool(key and key.endswith("-open-button"))
+
+        def dialog(self, *_args, **kwargs):
+            dialog_kwargs.append(dict(kwargs))
+
+            def decorator(fn):
+                return fn
+
+            return decorator
+
+        def selectbox(self, _label, options, **_kwargs):
+            return list(options)[0]
+
+        def columns(self, *_args, **_kwargs):
+            return [FakeColumn(), FakeColumn()]
+
+        def plotly_chart(self, *_args, **_kwargs):
+            return None
+
+        def number_input(self, _label, value=None, **_kwargs):
+            return value
+
+        def success(self, *_args, **_kwargs):
+            return None
+
+    fake_st = FakeStreamlit()
+    monkeypatch.setattr(streamlit_app, "st", fake_st)
+
+    streamlit_app.render_lcurve_parameter_picker(context, result, "turn-1-result-0", "中文")
+
+    assert dialog_kwargs
+    assert "key" not in dialog_kwargs[0]
+
+
+def test_opening_lcurve_picker_closes_other_lcurve_dialog_states(monkeypatch, tmp_path):
+    metrics_path = tmp_path / "metrics.xlsx"
+    pd.DataFrame(
+        {
+            "alpha_regularization": [0.001, 0.01, 0.1],
+            "residual_norm": [3.0, 2.0, 1.0],
+            "roughness_norm": [1.0, 2.0, 3.0],
+            "slope_reciprocal": [0.2, 0.3, 0.4],
+            "is_selected": [False, True, False],
+        }
+    ).to_excel(metrics_path, index=False)
+    decay_path = tmp_path / "decay.xlsx"
+    decay_path.write_bytes(b"placeholder")
+    context = AgentRuntimeContext(workspace=tmp_path, repaired_path=decay_path)
+    result = AgentToolResult("success", "ok", summary={"metrics_xlsx": str(metrics_path), "source_decay_xlsx": str(decay_path)})
+    keys = lcurve_picker_state_keys("turn-2-result-0", metrics_path, decay_path)
+
+    class FakeColumn:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+    class FakeStreamlit:
+        def __init__(self):
+            self.session_state = {
+                "lcurve-alpha-picker-turn-1-result-0-old-open-state": True,
+                keys["open_state"]: False,
+            }
+
+        def caption(self, *_args, **_kwargs):
+            return None
+
+        def button(self, _label, key=None, **_kwargs):
+            return key == keys["open_button"]
+
+        def dialog(self, *_args, **_kwargs):
+            def decorator(fn):
+                return fn
+
+            return decorator
+
+        def selectbox(self, _label, options, **_kwargs):
+            return list(options)[0]
+
+        def columns(self, *_args, **_kwargs):
+            return [FakeColumn(), FakeColumn()]
+
+        def plotly_chart(self, *_args, **_kwargs):
+            return None
+
+        def number_input(self, _label, value=None, **_kwargs):
+            return value
+
+        def success(self, *_args, **_kwargs):
+            return None
+
+    fake_st = FakeStreamlit()
+    monkeypatch.setattr(streamlit_app, "st", fake_st)
+
+    streamlit_app.render_lcurve_parameter_picker(context, result, "turn-2-result-0", "中文")
+
+    assert fake_st.session_state[keys["open_state"]] is True
+    assert fake_st.session_state["lcurve-alpha-picker-turn-1-result-0-old-open-state"] is False
 
 
 def test_lcurve_picker_render_does_not_mutate_widget_keys(monkeypatch, tmp_path):
@@ -509,9 +748,9 @@ def test_lcurve_picker_render_does_not_mutate_widget_keys(monkeypatch, tmp_path)
 
     streamlit_app.render_lcurve_parameter_picker(context, result, 0, "中文")
 
-    keys = lcurve_picker_state_keys(0)
+    keys = lcurve_picker_state_keys(0, metrics_path, repaired_path)
     assert fake_st.session_state[keys["open_state"]] is True
-    assert fake_st.session_state["lcurve-alpha-picker-0-Sheet1-alpha"] == 0.01
+    assert fake_st.session_state[f"{keys['base']}-Sheet1-alpha"] == 0.01
 
 
 def test_lcurve_picker_preview_does_not_append_formal_result(monkeypatch, tmp_path):
@@ -618,12 +857,12 @@ def test_lcurve_picker_preview_does_not_append_formal_result(monkeypatch, tmp_pa
 
     streamlit_app.render_lcurve_parameter_picker(context, result, 0, "中文")
 
-    keys = lcurve_picker_state_keys(0)
+    keys = lcurve_picker_state_keys(0, metrics_path, repaired_path)
     assert fake_st.session_state[keys["open_state"]] is True
     assert captured_params[0]["regularization"] == 0.25
     assert context.results == []
     assert context.tool_history == []
-    assert "lcurve-alpha-picker-0-Sheet1-preview-result" in fake_st.session_state
+    assert f"{keys['base']}-Sheet1-preview-result" in fake_st.session_state
 
 
 def test_enhance_report_with_conversation_exports_substantive_chat_analysis(tmp_path):

@@ -699,6 +699,39 @@ def _as_artifacts(paths: dict[str, Path] | list[Path]) -> list[str]:
     return artifacts
 
 
+def _summary_column_artifacts(summary_path: Path | str | None, column_name: str) -> list[str]:
+    if summary_path is None:
+        return []
+
+    path = Path(summary_path)
+    if not path.exists():
+        return []
+
+    try:
+        if path.suffix.lower() == ".csv":
+            table = pd.read_csv(path)
+        else:
+            table = pd.read_excel(path)
+    except Exception:
+        return []
+
+    if column_name not in table.columns:
+        return []
+
+    artifacts: list[str] = []
+    seen: set[str] = set()
+    for value in table[column_name].dropna():
+        artifact = Path(str(value))
+        if not artifact.exists() or not artifact.is_file():
+            continue
+        resolved = str(artifact.resolve())
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        artifacts.append(str(artifact))
+    return artifacts
+
+
 def _add_pair_plot_artifacts(
     *,
     raw_decay_workbook: Path,
@@ -1297,8 +1330,12 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
             time_to_ms_scale=float(params.get("time_to_ms_scale", 1.0)),
             trim_from_peak=bool(params.get("trim_from_peak", True)),
         )
-        artifacts = _as_artifacts(result)
+        artifacts = _as_artifacts({key: value for key, value in result.items() if key != "figure_dir"})
+        artifacts.extend(_summary_column_artifacts(result.get("summary_csv"), "lcurve_figure"))
         summary = {key: str(value) for key, value in result.items()}
+        summary["source_decay_xlsx"] = str(Path(input_workbook))
+        if "trimmed_xlsx" in result:
+            summary["trimmed_decay_xlsx"] = str(result["trimmed_xlsx"])
         summary["parameters"] = {
             "num_bins": int(cfg.num_bins),
             "t2_min_ms": float(cfg.t2_min_ms),
@@ -1435,6 +1472,9 @@ def run_gaussian_peaks(spectrum_workbook: Path, output_dir: Path, params: dict[s
             config=GaussianConfig(peak_count=peak_count),
             plot_config=PlotConfig(),
         )
+        artifacts = _as_artifacts({key: value for key, value in result.items() if key != "figure_dir"})
+        artifacts.extend(_summary_column_artifacts(result.get("summary_csv"), "gaussian_figure"))
+        summary = {key: str(value) for key, value in result.items()} | {"peak_count": peak_count, "output_dir": str(run_output_dir)}
         message = (
             f"Gaussian peak decomposition completed with {peak_count} peaks. Outputs are grouped in {run_output_dir.name}."
             if english
@@ -1443,8 +1483,8 @@ def run_gaussian_peaks(spectrum_workbook: Path, output_dir: Path, params: dict[s
         return AgentToolResult(
             "success",
             message,
-            artifacts=_as_artifacts(result),
-            summary={key: str(value) for key, value in result.items()} | {"peak_count": peak_count, "output_dir": str(run_output_dir)},
+            artifacts=artifacts,
+            summary=summary,
         )
     except Exception as exc:
         message = "Gaussian peak decomposition failed." if _is_english(language) else "Gaussian 分峰失败。"

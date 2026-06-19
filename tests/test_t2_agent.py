@@ -396,6 +396,25 @@ def test_repeated_lcurve_runs_are_grouped_by_parameters(tmp_path):
     assert len(interpretation.summary["inversion_runs"]) == 2
 
 
+def test_repeated_lcurve_runs_with_same_parameters_do_not_reuse_old_figures(tmp_path):
+    validation = validate_workbook(SIMULATION)
+    repaired = repair_workbook(SIMULATION, tmp_path / "standardized", validation.summary["recommended_time_to_ms_scale"])
+    repaired_workbook = Path(repaired.artifacts[0])
+    params = {"num_bins": 40, "alpha_count": 8, "t2_min_ms": 0.01, "t2_max_ms": 100000.0}
+
+    first = run_lcurve(repaired_workbook, tmp_path / "lcurve", params)
+    second = run_lcurve(repaired_workbook, tmp_path / "lcurve", params)
+
+    assert first.status == "success", first.error
+    assert second.status == "success", second.error
+    assert first.summary["output_dir"] == second.summary["output_dir"]
+    first_lcurve_figures = {Path(path) for path in first.artifacts if "__lcurve__" in Path(path).name and Path(path).suffix == ".png"}
+    second_lcurve_figures = {Path(path) for path in second.artifacts if "__lcurve__" in Path(path).name and Path(path).suffix == ".png"}
+    assert first_lcurve_figures
+    assert second_lcurve_figures
+    assert first_lcurve_figures.isdisjoint(second_lcurve_figures)
+
+
 def test_lcurve_outputs_use_short_figure_folder_on_long_windows_paths(tmp_path):
     validation = validate_workbook(SIMULATION)
     long_root = tmp_path / ("long_path_segment_" * 4)

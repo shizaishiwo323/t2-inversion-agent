@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import html
+import hashlib
 import re
 import zipfile
 from pathlib import Path
@@ -33,6 +34,8 @@ AVAILABLE_MODELS = ["deepseek-v4-flash", "deepseek-v4-pro"]
 DEFAULT_MODEL = "deepseek-v4-pro"
 DEFAULT_THINKING_ENABLED = True
 INTRO_QUERY_KEY = "hide_t2_agent_intro"
+TURN_ARTIFACT_EXPANDER_MARKER_CLASS = "t2-turn-artifact-expander-marker"
+TURN_RESULT_EXPANDER_MARKER_CLASS = "t2-turn-result-expander-marker"
 
 
 def stop_if_runtime_environment_invalid(status: RuntimeEnvironmentStatus | None = None) -> None:
@@ -679,15 +682,28 @@ def _selected_lcurve_index(metrics: pd.DataFrame, selected_alpha: float | None) 
     return int(distances.idxmin())
 
 
-def lcurve_picker_state_keys(result_index: int | str) -> dict[str, str]:
+def lcurve_picker_state_keys(result_index: int | str, *scope_parts: object) -> dict[str, str]:
     """Return separate widget keys and business-state keys for one L-curve picker."""
 
-    base = f"lcurve-alpha-picker-{result_index}"
+    scope_values = [str(part) for part in scope_parts if part is not None and str(part)]
+    if scope_values:
+        digest = hashlib.sha1("|".join(scope_values).encode("utf-8")).hexdigest()[:10]
+        base = f"lcurve-alpha-picker-{result_index}-{digest}"
+    else:
+        base = f"lcurve-alpha-picker-{result_index}"
     return {
         "base": base,
         "open_button": f"{base}-open-button",
         "open_state": f"{base}-open-state",
     }
+
+
+def close_other_lcurve_picker_states(active_open_state_key: str) -> None:
+    """Keep only one L-curve dialog open without relying on unsupported dialog keys."""
+
+    for key in list(st.session_state.keys()):
+        if key.startswith("lcurve-alpha-picker-") and key.endswith("-open-state") and key != active_open_state_key:
+            st.session_state[key] = False
 
 
 def render_lcurve_parameter_picker(
@@ -707,11 +723,13 @@ def render_lcurve_parameter_picker(
         if language == "中文"
         else "Open the interactive L-curve. Fixed-alpha NNLS runs only after confirmation and exports static artifacts."
     )
-    keys = lcurve_picker_state_keys(result_index)
+    metrics_path_value = result.summary.get("metrics_xlsx")
+    keys = lcurve_picker_state_keys(result_index, metrics_path_value, source_decay_path)
     picker_key = keys["base"]
     open_state_key = keys["open_state"]
     st.caption(caption)
     if st.button(button_label, key=keys["open_button"], width="stretch"):
+        close_other_lcurve_picker_states(open_state_key)
         st.session_state[open_state_key] = True
 
     if not st.session_state.get(open_state_key):
@@ -989,6 +1007,32 @@ def workspace_style_css() -> str:
         [data-testid="stMain"]:has(.t2-top-collapsed-marker) div[data-testid="stVerticalBlock"].st-key-t2_chat_history_panel {
             height: max(500px, calc(100vh - 230px)) !important;
             min-height: max(500px, calc(100vh - 230px)) !important;
+        }
+        .t2-turn-artifact-expander-marker,
+        .t2-turn-result-expander-marker {
+            display: none;
+        }
+        div[data-testid="stVerticalBlock"].st-key-t2_chat_history_panel
+            div[data-testid="stVerticalBlock"] > div:has(.t2-turn-artifact-expander-marker) + div
+            div[data-testid="stExpander"] details > summary {
+            position: sticky;
+            top: 0.35rem;
+            z-index: 30;
+            border-radius: 8px;
+            background: rgba(248, 250, 252, 0.96);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.10);
+            backdrop-filter: blur(8px);
+        }
+        div[data-testid="stVerticalBlock"].st-key-t2_results_scroll_panel
+            div[data-testid="stVerticalBlock"] > div:has(.t2-turn-result-expander-marker) + div
+            div[data-testid="stExpander"] details > summary {
+            position: sticky;
+            top: 0.35rem;
+            z-index: 30;
+            border-radius: 8px;
+            background: rgba(248, 250, 252, 0.96);
+            box-shadow: 0 10px 24px rgba(15, 23, 42, 0.10);
+            backdrop-filter: blur(8px);
         }
         @media (max-width: 900px) {
             div[data-testid="stVerticalBlock"].st-key-t2_chat_history_panel {
@@ -1383,6 +1427,7 @@ def render_turn_artifacts(paths: list[str], language: str, message_index: int) -
     if not existing:
         return
 
+    st.markdown(f"<span class='{TURN_ARTIFACT_EXPANDER_MARKER_CLASS}'></span>", unsafe_allow_html=True)
     with st.expander(t(language, "turn_artifacts", count=len(existing)), expanded=True):
         for idx, path in enumerate(existing):
             render_artifact_chip(path, language, f"chat-artifact-{message_index}-{idx}", compact=True)
@@ -1482,6 +1527,7 @@ def render_turn_result_sections(context: AgentRuntimeContext | None, language: s
     st.markdown("### 按对话轮次展示结果" if language == "中文" else "### Results by Chat Turn")
     for group in groups:
         expanded = bool(group.get("live")) or group == groups[-1]
+        st.markdown(f"<span class='{TURN_RESULT_EXPANDER_MARKER_CLASS}'></span>", unsafe_allow_html=True)
         with st.expander(_turn_title(group, language), expanded=expanded):
             if group.get("user_prompt"):
                 st.caption(("用户问题：" if language == "中文" else "User prompt: ") + str(group["user_prompt"]))
