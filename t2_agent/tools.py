@@ -322,6 +322,39 @@ def _simulation_params_from_args(args: dict[str, Any]) -> Simulation2DParams:
     )
 
 
+def _positive_arg(args: dict[str, Any], key: str) -> bool:
+    if key not in args or args.get(key) is None:
+        return False
+    try:
+        return float(args[key]) > 0.0
+    except Exception:
+        return False
+
+
+def png_physical_scale_provided(args: dict[str, Any]) -> bool:
+    """Return whether a PNG simulation has an explicit physical scale."""
+
+    return (
+        _positive_arg(args, "pixel_size_um")
+        or (_positive_arg(args, "pixel_size_x_um") and _positive_arg(args, "pixel_size_y_um"))
+        or (_positive_arg(args, "physical_size_x_um") and _positive_arg(args, "physical_size_y_um"))
+    )
+
+
+def png_physical_scale_error(language: str = "中文") -> AgentToolResult:
+    message = (
+        "PNG phase-map simulation needs the sample scale before meshing. Please provide the cropped sample width and height, for example `300 x 300 um`. I can still use default inversion settings after that."
+        if _is_english(language)
+        else "PNG 相图模拟在网格划分前需要样品尺寸。请补充裁剪后样品区域的宽和高，例如 `300 x 300 μm`。反演参数可以继续用默认值，不需要额外补充。"
+    )
+    return AgentToolResult(
+        "failed",
+        message,
+        summary={"stage": "geometry", "required_fields": ["physical_size_x_um", "physical_size_y_um"]},
+        error="missing_png_physical_scale",
+    )
+
+
 def _rule_geometry_from_args(args: dict[str, Any]) -> RuleGeometry2D:
     RuleGeometry2D = _load_simulation_2d().RuleGeometry2D
     return RuleGeometry2D(
@@ -475,6 +508,8 @@ def run_2d_mesh_and_decay(
                     "请先上传 PNG 相图。" if not _is_english(language) else "Please upload a PNG phase map first.",
                     error="missing_upload",
                 )
+            if not png_physical_scale_provided(params):
+                return png_physical_scale_error(language)
             result = run_png_mesh_decay(
                 Path(input_path),
                 Path(output_dir),

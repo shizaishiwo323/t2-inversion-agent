@@ -104,12 +104,33 @@ def test_execute_2d_mesh_and_decay_updates_context(tmp_path, monkeypatch):
 
     monkeypatch.setattr("t2_agent.tools.run_png_mesh_decay", fake_run_png_mesh_decay)
 
-    result = execute_agent_tool("run_2d_mesh_and_decay", {"geometry_mode": "png"}, context)
+    result = execute_agent_tool(
+        "run_2d_mesh_and_decay",
+        {"geometry_mode": "png", "physical_size_x_um": 300.0, "physical_size_y_um": 300.0},
+        context,
+    )
 
     assert result.status == "success"
     assert context.repaired_path == decay_path
     assert context.simulation_decay_path == decay_path
     assert result.summary["simulation_stages"]["decay"][-1] == str(decay_path)
+
+
+def test_execute_2d_mesh_and_decay_requires_png_physical_scale(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake")
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+
+    def fake_run_png_mesh_decay(input_path, output_dir, params, **kwargs):
+        raise AssertionError("PNG simulation should not start without physical scale")
+
+    monkeypatch.setattr("t2_agent.tools.run_png_mesh_decay", fake_run_png_mesh_decay)
+
+    result = execute_agent_tool("run_2d_mesh_and_decay", {"geometry_mode": "png"}, context)
+
+    assert result.status == "failed"
+    assert result.error == "missing_png_physical_scale"
+    assert "尺寸" in result.message
 
 
 def test_full_2d_simulation_workflow_reuses_existing_inversion_tools(tmp_path, monkeypatch):
@@ -157,7 +178,14 @@ def test_full_2d_simulation_workflow_reuses_existing_inversion_tools(tmp_path, m
 
     result = execute_agent_tool(
         "run_2d_simulation_full_workflow",
-        {"geometry_mode": "png", "alpha_count": 9, "run_gaussian": True, "peak_count": 2},
+        {
+            "geometry_mode": "png",
+            "physical_size_x_um": 300.0,
+            "physical_size_y_um": 300.0,
+            "alpha_count": 9,
+            "run_gaussian": True,
+            "peak_count": 2,
+        },
         context,
     )
 
@@ -171,6 +199,23 @@ def test_full_2d_simulation_workflow_reuses_existing_inversion_tools(tmp_path, m
     assert context.repaired_path == decay_path
     assert context.spectrum_path == spectrum_path
     assert result.summary["simulation_decay_xlsx"] == str(decay_path)
+
+
+def test_full_2d_simulation_workflow_requires_png_physical_scale(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake")
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+
+    def fake_run_2d_mesh_and_decay(input_path, output_dir, params, language="中文"):
+        raise AssertionError("Full PNG workflow should not start meshing without physical scale")
+
+    monkeypatch.setattr("t2_agent.agent.run_2d_mesh_and_decay", fake_run_2d_mesh_and_decay)
+
+    result = execute_agent_tool("run_2d_simulation_full_workflow", {"geometry_mode": "png"}, context)
+
+    assert result.status == "failed"
+    assert result.error == "missing_png_physical_scale"
+    assert "尺寸" in result.message
 
 
 def test_full_2d_simulation_workflow_can_run_reduced_t2_t2(tmp_path, monkeypatch):
@@ -278,7 +323,12 @@ def test_full_2d_simulation_workflow_skips_t2_t2_without_explicit_user_request(t
 
     result = execute_agent_tool(
         "run_2d_simulation_full_workflow",
-        {"geometry_mode": "png", "run_t2_t2": True},
+        {
+            "geometry_mode": "png",
+            "physical_size_x_um": 300.0,
+            "physical_size_y_um": 300.0,
+            "run_t2_t2": True,
+        },
         context,
     )
 
@@ -855,7 +905,20 @@ def test_agent_loop_can_call_full_2d_simulation_tool(tmp_path, monkeypatch):
     monkeypatch.setattr("t2_agent.agent.run_lcurve", fake_run_lcurve)
     fake_client = FakeClient(
         [
-            _message(tool_calls=[_tool_call("run_2d_simulation_full_workflow", {"geometry_mode": "png", "num_bins": 30, "alpha_count": 6})]),
+            _message(
+                tool_calls=[
+                    _tool_call(
+                        "run_2d_simulation_full_workflow",
+                        {
+                            "geometry_mode": "png",
+                            "physical_size_x_um": 300.0,
+                            "physical_size_y_um": 300.0,
+                            "num_bins": 30,
+                            "alpha_count": 6,
+                        },
+                    )
+                ]
+            ),
             _message(content="二维 NMR 模拟和 T2 反演已经完成。"),
         ]
     )
@@ -893,7 +956,14 @@ def test_agent_loop_notifies_each_tool_result_for_live_rendering(tmp_path, monke
     monkeypatch.setattr("t2_agent.tools.run_png_mesh_decay", fake_run_png_mesh_decay)
     fake_client = FakeClient(
         [
-            _message(tool_calls=[_tool_call("run_2d_mesh_and_decay", {"geometry_mode": "png"})]),
+            _message(
+                tool_calls=[
+                    _tool_call(
+                        "run_2d_mesh_and_decay",
+                        {"geometry_mode": "png", "physical_size_x_um": 300.0, "physical_size_y_um": 300.0},
+                    )
+                ]
+            ),
             _message(content="阶段结果已更新。"),
         ]
     )

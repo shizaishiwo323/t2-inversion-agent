@@ -27,6 +27,8 @@ from .tools import (
     run_local_nmr_triangle_t2_t2,
     run_lcurve,
     run_reduced_t2_t2,
+    png_physical_scale_error,
+    png_physical_scale_provided,
     timestamped_name,
     validate_workbook,
     write_standard_decay_workbook,
@@ -432,7 +434,10 @@ def _active_upload_context_prompt(context: AgentRuntimeContext) -> str:
         lines.append(f"- active upload path for tools: {active_path}")
         if suffix == ".png":
             lines.append(
-                "- If the user asks for PNG phase-map geometry, image simulation, meshing, or full 2D NMR simulation, do not say no PNG is uploaded; call the PNG simulation tools with geometry_mode='png'."
+                "- If the user asks for PNG phase-map geometry, do not say no PNG is uploaded; inspect the PNG with geometry_mode='png'."
+            )
+            lines.append(
+                "- If the user asks for PNG meshing or full 2D NMR simulation, first make sure they supplied the cropped sample width and height or explicit pixel size. If not, ask for that scale instead of starting simulation with defaults."
             )
     if uploads:
         names = ", ".join(Path(path).name for path in uploads[:10])
@@ -754,6 +759,8 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
         )
 
     if name == "run_2d_simulation_full_workflow":
+        if str(args.get("geometry_mode", "png")).lower() == "png" and not png_physical_scale_provided(args):
+            return png_physical_scale_error(response_language)
         mesh = run_2d_mesh_and_decay(
             context.uploaded_path,
             context.workspace / "simulation_2d",
@@ -1056,7 +1063,9 @@ def run_deepseek_agent_turn(
         "For 2D simulation requests, use the simulation tools instead of spreadsheet validation tools. "
         "If the user uploads a PNG or asks for red/yellow phase-map simulation, call inspect_2d_geometry_input and then run_2d_mesh_and_decay or run_2d_simulation_full_workflow with geometry_mode='png'. "
         "For PNG phase maps with white margins, keep the original upload, enable normalize_phase_colors when edge or antialiasing colors may be present, and rely on the PNG workflow to crop the white border before meshing. "
+        "For PNG simulation or full PNG simulation-to-inversion, physical scale is required before meshing. If the user has not provided physical_size_x_um/physical_size_y_um or explicit pixel_size values, ask for the cropped sample width and height instead of guessing default dimensions. "
         "If the user gives physical dimensions such as 300 by 300 micrometers for a PNG, pass physical_size_x_um and physical_size_y_um; these dimensions apply to the cropped sample region, not the screenshot canvas. "
+        "Do not ask for nonessential inversion parameters such as regularization, T2 bins, or L-curve range when defaults are acceptable; only ask for information required to make the simulation physically scaled. "
         "Do not set run_t2_t2 for ordinary simulation-and-inversion requests; the default full workflow is T2 only. "
         "Set run_t2_t2=true only when the user explicitly asks for T2-T2, a T2-T2 map, exchange spectrum, or correlation spectrum, and explain that the current output is a reduced T2-T2 map derived from the 1D T2 spectrum. "
         "If the user asks for the built-in ideal triangle simulation and has not uploaded a PNG, call run_2d_mesh_and_decay or run_2d_simulation_full_workflow with geometry_mode='rule'; do not create a PNG phase map as an intermediate input. "
