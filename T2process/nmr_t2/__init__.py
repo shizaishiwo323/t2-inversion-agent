@@ -1,27 +1,14 @@
 """Top-level package for standardized NMR T2 inversion workflows.
 
-This package provides a clean API for four core capabilities:
-
-1. NNLS inversion
-2. L-curve-based regularization selection
-3. Plotting and visualization
-4. Gaussian peak decomposition
-
-The public API is intentionally small and stable so that notebooks and
-scripts can rely on long-term compatibility.
+The public API stays small and stable, but heavy numerical/plotting modules
+are loaded lazily so web apps can start even when optional science packages
+are unavailable in a constrained deployment environment.
 """
 
+from importlib import import_module
+
 from .config import GaussianConfig, LCurveConfig, NnlsConfig, PlotConfig
-from .gaussian import decompose_spectrum_as_gaussians
-from .lcurve import invert_single_signal_lcurve
 from .models import GaussianDecompositionResult, LCurveInversionResult, NnlsInversionResult, TrimmedSignal
-from .nnls import invert_single_signal_nnls
-from .pipelines import (
-    run_gaussian_decomposition_on_spectrum_workbook,
-    run_lcurve_workbook,
-    run_nnls_workbook,
-    run_plotting_workbook_pair,
-)
 
 __all__ = [
     "GaussianConfig",
@@ -40,3 +27,20 @@ __all__ = [
     "run_plotting_workbook_pair",
     "run_gaussian_decomposition_on_spectrum_workbook",
 ]
+
+
+def __getattr__(name):
+    if name == "invert_single_signal_nnls":
+        return import_module(".nnls", __name__).invert_single_signal_nnls
+    if name == "invert_single_signal_lcurve":
+        return import_module(".lcurve", __name__).invert_single_signal_lcurve
+    if name == "decompose_spectrum_as_gaussians":
+        return import_module(".gaussian", __name__).decompose_spectrum_as_gaussians
+    if name in {
+        "run_nnls_workbook",
+        "run_lcurve_workbook",
+        "run_plotting_workbook_pair",
+        "run_gaussian_decomposition_on_spectrum_workbook",
+    }:
+        return getattr(import_module(".pipelines", __name__), name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

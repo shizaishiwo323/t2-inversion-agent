@@ -22,12 +22,6 @@ if str(T2PROCESS_ROOT) not in sys.path:
 
 from nmr_t2.config import GaussianConfig, LCurveConfig, NnlsConfig, PlotConfig  # noqa: E402
 from nmr_t2.io_utils import cell_to_float, parse_time_cell, read_source_table, safe_token  # noqa: E402
-from nmr_t2.pipelines import (  # noqa: E402
-    run_gaussian_decomposition_on_spectrum_workbook,
-    run_lcurve_workbook,
-    run_nnls_workbook,
-    run_plotting_workbook_pair,
-)
 
 
 def _is_english(language: str) -> bool:
@@ -45,6 +39,34 @@ def _load_simulation_2d():
             "environment to run meshing and simulation; T2 inversion workflows "
             "can still run without this optional simulation stack."
         ) from exc
+
+
+def _load_t2_pipelines():
+    try:
+        return importlib.import_module("nmr_t2.pipelines")
+    except ModuleNotFoundError as exc:
+        missing = exc.name or "a required T2 processing dependency"
+        raise RuntimeError(
+            "The T2 processing workflow is unavailable because "
+            f"`{missing}` is not installed. Install the full application "
+            "environment before running inversion, plotting, or Gaussian decomposition."
+        ) from exc
+
+
+def run_gaussian_decomposition_on_spectrum_workbook(*args, **kwargs):
+    return _load_t2_pipelines().run_gaussian_decomposition_on_spectrum_workbook(*args, **kwargs)
+
+
+def run_lcurve_workbook(*args, **kwargs):
+    return _load_t2_pipelines().run_lcurve_workbook(*args, **kwargs)
+
+
+def run_nnls_workbook(*args, **kwargs):
+    return _load_t2_pipelines().run_nnls_workbook(*args, **kwargs)
+
+
+def run_plotting_workbook_pair(*args, **kwargs):
+    return _load_t2_pipelines().run_plotting_workbook_pair(*args, **kwargs)
 
 
 def inspect_png_phase_map(*args, **kwargs):
