@@ -46,6 +46,23 @@ def _build_output_path(output_dir: Path, dataset_name: str, artifact_name: str, 
     return output_dir / timestamped_name(f"{short_dataset}__{short_artifact}", suffix)
 
 
+def _regularization_filename_token(value: float) -> str:
+    text = f"{float(value):.6g}".replace("-", "m").replace("+", "p").replace(".", "p")
+    return safe_token(f"alpha_{text}")
+
+
+def _selected_alpha_filename_token(values: list[float]) -> str:
+    finite_values = [float(value) for value in values if np.isfinite(float(value))]
+    if not finite_values:
+        return "alpha_unknown"
+    if len(finite_values) == 1 or np.allclose(finite_values, finite_values[0], rtol=1e-9, atol=1e-12):
+        return _regularization_filename_token(finite_values[0])
+    return safe_token(
+        f"{_regularization_filename_token(min(finite_values))}_to_"
+        f"{_regularization_filename_token(max(finite_values)).removeprefix('alpha_')}"
+    )
+
+
 def _prepare_signal_for_inversion(
     signal_name: str,
     time_ms: np.ndarray,
@@ -161,11 +178,12 @@ def run_nnls_workbook(
             }
         )
 
-    spectrum_path = _build_output_path(output_dir, dataset_name, "nnls_spectrum", "xlsx")
-    trimmed_path = _build_output_path(output_dir, dataset_name, "nnls_trimmed_decay", "xlsx")
-    fit_path = _build_output_path(output_dir, dataset_name, "nnls_fit", "xlsx")
-    summary_csv = _build_output_path(output_dir, dataset_name, "nnls_summary", "csv")
-    summary_xlsx = _build_output_path(output_dir, dataset_name, "nnls_summary", "xlsx")
+    alpha_token = _regularization_filename_token(cfg.regularization)
+    spectrum_path = _build_output_path(output_dir, dataset_name, f"nnls_spectrum__{alpha_token}", "xlsx")
+    trimmed_path = _build_output_path(output_dir, dataset_name, f"nnls_trimmed_decay__{alpha_token}", "xlsx")
+    fit_path = _build_output_path(output_dir, dataset_name, f"nnls_fit__{alpha_token}", "xlsx")
+    summary_csv = _build_output_path(output_dir, dataset_name, f"nnls_summary__{alpha_token}", "csv")
+    summary_xlsx = _build_output_path(output_dir, dataset_name, f"nnls_summary__{alpha_token}", "xlsx")
 
     export_sheet_map_to_excel(spectrum_sheets, spectrum_path)
     export_sheet_map_to_excel(trimmed_sheets, trimmed_path)
@@ -264,7 +282,17 @@ def run_lcurve_workbook(
         trimmed_frame.loc[: trimmed.trimmed_amplitude.size - 1, "trimmed_amplitude"] = trimmed.trimmed_amplitude
         trimmed_sheets[signal_name] = trimmed_frame
 
-        figure_path = figure_dir / timestamped_name(f"{safe_token(signal_name)}__lcurve", "png")
+        alpha_token = _regularization_filename_token(result.best_regularization)
+        figure_path = _build_output_path(
+            figure_dir,
+            signal_name,
+            f"lcurve__{alpha_token}",
+            "png",
+        )
+        if len(str(figure_path)) > 240:
+            figure_dir = output_dir / "f"
+            figure_dir.mkdir(parents=True, exist_ok=True)
+            figure_path = figure_dir / timestamped_name(alpha_token, "png")
         from .plotting import plot_lcurve_result
 
         plot_lcurve_result(result, output_path=figure_path, config=plot_config)
@@ -284,11 +312,12 @@ def run_lcurve_workbook(
             }
         )
 
-    spectrum_path = _build_output_path(output_dir, dataset_name, "lcurve_spectrum", "xlsx")
-    metrics_path = _build_output_path(output_dir, dataset_name, "lcurve_metrics", "xlsx")
-    trimmed_path = _build_output_path(output_dir, dataset_name, "lcurve_trimmed_decay", "xlsx")
-    summary_csv = _build_output_path(output_dir, dataset_name, "lcurve_summary", "csv")
-    summary_xlsx = _build_output_path(output_dir, dataset_name, "lcurve_summary", "xlsx")
+    alpha_token = _selected_alpha_filename_token([float(row["best_regularization"]) for row in summary_rows])
+    spectrum_path = _build_output_path(output_dir, dataset_name, f"lcurve_spectrum__{alpha_token}", "xlsx")
+    metrics_path = _build_output_path(output_dir, dataset_name, f"lcurve_metrics__{alpha_token}", "xlsx")
+    trimmed_path = _build_output_path(output_dir, dataset_name, f"lcurve_trimmed_decay__{alpha_token}", "xlsx")
+    summary_csv = _build_output_path(output_dir, dataset_name, f"lcurve_summary__{alpha_token}", "csv")
+    summary_xlsx = _build_output_path(output_dir, dataset_name, f"lcurve_summary__{alpha_token}", "xlsx")
 
     export_sheet_map_to_excel(spectrum_sheets, spectrum_path)
     export_sheet_map_to_excel(metrics_sheets, metrics_path)
@@ -315,6 +344,7 @@ def run_plotting_workbook_pair(
     *,
     plot_config: Optional[PlotConfig] = None,
     time_to_ms_scale: float = 1.0,
+    filename_tag: str | None = None,
 ) -> Dict[str, Path]:
     """Generate paired decay/T2 figures from raw and spectrum workbooks."""
 
@@ -347,10 +377,10 @@ def run_plotting_workbook_pair(
         )
         t2_bins, spectrum = dataframe_columns_to_numeric_xy(spectrum_df, x_col, y_col)
 
-        figure_path = output_dir / timestamped_name(
-            f"{safe_token(raw_decay_workbook.stem)}__{safe_token(signal_name)}__decay_t2",
-            "png",
-        )
+        figure_stem = f"{safe_token(raw_decay_workbook.stem)}__{safe_token(signal_name)}__decay_t2"
+        if filename_tag:
+            figure_stem = f"{figure_stem}__{safe_token(filename_tag)}"
+        figure_path = output_dir / timestamped_name(figure_stem, "png")
         from .plotting import plot_decay_and_spectrum_pair
 
         plot_decay_and_spectrum_pair(

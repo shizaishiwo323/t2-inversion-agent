@@ -26,6 +26,7 @@ from .tools import (
     run_gaussian_peaks,
     run_local_nmr_triangle_t2_t2,
     run_lcurve,
+    run_reduced_t2_t2,
     timestamped_name,
     validate_workbook,
     write_standard_decay_workbook,
@@ -113,6 +114,7 @@ def build_tool_specs() -> list[dict[str, Any]]:
                     "type": "object",
                     "properties": {
                         "geometry_mode": {"type": "string", "enum": ["png", "rule"], "description": "Use png only for uploaded red/yellow/white phase maps. Use rule for the upstream ideal triangular-pore simulation input."},
+                        "normalize_phase_colors": {"type": "boolean", "description": "For PNG phase maps, map near-red, near-yellow, and near-white antialiasing pixels to exact supported phase colors before cropping and meshing."},
                         "coupled": {"type": "boolean", "description": "For ideal triangle input, whether the large and small triangular pores are connected by a throat."},
                         "large_side_um": {"type": "number", "description": "Large ideal triangle side length in micrometers. Default: 20."},
                         "small_side_um": {"type": "number", "description": "Small ideal triangle side length in micrometers. Default: 8."},
@@ -141,6 +143,9 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "pixel_size_um": {"type": "number", "description": "Pixel size in micrometers when x and y pixel sizes are equal. Default: 1."},
                         "pixel_size_x_um": {"type": "number", "description": "Horizontal pixel size in micrometers."},
                         "pixel_size_y_um": {"type": "number", "description": "Vertical pixel size in micrometers."},
+                        "physical_size_x_um": {"type": "number", "description": "Physical width of the cropped PNG sample region in micrometers. Applied after automatic white-border cropping."},
+                        "physical_size_y_um": {"type": "number", "description": "Physical height of the cropped PNG sample region in micrometers. Applied after automatic white-border cropping."},
+                        "normalize_phase_colors": {"type": "boolean", "description": "For PNG phase maps, map near-red, near-yellow, and near-white antialiasing pixels to exact supported phase colors before cropping and meshing."},
                         "diffusion_um2_per_ms": {"type": "number", "description": "Diffusion coefficient in um^2/ms. Default: 2."},
                         "bulk_t2_ms": {"type": "number", "description": "Bulk T2 in ms. Default: 3000."},
                         "rho_solid_um_per_ms": {"type": "number", "description": "Solid-liquid surface relaxivity in um/ms. Default: 0.005."},
@@ -170,11 +175,14 @@ def build_tool_specs() -> list[dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "run_2d_simulation_full_workflow",
-                "description": "Run the first-version 2D NMR T2 workflow: geometry input, pyGIMLi mesh, T2 decay solve, T2 inversion, optional Gaussian decomposition. Does not run T2-T2 or D-T2.",
+                "description": "Run the first-version 2D NMR workflow: geometry input, optional PNG color normalization and white-border crop, pyGIMLi mesh, T2 decay solve, T2 inversion, optional reduced T2-T2 map, and optional Gaussian decomposition. Does not run D-T2.",
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "geometry_mode": {"type": "string", "enum": ["png", "rule"]},
+                        "normalize_phase_colors": {"type": "boolean", "description": "For PNG phase maps, map near-red, near-yellow, and near-white antialiasing pixels to exact supported phase colors before cropping and meshing."},
+                        "physical_size_x_um": {"type": "number", "description": "Physical width of the cropped PNG sample region in micrometers. Applied after automatic white-border cropping."},
+                        "physical_size_y_um": {"type": "number", "description": "Physical height of the cropped PNG sample region in micrometers. Applied after automatic white-border cropping."},
                         "regularization": {"type": "number", "description": "Optional fixed regularization factor. Omit to use L-curve."},
                         "t2_min_ms": {"type": "number"},
                         "t2_max_ms": {"type": "number"},
@@ -182,6 +190,11 @@ def build_tool_specs() -> list[dict[str, Any]]:
                         "alpha_min": {"type": "number"},
                         "alpha_max": {"type": "number"},
                         "alpha_count": {"type": "integer"},
+                        "run_t2_t2": {"type": "boolean", "description": "Generate a reduced T2-T2 map after the 1D T2 spectrum is available."},
+                        "t2_t2_alpha": {"type": "number", "description": "Regularization factor for the reduced T2-T2 NNLS map. Default: 0.05."},
+                        "t2_t2_t1_points": {"type": "integer", "description": "Number of synthetic first-encoding time points. Default: 18."},
+                        "t2_t2_t2_points": {"type": "integer", "description": "Number of synthetic second-encoding time points. Default: 24."},
+                        "t2_t2_bin_points": {"type": "integer", "description": "Number of T2 bins per axis in the reduced T2-T2 map. Default: 28."},
                         "run_gaussian": {"type": "boolean"},
                         "peak_count": {"type": "integer", "minimum": 1, "maximum": 8},
                         "pixel_size_um": {"type": "number"},
@@ -361,6 +374,26 @@ def _language_name(language: str) -> str:
     return "English" if _is_english(language) else "Chinese"
 
 
+def _explicit_t2_t2_requested(user_goal: str) -> bool:
+    text = (user_goal or "").lower()
+    normalized = (
+        text.replace("－", "-")
+        .replace("—", "-")
+        .replace("–", "-")
+        .replace("×", "x")
+        .replace("，", ",")
+    )
+    compact = re.sub(r"\s+", "", normalized)
+    if re.search(r"t2\s*[-_/x]\s*t2", normalized) or "t2t2" in compact or "t2_t2" in normalized:
+        return True
+    explicit_map_terms = ("交换谱", "关联谱", "二维谱", "二维t2谱", "t2二维谱", "t2-t2图", "t2-t2 map")
+    if any(term in normalized for term in explicit_map_terms):
+        return True
+    if ("2d" in normalized or "二维" in normalized) and "t2" in normalized and ("spectrum" in normalized or "map" in normalized or "谱" in normalized):
+        return True
+    return False
+
+
 def _safe_batch_folder(path: Path) -> str:
     token = re.sub(r"[^A-Za-z0-9_.-]+", "_", path.name).strip("._")
     return token or "uploaded_file"
@@ -378,6 +411,34 @@ def _uploaded_paths(context: AgentRuntimeContext) -> list[Path]:
             seen.add(resolved)
             unique.append(Path(path))
     return unique
+
+
+def _active_upload_context_prompt(context: AgentRuntimeContext) -> str:
+    active = context.uploaded_path
+    uploads = _uploaded_paths(context)
+    if active is None and not uploads:
+        return (
+            "Active uploaded file: none. If the user asks to process an uploaded file, ask them to upload/select one first."
+        )
+
+    lines = ["Active uploaded file context:"]
+    if active is not None:
+        active_path = Path(active)
+        suffix = active_path.suffix.lower()
+        kind = "PNG phase map" if suffix == ".png" else "spreadsheet/table or spectrum data"
+        lines.append(f"- active uploaded file: {active_path.name}")
+        lines.append(f"- active upload kind: {kind}")
+        lines.append(f"- active upload suffix: {suffix or '(none)'}")
+        lines.append(f"- active upload path for tools: {active_path}")
+        if suffix == ".png":
+            lines.append(
+                "- If the user asks for PNG phase-map geometry, image simulation, meshing, or full 2D NMR simulation, do not say no PNG is uploaded; call the PNG simulation tools with geometry_mode='png'."
+            )
+    if uploads:
+        names = ", ".join(Path(path).name for path in uploads[:10])
+        lines.append(f"- uploaded file count: {len(uploads)}")
+        lines.append(f"- uploaded file names: {names}")
+    return "\n".join(lines)
 
 
 def _require_upload(context: AgentRuntimeContext, response_language: str = "中文") -> AgentToolResult | None:
@@ -744,6 +805,23 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
         if inversion.status == "success" and "spectrum_xlsx" in inversion.summary:
             context.spectrum_path = Path(inversion.summary["spectrum_xlsx"])
 
+        run_t2_t2_requested = bool(args.get("run_t2_t2", False)) and _explicit_t2_t2_requested(context.last_user_goal)
+        if run_t2_t2_requested and context.spectrum_path is not None:
+            t2_t2 = run_reduced_t2_t2(
+                context.spectrum_path,
+                context.workspace / "simulation_2d" / "t2_t2",
+                {
+                    "t2_t2_alpha": float(args.get("t2_t2_alpha", 0.05)),
+                    "t2_t2_t1_points": int(args.get("t2_t2_t1_points", 18)),
+                    "t2_t2_t2_points": int(args.get("t2_t2_t2_points", 24)),
+                    "t2_t2_bin_points": int(args.get("t2_t2_bin_points", 28)),
+                },
+                language=response_language,
+            )
+            context.results.append(t2_t2)
+        else:
+            t2_t2 = None
+
         if bool(args.get("run_gaussian", False)) and context.spectrum_path is not None:
             gaussian = run_gaussian_peaks(
                 context.spectrum_path,
@@ -756,22 +834,48 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
             gaussian = None
 
         workflow_results = [mesh, inversion]
+        if t2_t2 is not None:
+            workflow_results.append(t2_t2)
         if gaussian is not None:
             workflow_results.append(gaussian)
 
+        simulation_stages: dict[str, list[str]] = {}
+        for item in workflow_results:
+            for stage_name, stage_artifacts in item.summary.get("simulation_stages", {}).items():
+                simulation_stages.setdefault(stage_name, []).extend([str(path) for path in stage_artifacts])
+        simulation_stages.setdefault("inversion", []).extend(list(inversion.artifacts))
+        if gaussian is not None:
+            simulation_stages.setdefault("gaussian", []).extend(list(gaussian.artifacts))
+
+        final_status = "success"
+        final_error = None
+        for item in workflow_results:
+            if item.status != "success":
+                final_status = "failed"
+                final_error = item.error
+                break
+
         return AgentToolResult(
-            "success" if inversion.status == "success" else "failed",
-            "2D NMR 模拟和 T2 反演流程完成。"
+            final_status,
+            "2D NMR 模拟、T2 反演和可选 T2-T2 流程完成。"
             if not _is_english(response_language)
-            else "2D NMR simulation and T2 inversion workflow completed.",
+            else "2D NMR simulation, T2 inversion, and optional T2-T2 workflow completed.",
             artifacts=[artifact for result in workflow_results for artifact in result.artifacts],
             summary={
                 **inversion.summary,
                 "stage": "full_workflow",
                 "simulation_decay_xlsx": str(context.repaired_path),
                 "spectrum_xlsx": str(context.spectrum_path) if context.spectrum_path else None,
+                "run_t2_t2": run_t2_t2_requested,
+                "t2_t2_requested_by_tool": bool(args.get("run_t2_t2", False)),
+                "t2_t2_explicitly_requested_by_user": _explicit_t2_t2_requested(context.last_user_goal),
+                "t2_t2_enabled": bool(t2_t2 is not None and t2_t2.status == "success"),
+                "simulation_stages": simulation_stages,
+                "mesh_and_decay": mesh.summary,
+                "t2_t2": t2_t2.summary if t2_t2 is not None else None,
+                "gaussian": gaussian.summary if gaussian is not None else None,
             },
-            error=inversion.error,
+            error=final_error or inversion.error,
         )
 
     if name in {"inspect_workbook_schema", "validate_workbook", "repair_workbook"}:
@@ -941,6 +1045,7 @@ def run_deepseek_agent_turn(
     context.last_user_goal = user_message
     messages = list(prior_messages)
     user_language = _language_name(response_language)
+    active_upload_context = _active_upload_context_prompt(context)
     language_instruction = (
         "User-facing language: English. Reply in English. Any visible summaries, explanations, tool-result interpretation, and generated reports must be in English unless the user explicitly asks for another language."
         if _is_english(response_language)
@@ -950,6 +1055,10 @@ def run_deepseek_agent_turn(
         "You are an NMR 2D simulation and T2 inversion agent that can call real tools. "
         "For 2D simulation requests, use the simulation tools instead of spreadsheet validation tools. "
         "If the user uploads a PNG or asks for red/yellow phase-map simulation, call inspect_2d_geometry_input and then run_2d_mesh_and_decay or run_2d_simulation_full_workflow with geometry_mode='png'. "
+        "For PNG phase maps with white margins, keep the original upload, enable normalize_phase_colors when edge or antialiasing colors may be present, and rely on the PNG workflow to crop the white border before meshing. "
+        "If the user gives physical dimensions such as 300 by 300 micrometers for a PNG, pass physical_size_x_um and physical_size_y_um; these dimensions apply to the cropped sample region, not the screenshot canvas. "
+        "Do not set run_t2_t2 for ordinary simulation-and-inversion requests; the default full workflow is T2 only. "
+        "Set run_t2_t2=true only when the user explicitly asks for T2-T2, a T2-T2 map, exchange spectrum, or correlation spectrum, and explain that the current output is a reduced T2-T2 map derived from the 1D T2 spectrum. "
         "If the user asks for the built-in ideal triangle simulation and has not uploaded a PNG, call run_2d_mesh_and_decay or run_2d_simulation_full_workflow with geometry_mode='rule'; do not create a PNG phase map as an intermediate input. "
         "For the first version, only 2D simulation is supported, and mesh generation must use pyGIMLi triangular meshing. "
         "For the ordinary first-version ideal-triangle simulation, run only the 1D T2 workflow. "
@@ -976,6 +1085,7 @@ def run_deepseek_agent_turn(
         "Write for beginners and explain the role of the smoothing factor, L-curve, T2 range, and peak count when relevant. "
         f"{language_instruction} "
         f"Requested user-facing language label: {user_language}."
+        f"\n\n{active_upload_context}"
         f"\n\n{render_skill_prompt()}"
     )
     system_index = next((idx for idx, message in enumerate(messages) if message.get("role") == "system"), None)

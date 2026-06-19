@@ -74,6 +74,12 @@ def test_agent_tool_schema_exposes_2d_simulation_tools():
     assert "run_2d_mesh_and_decay" in names
     assert "run_2d_simulation_full_workflow" in names
     assert "run_local_nmr_triangle_demo" in names
+    full_workflow = next(item for item in specs if item["function"]["name"] == "run_2d_simulation_full_workflow")
+    full_properties = full_workflow["function"]["parameters"]["properties"]
+    assert "normalize_phase_colors" in full_properties
+    assert "physical_size_x_um" in full_properties
+    assert "physical_size_y_um" in full_properties
+    assert "run_t2_t2" in full_properties
 
 
 def test_execute_2d_mesh_and_decay_updates_context(tmp_path, monkeypatch):
@@ -83,7 +89,8 @@ def test_execute_2d_mesh_and_decay_updates_context(tmp_path, monkeypatch):
     decay_path.write_bytes(b"fake-xlsx")
     context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
 
-    def fake_run_png_mesh_decay(input_path, output_dir, params):
+    def fake_run_png_mesh_decay(input_path, output_dir, params, **kwargs):
+        assert kwargs["normalize_phase_colors"] is False
         return {
             "status": "success",
             "standard_decay_xlsx": str(decay_path),
@@ -164,6 +171,121 @@ def test_full_2d_simulation_workflow_reuses_existing_inversion_tools(tmp_path, m
     assert context.repaired_path == decay_path
     assert context.spectrum_path == spectrum_path
     assert result.summary["simulation_decay_xlsx"] == str(decay_path)
+
+
+def test_full_2d_simulation_workflow_can_run_reduced_t2_t2(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake")
+    decay_path = tmp_path / "simulation_decay.xlsx"
+    spectrum_path = tmp_path / "simulation_spectrum.xlsx"
+    t2_t2_png = tmp_path / "t2_t2.png"
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+    context.last_user_goal = "请用这个红黄 PNG 跑完整二维 NMR 模拟并做 T2 和 T2-T2"
+    captured = {}
+
+    def fake_run_2d_mesh_and_decay(input_path, output_dir, params, language="中文"):
+        captured["simulation_params"] = params
+        return AgentToolResult(
+            "success",
+            "mesh",
+            artifacts=[str(decay_path)],
+            summary={
+                "standard_decay_xlsx": str(decay_path),
+                "simulation_stages": {"geometry": ["cropped.png"], "decay": [str(decay_path)]},
+            },
+        )
+
+    def fake_run_lcurve(input_workbook, output_dir, params, language="中文"):
+        return AgentToolResult(
+            "success",
+            "inverted",
+            artifacts=[str(spectrum_path)],
+            summary={"spectrum_xlsx": str(spectrum_path)},
+        )
+
+    def fake_run_reduced_t2_t2(input_workbook, output_dir, params, language="中文"):
+        captured["t2_t2_input"] = input_workbook
+        captured["t2_t2_params"] = params
+        return AgentToolResult(
+            "success",
+            "t2-t2",
+            artifacts=[str(t2_t2_png)],
+            summary={
+                "t2_t2_png": str(t2_t2_png),
+                "simulation_stages": {"t2_t2": [str(t2_t2_png)]},
+            },
+        )
+
+    monkeypatch.setattr("t2_agent.agent.run_2d_mesh_and_decay", fake_run_2d_mesh_and_decay)
+    monkeypatch.setattr("t2_agent.agent.run_lcurve", fake_run_lcurve)
+    monkeypatch.setattr("t2_agent.agent.run_reduced_t2_t2", fake_run_reduced_t2_t2)
+
+    result = execute_agent_tool(
+        "run_2d_simulation_full_workflow",
+        {
+            "geometry_mode": "png",
+            "normalize_phase_colors": True,
+            "physical_size_x_um": 300.0,
+            "physical_size_y_um": 300.0,
+            "run_t2_t2": True,
+            "t2_t2_alpha": 0.03,
+            "t2_t2_bin_points": 12,
+        },
+        context,
+    )
+
+    assert result.status == "success"
+    assert captured["simulation_params"]["normalize_phase_colors"] is True
+    assert captured["simulation_params"]["physical_size_x_um"] == 300.0
+    assert captured["simulation_params"]["physical_size_y_um"] == 300.0
+    assert captured["t2_t2_input"] == spectrum_path
+    assert captured["t2_t2_params"]["t2_t2_alpha"] == 0.03
+    assert captured["t2_t2_params"]["t2_t2_bin_points"] == 12
+    assert result.summary["t2_t2_enabled"] is True
+    assert result.summary["simulation_stages"]["t2_t2"] == [str(t2_t2_png)]
+
+
+def test_full_2d_simulation_workflow_skips_t2_t2_without_explicit_user_request(tmp_path, monkeypatch):
+    png_path = tmp_path / "phase.png"
+    png_path.write_bytes(b"fake")
+    decay_path = tmp_path / "simulation_decay.xlsx"
+    spectrum_path = tmp_path / "simulation_spectrum.xlsx"
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
+    context.last_user_goal = "对上传尺寸做模拟和反演，尺寸300*300μm"
+
+    def fake_run_2d_mesh_and_decay(input_path, output_dir, params, language="中文"):
+        return AgentToolResult(
+            "success",
+            "mesh",
+            artifacts=[str(decay_path)],
+            summary={"standard_decay_xlsx": str(decay_path), "simulation_stages": {"decay": [str(decay_path)]}},
+        )
+
+    def fake_run_lcurve(input_workbook, output_dir, params, language="中文"):
+        return AgentToolResult(
+            "success",
+            "inverted",
+            artifacts=[str(spectrum_path)],
+            summary={"spectrum_xlsx": str(spectrum_path)},
+        )
+
+    def fake_run_reduced_t2_t2(input_workbook, output_dir, params, language="中文"):
+        raise AssertionError("T2-T2 should not run unless the user explicitly asks for it")
+
+    monkeypatch.setattr("t2_agent.agent.run_2d_mesh_and_decay", fake_run_2d_mesh_and_decay)
+    monkeypatch.setattr("t2_agent.agent.run_lcurve", fake_run_lcurve)
+    monkeypatch.setattr("t2_agent.agent.run_reduced_t2_t2", fake_run_reduced_t2_t2)
+
+    result = execute_agent_tool(
+        "run_2d_simulation_full_workflow",
+        {"geometry_mode": "png", "run_t2_t2": True},
+        context,
+    )
+
+    assert result.status == "success"
+    assert result.summary["run_t2_t2"] is False
+    assert result.summary["t2_t2_enabled"] is False
+    assert "t2_t2" not in result.summary["simulation_stages"]
 
 
 def test_full_2d_simulation_workflow_returns_only_current_turn_artifacts(tmp_path, monkeypatch):
@@ -432,6 +554,28 @@ def test_agent_loop_can_request_english_response_language(tmp_path):
     system_message = fake_client.chat.completions.calls[0]["messages"][0]["content"]
     assert "Reply in English" in system_message
     assert "Available T2 skills/tools" in system_message
+
+
+def test_agent_loop_system_prompt_includes_active_upload_context(tmp_path):
+    png_path = tmp_path / "timestep_0048.png"
+    png_path.write_bytes(b"png")
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path, uploaded_paths=[png_path])
+    fake_client = FakeClient([_message(content="ok")])
+
+    run_deepseek_agent_turn(
+        api_key="test-key",
+        model="deepseek-v4-flash",
+        thinking_enabled=False,
+        user_message="用 PNG 相图",
+        context=context,
+        prior_messages=[],
+        client=fake_client,
+    )
+
+    system_message = fake_client.chat.completions.calls[0]["messages"][0]["content"]
+    assert "timestep_0048.png" in system_message
+    assert "active uploaded file" in system_message
+    assert "PNG" in system_message
 
 
 def test_agent_loop_returns_after_successful_local_demo_without_second_model_call(tmp_path, monkeypatch):
@@ -739,7 +883,7 @@ def test_agent_loop_notifies_each_tool_result_for_live_rendering(tmp_path, monke
     decay_path = tmp_path / "decay.xlsx"
     context = AgentRuntimeContext(workspace=tmp_path / "workspace", uploaded_path=png_path)
 
-    def fake_run_png_mesh_decay(input_path, output_dir, params):
+    def fake_run_png_mesh_decay(input_path, output_dir, params, **kwargs):
         return {
             "status": "success",
             "standard_decay_xlsx": str(decay_path),

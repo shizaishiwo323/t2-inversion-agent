@@ -1,0 +1,157 @@
+{
+  "status": "success",
+  "run_dir": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962",
+  "input_png_original": "C:\\Users\\imgw\\Documents\\Codex\\RTSPHEM-main\\outputs\\rtm_runs\\rtm_20260619_104459_493_external_tif\\interface_images\\timestep_0013.png",
+  "input_png_normalized": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\00_normalized_input\\timestep_0013_nearest_red_yellow_white.png",
+  "normalization": {
+    "method": "nearest RGB class to white/red/yellow; original preserved",
+    "source_color_counts": {
+      "(255, 0, 0)": 343010,
+      "(255, 223, 223)": 1092,
+      "(255, 255, 0)": 537766,
+      "(255, 255, 223)": 790,
+      "(255, 255, 255)": 1333787
+    }
+  },
+  "physical_size_um": {
+    "x": 300.0,
+    "y": 300.0
+  },
+  "cropped_shape_px": {
+    "height": 941,
+    "width": 936
+  },
+  "base_pixel_size_um": {
+    "x": 0.32051282051282054,
+    "y": 0.3188097768331562
+  },
+  "mesh_vertices": 4112,
+  "mesh_triangles": 5978,
+  "mesh_area_um2": 16960.78246869387,
+  "phase_counts": {
+    "outside_px": 0,
+    "water_px": 343010,
+    "solid_px": 537766
+  },
+  "time_point_count": 301,
+  "best_regularization": 0.0009617248711152,
+  "dominant_t2_peak_ms": 911.5888299750818,
+  "simulation": {
+    "status": "success",
+    "stage": "decay",
+    "input_path": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\00_normalized_input\\timestep_0013_nearest_red_yellow_white.png",
+    "raw_shape": [
+      1155,
+      1919
+    ],
+    "cropped_shape": [
+      941,
+      936
+    ],
+    "simulation_shape": [
+      500,
+      497
+    ],
+    "downsample_scale": 1.882,
+    "phase_counts": {
+      "outside_px": 0,
+      "water_px": 343010,
+      "solid_px": 537766
+    },
+    "params_used": {
+      "pixel_size_x_um": 0.6032051282051282,
+      "pixel_size_y_um": 0.6,
+      "diffusion_um2_per_ms": 2.0,
+      "bulk_t2_ms": 3000.0,
+      "rho_solid_um_per_ms": 0.005,
+      "rho_gas_um_per_ms": 0.0,
+      "dt_ms": 5.0,
+      "t_max_ms": 1500.0,
+      "max_grid_size": 500,
+      "solver": "triangular",
+      "mesh_bulk_size_um": 8.0,
+      "mesh_boundary_size_um": 2.0,
+      "mesh_max_points": 25000
+    },
+    "solver_used": "triangular",
+    "pygimli_available": true,
+    "cropped_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\input\\timestep_0013_nearest_red_yellow_white__cropped_phase__20260619_121809_262.png",
+    "preview_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\input\\timestep_0013_nearest_red_yellow_white__classified_preview__20260619_121809_262.png",
+    "mesh_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_triangular_mesh__20260619_121809_615.png",
+    "pygimli_mesh_bms": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_triangular_mesh__20260619_121809_615.bms",
+    "mesh_quality_csv": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_mesh_quality__20260619_121809_615.csv",
+    "mesh_quality_histogram_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_mesh_quality_histogram__20260619_121809_615.png",
+    "curve_csv": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white_nmr_decay__20260619_121809_615.csv",
+    "curve_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white_nmr_decay__20260619_121809_615.png",
+    "standard_decay_xlsx": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white__standard_decay__20260619_121809_615.xlsx",
+    "mesh_or_boundary_summary": {
+      "mesh_nodes": 4112,
+      "mesh_triangles": 5978,
+      "plc_outer_contours": 29,
+      "plc_hole_contours": 8,
+      "unused_pygimli_nodes_dropped": 2182,
+      "triangle_max_area_um2": 27.712812921102035,
+      "solid_liquid_boundary_length_um": 3531.8396013731162,
+      "gas_liquid_boundary_length_um": 327.9999999999996,
+      "mesh_bulk_size_um": 8.0,
+      "mesh_boundary_size_um": 2.0,
+      "pygimli_bms_written": true,
+      "mesh_vertices": 4112,
+      "boundary_edges": 2140,
+      "min_element_quality": 0.07732413883547869,
+      "mean_element_quality": 0.9368025159876143,
+      "median_element_quality": 0.9579039735869981,
+      "p05_element_quality": 0.8036268718736218,
+      "p95_element_quality": 0.9969782428720209,
+      "min_element_area_um2": 3.2349957432177093e-06,
+      "mean_element_area_um2": 2.837200145315134,
+      "max_element_area_um2": 33.392443223245735,
+      "element_area_ratio_min_over_max": 9.687807871949025e-08,
+      "mesh_area_um2": 16960.78246869387,
+      "max_aspect_edge_ratio": 16.896620618130807,
+      "mean_aspect_edge_ratio": 1.3242307512104288
+    },
+    "time_point_count": 301,
+    "simulation_stages": {
+      "geometry": [
+        "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\input\\timestep_0013_nearest_red_yellow_white__cropped_phase__20260619_121809_262.png",
+        "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\input\\timestep_0013_nearest_red_yellow_white__classified_preview__20260619_121809_262.png"
+      ],
+      "mesh": [
+        "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_triangular_mesh__20260619_121809_615.png",
+        "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_triangular_mesh__20260619_121809_615.bms",
+        "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_mesh_quality__20260619_121809_615.csv",
+        "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_mesh_quality_histogram__20260619_121809_615.png"
+      ],
+      "decay": [
+        "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white_nmr_decay__20260619_121809_615.csv",
+        "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white_nmr_decay__20260619_121809_615.png",
+        "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white__standard_decay__20260619_121809_615.xlsx"
+      ]
+    },
+    "summary_json": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\simulation_2d_summary__20260619_121811_365.json"
+  },
+  "t2_lcurve": {
+    "spectrum_xlsx": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\02_t2_lcurve\\timestep_0013_nearest_red_yellow_white__standard_decay__lcurve_spectrum__alpha_0p000961725__20260619_121811_819.xlsx",
+    "metrics_xlsx": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\02_t2_lcurve\\timestep_0013_nearest_red_yellow_white__standard_decay__lcurve_metrics__alpha_0p000961725__20260619_121811_819.xlsx",
+    "trimmed_xlsx": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\02_t2_lcurve\\d_c42a02c7__lcurve_trimm__20260619_121811_819.xlsx",
+    "summary_csv": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\02_t2_lcurve\\timestep_0013_nearest_red_yellow_white__standard_decay__lcurve_summary__alpha_0p000961725__20260619_121811_819.csv",
+    "summary_xlsx": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\02_t2_lcurve\\timestep_0013_nearest_red_yellow_white__standard_decay__lcurve_summary__alpha_0p000961725__20260619_121811_819.xlsx",
+    "figure_dir": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\02_t2_lcurve\\lcurve_figures"
+  },
+  "paired_plot": {
+    "col_2": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\03_decay_t2_pair_plot\\timestep_0013_nearest_red_yellow_white__standard_decay__col_2__decay_t2__20260619_121811_910.png"
+  },
+  "t2_t2_reduced": {
+    "method": "fast reduced T2-T2 map derived from the 1D T2 spectrum; not a strict arbitrary-PNG exchange PDE solve",
+    "alpha": 0.05,
+    "mixing_time_ms": null,
+    "t1_encode_points": 18,
+    "t2_detect_points": 24,
+    "bin_points": 28,
+    "signal_csv": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\04_t2_t2_reduced_map\\timestep_0013_reduced_t2_t2_signal.csv",
+    "map_csv": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\04_t2_t2_reduced_map\\timestep_0013_reduced_t2_t2_map.csv",
+    "map_xlsx": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\04_t2_t2_reduced_map\\timestep_0013_reduced_t2_t2_map.xlsx",
+    "map_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\04_t2_t2_reduced_map\\timestep_0013_reduced_t2_t2_map.png"
+  }
+}

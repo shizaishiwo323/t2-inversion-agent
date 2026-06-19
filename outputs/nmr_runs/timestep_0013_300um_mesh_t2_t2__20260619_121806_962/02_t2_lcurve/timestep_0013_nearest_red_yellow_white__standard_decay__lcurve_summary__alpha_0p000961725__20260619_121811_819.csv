@@ -1,0 +1,2 @@
+﻿signal_name,best_regularization,best_index,best_residual_norm,best_roughness_norm,best_slope_reciprocal,used_range_filter,raw_points,trimmed_points,lcurve_figure
+col_2,0.0009617248711152964,22,1.345095582963764,720.442259590313,0.26533452355533554,True,300,300,C:\Users\imgw\Documents\Codex\T2agent\outputs\nmr_runs\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\02_t2_lcurve\lcurve_figures\col_2__lcurve__alpha_0p000961725__20260619_121811_470.png

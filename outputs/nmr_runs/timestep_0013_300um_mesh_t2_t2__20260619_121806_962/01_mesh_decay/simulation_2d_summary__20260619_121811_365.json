@@ -1,0 +1,94 @@
+{
+  "status": "success",
+  "stage": "decay",
+  "input_path": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\00_normalized_input\\timestep_0013_nearest_red_yellow_white.png",
+  "raw_shape": [
+    1155,
+    1919
+  ],
+  "cropped_shape": [
+    941,
+    936
+  ],
+  "simulation_shape": [
+    500,
+    497
+  ],
+  "downsample_scale": 1.882,
+  "phase_counts": {
+    "outside_px": 0,
+    "water_px": 343010,
+    "solid_px": 537766
+  },
+  "params_used": {
+    "pixel_size_x_um": 0.6032051282051282,
+    "pixel_size_y_um": 0.6,
+    "diffusion_um2_per_ms": 2.0,
+    "bulk_t2_ms": 3000.0,
+    "rho_solid_um_per_ms": 0.005,
+    "rho_gas_um_per_ms": 0.0,
+    "dt_ms": 5.0,
+    "t_max_ms": 1500.0,
+    "max_grid_size": 500,
+    "solver": "triangular",
+    "mesh_bulk_size_um": 8.0,
+    "mesh_boundary_size_um": 2.0,
+    "mesh_max_points": 25000
+  },
+  "solver_used": "triangular",
+  "pygimli_available": true,
+  "cropped_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\input\\timestep_0013_nearest_red_yellow_white__cropped_phase__20260619_121809_262.png",
+  "preview_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\input\\timestep_0013_nearest_red_yellow_white__classified_preview__20260619_121809_262.png",
+  "mesh_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_triangular_mesh__20260619_121809_615.png",
+  "pygimli_mesh_bms": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_triangular_mesh__20260619_121809_615.bms",
+  "mesh_quality_csv": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_mesh_quality__20260619_121809_615.csv",
+  "mesh_quality_histogram_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_mesh_quality_histogram__20260619_121809_615.png",
+  "curve_csv": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white_nmr_decay__20260619_121809_615.csv",
+  "curve_png": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white_nmr_decay__20260619_121809_615.png",
+  "standard_decay_xlsx": "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white__standard_decay__20260619_121809_615.xlsx",
+  "mesh_or_boundary_summary": {
+    "mesh_nodes": 4112,
+    "mesh_triangles": 5978,
+    "plc_outer_contours": 29,
+    "plc_hole_contours": 8,
+    "unused_pygimli_nodes_dropped": 2182,
+    "triangle_max_area_um2": 27.712812921102035,
+    "solid_liquid_boundary_length_um": 3531.8396013731162,
+    "gas_liquid_boundary_length_um": 327.9999999999996,
+    "mesh_bulk_size_um": 8.0,
+    "mesh_boundary_size_um": 2.0,
+    "pygimli_bms_written": true,
+    "mesh_vertices": 4112,
+    "boundary_edges": 2140,
+    "min_element_quality": 0.07732413883547869,
+    "mean_element_quality": 0.9368025159876143,
+    "median_element_quality": 0.9579039735869981,
+    "p05_element_quality": 0.8036268718736218,
+    "p95_element_quality": 0.9969782428720209,
+    "min_element_area_um2": 3.2349957432177093e-06,
+    "mean_element_area_um2": 2.837200145315134,
+    "max_element_area_um2": 33.392443223245735,
+    "element_area_ratio_min_over_max": 9.687807871949025e-08,
+    "mesh_area_um2": 16960.78246869387,
+    "max_aspect_edge_ratio": 16.896620618130807,
+    "mean_aspect_edge_ratio": 1.3242307512104288
+  },
+  "time_point_count": 301,
+  "simulation_stages": {
+    "geometry": [
+      "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\input\\timestep_0013_nearest_red_yellow_white__cropped_phase__20260619_121809_262.png",
+      "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\input\\timestep_0013_nearest_red_yellow_white__classified_preview__20260619_121809_262.png"
+    ],
+    "mesh": [
+      "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_triangular_mesh__20260619_121809_615.png",
+      "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_triangular_mesh__20260619_121809_615.bms",
+      "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_mesh_quality__20260619_121809_615.csv",
+      "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\mesh\\timestep_0013_nearest_red_yellow_white_mesh_quality_histogram__20260619_121809_615.png"
+    ],
+    "decay": [
+      "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white_nmr_decay__20260619_121809_615.csv",
+      "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white_nmr_decay__20260619_121809_615.png",
+      "C:\\Users\\imgw\\Documents\\Codex\\T2agent\\outputs\\nmr_runs\\timestep_0013_300um_mesh_t2_t2__20260619_121806_962\\01_mesh_decay\\decay\\timestep_0013_nearest_red_yellow_white__standard_decay__20260619_121809_615.xlsx"
+    ]
+  }
+}

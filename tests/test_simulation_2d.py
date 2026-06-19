@@ -12,7 +12,9 @@ from t2_agent.simulation_2d import (
     WATER,
     build_rule_geometry_labels,
     inspect_png_phase_map,
+    normalize_png_phase_colors,
     run_png_mesh_decay,
+    run_reduced_t2_t2_from_spectrum_workbook,
     run_rule_geometry_mesh_decay,
     write_standard_decay_workbook,
 )
@@ -68,6 +70,23 @@ def test_inspect_png_phase_map_rejects_unexpected_colors(tmp_path: Path):
     assert result.error == "unsupported_colors"
 
 
+def test_normalize_png_phase_colors_maps_edge_colors_to_exact_phases(tmp_path: Path):
+    png_path = tmp_path / "soft_edges.png"
+    rgb = np.full((4, 4, 3), [255, 255, 255], dtype=np.uint8)
+    rgb[1:3, 1:3] = [255, 255, 223]
+    rgb[1, 1] = [255, 223, 223]
+    rgb[2, 2] = [255, 0, 0]
+    Image.fromarray(rgb, mode="RGB").save(png_path)
+
+    result = normalize_png_phase_colors(png_path, tmp_path / "normalized")
+
+    normalized = np.asarray(Image.open(result["normalized_png"]).convert("RGB"))
+    colors = {tuple(color.tolist()) for color in np.unique(normalized.reshape(-1, 3), axis=0)}
+    assert colors <= {(255, 255, 255), (255, 0, 0), (255, 255, 0)}
+    assert result["unsupported_pixel_count_before"] > 0
+    assert result["changed_pixel_count"] > 0
+
+
 def test_write_standard_decay_workbook_uses_time_ms_signal_columns(tmp_path: Path):
     output = write_standard_decay_workbook(
         tmp_path / "decay.xlsx",
@@ -104,7 +123,13 @@ def test_run_png_mesh_decay_writes_mesh_decay_and_workbook(tmp_path: Path):
         mesh_max_points=5000,
     )
 
-    result = run_png_mesh_decay(png_path, tmp_path / "run", params)
+    result = run_png_mesh_decay(
+        png_path,
+        tmp_path / "run",
+        params,
+        physical_size_x_um=80.0,
+        physical_size_y_um=60.0,
+    )
 
     assert result["status"] == "success"
     assert Path(result["mesh_png"]).exists()
@@ -115,6 +140,34 @@ def test_run_png_mesh_decay_writes_mesh_decay_and_workbook(tmp_path: Path):
     assert Path(result["curve_png"]).exists()
     assert Path(result["standard_decay_xlsx"]).exists()
     assert result["time_point_count"] == 3
+    assert result["physical_size_um"]["applied_after_white_border_crop"] is True
+    assert result["base_pixel_size_um"] == {"x": 10.0, "y": 10.0}
+
+
+def test_run_reduced_t2_t2_from_spectrum_workbook_writes_map_artifacts(tmp_path: Path):
+    spectrum_path = tmp_path / "spectrum.xlsx"
+    t2_ms = np.logspace(0, 3, 24)
+    amplitude = np.exp(-((np.log10(t2_ms) - 2.0) ** 2) / 0.08)
+    pd.DataFrame({"t2_ms": t2_ms, "amplitude": amplitude}).to_excel(spectrum_path, index=False)
+
+    result = run_reduced_t2_t2_from_spectrum_workbook(
+        spectrum_path,
+        tmp_path / "t2_t2",
+        alpha=0.02,
+        t1_points=8,
+        t2_points=9,
+        bin_points=10,
+    )
+
+    assert result["status"] == "success"
+    assert result["t2_t2_enabled"] is True
+    assert Path(result["t2_t2_signal_csv"]).exists()
+    assert Path(result["t2_t2_map_csv"]).exists()
+    assert Path(result["t2_t2_map_xlsx"]).exists()
+    assert Path(result["t2_t2_png"]).exists()
+    map_frame = pd.read_csv(result["t2_t2_map_csv"], index_col=0)
+    assert map_frame.shape == (10, 10)
+    assert np.isclose(map_frame.to_numpy(dtype=float).sum(), 1.0)
 
 
 def test_build_rule_geometry_labels_can_make_uncoupled_two_pore_domain():

@@ -137,6 +137,38 @@ def unsupported_phase_color_count(rgb: np.ndarray, tolerance: float = PHASE_COLO
     return int(np.count_nonzero(min_distance > tolerance))
 
 
+def _rgb_color_counts(rgb: np.ndarray) -> dict[str, int]:
+    flat = np.asarray(rgb, dtype=np.uint8).reshape(-1, 3)
+    colors, counts = np.unique(flat, axis=0, return_counts=True)
+    return {f"{int(color[0])},{int(color[1])},{int(color[2])}": int(count) for color, count in zip(colors, counts)}
+
+
+def normalize_png_phase_colors(png_path: Path, output_dir: Path) -> dict[str, Any]:
+    """Map every PNG pixel to the nearest supported white/red/yellow phase color."""
+
+    input_path = Path(png_path)
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    rgb = np.asarray(Image.open(input_path).convert("RGB"))
+    rgb32 = rgb.astype(np.int32)
+    dist2 = np.sum((rgb32[..., None, :] - PHASE_RGB_COLORS[None, None, :, :]) ** 2, axis=-1)
+    nearest_index = np.argmin(dist2, axis=-1)
+    normalized = PHASE_RGB_COLORS[nearest_index].astype(np.uint8)
+    normalized_path = output_dir / timestamped_name(f"{input_path.stem}__normalized_phase", "png")
+    Image.fromarray(normalized, mode="RGB").save(normalized_path)
+    unsupported_before = unsupported_phase_color_count(rgb)
+    return {
+        "status": "success",
+        "method": "nearest_supported_phase_color",
+        "source_png": str(input_path.resolve()),
+        "normalized_png": str(normalized_path.resolve()),
+        "unsupported_pixel_count_before": int(unsupported_before),
+        "changed_pixel_count": int(np.count_nonzero(np.any(normalized != rgb, axis=-1))),
+        "source_color_counts": _rgb_color_counts(rgb),
+        "normalized_color_counts": _rgb_color_counts(normalized),
+    }
+
+
 def sample_bbox(labels: np.ndarray) -> tuple[int, int, int, int]:
     sample = labels != OUTSIDE
     if not np.any(sample):
@@ -280,6 +312,168 @@ def write_json_summary(path: Path, payload: dict[str, Any]) -> Path:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
     return output_path
+
+
+def _read_first_t2_spectrum_sheet(spectrum_workbook: Path) -> tuple[str, np.ndarray, np.ndarray]:
+    sheets = pd.read_excel(spectrum_workbook, sheet_name=None)
+    for sheet_name, frame in sheets.items():
+        columns = {str(column).strip().lower(): column for column in frame.columns}
+        t2_col = columns.get("t2_ms") or columns.get("t2") or columns.get("time_ms") or columns.get("time")
+        amp_col = columns.get("amplitude") or columns.get("signal") or columns.get("peak")
+        if t2_col is None or amp_col is None:
+            numeric_cols = [
+                column
+                for column in frame.columns
+                if pd.to_numeric(frame[column], errors="coerce").notna().sum() >= 3
+            ]
+            if len(numeric_cols) >= 2:
+                t2_col, amp_col = numeric_cols[:2]
+        if t2_col is None or amp_col is None:
+            continue
+        t2_ms = pd.to_numeric(frame[t2_col], errors="coerce").to_numpy(dtype=float)
+        amplitude = pd.to_numeric(frame[amp_col], errors="coerce").to_numpy(dtype=float)
+        valid = np.isfinite(t2_ms) & np.isfinite(amplitude) & (t2_ms > 0)
+        t2_ms = t2_ms[valid]
+        amplitude = amplitude[valid]
+        if t2_ms.size >= 3 and float(np.max(amplitude)) > 0.0:
+            order = np.argsort(t2_ms)
+            return str(sheet_name), t2_ms[order], np.clip(amplitude[order], 0.0, None)
+    raise ValueError(f"Spectrum workbook has no usable t2_ms/amplitude sheet: {spectrum_workbook}")
+
+
+def _second_difference_regularizer_2d(bin_count: int) -> np.ndarray:
+    if bin_count < 3:
+        return np.eye(bin_count * bin_count, dtype=float)
+    identity = np.eye(bin_count, dtype=float)
+    second = np.diff(identity, n=2, axis=0)
+    return np.vstack([np.kron(identity, second), np.kron(second, identity)])
+
+
+def solve_reduced_t2_t2_nnls(
+    signal_2d: np.ndarray,
+    t1_axis_ms: np.ndarray,
+    t2_axis_ms: np.ndarray,
+    bins_ms: np.ndarray,
+    alpha: float,
+) -> np.ndarray:
+    a1 = np.exp(-np.outer(np.asarray(t1_axis_ms, dtype=float), 1.0 / bins_ms))
+    a2 = np.exp(-np.outer(np.asarray(t2_axis_ms, dtype=float), 1.0 / bins_ms))
+    kernel = np.kron(a2, a1)
+    signal_vec = np.asarray(signal_2d, dtype=float).reshape(-1, order="F")
+    regularizer = _second_difference_regularizer_2d(len(bins_ms))
+    lhs = np.vstack([kernel, float(alpha) * regularizer])
+    rhs = np.concatenate([signal_vec, np.zeros(regularizer.shape[0], dtype=float)])
+    model, _ = nnls(lhs, rhs)
+    return model.reshape((len(bins_ms), len(bins_ms)), order="F")
+
+
+def run_reduced_t2_t2_from_spectrum_workbook(
+    spectrum_workbook: Path,
+    output_dir: Path,
+    *,
+    alpha: float = 0.05,
+    t1_points: int = 18,
+    t2_points: int = 24,
+    bin_points: int = 28,
+) -> dict[str, Any]:
+    """Create a reduced T2-T2 map from the first 1D T2 spectrum sheet."""
+
+    spectrum_path = Path(spectrum_workbook)
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    sheet_name, source_t2_ms, source_amp = _read_first_t2_spectrum_sheet(spectrum_path)
+    source_amp = np.clip(source_amp, 0.0, None)
+    amp_sum = float(np.sum(source_amp))
+    if amp_sum <= 0.0:
+        raise ValueError("T2 spectrum amplitude is empty or non-positive.")
+    source_amp = source_amp / amp_sum
+    log_source_t2 = np.log10(source_t2_ms)
+    log_min = max(float(np.min(log_source_t2)), -2.0)
+    log_max = min(float(np.max(log_source_t2)), 6.0)
+    if not log_max > log_min:
+        log_min, log_max = 0.5, 3.5
+    bins_ms = np.logspace(log_min, log_max, int(bin_points))
+    weights = np.interp(np.log10(bins_ms), log_source_t2, source_amp, left=0.0, right=0.0)
+    weight_sum = float(np.sum(weights))
+    if weight_sum <= 0.0:
+        weights = np.full_like(bins_ms, 1.0 / bins_ms.size)
+    else:
+        weights = weights / weight_sum
+
+    t1_axis_ms = np.logspace(log_min, log_max, int(t1_points))
+    t2_axis_ms = np.logspace(log_min, log_max, int(t2_points))
+    kernel_t1 = np.exp(-np.outer(t1_axis_ms, 1.0 / bins_ms))
+    kernel_t2 = np.exp(-np.outer(t2_axis_ms, 1.0 / bins_ms))
+    synthetic_map = np.diag(weights)
+    signal_2d = kernel_t1 @ synthetic_map @ kernel_t2.T
+    signal_2d = signal_2d / max(float(signal_2d[0, 0]), 1e-30)
+    t2_t2_map = solve_reduced_t2_t2_nnls(signal_2d, t1_axis_ms, t2_axis_ms, bins_ms, float(alpha))
+    map_sum = float(np.sum(t2_t2_map))
+    if map_sum > 0.0:
+        t2_t2_map = t2_t2_map / map_sum
+
+    stem = spectrum_path.stem
+    signal_csv = output_dir / timestamped_name(f"{stem}__reduced_t2_t2_signal", "csv")
+    map_csv = output_dir / timestamped_name(f"{stem}__reduced_t2_t2_map", "csv")
+    map_xlsx = output_dir / timestamped_name(f"{stem}__reduced_t2_t2_map", "xlsx")
+    map_png = output_dir / timestamped_name(f"{stem}__reduced_t2_t2_map", "png")
+    summary_json = output_dir / timestamped_name(f"{stem}__reduced_t2_t2_summary", "json")
+
+    signal_frame = pd.DataFrame(signal_2d, index=t1_axis_ms, columns=t2_axis_ms)
+    signal_frame.index.name = "t1_encode_ms"
+    signal_frame.to_csv(signal_csv)
+    map_frame = pd.DataFrame(t2_t2_map, index=bins_ms, columns=bins_ms)
+    map_frame.index.name = "t2_axis_1_ms"
+    map_frame.to_csv(map_csv)
+    with pd.ExcelWriter(map_xlsx) as writer:
+        map_frame.to_excel(writer, sheet_name="reduced_t2_t2_map")
+        pd.DataFrame({"t2_ms": bins_ms, "diagonal_weight": np.diag(t2_t2_map)}).to_excel(
+            writer,
+            sheet_name="diagonal",
+            index=False,
+        )
+
+    fig, ax = plt.subplots(figsize=(5.6, 4.8))
+    image = ax.imshow(
+        t2_t2_map,
+        origin="lower",
+        aspect="auto",
+        cmap="magma",
+        extent=[np.log10(bins_ms[0]), np.log10(bins_ms[-1]), np.log10(bins_ms[0]), np.log10(bins_ms[-1])],
+    )
+    ax.set_xlabel("log10(T2 axis 2 / ms)")
+    ax.set_ylabel("log10(T2 axis 1 / ms)")
+    ax.set_title("Reduced T2-T2 map")
+    fig.colorbar(image, ax=ax, label="normalized intensity")
+    fig.tight_layout()
+    fig.savefig(map_png, dpi=300, bbox_inches="tight")
+    plt.close(fig)
+
+    peak_index = np.unravel_index(int(np.argmax(t2_t2_map)), t2_t2_map.shape)
+    result: dict[str, Any] = {
+        "status": "success",
+        "stage": "t2_t2",
+        "method": "reduced_t2_t2_from_1d_spectrum",
+        "message": "Reduced T2-T2 map generated from the first 1D T2 spectrum sheet.",
+        "spectrum_workbook": str(spectrum_path.resolve()),
+        "spectrum_sheet": sheet_name,
+        "alpha": float(alpha),
+        "t1_points": int(t1_points),
+        "t2_points": int(t2_points),
+        "bin_points": int(bin_points),
+        "bins_ms_min": float(bins_ms[0]),
+        "bins_ms_max": float(bins_ms[-1]),
+        "peak_t2_axis_1_ms": float(bins_ms[peak_index[0]]),
+        "peak_t2_axis_2_ms": float(bins_ms[peak_index[1]]),
+        "t2_t2_enabled": True,
+        "t2_t2_signal_csv": str(signal_csv.resolve()),
+        "t2_t2_map_csv": str(map_csv.resolve()),
+        "t2_t2_map_xlsx": str(map_xlsx.resolve()),
+        "t2_t2_png": str(map_png.resolve()),
+        "simulation_stages": {"t2_t2": [str(signal_csv), str(map_csv), str(map_xlsx), str(map_png)]},
+    }
+    result["summary_json"] = str(write_json_summary(summary_json, result))
+    return result
 
 
 def boundary_kind_for_outside_neighbor(
@@ -825,18 +1019,53 @@ def save_decay_plot(time_ms: np.ndarray, normalized_signal: np.ndarray, output_p
     plt.close(fig)
 
 
-def run_png_mesh_decay(png_path: Path, output_dir: Path, params: Simulation2DParams | None = None) -> dict[str, Any]:
+def run_png_mesh_decay(
+    png_path: Path,
+    output_dir: Path,
+    params: Simulation2DParams | None = None,
+    *,
+    normalize_phase_colors: bool = False,
+    physical_size_x_um: float | None = None,
+    physical_size_y_um: float | None = None,
+) -> dict[str, Any]:
     cfg = params or Simulation2DParams()
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    inspection = inspect_png_phase_map(Path(png_path), output_dir / "input")
+    original_png_path = Path(png_path)
+    simulation_input_path = original_png_path
+    normalization_summary: dict[str, Any] | None = None
+    if normalize_phase_colors:
+        normalization_summary = normalize_png_phase_colors(original_png_path, output_dir / "input")
+        simulation_input_path = Path(normalization_summary["normalized_png"])
+
+    inspection = inspect_png_phase_map(simulation_input_path, output_dir / "input")
     if inspection.status != "success":
-        return inspection.summary() | {"status": "failed", "stage": "input"}
+        failed_summary = inspection.summary() | {
+            "status": "failed",
+            "stage": "input",
+            "original_input_path": str(original_png_path.resolve()),
+            "simulation_input_path": str(simulation_input_path.resolve()),
+        }
+        if normalization_summary is not None:
+            failed_summary["normalization"] = normalization_summary
+            failed_summary["normalized_png"] = normalization_summary["normalized_png"]
+        return failed_summary
 
     labels, scale = downsample_nearest(inspection.labels, cfg.max_grid_size)
+    cropped_height, cropped_width = inspection.labels.shape
+    base_pixel_size_x_um = (
+        float(physical_size_x_um) / float(cropped_width)
+        if physical_size_x_um is not None and cropped_width > 0
+        else cfg.pixel_size_x_um
+    )
+    base_pixel_size_y_um = (
+        float(physical_size_y_um) / float(cropped_height)
+        if physical_size_y_um is not None and cropped_height > 0
+        else cfg.pixel_size_y_um
+    )
     effective = Simulation2DParams(
-        pixel_size_x_um=cfg.pixel_size_x_um * scale,
-        pixel_size_y_um=cfg.pixel_size_y_um * scale,
+        pixel_size_x_um=base_pixel_size_x_um * scale,
+        pixel_size_y_um=base_pixel_size_y_um * scale,
         diffusion_um2_per_ms=cfg.diffusion_um2_per_ms,
         bulk_t2_ms=cfg.bulk_t2_ms,
         rho_solid_um_per_ms=cfg.rho_solid_um_per_ms,
@@ -850,7 +1079,7 @@ def run_png_mesh_decay(png_path: Path, output_dir: Path, params: Simulation2DPar
         mesh_max_points=cfg.mesh_max_points,
     )
 
-    stem = Path(png_path).stem
+    stem = original_png_path.stem
     mesh_png = output_dir / "mesh" / timestamped_name(f"{stem}_triangular_mesh", "png")
     mesh_bms = output_dir / "mesh" / timestamped_name(f"{stem}_triangular_mesh", "bms")
     mesh_quality_csv = output_dir / "mesh" / timestamped_name(f"{stem}_mesh_quality", "csv")
@@ -879,12 +1108,20 @@ def run_png_mesh_decay(png_path: Path, output_dir: Path, params: Simulation2DPar
     result: dict[str, Any] = {
         "status": "success",
         "stage": "decay",
-        "input_path": str(Path(png_path).resolve()),
+        "input_path": str(original_png_path.resolve()),
+        "original_input_path": str(original_png_path.resolve()),
+        "simulation_input_path": str(simulation_input_path.resolve()),
         "raw_shape": inspection.raw_shape,
         "cropped_shape": inspection.cropped_shape,
         "simulation_shape": [int(labels.shape[0]), int(labels.shape[1])],
         "downsample_scale": float(scale),
         "phase_counts": inspection.phase_counts,
+        "base_pixel_size_um": {"x": float(base_pixel_size_x_um), "y": float(base_pixel_size_y_um)},
+        "physical_size_um": {
+            "x": None if physical_size_x_um is None else float(physical_size_x_um),
+            "y": None if physical_size_y_um is None else float(physical_size_y_um),
+            "applied_after_white_border_crop": True,
+        },
         "params_used": asdict(effective),
         "solver_used": "triangular",
         "pygimli_available": True,
@@ -905,6 +1142,13 @@ def run_png_mesh_decay(png_path: Path, output_dir: Path, params: Simulation2DPar
             "decay": [str(curve_csv), str(curve_png), str(decay_xlsx)],
         },
     }
+    if normalization_summary is not None:
+        result["normalization"] = normalization_summary
+        result["normalized_png"] = normalization_summary["normalized_png"]
+        result["simulation_stages"]["geometry"] = [
+            normalization_summary["normalized_png"],
+            *result["simulation_stages"]["geometry"],
+        ]
     result["summary_json"] = str(write_json_summary(output_dir / timestamped_name("simulation_2d_summary", "json"), result))
     return result
 

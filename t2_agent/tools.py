@@ -73,12 +73,20 @@ def inspect_png_phase_map(*args, **kwargs):
     return _load_simulation_2d().inspect_png_phase_map(*args, **kwargs)
 
 
+def normalize_png_phase_colors(*args, **kwargs):
+    return _load_simulation_2d().normalize_png_phase_colors(*args, **kwargs)
+
+
 def run_png_mesh_decay(*args, **kwargs):
     return _load_simulation_2d().run_png_mesh_decay(*args, **kwargs)
 
 
 def run_rule_geometry_mesh_decay(*args, **kwargs):
     return _load_simulation_2d().run_rule_geometry_mesh_decay(*args, **kwargs)
+
+
+def run_reduced_t2_t2_from_spectrum_workbook(*args, **kwargs):
+    return _load_simulation_2d().run_reduced_t2_t2_from_spectrum_workbook(*args, **kwargs)
 
 
 def write_standard_decay_workbook(path: Path, time_ms: np.ndarray, signal: np.ndarray) -> Path:
@@ -138,6 +146,48 @@ def _find_artifacts(results: list[AgentToolResult], contains: str, suffixes: tup
     return matches
 
 
+def _summary_path_candidates(results: list[AgentToolResult], keys: tuple[str, ...], suffixes: tuple[str, ...]) -> list[Path]:
+    matches: list[Path] = []
+    seen: set[str] = set()
+
+    def visit(value: Any, key: str | None = None) -> None:
+        if isinstance(value, dict):
+            for child_key, child_value in value.items():
+                visit(child_value, str(child_key))
+            return
+        if isinstance(value, (list, tuple)):
+            for child_value in value:
+                visit(child_value, key)
+            return
+        if key not in keys or value is None:
+            return
+        path = Path(str(value))
+        if path.suffix.lower() not in suffixes or not path.exists() or not path.is_file():
+            return
+        resolved = str(path.resolve())
+        if resolved in seen:
+            return
+        seen.add(resolved)
+        matches.append(path)
+
+    for result in results:
+        if result.summary:
+            visit(result.summary)
+    return matches
+
+
+def _dedupe_run_artifact_paths(paths: list[Path]) -> list[Path]:
+    deduped: list[Path] = []
+    seen: set[tuple[Path, str]] = set()
+    for path in paths:
+        key = (path.resolve().parent, path.stem)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(path)
+    return deduped
+
+
 def _safe_float(value: Any) -> float | None:
     try:
         parsed = float(value)
@@ -156,6 +206,43 @@ def _param_token(value: Any) -> str:
     if not np.isfinite(number):
         return safe_token(str(value))
     return safe_token(f"{number:.6g}".replace("-", "m").replace("+", "p"))
+
+
+def _regularization_filename_token(value: float) -> str:
+    text = f"{float(value):.6g}".replace("-", "m").replace("+", "p").replace(".", "p")
+    return safe_token(f"alpha_{text}")
+
+
+def _selected_alpha_filename_token_from_summary(summary_path: Path | str | None) -> str | None:
+    if summary_path is None:
+        return None
+    path = Path(summary_path)
+    if not path.exists():
+        return None
+    try:
+        table = pd.read_csv(path) if path.suffix.lower() == ".csv" else pd.read_excel(path)
+    except Exception:
+        return None
+
+    column = "best_regularization" if "best_regularization" in table.columns else "regularization"
+    if column not in table.columns:
+        return None
+    values = [float(value) for value in pd.to_numeric(table[column], errors="coerce").dropna()]
+    if not values:
+        return None
+    if len(values) == 1 or np.allclose(values, values[0], rtol=1e-9, atol=1e-12):
+        return _regularization_filename_token(values[0])
+    return safe_token(
+        f"{_regularization_filename_token(min(values))}_to_"
+        f"{_regularization_filename_token(max(values)).removeprefix('alpha_')}"
+    )
+
+
+def _alpha_filename_token_from_path(path: Path | str) -> str | None:
+    for part in Path(path).stem.split("__"):
+        if part.startswith("alpha_"):
+            return safe_token(part)
+    return None
 
 
 def _inversion_run_output_dir(output_dir: Path, method: str, params: dict[str, Any]) -> Path:
@@ -334,14 +421,31 @@ def inspect_2d_geometry_input(
                 "请先上传 PNG 相图。" if not _is_english(language) else "Please upload a PNG phase map first.",
                 error="missing_upload",
             )
-        inspection = inspect_png_phase_map(Path(input_path), Path(output_dir) / "geometry")
+        original_input = Path(input_path)
+        inspect_input = original_input
+        normalization_summary: dict[str, Any] | None = None
+        if bool(params.get("normalize_phase_colors", False)):
+            normalization_summary = normalize_png_phase_colors(original_input, Path(output_dir) / "geometry")
+            inspect_input = Path(normalization_summary["normalized_png"])
+        inspection = inspect_png_phase_map(inspect_input, Path(output_dir) / "geometry")
         artifacts = [str(path) for path in (inspection.cropped_png, inspection.preview_png) if path.exists()]
+        if normalization_summary is not None:
+            artifacts.insert(0, normalization_summary["normalized_png"])
+        summary = inspection.summary() | {
+            "stage": "geometry",
+            "geometry_mode": "png",
+            "original_input_path": str(original_input.resolve()),
+            "simulation_input_path": str(inspect_input.resolve()),
+            "simulation_stages": {"geometry": artifacts},
+        }
+        if normalization_summary is not None:
+            summary["normalization"] = normalization_summary
+            summary["normalized_png"] = normalization_summary["normalized_png"]
         return AgentToolResult(
             "success" if inspection.status == "success" else "failed",
             inspection.message,
             artifacts=artifacts,
-            summary=inspection.summary()
-            | {"stage": "geometry", "geometry_mode": "png", "simulation_stages": {"geometry": artifacts}},
+            summary=summary,
             error=inspection.error,
         )
     except Exception as exc:
@@ -371,7 +475,18 @@ def run_2d_mesh_and_decay(
                     "请先上传 PNG 相图。" if not _is_english(language) else "Please upload a PNG phase map first.",
                     error="missing_upload",
                 )
-            result = run_png_mesh_decay(Path(input_path), Path(output_dir), sim_params)
+            result = run_png_mesh_decay(
+                Path(input_path),
+                Path(output_dir),
+                sim_params,
+                normalize_phase_colors=bool(params.get("normalize_phase_colors", False)),
+                physical_size_x_um=(
+                    float(params["physical_size_x_um"]) if params.get("physical_size_x_um") is not None else None
+                ),
+                physical_size_y_um=(
+                    float(params["physical_size_y_um"]) if params.get("physical_size_y_um") is not None else None
+                ),
+            )
         artifacts = _simulation_artifacts_from_summary(result)
         status = "success" if result.get("status") == "success" else "failed"
         if status == "success":
@@ -395,6 +510,49 @@ def run_2d_mesh_and_decay(
         )
 
 
+def run_reduced_t2_t2(
+    spectrum_workbook: Path | None,
+    output_dir: Path,
+    params: dict[str, Any] | None = None,
+    language: str = "中文",
+) -> AgentToolResult:
+    params = params or {}
+    if spectrum_workbook is None:
+        return AgentToolResult(
+            "failed",
+            "需要先生成 T2 谱，才能计算 T2-T2 图。"
+            if not _is_english(language)
+            else "A T2 spectrum must exist before computing a T2-T2 map.",
+            error="missing_spectrum",
+        )
+    try:
+        result = run_reduced_t2_t2_from_spectrum_workbook(
+            Path(spectrum_workbook),
+            Path(output_dir),
+            alpha=float(params.get("t2_t2_alpha", params.get("alpha", 0.05))),
+            t1_points=int(params.get("t2_t2_t1_points", 18)),
+            t2_points=int(params.get("t2_t2_t2_points", 24)),
+            bin_points=int(params.get("t2_t2_bin_points", 28)),
+        )
+        artifacts = _simulation_artifacts_from_summary(result)
+        return AgentToolResult(
+            "success",
+            "T2-T2 简化交换图已生成。"
+            if not _is_english(language)
+            else "Reduced T2-T2 exchange map generated.",
+            artifacts=artifacts,
+            summary=result,
+        )
+    except Exception as exc:
+        return AgentToolResult(
+            "failed",
+            "T2-T2 简化交换图生成失败。"
+            if not _is_english(language)
+            else "Reduced T2-T2 exchange-map generation failed.",
+            error=str(exc),
+        )
+
+
 def interpret_results(results: list[AgentToolResult], output_dir: Path, language: str = "中文") -> AgentToolResult:
     """Summarize generated T2 artifacts into a user-facing interpretation."""
 
@@ -403,12 +561,40 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
         lines = ["# T2 Result Interpretation" if english else "# T2 结果解释", ""]
         summary: dict[str, Any] = {}
 
-        lcurve_summary_paths = _find_artifacts(results, "lcurve_summary", (".csv", ".xlsx"))
-        nnls_summary_paths = _find_artifacts(results, "nnls_summary", (".csv", ".xlsx"))
+        summary_candidates = _summary_path_candidates(
+            results,
+            ("summary_csv", "summary_xlsx", "lcurve_summary_csv", "lcurve_summary_xlsx", "nnls_summary_csv", "nnls_summary_xlsx"),
+            (".csv", ".xlsx"),
+        )
+        lcurve_summary_paths = _dedupe_run_artifact_paths([
+            *_find_artifacts(results, "lcurve_summary", (".csv", ".xlsx")),
+            *[path for path in summary_candidates if "lcurve" in path.name.lower()],
+        ])
+        nnls_summary_paths = _dedupe_run_artifact_paths([
+            *_find_artifacts(results, "nnls_summary", (".csv", ".xlsx")),
+            *[path for path in summary_candidates if "nnls" in path.name.lower()],
+        ])
+        if not lcurve_summary_paths and not nnls_summary_paths:
+            lcurve_summary_paths = _dedupe_run_artifact_paths(
+                [path for path in summary_candidates if _read_first_table(path) is not None]
+            )
         lcurve_summary_path = lcurve_summary_paths[0] if lcurve_summary_paths else None
         nnls_summary_path = nnls_summary_paths[0] if nnls_summary_paths else None
-        lcurve_spectrum_path = _find_artifact(results, "lcurve_spectrum", (".xlsx", ".xls"))
-        nnls_spectrum_path = _find_artifact(results, "nnls_spectrum", (".xlsx", ".xls"))
+        spectrum_candidates = _summary_path_candidates(
+            results,
+            ("spectrum_xlsx", "spectrum_workbook", "lcurve_spectrum_xlsx", "nnls_spectrum_xlsx"),
+            (".xlsx", ".xls"),
+        )
+        lcurve_spectrum_path = _find_artifact(results, "lcurve_spectrum", (".xlsx", ".xls")) or next(
+            (path for path in spectrum_candidates if "lcurve" in path.name.lower()),
+            None,
+        )
+        nnls_spectrum_path = _find_artifact(results, "nnls_spectrum", (".xlsx", ".xls")) or next(
+            (path for path in spectrum_candidates if "nnls" in path.name.lower()),
+            None,
+        )
+        if lcurve_spectrum_path is None and nnls_spectrum_path is None and spectrum_candidates:
+            lcurve_spectrum_path = spectrum_candidates[0]
         gaussian_summary_paths = _find_artifacts(results, "gaussian_summary", (".csv", ".xlsx"))
 
         inversion_summary_path = lcurve_summary_path or nnls_summary_path
@@ -739,6 +925,7 @@ def _add_pair_plot_artifacts(
     output_dir: Path,
     artifacts: list[str],
     summary: dict[str, Any],
+    filename_tag: str | None = None,
 ) -> None:
     """Append decay + T2 spectrum figures without failing the inversion result."""
 
@@ -752,6 +939,7 @@ def _add_pair_plot_artifacts(
             Path(output_dir) / "paired_plots",
             plot_config=PlotConfig(),
             time_to_ms_scale=1.0,
+            filename_tag=filename_tag,
         )
     except Exception as exc:
         summary["paired_plot_warning"] = str(exc)
@@ -1348,12 +1536,14 @@ def run_lcurve(input_workbook: Path, output_dir: Path, params: dict[str, Any] | 
             "trim_from_peak": bool(params.get("trim_from_peak", True)),
         }
         spectrum_path = Path(result["spectrum_xlsx"]) if "spectrum_xlsx" in result else None
+        alpha_token = _selected_alpha_filename_token_from_summary(result.get("summary_csv"))
         _add_pair_plot_artifacts(
             raw_decay_workbook=Path(input_workbook),
             spectrum_workbook=spectrum_path,
             output_dir=run_output_dir,
             artifacts=artifacts,
             summary=summary,
+            filename_tag=alpha_token,
         )
         summary["output_dir"] = str(run_output_dir)
         message = (
@@ -1405,6 +1595,7 @@ def run_fixed_nnls(input_workbook: Path, output_dir: Path, params: dict[str, Any
             output_dir=run_output_dir,
             artifacts=artifacts,
             summary=summary,
+            filename_tag=_regularization_filename_token(regularization),
         )
         message = (
             f"Fixed-regularization NNLS inversion completed with smoothing factor {regularization:g}. Outputs are grouped in {run_output_dir.name}."
@@ -1441,6 +1632,7 @@ def plot_decay_spectrum(
             run_output_dir,
             plot_config=PlotConfig(),
             time_to_ms_scale=float(params.get("time_to_ms_scale", 1.0)),
+            filename_tag=_alpha_filename_token_from_path(spectrum_workbook),
         )
         message = (
             f"Paired decay-curve and T2-spectrum figures were generated in {run_output_dir.name}."

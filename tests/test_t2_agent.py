@@ -6,6 +6,7 @@ import numpy as np
 from matplotlib.text import Annotation
 
 from t2_agent.guidance import build_parameter_guidance, infer_requested_plan
+from t2_agent.models import AgentToolResult
 from t2_agent.tools import (
     generate_report,
     inspect_workbook_schema,
@@ -415,6 +416,26 @@ def test_repeated_lcurve_runs_with_same_parameters_do_not_reuse_old_figures(tmp_
     assert first_lcurve_figures.isdisjoint(second_lcurve_figures)
 
 
+def test_lcurve_exported_inversion_artifacts_include_selected_alpha_in_names(tmp_path):
+    validation = validate_workbook(SIMULATION)
+    repaired = repair_workbook(SIMULATION, tmp_path / "standardized", validation.summary["recommended_time_to_ms_scale"])
+
+    result = run_lcurve(
+        Path(repaired.artifacts[0]),
+        tmp_path / "lcurve",
+        {"num_bins": 40, "alpha_count": 8, "t2_min_ms": 0.01, "t2_max_ms": 100000.0},
+    )
+
+    assert result.status == "success", result.error
+    inversion_artifacts = [
+        Path(path)
+        for path in result.artifacts
+        if Path(path).suffix.lower() in {".xlsx", ".csv", ".png"}
+    ]
+    assert inversion_artifacts
+    assert all("__alpha_" in path.stem for path in inversion_artifacts)
+
+
 def test_lcurve_outputs_use_short_figure_folder_on_long_windows_paths(tmp_path):
     validation = validate_workbook(SIMULATION)
     long_root = tmp_path / ("long_path_segment_" * 4)
@@ -428,7 +449,7 @@ def test_lcurve_outputs_use_short_figure_folder_on_long_windows_paths(tmp_path):
     )
 
     assert result.status == "success", result.error
-    assert any(Path(path).parent.name == "lcurve_figures" and "__lcurve__" in Path(path).name and Path(path).suffix == ".png" for path in result.artifacts)
+    assert any("alpha_" in Path(path).stem and Path(path).suffix == ".png" for path in result.artifacts)
 
 
 def test_repeated_fixed_nnls_runs_are_grouped_by_parameters(tmp_path):
@@ -447,6 +468,26 @@ def test_repeated_fixed_nnls_runs_are_grouped_by_parameters(tmp_path):
     assert set(map(Path, weak.artifacts)).isdisjoint(set(map(Path, strong.artifacts)))
     assert any("paired_plots" in Path(path).parts and "__decay_t2__" in Path(path).name and Path(path).suffix == ".png" for path in weak.artifacts)
     assert any("paired_plots" in Path(path).parts and "__decay_t2__" in Path(path).name and Path(path).suffix == ".png" for path in strong.artifacts)
+
+
+def test_fixed_nnls_exported_inversion_artifacts_include_regularization_in_names(tmp_path):
+    validation = validate_workbook(SIMULATION)
+    repaired = repair_workbook(SIMULATION, tmp_path / "standardized", validation.summary["recommended_time_to_ms_scale"])
+
+    result = run_fixed_nnls(
+        Path(repaired.artifacts[0]),
+        tmp_path / "nnls",
+        {"regularization": 0.25, "num_bins": 50},
+    )
+
+    assert result.status == "success", result.error
+    inversion_artifacts = [
+        Path(path)
+        for path in result.artifacts
+        if Path(path).suffix.lower() in {".xlsx", ".csv", ".png"}
+    ]
+    assert inversion_artifacts
+    assert all("__alpha_0p25" in path.stem for path in inversion_artifacts)
 
 
 def test_standalone_pair_plots_are_grouped_by_spectrum_parameter_folder(tmp_path):
@@ -636,3 +677,39 @@ def test_interpret_results_reads_lcurve_outputs_and_explains_main_peak(tmp_path)
     assert "最佳平滑因子" in interpretation.message
     assert "主峰" in interpretation.message
     assert Path(interpretation.artifacts[0]).exists()
+
+
+def test_interpret_results_uses_workflow_summary_paths_when_artifacts_are_filtered(tmp_path):
+    spectrum_path = tmp_path / "workflow_spectrum.xlsx"
+    summary_path = tmp_path / "workflow_lcurve_summary.csv"
+    pd.DataFrame(
+        {
+            "t2_ms": [1.0, 10.0, 100.0, 1000.0],
+            "amplitude": [0.1, 0.3, 1.0, 0.2],
+        }
+    ).to_excel(spectrum_path, index=False)
+    pd.DataFrame(
+        {
+            "signal_name": ["signal"],
+            "best_regularization": [0.001],
+            "best_residual_norm": [12.0],
+            "best_roughness_norm": [34.0],
+        }
+    ).to_csv(summary_path, index=False)
+    workflow_result = AgentToolResult(
+        "success",
+        "workflow",
+        artifacts=[],
+        summary={
+            "stage": "full_workflow",
+            "spectrum_xlsx": str(spectrum_path),
+            "summary_csv": str(summary_path),
+        },
+    )
+
+    interpretation = interpret_results([workflow_result], tmp_path / "interpretation")
+
+    assert interpretation.status == "success"
+    assert interpretation.error is None
+    assert "最佳平滑因子" in interpretation.message
+    assert "主峰" in interpretation.message
