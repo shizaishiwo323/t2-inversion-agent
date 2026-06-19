@@ -46,7 +46,7 @@ Git submodule.
 ## Local Run
 
 ```bash
-conda env create -f environment.yml
+conda env create -f environment.docker.yml
 conda activate t2agent
 python scripts/check_t2agent_env.py
 streamlit run streamlit_app.py
@@ -75,7 +75,8 @@ The pyGIMLi mesh workflow is best deployed from GitHub to a container-capable
 public host such as Hugging Face Spaces Docker, Render, Railway, or another
 Docker platform. This repository includes:
 
-- `environment.yml` for the `t2agent` conda environment.
+- `environment.docker.yml` for the full `t2agent` conda/Docker environment.
+- `requirements.txt` for Streamlit Community Cloud's lightweight T2-processing deployment.
 - `Dockerfile` for public deployment with the same conda environment.
 - `scripts/check_t2agent_env.py` for dependency verification.
 

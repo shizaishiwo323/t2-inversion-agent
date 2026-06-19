@@ -56,7 +56,7 @@ def main() -> int:
     if missing or outside_environment:
         print("")
         print("Environment check failed. Create or activate the project conda environment:")
-        print("  conda env create -f environment.yml")
+        print("  conda env create -f environment.docker.yml")
         print("  conda activate t2agent")
         print("  set PYTHONNOUSERSITE=1  # Windows cmd, optional but recommended")
         print("  python scripts/check_t2agent_env.py")

@@ -6,8 +6,8 @@ ENV PYTHONNOUSERSITE=1 \
     PYTHONIOENCODING=utf-8 \
     STREAMLIT_SERVER_HEADLESS=true
 
-COPY environment.yml requirements.txt /app/
-RUN mamba env create -f /app/environment.yml && mamba clean -afy
+COPY environment.docker.yml requirements.txt /app/
+RUN mamba env create -f /app/environment.docker.yml && mamba clean -afy
 
 COPY . /app
 

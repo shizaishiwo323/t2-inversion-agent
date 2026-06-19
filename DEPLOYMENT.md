@@ -18,7 +18,7 @@ workflow in Docker.
 ## Local run
 
 ```bash
-conda env create -f environment.yml
+conda env create -f environment.docker.yml
 conda activate t2agent
 python scripts/check_t2agent_env.py
 streamlit run streamlit_app.py
@@ -49,7 +49,7 @@ streamlit_app.py
 ## Recommended public Docker deployment
 
 Use the repository `Dockerfile`. It creates the `t2agent` conda environment
-from `environment.yml` and starts:
+from `environment.docker.yml` and starts:
 
 ```bash
 streamlit run streamlit_app.py --server.address 0.0.0.0 --server.port ${PORT:-8501}
