@@ -45,14 +45,14 @@ WELCOME_MESSAGES = {
 - 生成衰减曲线、T2 谱图、L-curve 图
 - 对 T2 谱做 Gaussian 分峰，并解释峰位置和面积比例
 - 做二维 NMR 模拟：规则几何或红黄白 PNG 相图 -> pyGIMLi 网格 -> T2 衰减 -> T2 反演
-- 做本地 NMR 理想三角演示：克隆项目生成三角网格、T2 衰减和 T2-T2 图，T2 反演仍走当前成熟流程
+- 做本地 NMR 理想三角演示：仓库内置流程生成三角网格和 T2 衰减，T2 反演仍走当前成熟流程
 - 仍然支持只做 T2 反演，不需要先跑模拟
 - 读取已经生成的结果，解释这个结果说明什么，并给出下一步建议
 
 我现在的边界：
 
 - 专注 2D NMR 模拟、T2 decay / T2 spectrum 数据处理
-- 第一版常规模拟仅支持 2D T2；本地理想三角演示可生成 T2-T2 图；不做 CT 分割、3D 或 D-T2
+- 第一版常规模拟支持 2D T2；不做 CT 分割、3D 或 D-T2
 - 不替代专业判断，结果解释需要结合样品背景
 
 你可以先问我：
@@ -74,14 +74,14 @@ What I can do:
 - Generate decay plots, T2 spectrum plots, and L-curve figures
 - Run Gaussian peak decomposition and explain peak positions and area fractions
 - Run first-version 2D NMR simulation: rule geometry or red/yellow/white PNG phase map -> pyGIMLi mesh -> T2 decay -> T2 inversion
-- Run the local ideal-triangle NMR demo: the cloned project generates triangular mesh, T2 decay, and a T2-T2 map; T2 inversion still uses the current mature pipeline
+- Run the local ideal-triangle NMR demo: the repository-bundled workflow generates triangular mesh and T2 decay; T2 inversion still uses the current mature pipeline
 - Still support standalone T2 inversion without a simulation step
 - Read generated results and explain what they mean, with suggestions for next steps
 
 Current boundaries:
 
 - Focused on 2D NMR simulation, T2 decay, and T2 spectrum processing
-- The ordinary first-version simulation supports 2D T2 only; the local ideal-triangle demo can generate a T2-T2 map; CT segmentation, 3D simulation, and D-T2 are out of scope
+- The first-version simulation supports 2D T2; CT segmentation, 3D simulation, and D-T2 are out of scope
 - Does not replace domain judgment; interpretation still depends on sample context
 
 You can ask first:

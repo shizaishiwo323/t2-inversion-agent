@@ -3,6 +3,7 @@
 .streamlit/secrets.toml
 runs/
 T2process/outputs_standard_demo/
+NMR-simulation-of-2D-3D-projext/
 __pycache__/
 *.pyc
 .pytest_cache/

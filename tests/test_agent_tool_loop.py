@@ -166,7 +166,7 @@ def test_full_2d_simulation_workflow_reuses_existing_inversion_tools(tmp_path, m
     assert result.summary["simulation_decay_xlsx"] == str(decay_path)
 
 
-def test_local_nmr_triangle_demo_uses_upstream_simulation_and_existing_fixed_inversion(tmp_path, monkeypatch):
+def test_local_nmr_triangle_demo_uses_builtin_simulation_and_existing_fixed_inversion(tmp_path, monkeypatch):
     context = AgentRuntimeContext(workspace=tmp_path / "workspace")
     upstream_decay = tmp_path / "upstream" / "tables" / "ideal_triangle_t2_decay.csv"
     upstream_decay.parent.mkdir(parents=True)
@@ -233,31 +233,30 @@ def test_local_nmr_triangle_demo_uses_upstream_simulation_and_existing_fixed_inv
     assert "t2_t2" in result.summary["simulation_stages"]
 
 
-def test_local_nmr_triangle_demo_falls_back_to_public_builtin_ideal_triangle(tmp_path, monkeypatch):
-    missing_root = tmp_path / "missing-local-nmr-project"
-    curve_csv = tmp_path / "out" / "public_builtin_ideal_triangle" / "decay" / "ideal_triangle_nmr_decay.csv"
-    summary_json = tmp_path / "out" / "public_builtin_ideal_triangle" / "simulation_2d_summary.json"
+def test_local_nmr_triangle_demo_uses_repository_builtin_ideal_triangle(tmp_path, monkeypatch):
+    curve_csv = tmp_path / "out" / "builtin_ideal_triangle" / "decay" / "ideal_triangle_nmr_decay.csv"
+    summary_json = tmp_path / "out" / "builtin_ideal_triangle" / "simulation_2d_summary.json"
 
     def fake_builtin_rule_workflow(geometry, output_dir, params):
-        assert output_dir == tmp_path / "out" / "public_builtin_ideal_triangle"
+        assert output_dir == tmp_path / "out" / "builtin_ideal_triangle"
         return {
             "status": "success",
-            "geometry_source": "upstream_ideal_triangle",
+            "geometry_source": "builtin_ideal_triangle",
             "t2_t2_enabled": False,
             "curve_csv": str(curve_csv),
             "summary_json": str(summary_json),
             "simulation_stages": {"decay": [str(curve_csv)], "t2": []},
         }
 
-    monkeypatch.setattr("t2_agent.tools.LOCAL_NMR_ROOT", missing_root)
     monkeypatch.setattr("t2_agent.tools.run_rule_geometry_mesh_decay", fake_builtin_rule_workflow)
 
     result = run_local_nmr_triangle_t2_t2(tmp_path / "out", {})
 
     assert result["status"] == "success"
-    assert result["stage"] == "public_builtin_ideal_triangle_t2_fallback"
-    assert result["fallback_reason"] == "missing_local_nmr_project"
-    assert result["local_nmr_available"] is False
+    assert result["stage"] == "builtin_ideal_triangle_t2_workflow"
+    assert result["external_nmr_project_required"] is False
+    assert result["local_nmr_available"] is True
+    assert result["geometry_source"] == "builtin_ideal_triangle"
     assert result["standard_decay_source_csv"] == str(curve_csv)
     assert result["t2_t2_enabled"] is False
 
@@ -291,7 +290,7 @@ def test_full_2d_rule_simulation_workflow_runs_real_inversion(tmp_path):
     assert context.simulation_decay_path.exists()
     assert context.spectrum_path is not None
     assert context.spectrum_path.exists()
-    simulation_result = next(item for item in context.results if item.summary.get("geometry_source") == "upstream_ideal_triangle")
+    simulation_result = next(item for item in context.results if item.summary.get("geometry_source") == "builtin_ideal_triangle")
     assert simulation_result.summary["modules"] == ["T2"]
     assert simulation_result.summary["t2_t2_enabled"] is False
     assert simulation_result.summary["dt2_enabled"] is False
@@ -425,7 +424,8 @@ def test_agent_loop_returns_after_successful_local_demo_without_second_model_cal
         on_tool_result=live_results.append,
     )
 
-    assert "本地 NMR 理想三角 T2-T2 演示已完成" in result.assistant_message
+    assert "本地 NMR 理想三角演示已完成" in result.assistant_message
+    assert "仓库内置模拟流程" in result.assistant_message
     assert "右侧结果栏已同步 1 个产物" in result.assistant_message
     assert result.tool_results[0].artifacts == [artifact]
     assert len(live_results) == 1

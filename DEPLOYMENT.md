@@ -1,7 +1,7 @@
 # Public Deployment
 
 This app includes a full pyGIMLi triangular-mesh 2D NMR simulation workflow.
-The default no-upload path uses the upstream For-Bin ideal triangular-pore
+The default no-upload path uses the repository-bundled ideal triangular-pore
 input directly; uploaded red/yellow/white PNG phase maps are a separate input
 route.
 For that workflow, deploy from GitHub to a public host that supports Docker or
@@ -64,10 +64,9 @@ Recommended GitHub-backed hosts:
 - Railway Dockerfile deployment.
 - Any VPS or container host that builds the repository Dockerfile.
 
-If you need the optional cloned local NMR ideal-triangle demo, enable Git
-submodule cloning on the host or run `git submodule update --init --recursive`
-before building. The ordinary built-in ideal-triangle and PNG 2D workflows do
-not require the submodule.
+No Git submodule initialization is required. The ideal-triangle workflow used
+by the public app is implemented inside this repository, so a fresh GitHub
+checkout or Docker build has the same callable project files it needs.
 
 After deployment, verify the public app by running an ideal-triangle request:
 

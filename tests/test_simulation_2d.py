@@ -147,7 +147,7 @@ def test_rule_geometry_mesh_decay_uses_ideal_triangle_input_not_generated_png(tm
 
     assert result["status"] == "success"
     assert result["geometry_mode"] == "rule"
-    assert result["geometry_source"] == "upstream_ideal_triangle"
+    assert result["geometry_source"] == "builtin_ideal_triangle"
     assert "phase_png" not in result
     assert not (tmp_path / "ideal_triangle" / "input" / "rule_geometry_phase.png").exists()
     assert Path(result["standard_decay_xlsx"]).exists()

@@ -2,7 +2,7 @@
 
 A Streamlit-based AI workflow assistant for NMR 2D simulation and T2 inversion.
 The app combines DeepSeek-guided conversation with a whitelisted local Python
-tool layer for upstream-style ideal-triangle simulation, PNG phase-map simulation, pyGIMLi triangular meshing, T2
+tool layer for bundled ideal-triangle simulation, PNG phase-map simulation, pyGIMLi triangular meshing, T2
 decay solving, data diagnosis, workbook repair, T2 inversion, visualization,
 Gaussian peak decomposition, result interpretation, and report generation.
 
@@ -18,8 +18,8 @@ Gaussian peak decomposition, result interpretation, and report generation.
 - Runs a first-version 2D NMR simulation workflow from the built-in ideal
   triangular-pore input or from uploaded PNG phase maps into the existing T2
   inversion tools.
-- Runs the cloned local NMR ideal-triangle demonstration for pyGIMLi mesh,
-  T2 decay, and T2-T2 exchange-map visualization, while still sending the
+- Runs the repository-bundled local NMR ideal-triangle demonstration for pyGIMLi mesh
+  and T2 decay, while still sending the
   simulated decay into the existing fixed NNLS T2 inversion pipeline.
 - Supports Chinese and English UI switching.
 
@@ -39,9 +39,9 @@ PNG phase maps must use:
 
 White borders are cropped automatically. The ordinary first-version workflow
 supports 2D T2 simulation only and does not perform CT segmentation, 3D
-simulation, or D-T2. A separate local ideal-triangle demo can produce T2-T2
-exchange-map artifacts from the cloned For-Bin simulator; its T2 inversion
-step still uses this app's mature T2 processing tools.
+simulation, or D-T2. The local ideal-triangle demo is implemented inside this
+repository; public deployments do not need a separately cloned NMR project or
+Git submodule.
 
 ## Local Run
 
@@ -53,8 +53,8 @@ streamlit run streamlit_app.py
 ```
 
 The full 2D simulation workflow requires `pygimli` and uses the pyGIMLi
-triangular mesh path. The no-upload/default simulation path uses the upstream
-For-Bin ideal triangular-pore input, not a generated PNG phase map. Do not use `base` unless `python
+triangular mesh path. The no-upload/default simulation path uses the bundled
+ideal triangular-pore input, not a generated PNG phase map. Do not use `base` unless `python
 scripts/check_t2agent_env.py` confirms that all required packages are present.
 The project conda environment intentionally uses Python 3.11 with the main
 scientific stack from conda-forge and the pyGIMLi wheel from PyPI; this is the

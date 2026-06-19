@@ -27,11 +27,6 @@ from .io_utils import (
 from .lcurve import invert_single_signal_lcurve
 from .models import TrimmedSignal
 from .nnls import invert_single_signal_nnls
-from .plotting import (
-    plot_decay_and_spectrum_pair,
-    plot_gaussian_decomposition,
-    plot_lcurve_result,
-)
 
 
 def _build_output_path(output_dir: Path, dataset_name: str, artifact_name: str, suffix: str) -> Path:
@@ -261,6 +256,8 @@ def run_lcurve_workbook(
         trimmed_sheets[signal_name] = trimmed_frame
 
         figure_path = figure_dir / f"{safe_token(signal_name)}__lcurve.png"
+        from .plotting import plot_lcurve_result
+
         plot_lcurve_result(result, output_path=figure_path, config=plot_config)
 
         summary_rows.append(
@@ -342,6 +339,8 @@ def run_plotting_workbook_pair(
         t2_bins, spectrum = dataframe_columns_to_numeric_xy(spectrum_df, x_col, y_col)
 
         figure_path = output_dir / f"{safe_token(raw_decay_workbook.stem)}__{safe_token(signal_name)}__decay_t2.png"
+        from .plotting import plot_decay_and_spectrum_pair
+
         plot_decay_and_spectrum_pair(
             signal_name=signal_name,
             raw_time_ms=raw_time_ms,
@@ -407,6 +406,8 @@ def run_gaussian_decomposition_on_spectrum_workbook(
         component_sheets[signal_name] = result.peak_table
 
         figure_path = figure_dir / f"{safe_token(signal_name)}__gaussian.png"
+        from .plotting import plot_gaussian_decomposition
+
         plot_gaussian_decomposition(result, output_path=figure_path, config=plot_config)
 
         for _, row in result.peak_table.iterrows():

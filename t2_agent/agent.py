@@ -13,7 +13,6 @@ import pandas as pd
 from .deepseek import DEEPSEEK_BASE_URL
 from .guidance import build_parameter_guidance, infer_requested_plan
 from .models import AgentToolResult
-from .simulation_2d import write_standard_decay_workbook
 from .skills import render_skill_prompt
 from .tools import (
     generate_report,
@@ -28,6 +27,7 @@ from .tools import (
     run_local_nmr_triangle_t2_t2,
     run_lcurve,
     validate_workbook,
+    write_standard_decay_workbook,
 )
 
 
@@ -215,7 +215,7 @@ def build_tool_specs() -> list[dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "run_local_nmr_triangle_demo",
-                "description": "Run the cloned local NMR ideal-triangle demonstration: pyGIMLi triangular mesh, T2 decay, T2-T2 exchange-map visualization, then send the simulated decay into the existing mature fixed NNLS T2 inversion workflow.",
+                "description": "Run the repository-bundled NMR ideal-triangle demonstration: pyGIMLi triangular mesh and T2 decay, then send the simulated decay into the existing mature fixed NNLS T2 inversion workflow. This does not require any external NMR subproject.",
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -885,13 +885,13 @@ def _local_demo_completion_message(result: AgentToolResult, response_language: s
     artifact_count = len(result.artifacts)
     if _is_english(response_language):
         return (
-            "The local NMR ideal-triangle T2-T2 demo has completed. "
-            "The cloned simulator produced the mesh, T2 decay, and T2-T2 artifacts, "
+            "The local NMR ideal-triangle demo has completed. "
+            "The repository-bundled simulator produced the mesh and T2 decay artifacts, "
             "and the simulated decay was sent through the existing fixed NNLS T2 inversion workflow. "
             f"{artifact_count} artifact(s) are available in the result panel."
         )
     return (
-        "本地 NMR 理想三角 T2-T2 演示已完成。克隆项目已经生成网格、T2 衰减和 T2-T2 产物，"
+        "本地 NMR 理想三角演示已完成。仓库内置模拟流程已经生成网格和 T2 衰减产物，"
         "模拟衰减也已接入当前成熟的 fixed NNLS T2 反演流程。"
         f"右侧结果栏已同步 {artifact_count} 个产物。"
     )
@@ -933,7 +933,7 @@ def run_deepseek_agent_turn(
         "If the user asks for the built-in ideal triangle simulation and has not uploaded a PNG, call run_2d_mesh_and_decay or run_2d_simulation_full_workflow with geometry_mode='rule'; do not create a PNG phase map as an intermediate input. "
         "For the first version, only 2D simulation is supported, and mesh generation must use pyGIMLi triangular meshing. "
         "For the ordinary first-version ideal-triangle simulation, run only the 1D T2 workflow. "
-        "If the user explicitly asks for the local NMR simulator, ideal triangle mesh demonstration, or T2-T2 simulation/demo, call run_local_nmr_triangle_demo; it generates T2-T2 artifacts with the cloned local NMR project and still sends the simulated decay into the existing fixed NNLS T2 inversion pipeline. "
+        "If the user explicitly asks for the local NMR simulator or ideal triangle mesh demonstration, call run_local_nmr_triangle_demo; it uses the repository-bundled simulator and still sends the simulated decay into the existing fixed NNLS T2 inversion pipeline. "
         "Do not attempt D-T2 unless a future tool explicitly supports it. "
         "When the user asks for the whole local T2 simulation flow, call run_2d_simulation_full_workflow so mesh, decay, T2 inversion, and optional Gaussian decomposition are connected. "
         "When the user only asks for T2 inversion, keep using the existing T2 workbook tools and do not force simulation. "

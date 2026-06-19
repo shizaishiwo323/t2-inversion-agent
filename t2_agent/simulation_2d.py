@@ -936,7 +936,7 @@ def create_ideal_triangle_pore_geometry(
     is_inverted: bool = False,
     y_shift_um: float = 0.0,
 ):
-    """Create the ideal triangular pore geometry used by the upstream For-Bin scripts."""
+    """Create the bundled ideal triangular pore geometry."""
 
     if mt is None or pg is None:
         raise RuntimeError("pyGIMLi meshtools are not available; cannot create ideal triangular pore geometry.")
@@ -1292,7 +1292,7 @@ def run_rule_geometry_mesh_decay(
     mesh_summary = summarize_mesh_quality(mesh_for_quality, quality_frame)
     mesh_summary.update(
         {
-            "geometry_source": "upstream_ideal_triangle",
+            "geometry_source": "builtin_ideal_triangle",
             "coupled": bool(geometry.coupled),
             "large_side_um": float(geometry.large_side_um),
             "small_side_um": float(geometry.small_side_um),
@@ -1304,7 +1304,7 @@ def run_rule_geometry_mesh_decay(
         "status": "success",
         "stage": "decay",
         "geometry_mode": "rule",
-        "geometry_source": "upstream_ideal_triangle",
+        "geometry_source": "builtin_ideal_triangle",
         "solver_used": "pygimli_pg_solve",
         "modules": ["T2"],
         "t2_t2_enabled": False,
