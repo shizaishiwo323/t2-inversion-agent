@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import json
 import math
+import re
 from dataclasses import asdict, dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -44,6 +46,16 @@ PHASE_RGB_COLORS = np.asarray(
     dtype=np.int32,
 )
 PHASE_COLOR_TOLERANCE = 32.0
+MILLISECOND_TIMESTAMP_FRAGMENT = re.compile(r"__\d{8}_\d{6}_\d{3}(?=__|$)")
+
+
+def millisecond_timestamp() -> str:
+    return datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]
+
+
+def timestamped_name(stem: str, suffix: str) -> str:
+    stable_stem = MILLISECOND_TIMESTAMP_FRAGMENT.sub("", str(stem))
+    return f"{stable_stem}__{millisecond_timestamp()}.{suffix.lstrip('.')}"
 
 
 @dataclass(frozen=True)
@@ -145,8 +157,8 @@ def save_phase_preview(labels: np.ndarray, output_path: Path) -> None:
 def inspect_png_phase_map(png_path: Path, output_dir: Path) -> PngInspection:
     input_path = Path(png_path)
     output_dir = Path(output_dir)
-    cropped_png = output_dir / f"{input_path.stem}__cropped_phase.png"
-    preview_png = output_dir / f"{input_path.stem}__classified_preview.png"
+    cropped_png = output_dir / timestamped_name(f"{input_path.stem}__cropped_phase", "png")
+    preview_png = output_dir / timestamped_name(f"{input_path.stem}__classified_preview", "png")
     try:
         rgb = np.asarray(Image.open(input_path).convert("RGB"))
         unsupported_count = unsupported_phase_color_count(rgb)
@@ -839,13 +851,13 @@ def run_png_mesh_decay(png_path: Path, output_dir: Path, params: Simulation2DPar
     )
 
     stem = Path(png_path).stem
-    mesh_png = output_dir / "mesh" / f"{stem}_triangular_mesh.png"
-    mesh_bms = output_dir / "mesh" / f"{stem}_triangular_mesh.bms"
-    mesh_quality_csv = output_dir / "mesh" / f"{stem}_mesh_quality.csv"
-    mesh_quality_hist = output_dir / "mesh" / f"{stem}_mesh_quality_histogram.png"
-    curve_csv = output_dir / "decay" / f"{stem}_nmr_decay.csv"
-    curve_png = output_dir / "decay" / f"{stem}_nmr_decay.png"
-    decay_xlsx = output_dir / "decay" / f"{stem}__standard_decay.xlsx"
+    mesh_png = output_dir / "mesh" / timestamped_name(f"{stem}_triangular_mesh", "png")
+    mesh_bms = output_dir / "mesh" / timestamped_name(f"{stem}_triangular_mesh", "bms")
+    mesh_quality_csv = output_dir / "mesh" / timestamped_name(f"{stem}_mesh_quality", "csv")
+    mesh_quality_hist = output_dir / "mesh" / timestamped_name(f"{stem}_mesh_quality_histogram", "png")
+    curve_csv = output_dir / "decay" / timestamped_name(f"{stem}_nmr_decay", "csv")
+    curve_png = output_dir / "decay" / timestamped_name(f"{stem}_nmr_decay", "png")
+    decay_xlsx = output_dir / "decay" / timestamped_name(f"{stem}__standard_decay", "xlsx")
 
     time_ms, amplitude, mesh_summary = solve_decay_triangular(
         labels,
@@ -893,7 +905,7 @@ def run_png_mesh_decay(png_path: Path, output_dir: Path, params: Simulation2DPar
             "decay": [str(curve_csv), str(curve_png), str(decay_xlsx)],
         },
     }
-    result["summary_json"] = str(write_json_summary(output_dir / "simulation_2d_summary.json", result))
+    result["summary_json"] = str(write_json_summary(output_dir / timestamped_name("simulation_2d_summary", "json"), result))
     return result
 
 
@@ -1177,16 +1189,16 @@ def run_rule_geometry_mesh_decay(
     cfg = params or Simulation2DParams()
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    mesh_png = output_dir / "mesh" / "ideal_triangle_triangular_mesh.png"
-    mesh_bms = output_dir / "mesh" / "ideal_triangle_triangular_mesh.bms"
-    mesh_quality_csv = output_dir / "mesh" / "ideal_triangle_mesh_quality.csv"
-    mesh_quality_hist = output_dir / "mesh" / "ideal_triangle_mesh_quality_histogram.png"
-    curve_csv = output_dir / "decay" / "ideal_triangle_nmr_decay.csv"
-    curve_png = output_dir / "decay" / "ideal_triangle_nmr_decay.png"
-    raw_decay_xlsx = output_dir / "decay" / "Triangle_Raw_Decay.xlsx"
-    decay_xlsx = output_dir / "decay" / "ideal_triangle__standard_decay.xlsx"
-    t2_components_xlsx = output_dir / "t2" / "IdealTriangle_T2_Components.xlsx"
-    t2_dashboard_png = output_dir / "t2" / "IdealTriangle_T2_Dashboard.png"
+    mesh_png = output_dir / "mesh" / timestamped_name("ideal_triangle_triangular_mesh", "png")
+    mesh_bms = output_dir / "mesh" / timestamped_name("ideal_triangle_triangular_mesh", "bms")
+    mesh_quality_csv = output_dir / "mesh" / timestamped_name("ideal_triangle_mesh_quality", "csv")
+    mesh_quality_hist = output_dir / "mesh" / timestamped_name("ideal_triangle_mesh_quality_histogram", "png")
+    curve_csv = output_dir / "decay" / timestamped_name("ideal_triangle_nmr_decay", "csv")
+    curve_png = output_dir / "decay" / timestamped_name("ideal_triangle_nmr_decay", "png")
+    raw_decay_xlsx = output_dir / "decay" / timestamped_name("Triangle_Raw_Decay", "xlsx")
+    decay_xlsx = output_dir / "decay" / timestamped_name("ideal_triangle__standard_decay", "xlsx")
+    t2_components_xlsx = output_dir / "t2" / timestamped_name("IdealTriangle_T2_Components", "xlsx")
+    t2_dashboard_png = output_dir / "t2" / timestamped_name("IdealTriangle_T2_Dashboard", "png")
 
     large_geom = create_ideal_triangle_pore_geometry(
         geometry.large_side_um,
@@ -1331,5 +1343,5 @@ def run_rule_geometry_mesh_decay(
             "t2": [str(t2_components_xlsx), str(t2_dashboard_png)],
         },
     }
-    result["summary_json"] = str(write_json_summary(output_dir / "simulation_2d_summary.json", result))
+    result["summary_json"] = str(write_json_summary(output_dir / timestamped_name("simulation_2d_summary", "json"), result))
     return result

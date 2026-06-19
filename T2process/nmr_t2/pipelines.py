@@ -6,6 +6,7 @@ I/O parsing, inversion, plotting, and exports into consistent workflows.
 
 from __future__ import annotations
 
+import hashlib
 from pathlib import Path
 from typing import Dict, Optional
 
@@ -22,6 +23,7 @@ from .io_utils import (
     read_sheet_map_from_excel,
     safe_token,
     sort_and_filter_signal,
+    timestamped_name,
     trim_signal_from_global_peak,
 )
 from .lcurve import invert_single_signal_lcurve
@@ -30,11 +32,18 @@ from .nnls import invert_single_signal_nnls
 
 
 def _build_output_path(output_dir: Path, dataset_name: str, artifact_name: str, suffix: str) -> Path:
-    """Build standardized output path as `<dataset>__<artifact>.<suffix>`."""
+    """Build standardized output path as `<dataset>__<artifact>__timestamp.<suffix>`."""
 
     safe_dataset = safe_token(dataset_name)
     safe_artifact = safe_token(artifact_name)
-    return output_dir / f"{safe_dataset}__{safe_artifact}.{suffix}"
+    candidate = output_dir / timestamped_name(f"{safe_dataset}__{safe_artifact}", suffix)
+    if len(str(candidate)) <= 240:
+        return candidate
+
+    digest = hashlib.sha1(safe_dataset.encode("utf-8")).hexdigest()[:8]
+    short_dataset = f"d_{digest}"
+    short_artifact = safe_artifact[:12]
+    return output_dir / timestamped_name(f"{short_dataset}__{short_artifact}", suffix)
 
 
 def _prepare_signal_for_inversion(
@@ -255,7 +264,7 @@ def run_lcurve_workbook(
         trimmed_frame.loc[: trimmed.trimmed_amplitude.size - 1, "trimmed_amplitude"] = trimmed.trimmed_amplitude
         trimmed_sheets[signal_name] = trimmed_frame
 
-        figure_path = figure_dir / f"{safe_token(signal_name)}__lcurve.png"
+        figure_path = figure_dir / timestamped_name(f"{safe_token(signal_name)}__lcurve", "png")
         from .plotting import plot_lcurve_result
 
         plot_lcurve_result(result, output_path=figure_path, config=plot_config)
@@ -338,7 +347,10 @@ def run_plotting_workbook_pair(
         )
         t2_bins, spectrum = dataframe_columns_to_numeric_xy(spectrum_df, x_col, y_col)
 
-        figure_path = output_dir / f"{safe_token(raw_decay_workbook.stem)}__{safe_token(signal_name)}__decay_t2.png"
+        figure_path = output_dir / timestamped_name(
+            f"{safe_token(raw_decay_workbook.stem)}__{safe_token(signal_name)}__decay_t2",
+            "png",
+        )
         from .plotting import plot_decay_and_spectrum_pair
 
         plot_decay_and_spectrum_pair(
@@ -405,7 +417,7 @@ def run_gaussian_decomposition_on_spectrum_workbook(
         fit_sheets[signal_name] = fit_frame
         component_sheets[signal_name] = result.peak_table
 
-        figure_path = figure_dir / f"{safe_token(signal_name)}__gaussian.png"
+        figure_path = figure_dir / timestamped_name(f"{safe_token(signal_name)}__gaussian", "png")
         from .plotting import plot_gaussian_decomposition
 
         plot_gaussian_decomposition(result, output_path=figure_path, config=plot_config)

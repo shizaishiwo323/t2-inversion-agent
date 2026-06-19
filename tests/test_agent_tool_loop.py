@@ -506,8 +506,16 @@ def test_agent_loop_executes_repair_and_lcurve_when_ai_requests_tools(tmp_path):
     assert context.spectrum_path is not None
     assert any(tool_result.status == "success" for tool_result in result.tool_results)
     assert len(context.tool_history) == 4
-    assert any(path.endswith("__standardized.xlsx") for item in context.tool_history for path in item.artifacts)
-    assert any(path.endswith("_spectrum.xlsx") for item in context.tool_history for path in item.artifacts)
+    assert any(
+        "__standardized__" in Path(path).name and Path(path).suffix == ".xlsx"
+        for item in context.tool_history
+        for path in item.artifacts
+    )
+    assert any(
+        "__lcurve_spectrum__" in Path(path).name and Path(path).suffix == ".xlsx"
+        for item in context.tool_history
+        for path in item.artifacts
+    )
 
 
 def test_agent_loop_uses_uploaded_spectrum_for_gaussian_and_blocks_inversion(tmp_path):
@@ -551,7 +559,10 @@ def test_agent_loop_uses_uploaded_spectrum_for_gaussian_and_blocks_inversion(tmp
     assert result.tool_results[3].status == "failed"
     assert result.tool_results[3].error == "spectrum_input_not_decay"
     assert result.tool_results[4].status == "success", result.tool_results[4].error
-    assert any(path.endswith("_gaussian_summary.csv") for path in result.tool_results[4].artifacts)
+    assert any(
+        "__gaussian_summary__" in Path(path).name and Path(path).suffix == ".csv"
+        for path in result.tool_results[4].artifacts
+    )
 
 
 def test_agent_loop_does_not_auto_invert_when_user_asks_only_for_peaks(tmp_path):

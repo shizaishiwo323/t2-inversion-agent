@@ -4,6 +4,7 @@ import io
 import inspect
 
 import pandas as pd
+import pytest
 
 from t2_agent.agent import AgentRuntimeContext
 from t2_agent.models import AgentToolResult
@@ -20,17 +21,50 @@ from streamlit_app import (
     group_simulation_stage_artifacts,
     make_zip,
     query_param_enabled,
+    render_artifact_chip,
     resolve_artifact_image_reference,
     selected_alpha_fixed_nnls_params,
     should_run_local_demo_without_api,
     should_offer_lcurve_parameter_picker,
     lcurve_picker_state_keys,
+    stop_if_runtime_environment_invalid,
 )
 
 
 def test_default_chat_model_uses_deepseek_pro_thinking_mode():
     assert DEFAULT_MODEL == "deepseek-v4-pro"
     assert DEFAULT_THINKING_ENABLED is True
+
+
+def test_runtime_environment_guard_stops_streamlit_when_invalid(monkeypatch):
+    calls: list[tuple[str, str]] = []
+
+    class FakeStreamlit:
+        def error(self, message):
+            calls.append(("error", message))
+
+        def code(self, message):
+            calls.append(("code", message))
+
+        def stop(self):
+            raise RuntimeError("stopped")
+
+    monkeypatch.setattr(streamlit_app, "st", FakeStreamlit())
+
+    with pytest.raises(RuntimeError, match="stopped"):
+        stop_if_runtime_environment_invalid(
+            streamlit_app.RuntimeEnvironmentStatus(
+                False,
+                "bad runtime",
+                "3.14.6",
+                "C:/Python314/python.exe",
+                "C:/Python314",
+                True,
+            )
+        )
+
+    assert ("error", "当前 Streamlit 进程没有使用已验证的 T2/pyGIMLi 运行环境。") in calls
+    assert ("code", "bad runtime") in calls
 
 
 def test_workspace_style_keeps_first_chat_message_above_fixed_input():
@@ -116,6 +150,34 @@ def test_collect_turn_artifacts_keeps_existing_unique_files(tmp_path):
     )
 
     assert artifacts == [str(figure), str(table)]
+
+
+def test_artifact_chip_previews_table_even_in_compact_mode(monkeypatch, tmp_path):
+    table_path = tmp_path / "summary.xlsx"
+    pd.DataFrame({"t2_ms": [1.0, 10.0], "amplitude": [0.2, 0.8]}).to_excel(table_path, index=False)
+    calls: list[tuple[str, object]] = []
+
+    class FakeStreamlit:
+        def markdown(self, *_args, **_kwargs):
+            return None
+
+        def caption(self, *_args, **_kwargs):
+            return None
+
+        def dataframe(self, data, **_kwargs):
+            calls.append(("dataframe", data))
+
+        def download_button(self, *_args, **_kwargs):
+            calls.append(("download", None))
+
+    monkeypatch.setattr(streamlit_app, "st", FakeStreamlit())
+
+    render_artifact_chip(table_path, "中文", "artifact-preview", compact=True)
+
+    dataframe_calls = [item for name, item in calls if name == "dataframe"]
+    assert len(dataframe_calls) == 1
+    assert list(dataframe_calls[0].columns) == ["t2_ms", "amplitude"]
+    assert ("download", None) in calls
 
 
 def test_intro_query_preference_helpers(monkeypatch):

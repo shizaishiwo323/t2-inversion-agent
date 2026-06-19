@@ -21,6 +21,7 @@ REQUIRED_MODULES = [
     "pygimli",
     "pygimli.meshtools",
 ]
+EXPECTED_PYTHON = (3, 11)
 
 
 def main() -> int:
@@ -32,6 +33,13 @@ def main() -> int:
     print(f"User site enabled: {site.ENABLE_USER_SITE}")
     missing: list[str] = []
     outside_environment: list[str] = []
+    runtime_problems: list[str] = []
+    if sys.version_info[:2] != EXPECTED_PYTHON:
+        runtime_problems.append(
+            f"Python 3.11 is required for the verified pyGIMLi runtime; current version is {sys.version.split()[0]}."
+        )
+    if site.ENABLE_USER_SITE:
+        runtime_problems.append("User site-packages are enabled; set PYTHONNOUSERSITE=1 before starting the app.")
     for module_name in REQUIRED_MODULES:
         try:
             module = importlib.import_module(module_name)
@@ -53,13 +61,19 @@ def main() -> int:
                     continue
         print(f"[ok] {module_name}{suffix}")
 
-    if missing or outside_environment:
+    if runtime_problems or missing or outside_environment:
         print("")
         print("Environment check failed. Create or activate the project conda environment:")
         print("  conda env create -f environment.docker.yml")
         print("  conda activate t2agent")
         print("  set PYTHONNOUSERSITE=1  # Windows cmd, optional but recommended")
+        print("  powershell -ExecutionPolicy Bypass -File scripts/run_streamlit_t2agent.ps1")
         print("  python scripts/check_t2agent_env.py")
+        if runtime_problems:
+            print("")
+            print("Runtime problems:")
+            for problem in runtime_problems:
+                print(f"  - {problem}")
         if outside_environment:
             print("")
             print("These modules were loaded from the user site instead of the active environment:")

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import re
+from datetime import datetime
 from pathlib import Path
 from typing import Dict, Iterable, Tuple
 
@@ -20,6 +21,7 @@ from .models import TrimmedSignal
 
 TEXT_TABLE_SUFFIXES = {".csv", ".txt", ".dat", ".pea"}
 FLOAT_PATTERN = re.compile(r"[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?")
+MILLISECOND_TIMESTAMP_FRAGMENT = re.compile(r"__\d{8}_\d{6}_\d{3}(?=__|$)")
 
 
 def safe_token(text: str) -> str:
@@ -39,6 +41,19 @@ def safe_token(text: str) -> str:
     cleaned = re.sub(r"\s+", "_", str(text).strip())
     cleaned = re.sub(r"[^0-9a-zA-Z_\-]+", "", cleaned)
     return cleaned or "item"
+
+
+def millisecond_timestamp() -> str:
+    """Return a filesystem-safe local timestamp precise to milliseconds."""
+
+    return datetime.now().strftime("%Y%m%d_%H%M%S_%f")[:-3]
+
+
+def timestamped_name(stem: str, suffix: str) -> str:
+    """Build `<stem>__YYYYMMDD_HHMMSS_mmm.<suffix>`."""
+
+    stable_stem = MILLISECOND_TIMESTAMP_FRAGMENT.sub("", str(stem))
+    return f"{stable_stem}__{millisecond_timestamp()}.{suffix.lstrip('.')}"
 
 
 def safe_sheet_name(name: str) -> str:

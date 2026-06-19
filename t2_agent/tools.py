@@ -21,7 +21,7 @@ if str(T2PROCESS_ROOT) not in sys.path:
     sys.path.insert(0, str(T2PROCESS_ROOT))
 
 from nmr_t2.config import GaussianConfig, LCurveConfig, NnlsConfig, PlotConfig  # noqa: E402
-from nmr_t2.io_utils import cell_to_float, parse_time_cell, read_source_table, safe_token  # noqa: E402
+from nmr_t2.io_utils import cell_to_float, parse_time_cell, read_source_table, safe_token, timestamped_name  # noqa: E402
 
 
 def _is_english(language: str) -> bool:
@@ -594,7 +594,7 @@ def interpret_results(results: list[AgentToolResult], output_dir: Path, language
                     "- 如果要区分具体孔隙组分，建议继续做 Gaussian 分峰并比较不同峰的面积占比。",
                 ]
             )
-        output_path = Path(output_dir) / "interpretation.md"
+        output_path = Path(output_dir) / timestamped_name("interpretation", "md")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_text("\n".join(lines), encoding="utf-8")
 
@@ -1247,7 +1247,7 @@ def repair_workbook(input_workbook: Path, output_dir: Path, time_to_ms_scale: fl
         for idx, signal_col in enumerate(signal_columns):
             data[str(signal_col["label"])] = signal_matrix[:, idx]
 
-        output_path = Path(output_dir) / f"{safe_token(Path(input_workbook).stem)}__standardized.xlsx"
+        output_path = Path(output_dir) / timestamped_name(f"{safe_token(Path(input_workbook).stem)}__standardized", "xlsx")
         output_path.parent.mkdir(parents=True, exist_ok=True)
         pd.DataFrame(data).to_excel(output_path, index=False)
         message = "Standardized Excel generated: the first column is time_ms, followed by valid signal columns." if english else "已生成标准化 Excel：第一列为 time_ms，后续列为有效信号。"
@@ -1464,7 +1464,7 @@ def generate_report(
 
     try:
         english = _is_english(language)
-        output_path = Path(output_dir) / "report.md"
+        output_path = Path(output_dir) / timestamped_name("report", "md")
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         if english:

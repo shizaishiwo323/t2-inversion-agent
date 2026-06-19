@@ -21,6 +21,7 @@ from t2_agent.tools import (
 from T2process.nmr_t2.io_utils import load_decay_table_multi_column
 from T2process.nmr_t2.models import LCurveInversionResult
 from T2process.nmr_t2.config import LCurveConfig
+from T2process.nmr_t2.pipelines import _build_output_path
 from T2process.nmr_t2.plotting import plot_lcurve_result
 from t2_agent.interactive_lcurve import (
     DEFAULT_EXPLORER_LCURVE_PARAMS,
@@ -73,6 +74,18 @@ def test_repair_workbook_writes_standardized_time_ms_file(tmp_path):
     frame = pd.read_excel(output_path)
     assert list(frame.columns)[:2] == ["time_ms", "Peak"]
     assert frame["time_ms"].max() > 1.0
+
+
+def test_pipeline_output_paths_include_millisecond_timestamp(tmp_path):
+    output_path = _build_output_path(tmp_path, "sample decay", "lcurve spectrum", "xlsx")
+
+    assert output_path.parent == tmp_path
+    assert output_path.name.startswith("sample_decay__lcurve_spectrum__")
+    timestamp = output_path.stem.rsplit("__", 1)[-1]
+    assert len(timestamp) == 19
+    assert timestamp[8] == "_"
+    assert timestamp[15] == "_"
+    assert timestamp.replace("_", "").isdigit()
 
 
 def test_validate_and_repair_experimental_decay_fixture(tmp_path):
@@ -343,8 +356,8 @@ def test_repeated_gaussian_runs_are_grouped_by_peak_count(tmp_path):
     assert two_peak.summary["output_dir"].endswith("peaks_2")
     assert three_peak.summary["output_dir"].endswith("peaks_3")
     assert set(map(Path, two_peak.artifacts)).isdisjoint(set(map(Path, three_peak.artifacts)))
-    assert any("peaks_2" in Path(path).parts and path.endswith("_gaussian.png") for path in two_peak.artifacts)
-    assert any("peaks_3" in Path(path).parts and path.endswith("_gaussian.png") for path in three_peak.artifacts)
+    assert any("peaks_2" in Path(path).parts and "__gaussian__" in Path(path).name and Path(path).suffix == ".png" for path in two_peak.artifacts)
+    assert any("peaks_3" in Path(path).parts and "__gaussian__" in Path(path).name and Path(path).suffix == ".png" for path in three_peak.artifacts)
 
     interpretation = interpret_results([two_peak, three_peak], tmp_path / "interpretation")
     assert interpretation.status == "success", interpretation.error
@@ -374,8 +387,8 @@ def test_repeated_lcurve_runs_are_grouped_by_parameters(tmp_path):
     assert "bins_50" in first.summary["output_dir"]
     assert "bins_80" in second.summary["output_dir"]
     assert set(map(Path, first.artifacts)).isdisjoint(set(map(Path, second.artifacts)))
-    assert any("paired_plots" in Path(path).parts and path.endswith("_decay_t2.png") for path in first.artifacts)
-    assert any("paired_plots" in Path(path).parts and path.endswith("_decay_t2.png") for path in second.artifacts)
+    assert any("paired_plots" in Path(path).parts and "__decay_t2__" in Path(path).name and Path(path).suffix == ".png" for path in first.artifacts)
+    assert any("paired_plots" in Path(path).parts and "__decay_t2__" in Path(path).name and Path(path).suffix == ".png" for path in second.artifacts)
 
     interpretation = interpret_results([first, second], tmp_path / "interpretation")
     assert interpretation.status == "success", interpretation.error
@@ -396,7 +409,7 @@ def test_lcurve_outputs_use_short_figure_folder_on_long_windows_paths(tmp_path):
     )
 
     assert result.status == "success", result.error
-    assert any(Path(path).parent.name == "lcurve_figures" and path.endswith("_lcurve.png") for path in result.artifacts)
+    assert any(Path(path).parent.name == "lcurve_figures" and "__lcurve__" in Path(path).name and Path(path).suffix == ".png" for path in result.artifacts)
 
 
 def test_repeated_fixed_nnls_runs_are_grouped_by_parameters(tmp_path):
@@ -413,8 +426,8 @@ def test_repeated_fixed_nnls_runs_are_grouped_by_parameters(tmp_path):
     assert "reg_01" in weak.summary["output_dir"]
     assert "reg_10" in strong.summary["output_dir"]
     assert set(map(Path, weak.artifacts)).isdisjoint(set(map(Path, strong.artifacts)))
-    assert any("paired_plots" in Path(path).parts and path.endswith("_decay_t2.png") for path in weak.artifacts)
-    assert any("paired_plots" in Path(path).parts and path.endswith("_decay_t2.png") for path in strong.artifacts)
+    assert any("paired_plots" in Path(path).parts and "__decay_t2__" in Path(path).name and Path(path).suffix == ".png" for path in weak.artifacts)
+    assert any("paired_plots" in Path(path).parts and "__decay_t2__" in Path(path).name and Path(path).suffix == ".png" for path in strong.artifacts)
 
 
 def test_standalone_pair_plots_are_grouped_by_spectrum_parameter_folder(tmp_path):
@@ -525,8 +538,8 @@ def test_lcurve_gaussian_and_report_tools_create_artifacts(tmp_path):
         },
     )
     assert lcurve.status == "success"
-    assert any(path.endswith("_spectrum.xlsx") for path in lcurve.artifacts)
-    assert any(path.endswith("_decay_t2.png") for path in lcurve.artifacts), lcurve.summary.get("paired_plot_warning")
+    assert any("__lcurve_spectrum__" in Path(path).name and Path(path).suffix == ".xlsx" for path in lcurve.artifacts)
+    assert any("__decay_t2__" in Path(path).name and Path(path).suffix == ".png" for path in lcurve.artifacts), lcurve.summary.get("paired_plot_warning")
 
     gaussian = run_gaussian_peaks(
         Path(lcurve.summary["spectrum_xlsx"]),
@@ -535,7 +548,7 @@ def test_lcurve_gaussian_and_report_tools_create_artifacts(tmp_path):
     )
     assert gaussian.status == "success", gaussian.error
     assert gaussian.summary["peak_count"] == 2
-    assert any(path.endswith("_summary.csv") for path in gaussian.artifacts)
+    assert any("__gaussian_summary__" in Path(path).name and Path(path).suffix == ".csv" for path in gaussian.artifacts)
 
     report = generate_report(
         tmp_path / "report",
@@ -586,7 +599,7 @@ def test_gaussian_decomposition_does_not_require_removed_numpy_trapz(tmp_path, m
     )
 
     assert gaussian.status == "success", gaussian.error
-    assert any(path.endswith("_gaussian.png") for path in gaussian.artifacts)
+    assert any("__gaussian__" in Path(path).name and Path(path).suffix == ".png" for path in gaussian.artifacts)
 
 
 def test_interpret_results_reads_lcurve_outputs_and_explains_main_peak(tmp_path):

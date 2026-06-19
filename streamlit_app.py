@@ -16,6 +16,7 @@ from t2_agent.deepseek import get_deepseek_api_key_source
 from t2_agent.i18n import t
 from t2_agent.interactive_lcurve import alpha_path_figure, lcurve_metric_figure, selected_alpha_from_plotly_selection, t2_spectrum_figure
 from t2_agent.models import AgentToolResult
+from t2_agent.runtime_env import RuntimeEnvironmentStatus, collect_runtime_environment_status
 from t2_agent.tools import run_fixed_nnls
 
 
@@ -32,6 +33,15 @@ AVAILABLE_MODELS = ["deepseek-v4-flash", "deepseek-v4-pro"]
 DEFAULT_MODEL = "deepseek-v4-pro"
 DEFAULT_THINKING_ENABLED = True
 INTRO_QUERY_KEY = "hide_t2_agent_intro"
+
+
+def stop_if_runtime_environment_invalid(status: RuntimeEnvironmentStatus | None = None) -> None:
+    runtime_status = status or collect_runtime_environment_status()
+    if runtime_status.ok:
+        return
+    st.error("当前 Streamlit 进程没有使用已验证的 T2/pyGIMLi 运行环境。")
+    st.code(runtime_status.message)
+    st.stop()
 
 
 WELCOME_MESSAGES = {
@@ -1161,6 +1171,17 @@ def format_file_size(path: Path) -> str:
     return f"{size / (1024 * 1024):.1f} MB"
 
 
+def read_table_preview(path: Path, rows: int = 20) -> pd.DataFrame | None:
+    try:
+        if path.suffix.lower() == ".csv":
+            return pd.read_csv(path, nrows=rows)
+        if path.suffix.lower() in {".xlsx", ".xls"}:
+            return pd.read_excel(path, nrows=rows)
+    except Exception:
+        return None
+    return None
+
+
 def collect_turn_artifacts(results: list[AgentToolResult]) -> list[str]:
     artifacts: list[str] = []
     seen: set[str] = set()
@@ -1196,8 +1217,15 @@ def render_artifact_chip(path: Path, language: str, key_prefix: str, compact: bo
         """,
         unsafe_allow_html=True,
     )
-    if kind == "image" and not compact:
+    if kind == "image":
         st.image(str(path), caption=path.name, width="stretch")
+    elif kind == "table":
+        preview = read_table_preview(path)
+        if preview is not None:
+            st.caption("表格预览：前 20 行" if language == "中文" else "Table preview: first 20 rows")
+            st.dataframe(preview, hide_index=True, use_container_width=True)
+        else:
+            st.caption("表格预览失败，但文件仍可下载。" if language == "中文" else "Table preview failed, but the file can still be downloaded.")
     try:
         data = path.read_bytes()
     except OSError:
@@ -1543,6 +1571,7 @@ def run_offline_debug_prompt(prompt: str, live_chat_container=None) -> None:
 def main() -> None:
     page_language = st.session_state.get("language", "中文")
     st.set_page_config(page_title=t(page_language, "page_title"), layout="wide")
+    stop_if_runtime_environment_invalid()
     init_state()
     language = st.session_state.get("language", "中文")
     apply_workspace_style()

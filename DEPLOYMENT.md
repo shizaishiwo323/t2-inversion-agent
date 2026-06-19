@@ -20,8 +20,7 @@ workflow in Docker.
 ```bash
 conda env create -f environment.docker.yml
 conda activate t2agent
-python scripts/check_t2agent_env.py
-streamlit run streamlit_app.py
+powershell -ExecutionPolicy Bypass -File scripts/run_streamlit_t2agent.ps1
 ```
 
 ## Secrets

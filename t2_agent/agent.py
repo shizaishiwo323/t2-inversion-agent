@@ -26,6 +26,7 @@ from .tools import (
     run_gaussian_peaks,
     run_local_nmr_triangle_t2_t2,
     run_lcurve,
+    timestamped_name,
     validate_workbook,
     write_standard_decay_workbook,
 )
@@ -508,7 +509,7 @@ def process_uploaded_files_batch(args: dict[str, Any], context: AgentRuntimeCont
         successful_files += 1 if row["status"] in {"success", "partial"} else 0
         rows.append(row)
 
-    summary_path = batch_root / "batch_summary.md"
+    summary_path = batch_root / timestamped_name("batch_summary", "md")
     if _is_english(response_language):
         lines = ["# Batch T2 Processing Summary", ""]
         for row in rows:
@@ -645,7 +646,7 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
                 error="missing_signal_column",
             )
         standard_decay = write_standard_decay_workbook(
-            demo_root / "decay" / "local_nmr_triangle_coupled__standard_decay.xlsx",
+            demo_root / "decay" / timestamped_name("local_nmr_triangle_coupled__standard_decay", "xlsx"),
             decay_frame["time_ms"].to_numpy(dtype=float),
             decay_frame[signal_column].to_numpy(dtype=float),
         )

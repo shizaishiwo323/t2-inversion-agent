@@ -48,14 +48,15 @@ Git submodule.
 ```bash
 conda env create -f environment.docker.yml
 conda activate t2agent
-python scripts/check_t2agent_env.py
-streamlit run streamlit_app.py
+powershell -ExecutionPolicy Bypass -File scripts/run_streamlit_t2agent.ps1
 ```
 
 The full 2D simulation workflow requires `pygimli` and uses the pyGIMLi
 triangular mesh path. The no-upload/default simulation path uses the bundled
-ideal triangular-pore input, not a generated PNG phase map. Do not use `base` unless `python
-scripts/check_t2agent_env.py` confirms that all required packages are present.
+ideal triangular-pore input, not a generated PNG phase map. Do not use `base`
+or a global `python -m streamlit` command. The startup script forces
+`PYTHONNOUSERSITE=1`, verifies Python 3.11 plus `pygimli.meshtools`, and only
+then starts Streamlit.
 The project conda environment intentionally uses Python 3.11 with the main
 scientific stack from conda-forge and the pyGIMLi wheel from PyPI; this is the
 combination verified for the public Docker image.
