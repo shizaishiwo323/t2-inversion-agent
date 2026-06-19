@@ -89,11 +89,11 @@ If you still create an app from Streamlit Community Cloud, use:
 - Python version: Python 3.11 in Advanced settings
 
 This mode is suitable only if pyGIMLi installs successfully on the Cloud build
-image. The app's `requirements.txt` includes `pygimli`, but Community Cloud
-Python itself is selected in the deployment UI; if the existing app was created
-with a different Python version, delete and redeploy it with Python 3.11. For
-the required pyGIMLi mesh workflow, Docker/conda deployment is still the
-preferred public path.
+image. The app's `requirements.txt` pins the verified `pygimli` and `pgcore`
+wheel pair, but Community Cloud Python itself is selected in the deployment UI;
+if the existing app was created with a different Python version, delete and
+redeploy it with Python 3.11. For the required pyGIMLi mesh workflow,
+Docker/conda deployment is still the preferred public path.
 
 If you want the public app to have a default DeepSeek key, add it through
 Streamlit Cloud **Advanced settings -> Secrets**. If you leave secrets empty,
