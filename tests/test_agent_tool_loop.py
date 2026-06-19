@@ -166,6 +166,41 @@ def test_full_2d_simulation_workflow_reuses_existing_inversion_tools(tmp_path, m
     assert result.summary["simulation_decay_xlsx"] == str(decay_path)
 
 
+def test_full_2d_simulation_workflow_returns_only_current_turn_artifacts(tmp_path, monkeypatch):
+    prior_artifact = tmp_path / "prior_mesh.png"
+    current_mesh = tmp_path / "current_mesh.png"
+    decay_path = tmp_path / "current_decay.xlsx"
+    spectrum_path = tmp_path / "current_spectrum.xlsx"
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace")
+    context.results.append(AgentToolResult("success", "old run", artifacts=[str(prior_artifact)]))
+
+    def fake_run_2d_mesh_and_decay(input_path, output_dir, params, language="中文"):
+        return AgentToolResult(
+            "success",
+            "current mesh",
+            artifacts=[str(current_mesh), str(decay_path)],
+            summary={"standard_decay_xlsx": str(decay_path)},
+        )
+
+    def fake_run_lcurve(input_workbook, output_dir, params, language="中文"):
+        return AgentToolResult(
+            "success",
+            "current inversion",
+            artifacts=[str(spectrum_path)],
+            summary={"spectrum_xlsx": str(spectrum_path)},
+        )
+
+    monkeypatch.setattr("t2_agent.agent.run_2d_mesh_and_decay", fake_run_2d_mesh_and_decay)
+    monkeypatch.setattr("t2_agent.agent.run_lcurve", fake_run_lcurve)
+
+    result = execute_agent_tool("run_2d_simulation_full_workflow", {"geometry_mode": "rule"}, context)
+
+    assert result.status == "success"
+    assert str(prior_artifact) not in result.artifacts
+    assert result.artifacts == [str(current_mesh), str(decay_path), str(spectrum_path)]
+    assert context.results[0].artifacts == [str(prior_artifact)]
+
+
 def test_local_nmr_triangle_demo_uses_builtin_simulation_and_existing_fixed_inversion(tmp_path, monkeypatch):
     context = AgentRuntimeContext(workspace=tmp_path / "workspace")
     upstream_decay = tmp_path / "upstream" / "tables" / "ideal_triangle_t2_decay.csv"

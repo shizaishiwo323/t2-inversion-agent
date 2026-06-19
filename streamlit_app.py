@@ -120,6 +120,7 @@ def init_state() -> None:
         "file_display_messages": {},
         "file_display_traces": {},
         "file_display_artifacts": {},
+        "file_display_tool_results": {},
         "file_zip_bytes": {},
         "file_welcome_language": {},
         "agent_context": None,
@@ -127,6 +128,8 @@ def init_state() -> None:
         "display_messages": [],
         "display_traces": [],
         "display_artifacts": [],
+        "display_tool_results": [],
+        "live_turn_tool_results": [],
         "language": "中文",
         "welcome_language": "中文",
         "intro_seen": False,
@@ -144,6 +147,7 @@ def init_state() -> None:
         st.session_state.welcome_language = st.session_state.language
         st.session_state.display_traces = []
         st.session_state.display_artifacts = []
+        st.session_state.display_tool_results = []
     strip_seed_welcome_messages()
     align_display_artifacts()
 
@@ -193,12 +197,14 @@ def strip_seed_welcome_messages() -> None:
     messages = list(st.session_state.get("display_messages", []))
     traces = list(st.session_state.get("display_traces", []))
     artifacts = list(st.session_state.get("display_artifacts", []))
+    tool_results = list(st.session_state.get("display_tool_results", []))
     if not messages:
         return
 
     kept_messages: list[tuple[str, str]] = []
     kept_traces: list[list[dict]] = []
     kept_artifacts: list[list[str]] = []
+    kept_tool_results: list[list[AgentToolResult]] = []
     changed = False
     for idx, message in enumerate(messages):
         role, content = message
@@ -208,11 +214,13 @@ def strip_seed_welcome_messages() -> None:
         kept_messages.append(message)
         kept_traces.append(traces[idx] if idx < len(traces) else [])
         kept_artifacts.append(artifacts[idx] if idx < len(artifacts) else [])
+        kept_tool_results.append(tool_results[idx] if idx < len(tool_results) else [])
 
     if changed:
         st.session_state.display_messages = kept_messages
         st.session_state.display_traces = kept_traces
         st.session_state.display_artifacts = kept_artifacts
+        st.session_state.display_tool_results = kept_tool_results
 
 
 def align_display_artifacts() -> None:
@@ -225,6 +233,12 @@ def align_display_artifacts() -> None:
     elif len(artifacts) > len(messages):
         artifacts = artifacts[: len(messages)]
     st.session_state.display_artifacts = artifacts
+    tool_results = st.session_state.get("display_tool_results", [])
+    if len(tool_results) < len(messages):
+        tool_results = [*tool_results, *([[]] * (len(messages) - len(tool_results)))]
+    elif len(tool_results) > len(messages):
+        tool_results = tool_results[: len(messages)]
+    st.session_state.display_tool_results = tool_results
 
 
 def sync_language_seed_messages() -> None:
@@ -249,6 +263,7 @@ def sync_language_seed_messages() -> None:
         st.session_state.file_display_messages[active_path] = messages
         st.session_state.file_welcome_language[active_path] = language
         st.session_state.file_display_artifacts[active_path] = st.session_state.display_artifacts
+        st.session_state.file_display_tool_results[active_path] = st.session_state.display_tool_results
 
 
 def ensure_workspace() -> Path:
@@ -301,6 +316,7 @@ def ensure_file_state(uploaded_path: Path) -> None:
         st.session_state.file_display_messages[path_key] = messages
         st.session_state.file_display_traces[path_key] = traces
         st.session_state.file_display_artifacts[path_key] = [[] for _ in messages]
+        st.session_state.file_display_tool_results[path_key] = [[] for _ in messages]
         st.session_state.file_welcome_language[path_key] = st.session_state.language
     if path_key not in st.session_state.file_zip_bytes:
         st.session_state.file_zip_bytes[path_key] = None
@@ -316,6 +332,7 @@ def save_current_file_state(path_key: str | None = None) -> None:
     st.session_state.file_display_messages[path_key] = st.session_state.display_messages
     st.session_state.file_display_traces[path_key] = st.session_state.display_traces
     st.session_state.file_display_artifacts[path_key] = st.session_state.display_artifacts
+    st.session_state.file_display_tool_results[path_key] = st.session_state.display_tool_results
     st.session_state.file_zip_bytes[path_key] = st.session_state.zip_bytes
     st.session_state.file_welcome_language[path_key] = st.session_state.welcome_language
 
@@ -333,6 +350,8 @@ def activate_uploaded_path(uploaded_path: Path | None) -> None:
         st.session_state.display_messages = []
         st.session_state.display_traces = []
         st.session_state.display_artifacts = []
+        st.session_state.display_tool_results = []
+        st.session_state.live_turn_tool_results = []
         st.session_state.zip_bytes = None
         st.session_state.welcome_language = st.session_state.language
         st.session_state.loaded_active_uploaded_path = None
@@ -347,6 +366,9 @@ def activate_uploaded_path(uploaded_path: Path | None) -> None:
     st.session_state.display_messages = st.session_state.file_display_messages[path_key]
     st.session_state.display_traces = st.session_state.file_display_traces[path_key]
     st.session_state.display_artifacts = st.session_state.file_display_artifacts.get(
+        path_key, [[] for _ in st.session_state.display_messages]
+    )
+    st.session_state.display_tool_results = st.session_state.file_display_tool_results.get(
         path_key, [[] for _ in st.session_state.display_messages]
     )
     align_display_artifacts()
@@ -489,7 +511,7 @@ def make_zip(paths: list[Path]) -> bytes:
     return buffer.getvalue()
 
 
-def render_result(result: AgentToolResult) -> None:
+def render_result(result: AgentToolResult, show_artifacts: bool = True) -> None:
     if result.status == "success":
         st.success(result.message)
     else:
@@ -501,6 +523,9 @@ def render_result(result: AgentToolResult) -> None:
         language = st.session_state.get("language", "中文")
         with st.expander(t(language, "structured_summary"), expanded=False):
             st.json(result.summary)
+
+    if not show_artifacts:
+        return
 
     grouped = group_simulation_stage_artifacts(result)
     if grouped:
@@ -529,6 +554,78 @@ def should_offer_lcurve_parameter_picker(result: AgentToolResult) -> bool:
     if not metrics_path:
         return False
     return Path(str(metrics_path)).exists()
+
+
+def _artifact_timestamp_key(path: str | Path) -> tuple[str, str, str] | None:
+    match = re.search(r"__(\d{8})_(\d{6})_(\d{3})", Path(path).name)
+    if not match:
+        return None
+    return match.group(1), match.group(2), match.group(3)
+
+
+def _infer_lcurve_metrics_artifact(artifacts: list[str]) -> str | None:
+    candidates = [
+        artifact
+        for artifact in artifacts
+        if "lcurve_metrics" in Path(artifact).name.lower() and Path(artifact).suffix.lower() in TABLE_SUFFIXES
+    ]
+    if not candidates:
+        return None
+    return max(candidates, key=lambda item: _artifact_timestamp_key(item) or ("", "", ""))
+
+
+def turn_scoped_result_for_display(result: AgentToolResult) -> AgentToolResult:
+    """Clean a stored turn result before rendering it in a per-turn section."""
+
+    summary = dict(result.summary)
+    artifacts = list(result.artifacts)
+    if summary.get("stage") == "full_workflow":
+        lower_bound = _artifact_timestamp_key(summary.get("simulation_decay_xlsx", ""))
+        if lower_bound is not None:
+            scoped: list[str] = []
+            for artifact in artifacts:
+                timestamp = _artifact_timestamp_key(artifact)
+                if timestamp is None or timestamp >= lower_bound:
+                    scoped.append(artifact)
+            artifacts = scoped
+
+        metrics_xlsx = summary.get("metrics_xlsx") or _infer_lcurve_metrics_artifact(artifacts)
+        if metrics_xlsx:
+            summary["metrics_xlsx"] = str(metrics_xlsx)
+
+    return AgentToolResult(result.status, result.message, artifacts=artifacts, summary=summary, error=result.error)
+
+
+def turn_image_paths_for_display(results: list[AgentToolResult], message_artifacts: list[str]) -> list[Path]:
+    """Return all figure artifacts for one chat turn, including message-level files."""
+
+    image_paths: list[Path] = []
+    seen: set[Path] = set()
+    for artifact in [
+        *[artifact for result in results for artifact in result.artifacts],
+        *message_artifacts,
+    ]:
+        path = Path(artifact)
+        if path.suffix.lower() not in IMAGE_SUFFIXES or not path.exists():
+            continue
+        resolved = path.resolve()
+        if resolved in seen:
+            continue
+        seen.add(resolved)
+        image_paths.append(path)
+    return image_paths
+
+
+def lcurve_source_decay_path(context: AgentRuntimeContext, result: AgentToolResult) -> Path | None:
+    """Return the decay workbook that belongs to this L-curve result."""
+
+    for key in ("simulation_decay_xlsx", "source_decay_xlsx", "trimmed_decay_xlsx"):
+        value = result.summary.get(key)
+        if value and Path(str(value)).exists():
+            return Path(str(value))
+    if context.repaired_path and Path(context.repaired_path).exists():
+        return Path(context.repaired_path)
+    return None
 
 
 def selected_alpha_fixed_nnls_params(result: AgentToolResult, selected_alpha: float) -> dict[str, Any]:
@@ -582,7 +679,7 @@ def _selected_lcurve_index(metrics: pd.DataFrame, selected_alpha: float | None) 
     return int(distances.idxmin())
 
 
-def lcurve_picker_state_keys(result_index: int) -> dict[str, str]:
+def lcurve_picker_state_keys(result_index: int | str) -> dict[str, str]:
     """Return separate widget keys and business-state keys for one L-curve picker."""
 
     base = f"lcurve-alpha-picker-{result_index}"
@@ -593,8 +690,15 @@ def lcurve_picker_state_keys(result_index: int) -> dict[str, str]:
     }
 
 
-def render_lcurve_parameter_picker(context: AgentRuntimeContext, result: AgentToolResult, result_index: int, language: str) -> None:
-    if not context.repaired_path or not should_offer_lcurve_parameter_picker(result):
+def render_lcurve_parameter_picker(
+    context: AgentRuntimeContext,
+    result: AgentToolResult,
+    result_index: int | str,
+    language: str,
+    owner_message_index: int | None = None,
+) -> None:
+    source_decay_path = lcurve_source_decay_path(context, result)
+    if source_decay_path is None or not should_offer_lcurve_parameter_picker(result):
         return
 
     button_label = "进一步挑选最佳平滑因子" if language == "中文" else "Refine smoothing factor"
@@ -690,7 +794,7 @@ def render_lcurve_parameter_picker(context: AgentRuntimeContext, result: AgentTo
             params = selected_alpha_fixed_nnls_params(result, selected_alpha)
             output_dir = context.workspace / "alpha_preview_nnls"
             with st.status("正在生成预览反演结果..." if language == "中文" else "Generating preview inversion...", expanded=True) as status:
-                preview_result = run_fixed_nnls(context.repaired_path, output_dir, params, language=language)
+                preview_result = run_fixed_nnls(source_decay_path, output_dir, params, language=language)
                 st.session_state[preview_result_key] = preview_result
                 st.session_state[preview_alpha_key] = selected_alpha
                 if preview_result.status == "success":
@@ -730,6 +834,8 @@ def render_lcurve_parameter_picker(context: AgentRuntimeContext, result: AgentTo
                 context.tool_history.append(preview_result)
                 if preview_result.summary.get("spectrum_xlsx"):
                     context.spectrum_path = Path(str(preview_result.summary["spectrum_xlsx"]))
+                if owner_message_index is not None:
+                    append_turn_tool_result(owner_message_index, preview_result)
                 refresh_zip_from_context(context)
                 save_current_file_state()
                 st.session_state[open_state_key] = False
@@ -747,28 +853,11 @@ def render_context_outputs(context: AgentRuntimeContext | None, language: str) -
     render_artifact_rail(context, language)
     st.markdown("<div class='t2-section-divider'></div>", unsafe_allow_html=True)
 
-    if context and context.validation:
-        st.markdown(t(language, "diagnosis"))
-        render_result(context.validation)
-
     if context and context.repaired_path:
         st.markdown(t(language, "standardized_file"))
         st.success(t(language, "standardized_file_name", filename=Path(context.repaired_path).name))
 
-    if context and context.results:
-        st.markdown(t(language, "tool_results"))
-        for idx, result in enumerate(context.results):
-            render_result(result)
-            render_lcurve_parameter_picker(context, result, idx, language)
-
-    if context and context.report:
-        st.markdown(t(language, "report"))
-        report = context.report
-        render_result(report)
-        if report.artifacts:
-            report_path = Path(report.artifacts[0])
-            if report_path.exists():
-                render_chat_content(report_path.read_text(encoding="utf-8"), collect_context_artifacts(context))
+    render_turn_result_sections(context, language)
 
     if st.session_state.zip_bytes:
         st.caption(t(language, "download_caption"))
@@ -820,6 +909,8 @@ def reset_agent_context(uploaded_path: Path) -> None:
     st.session_state.welcome_language = st.session_state.language
     st.session_state.display_traces = [[]]
     st.session_state.display_artifacts = [[]]
+    st.session_state.display_tool_results = [[]]
+    st.session_state.live_turn_tool_results = []
     st.session_state.zip_bytes = None
     path_key = str(uploaded_path)
     st.session_state.file_contexts[path_key] = st.session_state.agent_context
@@ -827,6 +918,7 @@ def reset_agent_context(uploaded_path: Path) -> None:
     st.session_state.file_display_messages[path_key] = st.session_state.display_messages
     st.session_state.file_display_traces[path_key] = st.session_state.display_traces
     st.session_state.file_display_artifacts[path_key] = st.session_state.display_artifacts
+    st.session_state.file_display_tool_results[path_key] = st.session_state.display_tool_results
     st.session_state.file_zip_bytes[path_key] = st.session_state.zip_bytes
     st.session_state.file_welcome_language[path_key] = st.session_state.welcome_language
     st.session_state.loaded_active_uploaded_path = path_key
@@ -844,6 +936,7 @@ def start_new_task() -> None:
     st.session_state.file_display_messages = {}
     st.session_state.file_display_traces = {}
     st.session_state.file_display_artifacts = {}
+    st.session_state.file_display_tool_results = {}
     st.session_state.file_zip_bytes = {}
     st.session_state.file_welcome_language = {}
     st.session_state.agent_context = None
@@ -852,6 +945,8 @@ def start_new_task() -> None:
     st.session_state.welcome_language = st.session_state.language
     st.session_state.display_traces = []
     st.session_state.display_artifacts = []
+    st.session_state.display_tool_results = []
+    st.session_state.live_turn_tool_results = []
     st.session_state.zip_bytes = None
 
 
@@ -1198,6 +1293,49 @@ def collect_turn_artifacts(results: list[AgentToolResult]) -> list[str]:
     return artifacts
 
 
+def turn_result_groups(
+    messages: list[tuple[str, str]],
+    per_message_results: list[list[AgentToolResult]],
+) -> list[dict[str, Any]]:
+    """Group stored tool results by the assistant message that produced them."""
+
+    groups: list[dict[str, Any]] = []
+    current_turn = 0
+    latest_user_prompt = ""
+    for idx, (role, content) in enumerate(messages):
+        if role == "user":
+            current_turn += 1
+            latest_user_prompt = content
+            continue
+        if role != "assistant" or idx >= len(per_message_results):
+            continue
+        results = per_message_results[idx]
+        if not results:
+            continue
+        groups.append(
+            {
+                "turn_number": current_turn or len(groups) + 1,
+                "message_index": idx,
+                "user_prompt": latest_user_prompt,
+                "assistant_message": content,
+                "results": results,
+            }
+        )
+    return groups
+
+
+def append_turn_tool_result(message_index: int, result: AgentToolResult) -> None:
+    """Attach a confirmed interactive result to the originating chat turn."""
+
+    align_display_artifacts()
+    if message_index >= len(st.session_state.display_tool_results):
+        return
+    st.session_state.display_tool_results[message_index].append(result)
+    st.session_state.display_artifacts[message_index] = collect_turn_artifacts(
+        st.session_state.display_tool_results[message_index]
+    )
+
+
 def render_artifact_chip(path: Path, language: str, key_prefix: str, compact: bool = False) -> None:
     if not path.exists() or not path.is_file():
         return
@@ -1246,10 +1384,8 @@ def render_turn_artifacts(paths: list[str], language: str, message_index: int) -
         return
 
     with st.expander(t(language, "turn_artifacts", count=len(existing)), expanded=True):
-        for idx, path in enumerate(existing[:6]):
+        for idx, path in enumerate(existing):
             render_artifact_chip(path, language, f"chat-artifact-{message_index}-{idx}", compact=True)
-        if len(existing) > 6:
-            st.caption(t(language, "more_artifacts", count=len(existing) - 6))
 
 
 def render_intro_dialog(language: str) -> None:
@@ -1287,7 +1423,11 @@ def render_topbar(language: str) -> None:
 
 def render_artifact_rail(context: AgentRuntimeContext | None, language: str) -> None:
     st.markdown(f"<div class='t2-right-rail'><div class='t2-panel-title'>{t(language, 'artifact_rail')}</div>", unsafe_allow_html=True)
-    st.caption(t(language, "artifact_rail_caption"))
+    st.caption(
+        "每轮对话的图、表和调参控件会分别显示在下方；这里仅保留整包下载入口。"
+        if language == "中文"
+        else "Figures, tables, and tuning controls are grouped by chat turn below; this area keeps only the full-package download."
+    )
 
     if st.session_state.zip_bytes:
         st.download_button(
@@ -1298,28 +1438,78 @@ def render_artifact_rail(context: AgentRuntimeContext | None, language: str) -> 
             width="stretch",
             key="rail-download-zip",
         )
-
-    artifacts = collect_context_artifacts(context) if context else []
-    if not artifacts:
+    elif context and collect_context_artifacts(context):
+        st.caption(t(language, "download_caption"))
+    else:
         st.info(t(language, "no_artifacts"))
-        st.markdown("</div>", unsafe_allow_html=True)
-        return
-
-    image_paths = [path for path in artifacts if artifact_kind(path) == "image"]
-    table_paths = [path for path in artifacts if artifact_kind(path) == "table"]
-    report_paths = [path for path in artifacts if artifact_kind(path) == "report"]
-    other_paths = [path for path in artifacts if artifact_kind(path) not in {"image", "table", "report"}]
-
-    if image_paths:
-        st.markdown(t(language, "latest_figures"))
-        for idx, path in enumerate(image_paths[-4:]):
-            render_artifact_chip(path, language, f"rail-image-{idx}")
-
-    with st.expander(t(language, "artifact_files", count=len(artifacts)), expanded=not image_paths):
-        for idx, path in enumerate([*report_paths, *table_paths, *other_paths]):
-            render_artifact_chip(path, language, f"rail-file-{idx}", compact=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
+
+
+def _turn_title(group: dict[str, Any], language: str) -> str:
+    prompt = re.sub(r"\s+", " ", str(group.get("user_prompt", ""))).strip()
+    if len(prompt) > 34:
+        prompt = prompt[:34].rstrip() + "..."
+    if language == "中文":
+        return f"第 {group['turn_number']} 轮结果" + (f"：{prompt}" if prompt else "")
+    return f"Turn {group['turn_number']} Results" + (f": {prompt}" if prompt else "")
+
+
+def render_turn_result_sections(context: AgentRuntimeContext | None, language: str) -> None:
+    if context is None:
+        st.info(t(language, "no_artifacts"))
+        return
+
+    per_message_results = st.session_state.get("display_tool_results", [])
+    groups = turn_result_groups(st.session_state.get("display_messages", []), per_message_results)
+    live_results = st.session_state.get("live_turn_tool_results", [])
+    if live_results:
+        groups.append(
+            {
+                "turn_number": len([message for message in st.session_state.get("display_messages", []) if message[0] == "user"]),
+                "message_index": -1,
+                "user_prompt": st.session_state.display_messages[-1][1] if st.session_state.get("display_messages") else "",
+                "assistant_message": "",
+                "results": live_results,
+                "live": True,
+            }
+        )
+
+    if not groups:
+        st.info(t(language, "no_artifacts"))
+        return
+
+    st.markdown("### 按对话轮次展示结果" if language == "中文" else "### Results by Chat Turn")
+    for group in groups:
+        expanded = bool(group.get("live")) or group == groups[-1]
+        with st.expander(_turn_title(group, language), expanded=expanded):
+            if group.get("user_prompt"):
+                st.caption(("用户问题：" if language == "中文" else "User prompt: ") + str(group["user_prompt"]))
+
+            display_results = [turn_scoped_result_for_display(result) for result in group["results"]]
+            message_artifacts: list[str] = []
+            message_index = int(group.get("message_index", -1))
+            stored_artifacts = st.session_state.get("display_artifacts", [])
+            if message_index >= 0 and message_index < len(stored_artifacts):
+                message_artifacts = list(stored_artifacts[message_index])
+
+            image_paths = turn_image_paths_for_display(display_results, message_artifacts)
+            if image_paths:
+                st.markdown("#### 图像结果" if language == "中文" else "#### Figure Results")
+                for image_idx, image_path in enumerate(image_paths):
+                    st.image(str(image_path), caption=image_path.name, width="stretch")
+
+            for result_idx, display_result in enumerate(display_results):
+                render_result(display_result, show_artifacts=False)
+                if group.get("message_index", -1) >= 0:
+                    picker_key = f"turn-{group['message_index']}-result-{result_idx}"
+                    render_lcurve_parameter_picker(
+                        context,
+                        display_result,
+                        picker_key,
+                        language,
+                        owner_message_index=int(group["message_index"]),
+                    )
 
 
 def exportable_assistant_analysis(messages: list[tuple[str, str]], language: str) -> list[str]:
@@ -1423,6 +1613,8 @@ def run_agent_prompt(
     st.session_state.display_messages.append(("user", prompt))
     st.session_state.display_traces.append([])
     st.session_state.display_artifacts.append([])
+    st.session_state.display_tool_results.append([])
+    st.session_state.live_turn_tool_results = []
     live_chat_surface = live_chat_container.container() if live_chat_container is not None else st.container()
     with live_chat_surface:
         with st.chat_message("user"):
@@ -1437,6 +1629,7 @@ def run_agent_prompt(
                 render_trace(live_trace, expanded=True)
 
         def show_live_tool_result(_result: AgentToolResult) -> None:
+            st.session_state.live_turn_tool_results.append(_result)
             refresh_zip_from_context(context)
             save_current_file_state()
             if live_results_container is not None:
@@ -1460,6 +1653,8 @@ def run_agent_prompt(
             st.session_state.display_messages.append(("assistant", result.assistant_message))
             st.session_state.display_traces.append(result.trace)
             st.session_state.display_artifacts.append(collect_turn_artifacts(result.tool_results))
+            st.session_state.display_tool_results.append(result.tool_results)
+            st.session_state.live_turn_tool_results = []
             enhance_report_with_conversation(context.report, st.session_state.display_messages, language)
             refresh_zip_from_context(context)
             save_current_file_state()
@@ -1479,6 +1674,8 @@ def run_local_demo_prompt(prompt: str, live_results_container=None, live_chat_co
     st.session_state.display_messages.append(("user", prompt))
     st.session_state.display_traces.append([])
     st.session_state.display_artifacts.append([])
+    st.session_state.display_tool_results.append([])
+    st.session_state.live_turn_tool_results = []
     live_chat_surface = live_chat_container.container() if live_chat_container is not None else st.container()
     with live_chat_surface:
         with st.chat_message("user"):
@@ -1525,6 +1722,8 @@ def run_local_demo_prompt(prompt: str, live_results_container=None, live_chat_co
             st.session_state.display_messages.append(("assistant", assistant_message))
             st.session_state.display_traces.append(trace)
             st.session_state.display_artifacts.append(collect_turn_artifacts([result]))
+            st.session_state.display_tool_results.append([result])
+            st.session_state.live_turn_tool_results = []
             refresh_zip_from_context(context)
             save_current_file_state()
             if live_results_container is not None:
@@ -1540,6 +1739,8 @@ def run_offline_debug_prompt(prompt: str, live_chat_container=None) -> None:
     st.session_state.display_messages.append(("user", prompt))
     st.session_state.display_traces.append([])
     st.session_state.display_artifacts.append([])
+    st.session_state.display_tool_results.append([])
+    st.session_state.live_turn_tool_results = []
     live_chat_surface = live_chat_container.container() if live_chat_container is not None else st.container()
     with live_chat_surface:
         with st.chat_message("user"):
@@ -1565,6 +1766,7 @@ def run_offline_debug_prompt(prompt: str, live_chat_container=None) -> None:
         ]
     )
     st.session_state.display_artifacts.append([])
+    st.session_state.display_tool_results.append([])
     save_current_file_state()
 
 
@@ -1685,12 +1887,18 @@ def main() -> None:
         if prompt:
             if not api_key:
                 st.session_state.display_messages.append(("user", prompt))
+                st.session_state.display_traces.append([])
+                st.session_state.display_artifacts.append([])
+                st.session_state.display_tool_results.append([])
                 missing_key_message = (
                     "请先输入 DeepSeek API key，公网版本的所有 Agent 运行都会通过 API key 调用模型。"
                     if language != "English"
                     else "Please enter a DeepSeek API key first. The public version runs all Agent turns through the configured API key."
                 )
                 st.session_state.display_messages.append(("assistant", missing_key_message))
+                st.session_state.display_traces.append([])
+                st.session_state.display_artifacts.append([])
+                st.session_state.display_tool_results.append([])
                 st.warning(missing_key_message)
                 st.rerun()
             run_agent_prompt(prompt, api_key, model, thinking_enabled, live_chat_container=live_chat_container)
@@ -1720,39 +1928,7 @@ def main() -> None:
                 st.caption(t(language, "uploaded_count", count=len(uploaded_paths)))
 
             context = current_context()
-            if context and context.uploaded_path:
-                st.info(t(language, "current_file", filename=Path(context.uploaded_path).name))
-                active_suffix = Path(context.uploaded_path).suffix.lower()
-                st.caption(t(language, "png_upload_hint") if active_suffix == ".png" else t(language, "upload_hint"))
-
-            render_artifact_rail(context, language)
-            st.markdown("<div class='t2-section-divider'></div>", unsafe_allow_html=True)
-
-            if context and context.validation:
-                st.markdown(t(language, "diagnosis"))
-                render_result(context.validation)
-
-            if context and context.repaired_path:
-                st.markdown(t(language, "standardized_file"))
-                st.success(t(language, "standardized_file_name", filename=Path(context.repaired_path).name))
-
-            if context and context.results:
-                st.markdown(t(language, "tool_results"))
-                for idx, result in enumerate(context.results):
-                    render_result(result)
-                    render_lcurve_parameter_picker(context, result, idx, language)
-
-            if context and context.report:
-                st.markdown(t(language, "report"))
-                report = context.report
-                render_result(report)
-                if report.artifacts:
-                    report_path = Path(report.artifacts[0])
-                    if report_path.exists():
-                        render_chat_content(report_path.read_text(encoding="utf-8"), collect_context_artifacts(context))
-
-            if st.session_state.zip_bytes:
-                st.caption(t(language, "download_caption"))
+            render_context_outputs(context, language)
 
 
 if __name__ == "__main__":

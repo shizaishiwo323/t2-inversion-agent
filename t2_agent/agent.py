@@ -752,14 +752,21 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
                 language=response_language,
             )
             context.results.append(gaussian)
+        else:
+            gaussian = None
+
+        workflow_results = [mesh, inversion]
+        if gaussian is not None:
+            workflow_results.append(gaussian)
 
         return AgentToolResult(
             "success" if inversion.status == "success" else "failed",
             "2D NMR 模拟和 T2 反演流程完成。"
             if not _is_english(response_language)
             else "2D NMR simulation and T2 inversion workflow completed.",
-            artifacts=[artifact for result in context.results for artifact in result.artifacts],
+            artifacts=[artifact for result in workflow_results for artifact in result.artifacts],
             summary={
+                **inversion.summary,
                 "stage": "full_workflow",
                 "simulation_decay_xlsx": str(context.repaired_path),
                 "spectrum_xlsx": str(context.spectrum_path) if context.spectrum_path else None,

@@ -22,12 +22,17 @@ from streamlit_app import (
     make_zip,
     query_param_enabled,
     render_artifact_chip,
+    render_turn_artifacts,
     resolve_artifact_image_reference,
     selected_alpha_fixed_nnls_params,
     should_run_local_demo_without_api,
     should_offer_lcurve_parameter_picker,
     lcurve_picker_state_keys,
+    lcurve_source_decay_path,
     stop_if_runtime_environment_invalid,
+    turn_image_paths_for_display,
+    turn_scoped_result_for_display,
+    turn_result_groups,
 )
 
 
@@ -180,6 +185,43 @@ def test_artifact_chip_previews_table_even_in_compact_mode(monkeypatch, tmp_path
     assert ("download", None) in calls
 
 
+def test_turn_artifacts_renders_every_file_in_left_chat(monkeypatch, tmp_path):
+    files = []
+    for index in range(8):
+        path = tmp_path / f"artifact_{index}.txt"
+        path.write_text(f"artifact {index}", encoding="utf-8")
+        files.append(path)
+
+    calls: list[tuple[str, object]] = []
+
+    class FakeExpander:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+    class FakeStreamlit:
+        def expander(self, *_args, **_kwargs):
+            return FakeExpander()
+
+        def markdown(self, *_args, **_kwargs):
+            return None
+
+        def caption(self, message, *_args, **_kwargs):
+            calls.append(("caption", message))
+
+        def download_button(self, *_args, **_kwargs):
+            calls.append(("download", None))
+
+    monkeypatch.setattr(streamlit_app, "st", FakeStreamlit())
+
+    render_turn_artifacts([str(path) for path in files], "中文", 0)
+
+    assert [name for name, _item in calls].count("download") == len(files)
+    assert not any("还有" in str(item) for name, item in calls if name == "caption")
+
+
 def test_intro_query_preference_helpers(monkeypatch):
     query_params = {INTRO_QUERY_KEY: "1", "other": "kept"}
     monkeypatch.setattr(streamlit_app.st, "query_params", query_params)
@@ -314,6 +356,80 @@ def test_lcurve_picker_open_state_does_not_reuse_button_widget_key():
     assert keys["open_state"] != keys["open_button"]
     assert keys["open_state"].endswith("-state")
     assert keys["open_button"].endswith("-button")
+
+
+def test_lcurve_picker_keys_can_be_scoped_to_chat_turns():
+    first_turn = lcurve_picker_state_keys("turn-1-result-0")
+    second_turn = lcurve_picker_state_keys("turn-2-result-0")
+
+    assert first_turn["base"] != second_turn["base"]
+    assert first_turn["open_button"] == "lcurve-alpha-picker-turn-1-result-0-open-button"
+    assert second_turn["open_button"] == "lcurve-alpha-picker-turn-2-result-0-open-button"
+
+
+def test_turn_result_groups_follow_assistant_message_turns():
+    first = AgentToolResult("success", "first")
+    second = AgentToolResult("success", "second")
+    messages = [
+        ("user", "第一轮"),
+        ("assistant", "第一轮完成"),
+        ("user", "第二轮"),
+        ("assistant", "第二轮完成"),
+    ]
+    per_message_results = [[], [first], [], [second]]
+
+    groups = turn_result_groups(messages, per_message_results)
+
+    assert [group["turn_number"] for group in groups] == [1, 2]
+    assert [group["message_index"] for group in groups] == [1, 3]
+    assert [group["user_prompt"] for group in groups] == ["第一轮", "第二轮"]
+    assert groups[0]["results"] == [first]
+    assert groups[1]["results"] == [second]
+
+
+def test_turn_image_paths_include_message_artifacts_not_present_in_tool_results(tmp_path):
+    lcurve = tmp_path / "col_2__lcurve__20260619_111643_819.png"
+    gaussian = tmp_path / "col_2__gaussian__20260619_111644_754.png"
+    table = tmp_path / "col_2__gaussian_summary__20260619_111644_754.xlsx"
+    for path in [lcurve, gaussian, table]:
+        path.write_bytes(b"artifact")
+    result = AgentToolResult("success", "workflow", artifacts=[str(lcurve)])
+
+    paths = turn_image_paths_for_display([result], [str(lcurve), str(gaussian), str(table)])
+
+    assert paths == [lcurve, gaussian]
+
+
+def test_turn_scoped_full_workflow_result_filters_prior_lcurve_artifacts(tmp_path):
+    current_decay = tmp_path / "ideal_triangle__standard_decay__20260619_110204_628.xlsx"
+    old_lcurve = tmp_path / "col_2__lcurve__20260619_110123_282.png"
+    current_metrics = tmp_path / "ideal_triangle__standard_decay__lcurve_metrics__20260619_110221_317.xlsx"
+    current_lcurve = tmp_path / "col_2__lcurve__20260619_110221_317.png"
+    for path in [current_decay, old_lcurve, current_metrics, current_lcurve]:
+        path.write_bytes(b"artifact")
+    result = AgentToolResult(
+        "success",
+        "workflow",
+        artifacts=[str(old_lcurve), str(current_metrics), str(current_lcurve)],
+        summary={"stage": "full_workflow", "simulation_decay_xlsx": str(current_decay)},
+    )
+
+    scoped = turn_scoped_result_for_display(result)
+
+    assert str(old_lcurve) not in scoped.artifacts
+    assert str(current_lcurve) in scoped.artifacts
+    assert scoped.summary["metrics_xlsx"] == str(current_metrics)
+
+
+def test_lcurve_source_decay_path_prefers_result_specific_decay(tmp_path):
+    first_decay = tmp_path / "first_decay.xlsx"
+    latest_decay = tmp_path / "latest_decay.xlsx"
+    first_decay.write_bytes(b"first")
+    latest_decay.write_bytes(b"latest")
+    context = AgentRuntimeContext(workspace=tmp_path, repaired_path=latest_decay)
+    result = AgentToolResult("success", "ok", summary={"simulation_decay_xlsx": str(first_decay)})
+
+    assert lcurve_source_decay_path(context, result) == first_decay
 
 
 def test_lcurve_picker_render_does_not_mutate_widget_keys(monkeypatch, tmp_path):

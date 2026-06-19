@@ -447,5 +447,26 @@ The following rules apply to all agents working in this repository:
   `rm -rf`.
 - If a file must be deleted, delete only one explicit file path at a time.
 - If many files need deletion, stop and ask the user to delete them manually.
-- Unless otherwise specified, run Python using the conda `base` environment.
+- For generic repository inspection or one-off scripts, conda `base` may be
+  used only when no project dependencies are needed.
+- For this project app, tests, PyGIMLi meshing, NMR simulation, Streamlit
+  debugging, or any command that imports project packages, use the verified
+  conda environment:
+  `C:\Users\imgw\.conda\envs\t2agent\python.exe`.
+- Before starting Streamlit or diagnosing pyGIMLi errors, run:
+  `set PYTHONNOUSERSITE=1` and
+  `C:\Users\imgw\.conda\envs\t2agent\python.exe scripts\check_t2agent_env.py`.
+- Start the local app with:
+  `powershell -ExecutionPolicy Bypass -File scripts/run_streamlit_t2agent.ps1`.
+  Do not start it with `python -m streamlit run streamlit_app.py` from conda
+  `base`, global Python, or an unverified terminal.
+- If port `8501` is already occupied, inspect the owning process first. It must
+  be `C:\Users\imgw\.conda\envs\t2agent\python.exe`; otherwise stop only that
+  explicit PID and restart with `scripts/run_streamlit_t2agent.ps1`.
+- Do not work around `pyGIMLi meshtools are not available` by adding fallback
+  mesh engines or bypassing the simulation stage. Treat it as an environment
+  failure until `scripts/check_t2agent_env.py` passes in `t2agent`.
+- For public Streamlit deployment, keep the runtime on Python 3.11 and verify
+  that `requirements.txt` / deployment settings install `pygimli` successfully
+  before testing the ideal triangular pore workflow.
 
