@@ -578,7 +578,19 @@ def execute_agent_tool(name: str, args: dict[str, Any], context: AgentRuntimeCon
 
     if name == "run_local_nmr_triangle_demo":
         demo_root = context.workspace / "local_nmr_triangle_demo"
-        simulation = run_local_nmr_triangle_t2_t2(demo_root / "simulation", args)
+        try:
+            simulation = run_local_nmr_triangle_t2_t2(demo_root / "simulation", args)
+        except Exception as exc:
+            simulation_result = AgentToolResult(
+                "failed",
+                "本地 NMR 理想三角演示无法运行。"
+                if not _is_english(response_language)
+                else "Local NMR ideal-triangle demo could not run.",
+                summary={"stage": "local_nmr_triangle_demo"},
+                error=str(exc),
+            )
+            context.results.append(simulation_result)
+            return simulation_result
         simulation_artifacts = list(simulation.get("artifacts", []))
         simulation_result = AgentToolResult(
             "success" if simulation.get("status") == "success" else "failed",

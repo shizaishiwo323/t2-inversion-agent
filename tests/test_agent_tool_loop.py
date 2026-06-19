@@ -233,6 +233,21 @@ def test_local_nmr_triangle_demo_uses_builtin_simulation_and_existing_fixed_inve
     assert "t2_t2" in result.summary["simulation_stages"]
 
 
+def test_local_nmr_triangle_demo_reports_backend_exception(tmp_path, monkeypatch):
+    context = AgentRuntimeContext(workspace=tmp_path / "workspace")
+
+    def fake_run_upstream(output_dir, params):
+        raise RuntimeError("pyGIMLi meshtools are not available")
+
+    monkeypatch.setattr("t2_agent.agent.run_local_nmr_triangle_t2_t2", fake_run_upstream)
+
+    result = execute_agent_tool("run_local_nmr_triangle_demo", {}, context)
+
+    assert result.status == "failed"
+    assert "pyGIMLi meshtools are not available" in result.error
+    assert context.results[-1] == result
+
+
 def test_local_nmr_triangle_demo_uses_repository_builtin_ideal_triangle(tmp_path, monkeypatch):
     curve_csv = tmp_path / "out" / "builtin_ideal_triangle" / "decay" / "ideal_triangle_nmr_decay.csv"
     summary_json = tmp_path / "out" / "builtin_ideal_triangle" / "simulation_2d_summary.json"
