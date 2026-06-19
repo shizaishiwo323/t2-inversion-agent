@@ -5,7 +5,16 @@ from __future__ import annotations
 from typing import Any
 
 import pandas as pd
-import plotly.graph_objects as go
+
+
+class _PlotlyGraphObjectsProxy:
+    def __getattr__(self, name: str) -> Any:
+        import plotly.graph_objects as graph_objects
+
+        return getattr(graph_objects, name)
+
+
+go = _PlotlyGraphObjectsProxy()
 
 
 DEFAULT_EXPLORER_LCURVE_PARAMS: dict[str, float | int | bool] = {
