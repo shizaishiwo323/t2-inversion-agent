@@ -698,6 +698,30 @@ def lcurve_picker_state_keys(result_index: int | str, *scope_parts: object) -> d
     }
 
 
+def lcurve_picker_scope_folder(picker_key: str) -> str:
+    """Return a filesystem-safe folder name for one picker scope."""
+
+    cleaned = re.sub(r"[^A-Za-z0-9_.-]+", "_", str(picker_key)).strip("._-")
+    return cleaned or "lcurve-alpha-picker"
+
+
+def lcurve_picker_reference_caption(
+    result_index: int | str,
+    metrics_path: object,
+    source_decay_path: Path,
+    language: str,
+    scope_label: str | None = None,
+) -> str:
+    """Describe the exact L-curve result and decay workbook used by a picker."""
+
+    label = scope_label or str(result_index)
+    metrics_name = Path(str(metrics_path)).name if metrics_path else "unknown"
+    decay_name = Path(source_decay_path).name
+    if language == "中文":
+        return f"当前调参对象：{label}；L-curve 指标文件：`{metrics_name}`；衰减数据文件：`{decay_name}`。"
+    return f"Current tuning target: {label}; L-curve metrics: `{metrics_name}`; decay data: `{decay_name}`."
+
+
 def close_other_lcurve_picker_states(active_open_state_key: str) -> None:
     """Keep only one L-curve dialog open without relying on unsupported dialog keys."""
 
@@ -712,12 +736,18 @@ def render_lcurve_parameter_picker(
     result_index: int | str,
     language: str,
     owner_message_index: int | None = None,
+    scope_label: str | None = None,
 ) -> None:
     source_decay_path = lcurve_source_decay_path(context, result)
     if source_decay_path is None or not should_offer_lcurve_parameter_picker(result):
         return
 
-    button_label = "进一步挑选最佳平滑因子" if language == "中文" else "Refine smoothing factor"
+    visible_scope = scope_label or str(result_index)
+    button_label = (
+        f"进一步挑选最佳平滑因子 - {visible_scope}"
+        if language == "中文"
+        else f"Refine smoothing factor - {visible_scope}"
+    )
     caption = (
         "点击后会打开交互式 L-curve。只有确认后才会按选中的平滑因子重新运行固定 NNLS，并导出静态图表。"
         if language == "中文"
@@ -728,6 +758,7 @@ def render_lcurve_parameter_picker(
     picker_key = keys["base"]
     open_state_key = keys["open_state"]
     st.caption(caption)
+    st.caption(lcurve_picker_reference_caption(result_index, metrics_path_value, source_decay_path, language, scope_label=scope_label))
     if st.button(button_label, key=keys["open_button"], width="stretch"):
         close_other_lcurve_picker_states(open_state_key)
         st.session_state[open_state_key] = True
@@ -735,7 +766,13 @@ def render_lcurve_parameter_picker(
     if not st.session_state.get(open_state_key):
         return
 
-    @st.dialog("挑选最佳平滑因子" if language == "中文" else "Select Smoothing Factor", width="large")
+    dialog_title = (
+        f"挑选最佳平滑因子 - {visible_scope}"
+        if language == "中文"
+        else f"Select Smoothing Factor - {visible_scope}"
+    )
+
+    @st.dialog(dialog_title, width="large")
     def picker_dialog() -> None:
         metrics_path = Path(str(result.summary["metrics_xlsx"]))
         try:
@@ -810,9 +847,14 @@ def render_lcurve_parameter_picker(
         preview_label = "预览该平滑因子的反演结果" if language == "中文" else "Preview inversion for this alpha"
         if st.button(preview_label, type="secondary", key=f"{picker_key}-{selected_sheet}-preview-button", width="stretch"):
             params = selected_alpha_fixed_nnls_params(result, selected_alpha)
-            output_dir = context.workspace / "alpha_preview_nnls"
+            output_dir = context.workspace / "alpha_preview_nnls" / lcurve_picker_scope_folder(picker_key)
             with st.status("正在生成预览反演结果..." if language == "中文" else "Generating preview inversion...", expanded=True) as status:
                 preview_result = run_fixed_nnls(source_decay_path, output_dir, params, language=language)
+                preview_result.summary = dict(preview_result.summary) | {
+                    "lcurve_picker_scope": visible_scope,
+                    "source_lcurve_metrics_xlsx": str(metrics_path),
+                    "source_decay_xlsx": str(source_decay_path),
+                }
                 st.session_state[preview_result_key] = preview_result
                 st.session_state[preview_alpha_key] = selected_alpha
                 if preview_result.status == "success":
@@ -1549,12 +1591,18 @@ def render_turn_result_sections(context: AgentRuntimeContext | None, language: s
                 render_result(display_result, show_artifacts=False)
                 if group.get("message_index", -1) >= 0:
                     picker_key = f"turn-{group['message_index']}-result-{result_idx}"
+                    scope_label = (
+                        f"第 {group['turn_number']} 轮结果 / 第 {result_idx + 1} 个 L-curve"
+                        if language == "中文"
+                        else f"Turn {group['turn_number']} result / L-curve #{result_idx + 1}"
+                    )
                     render_lcurve_parameter_picker(
                         context,
                         display_result,
                         picker_key,
                         language,
                         owner_message_index=int(group["message_index"]),
+                        scope_label=scope_label,
                     )
 
 

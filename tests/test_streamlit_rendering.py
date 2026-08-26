@@ -565,8 +565,10 @@ def test_lcurve_picker_dialog_does_not_pass_unsupported_key(monkeypatch, tmp_pat
     class FakeStreamlit:
         def __init__(self):
             self.session_state = {}
+            self.captions: list[str] = []
 
-        def caption(self, *_args, **_kwargs):
+        def caption(self, message, *_args, **_kwargs):
+            self.captions.append(str(message))
             return None
 
         def button(self, _label, key=None, **_kwargs):
@@ -669,6 +671,107 @@ def test_opening_lcurve_picker_closes_other_lcurve_dialog_states(monkeypatch, tm
 
     assert fake_st.session_state[keys["open_state"]] is True
     assert fake_st.session_state["lcurve-alpha-picker-turn-1-result-0-old-open-state"] is False
+
+
+def test_lcurve_picker_preview_output_dir_is_scoped_to_turn_and_result(monkeypatch, tmp_path):
+    metrics_a = tmp_path / "metrics_a.xlsx"
+    metrics_b = tmp_path / "metrics_b.xlsx"
+    frame = pd.DataFrame(
+        {
+            "alpha_regularization": [0.001, 0.01, 0.1],
+            "residual_norm": [3.0, 2.0, 1.0],
+            "roughness_norm": [1.0, 2.0, 3.0],
+            "slope_reciprocal": [0.2, 0.3, 0.4],
+            "is_selected": [False, True, False],
+        }
+    )
+    frame.to_excel(metrics_a, index=False)
+    frame.to_excel(metrics_b, index=False)
+    decay_a = tmp_path / "decay_a.xlsx"
+    decay_b = tmp_path / "decay_b.xlsx"
+    decay_a.write_bytes(b"a")
+    decay_b.write_bytes(b"b")
+    context = AgentRuntimeContext(workspace=tmp_path, repaired_path=decay_b)
+    first_result = AgentToolResult("success", "first", summary={"metrics_xlsx": str(metrics_a), "source_decay_xlsx": str(decay_a)})
+    second_result = AgentToolResult("success", "second", summary={"metrics_xlsx": str(metrics_b), "source_decay_xlsx": str(decay_b)})
+    captured_output_dirs: list[Path] = []
+
+    def fake_run_fixed_nnls(_input_workbook, output_dir, _params, language="中文"):
+        captured_output_dirs.append(Path(output_dir))
+        return AgentToolResult("success", "preview", summary={"spectrum_xlsx": str(tmp_path / "preview.xlsx")})
+
+    class FakeColumn:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+    class FakeStatus:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def update(self, **_kwargs):
+            return None
+
+    class FakeStreamlit:
+        def __init__(self):
+            self.session_state = {}
+            self.captions: list[str] = []
+
+        def caption(self, message, *_args, **_kwargs):
+            self.captions.append(str(message))
+            return None
+
+        def button(self, _label, key=None, **_kwargs):
+            return bool(key and (key.endswith("-open-button") or key.endswith("-preview-button")))
+
+        def dialog(self, *_args, **_kwargs):
+            def decorator(fn):
+                return fn
+
+            return decorator
+
+        def selectbox(self, _label, options, **_kwargs):
+            return list(options)[0]
+
+        def columns(self, *_args, **_kwargs):
+            return [FakeColumn(), FakeColumn()]
+
+        def plotly_chart(self, *_args, **_kwargs):
+            return None
+
+        def number_input(self, _label, value=None, **_kwargs):
+            return value
+
+        def success(self, *_args, **_kwargs):
+            return None
+
+        def info(self, *_args, **_kwargs):
+            return None
+
+        def status(self, *_args, **_kwargs):
+            return FakeStatus()
+
+    fake_st = FakeStreamlit()
+    monkeypatch.setattr(streamlit_app, "st", fake_st)
+    monkeypatch.setattr(streamlit_app, "run_fixed_nnls", fake_run_fixed_nnls)
+
+    streamlit_app.render_lcurve_parameter_picker(context, first_result, "turn-1-result-0", "中文", owner_message_index=1)
+    streamlit_app.render_lcurve_parameter_picker(context, second_result, "turn-2-result-0", "中文", owner_message_index=3)
+
+    assert len(captured_output_dirs) == 2
+    assert captured_output_dirs[0] != captured_output_dirs[1]
+    assert "turn-1-result-0" in captured_output_dirs[0].as_posix()
+    assert "turn-2-result-0" in captured_output_dirs[1].as_posix()
+    caption_text = "\n".join(fake_st.captions)
+    assert "metrics_a.xlsx" in caption_text
+    assert "metrics_b.xlsx" in caption_text
+    assert "decay_a.xlsx" in caption_text
+    assert "decay_b.xlsx" in caption_text
 
 
 def test_lcurve_picker_render_does_not_mutate_widget_keys(monkeypatch, tmp_path):
